@@ -14,7 +14,6 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tab
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_screen/time_off_head_tabbar.dart';
 import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/profile_bar.dart';
-
 import '../controller/controller.dart';
 import '../widgets/child_tabbar_screen/documents_child/acknowledgements_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/education_child_tabbar.dart';
@@ -43,6 +42,7 @@ class _ManageScreenState extends State<ManageScreen> {
         Tab(text: 'Licenses'),
       ],
       tabViews: [
+        ///employment
         Column(
           children: [
             Row(
@@ -56,15 +56,74 @@ class _ManageScreenState extends State<ManageScreen> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
             EmploymentContainerConstant(),
           ],
         ),
-        EducationChildTabbar(),
-        ReferencesChildTabbar(),
-        LicensesChildTabbar(),
+        ///education
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 100,
+                  margin: EdgeInsets.only(right: 20),
+                  child: CustomIconButton(
+                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                ),
+              ],
+            ),
+            EducationChildTabbar(),
+          ],
+        ),
+        ///reference
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 100,
+                  margin: EdgeInsets.only(right: 10),
+                  child: CustomIconButton(
+                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                ),
+                Container(
+                  width: 100,
+                  margin: EdgeInsets.only(right: 20),
+                  child: CustomIconButton(
+                      text: 'Edit', icon: Icons.edit, onPressed: () {}),
+                ),
+              ],
+            ),
+            SizedBox(height: 1,),
+            ReferencesChildTabbar(),
+          ],
+        ),
+        ///license
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 100,
+                  margin: EdgeInsets.only(right: 10),
+                  child: CustomIconButton(
+                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                ),
+                Container(
+                  width: 100,
+                  margin: EdgeInsets.only(right: 20),
+                  child: CustomIconButton(
+                      text: 'Edit', icon: Icons.edit, onPressed: () {}),
+                ),
+              ],
+            ),
+            SizedBox(height: 1,),
+            LicensesChildTabbar(),
+          ],
+        ),
       ],
     );
     childControlleOne = CenteredTabBarChildController(tabs: [
@@ -106,21 +165,13 @@ class _ManageScreenState extends State<ManageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(MediaQuery.of(context).size.height / 99),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        /// green blue container
-        ProfileBar(),
-        SizedBox(
-          height: 5,
-        ),
-
-        ///TabBar
-        CenteredTabBar(),
-
-        /// bottom row
-        BottomBarRow(),
-      ]),
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      /// green blue container
+      ProfileBar(),
+      ///TabBar
+      CenteredTabBar(),
+      /// bottom row
+      BottomBarRow(),
+    ]);
   }
 }

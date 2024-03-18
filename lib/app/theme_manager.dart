@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 150;

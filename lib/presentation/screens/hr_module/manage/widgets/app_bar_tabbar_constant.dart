@@ -57,7 +57,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             border:
-                                Border.all(color: Color(0xFF686464), width: 1),
+                            Border.all(color: Color(0xFF686464), width: 1),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Padding(
@@ -72,7 +72,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                                       border: InputBorder.none,
                                       hintText: 'John S',
                                       hintStyle:
-                                          TextStyle(color: Color(0xff686464)),
+                                      TextStyle(color: Color(0xff686464)),
                                     ),
                                   ),
                                 ),
@@ -98,7 +98,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                           ),
                           child: Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Center(child: Icon(Icons.menu)),
                           )),
                       SizedBox(width: 10),
@@ -150,6 +150,7 @@ class AppBarTabBarConstant extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Container(
+            //color: Colors.grey,
             height: controller.tabBarViewHeight,
             child: TabBarView(
               children: controller.tabViews,
