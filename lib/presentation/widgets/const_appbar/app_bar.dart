@@ -28,7 +28,7 @@ class MyAppBar extends StatelessWidget {
         RegisterScreen(),
         OnBoardingScreen(),
       ],
-      tabBarViewWidth: MediaQuery.of(context).size.width / 1.1,
+      tabBarViewWidth: MediaQuery.of(context).size.width / 1.04,
     ));
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
