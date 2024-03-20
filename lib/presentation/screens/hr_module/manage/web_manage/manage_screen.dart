@@ -20,8 +20,7 @@ import '../widgets/child_tabbar_screen/qualifications_child/education_child_tabb
 import '../widgets/child_tabbar_screen/qualifications_child/employment_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/licenses_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/references_child_tabbar.dart';
-
-///saloni
+///done by saloni
 class ManageScreen extends StatefulWidget {
   @override
   State<ManageScreen> createState() => _ManageScreenState();
@@ -38,7 +37,7 @@ class _ManageScreenState extends State<ManageScreen> {
       tabs: [
         Tab(text: 'Employment'),
         Tab(text: 'Education'),
-        Tab(text: 'Reference'),
+        Tab(text: 'References'),
         Tab(text: 'Licenses'),
       ],
       tabViews: [
@@ -84,15 +83,9 @@ class _ManageScreenState extends State<ManageScreen> {
               children: [
                 Container(
                   width: 100,
-                  margin: EdgeInsets.only(right: 10),
-                  child: CustomIconButton(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
-                ),
-                Container(
-                  width: 100,
                   margin: EdgeInsets.only(right: 20),
                   child: CustomIconButton(
-                      text: 'Edit', icon: Icons.edit, onPressed: () {}),
+                      text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
             ),
@@ -107,16 +100,33 @@ class _ManageScreenState extends State<ManageScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  width: 100,
-                  margin: EdgeInsets.only(right: 10),
-                  child: CustomIconButton(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                  height: 27,
+                  width: 250,
+                  margin: EdgeInsets.symmetric(horizontal: 20), // Adjust margins as needed
+                  padding: EdgeInsets.only(top: 4,left: 4), // Add padding for the border
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black), // Black border
+                    borderRadius: BorderRadius.circular(8), // Rounded corners
+                  ),
+                  child: DropdownButtonFormField<String>(
+                    decoration: InputDecoration.collapsed(hintText: ''),
+                    items: <String>['Select Document', 'Drivers License', 'CPR', 'Liability Insurence']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                    },
+                    value: 'Select Document',
+                  ),
                 ),
                 Container(
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
                   child: CustomIconButton(
-                      text: 'Edit', icon: Icons.edit, onPressed: () {}),
+                      text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
             ),

@@ -47,7 +47,7 @@ class LicensesChildTabbar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(''),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 15,),
                     Text('Driving',
                       style: ThemeManagerDark.customTextStyle(context),),
                     SizedBox(height: 10,),
@@ -74,7 +74,7 @@ class LicensesChildTabbar extends StatelessWidget {
                     Text(''),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/12,),
+                SizedBox(width: MediaQuery.of(context).size.width/22,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -84,6 +84,7 @@ class LicensesChildTabbar extends StatelessWidget {
                     Text('2024-03-20',
                       style: ThemeManagerDark.customTextStyle(context),),
                     Text(''),
+
                   ],
                 ),
               ],
@@ -95,7 +96,7 @@ class LicensesChildTabbar extends StatelessWidget {
                 CustomButtonTransparent(text: 'Reject', onPressed: (){}),
                 SizedBox(width: 5,),
                 CustomIconButton(
-                    text: 'Approve', onPressed: (){})
+                    text: 'Approve', onPressed: (){}),
               ],
             )
           ],
@@ -134,7 +135,7 @@ class LicensesChildTabbar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(''),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 15,),
                     Text('Driving',
                       style: ThemeManagerDark.customTextStyle(context),),
                     SizedBox(height: 10,),
@@ -161,7 +162,7 @@ class LicensesChildTabbar extends StatelessWidget {
                     Text(''),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/12,),
+                SizedBox(width: MediaQuery.of(context).size.width/22,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

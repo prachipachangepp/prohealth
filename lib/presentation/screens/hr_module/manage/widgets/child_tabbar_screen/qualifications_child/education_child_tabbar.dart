@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../../../../app/theme_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
-
 ///done by saloni
 class EducationChildTabbar extends StatelessWidget {
   const EducationChildTabbar({super.key});
@@ -49,7 +48,7 @@ class EducationChildTabbar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(''),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 15,),
                     Text('MS',
                       style: ThemeManagerDark.customTextStyle(context),),
                     SizedBox(height: 10,),
@@ -69,26 +68,26 @@ class EducationChildTabbar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(''),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 15,),
                     Text('Phone',
                         style: ThemeManager.customTextStyle(context)),
                     SizedBox(height: 10,),
                     Text('City',
                         style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 10,),
                     Text('State',
                         style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 10,),
                     Text('Country',
                         style: ThemeManager.customTextStyle(context)),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/12,),
+                SizedBox(width: MediaQuery.of(context).size.width/22,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(''),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 15,),
                     Text('+1234687654',
                       style: ThemeManagerDark.customTextStyle(context),),
                     SizedBox(height: 10,),
@@ -147,7 +146,7 @@ class EducationChildTabbar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(''),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 15,),
                     Text('MS',
                       style: ThemeManagerDark.customTextStyle(context),),
                     SizedBox(height: 10,),
@@ -167,26 +166,26 @@ class EducationChildTabbar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(''),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 15,),
                     Text('Phone',
                         style: ThemeManager.customTextStyle(context)),
                     SizedBox(height: 10,),
                     Text('City',
                         style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 10,),
                     Text('State',
                         style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 10,),
                     Text('Country',
                         style: ThemeManager.customTextStyle(context)),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/12,),
+                SizedBox(width: MediaQuery.of(context).size.width/22,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(''),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 15,),
                     Text('+1234687654',
                       style: ThemeManagerDark.customTextStyle(context),),
                     SizedBox(height: 10,),
