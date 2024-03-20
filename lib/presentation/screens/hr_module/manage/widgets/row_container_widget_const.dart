@@ -19,12 +19,12 @@ class TwoContainersRow extends StatelessWidget {
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
                 ),
               ],
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
             height: 200,
             child: Padding(
@@ -44,12 +44,12 @@ class TwoContainersRow extends StatelessWidget {
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
                 ),
               ],
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
             height: 200,
             child: Padding(

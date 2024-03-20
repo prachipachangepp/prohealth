@@ -102,13 +102,16 @@ class _ManageScreenState extends State<ManageScreen> {
                 Container(
                   height: 27,
                   width: 250,
-                  margin: EdgeInsets.symmetric(horizontal: 20), // Adjust margins as needed
-                  padding: EdgeInsets.only(top: 4,left: 4), // Add padding for the border
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black), // Black border
-                    borderRadius: BorderRadius.circular(8), // Rounded corners
+                      color: Colors.transparent,
+                    border: Border.all(color: Color(0xffB1B1B1)), // Black border
+                    borderRadius: BorderRadius.circular(5), // Rounded corners
                   ),
                   child: DropdownButtonFormField<String>(
+                    focusColor: Colors.transparent,
+                    icon: Icon(Icons.arrow_drop_down_sharp,color: Color(0xff50B5E5),),
                     decoration: InputDecoration.collapsed(hintText: ''),
                     items: <String>['Select Document', 'Drivers License', 'CPR', 'Liability Insurence']
                         .map<DropdownMenuItem<String>>((String value) {
@@ -119,7 +122,7 @@ class _ManageScreenState extends State<ManageScreen> {
                     }).toList(),
                     onChanged: (String? newValue) {
                     },
-                    value: 'Select Document',
+                    value: 'Select Document',style: TextStyle(color: Color(0xff686464),fontSize: 12),
                   ),
                 ),
                 Container(

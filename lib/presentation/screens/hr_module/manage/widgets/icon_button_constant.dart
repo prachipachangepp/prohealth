@@ -19,13 +19,14 @@ class IconButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
+      height: 25,
       child: IconButton(
         style: IconButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 8, horizontal: MediaQuery.of(context).size.width/100), // Adjust vertical padding
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width/100), // Adjust vertical padding
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: BorderSide(color: Color(0xFF50B5E5)),
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(width: 1, color: Color(0xFF50B5E5)),
           ),
         ),
         onPressed: () => onPressed(),
@@ -44,7 +45,7 @@ class IconButtonWidget extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'FiraSans',
                 fontWeight: FontWeight.w700,
-                fontSize: MediaQuery.of(context).size.width / 150,
+                fontSize: MediaQuery.of(context).size.width / 145,
                 color: textColor,
               ),
             ),

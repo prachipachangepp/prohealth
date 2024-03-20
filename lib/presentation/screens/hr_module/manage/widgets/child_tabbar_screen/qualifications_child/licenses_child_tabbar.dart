@@ -16,38 +16,38 @@ class LicensesChildTabbar extends StatelessWidget {
         child1: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text('License #1',
+                  style: TextStyle(
+                    fontFamily: 'FiraSans',
+                    fontSize: 13,
+                    color: Color(0xFF333333),
+                    fontWeight: FontWeight.bold,
+                  ),),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height/50,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('License #1',
-                      style: TextStyle(
-                        fontFamily: 'FiraSans',
-                        fontSize: 13,
-                        color: Color(0xFF333333),
-                        fontWeight: FontWeight.bold,
-                      ),),
-                    SizedBox(height: 15,),
-                    Text('Licensure/Certification',
-                        style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 10,),
-                    Text('Issuing Organization',
-                        style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 10,),
-                    Text('Country',
-                        style: ThemeManager.customTextStyle(context)),
-                    SizedBox(height: 10,),
-                    Text('Number/ID',
-                        style: ThemeManager.customTextStyle(context)),
-                  ],
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width/22,),
+                  Text('Licensure/Certification',
+                      style: ThemeManager.customTextStyle(context)),
+                  SizedBox(height: 10,),
+                  Text('Issuing Organization',
+                      style: ThemeManager.customTextStyle(context)),
+                  SizedBox(height: 10,),
+                  Text('Country',
+                      style: ThemeManager.customTextStyle(context)),
+                  SizedBox(height: 10,),
+                  Text('Number/ID',
+                      style: ThemeManager.customTextStyle(context)),
+                ],),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(''),
-                    SizedBox(height: 15,),
                     Text('Driving',
                       style: ThemeManagerDark.customTextStyle(context),),
                     SizedBox(height: 10,),
@@ -61,20 +61,16 @@ class LicensesChildTabbar extends StatelessWidget {
                       style: ThemeManagerDark.customTextStyle(context),),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/12,),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text('Issue Date',
                         style: ThemeManager.customTextStyle(context)),
                     SizedBox(height: 10,),
                     Text('End Date',
                         style: ThemeManager.customTextStyle(context)),
-                    Text(''),
+                    SizedBox(height: 50,)
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/22,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -83,16 +79,18 @@ class LicensesChildTabbar extends StatelessWidget {
                     SizedBox(height: 10,),
                     Text('2024-03-20',
                       style: ThemeManagerDark.customTextStyle(context),),
-                    Text(''),
+                    SizedBox(height: 50,)
 
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: MediaQuery.of(context).size.height/40,),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                CustomButtonTransparent(text: 'Edit', onPressed: (){}),
+                SizedBox(width: 5,),
                 CustomButtonTransparent(text: 'Reject', onPressed: (){}),
                 SizedBox(width: 5,),
                 CustomIconButton(
@@ -104,19 +102,23 @@ class LicensesChildTabbar extends StatelessWidget {
         child2: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text('License #2',
+                  style: TextStyle(
+                    fontFamily: 'FiraSans',
+                    fontSize: 13,
+                    color: Color(0xFF333333),
+                    fontWeight: FontWeight.bold,
+                  ),),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height/50,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('License #1',
-                      style: TextStyle(
-                        fontFamily: 'FiraSans',
-                        fontSize: 13,
-                        color: Color(0xFF333333),
-                        fontWeight: FontWeight.bold,
-                      ),),
-                    SizedBox(height: 15,),
                     Text('Licensure/Certification',
                         style: ThemeManager.customTextStyle(context)),
                     SizedBox(height: 10,),
@@ -128,14 +130,10 @@ class LicensesChildTabbar extends StatelessWidget {
                     SizedBox(height: 10,),
                     Text('Number/ID',
                         style: ThemeManager.customTextStyle(context)),
-                  ],
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width/22,),
+                  ],),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(''),
-                    SizedBox(height: 15,),
                     Text('Driving',
                       style: ThemeManagerDark.customTextStyle(context),),
                     SizedBox(height: 10,),
@@ -149,20 +147,16 @@ class LicensesChildTabbar extends StatelessWidget {
                       style: ThemeManagerDark.customTextStyle(context),),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/12,),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text('Issue Date',
                         style: ThemeManager.customTextStyle(context)),
                     SizedBox(height: 10,),
                     Text('End Date',
                         style: ThemeManager.customTextStyle(context)),
-                    Text(''),
+                    SizedBox(height: 50,)
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/22,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -171,16 +165,18 @@ class LicensesChildTabbar extends StatelessWidget {
                     SizedBox(height: 10,),
                     Text('2024-03-20',
                       style: ThemeManagerDark.customTextStyle(context),),
-                    Text(''),
+                    SizedBox(height: 50,)
 
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: MediaQuery.of(context).size.height/40,),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                CustomButtonTransparent(text: 'Edit', onPressed: (){}),
+                SizedBox(width: 5,),
                 CustomButtonTransparent(text: 'Reject', onPressed: (){}),
                 SizedBox(width: 5,),
                 CustomIconButton(

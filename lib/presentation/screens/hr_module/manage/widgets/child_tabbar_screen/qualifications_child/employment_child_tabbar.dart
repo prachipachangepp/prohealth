@@ -9,249 +9,321 @@ class EmploymentContainerConstant extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width/80,
-            vertical: MediaQuery.of(context).size.height/100),
+            horizontal: MediaQuery.of(context).size.width / 80,
+            vertical: MediaQuery.of(context).size.height / 100),
         child: TwoContainersRow(
             child1: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const Row(children: [
+                  Text('Employment #1',
+                    style: TextStyle(
+                      fontFamily: 'FiraSans',
+                      fontSize: 13,
+                      color: Color(0xFF333333),
+                      fontWeight: FontWeight.w500,
+                    ),),
+                ],),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Employment #1',
-                          style: TextStyle(
-                            fontFamily: 'FiraSans',
-                            fontSize: 13,
-                            color: Color(0xFF333333),
-                            fontWeight: FontWeight.bold,
-                          ),),
-                        SizedBox(height: 10,),
                         Text('Final Position Title',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Start Date',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('End Date',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Employer',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Emergency Contact',
                             style: ThemeManager.customTextStyle(context)),
-
                       ],
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width/40,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(''),
-                        SizedBox(height: 10,),
-                        Text('Developer',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('01-03-24',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('22-03-24',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('John Smith',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('9845632156',
-                          style: ThemeManagerDark.customTextStyle(context),),
+                        Text(
+                          'Developer',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '01-03-24',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '22-03-24',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'John Smith',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '9845632156',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
                       ],
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width/20,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(''),
-                        SizedBox(height: 10,),
                         Text('Reason of Leaving',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Last Supervisor’s Name',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('SuperVisor\'s Phone No.',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('City',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Country',
                             style: ThemeManager.customTextStyle(context)),
                       ],
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width/40,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(''),
-                        SizedBox(height: 10,),
-                        Text('Personal',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('Jerry Christ',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('T4541564214',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('Hamburg',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('Germany',
-                          style: ThemeManagerDark.customTextStyle(context),),
+                        Text(
+                          'Personal',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Jerry Christ',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'T4541564214',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Hamburg',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Germany',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
                       ],
                     ),
-                    // SizedBox(width: MediaQuery.of(context).size.width/25,),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 130.0),
-                    //   child: IconButtonWidget(
-                    //       iconData: Icons.edit,
-                    //       buttonText: 'Edit',
-                    //       onPressed: (){}),
-                    // )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButtonWidget(
-                        iconData: Icons.edit,
+                    Column(
+                      children: [
+                        SizedBox(height: MediaQuery.of(context).size.height/6,),
+                        IconButtonWidget(
+                        iconData: Icons.edit_outlined,
                         buttonText: 'Edit',
-                        onPressed: (){}),
+                        onPressed: () {}),
+                      ],
+                    )
                   ],
                 )
               ],
             ),
             child2: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const Row(children: [
+                  Text('Employment #2',
+                    style: TextStyle(
+                      fontFamily: 'FiraSans',
+                      fontSize: 13,
+                      color: Color(0xFF333333),
+                      fontWeight: FontWeight.w500,
+                    ),),
+                ],),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Employment #2',
-                          style: TextStyle(
-                            fontFamily: 'FiraSans',
-                            fontSize: 13,
-                            color: Color(0xFF333333),
-                            fontWeight: FontWeight.bold,
-                          ),),
-                        SizedBox(height: 10,),
                         Text('Final Position Title',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Start Date',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('End Date',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Employer',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Emergency Contact',
                             style: ThemeManager.customTextStyle(context)),
-
                       ],
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width/40,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(''),
-                        SizedBox(height: 10,),
-                        Text('Developer',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('01-03-24',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('22-03-24',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('John Smith',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('9845632156',
-                          style: ThemeManagerDark.customTextStyle(context),),
+                        Text(
+                          'Developer',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '01-03-24',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '22-03-24',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'John Smith',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '9845632156',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
                       ],
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width/20,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(''),
-                        SizedBox(height: 10,),
                         Text('Reason of Leaving',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Last Supervisor’s Name',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('SuperVisor\'s Phone No.',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('City',
                             style: ThemeManager.customTextStyle(context)),
-                        SizedBox(height: 7,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text('Country',
                             style: ThemeManager.customTextStyle(context)),
                       ],
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width/40,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(''),
-                        SizedBox(height: 10,),
-                        Text('Personal',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('Jerry Christ',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('T4541564214',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('Hamburg',
-                          style: ThemeManagerDark.customTextStyle(context),),
-                        SizedBox(height: 7,),
-                        Text('Germany',
-                          style: ThemeManagerDark.customTextStyle(context),),
+                        Text(
+                          'Personal',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Jerry Christ',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'T4541564214',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Hamburg',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Germany',
+                          style: ThemeManagerDark.customTextStyle(context),
+                        ),
                       ],
                     ),
-                    // SizedBox(width: MediaQuery.of(context).size.width/25,),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 130.0),
-                    //   child: IconButtonWidget(
-                    //       iconData: Icons.edit,
-                    //       buttonText: 'Edit',
-                    //       onPressed: (){}),
-                    // )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButtonWidget(
-                        iconData: Icons.edit,
-                        buttonText: 'Edit',
-                        onPressed: (){}),
+                    Column(
+                      children: [
+                        SizedBox(height: MediaQuery.of(context).size.height/6,),
+                        IconButtonWidget(
+                            iconData: Icons.edit_outlined,
+                            buttonText: 'Edit',
+                            onPressed: () {}),
+                      ],
+                    )
                   ],
                 )
               ],
-            ))
-    );
+            ),
+        ));
   }
 }
