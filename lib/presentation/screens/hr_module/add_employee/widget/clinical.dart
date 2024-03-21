@@ -16,22 +16,24 @@ class ClinicalTab extends StatelessWidget {
     // double containerWidth = MediaQuery.of(context).size.width * 0.9;
     double containerHeight1 = MediaQuery.of(context).size.height * 0.4;
     double containerHeight2 = MediaQuery.of(context).size.height * 0.3;
-    double textFieldWidth = MediaQuery.of(context).size.width / 4.8;
-    double textFieldHeight = MediaQuery.of(context).size.width / 30;
+    double textFieldWidth = 200;
+    double textFieldHeight = 38;
     FocusNode _focusNode = FocusNode();
     int? _selectedItemIndex;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         /// first container
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.height / 80),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height / 70),
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(20),
                   child: Container(
                     // width: containerWidth,
                     height: containerHeight1,
@@ -42,38 +44,21 @@ class ClinicalTab extends StatelessWidget {
                         color: Color(0xffB7B7B7),
                       ),
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 3.0,
-                          offset: Offset(0, 3),
-                          color: Color(0xffB7B7B7).withOpacity(0.5),
-                        ),
-                        BoxShadow(color: Colors.white, offset: Offset(-3, 0)),
-                        BoxShadow(color: Colors.white, offset: Offset(3, 0)),
-                      ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ///1st column
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CustomTextField(
-                              width: textFieldWidth,
-                              height: textFieldHeight,
-                              cursorHeight: 22,
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: MediaQuery.of(context).size.width / 80,
-                              ),
+                            CustomDropdownTextField(
                               labelText: 'Type of Clinician',
                               labelStyle: TextStyle(),
-                              controller: _controller1,
-                              focusNode: _focusNode,
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
+                              items: ['A', 'B', 'C', 'D'],
                             ),
                             CustomTextField(
                               width: textFieldWidth,
@@ -83,24 +68,28 @@ class ClinicalTab extends StatelessWidget {
                               labelStyle: TextStyle(),
                               suffixIcon: Icon(
                                 Icons.remove_red_eye_sharp,
-                                size: MediaQuery.of(context).size.width / 80,
+                                color: Color(0xff50B5E5),
+                                size: MediaQuery.of(context).size.width / 99,
                               ),
                               controller: _controller2,
                               focusNode: FocusNode(),
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
                             ),
+                            CustomDropdownTextField(
+                              labelText: 'Country',
+                              labelStyle: TextStyle(),
+                              labelFontSize:
+                                  MediaQuery.of(context).size.width / 99,
+                              items: ['A', 'B', 'C', 'D'],
+                            ),
                             CustomTextField(
                               width: textFieldWidth,
                               height: textFieldHeight,
                               cursorHeight: 22,
-                              labelText: 'Country',
+                              labelText: 'Work Email',
                               labelStyle: TextStyle(),
-                              controller: _controller3,
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: MediaQuery.of(context).size.width / 80,
-                              ),
+                              controller: _controller4,
                               focusNode: FocusNode(),
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
@@ -112,10 +101,6 @@ class ClinicalTab extends StatelessWidget {
                               labelText: 'Work Email',
                               labelStyle: TextStyle(),
                               controller: _controller4,
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: MediaQuery.of(context).size.width / 80,
-                              ),
                               focusNode: FocusNode(),
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
@@ -123,6 +108,7 @@ class ClinicalTab extends StatelessWidget {
                           ],
                         ),
                         Column(
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -148,20 +134,12 @@ class ClinicalTab extends StatelessWidget {
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
                             ),
-                            CustomTextField(
-                              width: textFieldWidth,
-                              height: textFieldHeight,
-                              cursorHeight: 22,
+                            CustomDropdownTextField(
                               labelText: 'Zone',
                               labelStyle: TextStyle(),
-                              controller: _controller3,
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: MediaQuery.of(context).size.width / 80,
-                              ),
-                              focusNode: FocusNode(),
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
+                              items: ['A', 'B', 'C', 'D'],
                             ),
                             CustomTextField(
                                 width: textFieldWidth,
@@ -175,7 +153,6 @@ class ClinicalTab extends StatelessWidget {
                                     MediaQuery.of(context).size.width / 99),
                           ],
                         ),
-
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -201,20 +178,12 @@ class ClinicalTab extends StatelessWidget {
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
                             ),
-                            CustomTextField(
-                              width: textFieldWidth,
-                              height: textFieldHeight,
-                              cursorHeight: 22,
+                            CustomDropdownTextField(
                               labelText: 'Reporting Office',
                               labelStyle: TextStyle(),
-                              controller: _controller5,
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: MediaQuery.of(context).size.width / 80,
-                              ),
-                              focusNode: FocusNode(),
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
+                              items: ['A', 'B', 'C', 'D'],
                             ),
                             CustomTextField(
                               width: textFieldWidth,
@@ -231,22 +200,14 @@ class ClinicalTab extends StatelessWidget {
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomTextField(
-                              width: textFieldWidth,
-                              height: textFieldHeight,
-                              cursorHeight: 22,
+                            CustomDropdownTextField(
                               labelText: 'Speciality',
                               labelStyle: TextStyle(),
-                              controller: _controller5,
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down_sharp,
-                                size: MediaQuery.of(context).size.width / 80,
-                              ),
-                              focusNode: FocusNode(),
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
+                              items: ['A', 'B', 'C', 'D'],
                             ),
                             CustomTextField(
                               width: textFieldWidth,
@@ -258,6 +219,13 @@ class ClinicalTab extends StatelessWidget {
                               focusNode: FocusNode(),
                               labelFontSize:
                                   MediaQuery.of(context).size.width / 99,
+                            ),
+                            CustomDropdownTextField(
+                              labelText: 'Reporting Office',
+                              labelStyle: TextStyle(),
+                              labelFontSize:
+                                  MediaQuery.of(context).size.width / 99,
+                              items: ['A', 'B', 'C', 'D'],
                             ),
                             CustomTextField(
                               width: textFieldWidth,
@@ -277,11 +245,11 @@ class ClinicalTab extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height / 180,
+          height: 10,
         ),
 
         /// second Container
@@ -290,25 +258,22 @@ class ClinicalTab extends StatelessWidget {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  // width: containerWidth,
-                  height: containerHeight2,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 1, color: Color(0xffB7B7B7)),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 3.0,
-                        offset: Offset(0, 3),
-                        color: Color(0xffB7B7B7).withOpacity(0.5),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height / 70),
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    // width: containerWidth,
+                    height: containerHeight2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        width: 1,
+                        color: Color(0xffB7B7B7),
                       ),
-                      BoxShadow(color: Colors.white, offset: Offset(-3, 0)),
-                      BoxShadow(color: Colors.white, offset: Offset(3, 0)),
-                    ],
-                  ),
-                  child: Expanded(
+                      color: Colors.white,
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
