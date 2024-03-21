@@ -33,11 +33,11 @@ class RegisterScreen extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         Container(
           height: 30,
-          margin: EdgeInsets.symmetric(horizontal: 30),
+          margin: EdgeInsets.symmetric(horizontal: 35),
           decoration: BoxDecoration(
             color: Colors.grey,
             borderRadius: BorderRadius.circular(12),
@@ -52,7 +52,7 @@ class RegisterScreen extends StatelessWidget {
               ))),
               Expanded(
                   child: SizedBox(
-                width: 10,
+                width: 15,
               )),
               Expanded(
                   child: Center(
@@ -105,17 +105,29 @@ class RegisterScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 5),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
-                    color: index.isEven
-                        ? Colors.white
-                        : Color(0xff51B5E6).withOpacity(0.25),
-                    height: 60,
+                    padding: EdgeInsets.only(bottom: 5),
+                    margin: EdgeInsets.symmetric(horizontal: 50),
+                    decoration: BoxDecoration(
+                      color:Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    height: 56,
+                    
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           child: Center(
                               child: Text(
-                            '1',
+                            '1',style: ThemeManagerDark.customTextStyle(context),
                             textAlign: TextAlign.start,
                           )),
                         ),

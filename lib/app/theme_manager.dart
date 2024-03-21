@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 150;
@@ -98,7 +98,7 @@ class ThemeManageWhitebold {
 
 class RegisterTableHead {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 99;
+    double fontSize = MediaQuery.of(context).size.width / 100;
     return TextStyle(
       fontFamily: 'FiraSans',
       fontSize: fontSize,
