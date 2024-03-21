@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 ///prachi to do textfield constant widget
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final double cursorHeight;
   final String labelText;
   final TextStyle labelStyle;
@@ -14,8 +14,8 @@ class CustomTextField extends StatelessWidget {
   final FocusNode focusNode;
 
   CustomTextField({
-    required this.width,
-    required this.height,
+    this.width,
+    this.height,
     required this.cursorHeight,
     required this.labelText,
     required this.labelStyle,
@@ -29,8 +29,8 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
-      height: height,
+      width: 200,
+      height: 38,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
@@ -52,6 +52,136 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
+
+///drop down text field prachi to do
+
+class CustomDropdownTextField extends StatefulWidget {
+  final String? value;
+  final List<String> items;
+  final String labelText;
+  final TextStyle? labelStyle;
+  final double? labelFontSize;
+  final void Function(String?)? onChanged;
+  final double? width;
+  final double? height;
+
+  const CustomDropdownTextField({
+    Key? key,
+    this.value,
+    required this.items,
+    required this.labelText,
+    this.labelStyle,
+    this.labelFontSize,
+    this.onChanged,
+    this.width,
+    this.height,
+  }) : super(key: key);
+
+  @override
+  _CustomDropdownTextFieldState createState() =>
+      _CustomDropdownTextFieldState();
+}
+
+class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
+  late String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 200,
+      height: 38,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: DropdownButtonFormField<String>(
+          icon: Icon(Icons.arrow_drop_down_sharp, color: Color(0xff50B5E5)),
+          value: _selectedValue,
+          items: widget.items.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (newValue) {
+            setState(() {
+              _selectedValue = newValue;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(newValue);
+            }
+          },
+          isExpanded: true,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
+            border: OutlineInputBorder(),
+            labelText: widget.labelText,
+            labelStyle:
+                widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//
+// class CustomDropdownTextField extends StatelessWidget {
+//   final String? value;
+//   final List<String> items;
+//   final String labelText;
+//   final TextStyle? labelStyle;
+//   final double? labelFontSize;
+//   final void Function(String?)? onChanged;
+//   final double? width;
+//   final double? height;
+//
+//   const CustomDropdownTextField({
+//     Key? key,
+//     this.value,
+//     required this.items,
+//     required this.labelText,
+//     this.labelStyle,
+//     this.labelFontSize,
+//     this.onChanged,
+//     this.width,
+//     this.height,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       width: 200,
+//       height: 38,
+//       child: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: DropdownButtonFormField<String>(
+//           icon: Icon(Icons.arrow_drop_down_sharp),
+//           value: value,
+//           items: items.map((String value) {
+//             return DropdownMenuItem<String>(
+//               value: value,
+//               child: Text(value),
+//             );
+//           }).toList(),
+//           onChanged: onChanged,
+//           isExpanded: true,
+//           decoration: InputDecoration(
+//             contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
+//             border: OutlineInputBorder(),
+//             labelText: labelText,
+//             labelStyle: labelStyle?.copyWith(fontSize: labelFontSize),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 // ///prachi
 // class ImpexTextField extends StatefulWidget {
 //   final TextEditingController controller;

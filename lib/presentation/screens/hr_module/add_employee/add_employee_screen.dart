@@ -12,7 +12,6 @@ class AddEmployeeHomeScreen extends StatefulWidget {
 
 class _AddEmployeeHomeScreenState extends State<AddEmployeeHomeScreen> {
   late AddEmployeeController controller;
-
   @override
   Widget build(BuildContext context) {
     return Column(
