@@ -5,7 +5,6 @@ import '../../row_container_widget_const.dart';
 ///done by saloni
 class EducationChildTabbar extends StatelessWidget {
   const EducationChildTabbar({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Padding(
