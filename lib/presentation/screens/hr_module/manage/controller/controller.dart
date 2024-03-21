@@ -110,7 +110,7 @@ class RegisterController extends GetxController {
 
   void openDialog(BuildContext context) {
     isDialogOpen.value = true;
-    RegisterEnrollAlertDialog.show(context);
+    RegisterEnrollAlertDialog().show(context);
   }
 
   void closeDialog() {
