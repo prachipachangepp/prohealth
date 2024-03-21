@@ -14,15 +14,13 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tab
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_screen/time_off_head_tabbar.dart';
 import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/profile_bar.dart';
-
 import '../controller/controller.dart';
 import '../widgets/child_tabbar_screen/documents_child/acknowledgements_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/education_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/employment_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/licenses_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/references_child_tabbar.dart';
-
-///saloni
+///done by saloni
 class ManageScreen extends StatefulWidget {
   @override
   State<ManageScreen> createState() => _ManageScreenState();
@@ -39,10 +37,11 @@ class _ManageScreenState extends State<ManageScreen> {
       tabs: [
         Tab(text: 'Employment'),
         Tab(text: 'Education'),
-        Tab(text: 'Reference'),
+        Tab(text: 'References'),
         Tab(text: 'Licenses'),
       ],
       tabViews: [
+        ///employment
         Column(
           children: [
             Row(
@@ -56,15 +55,88 @@ class _ManageScreenState extends State<ManageScreen> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
             EmploymentContainerConstant(),
           ],
         ),
-        EducationChildTabbar(),
-        ReferencesChildTabbar(),
-        LicensesChildTabbar(),
+        ///education
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 100,
+                  margin: EdgeInsets.only(right: 20),
+                  child: CustomIconButton(
+                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                ),
+              ],
+            ),
+            EducationChildTabbar(),
+          ],
+        ),
+        ///reference
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: 100,
+                  margin: EdgeInsets.only(right: 20),
+                  child: CustomIconButton(
+                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                ),
+              ],
+            ),
+            SizedBox(height: 1,),
+            ReferencesChildTabbar(),
+          ],
+        ),
+        ///license
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  height: 27,
+                  width: 250,
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
+                  decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    border: Border.all(color: Color(0xffB1B1B1)), // Black border
+                    borderRadius: BorderRadius.circular(5), // Rounded corners
+                  ),
+                  child: DropdownButtonFormField<String>(
+                    focusColor: Colors.transparent,
+                    icon: Icon(Icons.arrow_drop_down_sharp,color: Color(0xff50B5E5),),
+                    decoration: InputDecoration.collapsed(hintText: ''),
+                    items: <String>['Select Document', 'Drivers License', 'CPR', 'Liability Insurence']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                    },
+                    value: 'Select Document',style: TextStyle(color: Color(0xff686464),fontSize: 12),
+                  ),
+                ),
+                Container(
+                  width: 100,
+                  margin: EdgeInsets.only(right: 20),
+                  child: CustomIconButton(
+                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                ),
+              ],
+            ),
+            SizedBox(height: 1,),
+            LicensesChildTabbar(),
+          ],
+        ),
       ],
     );
     childControlleOne = CenteredTabBarChildController(tabs: [
@@ -106,21 +178,13 @@ class _ManageScreenState extends State<ManageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(MediaQuery.of(context).size.height / 99),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        /// green blue container
-        ProfileBar(),
-        SizedBox(
-          height: 5,
-        ),
-
-        ///TabBar
-        CenteredTabBar(),
-
-        /// bottom row
-        BottomBarRow(),
-      ]),
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      /// green blue container
+      ProfileBar(),
+      ///TabBar
+      CenteredTabBar(),
+      /// bottom row
+      BottomBarRow(),
+    ]);
   }
 }

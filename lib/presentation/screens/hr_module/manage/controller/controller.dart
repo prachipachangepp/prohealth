@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../register/register_enroll_popup.dart';
 
-/// main screen controller ///prachi
+/// main screen controller
+/// prachi
 class MyController extends GetxController {
   /// Flag to determine if it's a tablet screen
   RxBool isTabletScreen = false.obs;
@@ -14,7 +14,8 @@ class MyController extends GetxController {
   }
 }
 
-///
+///head 1st tabbar
+///saloni
 class MyAppTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -25,9 +26,9 @@ class MyAppTabBarController extends GetxController
 
   MyAppTabBarController(
       {required this.tabs,
-      required this.tabViews,
-      this.tabBarViewHeight = 610.0,
-      required this.tabBarViewWidth});
+        required this.tabViews,
+        this.tabBarViewHeight = 610.0,
+        required this.tabBarViewWidth});
 
   @override
   void onInit() {
@@ -42,7 +43,8 @@ class MyAppTabBarController extends GetxController
   }
 }
 
-///
+///middle head tabbar
+///saloni
 class CenteredTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -55,7 +57,7 @@ class CenteredTabBarController extends GetxController
   CenteredTabBarController({
     required this.tabs,
     required this.tabViews,
-    this.tabBarViewHeight = 320.0, //350
+    this.tabBarViewHeight = 330.0, //320
     this.tabBarViewWidth = 600.0,
   });
 
@@ -72,7 +74,8 @@ class CenteredTabBarController extends GetxController
   }
 }
 
-///
+///last child tabbar
+///saloni
 class CenteredTabBarChildController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -101,7 +104,7 @@ class CenteredTabBarChildController extends GetxController
   }
 }
 
-///
+///saloni
 class RegisterController extends GetxController {
   final isDialogOpen = false.obs;
 
@@ -115,7 +118,7 @@ class RegisterController extends GetxController {
   }
 }
 
-///
+///prachi
 class AddEmployeeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
@@ -144,7 +147,7 @@ class AddEmployeeController extends GetxController
   }
 }
 
-///
+///prachi
 class OnboardingController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;

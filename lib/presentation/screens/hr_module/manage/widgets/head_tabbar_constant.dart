@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../controller/controller.dart';
 
 ///getx
@@ -30,6 +29,7 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
               dividerColor: Colors.transparent,
             ),
             Container(
+              // color: Colors.purpleAccent,
               height: controller.tabBarViewHeight,
               child: TabBarView(
                 controller: controller.tabController,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/theme_manager.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/widget/profil_custom_widget.dart';
 
-///parchi to do profile bar
+///parchi
 class ProfileBar extends StatelessWidget {
   const ProfileBar({
     super.key,
@@ -10,35 +10,49 @@ class ProfileBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      Material(
-        elevation: 4,
-        child: Container(
+    return Material(
+      elevation: 4,
+      color: Colors.white,
+      child: Row(children: [
+        Container(
             height: MediaQuery.of(context).size.height / 4,
-            width: MediaQuery.of(context).size.width / 35,
+            width: 50,
             decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                ),
+              ],
               color: Color(0xFF52A889),
             ),
-            child:
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(
-                "Profile\n100%",
-                style: ThemeManagerWhite.customTextStyle(context),
-              ),
-            ])),
-      ),
-      Material(
-        elevation: 4,
-        borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
-        child: Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Profile\n100%",
+                    style: ThemeManagerWhite.customTextStyle(context),
+                  ),
+                ])),
+        Container(
             height: MediaQuery.of(context).size.height / 4,
             width: MediaQuery.of(context).size.width / 1.1,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(8),
                   topRight: Radius.circular(8)),
-              color: Color(0xffB1D6F4).withOpacity(0.35),
+              // boxShadow: [
+              //   BoxShadow(
+              //     // color: Colors.black.withOpacity(0.2),
+              //     color: Colors.grey.withOpacity(0.5),
+              //     spreadRadius: 1,
+              //     blurRadius: 5,
+              //     offset: Offset(0, 3),
+              //   ),
+              // ],
+              color: Color(0xffB1D6F4).withOpacity(0.25),
             ),
             child: Row(
               children: [
@@ -112,8 +126,7 @@ class ProfileBar extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero,
-                            ),
-                            backgroundColor: Colors.redAccent,
+                            ), backgroundColor: Colors.redAccent,
                             elevation: 3,
                           ),
                           onPressed: () {},
@@ -179,7 +192,6 @@ class ProfileBar extends StatelessWidget {
                         "****-**-***",
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
-
                       ///phone, comment
                       Row(
                         children: [
@@ -202,7 +214,6 @@ class ProfileBar extends StatelessWidget {
                           )
                         ],
                       ),
-
                       ///phone, comment
                       Row(
                         children: [
@@ -225,7 +236,6 @@ class ProfileBar extends StatelessWidget {
                           )
                         ],
                       ),
-
                       ///phone, comment
                       Row(
                         children: [
@@ -303,8 +313,7 @@ class ProfileBar extends StatelessWidget {
                             "Prohealth San Joes 74",
                             style: ThemeManagerDark.customTextStyle(context),
                           ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width / 99),
+                          SizedBox(width: MediaQuery.of(context).size.width / 99),
                           // CustomIconButton(text: 'View Zone', onPressed: (){})
                           // Container(
                           //   height: MediaQuery.of(context).size.height / 40,
@@ -353,9 +362,8 @@ class ProfileBar extends StatelessWidget {
                 ///7th column
                 Padding(
                   padding: EdgeInsets.only(
-                      top: 10,
-                      left: MediaQuery.of(context).size.width / 20,
-                      right: MediaQuery.of(context).size.height / 50),
+                      top: 10, left: MediaQuery.of(context).size.width / 20,
+                      right: MediaQuery.of(context).size.height/50),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -378,7 +386,6 @@ class ProfileBar extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 8,
                       ),
-
                       ///"Expired License"
                       Row(
                         children: [
@@ -411,7 +418,6 @@ class ProfileBar extends StatelessWidget {
                               )),
                         ],
                       ),
-
                       ///"About To Expired License"
                       Row(
                         children: [
@@ -444,7 +450,6 @@ class ProfileBar extends StatelessWidget {
                               )),
                         ],
                       ),
-
                       ///"Up To Date License"
                       Row(
                         children: [
@@ -482,7 +487,7 @@ class ProfileBar extends StatelessWidget {
                 ),
               ],
             )),
-      ),
-    ]);
+      ]),
+    );
   }
 }
