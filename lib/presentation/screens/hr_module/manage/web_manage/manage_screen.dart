@@ -25,7 +25,6 @@ class ManageScreen extends StatefulWidget {
   @override
   State<ManageScreen> createState() => _ManageScreenState();
 }
-
 class _ManageScreenState extends State<ManageScreen> {
   late CenteredTabBarChildController childController;
   late CenteredTabBarChildController childControlleOne;
