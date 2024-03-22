@@ -6,8 +6,8 @@ class TerminationHeadTabbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.lightGreenAccent,
-      child: Center(child: Text('Termination'),),
+      // color: Colors.lightGreenAccent,
+      // child: Center(child: Text('Termination'),),
     );
   }
 }

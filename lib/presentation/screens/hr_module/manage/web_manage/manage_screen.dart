@@ -232,7 +232,33 @@ class _ManageScreenState extends State<ManageScreen> {
         CenteredTabBarChild(childControlleOne),
         BankingHeadTabbar(),
         HealthRecordsHeadTabbar(),
-        InventoryHeadTabbar(),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  // width: 100,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.25),
+                        //spreadRadius: 1,
+                        blurRadius: 4,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  margin: EdgeInsets.only(right: 10),
+                  child: CustomIconButton(
+                      text: 'Add New', icon: Icons.add, onPressed: () {}),
+                ),
+              ],
+            ),
+            SizedBox(height: 20,),
+            InventoryHeadTabbar(),
+          ],
+        ),
         PayRatesHeadTabbar(),
         TerminationHeadTabbar(),
         TimeOffHeadTabbar(),
