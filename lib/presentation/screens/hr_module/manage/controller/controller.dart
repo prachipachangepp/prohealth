@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../register/register_enroll_popup.dart';
 
 /// main screen controller
@@ -26,9 +27,9 @@ class MyAppTabBarController extends GetxController
 
   MyAppTabBarController(
       {required this.tabs,
-        required this.tabViews,
-        this.tabBarViewHeight = 610.0,
-        required this.tabBarViewWidth});
+      required this.tabViews,
+      this.tabBarViewHeight = 610.0,
+      required this.tabBarViewWidth});
 
   @override
   void onInit() {
@@ -161,6 +162,36 @@ class OnboardingController extends GetxController
     required this.tabViews,
     this.tabBarViewHeight = 300.0, //250
     this.tabBarViewWidth = 500.0,
+  });
+
+  @override
+  void onInit() {
+    tabController = TabController(length: tabs.length, vsync: this);
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    tabController.dispose();
+    super.onClose();
+  }
+}
+
+///
+class QualificationTabBarController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  late TabController tabController;
+
+  final List<Widget> tabs;
+  final List<Widget> tabViews;
+  final double tabBarViewHeight;
+  final double tabBarViewWidth;
+
+  QualificationTabBarController({
+    required this.tabs,
+    required this.tabViews,
+    this.tabBarViewHeight = 250.0, //320
+    this.tabBarViewWidth = 600.0,
   });
 
   @override
