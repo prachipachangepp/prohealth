@@ -142,13 +142,79 @@ class _ManageScreenState extends State<ManageScreen> {
     childControlleOne = CenteredTabBarChildController(tabs: [
       Tab(text: 'Acknowledgements'),
       Tab(text: 'Compensation'),
-      Tab(text: 'Additional Vaccinations'),
+      Tab(text: 'Additional Vaccination'),
       Tab(text: 'Others'),
     ], tabViews: [
-      AcknowledgementsChildBar(),
-      CompensationChildTabbar(),
-      AdditionalVaccinationsChildBar(),
-      OtherChildTabbar(),
+      ///aknowledgment
+      Column(
+        children: [
+          Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+             // width: 100,
+              margin: EdgeInsets.only(right: 20),
+              child: CustomIconButton(
+                  text: 'Add New', icon: Icons.add, onPressed: () {}),
+            ),
+          ],
+        ),
+          SizedBox(height: 30,),
+          AcknowledgementsChildBar(),
+        ],
+      ),
+      ///compensation
+      Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                // width: 100,
+                margin: EdgeInsets.only(right: 60),
+                child: CustomIconButton(
+                    text: 'Add New', icon: Icons.add, onPressed: () {}),
+              ),
+            ],
+          ),
+          SizedBox(height: 20,),
+          CompensationChildTabbar(),
+        ],
+      ),
+      Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                // width: 100,
+                margin: EdgeInsets.only(right: 60),
+                child: CustomIconButton(
+                    text: 'Add New', icon: Icons.add, onPressed: () {}),
+              ),
+            ],
+          ),
+          SizedBox(height: 20,),
+          AdditionalVaccinationsChildBar(),
+        ],
+      ),
+      Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                // width: 100,
+                margin: EdgeInsets.only(right: 60),
+                child: CustomIconButton(
+                    text: 'Add New', icon: Icons.add, onPressed: () {}),
+              ),
+            ],
+          ),
+          SizedBox(height: 20,),
+          OtherChildTabbar(),
+        ],
+      ),
     ]);
 
     centeredTabBarController = Get.put(CenteredTabBarController(

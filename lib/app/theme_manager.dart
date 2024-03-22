@@ -107,3 +107,14 @@ class RegisterTableHead {
     );
   }
 }
+
+class AknowledgementStyleConst {
+  static TextStyle customTextStyle(BuildContext context) {
+    return TextStyle(
+      fontFamily: 'FiraSans',
+      fontSize: 10,
+      color: Color(0xFF000000),
+      fontWeight: FontWeight.w500,
+    );
+  }
+}
