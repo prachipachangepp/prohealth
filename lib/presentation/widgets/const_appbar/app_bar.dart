@@ -48,8 +48,6 @@ class MyAppBar extends StatelessWidget {
               flex: 1,
               child: Container(
                 height: 40,
-                // width: 80,
-                // color: Colors.tealAccent,
                 child: Image.asset('images/logo.png'),
               ),
             ),
@@ -124,9 +122,20 @@ class MyAppBar extends StatelessWidget {
                             color: Colors.white,
                           ),
                           child: Center(
-                            child: Text("Human Resource Manager",
-                                style: ThemeManagerLightblue.customTextStyle(
-                                    context)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text("Human Resource Manager",
+                                    style: ThemeManagerLightblue.customTextStyle(
+                                        context)),
+                                Icon(
+                                  Icons.close,
+                                  color: Color(0xff434343),
+                                  size:
+                                  MediaQuery.of(context).size.width / 70,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -158,6 +167,7 @@ class MyAppBar extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 20,
                       ),
+                      ///3 icons
                       Material(
                         elevation: 4,
                         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -170,6 +180,7 @@ class MyAppBar extends StatelessWidget {
                               color: Colors.white,
                             ),
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
@@ -177,25 +188,26 @@ class MyAppBar extends StatelessWidget {
                                     Icons.phone_outlined,
                                     color: Color(0xff2B647F),
                                     size:
-                                        MediaQuery.of(context).size.width / 68,
+                                        MediaQuery.of(context).size.width / 70,
                                   ),
                                   Icon(
                                     Icons.mode_comment_outlined,
                                     color: Color(0xff2B647F),
                                     size:
-                                        MediaQuery.of(context).size.width / 68,
+                                        MediaQuery.of(context).size.width / 70,
                                   ),
                                   Icon(
                                     Icons.mail_outline_outlined,
                                     color: Color(0xff2B647F),
                                     size:
-                                        MediaQuery.of(context).size.width / 68,
+                                        MediaQuery.of(context).size.width / 70,
                                   )
                                 ])),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 60,
                       ),
+                      ///dropdown
                       Container(
                         height: 23,
                         width: 90,
@@ -231,7 +243,10 @@ class MyAppBar extends StatelessWidget {
                                       child: Text(
                                         value,
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(color: Colors.white,
+                                          fontFamily: 'FiraSans',
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w200,),
                                       ),
                                     ),
                                   )
@@ -302,6 +317,33 @@ class MyAppBar extends StatelessWidget {
                               size: MediaQuery.of(context).size.width / 68,
                             )),
                       ),
+                      //SizedBox(width: MediaQuery.of(context).size.width/10,),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 10,
+                              backgroundColor: Colors.white,
+                              child: Image.asset("images/profile.png"),
+                            ),
+                            SizedBox(height: 2),
+                            Flexible(
+                              child: Text(
+                                "William Christiana ",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                  fontFamily: 'FiraSans',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
                     ])),
               ),
             ),

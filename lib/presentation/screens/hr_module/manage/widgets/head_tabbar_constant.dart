@@ -13,20 +13,23 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TabBar(
-              controller: controller.tabController,
-              tabs: controller.tabs,
-              indicatorWeight: 6,
-              indicatorSize: TabBarIndicatorSize.tab,
-              indicatorColor: Color(0xFF50B5E5),
-              labelColor: Color(0xFF50B5E5),
-              labelStyle: TextStyle(
-                fontFamily: 'FiraSans',
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
+            Container(
+              color: Colors.white,
+              child: TabBar(
+                controller: controller.tabController,
+                tabs: controller.tabs,
+                indicatorWeight: 6,
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorColor: Color(0xFF50B5E5),
+                labelColor: Color(0xFF50B5E5),
+                labelStyle: TextStyle(
+                  fontFamily: 'FiraSans',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+                unselectedLabelColor: Colors.black,
+                dividerColor: Colors.transparent,
               ),
-              unselectedLabelColor: Colors.black,
-              dividerColor: Colors.transparent,
             ),
             Container(
               // color: Colors.purpleAccent,
