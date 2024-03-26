@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/employment_child_tabbar.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/constant_employment.dart';
 
-///prachi
-class Banking extends StatelessWidget {
-  const Banking({Key? key}) : super(key: key);
+class QualificationEducation extends StatelessWidget {
+  const QualificationEducation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class Banking extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      EmploymentContainerConstant(),
+                      OnboardingEmployement(),
                       SizedBox(
                         height: 8,
                       )
