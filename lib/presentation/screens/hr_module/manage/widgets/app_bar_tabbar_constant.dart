@@ -104,10 +104,10 @@ class AppBarTabBarConstant extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(9),
                           ),
-                          child: const Padding(
+                          child:  Padding(
                             padding:
                             EdgeInsets.symmetric(horizontal: 6.0,),
-                            child: Center(child: Icon(Icons.notes_outlined,size: 17,)),
+                            child: Center(child: Image.asset('images/menu_icon.png',)),
                           )),
                       const SizedBox(width: 20),
                       Container(
