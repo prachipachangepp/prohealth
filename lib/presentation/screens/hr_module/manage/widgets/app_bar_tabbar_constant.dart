@@ -15,7 +15,7 @@ class AppBarTabBarConstant extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            color: Colors.transparent,
+            color: Colors.white,
             height: MediaQuery.of(context).size.height / 18,
             width: controller.tabBarViewWidth,
             child: Row(
@@ -31,59 +31,67 @@ class AppBarTabBarConstant extends StatelessWidget {
                           color: Colors.black.withOpacity(0.25),
                           spreadRadius: 1,
                           blurRadius: 4,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                       borderRadius: BorderRadius.circular(12),
-                      color: Color(0xFF50B5E5),
+                      color: const Color(0xFF50B5E5),
                     ),
                     indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorColor: Color(0xFF686464),
+                    indicatorColor: const Color(0xFF686464),
                     labelColor: Colors.white,
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       fontFamily: 'FiraSans',
                       fontSize: 12,
                       color: Color(0xFF686464),
                       fontWeight: FontWeight.w600,
                     ),
                     unselectedLabelColor: Colors.black,
+                     physics: NeverScrollableScrollPhysics(),
+                    // onTap: (_){},
                   ),
                 ),
-                SizedBox(width: 10), // Add space between tabs and TextField
+                const SizedBox(width: 30), // Add space between tabs and TextField
                 Expanded(
                   child: Row(
                     children: [
                       Expanded(
                         child: Container(
+                          //width: 301,
+                          height: 25,
                           decoration: BoxDecoration(
                             border:
-                            Border.all(color: Color(0xFF686464), width: 1),
+                            Border.all(color: const Color(0xFF686464), width: 1),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 6, horizontal: 14),
+                                vertical: 5, horizontal: 14),
                             child: Row(
                               children: [
                                 Expanded(
                                   child: TextFormField(
                                     cursorColor: Colors.black,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       hintText: 'John S',
-                                      hintStyle:
-                                      TextStyle(color: Color(0xff686464)),
+                                      hintStyle:TextStyle(color: Color(0xff686464),
+                                        fontFamily: 'FiraSans',
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,),
                                     ),
                                   ),
                                 ),
-                                Icon(Icons.search, color: Color(0xff686464)),
+                                const Icon(Icons.search, color: Color(0xff686464),size: 15),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Container(
+                        height: 25,
+                          width: 37,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
@@ -91,18 +99,20 @@ class AppBarTabBarConstant extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.25),
                                 spreadRadius: 1,
                                 blurRadius: 4,
-                                offset: Offset(0, 3),
+                                offset: const Offset(0, 4),
                               ),
                             ],
                             borderRadius: BorderRadius.circular(9),
                           ),
-                          child: Padding(
+                          child:  Padding(
                             padding:
-                            const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Center(child: Icon(Icons.menu)),
+                            EdgeInsets.symmetric(horizontal: 6.0,),
+                            child: Center(child: Image.asset('images/menu_icon.png',)),
                           )),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 20),
                       Container(
+                          height: 25,
+                          width: 32,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
@@ -110,35 +120,40 @@ class AppBarTabBarConstant extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.25),
                                 spreadRadius: 1,
                                 blurRadius: 4,
-                                offset: Offset(0, 3),
+                                offset: const Offset(0, 4),
                               ),
                             ],
-                            borderRadius: BorderRadius.circular(9),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('DZ'),
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text('DZ',
+                              style: TextStyle(
+                                fontFamily: 'FiraSans',
+                                fontSize: 11,
+                                fontWeight: FontWeight.w400,
+                              ),textAlign: TextAlign.center,),
                           )),
-                      SizedBox(
-                        width: 50,
+                      const SizedBox(
+                        width: 40,
                       ),
                       ElevatedButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'See All',
                           style: TextStyle(
                               fontFamily: 'FiraSans',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
                               color: Colors.white),
                         ),
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 25, vertical: 10),
-                          backgroundColor: Color(0xFF50B5E5),
+                          backgroundColor: const Color(0xFF1696C8),
                           shadowColor: Colors.grey,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
                       ),
@@ -148,7 +163,7 @@ class AppBarTabBarConstant extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Container(
             //color: Colors.grey,
             height: controller.tabBarViewHeight,
