@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../controller/controller.dart';
 
 ///getx
@@ -7,7 +8,7 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48.0),
+      padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 5),
       child: DefaultTabController(
         length: controller.tabs.length,
         child: Column(
