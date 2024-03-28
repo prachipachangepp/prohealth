@@ -7,13 +7,14 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48.0),
+      padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 5),
       child: DefaultTabController(
         length: controller.tabs.length,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
+              ///
               color: Colors.white,
               child: TabBar(
                 controller: controller.tabController,

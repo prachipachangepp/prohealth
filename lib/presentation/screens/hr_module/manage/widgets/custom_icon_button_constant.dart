@@ -17,7 +17,7 @@ class CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPressed,
-      icon: icon != null ? Icon(icon!, color: Colors.white, size: 20) : SizedBox.shrink(), // Conditionally include the icon
+      icon: icon != null ? Icon(icon!, color: Colors.white, size: 20) : SizedBox.shrink(),
       label: Text(
         text,
         style: TextStyle(

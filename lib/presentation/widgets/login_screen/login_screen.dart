@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_constant.dart';
-
+import 'package:prohealth/presentation/widgets/login_screen/sub_login_page.dart';
 class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -34,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       offset: Offset(1, 4),
                     ),
                   ],
-                  color: Color(0xffFFFFFF).withOpacity(0.35),
+                  color: Color(0xffFFFFFF).withOpacity(0.5),
                   borderRadius: BorderRadius.all(Radius.circular(25)),
                 ),
                 child: Padding(
@@ -101,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   child: Column(
                                     children: [
+
                                       TextField(
                                         decoration: InputDecoration(
                                           labelText: 'Email',
@@ -116,7 +115,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                       SizedBox(height: 20),
                                       CustomIconButton(text: 'Login',
-                                          onPressed: (){})
+                                          onPressed: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => SubLoginScreen()));
+                                          })
                                     ],
                                   )
                                   // LoginTabBar(LoginTabBarController(tabs: [
@@ -163,7 +164,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-          )),
+          )
+      ),
     );
   }
 }
