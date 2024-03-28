@@ -106,14 +106,14 @@ class ProfileBar extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 10,
                         child: ElevatedButton(
                           child: Text(
-                            "Physical Thearpy",
+                            "Physical Therapy",
                             style: ThemeManagerWhite.customTextStyle(context),
                           ),
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero,
                             ),
-                            backgroundColor: Colors.redAccent,
+                            backgroundColor: Color(0xff6928A).withOpacity(0.45),
                             elevation: 3,
                           ),
                           onPressed: () {},

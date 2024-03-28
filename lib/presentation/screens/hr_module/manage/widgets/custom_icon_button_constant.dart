@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+
 ///done by saloni
 ///button constant for circularborder with text and with/without icon
 class CustomIconButton extends StatelessWidget {
   final String text;
-  final IconData? icon; // Making icon property nullable
+  final IconData? icon;
   final VoidCallback onPressed;
 
   const CustomIconButton({
     required this.text,
-    this.icon, // Making icon property nullable
+    this.icon,
     required this.onPressed,
     Key? key,
   }) : super(key: key);
@@ -17,9 +18,12 @@ class CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPressed,
-      icon: icon != null ? Icon(icon!, color: Colors.white, size: 20) : SizedBox.shrink(), // Conditionally include the icon
+      icon: icon != null
+          ? Icon(icon!, color: Colors.white, size: 20)
+          : SizedBox.shrink(),
       label: Text(
         text,
+        textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: 'FiraSans',
           fontSize: 12,
@@ -32,7 +36,7 @@ class CustomIconButton extends StatelessWidget {
         backgroundColor: Color(0xFF50B5E5),
         shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(20),
         ),
       ),
     );
@@ -70,6 +74,56 @@ class CustomButtonTransparent extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(color: Color(0xFF50B5E5)),
         ),
+      ),
+    );
+  }
+}
+
+///custombutton size managebleimport 'package:flutter/material.dart';
+
+class CustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  // final Color color;
+  final Color textColor;
+  final double borderRadius;
+  final double paddingVertical;
+  final double paddingHorizontal;
+  final double width;
+  final double height;
+
+  const CustomButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+    // this.color = Colors.blue,
+    this.textColor = Colors.white,
+    this.borderRadius = 14.0,
+    this.paddingVertical = 12.0,
+    this.paddingHorizontal = 16.0,
+    this.width = double.infinity, // Default width is set to match parent width
+    this.height = 50.0, // Default height is set to 50.0
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xFF50B5E5),
+          onPrimary: textColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          padding: EdgeInsets.symmetric(
+            vertical: paddingVertical,
+            horizontal: paddingHorizontal,
+          ),
+        ),
+        child: Text(text),
       ),
     );
   }
