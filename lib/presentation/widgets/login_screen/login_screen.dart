@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/login_screen/sub_login_page.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -294,7 +295,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                     text:
                                                                         'LogIn',
                                                                     onPressed:
-                                                                        () {},
+                                                                        () {
+                                                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubLoginScreen()));
+                                                                        },
                                                                     width: 90.0,
                                                                     height:
                                                                         30.0,
