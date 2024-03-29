@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/home_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/child_container_constant_login.dart';
 
 class SubLoginScreen extends StatelessWidget {
@@ -59,11 +60,14 @@ class SubLoginScreen extends StatelessWidget {
                            ),
                     Row(
                       children: [
-                        ResponsiveContainer('Referral Resource Manager',Icons.manage_search),
+                        ResponsiveContainer('Referral Resource Manager',AssetImage("images/r_r_m.png"),),
                        SizedBox(width: MediaQuery.of(context).size.width/40,),
-                        ResponsiveContainer('Establishment Manager',Icons.add_home_outlined),
+                        ResponsiveContainer('Establishment Manager',AssetImage("images/e_m.png"),),
                        SizedBox(width: MediaQuery.of(context).size.width/40,),
-                        ResponsiveContainer('Human Resource Manager',Icons.manage_search),
+                        InkWell(
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                            },
+                            child: ResponsiveContainer('Human Resource Manager',AssetImage("images/h_r_m.png"),)),
                       ],
                     ),
                     Text(
@@ -78,11 +82,11 @@ class SubLoginScreen extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        ResponsiveContainer('Business Intelligence & Reports',Icons.manage_search),
+                        ResponsiveContainer('Business Intelligence & Reports',AssetImage("images/b_i_r.png"),),
                         SizedBox(width: MediaQuery.of(context).size.width/40,),
-                        ResponsiveContainer('Finance',Icons.manage_search),
+                        ResponsiveContainer('Finance',AssetImage("images/finance.png"),),
                         SizedBox(width: MediaQuery.of(context).size.width/40,),
-                        ResponsiveContainer('Other',Icons.manage_search),
+                        ResponsiveContainer('Other',AssetImage("images/other.png"),),
                       ],
                     ),
                     Text(
@@ -97,16 +101,16 @@ class SubLoginScreen extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        ResponsiveContainer('Intake & Scheduler',Icons.manage_search),
+                        ResponsiveContainer('Intake & Scheduler',AssetImage("images/i_s.png"),),
                         SizedBox(width: MediaQuery.of(context).size.width/40,),
-                        ResponsiveContainer('Rehab',Icons.manage_search),
+                        ResponsiveContainer('Rehab',AssetImage("images/rehab.png"),),
                         SizedBox(width: MediaQuery.of(context).size.width/40,),
-                        ResponsiveContainer('Home Care',Icons.manage_search),
+                        ResponsiveContainer('Home Care',AssetImage("images/h_c.png"),),
                         SizedBox(width: MediaQuery.of(context).size.width/40,),
-                        ResponsiveContainer('Home Health EMR',Icons.manage_search),
+                        ResponsiveContainer('Home Health EMR',AssetImage("images/h_h_emr.png"),),
                       ],
                     ),
-                    ResponsiveContainer('Hospice EMR',Icons.manage_search),
+                    ResponsiveContainer('Hospice EMR',AssetImage("images/h_emr.png"),),
                   ],
                 ),
               )

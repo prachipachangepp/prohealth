@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ResponsiveContainer extends StatelessWidget {
   final String text;
-  final IconData iconData;
+  final ImageProvider imageProvider;
 
-  const ResponsiveContainer(this.text, this.iconData);
+  const ResponsiveContainer(this.text, this.imageProvider);
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +19,16 @@ class ResponsiveContainer extends StatelessWidget {
           vertical: MediaQuery.of(context).size.height / 90,
         ),
         decoration: BoxDecoration(
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Color(0xff000000).withOpacity(0.3),
-          //     blurRadius: 22,
-          //     offset: Offset(0, 0),
-          //   ),
-          // ],
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(24)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              iconData,
-              size: 20,
-              color: Color(0xff686464),
+            Image(
+              image: imageProvider,
+              width: 30,
+              height: 30,
             ),
             SizedBox(height: 10),
             Flexible(
