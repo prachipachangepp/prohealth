@@ -579,6 +579,7 @@ class ProfileBar extends StatelessWidget {
                         "John Scott",
                         style: ThemeManagerBlack.customTextStyle(context),
                       ),
+                      SizedBox(height: 2,),
                       Container(
                         height: MediaQuery.of(context).size.height / 40,
                         width: MediaQuery.of(context).size.width / 10,
@@ -755,7 +756,7 @@ class ProfileBar extends StatelessWidget {
                                 'View Zone',
                                 style: TextStyle(
                                     fontFamily: 'FiraSans',
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
                                     decoration: TextDecoration.underline,
