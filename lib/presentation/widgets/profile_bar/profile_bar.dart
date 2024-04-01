@@ -814,7 +814,13 @@ class ProfileBar extends StatelessWidget {
                           ),
                           Text(
                             "09/02/2024(11 PM)",
-                            style: ThemeManagerDark.customTextStyle(context),
+                            style: TextStyle(
+                              fontFamily: 'FiraSans',
+                              fontSize: 10,
+                              color: Color(0xFF686464),
+                              fontWeight: FontWeight.w600,
+                            ),
+                            //ThemeManagerDark.customTextStyle(context),
                           ),
                         ],
                       ),

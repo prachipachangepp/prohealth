@@ -71,7 +71,7 @@ class ForgotPassScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
-                                    'Enter your email for the verification proccess,we will send 4\ndigits code to your email.',
+                                    'Enter your email for the verification process,we will send 4\ndigits code to your email.',
                                     style: TextStyle(
                                       fontFamily: 'FiraSans',
                                       color: Color(0xff686464),

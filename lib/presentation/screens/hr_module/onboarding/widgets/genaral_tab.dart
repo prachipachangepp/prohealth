@@ -102,7 +102,7 @@ class OnboardingGeneral extends StatelessWidget {
                                       texts: [
                                         "Social Security no",
                                         "Type of clinician",
-                                        "Personal No.",
+                                        "Phone Number",
                                         "Personal Email",
                                       ],
                                     ),

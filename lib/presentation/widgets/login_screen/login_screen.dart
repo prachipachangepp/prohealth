@@ -294,6 +294,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       20),
                                                   child:
                                                   TextField(
+                                                    cursorHeight: 25,
                                                     decoration:
                                                     InputDecoration(
                                                       labelText:
