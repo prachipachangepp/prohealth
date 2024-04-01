@@ -486,7 +486,6 @@
 //     ]);
 //   }
 // }
-
 import 'package:flutter/material.dart';
 import '../../../app/theme_manager.dart';
 import '../profile_bar/widget/profil_custom_widget.dart';
@@ -613,7 +612,12 @@ class ProfileBar extends StatelessWidget {
                       Text(
                         "House No., Street No. Area City, Zip\nCode",
                         textAlign: TextAlign.start,
-                        style: ThemeManagerAccentblue.customTextStyle(context),
+                        style:TextStyle(
+                          fontFamily: 'FiraSans',
+                          fontSize: 10,
+                          color: Color(0xff4B89BA),
+                          fontWeight: FontWeight.w200,
+                        ),
                       ),
                     ],
                   ),
@@ -657,7 +661,7 @@ class ProfileBar extends StatelessWidget {
                           ),
                           Icon(
                             Icons.comment,
-                            color: Colors.blue,
+                            color: Color(0xff4FB8EB),
                             size: 13,
                           )
                         ],
@@ -680,7 +684,7 @@ class ProfileBar extends StatelessWidget {
                           ),
                           Icon(
                             Icons.comment,
-                            color: Colors.blue,
+                            color: Color(0xff4FB8EB),
                             size: 13,
                           )
                         ],
@@ -703,7 +707,7 @@ class ProfileBar extends StatelessWidget {
                           ),
                           Icon(
                             Icons.comment,
-                            color: Colors.blue,
+                            color: Color(0xff4FB8EB),
                             size: 13,
                           )
                         ],
@@ -723,7 +727,7 @@ class ProfileBar extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'FiraSans',
                             fontSize: 9,
-                            color: Colors.blueAccent,
+                            color: Color(0xff4B89BA),
                             decoration: TextDecoration.underline,
                             decorationColor: Colors.blueAccent,
                           )),
@@ -732,7 +736,7 @@ class ProfileBar extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'FiraSans',
                           fontSize: 9,
-                          color: Colors.blueAccent,
+                          color: Color(0xff4B89BA),
                           decoration: TextDecoration.underline,
                           decorationColor: Colors.blueAccent,
                         ),
@@ -747,7 +751,7 @@ class ProfileBar extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 99),
                           Container(
                             height: MediaQuery.of(context).size.height / 35,
-                            width: MediaQuery.of(context).size.width / 17,
+                            width: MediaQuery.of(context).size.width / 16,
                             margin: EdgeInsets.only(right: 40),
                             child: ElevatedButton(
                               onPressed:
@@ -821,13 +825,18 @@ class ProfileBar extends StatelessWidget {
                       ///"Expired License"
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
                               Text(
                                 "Expired License",
-                                style:
-                                ThemeManagerAccentblue.customTextStyle(context),
+                                style: TextStyle(
+                                  fontFamily: 'FiraSans',
+                                  fontSize: 10,
+                                  color: Color(0xFF579EBA),
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               ClipOval(
                                   child: Container(
@@ -858,8 +867,12 @@ class ProfileBar extends StatelessWidget {
                             children: [
                               Text(
                                 "About To Expired License",
-                                style:
-                                ThemeManagerAccentblue.customTextStyle(context),
+                                style: TextStyle(
+                                  fontFamily: 'FiraSans',
+                                  fontSize: 10,
+                                  color: Color(0xFF579EBA),
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               ClipOval(
                                   child: Container(
@@ -892,7 +905,12 @@ class ProfileBar extends StatelessWidget {
                               Text(
                                 "Up To Date License",
                                 style:
-                                ThemeManagerAccentblue.customTextStyle(context),
+                                TextStyle(
+                                  fontFamily: 'FiraSans',
+                                  fontSize: 10,
+                                  color: Color(0xFF579EBA),
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               ClipOval(
                                   child: Container(

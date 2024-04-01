@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/home_screen.dart';
-import 'package:prohealth/presentation/widgets/login_screen/child_container_constant_login.dart';
+import 'package:prohealth/presentation/widgets/login_screen/widgets/child_container_constant_login.dart';
 
 class SubLoginScreen extends StatelessWidget {
   const SubLoginScreen({super.key});
