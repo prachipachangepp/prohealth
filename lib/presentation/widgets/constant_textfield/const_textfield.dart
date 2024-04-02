@@ -28,27 +28,29 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 200,
-      height: 38,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextFormField(
-          focusNode: focusNode,
-          controller: controller,
-          textAlign: TextAlign.start,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 120),
-          textAlignVertical: TextAlignVertical.center,
-          cursorHeight: cursorHeight,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
-            border: OutlineInputBorder(),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black),
+    return Flexible(
+      child: SizedBox(
+        width: 250,
+        height: 40,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            focusNode: focusNode,
+            controller: controller,
+            textAlign: TextAlign.start,
+            style: TextStyle(fontSize: MediaQuery.of(context).size.width / 87),
+            textAlignVertical: TextAlignVertical.center,
+            cursorHeight: cursorHeight,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
+              border: OutlineInputBorder(),
+              labelText: labelText,
+              labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
+              suffixIcon: Padding(
+                padding: const EdgeInsets.only(left: 14),
+                child: suffixIcon,
+              ),
             ),
-            labelText: labelText,
-            labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
-            suffixIcon: suffixIcon,
           ),
         ),
       ),
@@ -96,36 +98,37 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 200,
-      height: 38,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: DropdownButtonFormField<String>(
-          icon: Icon(Icons.arrow_drop_down_sharp, color: Color(0xff50B5E5)),
-          value: _selectedValue,
-          items: widget.items.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-          onChanged: (newValue) {
-            setState(() {
-              _selectedValue = newValue;
-            });
-            if (widget.onChanged != null) {
-              widget.onChanged!(newValue);
-            }
-          },
-          style: TextStyle(color: Color(0xff686464),fontSize: 12),
-          isExpanded: true,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
-            border: OutlineInputBorder(),
-            labelText: widget.labelText,
-            labelStyle:
-                widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+    return Flexible(
+      child: SizedBox(
+        width: 250,
+        height: 40,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DropdownButtonFormField<String>(
+            icon: Icon(Icons.arrow_drop_down_sharp, color: Color(0xff50B5E5)),
+            value: _selectedValue,
+            items: widget.items.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (newValue) {
+              setState(() {
+                _selectedValue = newValue;
+              });
+              if (widget.onChanged != null) {
+                widget.onChanged!(newValue);
+              }
+            },
+            isExpanded: true,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
+              border: OutlineInputBorder(),
+              labelText: widget.labelText,
+              labelStyle:
+                  widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+            ),
           ),
         ),
       ),
