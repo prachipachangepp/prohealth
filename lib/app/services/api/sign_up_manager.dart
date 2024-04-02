@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:prohealth/constants/app_config.dart';
 
 class SignUpManager {
   Dio dio = Dio();
@@ -13,17 +14,16 @@ class SignUpManager {
       "email": email,
       "password": password,
     });
-
     var dio = Dio();
     var response = await dio.request(
-      'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-up',
+      '${AppConfig.endpoint}/auth/sign-up/',
+    //  'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-up',
       options: Options(
         method: 'POST',
         headers: headers,
       ),
       data: data,
     );
-
     if (response.statusCode == 200) {
       print(json.encode(response.data));
     }
