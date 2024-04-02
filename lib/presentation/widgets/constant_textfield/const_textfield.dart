@@ -44,6 +44,9 @@ class CustomTextField extends StatelessWidget {
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
               border: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
+              ),
               labelText: labelText,
               labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
               suffixIcon: Padding(
@@ -125,6 +128,9 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
               border: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
+              ),
               labelText: widget.labelText,
               labelStyle:
                   widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
