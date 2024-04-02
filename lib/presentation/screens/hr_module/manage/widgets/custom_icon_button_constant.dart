@@ -91,6 +91,7 @@ class CustomButton extends StatelessWidget {
   final double paddingHorizontal;
   final double width;
   final double height;
+  final TextStyle style;
 
   const CustomButton({
     Key? key,
@@ -101,8 +102,9 @@ class CustomButton extends StatelessWidget {
     this.borderRadius = 14.0,
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
-    this.width = double.infinity, // Default width is set to match parent width
-    this.height = 50.0, // Default height is set to 50.0
+    this.width = double.infinity,
+    this.height = 50.0,
+     this.style = const TextStyle(color: Colors.white),
   }) : super(key: key);
 
   @override
@@ -123,7 +125,7 @@ class CustomButton extends StatelessWidget {
             horizontal: paddingHorizontal,
           ),
         ),
-        child: Text(text),
+        child: Text(text,style: style,),
       ),
     );
   }

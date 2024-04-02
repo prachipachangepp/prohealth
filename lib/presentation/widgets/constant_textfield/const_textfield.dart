@@ -37,12 +37,15 @@ class CustomTextField extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           textAlign: TextAlign.start,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 87),
+          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 120),
           textAlignVertical: TextAlignVertical.center,
           cursorHeight: cursorHeight,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
             border: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+            ),
             labelText: labelText,
             labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
             suffixIcon: suffixIcon,
@@ -115,6 +118,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
               widget.onChanged!(newValue);
             }
           },
+          style: TextStyle(color: Color(0xff686464),fontSize: 12),
           isExpanded: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: 3, top: 5, left: 2),
