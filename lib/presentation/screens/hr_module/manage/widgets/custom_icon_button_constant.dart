@@ -123,7 +123,11 @@ class CustomButton extends StatelessWidget {
             horizontal: paddingHorizontal,
           ),
         ),
-        child: Text(text),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 11),
+        ),
       ),
     );
   }
