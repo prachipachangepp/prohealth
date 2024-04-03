@@ -6,7 +6,7 @@ class SignUpManager {
   Dio dio = Dio();
 
   ///sign up POST
-  Future login({required String email, required String password}) async {
+  Future signUp({required String email, required String password}) async {
     var headers = {'Content-Type': 'application/json'};
     var data = json.encode({
       // "email": "srojkrjha@gmail.com",
