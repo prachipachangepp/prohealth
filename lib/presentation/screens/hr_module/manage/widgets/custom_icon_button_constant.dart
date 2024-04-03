@@ -82,7 +82,7 @@ class CustomButtonTransparent extends StatelessWidget {
 ///custombutton size managebleimport 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final VoidCallback onPressed;
   // final Color color;
   final Color textColor;
@@ -92,10 +92,11 @@ class CustomButton extends StatelessWidget {
   final double width;
   final double height;
   final TextStyle style;
+  final Widget? child;
 
   const CustomButton({
     Key? key,
-    required this.text,
+    this.text,
     required this.onPressed,
     // this.color = Colors.blue,
     this.textColor = Colors.white,
@@ -104,7 +105,8 @@ class CustomButton extends StatelessWidget {
     this.paddingHorizontal = 16.0,
     this.width = double.infinity,
     this.height = 50.0,
-     this.style = const TextStyle(color: Colors.white),
+    this.style = const TextStyle(color: Colors.white),
+    this.child,
   }) : super(key: key);
 
   @override
@@ -125,7 +127,7 @@ class CustomButton extends StatelessWidget {
             horizontal: paddingHorizontal,
           ),
         ),
-        child: Text(text,style: style,),
+        child: text != null ? Text(text!) : child,
       ),
     );
   }
