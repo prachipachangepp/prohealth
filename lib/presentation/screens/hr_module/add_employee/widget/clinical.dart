@@ -2,26 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/widgets/constant_textfield/const_textfield.dart';
 import 'package:prohealth/presentation/widgets/mcq_const_widget/mcq_const_widget.dart';
 
+import '../../manage/widgets/custom_icon_button_constant.dart';
+
 ///prachi to do
 class ClinicalTab extends StatelessWidget {
-  final TextEditingController _yourController = TextEditingController();
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
   final TextEditingController _controller4 = TextEditingController();
   final TextEditingController _controller5 = TextEditingController();
+  final TextEditingController _controller6 = TextEditingController();
+  final TextEditingController _controller7 = TextEditingController();
+  final TextEditingController _controller8 = TextEditingController();
+  final TextEditingController _controller9 = TextEditingController();
+  final TextEditingController _controller10 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     // double containerWidth = MediaQuery.of(context).size.width * 0.9;
-    double containerHeight1 = MediaQuery.of(context).size.height * 0.4;
-    double containerHeight2 = MediaQuery.of(context).size.height * 0.3;
+    double containerHeight1 = MediaQuery.of(context).size.height * 0.32;
+    double containerHeight2 = MediaQuery.of(context).size.height * 0.25;
     double textFieldWidth = 200;
     double textFieldHeight = 38;
     FocusNode _focusNode = FocusNode();
     int? _selectedItemIndex;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         /// first container
         Row(
@@ -55,7 +62,7 @@ class ClinicalTab extends StatelessWidget {
                           children: [
                             CustomDropdownTextField(
                               labelText: 'Type of Clinician',
-                              labelStyle: TextStyle(),
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
                               labelFontSize: 12,
                               items: ['A', 'B', 'C', 'D'],
                             ),
@@ -64,8 +71,8 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 20,
                               labelText: 'First Name',
-                              labelStyle: TextStyle(),
-                              controller: _controller2,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller1,
                               focusNode: FocusNode(),
                               labelFontSize: 12,
                             ),
@@ -74,14 +81,14 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 20,
                               labelText: 'Last Name',
-                              labelStyle: TextStyle(),
-                              controller: _controller4,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller2,
                               focusNode: FocusNode(),
                               labelFontSize: 12,
                             ),
                             CustomDropdownTextField(
                               labelText: 'Speciality',
-                              labelStyle: TextStyle(),
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
                               labelFontSize: 12,
                               items: ['A', 'B', 'C', 'D'],
                             ),
@@ -95,8 +102,8 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 20,
                               labelText: 'Social Security No',
-                              labelStyle: TextStyle(),
-                              controller: _controller2,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller3,
                               suffixIcon: Icon(
                                 Icons.remove_red_eye_outlined,
                                 color: Colors.blue,
@@ -110,8 +117,8 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 22,
                               labelText: 'Primary Phone No',
-                              labelStyle: TextStyle(),
-                              controller: _controller2,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller4,
                               focusNode: FocusNode(),
                               labelFontSize: 12,
                             ),
@@ -120,8 +127,8 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 22,
                               labelText: 'Secondary Phone No',
-                              labelStyle: TextStyle(),
-                              controller: _controller2,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller5,
                               focusNode: FocusNode(),
                               labelFontSize: 12,
                             ),
@@ -130,8 +137,8 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 22,
                               labelText: 'Personal Phone No',
-                              labelStyle: TextStyle(),
-                              controller: _controller2,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller6,
                               focusNode: FocusNode(),
                               labelFontSize: 12,
                             ),
@@ -142,7 +149,7 @@ class ClinicalTab extends StatelessWidget {
                           children: [
                             CustomDropdownTextField(
                               labelText: 'City',
-                              labelStyle: TextStyle(),
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
                               labelFontSize: 12,
                               items: ['A', 'B', 'C', 'D'],
                             ),
@@ -154,7 +161,7 @@ class ClinicalTab extends StatelessWidget {
                             ),
                             CustomDropdownTextField(
                               labelText: 'Zone',
-                              labelStyle: TextStyle(),
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
                               labelFontSize: 12,
                               items: ['A', 'B', 'C', 'D'],
                             ),
@@ -174,8 +181,8 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 22,
                               labelText: 'Personal Email',
-                              labelStyle: TextStyle(),
-                              controller: _controller2,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller7,
                               focusNode: FocusNode(),
                               labelFontSize: 12,
                             ),
@@ -184,8 +191,8 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 22,
                               labelText: 'Work Email',
-                              labelStyle: TextStyle(),
-                              controller: _controller2,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller8,
                               focusNode: FocusNode(),
                               labelFontSize: 12,
                             ),
@@ -194,8 +201,8 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 22,
                               labelText: 'Address',
-                              labelStyle: TextStyle(),
-                              controller: _controller2,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller9,
                               focusNode: FocusNode(),
                               labelFontSize: 12,
                             ),
@@ -204,8 +211,8 @@ class ClinicalTab extends StatelessWidget {
                               height: textFieldHeight,
                               cursorHeight: 22,
                               labelText: 'Date of Birth',
-                              labelStyle: TextStyle(),
-                              controller: _controller2,
+                              labelStyle: TextStyle(fontSize: 12,color: Color(0xff575757),fontWeight: FontWeight.w400),
+                              controller: _controller10,
                               suffixIcon: Icon(
                                 Icons.calendar_month_outlined,
                                 color: Colors.blue,
@@ -238,10 +245,6 @@ class ClinicalTab extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.width / 99,
-        ),
-
         /// second Container
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -254,6 +257,7 @@ class ClinicalTab extends StatelessWidget {
                   elevation: 4,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 15),
                     // width: containerWidth,
                     height: containerHeight2,
                     decoration: BoxDecoration(
@@ -266,8 +270,7 @@ class ClinicalTab extends StatelessWidget {
                     ),
                     child: Expanded(
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,13 +292,8 @@ class ClinicalTab extends StatelessWidget {
                               ),
                               Flexible(
                                 child: McqWidget(
-                                  title: 'Flexible Coverage',
-                                  items: [
-                                    'Saturday',
-                                    'Sunday',
-                                    'Holiday',
-                                    'On Call'
-                                  ],
+                                  title: 'Status',
+                                  items: ['Active', 'Trainee', 'Inactive'],
                                   onChanged: (int) {},
                                 ),
                               ),
@@ -306,26 +304,16 @@ class ClinicalTab extends StatelessWidget {
                             children: [
                               Flexible(
                                 child: McqWidget(
-                                  title: 'Gender',
+                                  title: 'Flexible Coverage',
                                   items: [
-                                    'Male',
-                                    'Female',
-                                    'Other',
+                                    'Saturday',
+                                    'Sunday',
+                                    'Holiday',
+                                    'On Call'
                                   ],
                                   onChanged: (int) {},
                                 ),
                               ),
-                              Flexible(
-                                child: McqWidget(
-                                  title: 'Status',
-                                  items: ['Active', 'Trainee', 'Inactive'],
-                                  onChanged: (int) {},
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
                               Flexible(
                                 child: McqWidget(
                                   title: 'Service',
@@ -340,6 +328,21 @@ class ClinicalTab extends StatelessWidget {
                               ),
                             ],
                           ),
+                          Column(
+                            children: [
+                              Flexible(
+                                child: McqWidget(
+                                  title: 'Gender',
+                                  items: [
+                                    'Male',
+                                    'Female',
+                                    'Other',
+                                  ],
+                                  onChanged: (int) {},
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -348,6 +351,25 @@ class ClinicalTab extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              CustomButton(
+                  width: 125,
+                  height: 33,
+                  text: 'Add Employee',
+                  style: TextStyle(
+                      fontFamily: 'FiraSans',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700
+                  ),
+                  borderRadius: 12,
+                  onPressed: (){})
+            ],
+          ),
         )
       ],
     );

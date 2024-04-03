@@ -33,12 +33,12 @@ class CustomTextField extends StatelessWidget {
         width: 250,
         height: 40,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(5.0),
           child: TextFormField(
             focusNode: focusNode,
             controller: controller,
             textAlign: TextAlign.start,
-            style: TextStyle(fontSize: MediaQuery.of(context).size.width / 87),
+            style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
             textAlignVertical: TextAlignVertical.center,
             cursorHeight: cursorHeight,
             decoration: InputDecoration(
@@ -106,7 +106,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
         width: 250,
         height: 40,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(5.0),
           child: DropdownButtonFormField<String>(
             icon: Icon(Icons.arrow_drop_down_sharp, color: Color(0xff50B5E5)),
             value: _selectedValue,

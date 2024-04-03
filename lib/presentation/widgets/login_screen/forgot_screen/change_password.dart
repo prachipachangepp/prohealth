@@ -14,6 +14,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
    final TextEditingController controllerNew = TextEditingController();
    final TextEditingController controllerConfirm = TextEditingController();
    bool _obscureText = true;
+   bool _obscureTextconfirm = true;
 
   @override
   Widget build(BuildContext context) {
@@ -132,17 +133,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   fontSize: 12,
                                 ),
                                 cursorColor: Colors.black,
-                                obscureText: _obscureText,
+                                obscureText: _obscureTextconfirm,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                      _obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                                      _obscureTextconfirm ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                                       size: 15,
                                       color: Color(0xffACA5BB),
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        _obscureText = !_obscureText;
+                                        _obscureTextconfirm = !_obscureTextconfirm;
                                       });
                                     },
                                   ),
@@ -197,7 +198,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       height: 46,
                                                       text: 'Continue',
                                                       borderRadius: 28,
-                                                      onPressed: (){})
+                                                      onPressed: (){
+                                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+                                                      })
                                                 ],
                                               ),
                                             )

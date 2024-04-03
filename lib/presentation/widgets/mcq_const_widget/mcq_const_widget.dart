@@ -18,24 +18,21 @@ class McqWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double textFontSize = screenWidth / 99;
-    final double radioButtonSize = screenWidth / 200;
+    final double radioButtonSize = screenWidth / 300;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: textFontSize,
-              color: Color(0xff686464),
-              fontWeight: FontWeight.w500,
-            ),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: textFontSize,
+            color: Color(0xff686464),
+            fontWeight: FontWeight.w500,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 3.0,right: 6),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,20 +50,22 @@ class McqWidget extends StatelessWidget {
       widgets.add(
         Row(
           children: [
-            Obx(() => Radio(
-                  value: i,
-                  groupValue: selectedItemIndex.value,
-                  onChanged: (value) {
-                    selectedItemIndex.value = value as int;
-                  },
-                  visualDensity: VisualDensity.compact,
-                  activeColor: Color(0xff686464),
-                  focusColor: Color(0xff686464),
-                  hoverColor: Color(0xff686464),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  splashRadius: 7.0,
-                )),
-            SizedBox(width: 4),
+            Obx(() => Transform.scale(
+              scale: 0.8,
+              child: Radio(
+                    value: i,
+                    groupValue: selectedItemIndex.value,
+                    onChanged: (value) {
+                      selectedItemIndex.value = value as int;
+                    },
+                    visualDensity: VisualDensity.compact,
+                    activeColor: Color(0xff50B5E5),
+                    focusColor: Color(0xff686464),
+                    hoverColor: Color(0xff686464),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    splashRadius: 7.0,
+                  ),
+            )),
             Text(
               items[i],
               style: TextStyle(
@@ -75,7 +74,7 @@ class McqWidget extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(width: 4),
+            SizedBox(width: 20),
           ],
         ),
       );
@@ -133,19 +132,22 @@ class RegisterPopupMcq extends StatelessWidget {
       widgets.add(
         Row(
           children: [
-            Obx(() => Radio(
-                  value: i,
-                  groupValue: selectedItemIndex.value,
-                  onChanged: (value) {
-                    selectedItemIndex.value = value as int;
-                  },
-                  visualDensity: VisualDensity.compact,
-                  activeColor: Color(0xff686464),
-                  focusColor: Color(0xff686464),
-                  hoverColor: Color(0xff686464),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  splashRadius: 7.0,
-                )),
+            Obx(() => Transform.scale(
+              scale: 0.6,
+              child: Radio(
+                    value: i,
+                    groupValue: selectedItemIndex.value,
+                    onChanged: (value) {
+                      selectedItemIndex.value = value as int;
+                    },
+                    visualDensity: VisualDensity.compact,
+                    activeColor: Color(0xff50B5E5),
+                    focusColor: Color(0xff686464),
+                    hoverColor: Color(0xff686464),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    splashRadius: 7.0,
+                  ),
+            )),
             SizedBox(width: 4),
             Text(
               items[i],

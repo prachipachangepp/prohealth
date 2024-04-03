@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import '../../../screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -138,6 +139,9 @@ class __PasswordVerifyContentState extends State<_PasswordVerifyContent> {
                                       ),
                                     ),
                                     child: TextField(
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                      ],
                                       keyboardType: TextInputType.number,
                                       textAlign: TextAlign.center,
                                       maxLength: 1,
