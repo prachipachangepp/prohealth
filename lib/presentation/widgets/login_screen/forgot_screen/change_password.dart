@@ -35,8 +35,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           // SizedBox(height: 20,),
           Padding(
             padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width / 15,
-                right: MediaQuery.of(context).size.width / 12,
+                left: MediaQuery.of(context).size.width / 20,
                 top: 60),
             child: Row(
               mainAxisAlignment:
@@ -66,7 +65,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 380,
+                            width: 360,
                             height: 250,
                             padding: EdgeInsets.symmetric(horizontal: 30,vertical: 40),
                             decoration: BoxDecoration(
@@ -221,7 +220,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       height: 10,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 300.0),
+                      padding: const EdgeInsets.only(left: 280.0),
                       child: GestureDetector(
                         onTap: (){
                              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
@@ -244,7 +243,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                        width: MediaQuery.of(context).size.width / 3,
+                        width: MediaQuery.of(context).size.width / 3.1,
                         height: MediaQuery.of(context).size.height/2,
                         child: Image.asset(
                           'images/amico.png',

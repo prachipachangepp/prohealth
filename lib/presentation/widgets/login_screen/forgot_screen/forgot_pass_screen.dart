@@ -26,8 +26,7 @@ class ForgotPassScreen extends StatelessWidget {
             // SizedBox(height: 20,),
             Padding(
               padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 15,
-                  right: MediaQuery.of(context).size.width / 12,
+                  left: MediaQuery.of(context).size.width / 20,
                   top: 60),
               child: Row(
                 mainAxisAlignment:
@@ -57,7 +56,7 @@ class ForgotPassScreen extends StatelessWidget {
                           CrossAxisAlignment.start,
                           children: [
                             Container(
-                              width: 380,
+                              width: 360,
                               height: 250,
                               padding: EdgeInsets.symmetric(horizontal: 30,vertical: 40),
                               decoration: BoxDecoration(
@@ -125,7 +124,7 @@ class ForgotPassScreen extends StatelessWidget {
                         height: 10,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 300.0),
+                        padding: const EdgeInsets.only(left: 280.0),
                         child: GestureDetector(
                           onTap: (){
                             Navigator.pop(context);

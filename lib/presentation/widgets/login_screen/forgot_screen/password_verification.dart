@@ -75,8 +75,7 @@ class __PasswordVerifyContentState extends State<_PasswordVerifyContent> {
         ),
         Padding(
           padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width / 15,
-              right: MediaQuery.of(context).size.width / 12,
+              left: MediaQuery.of(context).size.width / 20,
               top: 60),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,7 +103,7 @@ class __PasswordVerifyContentState extends State<_PasswordVerifyContent> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: 380,
+                          width: 360,
                           height: 250,
                           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                           decoration: BoxDecoration(
@@ -230,7 +229,7 @@ class __PasswordVerifyContentState extends State<_PasswordVerifyContent> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                      width: MediaQuery.of(context).size.width / 3,
+                      width: MediaQuery.of(context).size.width / 3.1,
                       height: MediaQuery.of(context).size.height / 2,
                       child: Image.asset(
                         'images/amico.png',
