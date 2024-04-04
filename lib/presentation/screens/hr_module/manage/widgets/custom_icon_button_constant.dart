@@ -127,7 +127,12 @@ class CustomButton extends StatelessWidget {
             horizontal: paddingHorizontal,
           ),
         ),
-        child: text != null ? Text(text!) : child,
+        child: text != null
+            ? Text(text!,
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width / 90,
+                ))
+            : child,
       ),
     );
   }

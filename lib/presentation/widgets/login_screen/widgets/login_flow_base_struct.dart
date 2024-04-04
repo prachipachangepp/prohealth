@@ -9,17 +9,19 @@ class LoginBaseConstant extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-       // height: 725,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/login_screen_no_blur.png'),
-            fit: BoxFit.fill,
+          // height: 725,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/login_screen_no_blur.png'),
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 58.0, vertical: 58),
-            child: Container(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height / 40,
+                  vertical: MediaQuery.of(context).size.width / 40),
+              child: Container(
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -36,11 +38,11 @@ class LoginBaseConstant extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width / 90,
                       vertical: MediaQuery.of(context).size.height / 100),
-            child: child,
-          ),
-        ),
-      ),
-      )),
+                  child: child,
+                ),
+              ),
+            ),
+          )),
     );
   }
 }
