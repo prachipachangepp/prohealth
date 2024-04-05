@@ -122,7 +122,7 @@ class LoginBaseConstant extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.only(
                                     left:
-                                        MediaQuery.of(context).size.width / 8),
+                                        MediaQuery.of(context).size.width / 5),
                                 child: GestureDetector(
                                   onTap: onTap,
                                   // onTap: () {
