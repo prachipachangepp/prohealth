@@ -1,5 +1,5 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/services/api/log_in/log_in_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/sub_login_page.dart';
@@ -43,6 +43,78 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   /// log in screen method api call
+  // Future<void> _loginWithEmail() async {
+  //   if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+  //     setState(() {
+  //       _errorMessage = 'Please enter username and password.';
+  //     });
+  //     return;
+  //   }
+  //
+  //   String username = _emailController.text.trim();
+  //   String password = _passwordController.text.trim();
+  //
+  //   LoginManager loginManager = LoginManager();
+  //   try {
+  //     await loginManager.login(username: username, password: password);
+  //     // Navigator.push(
+  //     //   context,
+  //     //   MaterialPageRoute(builder: (context) => SubLoginScreen()),
+  //     // );
+  //   } catch (e) {
+  //     print('Login failed: $e');
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
+  ///
+  // Future<void> _loginWithEmail() async {
+  //   if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+  //     setState(() {
+  //       _errorMessage = 'Please enter username and password.';
+  //     });
+  //     return;
+  //   }
+  //
+  //   String email = _emailController.text.trim();
+  //   String password = _passwordController.text.trim();
+  //
+  //   try {
+  //     var dio = Dio();
+  //     var response = await dio.post(
+  //       'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
+  //       data: {
+  //         'email': email,
+  //         'password': password,
+  //       },
+  //     );
+  //
+  //     if (response.statusCode == 200) {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => SubLoginScreen(),
+  //         ),
+  //       );
+  //     } else {
+  //       setState(() {
+  //         _errorMessage = response.statusMessage;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     setState(() {
+  //       _errorMessage = 'An error occurred. Please try again later.';
+  //     });
+  //     print('Error occurred: $e');
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
+  ///
   Future<void> _loginWithEmail() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
@@ -51,24 +123,51 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    String username = _emailController.text.trim();
+    String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
-    LoginManager loginManager = LoginManager();
     try {
-      await loginManager.login(username: username, password: password);
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => SubLoginScreen()),
-      // );
+      var dio = Dio();
+      var response = await dio.post(
+        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
+        data: {
+          'email': email,
+          'password': password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SubLoginScreen(),
+          ),
+        );
+      } else {
+        // Handle error status code
+        if (response.statusCode == 401) {
+          setState(() {
+            _errorMessage = 'Incorrect password or username.';
+          });
+        } else {
+          setState(() {
+            _errorMessage = response.statusMessage;
+          });
+        }
+      }
     } catch (e) {
-      print('Login failed: $e');
+      setState(() {
+        _errorMessage = 'An error occurred. Please try again later.';
+      });
+      print('Error occurred: $e');
     } finally {
       setState(() {
         _isLoading = false;
       });
     }
   }
+
+  ///
 
   @override
   Widget build(BuildContext context) {
