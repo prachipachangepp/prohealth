@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 import '../controller/controller.dart';
 
 ///getx
-///
 class CenteredTabBar extends GetView<CenteredTabBarController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 4),
       child: DefaultTabController(
         length: controller.tabs.length,
         child: Column(
@@ -33,16 +32,12 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
                 dividerColor: Colors.transparent,
               ),
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Container(
-                  height: controller.tabBarViewHeight,
-                  child: TabBarView(
-                    controller: controller.tabController,
-                    children: controller.tabViews,
-                  ),
-                ),
+            Container(
+              // color: Colors.purpleAccent,
+              height: controller.tabBarViewHeight,
+              child: TabBarView(
+                controller: controller.tabController,
+                children: controller.tabViews,
               ),
             ),
           ],
@@ -52,52 +47,6 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
   }
 }
 
-///  main code
-// class CenteredTabBar extends GetView<CenteredTabBarController> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 5),
-//       child: DefaultTabController(
-//         length: controller.tabs.length,
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Container(
-//               color: Colors.white,
-//               child: TabBar(
-//                 controller: controller.tabController,
-//                 tabs: controller.tabs,
-//                 indicatorWeight: 6,
-//                 indicatorSize: TabBarIndicatorSize.tab,
-//                 indicatorColor: Color(0xFF50B5E5),
-//                 labelColor: Color(0xFF50B5E5),
-//                 labelStyle: TextStyle(
-//                   fontFamily: 'FiraSans',
-//                   fontSize: 12,
-//                   fontWeight: FontWeight.w700,
-//                 ),
-//                 unselectedLabelColor: Colors.black,
-//                 dividerColor: Colors.transparent,
-//               ),
-//             ),
-//             Container(
-//               // color: Colors.purpleAccent,
-//               height: controller.tabBarViewHeight,
-//               child: TabBarView(
-//                 controller: controller.tabController,
-//                 children: controller.tabViews,
-//                 physics: NeverScrollableScrollPhysics(),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-///
 // ///login tabbar
 // class LoginTabBar extends StatelessWidget {
 //   final LoginTabBarController controller;

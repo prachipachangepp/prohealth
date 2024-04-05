@@ -51,7 +51,7 @@ class McqWidget extends StatelessWidget {
         Row(
           children: [
             Obx(() => Transform.scale(
-              scale: 0.8,
+              scale: 0.7,
               child: Radio(
                     value: i,
                     groupValue: selectedItemIndex.value,

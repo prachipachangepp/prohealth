@@ -27,6 +27,17 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _showEmailInput = true;
   // bool _isLoading = false;
   bool _loginSuccessful = false;
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    // Dispose the focus nodes to prevent memory leaks
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
+  }
+
   void _navigateToPage(int page) {
     _pageController.animateToPage(
       page,
@@ -153,7 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-
           ///todo prachi
           Expanded(
             child: Padding(
@@ -175,6 +185,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
+                              focusNode: emailFocusNode,
+                              onFieldSubmitted: (_) {
+                                FocusScope.of(context).requestFocus(passwordFocusNode);
+                              },
                               cursorColor: Colors.black,
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
@@ -192,10 +206,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             ),
                           ),
-                          // SizedBox(height: 10),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
+                              focusNode: passwordFocusNode,
+                              onFieldSubmitted: (_) {
+                                _loginWithEmail();
+                              },
                               cursorColor: Colors.black,
                               controller: _passwordController,
                               keyboardType: TextInputType.visiblePassword,
@@ -275,7 +292,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-
                   /// Page 2: Log in with authenticator
                   Container(
                     width: MediaQuery.of(context).size.width / 4,
@@ -283,13 +299,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     // color: Colors.blue,
                     child: Center(
                       child: Column(
-
                         children: _showEmailInput
                             ? [
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20),
                             child: TextField(
+                              focusNode: emailFocusNode,
+                              onSubmitted: (_) {
+                                setState(() {
+                                  _showEmailInput = false;
+                                });
+                              },
                               controller: _emailController,
                               cursorHeight: 25,
                               decoration: InputDecoration(
@@ -335,6 +356,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   // ),
                                 ),
                                 child: TextField(
+                                  // focusNode: passwordFocusNode,
+                                  // onSubmitted: (_) {
+                                  //   _loginWithEmail();
+                                  // },
                                   cursorColor: Colors.black,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -418,113 +443,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-// Form(
-//   key: _formKey,
-//   child: Column(
-//     children: [
-//       Padding(
-//         padding:
-//             EdgeInsets.symmetric(
-//                 horizontal: 20),
-//         child: TextFormField(
-//           controller:
-//               _emailController,
-//           keyboardType:
-//               TextInputType
-//                   .emailAddress,
-//           decoration:
-//               InputDecoration(
-//             labelText: 'Email',
-//             labelStyle: TextStyle(
-//                 fontSize: 14),
-//             border:
-//                 UnderlineInputBorder(),
-//           ),
-//           validator: (value) {
-//             if (value == null ||
-//                 value.isEmpty) {
-//               return "Enter Email";
-//             }
-//             final bool emailValid =
-//                 RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-//                     .hasMatch(
-//                         value);
-//             if (!emailValid) {
-//               return "Enter Valid Email";
-//             }
-//             return null;
-//           },
-//         ),
-//       ),
-//       SizedBox(height: 10),
-//       Padding(
-//         padding:
-//             EdgeInsets.symmetric(
-//                 horizontal: 20),
-//         child: TextFormField(
-//           controller:
-//               _passwordController,
-//           keyboardType:
-//               TextInputType
-//                   .visiblePassword,
-//           decoration:
-//               InputDecoration(
-//             labelText: 'Password',
-//             labelStyle: TextStyle(
-//                 fontSize: 14),
-//             border:
-//                 UnderlineInputBorder(),
-//             suffixIcon: IconButton(
-//               icon: _isPasswordVisible
-//                   ? Icon(Icons
-//                       .visibility_off)
-//                   : Icon(Icons
-//                       .visibility),
-//               onPressed: () {
-//                 setState(() {
-//                   _isPasswordVisible =
-//                       !_isPasswordVisible;
-//                 });
-//               },
-//             ),
-//           ),
-//           validator: (value) {
-//             if (value == null ||
-//                 value.isEmpty) {
-//               return "Enter Password";
-//             } else if (value
-//                     .length <
-//                 6) {
-//               return "Password should be at least 6 characters long";
-//             }
-//             return null;
-//           },
-//           obscureText:
-//               !_isPasswordVisible,
-//         ),
-//       ),
-//       SizedBox(height: 5),
-//       _isLoading
-//           ? CircularProgressIndicator()
-//           : _loginSuccessful
-//               ? CircularProgressIndicator()
-//               : CustomButton(
-//                   text: 'Log In',
-//                   onPressed: () {
-//                     if (_formKey
-//                         .currentState!
-//                         .validate()) {
-//                       setState(() {
-//                         _isLoading =
-//                             true;
-//                       });
-//                       _loginWithEmail();
-//                     }
-//                   },
-//                   width: 90.0,
-//                   height: 30.0,
-//                 ),
-//     ],
-//   ),
-// ),

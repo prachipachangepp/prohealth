@@ -19,7 +19,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return LoginBaseConstant(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
+      },
       titleText: 'New Password',
       textAction: 'Back to Log In',
       textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 4),
@@ -167,7 +172,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   CustomButton(
                                       width: 282,
                                       height: 46,
-                                      text: 'Continue',
+                                      text: 'CONTINUE',
                                       borderRadius: 28,
                                       onPressed: () {
                                         Navigator.push(
