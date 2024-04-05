@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/log_in/log_in_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
+import 'package:prohealth/presentation/widgets/login_screen/sub_login_page.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,6 +24,9 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _errorMessage;
   // bool _isLoading = false;
   bool _loginSuccessful = false;
+  TextEditingController _emailidController = TextEditingController();
+  TextEditingController _otpController = TextEditingController();
+  bool _showEmailInput = true;
   void _navigateToPage(int page) {
     _pageController.animateToPage(
       page,
@@ -282,103 +286,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-
-                    // Form(
-                    //   key: _formKey,
-                    //   child: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    //     children: [
-                    //       SizedBox(
-                    //         height: MediaQuery.of(context).size.height * 0.1,
-                    //         child: TextFormField(
-                    //           controller: _emailController,
-                    //           keyboardType: TextInputType.emailAddress,
-                    //           decoration: InputDecoration(
-                    //             labelText: 'Email',
-                    //           ),
-                    //           validator: (value) {
-                    //             if (value == null || value.isEmpty) {
-                    //               return 'Enter Email';
-                    //             }
-                    //             return null;
-                    //           },
-                    //         ),
-                    //       ),
-                    //       SizedBox(height: 10),
-                    //       SizedBox(
-                    //         height: MediaQuery.of(context).size.height * 0.1,
-                    //         child: TextFormField(
-                    //           controller: _passwordController,
-                    //           keyboardType: TextInputType.visiblePassword,
-                    //           decoration: InputDecoration(
-                    //             labelText: 'Password',
-                    //             suffixIcon: IconButton(
-                    //               icon: _isPasswordVisible
-                    //                   ? Icon(Icons.visibility_off)
-                    //                   : Icon(Icons.visibility),
-                    //               onPressed: () {
-                    //                 setState(() {
-                    //                   _isPasswordVisible = !_isPasswordVisible;
-                    //                 });
-                    //               },
-                    //             ),
-                    //           ),
-                    //           validator: (value) {
-                    //             if (value == null || value.isEmpty) {
-                    //               return 'Enter Password';
-                    //             }
-                    //             return null;
-                    //           },
-                    //           obscureText: !_isPasswordVisible,
-                    //         ),
-                    //       ),
-                    //       SizedBox(
-                    //         height: MediaQuery.of(context).size.height / 99,
-                    //       ),
-                    //       _isLoading
-                    //           ? CircularProgressIndicator(
-                    //               strokeWidth: 2.0,
-                    //             )
-                    //           : !_loginSuccessful
-                    //               ? CustomButton(
-                    //                   text: 'Log In',
-                    //                   onPressed: () {
-                    //                     Navigator.push(
-                    //                       context,
-                    //                       MaterialPageRoute(
-                    //                           builder: (context) =>
-                    //                               SubLoginScreen()),
-                    //                     );
-                    //                     // if (_formKey.currentState!
-                    //                     //     .validate()) {
-                    //                     //   setState(() {
-                    //                     //     _isLoading = true;
-                    //                     //     _errorMessage = null;
-                    //                     //   });
-                    //                     //   _loginWithEmail();
-                    //                     // }
-                    //                     // print('Button pressed!');
-                    //                   },
-                    //                   width: MediaQuery.of(context).size.width /
-                    //                       10,
-                    //                   height:
-                    //                       MediaQuery.of(context).size.height /
-                    //                           22,
-                    //                 )
-                    //               : SizedBox(),
-                    //       if (_errorMessage != null)
-                    //         Padding(
-                    //           padding: EdgeInsets.only(
-                    //             top: MediaQuery.of(context).size.height / 99,
-                    //           ),
-                    //           child: Text(
-                    //             _errorMessage!,
-                    //             style: TextStyle(color: Colors.red),
-                    //           ),
-                    //         ),
-                    //     ],
-                    //   ),
-                    // ),
                   ),
 
                   /// Page 2: Log in with authenticator
@@ -388,27 +295,125 @@ class _LoginScreenState extends State<LoginScreen> {
                     // color: Colors.blue,
                     child: Center(
                       child: Column(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: TextField(
-                              cursorHeight: 25,
-                              decoration: InputDecoration(
-                                labelText: 'Email',
-                                labelStyle: TextStyle(fontSize: 14),
-                                border: UnderlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 99,
-                          ),
-                          CustomButton(
-                              text: 'Next',
-                              onPressed: () {},
-                              width: MediaQuery.of(context).size.width / 10,
-                              height: MediaQuery.of(context).size.height / 22)
-                        ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: _showEmailInput
+                            ? [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: TextField(
+                                    controller: _emailController,
+                                    cursorHeight: 25,
+                                    decoration: InputDecoration(
+                                      labelText: 'Email',
+                                      labelStyle: TextStyle(fontSize: 14),
+                                      border: UnderlineInputBorder(),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 99,
+                                ),
+                                Center(
+                                  child: CustomButton(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              20,
+                                      width:
+                                          MediaQuery.of(context).size.height /
+                                              8,
+                                      onPressed: () {
+                                        setState(() {
+                                          _showEmailInput = false;
+                                        });
+                                      },
+                                      text: 'Next'),
+                                )
+                              ]
+                            : [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      child: TextField(
+                                        maxLength: 1,
+                                        keyboardType: TextInputType.number,
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                          counterText: "",
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Container(
+                                      width: 50,
+                                      child: TextField(
+                                        maxLength: 1,
+                                        keyboardType: TextInputType.number,
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                          counterText: "",
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Container(
+                                      width: 50,
+                                      child: TextField(
+                                        maxLength: 1,
+                                        keyboardType: TextInputType.number,
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                          counterText: "",
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Container(
+                                      width: 50,
+                                      child: TextField(
+                                        maxLength: 1,
+                                        keyboardType: TextInputType.number,
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                          counterText: "",
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 99,
+                                ),
+                                Center(
+                                  child: CustomButton(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              20,
+                                      width:
+                                          MediaQuery.of(context).size.height /
+                                              8,
+                                      onPressed: () {
+                                        setState(() {
+                                          _showEmailInput = false;
+                                        });
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SubLoginScreen()),
+                                        );
+                                      },
+                                      text: 'LogIn'),
+                                )
+                              ],
                       ),
                     ),
                   ),
@@ -421,113 +426,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-// Form(
-//   key: _formKey,
-//   child: Column(
-//     children: [
-//       Padding(
-//         padding:
-//             EdgeInsets.symmetric(
-//                 horizontal: 20),
-//         child: TextFormField(
-//           controller:
-//               _emailController,
-//           keyboardType:
-//               TextInputType
-//                   .emailAddress,
-//           decoration:
-//               InputDecoration(
-//             labelText: 'Email',
-//             labelStyle: TextStyle(
-//                 fontSize: 14),
-//             border:
-//                 UnderlineInputBorder(),
-//           ),
-//           validator: (value) {
-//             if (value == null ||
-//                 value.isEmpty) {
-//               return "Enter Email";
-//             }
-//             final bool emailValid =
-//                 RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-//                     .hasMatch(
-//                         value);
-//             if (!emailValid) {
-//               return "Enter Valid Email";
-//             }
-//             return null;
-//           },
-//         ),
-//       ),
-//       SizedBox(height: 10),
-//       Padding(
-//         padding:
-//             EdgeInsets.symmetric(
-//                 horizontal: 20),
-//         child: TextFormField(
-//           controller:
-//               _passwordController,
-//           keyboardType:
-//               TextInputType
-//                   .visiblePassword,
-//           decoration:
-//               InputDecoration(
-//             labelText: 'Password',
-//             labelStyle: TextStyle(
-//                 fontSize: 14),
-//             border:
-//                 UnderlineInputBorder(),
-//             suffixIcon: IconButton(
-//               icon: _isPasswordVisible
-//                   ? Icon(Icons
-//                       .visibility_off)
-//                   : Icon(Icons
-//                       .visibility),
-//               onPressed: () {
-//                 setState(() {
-//                   _isPasswordVisible =
-//                       !_isPasswordVisible;
-//                 });
-//               },
-//             ),
-//           ),
-//           validator: (value) {
-//             if (value == null ||
-//                 value.isEmpty) {
-//               return "Enter Password";
-//             } else if (value
-//                     .length <
-//                 6) {
-//               return "Password should be at least 6 characters long";
-//             }
-//             return null;
-//           },
-//           obscureText:
-//               !_isPasswordVisible,
-//         ),
-//       ),
-//       SizedBox(height: 5),
-//       _isLoading
-//           ? CircularProgressIndicator()
-//           : _loginSuccessful
-//               ? CircularProgressIndicator()
-//               : CustomButton(
-//                   text: 'Log In',
-//                   onPressed: () {
-//                     if (_formKey
-//                         .currentState!
-//                         .validate()) {
-//                       setState(() {
-//                         _isLoading =
-//                             true;
-//                       });
-//                       _loginWithEmail();
-//                     }
-//                   },
-//                   width: 90.0,
-//                   height: 30.0,
-//                 ),
-//     ],
-//   ),
-// ),
