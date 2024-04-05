@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,6 +55,32 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   /// log in screen method api call
+  // Future<void> _loginWithEmail() async {
+  //   if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+  //     setState(() {
+  //       _errorMessage = 'Please enter username and password.';
+  //     });
+  //     return;
+  //   }
+  //
+  //   String username = _emailController.text.trim();
+  //   String password = _passwordController.text.trim();
+  //
+  //   LoginManager loginManager = LoginManager();
+  //   try {
+  //     await loginManager.login(username: username, password: password);
+  //     // Navigator.push(
+  //     //   context,
+  //     //   MaterialPageRoute(builder: (context) => SubLoginScreen()),
+  //     // );
+  //   } catch (e) {
+  //     print('Login failed: $e');
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
   Future<void> _loginWithEmail() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
@@ -61,19 +88,34 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       return;
     }
-
-    String username = _emailController.text.trim();
+    String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
-
-    LoginManager loginManager = LoginManager();
     try {
-      await loginManager.login(username: username, password: password);
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => SubLoginScreen()),
-      // );
+      var dio = Dio();
+      var response = await dio.post(
+        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
+        data: {
+          'email': email,
+          'password': password,
+        },
+      );
+      if (response.statusCode == 200) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SubLoginScreen(),
+          ),
+        );
+      } else {
+        setState(() {
+          _errorMessage = response.statusMessage;
+        });
+      }
     } catch (e) {
-      print('Login failed: $e');
+      setState(() {
+        _errorMessage = 'The email or password you entered is incorrect.';
+      });
+      print('Error occurred: $e');
     } finally {
       setState(() {
         _isLoading = false;
