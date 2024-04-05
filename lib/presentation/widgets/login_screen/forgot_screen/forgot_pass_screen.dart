@@ -37,8 +37,9 @@ class ForgotPassScreen extends StatelessWidget {
           MaterialPageRoute(builder: (context) => LoginScreen()),
         );
       },
+      textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 4),
       titleText: 'Forgot Password',
-      textAction: 'Back to LogIn',
+      textAction: 'Back to Log in',
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width / 120),
         child: Column(
@@ -71,10 +72,7 @@ class ForgotPassScreen extends StatelessWidget {
                   borderSide: BorderSide(color: Colors.black),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff50B5E5)),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
+                  borderSide: BorderSide(color: Colors.black),
                 ),
               ),
             ),

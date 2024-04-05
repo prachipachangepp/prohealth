@@ -74,9 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => ForgotPassScreen()));
       },
-      // child2: null,
-      titleText: 'LogIn',
-      textAction: 'Forgot Password',
+      textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
+      titleText: 'Log In',
+      textAction: 'Forgot your account password ?',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Login with Email",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width / 80,
+                            fontSize: MediaQuery.of(context).size.width / 90,
                             color: _selectedIndex == 0
                                 ? Colors.blue
                                 : const Color(0xff686464),
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Login with Authenticator",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width / 80,
+                            fontSize: MediaQuery.of(context).size.width / 90,
                             color: _selectedIndex == 1
                                 ? Colors.blue
                                 : const Color(0xff686464),
@@ -169,9 +169,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.1,
                               child: TextFormField(
+                                cursorColor: Colors.black,
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black),
+                                  ),
                                   labelText: 'Email',
                                 ),
                                 validator: (value) {
@@ -186,14 +190,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.1,
                               child: TextFormField(
+                                cursorColor: Colors.black,
                                 controller: _passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 decoration: InputDecoration(
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black),
+                                  ),
                                   labelText: 'Password',
                                   suffixIcon: IconButton(
                                     icon: _isPasswordVisible
-                                        ? Icon(Icons.visibility_off)
-                                        : Icon(Icons.visibility),
+                                        ? Icon(Icons.visibility_off_outlined,color: Color(0xffACA5BB),)
+                                        : Icon(Icons.visibility_outlined,color: Color(0xffACA5BB),),
                                     onPressed: () {
                                       setState(() {
                                         _isPasswordVisible =
@@ -220,6 +228,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   )
                                 : !_loginSuccessful
                                     ? CustomButton(
+                              width: 90,
+                             // width: MediaQuery.of(context).size.width / 50,
+                              height: MediaQuery.of(context).size.height / 22,
                                         text: 'Log In',
                                         onPressed: () {
                                           Navigator.push(
@@ -238,12 +249,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           // }
                                           // print('Button pressed!');
                                         },
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                10,
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                22,
                                       )
                                     : SizedBox(),
                             if (_errorMessage != null)
@@ -272,7 +277,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             child: TextField(
                               cursorHeight: 25,
+                              cursorColor: Colors.black,
                               decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
                                 labelText: 'Email',
                                 labelStyle: TextStyle(fontSize: 14),
                                 border: UnderlineInputBorder(),
@@ -280,7 +289,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 99,
+                            height: MediaQuery.of(context).size.height / 10,
                           ),
                           CustomButton(
                               text: 'Next',
