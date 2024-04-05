@@ -54,10 +54,10 @@ class _LoginScreenState extends State<LoginScreen> {
     LoginManager loginManager = LoginManager();
     try {
       await loginManager.login(username: username, password: password);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SubLoginScreen()),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => SubLoginScreen()),
+      // );
     } catch (e) {
       print('Login failed: $e');
     } finally {
@@ -70,395 +70,630 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return LoginBaseConstant(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ForgotPassScreen()));
+      },
+      // child2: null,
+      titleText: 'LogIn',
+      textAction: 'Forgot Password',
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ///logo
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.height / 3),
-                child: Image.asset(
-                  'images/logo_login.png',
-                  width: MediaQuery.of(context).size.width / 5,
-                  height: MediaQuery.of(context).size.height / 5,
-                ),
-              )
-            ],
-          ),
-          // SizedBox(
-          //   height: ,
-          // ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          // Headings
+          Padding(
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width / 120),
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width / 70),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height / 10),
-                    child: Text(
-                      'Log In',
-                      style: TextStyle(
-                        fontFamily: 'FiraSans',
-                        color: Color(0xff686464),
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 100,
-                  ),
-
-                  ///todo prachi
-                  Material(
-                    elevation: 9,
-                    borderRadius: BorderRadius.circular(24),
+                  GestureDetector(
+                    onTap: () {
+                      _handleSelected(0);
+                    },
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width / 3.3,
-                          height: MediaQuery.of(context).size.height / 2.3,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Headings
-                              Padding(
-                                padding: EdgeInsets.all(
-                                    MediaQuery.of(context).size.width / 120),
-                                child: Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.width / 70),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          _handleSelected(0);
-                                        },
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              "Login with Email",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    80,
-                                                color: _selectedIndex == 0
-                                                    ? Colors.blue
-                                                    : const Color(0xff686464),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            _selectedIndex == 0
-                                                ? Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            12,
-                                                    height: 2,
-                                                    color: Colors.blue,
-                                                  )
-                                                : Container(),
-                                          ],
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          _handleSelected(1);
-                                        },
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              "Login with Authenticator",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    80,
-                                                color: _selectedIndex == 1
-                                                    ? Colors.blue
-                                                    : const Color(0xff686464),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            _selectedIndex == 1
-                                                ? Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            8,
-                                                    height: 2,
-                                                    color: Colors.blue,
-                                                  )
-                                                : Container(),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                              ///todo prachi
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          MediaQuery.of(context).size.width /
-                                              99),
-                                  child: PageView(
-                                    controller: _pageController,
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      /// Page 1: Log in with mail
-                                      Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              4,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              4,
-                                          child: Form(
-                                            key: _formKey,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              children: [
-                                                SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.1,
-                                                  child: TextFormField(
-                                                    controller:
-                                                        _emailController,
-                                                    keyboardType: TextInputType
-                                                        .emailAddress,
-                                                    decoration: InputDecoration(
-                                                      labelText: 'Email',
-                                                    ),
-                                                    validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
-                                                        return 'Enter Email';
-                                                      }
-                                                      return null;
-                                                    },
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                                SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.1,
-                                                  child: TextFormField(
-                                                    controller:
-                                                        _passwordController,
-                                                    keyboardType: TextInputType
-                                                        .visiblePassword,
-                                                    decoration: InputDecoration(
-                                                      labelText: 'Password',
-                                                      suffixIcon: IconButton(
-                                                        icon: _isPasswordVisible
-                                                            ? Icon(Icons
-                                                                .visibility_off)
-                                                            : Icon(Icons
-                                                                .visibility),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            _isPasswordVisible =
-                                                                !_isPasswordVisible;
-                                                          });
-                                                        },
-                                                      ),
-                                                    ),
-                                                    validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
-                                                        return 'Enter Password';
-                                                      }
-                                                      return null;
-                                                    },
-                                                    obscureText:
-                                                        !_isPasswordVisible,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      99,
-                                                ),
-                                                _isLoading
-                                                    ? CircularProgressIndicator(
-                                                        strokeWidth: 2.0,
-                                                      )
-                                                    : !_loginSuccessful
-                                                        ? CustomButton(
-                                                            text: 'Log In',
-                                                            onPressed: () {
-                                                              if (_formKey
-                                                                  .currentState!
-                                                                  .validate()) {
-                                                                setState(() {
-                                                                  _isLoading =
-                                                                      true;
-                                                                  _errorMessage =
-                                                                      null;
-                                                                });
-                                                                _loginWithEmail();
-                                                              }
-                                                              print(
-                                                                  'Button pressed!');
-                                                            },
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width /
-                                                                10,
-                                                            height: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .height /
-                                                                22,
-                                                          )
-                                                        : SizedBox(),
-                                                if (_errorMessage != null)
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      top:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              99,
-                                                    ),
-                                                    child: Text(
-                                                      _errorMessage!,
-                                                      style: TextStyle(
-                                                          color: Colors.red),
-                                                    ),
-                                                  ),
-                                              ],
-                                            ),
-                                          )),
-
-                                      /// Page 2: Log in with authenticator
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                4,
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                4,
-                                        // color: Colors.blue,
-                                        child: Center(
-                                          child: Column(
-                                            children: [
-                                              const Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 20),
-                                                child: TextField(
-                                                  cursorHeight: 25,
-                                                  decoration: InputDecoration(
-                                                    labelText: 'Email',
-                                                    labelStyle:
-                                                        TextStyle(fontSize: 14),
-                                                    border:
-                                                        UnderlineInputBorder(),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    99,
-                                              ),
-                                              CustomButton(
-                                                  text: 'Next',
-                                                  onPressed: () {},
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      10,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      22)
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
+                        Text(
+                          "Login with Email",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: MediaQuery.of(context).size.width / 80,
+                            color: _selectedIndex == 0
+                                ? Colors.blue
+                                : const Color(0xff686464),
                           ),
                         ),
+                        const SizedBox(height: 5),
+                        _selectedIndex == 0
+                            ? Container(
+                                width: MediaQuery.of(context).size.width / 12,
+                                height: 2,
+                                color: Colors.blue,
+                              )
+                            : Container(),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 80,
-                  ),
-
-                  ///forget password text
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 8),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForgotPassScreen()));
-                      },
-                      child: const Text(
-                        'Forgot your account password ?',
-                        style: TextStyle(
-                          fontFamily: 'FiraSans',
-                          color: Color(0xff1696C8),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
+                  GestureDetector(
+                    onTap: () {
+                      _handleSelected(1);
+                    },
+                    child: Column(
+                      children: [
+                        Text(
+                          "Login with Authenticator",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: MediaQuery.of(context).size.width / 80,
+                            color: _selectedIndex == 1
+                                ? Colors.blue
+                                : const Color(0xff686464),
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 5),
+                        _selectedIndex == 1
+                            ? Container(
+                                width: MediaQuery.of(context).size.width / 8,
+                                height: 2,
+                                color: Colors.blue,
+                              )
+                            : Container(),
+                      ],
                     ),
-                  )
+                  ),
                 ],
               ),
-              // SizedBox(width: MediaQuery.of(context).size.width / 8),
-              Image.asset(
-                'images/amico.png',
-                width: MediaQuery.of(context).size.width / 3,
-                height: MediaQuery.of(context).size.height / 2,
-              )
-            ],
-          )
+            ),
+          ),
+
+          ///todo prachi
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 99),
+              child: PageView(
+                controller: _pageController,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  /// Page 1: Log in with mail
+                  Container(
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: MediaQuery.of(context).size.height / 4,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.1,
+                              child: TextFormField(
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: InputDecoration(
+                                  labelText: 'Email',
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Enter Email';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.1,
+                              child: TextFormField(
+                                controller: _passwordController,
+                                keyboardType: TextInputType.visiblePassword,
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  suffixIcon: IconButton(
+                                    icon: _isPasswordVisible
+                                        ? Icon(Icons.visibility_off)
+                                        : Icon(Icons.visibility),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isPasswordVisible =
+                                            !_isPasswordVisible;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Enter Password';
+                                  }
+                                  return null;
+                                },
+                                obscureText: !_isPasswordVisible,
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 99,
+                            ),
+                            _isLoading
+                                ? CircularProgressIndicator(
+                                    strokeWidth: 2.0,
+                                  )
+                                : !_loginSuccessful
+                                    ? CustomButton(
+                                        text: 'Log In',
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SubLoginScreen()),
+                                          );
+                                          // if (_formKey.currentState!
+                                          //     .validate()) {
+                                          //   setState(() {
+                                          //     _isLoading = true;
+                                          //     _errorMessage = null;
+                                          //   });
+                                          //   _loginWithEmail();
+                                          // }
+                                          // print('Button pressed!');
+                                        },
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                10,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                22,
+                                      )
+                                    : SizedBox(),
+                            if (_errorMessage != null)
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height / 99,
+                                ),
+                                child: Text(
+                                  _errorMessage!,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                          ],
+                        ),
+                      )),
+
+                  /// Page 2: Log in with authenticator
+                  Container(
+                    width: MediaQuery.of(context).size.width / 4,
+                    height: MediaQuery.of(context).size.height / 4,
+                    // color: Colors.blue,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: TextField(
+                              cursorHeight: 25,
+                              decoration: InputDecoration(
+                                labelText: 'Email',
+                                labelStyle: TextStyle(fontSize: 14),
+                                border: UnderlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 99,
+                          ),
+                          CustomButton(
+                              text: 'Next',
+                              onPressed: () {},
+                              width: MediaQuery.of(context).size.width / 10,
+                              height: MediaQuery.of(context).size.height / 22)
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
+      // Column(
+      //   children: [
+      //     ///logo
+      //     Row(
+      //       mainAxisAlignment: MainAxisAlignment.end,
+      //       children: [
+      //         Padding(
+      //           padding: EdgeInsets.only(
+      //               right: MediaQuery.of(context).size.height / 3),
+      //           child: Image.asset(
+      //             'images/logo_login.png',
+      //             width: MediaQuery.of(context).size.width / 5,
+      //             height: MediaQuery.of(context).size.height / 5,
+      //           ),
+      //         )
+      //       ],
+      //     ),
+      //     // SizedBox(
+      //     //   height: ,
+      //     // ),
+      //     Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //       children: [
+      //         Column(
+      //           crossAxisAlignment: CrossAxisAlignment.start,
+      //           children: [
+      //             Padding(
+      //               padding: EdgeInsets.only(
+      //                   left: MediaQuery.of(context).size.height / 10),
+      //               child: Text(
+      //                 'Log In',
+      //                 style: TextStyle(
+      //                   fontFamily: 'FiraSans',
+      //                   color: Color(0xff686464),
+      //                   fontSize: 30,
+      //                   fontWeight: FontWeight.bold,
+      //                 ),
+      //               ),
+      //             ),
+      //             SizedBox(
+      //               height: MediaQuery.of(context).size.height / 100,
+      //             ),
+      //
+      //             ///todo prachi
+      //             Material(
+      //               elevation: 9,
+      //               borderRadius: BorderRadius.circular(24),
+      //               child: Column(
+      //                 crossAxisAlignment: CrossAxisAlignment.start,
+      //                 children: [
+      //                   Container(
+      //                     width: MediaQuery.of(context).size.width / 3.3,
+      //                     height: MediaQuery.of(context).size.height / 2.3,
+      //                     decoration: BoxDecoration(
+      //                       borderRadius: BorderRadius.circular(24),
+      //                       color: Colors.white,
+      //                     ),
+      //                     child: Column(
+      //                       crossAxisAlignment: CrossAxisAlignment.start,
+      //                       children: [
+      //                         // Headings
+      //                         Padding(
+      //                           padding: EdgeInsets.all(
+      //                               MediaQuery.of(context).size.width / 120),
+      //                           child: Container(
+      //                             width: double.infinity,
+      //                             padding: EdgeInsets.all(
+      //                                 MediaQuery.of(context).size.width / 70),
+      //                             child: Row(
+      //                               mainAxisAlignment:
+      //                                   MainAxisAlignment.spaceEvenly,
+      //                               children: [
+      //                                 GestureDetector(
+      //                                   onTap: () {
+      //                                     _handleSelected(0);
+      //                                   },
+      //                                   child: Column(
+      //                                     children: [
+      //                                       Text(
+      //                                         "Login with Email",
+      //                                         style: TextStyle(
+      //                                           fontWeight: FontWeight.bold,
+      //                                           fontSize: MediaQuery.of(context)
+      //                                                   .size
+      //                                                   .width /
+      //                                               80,
+      //                                           color: _selectedIndex == 0
+      //                                               ? Colors.blue
+      //                                               : const Color(0xff686464),
+      //                                         ),
+      //                                       ),
+      //                                       const SizedBox(height: 5),
+      //                                       _selectedIndex == 0
+      //                                           ? Container(
+      //                                               width:
+      //                                                   MediaQuery.of(context)
+      //                                                           .size
+      //                                                           .width /
+      //                                                       12,
+      //                                               height: 2,
+      //                                               color: Colors.blue,
+      //                                             )
+      //                                           : Container(),
+      //                                     ],
+      //                                   ),
+      //                                 ),
+      //                                 GestureDetector(
+      //                                   onTap: () {
+      //                                     _handleSelected(1);
+      //                                   },
+      //                                   child: Column(
+      //                                     children: [
+      //                                       Text(
+      //                                         "Login with Authenticator",
+      //                                         style: TextStyle(
+      //                                           fontWeight: FontWeight.bold,
+      //                                           fontSize: MediaQuery.of(context)
+      //                                                   .size
+      //                                                   .width /
+      //                                               80,
+      //                                           color: _selectedIndex == 1
+      //                                               ? Colors.blue
+      //                                               : const Color(0xff686464),
+      //                                         ),
+      //                                       ),
+      //                                       const SizedBox(height: 5),
+      //                                       _selectedIndex == 1
+      //                                           ? Container(
+      //                                               width:
+      //                                                   MediaQuery.of(context)
+      //                                                           .size
+      //                                                           .width /
+      //                                                       8,
+      //                                               height: 2,
+      //                                               color: Colors.blue,
+      //                                             )
+      //                                           : Container(),
+      //                                     ],
+      //                                   ),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //
+      //                         ///todo prachi
+      //                         Expanded(
+      //                           child: Padding(
+      //                             padding: EdgeInsets.symmetric(
+      //                                 horizontal:
+      //                                     MediaQuery.of(context).size.width /
+      //                                         99),
+      //                             child: PageView(
+      //                               controller: _pageController,
+      //                               scrollDirection: Axis.horizontal,
+      //                               children: [
+      //                                 /// Page 1: Log in with mail
+      //                                 Container(
+      //                                     width: MediaQuery.of(context)
+      //                                             .size
+      //                                             .width /
+      //                                         4,
+      //                                     height: MediaQuery.of(context)
+      //                                             .size
+      //                                             .height /
+      //                                         4,
+      //                                     child: Form(
+      //                                       key: _formKey,
+      //                                       child: Column(
+      //                                         crossAxisAlignment:
+      //                                             CrossAxisAlignment.stretch,
+      //                                         children: [
+      //                                           SizedBox(
+      //                                             height: MediaQuery.of(context)
+      //                                                     .size
+      //                                                     .height *
+      //                                                 0.1,
+      //                                             child: TextFormField(
+      //                                               controller:
+      //                                                   _emailController,
+      //                                               keyboardType: TextInputType
+      //                                                   .emailAddress,
+      //                                               decoration: InputDecoration(
+      //                                                 labelText: 'Email',
+      //                                               ),
+      //                                               validator: (value) {
+      //                                                 if (value == null ||
+      //                                                     value.isEmpty) {
+      //                                                   return 'Enter Email';
+      //                                                 }
+      //                                                 return null;
+      //                                               },
+      //                                             ),
+      //                                           ),
+      //                                           SizedBox(height: 10),
+      //                                           SizedBox(
+      //                                             height: MediaQuery.of(context)
+      //                                                     .size
+      //                                                     .height *
+      //                                                 0.1,
+      //                                             child: TextFormField(
+      //                                               controller:
+      //                                                   _passwordController,
+      //                                               keyboardType: TextInputType
+      //                                                   .visiblePassword,
+      //                                               decoration: InputDecoration(
+      //                                                 labelText: 'Password',
+      //                                                 suffixIcon: IconButton(
+      //                                                   icon: _isPasswordVisible
+      //                                                       ? Icon(Icons
+      //                                                           .visibility_off)
+      //                                                       : Icon(Icons
+      //                                                           .visibility),
+      //                                                   onPressed: () {
+      //                                                     setState(() {
+      //                                                       _isPasswordVisible =
+      //                                                           !_isPasswordVisible;
+      //                                                     });
+      //                                                   },
+      //                                                 ),
+      //                                               ),
+      //                                               validator: (value) {
+      //                                                 if (value == null ||
+      //                                                     value.isEmpty) {
+      //                                                   return 'Enter Password';
+      //                                                 }
+      //                                                 return null;
+      //                                               },
+      //                                               obscureText:
+      //                                                   !_isPasswordVisible,
+      //                                             ),
+      //                                           ),
+      //                                           SizedBox(
+      //                                             height: MediaQuery.of(context)
+      //                                                     .size
+      //                                                     .height /
+      //                                                 99,
+      //                                           ),
+      //                                           _isLoading
+      //                                               ? CircularProgressIndicator(
+      //                                                   strokeWidth: 2.0,
+      //                                                 )
+      //                                               : !_loginSuccessful
+      //                                                   ? CustomButton(
+      //                                                       text: 'Log In',
+      //                                                       onPressed: () {
+      //                                                         Navigator.push(
+      //                                                           context,
+      //                                                           MaterialPageRoute(
+      //                                                               builder:
+      //                                                                   (context) =>
+      //                                                                       SubLoginScreen()),
+      //                                                         );
+      //                                                         // if (_formKey
+      //                                                         //     .currentState!
+      //                                                         //     .validate()) {
+      //                                                         //   setState(() {
+      //                                                         //     _isLoading =
+      //                                                         //         true;
+      //                                                         //     _errorMessage =
+      //                                                         //         null;
+      //                                                         //   });
+      //                                                         //   _loginWithEmail();
+      //                                                         // }
+      //                                                         // print(
+      //                                                         //     'Button pressed!');
+      //                                                       },
+      //                                                       width: MediaQuery.of(
+      //                                                                   context)
+      //                                                               .size
+      //                                                               .width /
+      //                                                           10,
+      //                                                       height: MediaQuery.of(
+      //                                                                   context)
+      //                                                               .size
+      //                                                               .height /
+      //                                                           22,
+      //                                                     )
+      //                                                   : SizedBox(),
+      //                                           if (_errorMessage != null)
+      //                                             Padding(
+      //                                               padding: EdgeInsets.only(
+      //                                                 top:
+      //                                                     MediaQuery.of(context)
+      //                                                             .size
+      //                                                             .height /
+      //                                                         99,
+      //                                               ),
+      //                                               child: Text(
+      //                                                 _errorMessage!,
+      //                                                 style: TextStyle(
+      //                                                     color: Colors.red),
+      //                                               ),
+      //                                             ),
+      //                                         ],
+      //                                       ),
+      //                                     )),
+      //
+      //                                 /// Page 2: Log in with authenticator
+      //                                 Container(
+      //                                   width:
+      //                                       MediaQuery.of(context).size.width /
+      //                                           4,
+      //                                   height:
+      //                                       MediaQuery.of(context).size.height /
+      //                                           4,
+      //                                   // color: Colors.blue,
+      //                                   child: Center(
+      //                                     child: Column(
+      //                                       children: [
+      //                                         const Padding(
+      //                                           padding: EdgeInsets.symmetric(
+      //                                               horizontal: 20),
+      //                                           child: TextField(
+      //                                             cursorHeight: 25,
+      //                                             decoration: InputDecoration(
+      //                                               labelText: 'Email',
+      //                                               labelStyle:
+      //                                                   TextStyle(fontSize: 14),
+      //                                               border:
+      //                                                   UnderlineInputBorder(),
+      //                                             ),
+      //                                           ),
+      //                                         ),
+      //                                         SizedBox(
+      //                                           height: MediaQuery.of(context)
+      //                                                   .size
+      //                                                   .height /
+      //                                               99,
+      //                                         ),
+      //                                         CustomButton(
+      //                                             text: 'Next',
+      //                                             onPressed: () {},
+      //                                             width: MediaQuery.of(context)
+      //                                                     .size
+      //                                                     .width /
+      //                                                 10,
+      //                                             height: MediaQuery.of(context)
+      //                                                     .size
+      //                                                     .height /
+      //                                                 22)
+      //                                       ],
+      //                                     ),
+      //                                   ),
+      //                                 ),
+      //                               ],
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ],
+      //                     ),
+      //                   ),
+      //                 ],
+      //               ),
+      //             ),
+      //             SizedBox(
+      //               height: MediaQuery.of(context).size.height / 80,
+      //             ),
+      //
+      //             ///forget password text
+      //             Padding(
+      //               padding: EdgeInsets.only(
+      //                   left: MediaQuery.of(context).size.width / 8),
+      //               child: GestureDetector(
+      //                 onTap: () {
+      //                   Navigator.push(
+      //                       context,
+      //                       MaterialPageRoute(
+      //                           builder: (context) => ForgotPassScreen()));
+      //                 },
+      //                 child: const Text(
+      //                   'Forgot your account password ?',
+      //                   style: TextStyle(
+      //                     fontFamily: 'FiraSans',
+      //                     color: Color(0xff1696C8),
+      //                     fontSize: 12,
+      //                     fontWeight: FontWeight.w500,
+      //                   ),
+      //                 ),
+      //               ),
+      //             )
+      //           ],
+      //         ),
+      //         // SizedBox(width: MediaQuery.of(context).size.width / 8),
+      //         Image.asset(
+      //           'images/amico.png',
+      //           width: MediaQuery.of(context).size.width / 3,
+      //           height: MediaQuery.of(context).size.height / 2,
+      //         )
+      //       ],
+      //     )
+      //   ],
+      // ),
     );
   }
 }
+
 // Form(
 //   key: _formKey,
 //   child: Column(
