@@ -1,7 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:prohealth/app/services/api/log_in/log_in_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
+import 'package:prohealth/presentation/widgets/login_screen/sub_login_page.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   bool _isPasswordVisible = false;
   String? _errorMessage;
+  bool _showEmailInput = true;
   // bool _isLoading = false;
   bool _loginSuccessful = false;
   void _navigateToPage(int page) {
@@ -74,8 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialPageRoute(builder: (context) => ForgotPassScreen()));
       },
       // child2: null,
-      titleText: 'LogIn',
-      textAction: 'Forgot Password ?',
+      titleText: 'Log In',
+      textAction: 'Forgot your account password ?',
+      textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -100,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Login with Email",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width / 80,
+                            fontSize: MediaQuery.of(context).size.width / 90,
                             color: _selectedIndex == 0
                                 ? Colors.blue
                                 : const Color(0xff686464),
@@ -127,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Login with Authenticator",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width / 80,
+                            fontSize: MediaQuery.of(context).size.width / 90,
                             color: _selectedIndex == 1
                                 ? Colors.blue
                                 : const Color(0xff686464),
@@ -170,9 +175,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
+                              cursorColor: Colors.black,
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
                                 labelText: 'Email',
                               ),
                               validator: (value) {
@@ -187,14 +196,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
+                              cursorColor: Colors.black,
                               controller: _passwordController,
                               keyboardType: TextInputType.visiblePassword,
                               decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
                                 labelText: 'Password',
                                 suffixIcon: IconButton(
                                   icon: _isPasswordVisible
-                                      ? Icon(Icons.visibility_off)
-                                      : Icon(Icons.visibility),
+                                      ? Icon(Icons.visibility_off_outlined,color: Color(0xffACA5BB),)
+                                      : Icon(Icons.visibility_outlined,color: Color(0xffACA5BB),),
                                   onPressed: () {
                                     setState(() {
                                       _isPasswordVisible = !_isPasswordVisible;
@@ -247,27 +260,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                         },
                                       ),
                                     )
-                                  // width: 20, // Adjust the width as needed
-                                  // child: ElevatedButton(
-                                  //   onPressed: () {
-                                  //     Navigator.push(
-                                  //       context,
-                                  //       MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             SubLoginScreen(),
-                                  //       ),)
-                                  // if (_formKey.currentState!.validate()) {
-                                  //   setState(() {
-                                  //     _isLoading = true;
-                                  //     _errorMessage = null;
-                                  //   });
-                                  //   _loginWithEmail();
-                                  // }
-                                  // print('Button pressed!');
-                                  // },
-                                  // child: Text('Log In'),
-                                  // ),
-                                  // )
                                   : SizedBox(),
                           if (_errorMessage != null)
                             Padding(
@@ -282,103 +274,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-
-                    // Form(
-                    //   key: _formKey,
-                    //   child: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    //     children: [
-                    //       SizedBox(
-                    //         height: MediaQuery.of(context).size.height * 0.1,
-                    //         child: TextFormField(
-                    //           controller: _emailController,
-                    //           keyboardType: TextInputType.emailAddress,
-                    //           decoration: InputDecoration(
-                    //             labelText: 'Email',
-                    //           ),
-                    //           validator: (value) {
-                    //             if (value == null || value.isEmpty) {
-                    //               return 'Enter Email';
-                    //             }
-                    //             return null;
-                    //           },
-                    //         ),
-                    //       ),
-                    //       SizedBox(height: 10),
-                    //       SizedBox(
-                    //         height: MediaQuery.of(context).size.height * 0.1,
-                    //         child: TextFormField(
-                    //           controller: _passwordController,
-                    //           keyboardType: TextInputType.visiblePassword,
-                    //           decoration: InputDecoration(
-                    //             labelText: 'Password',
-                    //             suffixIcon: IconButton(
-                    //               icon: _isPasswordVisible
-                    //                   ? Icon(Icons.visibility_off)
-                    //                   : Icon(Icons.visibility),
-                    //               onPressed: () {
-                    //                 setState(() {
-                    //                   _isPasswordVisible = !_isPasswordVisible;
-                    //                 });
-                    //               },
-                    //             ),
-                    //           ),
-                    //           validator: (value) {
-                    //             if (value == null || value.isEmpty) {
-                    //               return 'Enter Password';
-                    //             }
-                    //             return null;
-                    //           },
-                    //           obscureText: !_isPasswordVisible,
-                    //         ),
-                    //       ),
-                    //       SizedBox(
-                    //         height: MediaQuery.of(context).size.height / 99,
-                    //       ),
-                    //       _isLoading
-                    //           ? CircularProgressIndicator(
-                    //               strokeWidth: 2.0,
-                    //             )
-                    //           : !_loginSuccessful
-                    //               ? CustomButton(
-                    //                   text: 'Log In',
-                    //                   onPressed: () {
-                    //                     Navigator.push(
-                    //                       context,
-                    //                       MaterialPageRoute(
-                    //                           builder: (context) =>
-                    //                               SubLoginScreen()),
-                    //                     );
-                    //                     // if (_formKey.currentState!
-                    //                     //     .validate()) {
-                    //                     //   setState(() {
-                    //                     //     _isLoading = true;
-                    //                     //     _errorMessage = null;
-                    //                     //   });
-                    //                     //   _loginWithEmail();
-                    //                     // }
-                    //                     // print('Button pressed!');
-                    //                   },
-                    //                   width: MediaQuery.of(context).size.width /
-                    //                       10,
-                    //                   height:
-                    //                       MediaQuery.of(context).size.height /
-                    //                           22,
-                    //                 )
-                    //               : SizedBox(),
-                    //       if (_errorMessage != null)
-                    //         Padding(
-                    //           padding: EdgeInsets.only(
-                    //             top: MediaQuery.of(context).size.height / 99,
-                    //           ),
-                    //           child: Text(
-                    //             _errorMessage!,
-                    //             style: TextStyle(color: Colors.red),
-                    //           ),
-                    //         ),
-                    //     ],
-                    //   ),
-                    // ),
                   ),
 
                   /// Page 2: Log in with authenticator
@@ -388,10 +283,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     // color: Colors.blue,
                     child: Center(
                       child: Column(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+
+                        children: _showEmailInput
+                            ? [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20),
                             child: TextField(
+                              controller: _emailController,
                               cursorHeight: 25,
                               decoration: InputDecoration(
                                 labelText: 'Email',
@@ -401,13 +300,111 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 99,
+                            height:
+                            MediaQuery.of(context).size.height / 15,
                           ),
-                          CustomButton(
-                              text: 'Next',
-                              onPressed: () {},
-                              width: MediaQuery.of(context).size.width / 10,
-                              height: MediaQuery.of(context).size.height / 22)
+                          Center(
+                            child: CustomButton(
+                                height:
+                                MediaQuery.of(context).size.height /
+                                    20,
+                                width:
+                                MediaQuery.of(context).size.height /
+                                    8,
+                                onPressed: () {
+                                  setState(() {
+                                    _showEmailInput = false;
+                                  });
+                                },
+                                text: 'Next'),
+                          )
+                        ]
+                            : [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(
+                              4,
+                                  (index) => Container(
+                                width: MediaQuery.of(context).size.width/35,
+                                height: 40,
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                  // border: Border.all(
+                                  //   color: Color(0xff9BADCA),
+                                  //   width: 0.55,
+                                  // ),
+                                ),
+                                child: TextField(
+                                  cursorColor: Colors.black,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                  ],
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  maxLength: 1,
+                                  decoration: InputDecoration(
+                                    counterText: '',
+                                    focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black,width: 2),
+                                ),
+                                  ),
+                                  onChanged: (value) {},
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height:
+                            MediaQuery.of(context).size.height / 20,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                fontFamily: 'FiraSans',
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff686464),
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: 'If you didn’t receive a code! ',
+                                ),
+                                TextSpan(
+                                  text: 'Resend',
+                                  style: TextStyle(color: Color(0xff50B5E5)),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
+                                    },
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height:
+                            MediaQuery.of(context).size.height / 20,
+                          ),
+                          Center(
+                            child: CustomButton(
+                                height:
+                                MediaQuery.of(context).size.height /
+                                    20,
+                                width:
+                                MediaQuery.of(context).size.height /
+                                    8,
+                                onPressed: () {
+                                  setState(() {
+                                    _showEmailInput = false;
+                                  });
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SubLoginScreen()),
+                                  );
+                                },
+                                text: 'LogIn'),
+                          )
                         ],
                       ),
                     ),

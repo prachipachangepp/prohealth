@@ -85,6 +85,7 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
                     ),
                   ),
                   child: TextField(
+                    cursorColor: Colors.black,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                     ],
