@@ -19,6 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   PageController _pageController = PageController();
+  List<TextEditingController> _otpControllers =
+      List.generate(4, (_) => TextEditingController());
   TextEditingController _otpController = TextEditingController();
   int _selectedIndex = -1;
   FocusNode fieldOne = FocusNode();
@@ -31,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _showEmailInput = true;
   // bool _isLoading = false;
   bool _loginSuccessful = false;
+  bool _isauthLoginLoading = false;
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
 
@@ -145,14 +148,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   ///verify otp
-  Future<void> _verifyOTPAndLogin(String enteredOTP) async{
-    var headers = {
-      'Content-Type': 'application/json'
-    };
-    var data = json.encode({
-      "email": "pardeshisaloni22+4@gmail.com",
-      "otp": "7102"
-    });
+  Future<void> _verifyOTPAndLogin(String enteredOTP) async {
+    var headers = {'Content-Type': 'application/json'};
+    var data =
+        json.encode({"email": "pardeshisaloni22+4@gmail.com", "otp": "7102"});
     var dio = Dio();
     var response = await dio.request(
       'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
@@ -171,8 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
           builder: (context) => SubLoginScreen(),
         ),
       );
-    }
-    else {
+    } else {
       print(response.statusMessage);
     }
   }
@@ -399,448 +397,261 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   /// Page 2: Log in with authenticator
-
-                  Container(
-                    width: MediaQuery.of(context).size.width / 4,
-                    height: MediaQuery.of(context).size.height / 4,
-                    // color: Colors.blue,
-                    child: Center(
-                      child: Column(
-                        children: _showEmailInput
-                            ? [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: TextField(
-                                    focusNode: emailFocusNode,
-                                    onSubmitted: (_) {
-                                      setState(() {
-                                        _showEmailInput = false;
-                                      });
-                                    },
-                                    controller: _emailController,
-                                    cursorHeight: 25,
-                                    decoration: InputDecoration(
-                                      labelText: 'Email',
-                                      labelStyle: TextStyle(fontSize: 14),
-                                      border: UnderlineInputBorder(),
+                  Form(
+                    key: _formKey,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: MediaQuery.of(context).size.height / 4,
+                      // color: Colors.blue,
+                      child: Center(
+                        child: Column(
+                          children: _showEmailInput
+                              ? [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: TextFormField(
+                                      focusNode: emailFocusNode,
+                                      controller: _emailController,
+                                      cursorHeight: 25,
+                                      decoration: InputDecoration(
+                                        labelText: 'Email',
+                                        labelStyle: TextStyle(fontSize: 14),
+                                        border: UnderlineInputBorder(),
+                                      ),
+                                      validator: (value) {
+                                        if (value?.isEmpty ?? true) {
+                                          return 'Please enter your email';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        15),
-                                Center(
-                                  child: CustomButton(
+                                  SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 15,
+                                  ),
+                                  Center(
+                                      child: CustomButton(
                                     height:
                                         MediaQuery.of(context).size.height / 20,
                                     width:
                                         MediaQuery.of(context).size.height / 8,
+                                    text: "Next",
                                     onPressed: () {
-                                      setState(() {
-                                        _showEmailInput = false;
-                                      });
-                                      _handleNextButton();
+                                      if (_formKey.currentState?.validate() ??
+                                          false) {
+                                        setState(() {
+                                          _showEmailInput = false;
+                                        });
+                                        _handleNextButton();
+                                      }
                                     },
-                                    text: 'Next',
-                                  ),
-                                )
-                              ]
-                            : [
-                                Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: List.generate(
-                                      4,
-                                      (index) => Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                35,
-                                        height: 40,
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        decoration: BoxDecoration(),
-                                        child: TextField(
-                                          cursorColor: Colors.black,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'[0-9]')),
-                                          ],
-                                          keyboardType: TextInputType.number,
-                                          textAlign: TextAlign.center,
-                                          maxLength: 1,
-                                          decoration: InputDecoration(
-                                            counterText: '',
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
+                                  ))
+                                ]
+                              : [
+                                  // Center(
+                                  //   child: Row(
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.center,
+                                  //     children: List.generate(
+                                  //       4,
+                                  //       (index) => Container(
+                                  //         width: MediaQuery.of(context)
+                                  //                 .size
+                                  //                 .width /
+                                  //             35,
+                                  //         height: 40,
+                                  //         margin: EdgeInsets.symmetric(
+                                  //             horizontal: 10),
+                                  //         decoration: BoxDecoration(),
+                                  //         child: TextField(
+                                  //           cursorColor: Colors.black,
+                                  //           inputFormatters: [
+                                  //             FilteringTextInputFormatter.allow(
+                                  //                 RegExp(r'[0-9]')),
+                                  //           ],
+                                  //           keyboardType: TextInputType.number,
+                                  //           textAlign: TextAlign.center,
+                                  //           maxLength: 1,
+                                  //           decoration: InputDecoration(
+                                  //             counterText: '',
+                                  //             focusedBorder:
+                                  //                 UnderlineInputBorder(
+                                  //               borderSide: BorderSide(
+                                  //                   color: Colors.black,
+                                  //                   width: 2),
+                                  //             ),
+                                  //           ),
+                                  //           onChanged: (value) {
+                                  //             if (value.isNotEmpty &&
+                                  //                 index < 3) {
+                                  //               FocusScope.of(context)
+                                  //                   .nextFocus(); // Move to next TextField
+                                  //             } else if (value.isNotEmpty &&
+                                  //                 index == 3) {
+                                  //               // This is the last TextField, perform OTP verification
+                                  //               String enteredOTP =
+                                  //                   _otpController.text;
+                                  //               _verifyOTPAndLogin(
+                                  //                   enteredOTP); // Pass only OTP
+                                  //             }
+                                  //           },
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  ///
+                                  Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: List.generate(
+                                        4,
+                                        (index) => Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              35,
+                                          height: 40,
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(),
+                                          child: TextFormField(
+                                            controller: _otpControllers[index],
+                                            cursorColor: Colors.black,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter.allow(
+                                                RegExp(r'[0-9]'),
+                                              ),
+                                            ],
+                                            keyboardType: TextInputType.number,
+                                            textAlign: TextAlign.center,
+                                            maxLength: 1,
+                                            decoration: InputDecoration(
+                                              counterText: '',
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
                                                   color: Colors.black,
-                                                  width: 2),
+                                                  width: 2,
+                                                ),
+                                              ),
                                             ),
+                                            validator: (value) {
+                                              return value!.isEmpty
+                                                  ? 'Please enter OTP'
+                                                  : null;
+                                            },
+                                            onChanged: (value) {
+                                              if (value.isNotEmpty &&
+                                                  index < 3) {
+                                                FocusScope.of(context)
+                                                    .nextFocus();
+                                              } else if (value.isNotEmpty &&
+                                                  index == 3) {
+                                                String enteredOTP =
+                                                    _otpControllers
+                                                        .map((controller) =>
+                                                            controller.text)
+                                                        .join();
+                                                bool anyFieldEmpty =
+                                                    _otpControllers
+                                                        .any((controller) =>
+                                                            controller
+                                                                .text.isEmpty);
+                                                if (!anyFieldEmpty &&
+                                                    (_formKey.currentState
+                                                            ?.validate() ??
+                                                        false)) {
+                                                  _verifyOTPAndLogin(
+                                                    _emailController.text,
+                                                    // enteredOTP,
+                                                  );
+                                                }
+                                              }
+                                            },
                                           ),
-                                          onChanged: (value) {
-                                            if (value.isNotEmpty && index < 3) {
-                                              FocusScope.of(context)
-                                                  .nextFocus(); // Move to next TextField
-                                            } else if (value.isNotEmpty &&
-                                                index == 3) {
-                                              // This is the last TextField, perform OTP verification
-                                              String enteredOTP =
-                                                  _otpController.text;
-                                              _verifyOTPAndLogin(
-                                                  enteredOTP); // Pass only OTP
-                                            }
-                                          },
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        20),
-                                RichText(
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      fontFamily: 'FiraSans',
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xff686464),
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: 'If you didn’t receive a code! ',
-                                      ),
-                                      TextSpan(
-                                        text: 'Resend',
-                                        style:
-                                            TextStyle(color: Color(0xff50B5E5)),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            // Handle resend OTP
-                                          },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        20),
-                                Center(
-                                  child: CustomButton(
+                                  SizedBox(
                                     height:
                                         MediaQuery.of(context).size.height / 20,
-                                    width:
-                                        MediaQuery.of(context).size.height / 8,
-                                    text: 'LogIn',
-                                    onPressed: () {
-                                      String enteredEmail =
-                                          _emailController.text;
-                                      String enteredOTP = _otpController.text;
-                                      _verifyOTPAndLogin(
-                                        enteredEmail,
-                                      );
-                                    },
                                   ),
-                                )
-                              ],
+                                  RichText(
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                        fontFamily: 'FiraSans',
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xff686464),
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              'If you didn’t receive a code! ',
+                                        ),
+                                        TextSpan(
+                                          text: 'Resend',
+                                          style: TextStyle(
+                                              color: Color(0xff50B5E5)),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              // Handle resend OTP
+                                            },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 20,
+                                  ),
+
+                                  ///login button
+                                  _isauthLoginLoading
+                                      ? CircularProgressIndicator()
+                                      : Center(
+                                          child: CustomButton(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              20,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              8,
+                                          text: 'LogIn',
+                                          onPressed: () {
+                                            String enteredEmail =
+                                                _emailController.text;
+                                            String enteredOTP = _otpControllers
+                                                .map((controller) =>
+                                                    controller.text)
+                                                .join();
+                                            bool anyFieldEmpty = _otpControllers
+                                                .any((controller) =>
+                                                    controller.text.isEmpty);
+
+                                            if (!anyFieldEmpty &&
+                                                (_formKey.currentState
+                                                        ?.validate() ??
+                                                    false)) {
+                                              _verifyOTPAndLogin(
+                                                enteredEmail,
+                                                // enteredOTP,
+                                              );
+                                            }
+                                          },
+                                        )),
+                                ],
+                        ),
                       ),
                     ),
                   ),
-
-                  ///
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width / 4,
-                  //   height: MediaQuery.of(context).size.height / 4,
-                  //   // color: Colors.blue,
-                  //   child: Center(
-                  //     child: Column(
-                  //       children: _showEmailInput
-                  //           ? [
-                  //               Padding(
-                  //                 padding: const EdgeInsets.symmetric(
-                  //                     horizontal: 20),
-                  //                 child: TextField(
-                  //                   focusNode: emailFocusNode,
-                  //                   onSubmitted: (_) {
-                  //                     setState(() {
-                  //                       _showEmailInput = false;
-                  //                     });
-                  //                   },
-                  //                   controller: _emailController,
-                  //                   cursorHeight: 25,
-                  //                   decoration: InputDecoration(
-                  //                     labelText: 'Email',
-                  //                     labelStyle: TextStyle(fontSize: 14),
-                  //                     border: UnderlineInputBorder(),
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //               SizedBox(
-                  //                 height:
-                  //                     MediaQuery.of(context).size.height / 15,
-                  //               ),
-                  //               Center(
-                  //                 child: CustomButton(
-                  //                     height:
-                  //                         MediaQuery.of(context).size.height /
-                  //                             20,
-                  //                     width:
-                  //                         MediaQuery.of(context).size.height /
-                  //                             8,
-                  //                     onPressed: () {
-                  //                       setState(() {
-                  //                         _showEmailInput = false;
-                  //                       });
-                  //                       _handleNextButton();
-                  //                     },
-                  //                     text: 'Next'),
-                  //               )
-                  //             ]
-                  //           : [
-                  //               // Row(
-                  //               //   mainAxisAlignment: MainAxisAlignment.center,
-                  //               //   children: List.generate(
-                  //               //     4,
-                  //               //     (index) => Container(
-                  //               //       width: MediaQuery.of(context).size.width /
-                  //               //           35,
-                  //               //       height: 40,
-                  //               //       margin:
-                  //               //           EdgeInsets.symmetric(horizontal: 10),
-                  //               //       decoration: BoxDecoration(
-                  //               //
-                  //               //           ),
-                  //               //       child: TextField(
-                  //               //         cursorColor: Colors.black,
-                  //               //         inputFormatters: [
-                  //               //           FilteringTextInputFormatter.allow(
-                  //               //               RegExp(r'[0-9]')),
-                  //               //         ],
-                  //               //         keyboardType: TextInputType.number,
-                  //               //         textAlign: TextAlign.center,
-                  //               //         maxLength: 1,
-                  //               //         decoration: InputDecoration(
-                  //               //           counterText: '',
-                  //               //           focusedBorder: UnderlineInputBorder(
-                  //               //             borderSide: BorderSide(
-                  //               //                 color: Colors.black, width: 2),
-                  //               //           ),
-                  //               //         ),
-                  //               //         onChanged: (value) {},
-                  //               //       ),
-                  //               //     ),
-                  //               //   ),
-                  //               // ),
-                  //               Center(
-                  //                 child: Row(
-                  //                     mainAxisAlignment:
-                  //                         MainAxisAlignment.center,
-                  //                     children: [
-                  //                       Container(
-                  //                         width: MediaQuery.of(context)
-                  //                                 .size
-                  //                                 .width /
-                  //                             35,
-                  //                         height: 40,
-                  //                         margin: EdgeInsets.symmetric(
-                  //                             horizontal: 10),
-                  //                         decoration: BoxDecoration(),
-                  //                         child: TextField(
-                  //                           cursorColor: Colors.black,
-                  //                           inputFormatters: [
-                  //                             FilteringTextInputFormatter.allow(
-                  //                                 RegExp(r'[0-9]')),
-                  //                           ],
-                  //                           keyboardType: TextInputType.number,
-                  //                           textAlign: TextAlign.center,
-                  //                           maxLength: 1,
-                  //                           decoration: InputDecoration(
-                  //                             counterText: '',
-                  //                             focusedBorder:
-                  //                                 UnderlineInputBorder(
-                  //                               borderSide: BorderSide(
-                  //                                   color: Colors.black,
-                  //                                   width: 2),
-                  //                             ),
-                  //                           ),
-                  //                           onChanged: (value) {},
-                  //                         ),
-                  //                       ),
-                  //                       Container(
-                  //                         width: MediaQuery.of(context)
-                  //                                 .size
-                  //                                 .width /
-                  //                             35,
-                  //                         height: 40,
-                  //                         margin: EdgeInsets.symmetric(
-                  //                             horizontal: 10),
-                  //                         decoration: BoxDecoration(),
-                  //                         child: TextField(
-                  //                           cursorColor: Colors.black,
-                  //                           inputFormatters: [
-                  //                             FilteringTextInputFormatter.allow(
-                  //                                 RegExp(r'[0-9]')),
-                  //                           ],
-                  //                           keyboardType: TextInputType.number,
-                  //                           textAlign: TextAlign.center,
-                  //                           maxLength: 1,
-                  //                           decoration: InputDecoration(
-                  //                             counterText: '',
-                  //                             focusedBorder:
-                  //                                 UnderlineInputBorder(
-                  //                               borderSide: BorderSide(
-                  //                                   color: Colors.black,
-                  //                                   width: 2),
-                  //                             ),
-                  //                           ),
-                  //                           onChanged: (value) {},
-                  //                         ),
-                  //                       ),
-                  //                       Container(
-                  //                         width: MediaQuery.of(context)
-                  //                                 .size
-                  //                                 .width /
-                  //                             35,
-                  //                         height: 40,
-                  //                         margin: EdgeInsets.symmetric(
-                  //                             horizontal: 10),
-                  //                         decoration: BoxDecoration(),
-                  //                         child: TextField(
-                  //                           cursorColor: Colors.black,
-                  //                           inputFormatters: [
-                  //                             FilteringTextInputFormatter.allow(
-                  //                                 RegExp(r'[0-9]')),
-                  //                           ],
-                  //                           keyboardType: TextInputType.number,
-                  //                           textAlign: TextAlign.center,
-                  //                           maxLength: 1,
-                  //                           decoration: InputDecoration(
-                  //                             counterText: '',
-                  //                             focusedBorder:
-                  //                                 UnderlineInputBorder(
-                  //                               borderSide: BorderSide(
-                  //                                   color: Colors.black,
-                  //                                   width: 2),
-                  //                             ),
-                  //                           ),
-                  //                           onChanged: (value) {},
-                  //                         ),
-                  //                       ),
-                  //                       Container(
-                  //                         width: MediaQuery.of(context)
-                  //                                 .size
-                  //                                 .width /
-                  //                             35,
-                  //                         height: 40,
-                  //                         margin: EdgeInsets.symmetric(
-                  //                             horizontal: 10),
-                  //                         decoration: BoxDecoration(),
-                  //                         child: TextField(
-                  //                           cursorColor: Colors.black,
-                  //                           inputFormatters: [
-                  //                             FilteringTextInputFormatter.allow(
-                  //                                 RegExp(r'[0-9]')),
-                  //                           ],
-                  //                           keyboardType: TextInputType.number,
-                  //                           textAlign: TextAlign.center,
-                  //                           maxLength: 1,
-                  //                           decoration: InputDecoration(
-                  //                             counterText: '',
-                  //                             focusedBorder:
-                  //                                 UnderlineInputBorder(
-                  //                               borderSide: BorderSide(
-                  //                                   color: Colors.black,
-                  //                                   width: 2),
-                  //                             ),
-                  //                           ),
-                  //                           onChanged: (value) {},
-                  //                         ),
-                  //                       ),
-                  //                     ]),
-                  //               ),
-                  //               SizedBox(
-                  //                 height:
-                  //                     MediaQuery.of(context).size.height / 20,
-                  //               ),
-                  //               RichText(
-                  //                 text: TextSpan(
-                  //                   style: TextStyle(
-                  //                     fontFamily: 'FiraSans',
-                  //                     fontSize: 10,
-                  //                     fontWeight: FontWeight.w600,
-                  //                     color: Color(0xff686464),
-                  //                   ),
-                  //                   children: [
-                  //                     TextSpan(
-                  //                       text: 'If you didn’t receive a code! ',
-                  //                     ),
-                  //                     TextSpan(
-                  //                       text: 'Resend',
-                  //                       style:
-                  //                           TextStyle(color: Color(0xff50B5E5)),
-                  //                       recognizer: TapGestureRecognizer()
-                  //                         ..onTap = () {
-                  //                           //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
-                  //                         },
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //               ),
-                  //               SizedBox(
-                  //                 height:
-                  //                     MediaQuery.of(context).size.height / 20,
-                  //               ),
-                  //               Center(
-                  //                 child: CustomButton(
-                  //                     height:
-                  //                         MediaQuery.of(context).size.height /
-                  //                             20,
-                  //                     width:
-                  //                         MediaQuery.of(context).size.height /
-                  //                             8,
-                  //                     onPressed: () {
-                  //                       // Verify OTP
-                  //                       // Assuming _otpController is your controller for OTP input field
-                  //                       // Verify OTP
-                  //                       // String enteredOTP = _otpController.text;
-                  //                       // String correctOTP = '';
-                  //                       //
-                  //                       // if (enteredOTP == correctOTP) {
-                  //                       //   Navigator.push(
-                  //                       //     context,
-                  //                       //     MaterialPageRoute(
-                  //                       //         builder: (context) =>
-                  //                       //             SubLoginScreen()),
-                  //                       //   );
-                  //                       // } else {
-                  //                       //   print('Incorrect OTP');
-                  //                       // }
-                  //                       String enteredEmail = _emailController
-                  //                           .text; // Get the entered email
-                  //                       String enteredOTP = _otpController
-                  //                           .text; // Get the entered OTP
-                  //
-                  //                       /// Call the method to verify OTP and proceed with login
-                  //                       _verifyOTPAndLogin(
-                  //                           enteredEmail, enteredOTP);
-                  //                     },
-                  //                     // onPressed: () {
-                  //                     //   setState(() {
-                  //                     //     _showEmailInput = false;
-                  //                     //   });
-                  //                     //   Navigator.push(
-                  //                     //     context,
-                  //                     //     MaterialPageRoute(
-                  //                     //         builder: (context) =>
-                  //                     //             SubLoginScreen()),
-                  //                     //   );
-                  //                     // },
-                  //                     text: 'LogIn'),
-                  //               )
-                  //             ],
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
