@@ -1,12 +1,14 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:prohealth/app/services/api/log_in/log_in_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/sub_login_page.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   PageController _pageController = PageController();
+  TextEditingController _otpController = TextEditingController();
   int _selectedIndex = -1;
   FocusNode fieldOne = FocusNode();
   FocusNode fieldTow = FocusNode();
@@ -33,7 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    // Dispose the focus nodes to prevent memory leaks
     emailFocusNode.dispose();
     passwordFocusNode.dispose();
     super.dispose();
@@ -55,32 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   /// log in screen method api call
-  // Future<void> _loginWithEmail() async {
-  //   if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-  //     setState(() {
-  //       _errorMessage = 'Please enter username and password.';
-  //     });
-  //     return;
-  //   }
-  //
-  //   String username = _emailController.text.trim();
-  //   String password = _passwordController.text.trim();
-  //
-  //   LoginManager loginManager = LoginManager();
-  //   try {
-  //     await loginManager.login(username: username, password: password);
-  //     // Navigator.push(
-  //     //   context,
-  //     //   MaterialPageRoute(builder: (context) => SubLoginScreen()),
-  //     // );
-  //   } catch (e) {
-  //     print('Login failed: $e');
-  //   } finally {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   }
-  // }
   Future<void> _loginWithEmail() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
@@ -88,8 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       return;
     }
+
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
+
     try {
       var dio = Dio();
       var response = await dio.post(
@@ -99,7 +77,17 @@ class _LoginScreenState extends State<LoginScreen> {
           'password': password,
         },
       );
+
       if (response.statusCode == 200) {
+        String? access = response.data['data']?['access'];
+        String? refresh = response.data['data']?['refresh'];
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('email', email);
+        await prefs.setString('password', password);
+        await prefs.setString('access_token', access ?? '');
+        await prefs.setString('refresh_token', refresh ?? '');
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -123,6 +111,106 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  /// get otp
+  Future<void> _getOTP() async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      var data = json.encode({"email": "prachijtpachange@gmail.com"});
+      var dio = Dio();
+      var response = await dio.post(
+        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/getotp',
+        options: Options(
+          headers: headers,
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        print(json.encode(response.data));
+      } else {
+        print(response.statusMessage);
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+    }
+  }
+
+  /// Method for handling the action of the "Next" button
+  void _handleNextButton() async {
+    if (_selectedIndex == 0) {
+      _loginWithEmail();
+    } else if (_selectedIndex == 1) {
+      await _getOTP();
+    }
+  }
+
+  ///verify otp
+
+  Future<void> _verifyOTPAndLogin(String enteredOTP) async {
+    try {
+      String enteredEmail = _emailController.text.trim();
+      var headers = {'Content-Type': 'application/json'};
+      var data = json.encode({"email": enteredEmail, "otp": enteredOTP});
+      var dio = Dio();
+      var response = await dio.request(
+        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
+        options: Options(
+          method: 'POST',
+          headers: headers,
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        /// OTP verification successful, proceed with login
+        await _loginWithEmail();
+      } else {
+        /// OTP verification failed
+        print('OTP verification failed: ${response.statusMessage}');
+
+        /// Display an error message to the user
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('OTP Verification Failed'),
+              content: Text('The OTP verification failed. Please try again.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text(
+                'An error occurred while verifying OTP. Please try again later.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LoginBaseConstant(
@@ -133,7 +221,8 @@ class _LoginScreenState extends State<LoginScreen> {
       // child2: null,
       titleText: 'Log In',
       textAction: 'Forgot your account password ?',
-      textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
+      textActionPadding:
+          EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -206,6 +295,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+
           ///todo prachi
           Expanded(
             child: Padding(
@@ -229,7 +319,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: TextFormField(
                               focusNode: emailFocusNode,
                               onFieldSubmitted: (_) {
-                                FocusScope.of(context).requestFocus(passwordFocusNode);
+                                FocusScope.of(context)
+                                    .requestFocus(passwordFocusNode);
                               },
                               cursorColor: Colors.black,
                               controller: _emailController,
@@ -265,8 +356,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 labelText: 'Password',
                                 suffixIcon: IconButton(
                                   icon: _isPasswordVisible
-                                      ? Icon(Icons.visibility_off_outlined,color: Color(0xffACA5BB),)
-                                      : Icon(Icons.visibility_outlined,color: Color(0xffACA5BB),),
+                                      ? Icon(
+                                          Icons.visibility_off_outlined,
+                                          color: Color(0xffACA5BB),
+                                        )
+                                      : Icon(
+                                          Icons.visibility_outlined,
+                                          color: Color(0xffACA5BB),
+                                        ),
                                   onPressed: () {
                                     setState(() {
                                       _isPasswordVisible = !_isPasswordVisible;
@@ -334,7 +431,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+
                   /// Page 2: Log in with authenticator
+
                   Container(
                     width: MediaQuery.of(context).size.width / 4,
                     height: MediaQuery.of(context).size.height / 4,
@@ -343,139 +442,439 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         children: _showEmailInput
                             ? [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20),
-                            child: TextField(
-                              focusNode: emailFocusNode,
-                              onSubmitted: (_) {
-                                setState(() {
-                                  _showEmailInput = false;
-                                });
-                              },
-                              controller: _emailController,
-                              cursorHeight: 25,
-                              decoration: InputDecoration(
-                                labelText: 'Email',
-                                labelStyle: TextStyle(fontSize: 14),
-                                border: UnderlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height:
-                            MediaQuery.of(context).size.height / 15,
-                          ),
-                          Center(
-                            child: CustomButton(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    20,
-                                width:
-                                MediaQuery.of(context).size.height /
-                                    8,
-                                onPressed: () {
-                                  setState(() {
-                                    _showEmailInput = false;
-                                  });
-                                },
-                                text: 'Next'),
-                          )
-                        ]
-                            : [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: List.generate(
-                              4,
-                                  (index) => Container(
-                                width: MediaQuery.of(context).size.width/35,
-                                height: 40,
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  // border: Border.all(
-                                  //   color: Color(0xff9BADCA),
-                                  //   width: 0.55,
-                                  // ),
-                                ),
-                                child: TextField(
-                                  // focusNode: passwordFocusNode,
-                                  // onSubmitted: (_) {
-                                  //   _loginWithEmail();
-                                  // },
-                                  cursorColor: Colors.black,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                                  ],
-                                  keyboardType: TextInputType.number,
-                                  textAlign: TextAlign.center,
-                                  maxLength: 1,
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black,width: 2),
-                                ),
-                                  ),
-                                  onChanged: (value) {},
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height:
-                            MediaQuery.of(context).size.height / 20,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              style: TextStyle(
-                                fontFamily: 'FiraSans',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff686464),
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: 'If you didn’t receive a code! ',
-                                ),
-                                TextSpan(
-                                  text: 'Resend',
-                                  style: TextStyle(color: Color(0xff50B5E5)),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: TextField(
+                                    focusNode: emailFocusNode,
+                                    onSubmitted: (_) {
+                                      setState(() {
+                                        _showEmailInput = false;
+                                      });
                                     },
+                                    controller: _emailController,
+                                    cursorHeight: 25,
+                                    decoration: InputDecoration(
+                                      labelText: 'Email',
+                                      labelStyle: TextStyle(fontSize: 14),
+                                      border: UnderlineInputBorder(),
+                                    ),
+                                  ),
                                 ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        15),
+                                Center(
+                                  child: CustomButton(
+                                    height:
+                                        MediaQuery.of(context).size.height / 20,
+                                    width:
+                                        MediaQuery.of(context).size.height / 8,
+                                    onPressed: () {
+                                      setState(() {
+                                        _showEmailInput = false;
+                                      });
+                                      _handleNextButton();
+                                    },
+                                    text: 'Next',
+                                  ),
+                                )
+                              ]
+                            : [
+                                Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: List.generate(
+                                      4,
+                                      (index) => Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                35,
+                                        height: 40,
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        decoration: BoxDecoration(),
+                                        child: TextField(
+                                          cursorColor: Colors.black,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp(r'[0-9]')),
+                                          ],
+                                          keyboardType: TextInputType.number,
+                                          textAlign: TextAlign.center,
+                                          maxLength: 1,
+                                          decoration: InputDecoration(
+                                            counterText: '',
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 2),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            if (value.isNotEmpty && index < 3) {
+                                              FocusScope.of(context)
+                                                  .nextFocus(); // Move to next TextField
+                                            } else if (value.isNotEmpty &&
+                                                index == 3) {
+                                              // This is the last TextField, perform OTP verification
+                                              String enteredOTP =
+                                                  _otpController.text;
+                                              _verifyOTPAndLogin(
+                                                  enteredOTP); // Pass only OTP
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        20),
+                                RichText(
+                                  text: TextSpan(
+                                    style: TextStyle(
+                                      fontFamily: 'FiraSans',
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xff686464),
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: 'If you didn’t receive a code! ',
+                                      ),
+                                      TextSpan(
+                                        text: 'Resend',
+                                        style:
+                                            TextStyle(color: Color(0xff50B5E5)),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            // Handle resend OTP
+                                          },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        20),
+                                Center(
+                                  child: CustomButton(
+                                    height:
+                                        MediaQuery.of(context).size.height / 20,
+                                    width:
+                                        MediaQuery.of(context).size.height / 8,
+                                    text: 'LogIn',
+                                    onPressed: () {
+                                      String enteredEmail =
+                                          _emailController.text;
+                                      String enteredOTP = _otpController.text;
+                                      _verifyOTPAndLogin(
+                                        enteredEmail,
+                                      );
+                                    },
+                                  ),
+                                )
                               ],
-                            ),
-                          ),
-                          SizedBox(
-                            height:
-                            MediaQuery.of(context).size.height / 20,
-                          ),
-                          Center(
-                            child: CustomButton(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    20,
-                                width:
-                                MediaQuery.of(context).size.height /
-                                    8,
-                                onPressed: () {
-                                  setState(() {
-                                    _showEmailInput = false;
-                                  });
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SubLoginScreen()),
-                                  );
-                                },
-                                text: 'LogIn'),
-                          )
-                        ],
                       ),
                     ),
                   ),
+
+                  ///
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width / 4,
+                  //   height: MediaQuery.of(context).size.height / 4,
+                  //   // color: Colors.blue,
+                  //   child: Center(
+                  //     child: Column(
+                  //       children: _showEmailInput
+                  //           ? [
+                  //               Padding(
+                  //                 padding: const EdgeInsets.symmetric(
+                  //                     horizontal: 20),
+                  //                 child: TextField(
+                  //                   focusNode: emailFocusNode,
+                  //                   onSubmitted: (_) {
+                  //                     setState(() {
+                  //                       _showEmailInput = false;
+                  //                     });
+                  //                   },
+                  //                   controller: _emailController,
+                  //                   cursorHeight: 25,
+                  //                   decoration: InputDecoration(
+                  //                     labelText: 'Email',
+                  //                     labelStyle: TextStyle(fontSize: 14),
+                  //                     border: UnderlineInputBorder(),
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               SizedBox(
+                  //                 height:
+                  //                     MediaQuery.of(context).size.height / 15,
+                  //               ),
+                  //               Center(
+                  //                 child: CustomButton(
+                  //                     height:
+                  //                         MediaQuery.of(context).size.height /
+                  //                             20,
+                  //                     width:
+                  //                         MediaQuery.of(context).size.height /
+                  //                             8,
+                  //                     onPressed: () {
+                  //                       setState(() {
+                  //                         _showEmailInput = false;
+                  //                       });
+                  //                       _handleNextButton();
+                  //                     },
+                  //                     text: 'Next'),
+                  //               )
+                  //             ]
+                  //           : [
+                  //               // Row(
+                  //               //   mainAxisAlignment: MainAxisAlignment.center,
+                  //               //   children: List.generate(
+                  //               //     4,
+                  //               //     (index) => Container(
+                  //               //       width: MediaQuery.of(context).size.width /
+                  //               //           35,
+                  //               //       height: 40,
+                  //               //       margin:
+                  //               //           EdgeInsets.symmetric(horizontal: 10),
+                  //               //       decoration: BoxDecoration(
+                  //               //
+                  //               //           ),
+                  //               //       child: TextField(
+                  //               //         cursorColor: Colors.black,
+                  //               //         inputFormatters: [
+                  //               //           FilteringTextInputFormatter.allow(
+                  //               //               RegExp(r'[0-9]')),
+                  //               //         ],
+                  //               //         keyboardType: TextInputType.number,
+                  //               //         textAlign: TextAlign.center,
+                  //               //         maxLength: 1,
+                  //               //         decoration: InputDecoration(
+                  //               //           counterText: '',
+                  //               //           focusedBorder: UnderlineInputBorder(
+                  //               //             borderSide: BorderSide(
+                  //               //                 color: Colors.black, width: 2),
+                  //               //           ),
+                  //               //         ),
+                  //               //         onChanged: (value) {},
+                  //               //       ),
+                  //               //     ),
+                  //               //   ),
+                  //               // ),
+                  //               Center(
+                  //                 child: Row(
+                  //                     mainAxisAlignment:
+                  //                         MainAxisAlignment.center,
+                  //                     children: [
+                  //                       Container(
+                  //                         width: MediaQuery.of(context)
+                  //                                 .size
+                  //                                 .width /
+                  //                             35,
+                  //                         height: 40,
+                  //                         margin: EdgeInsets.symmetric(
+                  //                             horizontal: 10),
+                  //                         decoration: BoxDecoration(),
+                  //                         child: TextField(
+                  //                           cursorColor: Colors.black,
+                  //                           inputFormatters: [
+                  //                             FilteringTextInputFormatter.allow(
+                  //                                 RegExp(r'[0-9]')),
+                  //                           ],
+                  //                           keyboardType: TextInputType.number,
+                  //                           textAlign: TextAlign.center,
+                  //                           maxLength: 1,
+                  //                           decoration: InputDecoration(
+                  //                             counterText: '',
+                  //                             focusedBorder:
+                  //                                 UnderlineInputBorder(
+                  //                               borderSide: BorderSide(
+                  //                                   color: Colors.black,
+                  //                                   width: 2),
+                  //                             ),
+                  //                           ),
+                  //                           onChanged: (value) {},
+                  //                         ),
+                  //                       ),
+                  //                       Container(
+                  //                         width: MediaQuery.of(context)
+                  //                                 .size
+                  //                                 .width /
+                  //                             35,
+                  //                         height: 40,
+                  //                         margin: EdgeInsets.symmetric(
+                  //                             horizontal: 10),
+                  //                         decoration: BoxDecoration(),
+                  //                         child: TextField(
+                  //                           cursorColor: Colors.black,
+                  //                           inputFormatters: [
+                  //                             FilteringTextInputFormatter.allow(
+                  //                                 RegExp(r'[0-9]')),
+                  //                           ],
+                  //                           keyboardType: TextInputType.number,
+                  //                           textAlign: TextAlign.center,
+                  //                           maxLength: 1,
+                  //                           decoration: InputDecoration(
+                  //                             counterText: '',
+                  //                             focusedBorder:
+                  //                                 UnderlineInputBorder(
+                  //                               borderSide: BorderSide(
+                  //                                   color: Colors.black,
+                  //                                   width: 2),
+                  //                             ),
+                  //                           ),
+                  //                           onChanged: (value) {},
+                  //                         ),
+                  //                       ),
+                  //                       Container(
+                  //                         width: MediaQuery.of(context)
+                  //                                 .size
+                  //                                 .width /
+                  //                             35,
+                  //                         height: 40,
+                  //                         margin: EdgeInsets.symmetric(
+                  //                             horizontal: 10),
+                  //                         decoration: BoxDecoration(),
+                  //                         child: TextField(
+                  //                           cursorColor: Colors.black,
+                  //                           inputFormatters: [
+                  //                             FilteringTextInputFormatter.allow(
+                  //                                 RegExp(r'[0-9]')),
+                  //                           ],
+                  //                           keyboardType: TextInputType.number,
+                  //                           textAlign: TextAlign.center,
+                  //                           maxLength: 1,
+                  //                           decoration: InputDecoration(
+                  //                             counterText: '',
+                  //                             focusedBorder:
+                  //                                 UnderlineInputBorder(
+                  //                               borderSide: BorderSide(
+                  //                                   color: Colors.black,
+                  //                                   width: 2),
+                  //                             ),
+                  //                           ),
+                  //                           onChanged: (value) {},
+                  //                         ),
+                  //                       ),
+                  //                       Container(
+                  //                         width: MediaQuery.of(context)
+                  //                                 .size
+                  //                                 .width /
+                  //                             35,
+                  //                         height: 40,
+                  //                         margin: EdgeInsets.symmetric(
+                  //                             horizontal: 10),
+                  //                         decoration: BoxDecoration(),
+                  //                         child: TextField(
+                  //                           cursorColor: Colors.black,
+                  //                           inputFormatters: [
+                  //                             FilteringTextInputFormatter.allow(
+                  //                                 RegExp(r'[0-9]')),
+                  //                           ],
+                  //                           keyboardType: TextInputType.number,
+                  //                           textAlign: TextAlign.center,
+                  //                           maxLength: 1,
+                  //                           decoration: InputDecoration(
+                  //                             counterText: '',
+                  //                             focusedBorder:
+                  //                                 UnderlineInputBorder(
+                  //                               borderSide: BorderSide(
+                  //                                   color: Colors.black,
+                  //                                   width: 2),
+                  //                             ),
+                  //                           ),
+                  //                           onChanged: (value) {},
+                  //                         ),
+                  //                       ),
+                  //                     ]),
+                  //               ),
+                  //               SizedBox(
+                  //                 height:
+                  //                     MediaQuery.of(context).size.height / 20,
+                  //               ),
+                  //               RichText(
+                  //                 text: TextSpan(
+                  //                   style: TextStyle(
+                  //                     fontFamily: 'FiraSans',
+                  //                     fontSize: 10,
+                  //                     fontWeight: FontWeight.w600,
+                  //                     color: Color(0xff686464),
+                  //                   ),
+                  //                   children: [
+                  //                     TextSpan(
+                  //                       text: 'If you didn’t receive a code! ',
+                  //                     ),
+                  //                     TextSpan(
+                  //                       text: 'Resend',
+                  //                       style:
+                  //                           TextStyle(color: Color(0xff50B5E5)),
+                  //                       recognizer: TapGestureRecognizer()
+                  //                         ..onTap = () {
+                  //                           //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
+                  //                         },
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //               SizedBox(
+                  //                 height:
+                  //                     MediaQuery.of(context).size.height / 20,
+                  //               ),
+                  //               Center(
+                  //                 child: CustomButton(
+                  //                     height:
+                  //                         MediaQuery.of(context).size.height /
+                  //                             20,
+                  //                     width:
+                  //                         MediaQuery.of(context).size.height /
+                  //                             8,
+                  //                     onPressed: () {
+                  //                       // Verify OTP
+                  //                       // Assuming _otpController is your controller for OTP input field
+                  //                       // Verify OTP
+                  //                       // String enteredOTP = _otpController.text;
+                  //                       // String correctOTP = '';
+                  //                       //
+                  //                       // if (enteredOTP == correctOTP) {
+                  //                       //   Navigator.push(
+                  //                       //     context,
+                  //                       //     MaterialPageRoute(
+                  //                       //         builder: (context) =>
+                  //                       //             SubLoginScreen()),
+                  //                       //   );
+                  //                       // } else {
+                  //                       //   print('Incorrect OTP');
+                  //                       // }
+                  //                       String enteredEmail = _emailController
+                  //                           .text; // Get the entered email
+                  //                       String enteredOTP = _otpController
+                  //                           .text; // Get the entered OTP
+                  //
+                  //                       /// Call the method to verify OTP and proceed with login
+                  //                       _verifyOTPAndLogin(
+                  //                           enteredEmail, enteredOTP);
+                  //                     },
+                  //                     // onPressed: () {
+                  //                     //   setState(() {
+                  //                     //     _showEmailInput = false;
+                  //                     //   });
+                  //                     //   Navigator.push(
+                  //                     //     context,
+                  //                     //     MaterialPageRoute(
+                  //                     //         builder: (context) =>
+                  //                     //             SubLoginScreen()),
+                  //                     //   );
+                  //                     // },
+                  //                     text: 'LogIn'),
+                  //               )
+                  //             ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -485,3 +884,94 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+// Future<void> _loginWithEmail() async {
+//   if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+//     setState(() {
+//       _errorMessage = 'Please enter username and password.';
+//     });
+//     return;
+//   }
+//
+//   String email = _emailController.text.trim();
+//   String password = _passwordController.text.trim();
+//
+//   try {
+//     var dio = Dio();
+//     var response = await dio.post(
+//       'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
+//       data: {
+//         'email': email,
+//         'password': password,
+//       },
+//     );
+//
+//     if (response.statusCode == 200) {
+//       SharedPreferences prefs = await SharedPreferences.getInstance();
+//       await prefs.setString('email', email);
+//       await prefs.setString('password', password);
+//
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => SubLoginScreen(),
+//         ),
+//       );
+//     } else {
+//       setState(() {
+//         _errorMessage = response.statusMessage;
+//       });
+//     }
+//   } catch (e) {
+//     setState(() {
+//       _errorMessage = 'The email or password you entered is incorrect.';
+//     });
+//     print('Error occurred: $e');
+//   } finally {
+//     setState(() {
+//       _isLoading = false;
+//     });
+//   }
+// }
+///
+// Future<void> _loginWithEmail() async {
+//   if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+//     setState(() {
+//       _errorMessage = 'Please enter username and password.';
+//     });
+//     return;
+//   }
+//   String email = _emailController.text.trim();
+//   String password = _passwordController.text.trim();
+//   try {
+//     var dio = Dio();
+//     var response = await dio.post(
+//       'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
+//       data: {
+//         'email': email,
+//         'password': password,
+//       },
+//     );
+//     if (response.statusCode == 200) {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => SubLoginScreen(),
+//         ),
+//       );
+//     } else {
+//       setState(() {
+//         _errorMessage = response.statusMessage;
+//       });
+//     }
+//   } catch (e) {
+//     setState(() {
+//       _errorMessage = 'The email or password you entered is incorrect.';
+//     });
+//     print('Error occurred: $e');
+//   } finally {
+//     setState(() {
+//       _isLoading = false;
+//     });
+//   }
+// }
