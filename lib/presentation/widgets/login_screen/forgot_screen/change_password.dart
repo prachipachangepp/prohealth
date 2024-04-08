@@ -19,9 +19,15 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return LoginBaseConstant(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
+      },
       titleText: 'New Password',
       textAction: 'Back to Log In',
+      textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 4),
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width / 120),
         child: Column(
@@ -71,7 +77,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   borderSide: BorderSide(color: Colors.black),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff50B5E5)),
+                  borderSide: BorderSide(color: Colors.black),
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey),
@@ -112,7 +118,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   borderSide: BorderSide(color: Colors.black),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff50B5E5)),
+                  borderSide: BorderSide(color: Colors.black),
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey),
@@ -122,7 +128,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             SizedBox(height: 12),
             Center(
               child: CustomButton(
-                width: MediaQuery.of(context).size.width / 10,
+                width: MediaQuery.of(context).size.width / 8,
                 height: MediaQuery.of(context).size.height / 22,
                 text: 'Update Password',
                 onPressed: () {
@@ -166,7 +172,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   CustomButton(
                                       width: 282,
                                       height: 46,
-                                      text: 'Continue',
+                                      text: 'CONTINUE',
                                       borderRadius: 28,
                                       onPressed: () {
                                         Navigator.push(

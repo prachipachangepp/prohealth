@@ -83,8 +83,7 @@ class SubLoginScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          SingleChildScrollView(
-                                              child: HomeScreen())));
+                                          HomeScreen()));
                             },
                             child: ResponsiveContainer(
                               'Human Resource Manager',

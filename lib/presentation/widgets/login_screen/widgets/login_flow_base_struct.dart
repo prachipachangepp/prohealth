@@ -4,15 +4,16 @@ class LoginBaseConstant extends StatelessWidget {
   final Widget child;
   final String titleText;
   final VoidCallback onTap;
-  // final Widget child2;
   final String textAction;
+  final EdgeInsetsGeometry? textActionPadding;
 
   LoginBaseConstant(
       {required this.child,
       required this.onTap,
       // required this.child2,
       required this.titleText,
-      required this.textAction});
+      required this.textAction,
+        this.textActionPadding});
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +65,6 @@ class LoginBaseConstant extends StatelessWidget {
                           )
                         ],
                       ),
-                      // SizedBox(
-                      //   height: ,
-                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -83,7 +81,7 @@ class LoginBaseConstant extends StatelessWidget {
                                     fontFamily: 'FiraSans',
                                     color: Color(0xff686464),
                                     fontSize: 30,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w800,
                                   ),
                                 ),
                               ),
@@ -115,23 +113,14 @@ class LoginBaseConstant extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height / 80,
+                                height: MediaQuery.of(context).size.height / 70,
                               ),
 
                               ///forget password text
                               Padding(
-                                padding: EdgeInsets.only(
-                                    left:
-                                        MediaQuery.of(context).size.width / 5),
+                                padding: textActionPadding ?? EdgeInsets.zero,
                                 child: GestureDetector(
                                   onTap: onTap,
-                                  // onTap: () {
-                                  //   Navigator.push(
-                                  //       context,
-                                  //       MaterialPageRoute(
-                                  //           builder: (context) =>
-                                  //               ForgotPassScreen()));
-                                  // },
                                   child: Text(
                                     textAction,
                                     style: TextStyle(
@@ -145,7 +134,6 @@ class LoginBaseConstant extends StatelessWidget {
                               )
                             ],
                           ),
-                          // SizedBox(width: MediaQuery.of(context).size.width / 8),
                           Image.asset(
                             'images/amico.png',
                             width: MediaQuery.of(context).size.width / 3,

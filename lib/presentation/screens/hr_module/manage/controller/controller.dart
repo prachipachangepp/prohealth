@@ -57,7 +57,7 @@ class MyAppTabBarController extends GetxController
   MyAppTabBarController(
       {required this.tabs,
       required this.tabViews,
-      this.tabBarViewHeight = 610.0,
+      this.tabBarViewHeight = 600.0,
       required this.tabBarViewWidth});
 
   @override

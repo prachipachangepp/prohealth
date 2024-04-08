@@ -17,7 +17,8 @@ class _AddEmployeeHomeScreenState extends State<AddEmployeeHomeScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AddEmployeeTabBar(AddEmployeeController(tabs: [
+        AddEmployeeTabBar(
+            AddEmployeeController(tabs: [
           Tab(text: 'Clinical'),
           Tab(text: 'Sales'),
           Tab(text: 'Administration'),
