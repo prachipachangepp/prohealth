@@ -145,69 +145,35 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   ///verify otp
+  Future<void> _verifyOTPAndLogin(String enteredOTP) async{
+    var headers = {
+      'Content-Type': 'application/json'
+    };
+    var data = json.encode({
+      "email": "pardeshisaloni22+4@gmail.com",
+      "otp": "7102"
+    });
+    var dio = Dio();
+    var response = await dio.request(
+      'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
+      options: Options(
+        method: 'POST',
+        headers: headers,
+      ),
+      data: data,
+    );
 
-  Future<void> _verifyOTPAndLogin(String enteredOTP) async {
-    try {
-      String enteredEmail = _emailController.text.trim();
-      var headers = {'Content-Type': 'application/json'};
-      var data = json.encode({"email": enteredEmail, "otp": enteredOTP});
-      var dio = Dio();
-      var response = await dio.request(
-        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
-        options: Options(
-          method: 'POST',
-          headers: headers,
+    if (response.statusCode == 200) {
+      print(json.encode(response.data));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SubLoginScreen(),
         ),
-        data: data,
       );
-
-      if (response.statusCode == 200) {
-        /// OTP verification successful, proceed with login
-        await _loginWithEmail();
-      } else {
-        /// OTP verification failed
-        print('OTP verification failed: ${response.statusMessage}');
-
-        /// Display an error message to the user
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('OTP Verification Failed'),
-              content: Text('The OTP verification failed. Please try again.'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-      }
-    } catch (e) {
-      print('Error occurred: $e');
-
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text(
-                'An error occurred while verifying OTP. Please try again later.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
+    }
+    else {
+      print(response.statusMessage);
     }
   }
 
