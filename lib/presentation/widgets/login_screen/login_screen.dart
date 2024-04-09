@@ -80,11 +80,11 @@ class _LoginScreenState extends State<LoginScreen> {
           'password': password,
         },
       );
-
+      print(response);
       if (response.statusCode == 200) {
-        String? access = response.data['data']?['access'];
-        String? refresh = response.data['data']?['refresh'];
-
+        String? access = response.data["authResults"]['AccessToken'];
+        String? refresh = response.data["authResults"]['RefreshToken'];
+        print(access);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('email', email);
         await prefs.setString('password', password);
