@@ -12,7 +12,7 @@ class ResponsiveContainer extends StatelessWidget {
       elevation: 4,
       borderRadius: BorderRadius.all(Radius.circular(24)),
       child: Container(
-        height: MediaQuery.of(context).size.height / 6,
+        height: MediaQuery.of(context).size.height / 5,
         width: MediaQuery.of(context).size.width / 7.7,
         padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width / 70,
@@ -37,7 +37,7 @@ class ResponsiveContainer extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xff686464),
-                  fontSize: 12,
+                  fontSize: 10,
                   fontFamily: 'FiraSans',
                   fontWeight: FontWeight.w700,
                 ),
