@@ -19,8 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   PageController _pageController = PageController();
-  final GlobalKey<FormState> _emailFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _authenticatorFormKey = GlobalKey<FormState>();
   List<TextEditingController> _otpControllers =
       List.generate(4, (_) => TextEditingController());
   TextEditingController _otpController = TextEditingController();
@@ -54,35 +52,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    _selectedIndex = 0;
-  }
-
-  ///
-  //  void _handleSelected(int index) {
-  //    setState(() {
-  //      _selectedIndex = index;
-  //    });
-  //
-  //    ///Implement further logic based on the selected index
-  //    if (index == 0) {
-  //      /// Handle login with email
-  //    } else if (index == 1) {
-  //      /// Handle login with authenticator
-  //    }
-  //  }
   void _handleSelected(int index) {
     setState(() {
       _selectedIndex = index;
-      _pageController.animateToPage(
-        index,
-        duration: Duration(milliseconds: 300),
-        curve: Curves.ease,
-      );
     });
+    _navigateToPage(index);
   }
 
   /// log in screen method api call
@@ -106,11 +80,11 @@ class _LoginScreenState extends State<LoginScreen> {
           'password': password,
         },
       );
-
+      print(response);
       if (response.statusCode == 200) {
-        String? access = response.data['data']?['access'];
-        String? refresh = response.data['data']?['refresh'];
-
+        String? access = response.data["authResults"]['AccessToken'];
+        String? refresh = response.data["authResults"]['RefreshToken'];
+        print(access);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('email', email);
         await prefs.setString('password', password);
@@ -281,60 +255,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     _handleSelected(0);
-                  //   },
-                  //   child: Column(
-                  //     children: [
-                  //       Text(
-                  //         "Login with Email",
-                  //         style: TextStyle(
-                  //           fontWeight: FontWeight.bold,
-                  //           fontSize: MediaQuery.of(context).size.width / 90,
-                  //           color: _selectedIndex == 0
-                  //               ? Colors.blue
-                  //               : const Color(0xff686464),
-                  //         ),
-                  //       ),
-                  //       const SizedBox(height: 5),
-                  //       _selectedIndex == 0
-                  //           ? Container(
-                  //               width: MediaQuery.of(context).size.width / 12,
-                  //               height: 2,
-                  //               color: Colors.blue,
-                  //             )
-                  //           : Container(),
-                  //     ],
-                  //   ),
-                  // ),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     _handleSelected(1);
-                  //   },
-                  //   child: Column(
-                  //     children: [
-                  //       Text(
-                  //         "Login with Authenticator",
-                  //         style: TextStyle(
-                  //           fontWeight: FontWeight.bold,
-                  //           fontSize: MediaQuery.of(context).size.width / 90,
-                  //           color: _selectedIndex == 1
-                  //               ? Colors.blue
-                  //               : const Color(0xff686464),
-                  //         ),
-                  //       ),
-                  //       const SizedBox(height: 5),
-                  //       _selectedIndex == 1
-                  //           ? Container(
-                  //               width: MediaQuery.of(context).size.width / 8,
-                  //               height: 2,
-                  //               color: Colors.blue,
-                  //             )
-                  //           : Container(),
-                  //     ],
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -582,7 +502,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   //     ),
                                   //   ),
                                   // ),
-                                  /// enter otp
+                                  ///
                                   Center(
                                     child: Row(
                                       mainAxisAlignment:
