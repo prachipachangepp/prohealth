@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
-import 'package:prohealth/presentation/widgets/login_screen/sub_login_page.dart';
+import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SubLoginScreen(),
+            builder: (context) => MenuScreen(),
           ),
         );
       } else {
@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => SubLoginScreen(),
+          builder: (context) => MenuScreen(),
         ),
       );
     } else {
@@ -264,7 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 99),
+                  horizontal: MediaQuery.of(context).size.width / 20),
               child: PageView(
                 controller: _pageController,
                 scrollDirection: Axis.horizontal,
@@ -353,7 +353,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     height:
                                         MediaQuery.of(context).size.height / 20,
                                     width:
-                                        MediaQuery.of(context).size.height / 14,
+                                        MediaQuery.of(context).size.height / 18,
                                     child: CircularProgressIndicator(),
                                   ),
                                 )

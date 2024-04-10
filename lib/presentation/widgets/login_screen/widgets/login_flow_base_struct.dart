@@ -87,11 +87,11 @@ class LoginBaseConstant extends StatelessWidget {
                                     child: Text(
                                       titleText,
                                       style: TextStyle(
-                                        fontFamily: 'FiraSans',
-                                        color: Color(0xff686464),
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w800,
-                                      ),
+                                          fontFamily: 'FiraSans',
+                                          // fontFamily: 'FiraSans',
+                                          color: Color(0xff686464),
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w800),
                                     ),
                                   ),
                                   SizedBox(

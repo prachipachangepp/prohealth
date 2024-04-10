@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/tablet_screen/tab_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
-import 'package:prohealth/presentation/widgets/login_screen/sub_login_page.dart';
+import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/hr_module/manage/controller/controller.dart';
@@ -34,7 +34,7 @@ class ResponsivePage extends StatelessWidget {
                 builder: (context, token) {
                   if (token.hasData) {
                     String d = token.data.toString();
-                    return d.isEmpty ? LoginScreen() : SubLoginScreen();
+                    return d.isEmpty ? LoginScreen() : MenuScreen();
                   } else {
                     return Scaffold();
                   }
