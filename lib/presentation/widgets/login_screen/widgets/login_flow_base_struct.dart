@@ -91,7 +91,7 @@ class LoginBaseConstant extends StatelessWidget {
                                           // fontFamily: 'FiraSans',
                                           color: Color(0xff686464),
                                           fontSize: 30,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.w800),
                                     ),
                                   ),
                                   SizedBox(
