@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode fieldOne = FocusNode();
   FocusNode fieldTow = FocusNode();
   final _formKey = GlobalKey<FormState>();
-  //final _formKeyAuth = GlobalKey<FormState>();
+  final _formKeyAuth = GlobalKey<FormState>();
   bool isPasswordVisible = true;
   bool _isLoading = false;
   bool _isPasswordVisible = false;
@@ -37,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isauthLoginLoading = false;
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
+  String? otpFromRunTab;
 
   @override
   void dispose() {
@@ -61,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   /// log in screen method api call
+
   Future<void> _loginWithEmail() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
@@ -149,33 +151,71 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   ///verify otp
-  Future<void> _verifyOTPAndLogin(String enteredOTP) async {
+  Future<void> _verifyOTPAndLogin(String email, String enteredOTP) async {
     var headers = {'Content-Type': 'application/json'};
-    var data =
-        json.encode({"email": "pardeshisaloni22+4@gmail.com", "otp": "7102"});
+    email = email.trim();
+    var data = json.encode({
+      "email": email,
+      "otp": enteredOTP,
+    });
     var dio = Dio();
-    var response = await dio.request(
-      'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
-      options: Options(
-        method: 'POST',
-        headers: headers,
-      ),
-      data: data,
-    );
-
-    if (response.statusCode == 200) {
-      print(json.encode(response.data));
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MenuScreen(),
+    try {
+      var response = await dio.request(
+        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
+        options: Options(
+          method: 'POST',
+          headers: headers,
         ),
+        data: data,
       );
-    } else {
-      print(response.statusMessage);
+
+      if (response.statusCode == 200) {
+        print(json.encode(response.data));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MenuScreen(),
+          ),
+        );
+      } else {
+        print(response.statusMessage);
+      }
+    } catch (e) {
+      print('Incorrect OTP !!! $e');
     }
   }
 
+  ///
+  // Future<void> _verifyOTPAndLogin(String enteredOTP) async {
+  //   var headers = {'Content-Type': 'application/json'};
+  //   var data =
+  //       json.encode({
+  //         "email": "pardeshisaloni22+4@gmail.com",
+  //         "otp": "7102"
+  //       });
+  //   var dio = Dio();
+  //   var response = await dio.request(
+  //     'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
+  //     options: Options(
+  //       method: 'POST',
+  //       headers: headers,
+  //     ),
+  //     data: data,
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     print(json.encode(response.data));
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => MenuScreen(),
+  //       ),
+  //     );
+  //   } else {
+  //     print(response.statusMessage);
+  //   }
+  // }
+  ///
   @override
   Widget build(BuildContext context) {
     return LoginBaseConstant(
@@ -291,7 +331,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets. only(top: 3),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black),
                                 ),
@@ -316,7 +355,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _passwordController,
                               keyboardType: TextInputType.visiblePassword,
                               decoration: InputDecoration(
-                                contentPadding: const EdgeInsets. only(top: 3),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black),
                                 ),
@@ -348,7 +386,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 130,
+                            height: MediaQuery.of(context).size.height / 120,
                           ),
                           _isLoading
                               ? Center(
@@ -364,10 +402,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ? Center(
                                       child: CustomButton(
                                         height:
-                                            MediaQuery.of(context).size.height / 22,
+                                            MediaQuery.of(context).size.height /
+                                                20,
                                         width:
-                                            MediaQuery.of(context).size.height / 8,
-                                        text: 'Login',
+                                            MediaQuery.of(context).size.height /
+                                                8,
+                                        text: 'LogIn',
                                         onPressed: () {
                                           if (_formKey.currentState!
                                               .validate()) {
@@ -413,13 +453,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         horizontal: 20),
                                     child: TextFormField(
                                       focusNode: emailFocusNode,
-                                      onFieldSubmitted: (_) {
-                                        _loginWithEmail();
-                                      },
                                       controller: _emailController,
                                       cursorHeight: 25,
                                       decoration: InputDecoration(
-                                        contentPadding: const EdgeInsets. only(top: 3),
                                         labelText: 'Email',
                                         labelStyle: TextStyle(fontSize: 14),
                                         border: UnderlineInputBorder(),
@@ -455,58 +491,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ))
                                 ]
                               : [
-                                  // Center(
-                                  //   child: Row(
-                                  //     mainAxisAlignment:
-                                  //         MainAxisAlignment.center,
-                                  //     children: List.generate(
-                                  //       4,
-                                  //       (index) => Container(
-                                  //         width: MediaQuery.of(context)
-                                  //                 .size
-                                  //                 .width /
-                                  //             35,
-                                  //         height: 40,
-                                  //         margin: EdgeInsets.symmetric(
-                                  //             horizontal: 10),
-                                  //         decoration: BoxDecoration(),
-                                  //         child: TextField(
-                                  //           cursorColor: Colors.black,
-                                  //           inputFormatters: [
-                                  //             FilteringTextInputFormatter.allow(
-                                  //                 RegExp(r'[0-9]')),
-                                  //           ],
-                                  //           keyboardType: TextInputType.number,
-                                  //           textAlign: TextAlign.center,
-                                  //           maxLength: 1,
-                                  //           decoration: InputDecoration(
-                                  //             counterText: '',
-                                  //             focusedBorder:
-                                  //                 UnderlineInputBorder(
-                                  //               borderSide: BorderSide(
-                                  //                   color: Colors.black,
-                                  //                   width: 2),
-                                  //             ),
-                                  //           ),
-                                  //           onChanged: (value) {
-                                  //             if (value.isNotEmpty &&
-                                  //                 index < 3) {
-                                  //               FocusScope.of(context)
-                                  //                   .nextFocus(); // Move to next TextField
-                                  //             } else if (value.isNotEmpty &&
-                                  //                 index == 3) {
-                                  //               // This is the last TextField, perform OTP verification
-                                  //               String enteredOTP =
-                                  //                   _otpController.text;
-                                  //               _verifyOTPAndLogin(
-                                  //                   enteredOTP); // Pass only OTP
-                                  //             }
-                                  //           },
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                   ///
                                   Center(
                                     child: Row(
@@ -572,7 +556,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         false)) {
                                                   _verifyOTPAndLogin(
                                                     _emailController.text,
-                                                    // enteredOTP,
+                                                    enteredOTP,
                                                   );
                                                 }
                                               }
@@ -647,7 +631,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     false)) {
                                               _verifyOTPAndLogin(
                                                 enteredEmail,
-                                                // enteredOTP,
+                                                enteredOTP,
                                               );
                                             }
                                           },
@@ -757,3 +741,56 @@ class _LoginScreenState extends State<LoginScreen> {
 //     });
 //   }
 // }
+///
+// Center(
+//   child: Row(
+//     mainAxisAlignment:
+//         MainAxisAlignment.center,
+//     children: List.generate(
+//       4,
+//       (index) => Container(
+//         width: MediaQuery.of(context)
+//                 .size
+//                 .width /
+//             35,
+//         height: 40,
+//         margin: EdgeInsets.symmetric(
+//             horizontal: 10),
+//         decoration: BoxDecoration(),
+//         child: TextField(
+//           cursorColor: Colors.black,
+//           inputFormatters: [
+//             FilteringTextInputFormatter.allow(
+//                 RegExp(r'[0-9]')),
+//           ],
+//           keyboardType: TextInputType.number,
+//           textAlign: TextAlign.center,
+//           maxLength: 1,
+//           decoration: InputDecoration(
+//             counterText: '',
+//             focusedBorder:
+//                 UnderlineInputBorder(
+//               borderSide: BorderSide(
+//                   color: Colors.black,
+//                   width: 2),
+//             ),
+//           ),
+//           onChanged: (value) {
+//             if (value.isNotEmpty &&
+//                 index < 3) {
+//               FocusScope.of(context)
+//                   .nextFocus(); // Move to next TextField
+//             } else if (value.isNotEmpty &&
+//                 index == 3) {
+//               // This is the last TextField, perform OTP verification
+//               String enteredOTP =
+//                   _otpController.text;
+//               _verifyOTPAndLogin(
+//                   enteredOTP); // Pass only OTP
+//             }
+//           },
+//         ),
+//       ),
+//     ),
+//   ),
+// ),
