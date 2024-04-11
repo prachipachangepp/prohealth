@@ -218,13 +218,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        _selectedIndex == 0
-                            ? Container(
-                                width: MediaQuery.of(context).size.width / 12,
-                                height: 2,
-                                color: Colors.blue,
-                              )
-                            : Container(),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 12,
+                          height: 2,
+                          color: _selectedIndex == 0
+                              ? Colors.blue
+                              : Colors.transparent,
+                        ),
                       ],
                     ),
                   ),
@@ -245,13 +245,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        _selectedIndex == 1
-                            ? Container(
-                                width: MediaQuery.of(context).size.width / 8,
-                                height: 2,
-                                color: Colors.blue,
-                              )
-                            : Container(),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 8,
+                          height: 2,
+                          color: _selectedIndex == 1
+                              ? Colors.blue
+                              : Colors.transparent,
+                        ),
                       ],
                     ),
                   ),
