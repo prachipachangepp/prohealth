@@ -69,8 +69,10 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                     fontWeight: FontWeight.w500,
                     fontSize: 12,
                   ),
+                  cursorHeight: 22,
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets. only(top: 2),
                     labelText: 'Email',
                     labelStyle: TextStyle(
                         fontSize: 14, color: Color(0xff000000).withOpacity(0.9)),

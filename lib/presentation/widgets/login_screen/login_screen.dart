@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   List<TextEditingController> _otpControllers =
       List.generate(4, (_) => TextEditingController());
   TextEditingController _otpController = TextEditingController();
-  int _selectedIndex = -1;
+  int _selectedIndex = 0;
   FocusNode fieldOne = FocusNode();
   FocusNode fieldTow = FocusNode();
   final _formKey = GlobalKey<FormState>();
@@ -66,7 +66,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   /// log in screen method api call
-
   Future<void> _loginWithEmail() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
@@ -194,37 +193,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  ///
-  // Future<void> _verifyOTPAndLogin(String enteredOTP) async {
-  //   var headers = {'Content-Type': 'application/json'};
-  //   var data =
-  //       json.encode({
-  //         "email": "pardeshisaloni22+4@gmail.com",
-  //         "otp": "7102"
-  //       });
-  //   var dio = Dio();
-  //   var response = await dio.request(
-  //     'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
-  //     options: Options(
-  //       method: 'POST',
-  //       headers: headers,
-  //     ),
-  //     data: data,
-  //   );
-  //
-  //   if (response.statusCode == 200) {
-  //     print(json.encode(response.data));
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => MenuScreen(),
-  //       ),
-  //     );
-  //   } else {
-  //     print(response.statusMessage);
-  //   }
-  // }
-  ///
   @override
   Widget build(BuildContext context) {
     return LoginBaseConstant(
@@ -310,7 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
 
-          ///todo prachi
+          ///todo prachi & saloni
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -337,9 +305,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     .requestFocus(passwordFocusNode);
                               },
                               cursorColor: Colors.black,
+                              cursorHeight: 22,
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets. only(top: 1),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black),
                                 ),
@@ -363,7 +333,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               cursorColor: Colors.black,
                               controller: _passwordController,
                               keyboardType: TextInputType.visiblePassword,
+                              cursorHeight: 22,
                               decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets. only(top: 2),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black),
                                 ),
@@ -459,15 +431,20 @@ class _LoginScreenState extends State<LoginScreen> {
                               ? [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
+                                        horizontal: 5),
                                     child: TextFormField(
                                       focusNode: emailFocusNode,
                                       controller: _emailController,
-                                      cursorHeight: 25,
+                                      cursorColor: Colors.black,
+                                      cursorHeight: 22,
                                       decoration: InputDecoration(
                                         labelText: 'Email',
                                         labelStyle: TextStyle(fontSize: 14),
                                         border: UnderlineInputBorder(),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(color: Colors.black),
+                                          ),
+                                        contentPadding: EdgeInsets.only(top: 2)
                                       ),
                                       validator: (value) {
                                         if (value?.isEmpty ?? true) {
@@ -527,6 +504,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             textAlign: TextAlign.center,
                                             maxLength: 1,
                                             decoration: InputDecoration(
+                                              contentPadding: const EdgeInsets. only(top: 2),
                                               counterText: '',
                                               focusedBorder:
                                                   UnderlineInputBorder(
@@ -713,147 +691,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-// Future<void> _loginWithEmail() async {
-//   if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-//     setState(() {
-//       _errorMessage = 'Please enter username and password.';
-//     });
-//     return;
-//   }
-//
-//   String email = _emailController.text.trim();
-//   String password = _passwordController.text.trim();
-//
-//   try {
-//     var dio = Dio();
-//     var response = await dio.post(
-//       'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
-//       data: {
-//         'email': email,
-//         'password': password,
-//       },
-//     );
-//
-//     if (response.statusCode == 200) {
-//       SharedPreferences prefs = await SharedPreferences.getInstance();
-//       await prefs.setString('email', email);
-//       await prefs.setString('password', password);
-//
-//       Navigator.push(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => SubLoginScreen(),
-//         ),
-//       );
-//     } else {
-//       setState(() {
-//         _errorMessage = response.statusMessage;
-//       });
-//     }
-//   } catch (e) {
-//     setState(() {
-//       _errorMessage = 'The email or password you entered is incorrect.';
-//     });
-//     print('Error occurred: $e');
-//   } finally {
-//     setState(() {
-//       _isLoading = false;
-//     });
-//   }
-// }
-///
-// Future<void> _loginWithEmail() async {
-//   if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-//     setState(() {
-//       _errorMessage = 'Please enter username and password.';
-//     });
-//     return;
-//   }
-//   String email = _emailController.text.trim();
-//   String password = _passwordController.text.trim();
-//   try {
-//     var dio = Dio();
-//     var response = await dio.post(
-//       'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
-//       data: {
-//         'email': email,
-//         'password': password,
-//       },
-//     );
-//     if (response.statusCode == 200) {
-//       Navigator.push(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => SubLoginScreen(),
-//         ),
-//       );
-//     } else {
-//       setState(() {
-//         _errorMessage = response.statusMessage;
-//       });
-//     }
-//   } catch (e) {
-//     setState(() {
-//       _errorMessage = 'The email or password you entered is incorrect.';
-//     });
-//     print('Error occurred: $e');
-//   } finally {
-//     setState(() {
-//       _isLoading = false;
-//     });
-//   }
-// }
-///
-// Center(
-//   child: Row(
-//     mainAxisAlignment:
-//         MainAxisAlignment.center,
-//     children: List.generate(
-//       4,
-//       (index) => Container(
-//         width: MediaQuery.of(context)
-//                 .size
-//                 .width /
-//             35,
-//         height: 40,
-//         margin: EdgeInsets.symmetric(
-//             horizontal: 10),
-//         decoration: BoxDecoration(),
-//         child: TextField(
-//           cursorColor: Colors.black,
-//           inputFormatters: [
-//             FilteringTextInputFormatter.allow(
-//                 RegExp(r'[0-9]')),
-//           ],
-//           keyboardType: TextInputType.number,
-//           textAlign: TextAlign.center,
-//           maxLength: 1,
-//           decoration: InputDecoration(
-//             counterText: '',
-//             focusedBorder:
-//                 UnderlineInputBorder(
-//               borderSide: BorderSide(
-//                   color: Colors.black,
-//                   width: 2),
-//             ),
-//           ),
-//           onChanged: (value) {
-//             if (value.isNotEmpty &&
-//                 index < 3) {
-//               FocusScope.of(context)
-//                   .nextFocus(); // Move to next TextField
-//             } else if (value.isNotEmpty &&
-//                 index == 3) {
-//               // This is the last TextField, perform OTP verification
-//               String enteredOTP =
-//                   _otpController.text;
-//               _verifyOTPAndLogin(
-//                   enteredOTP); // Pass only OTP
-//             }
-//           },
-//         ),
-//       ),
-//     ),
-//   ),
-// ),
