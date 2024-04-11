@@ -115,7 +115,7 @@ class LoginBaseConstant extends StatelessWidget {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              2.3,
+                                              2.25,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(24),
