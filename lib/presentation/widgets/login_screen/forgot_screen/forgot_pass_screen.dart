@@ -35,7 +35,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       titleText: 'Forgot Password',
       textAction: 'Back to Login',
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 20),
+        padding: EdgeInsets.all( MediaQuery.of(context).size.width / 40),
         child: Form(
           key: _formKey,
           child: Column(
@@ -51,40 +51,43 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              TextFormField(
-                // focusNode: emailFocusNode,
-                // onFieldSubmitted: (_) {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => PasswordVerifyScreen()),
-                //   );
-                // },
-                controller: _emailcontroller,
-                style: TextStyle(
-                  fontFamily: 'FiraSans',
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12,
-                ),
-                cursorColor: Colors.black,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: TextStyle(
-                      fontSize: 14, color: Color(0xff000000).withOpacity(0.9)),
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 100),
+                child: TextFormField(
+                  // focusNode: emailFocusNode,
+                  // onFieldSubmitted: (_) {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => PasswordVerifyScreen()),
+                  //   );
+                  // },
+                  controller: _emailcontroller,
+                  style: TextStyle(
+                    fontFamily: 'FiraSans',
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
                   ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    labelStyle: TextStyle(
+                        fontSize: 14, color: Color(0xff000000).withOpacity(0.9)),
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter Email';
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter Email';
-                  }
-                  return null;
-                },
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 99,
