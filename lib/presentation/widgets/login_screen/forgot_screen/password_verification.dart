@@ -7,6 +7,8 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 
+import '../login_screen.dart';
+
 class PasswordVerifyScreen extends StatefulWidget {
   @override
   State<PasswordVerifyScreen> createState() => _PasswordVerifyScreenState();
@@ -14,7 +16,10 @@ class PasswordVerifyScreen extends StatefulWidget {
 
 class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
   late Timer _timer;
-
+  final _formKey = GlobalKey<FormState>();
+  List<TextEditingController> _otpControllers =
+  List.generate(4, (_) => TextEditingController());
+  TextEditingController _otpController = TextEditingController();
   int _timerCount = 30;
 
   @override
@@ -51,101 +56,146 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
   @override
   Widget build(BuildContext context) {
     return LoginBaseConstant(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
+      },
       titleText: 'Password Verification',
       textAction: 'Back to login',
       textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 4),
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width / 100),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Enter your 4 digits code that you received on your email.',
-              style: TextStyle(
-                fontFamily: 'FiraSans',
-                color: Color(0xff686464),
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                4,
-                (index) => Container(
-                  width: MediaQuery.of(context).size.width/35,
-                  height: 40,
-                  margin: EdgeInsets.symmetric(horizontal: 5),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Color(0xff9BADCA),
-                      width: 0.55,
-                    ),
-                  ),
-                  child: TextField(
-                    cursorColor: Colors.black,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                    ],
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    maxLength: 1,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      border: InputBorder.none,
-                    ),
-                    onChanged: (value) {},
-                  ),
-                ),
-              ),
-            ),
-            Text(
-              '${getTimerString()}',
-              style: TextStyle(
-                fontFamily: 'FiraSans',
-                color: Color(0xffF2451C),
-                fontSize: 8,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Center(
-              child: CustomButton(
-                  text: 'Continue',
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChangePasswordScreen()));
-                  },
-                  width: MediaQuery.of(context).size.width / 10,
-                  height: MediaQuery.of(context).size.height / 22),
-            ),
-            RichText(
-              text: TextSpan(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Enter your 4 digits code that you received on your email.',
                 style: TextStyle(
                   fontFamily: 'FiraSans',
+                  color: Color(0xff686464),
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xff686464),
                 ),
-                children: [
-                  TextSpan(
-                    text: 'If you didn’t receive a code! ',
-                  ),
-                  TextSpan(
-                    text: 'Resend',
-                    style: TextStyle(color: Color(0xffF2451C)),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
-                      },
-                  ),
-                ],
               ),
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  4,
+                  (index) => Container(
+                    width: MediaQuery.of(context).size.width/35,
+                    height: 40,
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Color(0xff9BADCA),
+                        width: 0.55,
+                      ),
+                    ),
+                    child: TextFormField(
+                      controller: _otpControllers[index],
+                      cursorColor: Colors.black,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                      ],
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      maxLength: 1,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        border: InputBorder.none,
+                      ),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? 'Please enter OTP'
+                            : null;
+                      },
+                      onChanged: (value) {
+                        if (value.isNotEmpty &&
+                            index < 3) {
+                          FocusScope.of(context)
+                              .nextFocus();
+                        } else if (value.isNotEmpty &&
+                            index == 3) {
+                          String enteredOTP =
+                          _otpControllers
+                              .map((controller) =>
+                          controller.text)
+                              .join();
+                          bool anyFieldEmpty =
+                          _otpControllers
+                              .any((controller) =>
+                          controller
+                              .text.isEmpty);
+                          if (!anyFieldEmpty &&
+                              (_formKey.currentState
+                                  ?.validate() ??
+                                  false)) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChangePasswordScreen()));
+                            // _verifyOTPAndLogin(
+                            //   _emailController.text,
+                            //   // enteredOTP,
+                            // );
+                          }
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                '${getTimerString()}',
+                style: TextStyle(
+                  fontFamily: 'FiraSans',
+                  color: Color(0xffF2451C),
+                  fontSize: 8,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Center(
+                child: CustomButton(
+                    text: 'Continue',
+                    onPressed: () {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => ChangePasswordScreen()));
+                    },
+                    width: MediaQuery.of(context).size.width / 10,
+                    height: MediaQuery.of(context).size.height / 22),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                    fontFamily: 'FiraSans',
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff686464),
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'If you didn’t receive a code! ',
+                    ),
+                    TextSpan(
+                      text: 'Resend',
+                      style: TextStyle(color: Color(0xffF2451C)),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

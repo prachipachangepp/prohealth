@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode fieldOne = FocusNode();
   FocusNode fieldTow = FocusNode();
   final _formKey = GlobalKey<FormState>();
+  //final _formKeyAuth = GlobalKey<FormState>();
   bool isPasswordVisible = true;
   bool _isLoading = false;
   bool _isPasswordVisible = false;
@@ -218,13 +219,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        _selectedIndex == 0
-                            ? Container(
-                                width: MediaQuery.of(context).size.width / 12,
-                                height: 2,
-                                color: Colors.blue,
-                              )
-                            : Container(),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 12,
+                          height: 2,
+                          color: _selectedIndex == 0
+                              ? Colors.blue
+                              : Colors.transparent,
+                        ),
                       ],
                     ),
                   ),
@@ -245,13 +246,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        _selectedIndex == 1
-                            ? Container(
-                                width: MediaQuery.of(context).size.width / 8,
-                                height: 2,
-                                color: Colors.blue,
-                              )
-                            : Container(),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 8,
+                          height: 2,
+                          color: _selectedIndex == 1
+                              ? Colors.blue
+                              : Colors.transparent,
+                        ),
                       ],
                     ),
                   ),
@@ -290,6 +291,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets. only(top: 3),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black),
                                 ),
@@ -314,6 +316,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _passwordController,
                               keyboardType: TextInputType.visiblePassword,
                               decoration: InputDecoration(
+                                contentPadding: const EdgeInsets. only(top: 3),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black),
                                 ),
@@ -345,7 +348,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 120,
+                            height: MediaQuery.of(context).size.height / 130,
                           ),
                           _isLoading
                               ? Center(
@@ -361,12 +364,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ? Center(
                                       child: CustomButton(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                20,
+                                            MediaQuery.of(context).size.height / 22,
                                         width:
-                                            MediaQuery.of(context).size.height /
-                                                8,
-                                        text: 'LogIn',
+                                            MediaQuery.of(context).size.height / 8,
+                                        text: 'Login',
                                         onPressed: () {
                                           if (_formKey.currentState!
                                               .validate()) {
@@ -412,9 +413,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                         horizontal: 20),
                                     child: TextFormField(
                                       focusNode: emailFocusNode,
+                                      onFieldSubmitted: (_) {
+                                        _loginWithEmail();
+                                      },
                                       controller: _emailController,
                                       cursorHeight: 25,
                                       decoration: InputDecoration(
+                                        contentPadding: const EdgeInsets. only(top: 3),
                                         labelText: 'Email',
                                         labelStyle: TextStyle(fontSize: 14),
                                         border: UnderlineInputBorder(),
