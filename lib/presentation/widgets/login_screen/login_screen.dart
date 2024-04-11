@@ -38,6 +38,10 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
   String? otpFromRunTab;
+  String? _errorLoginMessage;
+
+// Define a variable to track whether login is in progress
+  bool _isLoggingIn = false;
 
   @override
   void dispose() {
@@ -182,6 +186,10 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       print('Incorrect OTP !!! $e');
+      setState(() {
+        _errorLoginMessage = 'Incorrect OTP Please try again.';
+        _isLoggingIn = false;
+      });
     }
   }
 
@@ -491,7 +499,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ))
                                 ]
                               : [
-                                  ///
                                   Center(
                                     child: Row(
                                       mainAxisAlignment:
@@ -600,42 +607,97 @@ class _LoginScreenState extends State<LoginScreen> {
                                         MediaQuery.of(context).size.height / 20,
                                   ),
 
-                                  ///login button
-                                  _isauthLoginLoading
-                                      ? CircularProgressIndicator()
-                                      : Center(
-                                          child: CustomButton(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              20,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              8,
-                                          text: 'LogIn',
-                                          onPressed: () {
-                                            String enteredEmail =
-                                                _emailController.text;
-                                            String enteredOTP = _otpControllers
-                                                .map((controller) =>
-                                                    controller.text)
-                                                .join();
-                                            bool anyFieldEmpty = _otpControllers
-                                                .any((controller) =>
-                                                    controller.text.isEmpty);
+                                  ///login button 1st
+                                  if (_errorLoginMessage != null)
+                                    Text(_errorLoginMessage!,
+                                        style: TextStyle(color: Colors.red)),
+                                  if (!_isLoggingIn)
+                                    Center(
+                                      child: CustomButton(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                20,
+                                        width:
+                                            MediaQuery.of(context).size.height /
+                                                8,
+                                        text: 'LogIn',
+                                        onPressed: () async {
+                                          String enteredEmail =
+                                              _emailController.text;
+                                          String enteredOTP = _otpControllers
+                                              .map((controller) =>
+                                                  controller.text)
+                                              .join();
+                                          bool anyFieldEmpty = _otpControllers
+                                              .any((controller) =>
+                                                  controller.text.isEmpty);
 
-                                            if (!anyFieldEmpty &&
-                                                (_formKey.currentState
-                                                        ?.validate() ??
-                                                    false)) {
-                                              _verifyOTPAndLogin(
-                                                enteredEmail,
-                                                enteredOTP,
-                                              );
-                                            }
-                                          },
-                                        )),
+                                          if (!anyFieldEmpty &&
+                                              (_formKey.currentState
+                                                      ?.validate() ??
+                                                  false)) {
+                                            setState(() {
+                                              _isLoggingIn = true;
+                                              _errorLoginMessage = null;
+                                            });
+                                            await _verifyOTPAndLogin(
+                                              enteredEmail,
+                                              enteredOTP,
+                                            );
+
+                                            /// After the login attempt is completed
+                                            setState(() {
+                                              /// Reset login in progress
+                                              _isLoggingIn = false;
+
+                                              /// Show error message if exists
+                                              if (_errorLoginMessage == null) {
+                                                /// Show loader if no error
+                                                _isLoading = true;
+                                              }
+                                            });
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  if (_isLoggingIn) CircularProgressIndicator(),
+
+                                  /// 2nd
+                                  // _isauthLoginLoading
+                                  //     ? CircularProgressIndicator()
+                                  //     : Center(
+                                  //         child: CustomButton(
+                                  //         height: MediaQuery.of(context)
+                                  //                 .size
+                                  //                 .height /
+                                  //             20,
+                                  //         width: MediaQuery.of(context)
+                                  //                 .size
+                                  //                 .height /
+                                  //             8,
+                                  //         text: 'LogIn',
+                                  //         onPressed: () {
+                                  //           String enteredEmail =
+                                  //               _emailController.text;
+                                  //           String enteredOTP = _otpControllers
+                                  //               .map((controller) =>
+                                  //                   controller.text)
+                                  //               .join();
+                                  //           bool anyFieldEmpty = _otpControllers
+                                  //               .any((controller) =>
+                                  //                   controller.text.isEmpty);
+                                  //
+                                  //           if (!anyFieldEmpty &&
+                                  //               (_formKey.currentState
+                                  //                       ?.validate() ??
+                                  //                   false)) {
+                                  //             _verifyOTPAndLogin(
+                                  //               enteredEmail,
+                                  //               enteredOTP,
+                                  //             );
+                                  //           }
+                                  //         },
+                                  //       )),
                                 ],
                         ),
                       ),
