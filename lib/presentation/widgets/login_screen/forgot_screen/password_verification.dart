@@ -106,6 +106,7 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
                       textAlign: TextAlign.center,
                       maxLength: 1,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets. only(bottom: 10),
                         counterText: '',
                         border: InputBorder.none,
                       ),
