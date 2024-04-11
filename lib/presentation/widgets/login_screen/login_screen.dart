@@ -122,10 +122,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   /// get otp
-  Future<void> _getOTP() async {
+  Future<void> _getOTP(String email) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var data = json.encode({"email": "prachijtpachange@gmail.com"});
+      var data = json.encode({"email": email});
       var dio = Dio();
       var response = await dio.post(
         'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/getotp',
@@ -150,7 +150,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_selectedIndex == 0) {
       _loginWithEmail();
     } else if (_selectedIndex == 1) {
-      await _getOTP();
+      String email = _emailController.text.trim();
+      await _getOTP(email);
     }
   }
 
