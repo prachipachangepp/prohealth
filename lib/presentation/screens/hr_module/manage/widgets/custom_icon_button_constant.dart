@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 ///done by saloni
 ///button constant for circularborder with text and with/without icon
@@ -130,9 +131,10 @@ class CustomButton extends StatelessWidget {
         ),
         child: text != null
             ? Text(text!,
-                style: TextStyle(
+                style: GoogleFonts.firaSans(
                   fontSize: MediaQuery.of(context).size.width / 90,
-                ))
+                  fontWeight: FontWeight.w700,
+                ),)
             : child,
       ),
     );

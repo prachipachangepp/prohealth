@@ -17,7 +17,6 @@ class ForgotPassManager{
         ),
         data: data,
       );
-
       if (response.statusCode == 200) {
         print(json.encode(response.data));
       }
@@ -29,5 +28,4 @@ class ForgotPassManager{
       print('Error occurred: $e');
     }
   }
-
 }

@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
@@ -39,8 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode passwordFocusNode = FocusNode();
   String? otpFromRunTab;
   String? _errorLoginMessage;
-
-// Define a variable to track whether login is in progress
   bool _isLoggingIn = false;
 
   @override
@@ -200,7 +198,6 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => ForgotPassScreen()));
       },
-      // child2: null,
       titleText: 'Log In',
       textAction: 'Forgot your account password ?',
       textActionPadding:
@@ -208,7 +205,6 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Headings
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 120,
@@ -227,22 +223,34 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text(
                           "Login with Email",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width / 90,
+                          style: GoogleFonts.firaSans(
                             color: _selectedIndex == 0
-                                ? Colors.blue
-                                : const Color(0xff686464),
+                                  ? Color(0xff50B5E5)
+                                  : const Color(0xff686464),
+                            fontSize: MediaQuery.of(context).size.width / 90,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         const SizedBox(height: 5),
                         Container(
                           width: MediaQuery.of(context).size.width / 12,
-                          height: 2,
-                          color: _selectedIndex == 0
-                              ? Colors.blue
-                              : Colors.transparent,
-                        ),
+                          height: 3,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(13),
+                            boxShadow: _selectedIndex == 0
+                                ? [
+                              BoxShadow(
+                                color: Color(0xff000000).withOpacity(0.4),
+                                offset: Offset(1, 3),
+                                blurRadius: 4,
+                              ),
+                            ]
+                                : [],
+                            color: _selectedIndex == 0
+                                ? Color(0xff50B5E5)
+                                : Colors.transparent,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -254,22 +262,34 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text(
                           "Login with Authenticator",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width / 90,
+                          style: GoogleFonts.firaSans(
                             color: _selectedIndex == 1
-                                ? Colors.blue
+                                ? Color(0xff50B5E5)
                                 : const Color(0xff686464),
+                            fontSize: MediaQuery.of(context).size.width / 90,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         const SizedBox(height: 5),
                         Container(
                           width: MediaQuery.of(context).size.width / 8,
-                          height: 2,
-                          color: _selectedIndex == 1
-                              ? Colors.blue
-                              : Colors.transparent,
-                        ),
+                          height: 3,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(13),
+                            boxShadow: _selectedIndex == 1
+                                ? [
+                              BoxShadow(
+                                color: Color(0xff000000).withOpacity(0.4),
+                                offset: Offset(1, 3),
+                                blurRadius: 4,
+                              ),
+                            ]
+                                : [],
+                            color: _selectedIndex == 1
+                                ? Color(0xff50B5E5)
+                                : Colors.transparent,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -299,6 +319,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
+                              style: GoogleFonts.firaSans(
+                                color: Color(0xff000000).withOpacity(0.5),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
                               focusNode: emailFocusNode,
                               onFieldSubmitted: (_) {
                                 FocusScope.of(context)
@@ -311,9 +336,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: InputDecoration(
                                   contentPadding: const EdgeInsets. only(top: 1),
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black),
+                                  borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5),width: 0.5),
                                 ),
                                 labelText: 'Email',
+                                labelStyle: GoogleFonts.firaSans(
+                                  color: Color(0xff000000).withOpacity(0.3),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -326,6 +356,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
+                              style: GoogleFonts.firaSans(
+                                color: Color(0xff000000).withOpacity(0.5),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
                               focusNode: passwordFocusNode,
                               onFieldSubmitted: (_) {
                                 _loginWithEmail();
@@ -333,23 +368,29 @@ class _LoginScreenState extends State<LoginScreen> {
                               cursorColor: Colors.black,
                               controller: _passwordController,
                               keyboardType: TextInputType.visiblePassword,
+                              obscuringCharacter: '*',
                               cursorHeight: 22,
                               decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets. only(top: 2),
+                                contentPadding: const EdgeInsets.only(top: 2),
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black),
+                                  borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5), width: 0.5),
                                 ),
                                 labelText: 'Password',
+                                labelStyle: GoogleFonts.firaSans(
+                                  color: Color(0xff000000).withOpacity(0.3),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 suffixIcon: IconButton(
                                   icon: _isPasswordVisible
                                       ? Icon(
-                                          Icons.visibility_off_outlined,
-                                          color: Color(0xffACA5BB),
-                                        )
+                                    Icons.visibility_off_outlined,
+                                    color: Color(0xffACA5BB),
+                                  )
                                       : Icon(
-                                          Icons.visibility_outlined,
-                                          color: Color(0xffACA5BB),
-                                        ),
+                                    Icons.visibility_outlined,
+                                    color: Color(0xffACA5BB),
+                                  ),
                                   onPressed: () {
                                     setState(() {
                                       _isPasswordVisible = !_isPasswordVisible;
@@ -381,25 +422,39 @@ class _LoginScreenState extends State<LoginScreen> {
                                 )
                               : !_loginSuccessful
                                   ? Center(
-                                      child: CustomButton(
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                20,
-                                        width:
-                                            MediaQuery.of(context).size.height /
-                                                8,
-                                        text: 'LogIn',
-                                        onPressed: () {
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            setState(() {
-                                              _isLoading = true;
-                                              _errorMessage = null;
-                                            });
-                                            _loginWithEmail();
-                                          }
-                                          print('Button pressed!');
-                                        },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(14),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0x40000000),
+                                              offset: Offset(0, 4),
+                                              blurRadius: 4,
+                                              spreadRadius: 0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: CustomButton(
+                                          borderRadius: 28,
+                                          height:
+                                              MediaQuery.of(context).size.height /
+                                                  20,
+                                          width:
+                                              MediaQuery.of(context).size.height /
+                                                  7,
+                                          text: 'Login',
+                                          onPressed: () {
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              setState(() {
+                                                _isLoading = true;
+                                                _errorMessage = null;
+                                              });
+                                              _loginWithEmail();
+                                            }
+                                            print('Button pressed!');
+                                          },
+                                        ),
                                       ),
                                     )
                                   : SizedBox(),
@@ -410,7 +465,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               child: Text(
                                 _errorMessage!,
-                                style: TextStyle(color: Colors.red),
+                                style: GoogleFonts.firaSans(
+                                  color: Colors.red
+                                ),
                               ),
                             ),
                         ],
@@ -433,18 +490,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 5),
                                     child: TextFormField(
+                                      style: GoogleFonts.firaSans(
+                                        color: Color(0xff000000).withOpacity(0.5),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                      ),
                                       focusNode: emailFocusNode,
                                       controller: _emailController,
                                       cursorColor: Colors.black,
                                       cursorHeight: 22,
                                       decoration: InputDecoration(
+                                        contentPadding: const EdgeInsets. only(top: 1),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5),width: 0.5),
+                                        ),
                                         labelText: 'Email',
-                                        labelStyle: TextStyle(fontSize: 14),
-                                        border: UnderlineInputBorder(),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.black),
-                                          ),
-                                        contentPadding: EdgeInsets.only(top: 2)
+                                        labelStyle: GoogleFonts.firaSans(
+                                          color: Color(0xff000000).withOpacity(0.3),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                       validator: (value) {
                                         if (value?.isEmpty ?? true) {
@@ -458,25 +523,40 @@ class _LoginScreenState extends State<LoginScreen> {
                                     height:
                                         MediaQuery.of(context).size.height / 15,
                                   ),
+                                  ///next button
                                   Center(
-                                      child: CustomButton(
-                                    height:
-                                        MediaQuery.of(context).size.height / 20,
-                                    width:
-                                        MediaQuery.of(context).size.height / 8,
-                                    text: "Next",
-                                    onPressed: () {
-                                      if (_formKey.currentState?.validate() ??
-                                          false) {
-                                        setState(() {
-                                          _showEmailInput = false;
-                                        });
-                                        _handleNextButton();
-                                      }
-                                    },
-                                  ))
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(14),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0x40000000),
+                                              offset: Offset(0, 4),
+                                              blurRadius: 4,
+                                              spreadRadius: 0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: CustomButton(
+                                          borderRadius: 28,
+                                          height: MediaQuery.of(context).size.height / 20,
+                                          width: MediaQuery.of(context).size.height / 7,
+
+                                          text: "Next",
+                                          onPressed: () {
+                                        if (_formKey.currentState?.validate() ??
+                                            false) {
+                                          setState(() {
+                                            _showEmailInput = false;
+                                          });
+                                          _handleNextButton();
+                                        }
+                                                                            },
+                                                                          ),
+                                      ))
                                 ]
                               : [
+                                ///
                                   Center(
                                     child: Row(
                                       mainAxisAlignment:
@@ -484,10 +564,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       children: List.generate(
                                         4,
                                         (index) => Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              35,
+                                          width: MediaQuery.of(context).size.width / 40,
                                           height: 40,
                                           margin: EdgeInsets.symmetric(
                                               horizontal: 10),
@@ -509,7 +586,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               focusedBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: Colors.black,
+                                                  color: Color(0xff686464),
                                                   width: 2,
                                                 ),
                                               ),
@@ -558,8 +635,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   RichText(
                                     text: TextSpan(
-                                      style: TextStyle(
-                                        fontFamily: 'FiraSans',
+                                      style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w600,
                                         color: Color(0xff686464),
@@ -571,8 +647,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         TextSpan(
                                           text: 'Resend',
-                                          style: TextStyle(
-                                              color: Color(0xff50B5E5)),
+                                          style: GoogleFonts.firaSans(
+                                            color: Color(0xff50B5E5),
+                                            //fontSize: MediaQuery.of(context).size.width / 90,
+                                          ),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
                                               // Handle resend OTP
@@ -586,20 +664,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                         MediaQuery.of(context).size.height / 20,
                                   ),
 
-                                  ///login button 1st
+                                  ///login button
                                   if (_errorLoginMessage != null)
                                     Text(_errorLoginMessage!,
                                         style: TextStyle(color: Colors.red)),
                                   if (!_isLoggingIn)
                                     Center(
                                       child: CustomButton(
+                                        borderRadius: 28,
                                         height:
                                             MediaQuery.of(context).size.height /
                                                 20,
                                         width:
                                             MediaQuery.of(context).size.height /
                                                 8,
-                                        text: 'LogIn',
+                                        text: 'Login',
                                         onPressed: () async {
                                           String enteredEmail =
                                               _emailController.text;
