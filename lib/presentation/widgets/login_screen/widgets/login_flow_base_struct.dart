@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginBaseConstant extends StatelessWidget {
   final Widget child;
@@ -79,27 +80,28 @@ class LoginBaseConstant extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  ///head text
                                   Padding(
                                     padding: EdgeInsets.only(
                                         left:
                                             MediaQuery.of(context).size.height /
-                                                10),
+                                                30),
                                     child: Text(
                                       titleText,
-                                      style: TextStyle(
-                                          fontFamily: 'FiraSans',
-                                          // fontFamily: 'FiraSans',
-                                          color: Color(0xff686464),
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.w800),
+                                      style: GoogleFonts.firaSans(
+                                        color: Color(0xff686464),
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.w800,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height /
-                                        100,
+                                        20,
                                   ),
 
                                   ///todo prachi
+                                  ///main container
                                   Material(
                                     elevation: 9,
                                     borderRadius: BorderRadius.circular(24),
@@ -108,27 +110,32 @@ class LoginBaseConstant extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3.3,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              2.25,
+                                          width: MediaQuery.of(context).size.width / 3.3,
+                                          height: MediaQuery.of(context).size.height / 2.25,
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(24),
+                                            borderRadius: BorderRadius.circular(24),
                                             color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0xff000000).withOpacity(0.1), // 0x1A for the first shadow
+                                                spreadRadius: 0,
+                                                blurRadius: 0,
+                                                offset: Offset(0, 0),
+                                              ),
+                                              BoxShadow(
+                                                color: Color(0xff000000).withOpacity(0.1), // 0x1A for the second shadow
+                                                spreadRadius: 1,
+                                                blurRadius: 4,
+                                                offset: Offset(0, 3),
+                                              ),
+                                            ]
                                           ),
                                           child: child,
                                         ),
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 70,
+                                  SizedBox(height: MediaQuery.of(context).size.height / 30,
                                   ),
 
                                   ///forget password text
@@ -139,8 +146,8 @@ class LoginBaseConstant extends StatelessWidget {
                                       onTap: onTap,
                                       child: Text(
                                         textAction,
-                                        style: TextStyle(
-                                          fontFamily: 'FiraSans',
+                                        textAlign: TextAlign.right,
+                                        style: GoogleFonts.firaSans(
                                           color: Color(0xff1696C8),
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
