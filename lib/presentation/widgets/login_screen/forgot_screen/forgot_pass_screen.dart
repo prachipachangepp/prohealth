@@ -1,10 +1,8 @@
-import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/forgot_pass/forgot_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/password_verification.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
-
 import '../widgets/login_flow_base_struct.dart';
 
 class ForgotPassScreen extends StatefulWidget {
@@ -16,38 +14,10 @@ class ForgotPassScreen extends StatefulWidget {
 
 class _ForgotPassScreenState extends State<ForgotPassScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
-  //final ForgotPasswordApi _forgotPasswordApi = ForgotPasswordApi();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   FocusNode emailFocusNode = FocusNode();
-
-  Future<void> _forgotPassword(String email) async {
-    try{
-      var headers = {'Content-Type': 'application/json'};
-      var data = json.encode({
-        "email": email});
-      var dio = Dio();
-      var response = await dio.request(
-        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/forgotPassword',
-        options: Options(
-          method: 'POST',
-          headers: headers,
-        ),
-        data: data,
-      );
-
-      if (response.statusCode == 200) {
-        print(json.encode(response.data));
-      }
-      else {
-        print(response.statusMessage);
-      }
-    }
-        catch(e){
-          print('Error occurred: $e');
-        }
-  }
-
+  ForgotPassManager _forgotPassManager = ForgotPassManager();
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +100,8 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                           _isLoading = true;
                         });
                         String email = _emailcontroller.text;
-                        _forgotPassword(email);
+                        //_forgotPassword(email);
+                        _forgotPassManager.forgotPassword(email);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -149,30 +120,3 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
     );
   }
 }
-
-// class ForgotPasswordApi {
-//   final Dio _dio = Dio();
-//
-//   Future<void> sendResetCode(String email) async {
-//     try {
-//       var headers = {'Content-Type': 'application/json'};
-//       var data = json.encode({"email": email});
-//
-//       var response = await _dio.post(
-//         'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/forgotPassword',
-//         options: Options(
-//           headers: headers,
-//         ),
-//         data: data,
-//       );
-//
-//       if (response.statusCode == 200) {
-//         print(json.encode(response.data));
-//       } else {
-//         print(response.statusMessage);
-//       }
-//     } catch (e) {
-//       print('Error: $e');
-//     }
-//   }
-// }
