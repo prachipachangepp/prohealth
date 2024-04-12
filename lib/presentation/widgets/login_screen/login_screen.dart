@@ -40,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String? otpFromRunTab;
   String? _errorLoginMessage;
   bool _isLoggingIn = false;
+  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   @override
   void dispose() {
@@ -318,7 +319,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.1,
-                            child: TextFormField(
+                            child:
+                            TextFormField(
                               style: GoogleFonts.firaSans(
                                 color: Color(0xff000000).withOpacity(0.5),
                                 fontWeight: FontWeight.w500,
@@ -348,6 +350,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Enter Email';
+                                }
+                                if (!emailRegex.hasMatch(value)) {
+                                  return 'Enter a valid email address';
                                 }
                                 return null;
                               },
@@ -512,8 +517,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                       validator: (value) {
-                                        if (value?.isEmpty ?? true) {
-                                          return 'Please enter your email';
+                                        if (value == null || value.isEmpty) {
+                                          return 'Enter Email';
+                                        }
+                                        if (!emailRegex.hasMatch(value)) {
+                                          return 'Enter a valid email address';
                                         }
                                         return null;
                                       },

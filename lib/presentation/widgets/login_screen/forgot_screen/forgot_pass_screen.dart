@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/forgot_pass/forgot_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/password_verification.dart';
@@ -18,6 +19,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
   bool _isLoading = false;
   FocusNode emailFocusNode = FocusNode();
   ForgotPassManager _forgotPassManager = ForgotPassManager();
+  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
             children: [
               Text(
                 'Enter your email for the verification process,we will send 4\ndigits code to your email.',
-                style: TextStyle(
-                  fontFamily: 'FiraSans',
+                style: GoogleFonts.firaSans(
                   color: Color(0xff686464),
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
@@ -60,9 +61,8 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   //   );
                   // },
                   controller: _emailcontroller,
-                  style: TextStyle(
-                    fontFamily: 'FiraSans',
-                    color: Colors.black,
+                  style:GoogleFonts.firaSans(
+                    color: Color(0xff000000).withOpacity(0.5),
                     fontWeight: FontWeight.w500,
                     fontSize: 12,
                   ),
@@ -71,18 +71,24 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets. only(top: 2),
                     labelText: 'Email',
-                    labelStyle: TextStyle(
-                        fontSize: 14, color: Color(0xff000000).withOpacity(0.9)),
+                    labelStyle: GoogleFonts.firaSans(
+                      color: Color(0xff000000).withOpacity(0.3),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
                     border: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
                     ),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color:  Color(0xff000000).withOpacity(0.5),width: 0.5),
                     ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Enter Email';
+                    }
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Enter a valid email address';
                     }
                     return null;
                   },
@@ -92,26 +98,40 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 height: MediaQuery.of(context).size.height / 99,
               ),
               Center(
-                child: CustomButton(
-                    text: 'Continue',
-                    onPressed: () {
-                      if(_formKey.currentState!.validate()) {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        String email = _emailcontroller.text;
-                        //_forgotPassword(email);
-                        _forgotPassManager.forgotPassword(email);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PasswordVerifyScreen()),
-                        );
-                        print('forgot button press');
-                      }
-                    },
-                    width: MediaQuery.of(context).size.width / 10,
-                    height: MediaQuery.of(context).size.height / 22),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x40000000),
+                        offset: Offset(0, 4),
+                        blurRadius: 4,
+                        spreadRadius: 0,
+                      ),
+                    ],
+                  ),
+                  child: CustomButton(
+                    borderRadius: 28,
+                      text: 'Continue',
+                      onPressed: () {
+                        if(_formKey.currentState!.validate()) {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          String email = _emailcontroller.text;
+                          //_forgotPassword(email);
+                          _forgotPassManager.forgotPassword(email);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PasswordVerifyScreen()),
+                          );
+                          print('forgot button press');
+                        }
+                      },
+                      width: MediaQuery.of(context).size.width / 9,
+                      height: MediaQuery.of(context).size.height / 22),
+                ),
               )
             ],
           ),
