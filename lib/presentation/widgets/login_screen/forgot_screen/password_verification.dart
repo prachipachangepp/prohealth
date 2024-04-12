@@ -18,7 +18,7 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
   late Timer _timer;
   final _formKey = GlobalKey<FormState>();
   List<TextEditingController> _otpControllers =
-  List.generate(4, (_) => TextEditingController());
+  List.generate(6, (_) => TextEditingController());
   TextEditingController _otpController = TextEditingController();
   int _timerCount = 30;
 
@@ -85,7 +85,7 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  4,
+                  6,
                   (index) => Container(
                     width: MediaQuery.of(context).size.width/35,
                     height: 40,
@@ -117,11 +117,11 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
                       },
                       onChanged: (value) {
                         if (value.isNotEmpty &&
-                            index < 3) {
+                            index < 5) {
                           FocusScope.of(context)
                               .nextFocus();
                         } else if (value.isNotEmpty &&
-                            index == 3) {
+                            index == 5) {
                           String enteredOTP =
                           _otpControllers
                               .map((controller) =>

@@ -21,7 +21,34 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
   bool _isLoading = false;
   FocusNode emailFocusNode = FocusNode();
 
-  // Future<void> _forgotPassword(BuildContext context, String email) async {
+  Future<void> _forgotPassword(String email) async {
+    try{
+      var headers = {'Content-Type': 'application/json'};
+      var data = json.encode({
+        "email": email});
+      var dio = Dio();
+      var response = await dio.request(
+        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/forgotPassword',
+        options: Options(
+          method: 'POST',
+          headers: headers,
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        print(json.encode(response.data));
+      }
+      else {
+        print(response.statusMessage);
+      }
+    }
+        catch(e){
+          print('Error occurred: $e');
+        }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return LoginBaseConstant(
@@ -102,6 +129,8 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                         setState(() {
                           _isLoading = true;
                         });
+                        String email = _emailcontroller.text;
+                        _forgotPassword(email);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
