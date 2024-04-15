@@ -97,7 +97,7 @@ class LoginBaseConstant extends StatelessWidget {
                                   ),
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height /
-                                        20,
+                                        30,
                                   ),
 
                                   ///todo prachi
@@ -135,7 +135,7 @@ class LoginBaseConstant extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: MediaQuery.of(context).size.height / 30,
+                                  SizedBox(height: MediaQuery.of(context).size.height / 60,
                                   ),
 
                                   ///forget password text

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
@@ -75,9 +76,8 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
             children: [
               Text(
                 'Enter your 4 digits code that you received on your email.',
-                style: TextStyle(
-                  fontFamily: 'FiraSans',
-                  color: Color(0xff686464),
+                style: GoogleFonts.firaSans(
+                   color: Color(0xff686464),
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
                 ),
@@ -87,16 +87,22 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
                 children: List.generate(
                   6,
                   (index) => Container(
-                    width: MediaQuery.of(context).size.width/35,
+                    width: MediaQuery.of(context).size.width/40,
                     height: 40,
                     margin: EdgeInsets.symmetric(horizontal: 5),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2),
                       border: Border.all(
                         color: Color(0xff9BADCA),
                         width: 0.55,
                       ),
                     ),
                     child: TextFormField(
+                      style:GoogleFonts.firaSans(
+                        color: Color(0xff000000).withOpacity(0.7),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                      ),
                       controller: _otpControllers[index],
                       cursorColor: Colors.black,
                       inputFormatters: [
@@ -108,6 +114,7 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets. only(bottom: 10),
                         counterText: '',
+
                         border: InputBorder.none,
                       ),
                       validator: (value) {
@@ -153,29 +160,40 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
               ),
               Text(
                 '${getTimerString()}',
-                style: TextStyle(
-                  fontFamily: 'FiraSans',
+                style: GoogleFonts.firaSans(
                   color: Color(0xffF2451C),
                   fontSize: 8,
-                  fontWeight: FontWeight.w600,
-                ),
+                  fontWeight: FontWeight.w600,)
               ),
               Center(
-                child: CustomButton(
-                    text: 'Continue',
-                    onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => ChangePasswordScreen()));
-                    },
-                    width: MediaQuery.of(context).size.width / 10,
-                    height: MediaQuery.of(context).size.height / 22),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x40000000),
+                        offset: Offset(0, 4),
+                        blurRadius: 4,
+                        spreadRadius: 0,
+                      ),
+                    ],
+                  ),
+                  child: CustomButton(
+                    borderRadius: 28,
+                      text: 'Continue',
+                      onPressed: () {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ChangePasswordScreen()));
+                      },
+                      width: MediaQuery.of(context).size.width / 9,
+                      height: MediaQuery.of(context).size.height / 22),
+                ),
               ),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(
-                    fontFamily: 'FiraSans',
+                  style: GoogleFonts.firaSans(
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
                     color: Color(0xff686464),
@@ -186,7 +204,9 @@ class _PasswordVerifyScreenState extends State<PasswordVerifyScreen> {
                     ),
                     TextSpan(
                       text: 'Resend',
-                      style: TextStyle(color: Color(0xffF2451C)),
+                      style: GoogleFonts.firaSans(
+                        color: Color(0xffF2451C),
+                      ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
