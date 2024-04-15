@@ -35,6 +35,7 @@ class MyAppBar extends StatelessWidget {
         OnBoardingScreen(),
       ],
       tabBarViewWidth: MediaQuery.of(context).size.width / 1.04,
+      tabBarViewHeight: MediaQuery.of(context).size.height/1.2
     ));
 
     return Column(
