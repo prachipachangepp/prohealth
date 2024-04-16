@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/sm_module/app_bar_sm.dart';
-import 'package:prohealth/presentation/widgets/const_appbar/app_bar.dart';
 
 class ResponsiveScreenSM extends StatelessWidget {
   @override
@@ -8,10 +7,8 @@ class ResponsiveScreenSM extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 850) {
-          // Render SMDesktop screen for large screens
           return SMDesktop();
         } else {
-          // Render SMTablet screen for small screens
           return SMTablet();
         }
       },

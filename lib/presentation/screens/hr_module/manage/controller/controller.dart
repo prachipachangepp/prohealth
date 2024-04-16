@@ -15,34 +15,34 @@ class MyController extends GetxController {
   }
 }
 ///Login
-class LoginTabBarController extends GetxController
-    with GetSingleTickerProviderStateMixin {
-  late TabController tabController;
-
-  final List<Widget> tabs;
-  final List<Widget> tabViews;
-  final double tabBarViewHeight;
-  final double tabBarViewWidth;
-
-  LoginTabBarController({
-    required this.tabs,
-    required this.tabViews,
-    this.tabBarViewHeight = 200.0, //320
-    this.tabBarViewWidth = 150.0,
-  });
-
-  @override
-  void onInit() {
-    tabController = TabController(length: tabs.length, vsync: this);
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    tabController.dispose();
-    super.onClose();
-  }
-}
+// class LoginTabBarController extends GetxController
+//     with GetSingleTickerProviderStateMixin {
+//   late TabController tabController;
+//
+//   final List<Widget> tabs;
+//   final List<Widget> tabViews;
+//   final double tabBarViewHeight;
+//   final double tabBarViewWidth;
+//
+//   LoginTabBarController({
+//     required this.tabs,
+//     required this.tabViews,
+//     this.tabBarViewHeight = 200.0, //320
+//     this.tabBarViewWidth = 150.0,
+//   });
+//
+//   @override
+//   void onInit() {
+//     tabController = TabController(length: tabs.length, vsync: this);
+//     super.onInit();
+//   }
+//
+//   @override
+//   void onClose() {
+//     tabController.dispose();
+//     super.onClose();
+//   }
+// }
 
 ///head 1st tabbar
 ///saloni
