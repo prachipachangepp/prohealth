@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BottomBarRow extends StatelessWidget {
   const BottomBarRow({super.key});
@@ -17,11 +18,16 @@ class BottomBarRow extends StatelessWidget {
               ///text
               Text(
                 '#2031ABC01BA',
-                style: TextStyle(
-                    fontFamily: 'FiraSans',
+                style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black),
+                    color: Colors.black
+                )
+                // TextStyle(
+                //     fontFamily: 'FiraSans',
+                //     fontSize: 12,
+                //     fontWeight: FontWeight.w400,
+                //     color: Colors.black),
               ),
               ///text + address
               Row(
@@ -52,14 +58,14 @@ class BottomBarRow extends StatelessWidget {
                 children: [
                   Image.asset(
                     'images/powered_logo.png',
-                    height: 23,
-                    width: 30,
+                    height: 20,
+                    width: 27,
                   ),
                   Text(
                     'Powered by',
                     style: TextStyle(
                         fontFamily: 'FiraSans',
-                        fontSize: 12,
+                        fontSize: 10,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   ),
