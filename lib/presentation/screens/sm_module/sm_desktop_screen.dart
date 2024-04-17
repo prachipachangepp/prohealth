@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../hr_module/manage/widgets/bottom_row.dart';
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'company_identity_screen.dart';
 
 class SMDesktop extends StatelessWidget {
   final PageController _pageController = PageController();
@@ -472,17 +474,19 @@ class SMDesktop extends StatelessWidget {
           ),
         ),
         Expanded(
+          flex: 10,
           child: PageView(
             controller: _pageController,
             physics: NeverScrollableScrollPhysics(),
             children: [
               Container(color: Colors.red),
-              Container(color: Colors.yellow),
+              CompanyIdentityScreen(),
               Container(color: Colors.teal),
               Container(color: Colors.green),
             ],
           ),
         ),
+        BottomBarRow()
         // ),
       ],
     );
