@@ -261,7 +261,7 @@ class RegisterEnrollAlertDialog {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomIconButton(
+                      CustomIconButtonConst(
                           text: 'Next', onPressed: (){}),
                     ],),
                 ],

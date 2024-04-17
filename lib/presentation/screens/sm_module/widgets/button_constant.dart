@@ -1,55 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-///done by saloni
-///button constant for circularborder with text and with/without icon
-class CustomIconButton extends StatelessWidget {
-  final String text;
-  final IconData? icon;
-  final VoidCallback onPressed;
-
-  const CustomIconButton({
-    required this.text,
-    this.icon,
-    required this.onPressed,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: icon != null
-          ? Icon(icon!, color: Colors.white, size: 20)
-          : SizedBox.shrink(),
-      label: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontFamily: 'FiraSans',
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-          color: Colors.white,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        backgroundColor: Color(0xFF50B5E5),
-        shadowColor: Colors.grey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-    );
-  }
-}
-
-///button constant with white bg, colored text
-class CustomButtonTransparent extends StatelessWidget {
+///button constant with transparent bg, colored text
+class CustomButtonTransparentSM extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const CustomButtonTransparent({
+  const CustomButtonTransparentSM({
     required this.text,
     required this.onPressed,
     Key? key,
@@ -65,7 +22,7 @@ class CustomButtonTransparent extends StatelessWidget {
           fontFamily: 'FiraSans',
           fontSize: 12,
           fontWeight: FontWeight.w700,
-          color: Color(0xFF50B5E5),
+          color: Color(0xFFF6928A),
         ),
       ),
       style: ElevatedButton.styleFrom(
@@ -73,16 +30,15 @@ class CustomButtonTransparent extends StatelessWidget {
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Color(0xFF50B5E5)),
+          side: BorderSide(color: Color(0xFFF6928A)),
         ),
       ),
     );
   }
 }
 
-///custombutton size managebleimport 'package:flutter/material.dart';
-
-class CustomButton extends StatelessWidget {
+///custom button submit
+class CustomElevatedButton extends StatelessWidget {
   final String? text;
   final VoidCallback onPressed;
   // final Color color;
@@ -95,18 +51,18 @@ class CustomButton extends StatelessWidget {
   final TextStyle style;
   final Widget? child;
 
-  const CustomButton({
+  const CustomElevatedButton({
     Key? key,
     this.text,
     required this.onPressed,
     // this.color = Colors.blue,
     this.textColor = Colors.white,
-    this.borderRadius = 14.0,
+    this.borderRadius = 12.0,
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
-    this.width = 50,
+    this.width = 100,
     //this.width = double.infinity,
-    this.height = 50.0,
+    this.height = 35.0,
     this.style = const TextStyle(color: Colors.white),
     this.child,
   }) : super(key: key);
@@ -119,7 +75,7 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF50B5E5),
+          backgroundColor: Color(0xFF1696C8),
           foregroundColor: textColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -131,11 +87,11 @@ class CustomButton extends StatelessWidget {
         ),
         child: text != null
             ? Text(text!,
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ))
+            style: GoogleFonts.firaSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ))
             : child,
       ),
     );

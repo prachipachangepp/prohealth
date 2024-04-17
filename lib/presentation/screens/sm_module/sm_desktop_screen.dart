@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
+import 'package:prohealth/presentation/screens/sm_module/company_identity_screen.dart';
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
 class SMDesktop extends StatelessWidget {
   final PageController _pageController = PageController();
@@ -390,16 +392,18 @@ class SMDesktop extends StatelessWidget {
           ),
         ),
         Expanded(
+          flex: 9,
           child: PageView(
             controller: _pageController,
             physics: NeverScrollableScrollPhysics(),
             children: [
               Container(color: Colors.blue),
-              Container(color: Colors.green),
+              CompanyIdentityScreen(),
               Container(color: Colors.orange),
             ],
           ),
         ),
+        BottomBarRow()
       ],
     );
   }
