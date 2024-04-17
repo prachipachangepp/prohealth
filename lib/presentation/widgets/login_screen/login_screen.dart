@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -226,8 +227,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Login with Email",
                           style: GoogleFonts.firaSans(
                             color: _selectedIndex == 0
-                                  ? Color(0xff50B5E5)
-                                  : const Color(0xff686464),
+                                ? Color(0xff50B5E5)
+                                : const Color(0xff686464),
                             fontSize: MediaQuery.of(context).size.width / 90,
                             fontWeight: FontWeight.w700,
                           ),
@@ -240,12 +241,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(13),
                             boxShadow: _selectedIndex == 0
                                 ? [
-                              BoxShadow(
-                                color: Color(0xff000000).withOpacity(0.4),
-                                offset: Offset(1, 3),
-                                blurRadius: 4,
-                              ),
-                            ]
+                                    BoxShadow(
+                                      color: Color(0xff000000).withOpacity(0.4),
+                                      offset: Offset(1, 3),
+                                      blurRadius: 4,
+                                    ),
+                                  ]
                                 : [],
                             color: _selectedIndex == 0
                                 ? Color(0xff50B5E5)
@@ -279,12 +280,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(13),
                             boxShadow: _selectedIndex == 1
                                 ? [
-                              BoxShadow(
-                                color: Color(0xff000000).withOpacity(0.4),
-                                offset: Offset(1, 3),
-                                blurRadius: 4,
-                              ),
-                            ]
+                                    BoxShadow(
+                                      color: Color(0xff000000).withOpacity(0.4),
+                                      offset: Offset(1, 3),
+                                      blurRadius: 4,
+                                    ),
+                                  ]
                                 : [],
                             color: _selectedIndex == 1
                                 ? Color(0xff50B5E5)
@@ -319,8 +320,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.1,
-                            child:
-                            TextFormField(
+                            child: TextFormField(
                               style: GoogleFonts.firaSans(
                                 color: Color(0xff000000).withOpacity(0.5),
                                 fontWeight: FontWeight.w500,
@@ -336,9 +336,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets. only(top: 1),
+                                contentPadding: const EdgeInsets.only(top: 1),
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5),width: 0.5),
+                                  borderSide: BorderSide(
+                                      color: Color(0xff000000).withOpacity(0.5),
+                                      width: 0.5),
                                 ),
                                 labelText: 'Email',
                                 labelStyle: GoogleFonts.firaSans(
@@ -378,7 +380,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.only(top: 2),
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5), width: 0.5),
+                                  borderSide: BorderSide(
+                                      color: Color(0xff000000).withOpacity(0.5),
+                                      width: 0.5),
                                 ),
                                 labelText: 'Password',
                                 labelStyle: GoogleFonts.firaSans(
@@ -389,13 +393,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 suffixIcon: IconButton(
                                   icon: _isPasswordVisible
                                       ? Icon(
-                                    Icons.visibility_off_outlined,
-                                    color: Color(0xffACA5BB),
-                                  )
+                                          Icons.visibility_off_outlined,
+                                          color: Color(0xffACA5BB),
+                                        )
                                       : Icon(
-                                    Icons.visibility_outlined,
-                                    color: Color(0xffACA5BB),
-                                  ),
+                                          Icons.visibility_outlined,
+                                          color: Color(0xffACA5BB),
+                                        ),
                                   onPressed: () {
                                     setState(() {
                                       _isPasswordVisible = !_isPasswordVisible;
@@ -429,7 +433,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ? Center(
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(14),
+                                          borderRadius:
+                                              BorderRadius.circular(14),
                                           boxShadow: [
                                             BoxShadow(
                                               color: Color(0x40000000),
@@ -441,12 +446,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         child: CustomButton(
                                           borderRadius: 28,
-                                          height:
-                                              MediaQuery.of(context).size.height /
-                                                  20,
-                                          width:
-                                              MediaQuery.of(context).size.height /
-                                                  7,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              20,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              7,
                                           text: 'Login',
                                           onPressed: () {
                                             if (_formKey.currentState!
@@ -470,9 +477,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               child: Text(
                                 _errorMessage!,
-                                style: GoogleFonts.firaSans(
-                                  color: Colors.red
-                                ),
+                                style: GoogleFonts.firaSans(color: Colors.red),
                               ),
                             ),
                         ],
@@ -496,7 +501,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         horizontal: 5),
                                     child: TextFormField(
                                       style: GoogleFonts.firaSans(
-                                        color: Color(0xff000000).withOpacity(0.5),
+                                        color:
+                                            Color(0xff000000).withOpacity(0.5),
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14,
                                       ),
@@ -505,13 +511,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                       cursorColor: Colors.black,
                                       cursorHeight: 22,
                                       decoration: InputDecoration(
-                                        contentPadding: const EdgeInsets. only(top: 1),
+                                        contentPadding:
+                                            const EdgeInsets.only(top: 1),
                                         focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5),width: 0.5),
+                                          borderSide: BorderSide(
+                                              color: Color(0xff000000)
+                                                  .withOpacity(0.5),
+                                              width: 0.5),
                                         ),
                                         labelText: 'Email',
                                         labelStyle: GoogleFonts.firaSans(
-                                          color: Color(0xff000000).withOpacity(0.3),
+                                          color: Color(0xff000000)
+                                              .withOpacity(0.3),
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -531,27 +542,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                     height:
                                         MediaQuery.of(context).size.height / 15,
                                   ),
+
                                   ///next button
                                   Center(
                                       child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(14),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0x40000000),
-                                              offset: Offset(0, 4),
-                                              blurRadius: 4,
-                                              spreadRadius: 0,
-                                            ),
-                                          ],
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x40000000),
+                                          offset: Offset(0, 4),
+                                          blurRadius: 4,
+                                          spreadRadius: 0,
                                         ),
-                                        child: CustomButton(
-                                          borderRadius: 28,
-                                          height: MediaQuery.of(context).size.height / 20,
-                                          width: MediaQuery.of(context).size.height / 7,
-
-                                          text: "Next",
-                                          onPressed: () {
+                                      ],
+                                    ),
+                                    child: CustomButton(
+                                      borderRadius: 28,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              20,
+                                      width:
+                                          MediaQuery.of(context).size.height /
+                                              7,
+                                      text: "Next",
+                                      onPressed: () {
                                         if (_formKey.currentState?.validate() ??
                                             false) {
                                           setState(() {
@@ -559,12 +574,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                           });
                                           _handleNextButton();
                                         }
-                                                                            },
-                                                                          ),
-                                      ))
+                                      },
+                                    ),
+                                  ))
                                 ]
                               : [
-                                ///
+                                  ///
                                   Center(
                                     child: Row(
                                       mainAxisAlignment:
@@ -572,7 +587,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       children: List.generate(
                                         4,
                                         (index) => Container(
-                                          width: MediaQuery.of(context).size.width / 40,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              40,
                                           height: 40,
                                           margin: EdgeInsets.symmetric(
                                               horizontal: 10),
@@ -589,7 +607,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             textAlign: TextAlign.center,
                                             maxLength: 1,
                                             decoration: InputDecoration(
-                                              contentPadding: const EdgeInsets. only(top: 2),
+                                              contentPadding:
+                                                  const EdgeInsets.only(top: 2),
                                               counterText: '',
                                               focusedBorder:
                                                   UnderlineInputBorder(
@@ -726,7 +745,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                         },
                                       ),
                                     ),
-                                  if (_isLoggingIn) CircularProgressIndicator(),
+                                  if (_isLoggingIn)
+                                    CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.green),
+                                      strokeWidth: 3,
+                                      value: 0.70,
+                                    ),
 
                                   /// 2nd
                                   // _isauthLoginLoading
@@ -778,9 +803,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-
-
 
 ///new login code refactored but also login with wrong password
 // import 'dart:convert';

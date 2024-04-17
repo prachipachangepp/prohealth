@@ -1,14 +1,35 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
-import 'package:prohealth/presentation/screens/sm_module/company_identity_screen.dart';
+
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
+
 class SMDesktop extends StatelessWidget {
   final PageController _pageController = PageController();
   final SMController smController = Get.put(SMController());
+  final String? dropdownValue;
+  final ValueChanged<String?>? onChanged;
+  final VoidCallback? onItem2Selected;
+  // final controller = Get.put(DropdownController());
+  // final PageController pageController;
+  final ButtonSelectionController myController =
+      Get.put(ButtonSelectionController());
+  // final PageController _pageController = PageController();
+  SMDesktop({
+    this.dropdownValue,
+    this.onChanged,
+    this.onItem2Selected,
+  });
+
+  void navigateToPage2() {
+    if (_pageController.page != 2) {
+      _pageController.animateToPage(
+        2,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +57,11 @@ class SMDesktop extends StatelessWidget {
                         flex: 2,
                         child: Container(
                           //  color: Colors.grey,
-                          child: Image.asset('images/logo.png',fit: BoxFit.fill,),
-
-                        )
-                    ),
+                          child: Image.asset(
+                            'images/logo.png',
+                            fit: BoxFit.fill,
+                          ),
+                        )),
                     Expanded(
                       flex: 10,
                       child: Material(
@@ -53,7 +75,9 @@ class SMDesktop extends StatelessWidget {
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0x40000000), /// #000000 with 25% opacity
+                                color: Color(0x40000000),
+
+                                /// #000000 with 25% opacity
                                 blurRadius: 4,
                                 offset: Offset(0, 4),
                               ),
@@ -78,53 +102,58 @@ class SMDesktop extends StatelessWidget {
                                 width: 96,
                                 height: 34,
                                 decoration: BoxDecoration(
-                                  // boxShadow: [
-                                  //   BoxShadow(
-                                  //     color: Color(0xff000000).withOpacity(0.25),
-                                  //     blurRadius: 4,
-                                  //     offset: Offset(0, 4),
-                                  //   ),
-                                  // ],
-                                    border: Border.all(color: Colors.white, width: 1,),
+                                    // boxShadow: [
+                                    //   BoxShadow(
+                                    //     color: Color(0xff000000).withOpacity(0.25),
+                                    //     blurRadius: 4,
+                                    //     offset: Offset(0, 4),
+                                    //   ),
+                                    // ],
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 1,
+                                    ),
                                     color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(12)
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 8
-                                ),
+                                    borderRadius: BorderRadius.circular(12)),
+                                padding: EdgeInsets.symmetric(horizontal: 8),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Image.asset("images/mike.png"),
-                                    Column(children: [
-                                      Text('Ask',
-                                        style: GoogleFonts.jost(
-                                            color: Colors.white,
-                                            fontSize: 10,
-                                            decoration: TextDecoration.none,
-                                            fontWeight: FontWeight.w200
-                                        ),),
-                                      Text("KLIP",
+                                    Column(
+                                      children: [
+                                        Text(
+                                          'Ask',
                                           style: GoogleFonts.jost(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          )
-                                      ),
-                                    ],),
-
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              decoration: TextDecoration.none,
+                                              fontWeight: FontWeight.w200),
+                                        ),
+                                        Text("KLIP",
+                                            style: GoogleFonts.jost(
+                                              color: Colors.white,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              decoration: TextDecoration.none,
+                                            )),
+                                      ],
+                                    ),
                                   ],
                                 ), // Add child widgets here if needed
                               ),
-                              SizedBox(width: MediaQuery.of(context).size.width / 15,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 15,
+                              ),
                               Expanded(
                                 child: Container(
                                   width: 210,
                                   height: 34,
                                   padding: EdgeInsets.symmetric(
                                     vertical: 5,
-                                    horizontal: MediaQuery.of(context).size.width / 100,
+                                    horizontal:
+                                        MediaQuery.of(context).size.width / 100,
                                   ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(18),
@@ -138,14 +167,18 @@ class SMDesktop extends StatelessWidget {
                                     ],
                                   ),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
                                         child: Text(
                                           'Establishment Manager',
                                           style: TextStyle(
                                             fontFamily: 'Fira Sans',
-                                            fontSize: MediaQuery.of(context).size.width/110,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                110,
                                             fontWeight: FontWeight.w700,
                                             color: Color(0xff2B647F),
                                             decoration: TextDecoration.none,
@@ -155,13 +188,17 @@ class SMDesktop extends StatelessWidget {
                                       Icon(
                                         Icons.close,
                                         color: Color(0xff434343),
-                                        size: MediaQuery.of(context).size.width/100,
+                                        size:
+                                            MediaQuery.of(context).size.width /
+                                                100,
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              SizedBox(width: MediaQuery.of(context).size.width / 80,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 80,
+                              ),
                               Container(
                                 width: 35,
                                 height: 35,
@@ -189,44 +226,58 @@ class SMDesktop extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: MediaQuery.of(context).size.width / 20,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 20,
+                              ),
                               Material(
                                 elevation: 4,
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
                                 child: Container(
                                     height: 34,
-                                    width: MediaQuery.of(context).size.width / 10,
+                                    width:
+                                        MediaQuery.of(context).size.width / 10,
                                     decoration: BoxDecoration(
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(18)),
+                                          BorderRadius.all(Radius.circular(18)),
                                       color: Colors.white,
                                     ),
                                     child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Icon(
                                             Icons.phone_outlined,
                                             color: Color(0xff2B647F),
-                                            size:
-                                            MediaQuery.of(context).size.width / 70,
+                                            size: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                70,
                                           ),
                                           Icon(
                                             Icons.mode_comment_outlined,
                                             color: Color(0xff2B647F),
-                                            size:
-                                            MediaQuery.of(context).size.width / 70,
+                                            size: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                70,
                                           ),
                                           Icon(
                                             Icons.mail_outline_outlined,
                                             color: Color(0xff2B647F),
-                                            size:
-                                            MediaQuery.of(context).size.width / 70,
+                                            size: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                70,
                                           )
                                         ])),
                               ),
-                              SizedBox(width: MediaQuery.of(context).size.width / 20,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 20,
+                              ),
+
                               ///dropdown
                               Expanded(
                                 child: Container(
@@ -234,13 +285,14 @@ class SMDesktop extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(18),
-                                    border: Border.all(color: Colors.white, width: 2),
+                                    border: Border.all(
+                                        color: Colors.white, width: 2),
                                   ),
                                   child: DropdownButtonFormField<String>(
                                     decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                        border: InputBorder.none
-                                    ),
+                                        contentPadding:
+                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                        border: InputBorder.none),
                                     value: smController.selectedItem.value,
                                     icon: Icon(
                                       Icons.arrow_drop_down,
@@ -255,50 +307,60 @@ class SMDesktop extends StatelessWidget {
                                     ),
                                     onChanged: (newValue) {
                                       if (newValue != null) {
-                                        smController.changeSelectedItem(newValue);
+                                        smController
+                                            .changeSelectedItem(newValue);
                                       }
                                     },
                                     dropdownColor: Colors.grey,
                                     items: ['Admin', 'Staff', 'Patient']
                                         .map<DropdownMenuItem<String>>(
-                                          (String value) => DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    )
+                                          (String value) =>
+                                              DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(
+                                              value,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        )
                                         .toList(),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: MediaQuery.of(context).size.width / 60,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 60,
+                              ),
                               InkWell(
                                 splashColor: Colors.white, // Splash color
                                 onTap: () {},
                                 child: SizedBox(
-                                    width: MediaQuery.of(context).size.width / 37,
+                                    width:
+                                        MediaQuery.of(context).size.width / 37,
                                     height: 25,
                                     child: Icon(
                                       Icons.notifications_none_outlined,
                                       color: Colors.white,
-                                      size: MediaQuery.of(context).size.width / 68,
+                                      size: MediaQuery.of(context).size.width /
+                                          68,
                                     )),
                               ),
                               InkWell(
                                 splashColor: Colors.white,
                                 onTap: () {},
                                 child: SizedBox(
-                                    width: MediaQuery.of(context).size.width / 37,
+                                    width:
+                                        MediaQuery.of(context).size.width / 37,
                                     height: 25,
                                     child: Icon(
                                       Icons.settings_outlined,
                                       color: Colors.white,
-                                      size: MediaQuery.of(context).size.width / 68,
+                                      size: MediaQuery.of(context).size.width /
+                                          68,
                                     )),
                               ),
-                              SizedBox(width: MediaQuery.of(context).size.width / 50,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 50,
+                              ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -328,59 +390,77 @@ class SMDesktop extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
+
                 /// buttons
                 Row(
                   children: [
                     Expanded(
                       child: Container(
-                        // color: Colors.yellow,
                         height: 40,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            CustomButton(
-                              height: 30,
-                              width: 100,
-                              onPressed: () {
-                                if (_pageController.page != 0) {
-                                  _pageController.animateToPage(0,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease);
-                                }
-                              },
-                              text: 'Button 1',
-                            ),
+                            Obx(() => CustomTitleButton(
+                                  height: 30,
+                                  width: 100,
+                                  onPressed: () {
+                                    myController.selectButton(0);
+                                    _pageController.animateToPage(0,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease);
+                                  },
+                                  text: 'Dashboard',
+                                  isSelected:
+                                      myController.selectedIndex.value == 0,
+                                )),
                             SizedBox(
                               width: 10,
                             ),
-                            CustomButton(
-                              height: 30,
-                              width: 100,
-                              onPressed: () {
-                                if (_pageController.page != 1) {
-                                  _pageController.animateToPage(1,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease);
-                                }
-                              },
-                              text: 'Button 2',
-                            ),
+                            Obx(() => CustomTitleButton(
+                                  height: 30,
+                                  width: 130,
+                                  onPressed: () {
+                                    myController.selectButton(1);
+                                    _pageController.animateToPage(1,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease);
+                                  },
+                                  text: 'Company Identity',
+                                  isSelected:
+                                      myController.selectedIndex.value == 1,
+                                )),
                             SizedBox(
                               width: 10,
                             ),
-                            CustomButton(
-                              height: 30,
-                              width: 100,
-                              onPressed: () {
-                                if (_pageController.page != 2) {
-                                  _pageController.animateToPage(2,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease);
-                                }
-                              },
-                              text: 'Button 3',
-                            ),
+                            Obx(() => CustomDropdownButton(
+                                  height: 35,
+                                  width: 130,
+                                  items: ['HR', 'Finance'],
+                                  selectedItem:
+                                      myController.selectedIndex.value == 2
+                                          ? 'HR'
+                                          : 'Finance',
+                                  onChanged: (newValue) {
+                                    if (newValue == 'HR') {
+                                      myController.selectButton(2);
+                                      _pageController.animateToPage(
+                                        2,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                    } else if (newValue == 'Finance') {
+                                      myController.selectButton(3);
+                                      _pageController.animateToPage(
+                                        3,
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease,
+                                      );
+                                    }
+                                  },
+                                ))
                           ],
                         ),
                       ),
@@ -392,28 +472,193 @@ class SMDesktop extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 9,
           child: PageView(
             controller: _pageController,
             physics: NeverScrollableScrollPhysics(),
             children: [
-              Container(color: Colors.blue),
-              CompanyIdentityScreen(),
-              Container(color: Colors.orange),
+              Container(color: Colors.red),
+              Container(color: Colors.yellow),
+              Container(color: Colors.teal),
+              Container(color: Colors.green),
             ],
           ),
         ),
-        BottomBarRow()
+        // ),
       ],
     );
   }
 }
 
-
-
-class SMController extends GetxController{
+class SMController extends GetxController {
   var selectedItem = 'Admin'.obs;
   void changeSelectedItem(String newItem) {
     selectedItem.value = newItem;
   }
 }
+
+class ButtonSelectionController extends GetxController {
+  RxInt selectedIndex = 0.obs;
+
+  void selectButton(int index) {
+    selectedIndex.value = index;
+  }
+}
+
+///
+// Expanded(
+//   child: PageView(
+//     controller: _pageController,
+//     physics: NeverScrollableScrollPhysics(),
+//     children: [
+//       Container(color: Colors.blue),
+//       Container(color: Colors.green),
+//       Container(color: Colors.orange),
+//       Container(color: Colors.red),
+//       Container(
+//         color: Colors.teal,
+//       )
+//     ],
+//   ),
+// ),
+///
+//         Row(
+//           children: [
+//             Expanded(
+//               child: Container(
+//                 // color: Colors.yellow,
+//                 height: 40,
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   children: [
+//                     CustomTitleButton(
+//                       height: 30,
+//                       width: 100,
+//                       onPressed: () {
+//                         if (_pageController.page != 0) {
+//                           _pageController.animateToPage(0,
+//                               duration: Duration(milliseconds: 500),
+//                               curve: Curves.ease);
+//                         }
+//                       },
+//                       text: 'Dashboard',
+//                     ),
+//                     SizedBox(
+//                       width: 10,
+//                     ),
+//                     CustomTitleButton(
+//                       height: 30,
+//                       width: 130,
+//                       onPressed: () {
+//                         if (_pageController.page != 1) {
+//                           _pageController.animateToPage(1,
+//                               duration: Duration(milliseconds: 500),
+//                               curve: Curves.ease);
+//                         }
+//                       },
+//                       text: 'Company Identity',
+//                     ),
+//                     SizedBox(
+//                       width: 10,
+//                     ),
+//                     CustomDropdownButton(
+//                       height: 30,
+//                       width: 130,
+//                       items: ['Finance', 'HR'],
+//                     )
+//                     // CustomButton(
+//                     //   height: 30,
+//                     //   width: 100,
+//                     //   onPressed: () {
+//                     //     if (_pageController.page != 2) {
+//                     //       _pageController.animateToPage(2,
+//                     //           duration: Duration(milliseconds: 500),
+//                     //           curve: Curves.ease);
+//                     //     }
+//                     //   },
+//                     //   text: 'Button 3',
+//                     // ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ],
+//     ),
+//   ),
+// ),
+// Expanded(
+//   child: PageView(
+//     controller: _pageController,
+//     physics: NeverScrollableScrollPhysics(),
+//     children: [
+//       Container(color: Colors.blue),
+//       Container(color: Colors.green),
+//       Container(color: Colors.orange),
+//     ],
+//   ),
+
+///
+// Obx(() => CustomDropdownButton(
+//       height: 35,
+//       width: 130,
+//       items: ['Finance', 'HR'],
+//       selectedItem:
+//           myController.selectedIndex.value == 2
+//               ? 'Finance'
+//               : 'HR',
+//       onChanged: (newValue) {
+//         if (newValue == 'Finance') {
+//           myController.selectButton(2);
+//         } else if (newValue == 'HR') {
+//           myController.selectButton(3);
+//         }
+//       },
+//     )),
+
+///
+// Obx(
+//   () => CustomDropdownButton(
+//     height: 35,
+//     width: 130,
+//     items: ['Finance', 'HR'],
+//     selectedItem:
+//         myController.selectedIndex.value == 2
+//             ? 'Finance'
+//             : 'HR',
+//     onChanged: (newValue) {
+//       if (newValue == 'Finance') {
+//         myController.selectButton(2);
+//       } else if (newValue == 'HR') {
+//         myController.selectButton(3);
+//       }
+//     },
+//   ),
+// ),
+// Obx(
+//   () => CustomDropdownButton(
+//     height: 35,
+//     width: 130,
+//     items: ['Finance', 'HR'],
+//     selectedItem:
+//         myController.selectedIndex.value == 2
+//             ? 'Finance'
+//             : 'HR',
+//     onChanged: (newValue) {
+//       if (newValue == 'Finance') {
+//         myController.selectButton(2);
+//       } else if (newValue == 'HR') {
+//         myController.selectButton(3);
+//       }
+//       // Check if the selected value is 'HR'
+//       if (newValue == 'HR') {
+//         myController.selectButton(2);
+//         _pageController.animateToPage(
+//           1,
+//           duration: Duration(milliseconds: 500),
+//           curve: Curves.ease,
+//         );
+//       }
+//     },
+//   ),
+// ),
