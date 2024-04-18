@@ -21,7 +21,8 @@ class BottomBarRow extends StatelessWidget {
                 style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black
+                    color: Colors.black,
+                  decoration: TextDecoration.none,
                 )
                 // TextStyle(
                 //     fontFamily: 'FiraSans',
@@ -38,7 +39,8 @@ class BottomBarRow extends StatelessWidget {
                         fontFamily: 'FiraSans',
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
-                        color: Colors.black),
+                        color: Colors.black,
+                      decoration: TextDecoration.none,),
                   ),
                   SizedBox(
                     width: 10,
@@ -49,7 +51,8 @@ class BottomBarRow extends StatelessWidget {
                         fontFamily: 'FiraSans',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                        color: Colors.black,
+                      decoration: TextDecoration.none,),
                   ),
                 ],
               ),
@@ -67,7 +70,8 @@ class BottomBarRow extends StatelessWidget {
                         fontFamily: 'FiraSans',
                         fontSize: 10,
                         fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                        color: Colors.black,
+                      decoration: TextDecoration.none,),
                   ),
                 ],
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/sm_module/widgets/finance_screen.dart';
 import 'package:prohealth/presentation/widgets/const_appbar/controller.dart';
 
 import '../hr_module/manage/widgets/bottom_row.dart';
@@ -540,7 +541,7 @@ class SMDesktop extends StatelessWidget {
               Container(color: Colors.red),
               CompanyIdentityScreen(),
               Container(color: Colors.teal),
-              Container(color: Colors.green),
+              FinanceScreen()
             ],
           ),
         ),
