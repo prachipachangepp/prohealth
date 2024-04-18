@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/widgets/const_appbar/controller.dart';
 
 import '../hr_module/manage/widgets/bottom_row.dart';
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -11,6 +12,7 @@ class SMDesktop extends StatelessWidget {
   final SMController smController = Get.put(SMController());
   final String? dropdownValue;
   final ValueChanged<String?>? onChanged;
+  final HRController hrController = Get.put(HRController());
   final VoidCallback? onItem2Selected;
   // final controller = Get.put(DropdownController());
   // final PageController pageController;
@@ -38,9 +40,9 @@ class SMDesktop extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width / 90),
           child: Container(
-            height: 131,
+            height: MediaQuery.of(context).size.height / 5,
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -69,7 +71,7 @@ class SMDesktop extends StatelessWidget {
                       child: Material(
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
-                          height: 47,
+                          height: MediaQuery.of(context).size.height / 15,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(12),
@@ -102,21 +104,14 @@ class SMDesktop extends StatelessWidget {
                               ///ask klip
                               Container(
                                 width: 96,
-                                height: 34,
+                                height: MediaQuery.of(context).size.height / 17,
                                 decoration: BoxDecoration(
-                                    // boxShadow: [
-                                    //   BoxShadow(
-                                    //     color: Color(0xff000000).withOpacity(0.25),
-                                    //     blurRadius: 4,
-                                    //     offset: Offset(0, 4),
-                                    //   ),
-                                    // ],
                                     border: Border.all(
                                       color: Colors.white,
                                       width: 1,
                                     ),
                                     color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(12)),
+                                    borderRadius: BorderRadius.circular(20)),
                                 padding: EdgeInsets.symmetric(horizontal: 8),
                                 child: Row(
                                   mainAxisAlignment:
@@ -151,7 +146,8 @@ class SMDesktop extends StatelessWidget {
                               Expanded(
                                 child: Container(
                                   width: 210,
-                                  height: 34,
+                                  height:
+                                      MediaQuery.of(context).size.height / 19,
                                   padding: EdgeInsets.symmetric(
                                     vertical: 5,
                                     horizontal:
@@ -202,8 +198,8 @@ class SMDesktop extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width / 80,
                               ),
                               Container(
-                                width: 35,
-                                height: 35,
+                                width: 33,
+                                height: 33,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   boxShadow: [
@@ -236,7 +232,8 @@ class SMDesktop extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
                                 child: Container(
-                                    height: 34,
+                                    height:
+                                        MediaQuery.of(context).size.height / 19,
                                     width:
                                         MediaQuery.of(context).size.width / 10,
                                     decoration: BoxDecoration(
@@ -281,54 +278,111 @@ class SMDesktop extends StatelessWidget {
                               ),
 
                               ///dropdown
-                              Expanded(
-                                child: Container(
-                                  height: 22,
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(18),
-                                    border: Border.all(
-                                        color: Colors.white, width: 2),
-                                  ),
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                        contentPadding:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                        border: InputBorder.none),
-                                    value: smController.selectedItem.value,
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.white,
-                                    ),
-                                    iconSize: 24,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 11,
-                                      fontFamily: 'FiraSans',
-                                      fontWeight: FontWeight.w200,
-                                    ),
-                                    onChanged: (newValue) {
-                                      if (newValue != null) {
-                                        smController
-                                            .changeSelectedItem(newValue);
-                                      }
-                                    },
-                                    dropdownColor: Colors.grey,
-                                    items: ['Admin', 'Staff', 'Patient']
-                                        .map<DropdownMenuItem<String>>(
-                                          (String value) =>
-                                              DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              textAlign: TextAlign.center,
+                              Container(
+                                height: 23,
+                                width: 90,
+                                // padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: Colors.white),
+                                  color: Colors.transparent,
+                                ),
+                                child: Obx(
+                                  () => Center(
+                                    child: DropdownButton<String>(
+                                      icon: Icon(Icons.arrow_drop_down,
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              89,
+                                          color: Colors.white),
+                                      dropdownColor: Colors.grey,
+                                      style: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width /
+                                                92,
+                                        color: Colors.white,
+                                      ),
+                                      underline: Container(),
+                                      value: hrController.selectedItem.value,
+                                      onChanged: (String? newValue) {
+                                        if (newValue != null) {
+                                          hrController
+                                              .changeSelectedItem(newValue);
+                                        }
+                                      },
+                                      items: ['Admin', 'Staff', 'Patient']
+                                          .map<DropdownMenuItem<String>>(
+                                            (String value) =>
+                                                DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(
+                                                value,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: 'FiraSans',
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.w200,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                        .toList(),
+                                          )
+                                          .toList(),
+                                    ),
                                   ),
                                 ),
                               ),
+                              // Expanded(
+                              //   child: Container(
+                              //     height:
+                              //         MediaQuery.of(context).size.height / 29,
+                              //     decoration: BoxDecoration(
+                              //       color: Colors.transparent,
+                              //       borderRadius: BorderRadius.circular(18),
+                              //       border: Border.all(
+                              //           color: Colors.white, width: 2),
+                              //     ),
+                              //     child: DropdownButtonFormField<String>(
+                              //       decoration: InputDecoration(
+                              //           contentPadding:
+                              //               EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              //           border: InputBorder.none),
+                              //       value: smController.selectedItem.value,
+                              //       icon: Icon(
+                              //         Icons.arrow_drop_down,
+                              //         color: Colors.white,
+                              //       ),
+                              //       iconSize: 24,
+                              //       style: TextStyle(
+                              //         color: Colors.white,
+                              //         fontSize: 11,
+                              //         fontFamily: 'FiraSans',
+                              //         fontWeight: FontWeight.w200,
+                              //       ),
+                              //       onChanged: (newValue) {
+                              //         if (newValue != null) {
+                              //           smController
+                              //               .changeSelectedItem(newValue);
+                              //         }
+                              //       },
+                              //       dropdownColor: Colors.grey,
+                              //       items: ['Admin', 'Staff', 'Patient']
+                              //           .map<DropdownMenuItem<String>>(
+                              //             (String value) =>
+                              //                 DropdownMenuItem<String>(
+                              //               value: value,
+                              //               child: Text(
+                              //                 value,
+                              //                 textAlign: TextAlign.center,
+                              //                 style: TextStyle(fontSize: 10),
+                              //               ),
+                              //             ),
+                              //           )
+                              //           .toList(),
+                              //     ),
+                              //   ),
+                              // ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width / 60,
                               ),
@@ -400,70 +454,74 @@ class SMDesktop extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Container(
-                        height: 40,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Obx(() => CustomTitleButton(
-                                  height: 30,
-                                  width: 100,
-                                  onPressed: () {
-                                    myController.selectButton(0);
-                                    _pageController.animateToPage(0,
-                                        duration: Duration(milliseconds: 500),
-                                        curve: Curves.ease);
-                                  },
-                                  text: 'Dashboard',
-                                  isSelected:
-                                      myController.selectedIndex.value == 0,
-                                )),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Obx(() => CustomTitleButton(
-                                  height: 30,
-                                  width: 130,
-                                  onPressed: () {
-                                    myController.selectButton(1);
-                                    _pageController.animateToPage(1,
-                                        duration: Duration(milliseconds: 500),
-                                        curve: Curves.ease);
-                                  },
-                                  text: 'Company Identity',
-                                  isSelected:
-                                      myController.selectedIndex.value == 1,
-                                )),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Obx(() => CustomDropdownButton(
-                                  height: 35,
-                                  width: 130,
-                                  items: ['HR', 'Finance'],
-                                  selectedItem:
-                                      myController.selectedIndex.value == 2
-                                          ? 'HR'
-                                          : 'Finance',
-                                  onChanged: (newValue) {
-                                    if (newValue == 'HR') {
-                                      myController.selectButton(2);
-                                      _pageController.animateToPage(
-                                        2,
-                                        duration: Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    } else if (newValue == 'Finance') {
-                                      myController.selectButton(3);
-                                      _pageController.animateToPage(
-                                        3,
-                                        duration: Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    }
-                                  },
-                                ))
-                          ],
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width / 90),
+                        child: Container(
+                          height: 40,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Obx(() => CustomTitleButton(
+                                    height: 30,
+                                    width: 100,
+                                    onPressed: () {
+                                      myController.selectButton(0);
+                                      _pageController.animateToPage(0,
+                                          duration: Duration(milliseconds: 500),
+                                          curve: Curves.ease);
+                                    },
+                                    text: 'Dashboard',
+                                    isSelected:
+                                        myController.selectedIndex.value == 0,
+                                  )),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Obx(() => CustomTitleButton(
+                                    height: 30,
+                                    width: 130,
+                                    onPressed: () {
+                                      myController.selectButton(1);
+                                      _pageController.animateToPage(1,
+                                          duration: Duration(milliseconds: 500),
+                                          curve: Curves.ease);
+                                    },
+                                    text: 'Company Identity',
+                                    isSelected:
+                                        myController.selectedIndex.value == 1,
+                                  )),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Obx(() => CustomDropdownButton(
+                                    height: 35,
+                                    width: 130,
+                                    items: ['HR', 'Finance'],
+                                    selectedItem:
+                                        myController.selectedIndex.value == 2
+                                            ? 'HR'
+                                            : 'Finance',
+                                    onChanged: (newValue) {
+                                      if (newValue == 'HR') {
+                                        myController.selectButton(2);
+                                        _pageController.animateToPage(
+                                          2,
+                                          duration: Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      } else if (newValue == 'Finance') {
+                                        myController.selectButton(3);
+                                        _pageController.animateToPage(
+                                          3,
+                                          duration: Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      }
+                                    },
+                                  ))
+                            ],
+                          ),
                         ),
                       ),
                     ),

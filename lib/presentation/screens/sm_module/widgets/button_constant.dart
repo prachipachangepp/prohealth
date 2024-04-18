@@ -87,11 +87,11 @@ class CustomElevatedButton extends StatelessWidget {
         ),
         child: text != null
             ? Text(text!,
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ))
+                style: GoogleFonts.firaSans(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ))
             : child,
       ),
     );
