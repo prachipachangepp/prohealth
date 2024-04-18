@@ -334,56 +334,7 @@ class SMDesktop extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              // Expanded(
-                              //   child: Container(
-                              //     height:
-                              //         MediaQuery.of(context).size.height / 29,
-                              //     decoration: BoxDecoration(
-                              //       color: Colors.transparent,
-                              //       borderRadius: BorderRadius.circular(18),
-                              //       border: Border.all(
-                              //           color: Colors.white, width: 2),
-                              //     ),
-                              //     child: DropdownButtonFormField<String>(
-                              //       decoration: InputDecoration(
-                              //           contentPadding:
-                              //               EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              //           border: InputBorder.none),
-                              //       value: smController.selectedItem.value,
-                              //       icon: Icon(
-                              //         Icons.arrow_drop_down,
-                              //         color: Colors.white,
-                              //       ),
-                              //       iconSize: 24,
-                              //       style: TextStyle(
-                              //         color: Colors.white,
-                              //         fontSize: 11,
-                              //         fontFamily: 'FiraSans',
-                              //         fontWeight: FontWeight.w200,
-                              //       ),
-                              //       onChanged: (newValue) {
-                              //         if (newValue != null) {
-                              //           smController
-                              //               .changeSelectedItem(newValue);
-                              //         }
-                              //       },
-                              //       dropdownColor: Colors.grey,
-                              //       items: ['Admin', 'Staff', 'Patient']
-                              //           .map<DropdownMenuItem<String>>(
-                              //             (String value) =>
-                              //                 DropdownMenuItem<String>(
-                              //               value: value,
-                              //               child: Text(
-                              //                 value,
-                              //                 textAlign: TextAlign.center,
-                              //                 style: TextStyle(fontSize: 10),
-                              //               ),
-                              //             ),
-                              //           )
-                              //           .toList(),
-                              //     ),
-                              //   ),
-                              // ),
+
                               SizedBox(
                                 width: MediaQuery.of(context).size.width / 60,
                               ),
