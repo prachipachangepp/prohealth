@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/confirm_pass/confirm_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
-
-  ChangePasswordScreen({super.key});
+  final String email;
+  ChangePasswordScreen({super.key, required this.email});
 
   @override
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
@@ -31,6 +31,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   late Timer _timer;
   int _timerCount = 30;
   bool isOtpFieldEmpty = true;
+  ConfirmPassManager confirmPassManager = ConfirmPassManager();
 
   @override
   void initState() {
@@ -169,7 +170,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Enter your 4 digits code that you received on your email.',
+                                                  'Enter your 6 digits code that you received on your email.',
                                                   style: GoogleFonts.firaSans(
                                                     color: Color(0xff686464),
                                                     fontSize: 10,
@@ -407,69 +408,150 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       width: MediaQuery.of(context).size.width / 7,
                                                       height: MediaQuery.of(context).size.height / 22,
                                                       text: 'Update Password',
-                                                      backgroundColor: isOtpFieldEmpty? Colors.grey : Color(0xFF50B5E5),
-                                                      onPressed: () async{
-                                                        if(_formKey.currentState!.validate()) {
+                                                      backgroundColor: isOtpFieldEmpty ? Colors.grey : Color(0xFF50B5E5),
+                                                      onPressed: () async {
+                                                        if (_formKey.currentState!.validate()) {
                                                           if (controllerNew.text != controllerConfirm.text) {
                                                             setState(() {
                                                               _errorMessage = 'Passwords do not match.';
                                                             });
                                                             return;
                                                           }
-                                                          showDialog(
+                                                          try {
+                                                            await ConfirmPassManager().confirmPassword(
+                                                              widget.email,
+                                                              _otpControllers.map((controller) => controller.text).join(),
+                                                              controllerNew.text,
+                                                            );
+                                                            print('${widget.email}');
+                                                            print('${controllerNew.text}');
+                                                            showDialog(
                                                               context: context,
                                                               builder: (BuildContext context) {
                                                                 return AlertDialog(
-                                                                    backgroundColor: Colors.white,
-                                                                    content: Container(
-                                                                      padding: EdgeInsets.only(top: 25),
-                                                                      height: 400,
-                                                                      width: 500,
-                                                                      child: Column(
-                                                                        mainAxisAlignment:
-                                                                        MainAxisAlignment.spaceEvenly,
-                                                                        crossAxisAlignment: CrossAxisAlignment
-                                                                            .center,
-                                                                        children: [
-                                                                          Image.asset(
-                                                                            'images/upload.png',
-                                                                            width: 125,
-                                                                            height: 125,
+                                                                  backgroundColor: Colors.white,
+                                                                  content: Container(
+                                                                    padding: EdgeInsets.only(top: 25),
+                                                                    height: 400,
+                                                                    width: 500,
+                                                                    child: Column(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                      children: [
+                                                                        Image.asset(
+                                                                          'images/upload.png',
+                                                                          width: 125,
+                                                                          height: 125,
+                                                                        ),
+                                                                        Text(
+                                                                          'Successfully',
+                                                                          style: GoogleFonts.firaSans(
+                                                                            fontSize: 30,
+                                                                            color: Color(0xff686464),
+                                                                            fontWeight: FontWeight.w700,
                                                                           ),
-                                                                          Text(
-                                                                            'Successfully',
-                                                                            style: GoogleFonts.firaSans(
-                                                                              fontSize: 30,
-                                                                              color: Color(0xff686464),
-                                                                              fontWeight: FontWeight.w700,),
+                                                                        ),
+                                                                        Text(
+                                                                          'Your password has been reset successfully',
+                                                                          style: GoogleFonts.firaSans(
+                                                                            fontSize: 12,
+                                                                            color: Color(0xff686464),
+                                                                            fontWeight: FontWeight.w500,
                                                                           ),
-                                                                          Text(
-                                                                            'Your password has been reset successfully',
-                                                                            style: GoogleFonts.firaSans(
-                                                                              fontSize: 12,
-                                                                              color: Color(0xff686464),
-                                                                              fontWeight: FontWeight.w500,),
-                                                                          ),
-                                                                          CustomButton(
-                                                                              width: 182,
-                                                                              height: 46,
-                                                                              text: 'CONTINUE',
-                                                                              borderRadius: 28,
-                                                                              onPressed: () {
-                                                                                Navigator.push(
-                                                                                    context,
-                                                                                    MaterialPageRoute(
-                                                                                        builder: (context) =>
-                                                                                            LoginScreen()));
-                                                                              })
-                                                                        ],
-                                                                      ),
-                                                                    ));
-                                                              });
+                                                                        ),
+                                                                        CustomButton(
+                                                                          width: 182,
+                                                                          height: 46,
+                                                                          text: 'CONTINUE',
+                                                                          borderRadius: 28,
+                                                                          onPressed: () {
+                                                                            Navigator.push(
+                                                                              context,
+                                                                              MaterialPageRoute(builder: (context) => LoginScreen()),
+                                                                            );
+                                                                          },
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          } catch (e) {
+                                                            print('Error occurred while confirming password: $e');
+                                                            // Handle error
+                                                          }
                                                         }
-                                                        //   Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordVerifyScreen()));
                                                       },
                                                     ),
+
+                                                    // CustomButton(
+                                                    //   width: MediaQuery.of(context).size.width / 7,
+                                                    //   height: MediaQuery.of(context).size.height / 22,
+                                                    //   text: 'Update Password',
+                                                    //   backgroundColor: isOtpFieldEmpty? Colors.grey : Color(0xFF50B5E5),
+                                                    //   onPressed: () async{
+                                                    //     if(_formKey.currentState!.validate()) {
+                                                    //       if (controllerNew.text != controllerConfirm.text) {
+                                                    //         setState(() {
+                                                    //           _errorMessage = 'Passwords do not match.';
+                                                    //         });
+                                                    //         return;
+                                                    //       }
+                                                    //       showDialog(
+                                                    //           context: context,
+                                                    //           builder: (BuildContext context) {
+                                                    //             return AlertDialog(
+                                                    //                 backgroundColor: Colors.white,
+                                                    //                 content: Container(
+                                                    //                   padding: EdgeInsets.only(top: 25),
+                                                    //                   height: 400,
+                                                    //                   width: 500,
+                                                    //                   child: Column(
+                                                    //                     mainAxisAlignment:
+                                                    //                     MainAxisAlignment.spaceEvenly,
+                                                    //                     crossAxisAlignment: CrossAxisAlignment
+                                                    //                         .center,
+                                                    //                     children: [
+                                                    //                       Image.asset(
+                                                    //                         'images/upload.png',
+                                                    //                         width: 125,
+                                                    //                         height: 125,
+                                                    //                       ),
+                                                    //                       Text(
+                                                    //                         'Successfully',
+                                                    //                         style: GoogleFonts.firaSans(
+                                                    //                           fontSize: 30,
+                                                    //                           color: Color(0xff686464),
+                                                    //                           fontWeight: FontWeight.w700,),
+                                                    //                       ),
+                                                    //                       Text(
+                                                    //                         'Your password has been reset successfully',
+                                                    //                         style: GoogleFonts.firaSans(
+                                                    //                           fontSize: 12,
+                                                    //                           color: Color(0xff686464),
+                                                    //                           fontWeight: FontWeight.w500,),
+                                                    //                       ),
+                                                    //                       CustomButton(
+                                                    //                           width: 182,
+                                                    //                           height: 46,
+                                                    //                           text: 'CONTINUE',
+                                                    //                           borderRadius: 28,
+                                                    //                           onPressed: () {
+                                                    //                             Navigator.push(
+                                                    //                                 context,
+                                                    //                                 MaterialPageRoute(
+                                                    //                                     builder: (context) =>
+                                                    //                                         LoginScreen()));
+                                                    //                           })
+                                                    //                     ],
+                                                    //                   ),
+                                                    //                 ));
+                                                    //           });
+                                                    //     }
+                                                    //     //   Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordVerifyScreen()));
+                                                    //   },
+                                                    // ),
                                                   ),
                                                 ),
                                                 if (_errorMessage != null)

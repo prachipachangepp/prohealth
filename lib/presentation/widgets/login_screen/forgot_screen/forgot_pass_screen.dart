@@ -42,7 +42,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'Enter your email for the verification process,we will send 4\ndigits code to your email.',
+                'Enter your email for the verification process,we will send 6\ndigits code to your email.',
                 style: GoogleFonts.firaSans(
                   color: Color(0xff686464),
                   fontSize: 10,
@@ -124,7 +124,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ChangePasswordScreen()),
+                                builder: (context) => ChangePasswordScreen(email: _emailcontroller.text,)),
                           );
                           print('forgot button press');
                         }
