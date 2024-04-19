@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/forgot_pass/forgot_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/password_verification.dart';
+import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 import '../widgets/login_flow_base_struct.dart';
 
@@ -124,7 +124,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PasswordVerifyScreen()),
+                                builder: (context) => ChangePasswordScreen()),
                           );
                           print('forgot button press');
                         }

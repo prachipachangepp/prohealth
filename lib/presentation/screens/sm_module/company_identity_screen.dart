@@ -69,6 +69,9 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
             CustomButton(
               borderRadius: 12,
               text: 'Whitelabelling',
+              style: GoogleFonts.firaSans(
+                fontSize: 12
+              ),
               width: 120,
               height: 30,
               onPressed: () {

@@ -82,10 +82,70 @@ class CustomButtonTransparent extends StatelessWidget {
 
 ///custombutton size managebleimport 'package:flutter/material.dart';
 
+// class CustomButton extends StatelessWidget {
+//   final String? text;
+//   final VoidCallback onPressed;
+//   // final Color color;
+//   final Color textColor;
+//   final double borderRadius;
+//   final double paddingVertical;
+//   final double paddingHorizontal;
+//   final double width;
+//   final double height;
+//   final TextStyle style;
+//   final Widget? child;
+//
+//   const CustomButton({
+//     Key? key,
+//     this.text,
+//     required this.onPressed,
+//     // this.color = Colors.blue,
+//     this.textColor = Colors.white,
+//     this.borderRadius = 14.0,
+//     this.paddingVertical = 12.0,
+//     this.paddingHorizontal = 16.0,
+//     this.width = 50,
+//     //this.width = double.infinity,
+//     this.height = 50.0,
+//     this.style = const TextStyle(color: Colors.white),
+//     this.child,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       width: width,
+//       height: height,
+//       child: ElevatedButton(
+//         onPressed: onPressed,
+//         style: ElevatedButton.styleFrom(
+//           backgroundColor: Color(0xFF50B5E5),
+//           foregroundColor: textColor,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(borderRadius),
+//           ),
+//           padding: EdgeInsets.symmetric(
+//             vertical: paddingVertical,
+//             horizontal: paddingHorizontal,
+//           ),
+//         ),
+//         child: text != null
+//             ? Text(
+//                 text!,
+//                 style: GoogleFonts.firaSans(
+//                   fontSize: MediaQuery.of(context).size.width / 90,
+//                   fontWeight: FontWeight.w700,
+//                 ),
+//               )
+//             : child,
+//       ),
+//     );
+//   }
+// }
 class CustomButton extends StatelessWidget {
   final String? text;
   final VoidCallback onPressed;
-  // final Color color;
+  final Color backgroundColor; // Added parameter for background color
   final Color textColor;
   final double borderRadius;
   final double paddingVertical;
@@ -99,13 +159,12 @@ class CustomButton extends StatelessWidget {
     Key? key,
     this.text,
     required this.onPressed,
-    // this.color = Colors.blue,
+    this.backgroundColor = const Color(0xFF50B5E5), // Default background color
     this.textColor = Colors.white,
     this.borderRadius = 14.0,
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
     this.width = 50,
-    //this.width = double.infinity,
     this.height = 50.0,
     this.style = const TextStyle(color: Colors.white),
     this.child,
@@ -119,7 +178,7 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF50B5E5),
+          backgroundColor: backgroundColor, // Utilizing the backgroundColor parameter
           foregroundColor: textColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -131,17 +190,18 @@ class CustomButton extends StatelessWidget {
         ),
         child: text != null
             ? Text(
-                text!,
-                style: GoogleFonts.firaSans(
-                  fontSize: MediaQuery.of(context).size.width / 90,
-                  fontWeight: FontWeight.w700,
-                ),
-              )
+          text!,
+          style: GoogleFonts.firaSans(
+            fontSize: MediaQuery.of(context).size.width / 90,
+            fontWeight: FontWeight.w700,
+          ),
+        )
             : child,
       ),
     );
   }
 }
+
 
 ///CustomTitleButton
 ///sm desktop
@@ -166,7 +226,7 @@ class CustomTitleButton extends StatelessWidget {
     // this.color = Colors.blue,
     this.textColor = Colors.white,
     this.borderRadius = 8.0,
-    this.paddingVertical = 12.0,
+    this.paddingVertical = 10.0,
     this.paddingHorizontal = 16.0,
     this.width = 50,
     //this.width = double.infinity,

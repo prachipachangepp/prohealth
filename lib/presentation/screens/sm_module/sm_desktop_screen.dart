@@ -408,7 +408,7 @@ class SMDesktop extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width / 90),
+                            horizontal: MediaQuery.of(context).size.width / 100),
                         child: Container(
                           height: 40,
                           child: Row(
@@ -432,7 +432,7 @@ class SMDesktop extends StatelessWidget {
                               ),
                               Obx(() => CustomTitleButton(
                                     height: 30,
-                                    width: 130,
+                                    width: 140,
                                     onPressed: () {
                                       myController.selectButton(1);
                                       _pageController.animateToPage(1,
