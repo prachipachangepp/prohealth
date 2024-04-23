@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:js';
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +24,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController controllerNew = TextEditingController();
   final TextEditingController controllerConfirm = TextEditingController();
   List<TextEditingController> _otpControllers =
-  List.generate(6, (_) => TextEditingController());
+      List.generate(6, (_) => TextEditingController());
   bool _obscureText = true;
   bool _obscureTextconfirm = true;
   final _formKey = GlobalKey<FormState>();
@@ -32,6 +35,42 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   int _timerCount = 30;
   bool isOtpFieldEmpty = true;
   ConfirmPassManager confirmPassManager = ConfirmPassManager();
+  TextEditingController newPasswordController = TextEditingController();
+  Future<void> updatePassword() async {
+    // Replace 'email', 'otp', and 'newPassword' with actual values
+    String email = 'user@example.com';
+    String otp = '123456';
+    String newPassword = newPasswordController.text;
+
+    try {
+      var headers = {'Content-Type': 'application/json'};
+
+      var data = json.encode({
+        "email": email,
+        "verificationCode": otp,
+        "newPassword": newPassword
+      });
+
+      var response = await Dio().post(
+        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
+        data: data,
+        options: Options(headers: headers),
+      );
+
+      if (response.statusCode == 200) {
+        print('Password changed successfully');
+        print(json.encode(response.data));
+        // Optionally, navigate back to the login screen
+        Navigator.pop(context as BuildContext);
+      } else {
+        print('Failed to change password: ${response.statusMessage}');
+        // Print response data for debugging if needed
+        print(json.encode(response.data));
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+    }
+  }
 
   @override
   void initState() {
@@ -69,7 +108,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return Material(
       elevation: 4,
       child: Container(
-        // height: 725,
+          // height: 725,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('images/login_screen_no_blur.png'),
@@ -101,8 +140,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       children: [
                         ///logo & head text
                         Padding(
-                          padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/30,
-                              left: MediaQuery.of(context).size.width/12),
+                          padding: EdgeInsets.only(
+                              right: MediaQuery.of(context).size.width / 30,
+                              left: MediaQuery.of(context).size.width / 12),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -117,8 +157,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               Image.asset(
                                 'images/logo_login.png',
                                 width: MediaQuery.of(context).size.width / 5,
-                                height:
-                                MediaQuery.of(context).size.height / 5,
+                                height: MediaQuery.of(context).size.height / 5,
                               )
                             ],
                           ),
@@ -135,39 +174,58 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   elevation: 9,
                                   borderRadius: BorderRadius.circular(24),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        width: MediaQuery.of(context).size.width / 3.5,
-                                        height: MediaQuery.of(context).size.height / 1.6,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3.5,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                1.6,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(24),
+                                            borderRadius:
+                                                BorderRadius.circular(24),
                                             color: Colors.white,
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Color(0xff000000).withOpacity(0.1), // 0x1A for the first shadow
+                                                color: Color(0xff000000)
+                                                    .withOpacity(0.1),
                                                 spreadRadius: 0,
                                                 blurRadius: 0,
                                                 offset: Offset(0, 0),
                                               ),
                                               BoxShadow(
-                                                color: Color(0xff000000).withOpacity(0.1), // 0x1A for the second shadow
+                                                color: Color(0xff000000)
+                                                    .withOpacity(0.1),
                                                 spreadRadius: 1,
                                                 blurRadius: 4,
                                                 offset: Offset(0, 3),
                                               ),
-                                            ]
-                                        ),
+                                            ]),
+
                                         ///column
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width / 30,
-                                          vertical: MediaQuery.of(context).size.height/40),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  30,
+                                              vertical: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  40),
                                           child: Form(
                                             key: _formKey,
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   'Enter your 6 digits code that you received on your email.',
@@ -178,39 +236,69 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   ),
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: List.generate(
                                                     6,
-                                                        (index) => Container(
-                                                      width: MediaQuery.of(context).size.width/40,
+                                                    (index) => Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              40,
                                                       height: 40,
-                                                      margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/200),
+                                                      margin: EdgeInsets.symmetric(
+                                                          horizontal:
+                                                              MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  200),
                                                       decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(2),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
                                                         border: Border.all(
-                                                          color: Color(0xff9BADCA),
+                                                          color:
+                                                              Color(0xff9BADCA),
                                                           width: 0.55,
                                                         ),
                                                       ),
                                                       child: TextFormField(
-                                                        style:GoogleFonts.firaSans(
-                                                          color: Color(0xff000000).withOpacity(0.7),
-                                                          fontWeight: FontWeight.w500,
+                                                        style: GoogleFonts
+                                                            .firaSans(
+                                                          color: Color(
+                                                                  0xff000000)
+                                                              .withOpacity(0.7),
+                                                          fontWeight:
+                                                              FontWeight.w500,
                                                           fontSize: 12,
                                                         ),
-                                                        controller: _otpControllers[index],
-                                                        cursorColor: Colors.black,
+                                                        controller:
+                                                            _otpControllers[
+                                                                index],
+                                                        cursorColor:
+                                                            Colors.black,
                                                         inputFormatters: [
-                                                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
                                                         ],
-                                                        keyboardType: TextInputType.number,
-                                                        textAlign: TextAlign.center,
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         maxLength: 1,
-                                                        decoration: InputDecoration(
-                                                          contentPadding: const EdgeInsets. only(bottom: 10),
+                                                        decoration:
+                                                            InputDecoration(
+                                                          contentPadding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  bottom: 10),
                                                           counterText: '',
-
-                                                          border: InputBorder.none,
+                                                          border:
+                                                              InputBorder.none,
                                                         ),
                                                         validator: (value) {
                                                           return value!.isEmpty
@@ -219,19 +307,41 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                         },
                                                         onChanged: (value) {
                                                           setState(() {
-                                                            isOtpFieldEmpty = _otpControllers.any((controller) => controller.text.isEmpty);
+                                                            isOtpFieldEmpty =
+                                                                _otpControllers.any(
+                                                                    (controller) =>
+                                                                        controller
+                                                                            .text
+                                                                            .isEmpty);
                                                           });
                                                           if (!isOtpFieldEmpty) {
-                                                            FocusScope.of(context).nextFocus();
-                                                          } else if (value.isNotEmpty && index == 5) {
-                                                            String enteredOTP = _otpControllers.map((controller) =>
-                                                            controller.text).join();
-                                                            bool anyFieldEmpty = _otpControllers.any((controller) => controller.text.isEmpty);
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .nextFocus();
+                                                          } else if (value
+                                                                  .isNotEmpty &&
+                                                              index == 5) {
+                                                            String enteredOTP =
+                                                                _otpControllers
+                                                                    .map((controller) =>
+                                                                        controller
+                                                                            .text)
+                                                                    .join();
+                                                            bool anyFieldEmpty =
+                                                                _otpControllers.any(
+                                                                    (controller) =>
+                                                                        controller
+                                                                            .text
+                                                                            .isEmpty);
                                                             if (!anyFieldEmpty &&
-                                                                (_formKey.currentState
-                                                                    ?.validate() ??
+                                                                (_formKey
+                                                                        .currentState
+                                                                        ?.validate() ??
                                                                     false)) {
-                                                              FocusScope.of(context).requestFocus(passwordFocusNode);
+                                                              FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      passwordFocusNode);
                                                             }
                                                           }
                                                         },
@@ -239,33 +349,38 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                     ),
                                                   ),
                                                 ),
-                                                Text(
-                                                    '${getTimerString()}',
+                                                Text('${getTimerString()}',
                                                     style: GoogleFonts.firaSans(
                                                       color: Color(0xffF2451C),
                                                       fontSize: 8,
-                                                      fontWeight: FontWeight.w600,)
-                                                ),
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    )),
                                                 RichText(
                                                   text: TextSpan(
                                                     style: GoogleFonts.firaSans(
                                                       fontSize: 10,
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       color: Color(0xff686464),
                                                     ),
                                                     children: [
                                                       TextSpan(
-                                                        text: 'If you didn’t receive a code! ',
+                                                        text:
+                                                            'If you didn’t receive a code! ',
                                                       ),
                                                       TextSpan(
                                                         text: 'Resend',
-                                                        style: GoogleFonts.firaSans(
-                                                          color: Color(0xffF2451C),
+                                                        style: GoogleFonts
+                                                            .firaSans(
+                                                          color:
+                                                              Color(0xffF2451C),
                                                         ),
-                                                        recognizer: TapGestureRecognizer()
-                                                          ..onTap = () {
-                                                            //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
-                                                          },
+                                                        recognizer:
+                                                            TapGestureRecognizer()
+                                                              ..onTap = () {
+                                                                //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
+                                                              },
                                                       ),
                                                     ],
                                                   ),
@@ -274,21 +389,25 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 Text(
                                                   'Set the new password for your account so you can login and\naccess all features.',
                                                   style: GoogleFonts.firaSans(
-                                                    color: isOtpFieldEmpty? Colors.grey : Color(0xff686464),
+                                                    color: isOtpFieldEmpty
+                                                        ? Colors.grey
+                                                        : Color(0xff686464),
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                                 ),
                                                 TextFormField(
                                                   style: GoogleFonts.firaSans(
-                                                    color: Color(0xff000000).withOpacity(0.5),
+                                                    color: Color(0xff000000)
+                                                        .withOpacity(0.5),
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 14,
                                                   ),
                                                   focusNode: passwordFocusNode,
                                                   onFieldSubmitted: (_) {
                                                     FocusScope.of(context)
-                                                        .requestFocus(confirmpassFocusNode);
+                                                        .requestFocus(
+                                                            confirmpassFocusNode);
                                                   },
                                                   cursorHeight: 22,
                                                   obscuringCharacter: '*',
@@ -296,47 +415,69 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   cursorColor: Colors.black,
                                                   obscureText: _obscureText,
                                                   decoration: InputDecoration(
-                                                    contentPadding: const EdgeInsets. only(top: 2),
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            top: 2),
                                                     suffixIcon: IconButton(
                                                       icon: Icon(
                                                         _obscureText
-                                                            ? Icons.visibility_outlined
-                                                            : Icons.visibility_off_outlined,
+                                                            ? Icons
+                                                                .visibility_outlined
+                                                            : Icons
+                                                                .visibility_off_outlined,
                                                         size: 15,
-                                                        color: Color(0xffACA5BB),
+                                                        color:
+                                                            Color(0xffACA5BB),
                                                       ),
                                                       onPressed: () {
                                                         setState(() {
-                                                          _obscureText = !_obscureText;
+                                                          _obscureText =
+                                                              !_obscureText;
                                                         });
                                                       },
                                                     ),
-                                                    labelText: 'Enter New Password',
-                                                    labelStyle: GoogleFonts.firaSans(
-                                                      color: isOtpFieldEmpty? Colors.grey : Color(0xff686464),
+                                                    labelText:
+                                                        'Enter New Password',
+                                                    labelStyle:
+                                                        GoogleFonts.firaSans(
+                                                      color: isOtpFieldEmpty
+                                                          ? Colors.grey
+                                                          : Color(0xff686464),
                                                       //Color(0xff000000).withOpacity(0.3),
                                                       fontSize: 14,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
-                                                    border: UnderlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.black),
+                                                    border:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black),
                                                     ),
-                                                    focusedBorder: UnderlineInputBorder(
-                                                      borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5), width: 0.5),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Color(
+                                                                  0xff000000)
+                                                              .withOpacity(0.5),
+                                                          width: 0.5),
                                                     ),
-                                                    enabledBorder: UnderlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.grey),
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.grey),
                                                     ),
                                                   ),
                                                   validator: (value) {
-                                                    if (value == null || value.isEmpty) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
                                                       return 'Enter Password';
                                                     }
                                                     return null;
                                                   },
                                                 ),
                                                 TextFormField(
-                                                  focusNode: confirmpassFocusNode,
+                                                  focusNode:
+                                                      confirmpassFocusNode,
                                                   onFieldSubmitted: (_) {
                                                     //_loginWithEmail();
                                                   },
@@ -344,47 +485,70 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   obscuringCharacter: '*',
                                                   controller: controllerConfirm,
                                                   style: GoogleFonts.firaSans(
-                                                    color: Color(0xff000000).withOpacity(0.5),
+                                                    color: Color(0xff000000)
+                                                        .withOpacity(0.5),
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 14,
                                                   ),
                                                   cursorColor: Colors.black,
-                                                  obscureText: _obscureTextconfirm,
+                                                  obscureText:
+                                                      _obscureTextconfirm,
                                                   decoration: InputDecoration(
-                                                    contentPadding: const EdgeInsets. only(top: 2),
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            top: 2),
                                                     suffixIcon: IconButton(
                                                       icon: Icon(
                                                         _obscureTextconfirm
-                                                            ? Icons.visibility_outlined
-                                                            : Icons.visibility_off_outlined,
+                                                            ? Icons
+                                                                .visibility_outlined
+                                                            : Icons
+                                                                .visibility_off_outlined,
                                                         size: 15,
-                                                        color: Color(0xffACA5BB),
+                                                        color:
+                                                            Color(0xffACA5BB),
                                                       ),
                                                       onPressed: () {
                                                         setState(() {
-                                                          _obscureTextconfirm = !_obscureTextconfirm;
+                                                          _obscureTextconfirm =
+                                                              !_obscureTextconfirm;
                                                         });
                                                       },
                                                     ),
-                                                    labelText: 'Confirm Password',
-                                                    labelStyle: GoogleFonts.firaSans(
-                                                      color: isOtpFieldEmpty? Colors.grey : Color(0xff686464),
+                                                    labelText:
+                                                        'Confirm Password',
+                                                    labelStyle:
+                                                        GoogleFonts.firaSans(
+                                                      color: isOtpFieldEmpty
+                                                          ? Colors.grey
+                                                          : Color(0xff686464),
                                                       //Color(0xff000000).withOpacity(0.3),
                                                       fontSize: 14,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
-                                                    border: UnderlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.black),
+                                                    border:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black),
                                                     ),
-                                                    focusedBorder: UnderlineInputBorder(
-                                                      borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5), width: 0.5),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Color(
+                                                                  0xff000000)
+                                                              .withOpacity(0.5),
+                                                          width: 0.5),
                                                     ),
-                                                    enabledBorder: UnderlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.grey),
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.grey),
                                                     ),
                                                   ),
                                                   validator: (value) {
-                                                    if (value == null || value.isEmpty) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
                                                       return 'Enter Confirm Password';
                                                     }
                                                     return null;
@@ -394,10 +558,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 Center(
                                                   child: Container(
                                                     decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(14),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              14),
                                                       boxShadow: [
                                                         BoxShadow(
-                                                          color: Color(0x40000000),
+                                                          color:
+                                                              Color(0x40000000),
                                                           offset: Offset(0, 4),
                                                           blurRadius: 4,
                                                           spreadRadius: 0,
@@ -405,66 +572,121 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       ],
                                                     ),
                                                     child: CustomButton(
-                                                      width: MediaQuery.of(context).size.width / 7,
-                                                      height: MediaQuery.of(context).size.height / 22,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              7,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height /
+                                                              22,
                                                       text: 'Update Password',
-                                                      backgroundColor: isOtpFieldEmpty ? Colors.grey : Color(0xFF50B5E5),
+                                                      backgroundColor:
+                                                          isOtpFieldEmpty
+                                                              ? Colors.grey
+                                                              : Color(
+                                                                  0xFF50B5E5),
                                                       onPressed: () async {
-                                                        if (_formKey.currentState!.validate()) {
-                                                          if (controllerNew.text != controllerConfirm.text) {
+                                                        if (_formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                          if (controllerNew
+                                                                  .text !=
+                                                              controllerConfirm
+                                                                  .text) {
                                                             setState(() {
-                                                              _errorMessage = 'Passwords do not match.';
+                                                              _errorMessage =
+                                                                  'Passwords do not match.';
                                                             });
                                                             return;
                                                           }
                                                           try {
-                                                            await ConfirmPassManager().confirmPassword(
+                                                            await ConfirmPassManager()
+                                                                .confirmPassword(
                                                               widget.email,
-                                                              _otpControllers.map((controller) => controller.text).join(),
-                                                              controllerNew.text,
+                                                              _otpControllers
+                                                                  .map((controller) =>
+                                                                      controller
+                                                                          .text)
+                                                                  .join(),
+                                                              controllerNew
+                                                                  .text,
                                                             );
-                                                            print('${widget.email}');
-                                                            print('${controllerNew.text}');
+                                                            print(
+                                                                '${widget.email}');
+                                                            print(
+                                                                '${controllerNew.text}');
                                                             showDialog(
                                                               context: context,
-                                                              builder: (BuildContext context) {
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
                                                                 return AlertDialog(
-                                                                  backgroundColor: Colors.white,
-                                                                  content: Container(
-                                                                    padding: EdgeInsets.only(top: 25),
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  content:
+                                                                      Container(
+                                                                    padding: EdgeInsets
+                                                                        .only(
+                                                                            top:
+                                                                                25),
                                                                     height: 400,
                                                                     width: 500,
-                                                                    child: Column(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceEvenly,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
                                                                       children: [
-                                                                        Image.asset(
+                                                                        Image
+                                                                            .asset(
                                                                           'images/upload.png',
-                                                                          width: 125,
-                                                                          height: 125,
+                                                                          width:
+                                                                              125,
+                                                                          height:
+                                                                              125,
                                                                         ),
                                                                         Text(
                                                                           'Successfully',
-                                                                          style: GoogleFonts.firaSans(
-                                                                            fontSize: 30,
-                                                                            color: Color(0xff686464),
-                                                                            fontWeight: FontWeight.w700,
+                                                                          style:
+                                                                              GoogleFonts.firaSans(
+                                                                            fontSize:
+                                                                                30,
+                                                                            color:
+                                                                                Color(0xff686464),
+                                                                            fontWeight:
+                                                                                FontWeight.w700,
                                                                           ),
                                                                         ),
                                                                         Text(
                                                                           'Your password has been reset successfully',
-                                                                          style: GoogleFonts.firaSans(
-                                                                            fontSize: 12,
-                                                                            color: Color(0xff686464),
-                                                                            fontWeight: FontWeight.w500,
+                                                                          style:
+                                                                              GoogleFonts.firaSans(
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Color(0xff686464),
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
                                                                           ),
                                                                         ),
                                                                         CustomButton(
-                                                                          width: 182,
-                                                                          height: 46,
-                                                                          text: 'CONTINUE',
-                                                                          borderRadius: 28,
-                                                                          onPressed: () {
+                                                                          width:
+                                                                              182,
+                                                                          height:
+                                                                              46,
+                                                                          text:
+                                                                              'CONTINUE',
+                                                                          borderRadius:
+                                                                              28,
+                                                                          onPressed:
+                                                                              () {
                                                                             Navigator.push(
                                                                               context,
                                                                               MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -478,88 +700,90 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                               },
                                                             );
                                                           } catch (e) {
-                                                            print('Error occurred while confirming password: $e');
+                                                            AlertDialog(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              content:
+                                                                  Container(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            25),
+                                                                height: 400,
+                                                                width: 500,
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Only Three Times you can change the password',
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize:
+                                                                            30,
+                                                                        color: Color(
+                                                                            0xff686464),
+                                                                        fontWeight:
+                                                                            FontWeight.w700,
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      'You Cannot change the password today',
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize:
+                                                                            12,
+                                                                        color: Color(
+                                                                            0xff686464),
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                    ),
+                                                                    CustomButton(
+                                                                      width:
+                                                                          182,
+                                                                      height:
+                                                                          46,
+                                                                      text:
+                                                                          'CONTINUE',
+                                                                      borderRadius:
+                                                                          28,
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator
+                                                                            .push(
+                                                                          context,
+                                                                          MaterialPageRoute(
+                                                                              builder: (context) => LoginScreen()),
+                                                                        );
+                                                                      },
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            );
+                                                            print(
+                                                                'Error occurred while confirming password: $e');
                                                             // Handle error
                                                           }
                                                         }
                                                       },
                                                     ),
-
-                                                    // CustomButton(
-                                                    //   width: MediaQuery.of(context).size.width / 7,
-                                                    //   height: MediaQuery.of(context).size.height / 22,
-                                                    //   text: 'Update Password',
-                                                    //   backgroundColor: isOtpFieldEmpty? Colors.grey : Color(0xFF50B5E5),
-                                                    //   onPressed: () async{
-                                                    //     if(_formKey.currentState!.validate()) {
-                                                    //       if (controllerNew.text != controllerConfirm.text) {
-                                                    //         setState(() {
-                                                    //           _errorMessage = 'Passwords do not match.';
-                                                    //         });
-                                                    //         return;
-                                                    //       }
-                                                    //       showDialog(
-                                                    //           context: context,
-                                                    //           builder: (BuildContext context) {
-                                                    //             return AlertDialog(
-                                                    //                 backgroundColor: Colors.white,
-                                                    //                 content: Container(
-                                                    //                   padding: EdgeInsets.only(top: 25),
-                                                    //                   height: 400,
-                                                    //                   width: 500,
-                                                    //                   child: Column(
-                                                    //                     mainAxisAlignment:
-                                                    //                     MainAxisAlignment.spaceEvenly,
-                                                    //                     crossAxisAlignment: CrossAxisAlignment
-                                                    //                         .center,
-                                                    //                     children: [
-                                                    //                       Image.asset(
-                                                    //                         'images/upload.png',
-                                                    //                         width: 125,
-                                                    //                         height: 125,
-                                                    //                       ),
-                                                    //                       Text(
-                                                    //                         'Successfully',
-                                                    //                         style: GoogleFonts.firaSans(
-                                                    //                           fontSize: 30,
-                                                    //                           color: Color(0xff686464),
-                                                    //                           fontWeight: FontWeight.w700,),
-                                                    //                       ),
-                                                    //                       Text(
-                                                    //                         'Your password has been reset successfully',
-                                                    //                         style: GoogleFonts.firaSans(
-                                                    //                           fontSize: 12,
-                                                    //                           color: Color(0xff686464),
-                                                    //                           fontWeight: FontWeight.w500,),
-                                                    //                       ),
-                                                    //                       CustomButton(
-                                                    //                           width: 182,
-                                                    //                           height: 46,
-                                                    //                           text: 'CONTINUE',
-                                                    //                           borderRadius: 28,
-                                                    //                           onPressed: () {
-                                                    //                             Navigator.push(
-                                                    //                                 context,
-                                                    //                                 MaterialPageRoute(
-                                                    //                                     builder: (context) =>
-                                                    //                                         LoginScreen()));
-                                                    //                           })
-                                                    //                     ],
-                                                    //                   ),
-                                                    //                 ));
-                                                    //           });
-                                                    //     }
-                                                    //     //   Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordVerifyScreen()));
-                                                    //   },
-                                                    // ),
                                                   ),
                                                 ),
                                                 if (_errorMessage != null)
                                                   Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 8.0),
                                                     child: Text(
                                                       _errorMessage!,
-                                                      style: TextStyle(color: Colors.red),
+                                                      style: TextStyle(
+                                                          color: Colors.red),
                                                     ),
                                                   ),
                                               ],
@@ -570,12 +794,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: MediaQuery.of(context).size.height / 60,),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 60,
+                                ),
+
                                 ///back to login text
                                 Padding(
-                                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/4.5),
+                                  padding: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.width /
+                                          4.5),
                                   child: GestureDetector(
-                                    onTap: (){},
+                                    onTap: () {
+                                      updatePassword();
+                                    },
                                     child: Text(
                                       'Back to login',
                                       textAlign: TextAlign.right,
@@ -606,3 +838,70 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 }
+// CustomButton(
+//   width: MediaQuery.of(context).size.width / 7,
+//   height: MediaQuery.of(context).size.height / 22,
+//   text: 'Update Password',
+//   backgroundColor: isOtpFieldEmpty? Colors.grey : Color(0xFF50B5E5),
+//   onPressed: () async{
+//     if(_formKey.currentState!.validate()) {
+//       if (controllerNew.text != controllerConfirm.text) {
+//         setState(() {
+//           _errorMessage = 'Passwords do not match.';
+//         });
+//         return;
+//       }
+//       showDialog(
+//           context: context,
+//           builder: (BuildContext context) {
+//             return AlertDialog(
+//                 backgroundColor: Colors.white,
+//                 content: Container(
+//                   padding: EdgeInsets.only(top: 25),
+//                   height: 400,
+//                   width: 500,
+//                   child: Column(
+//                     mainAxisAlignment:
+//                     MainAxisAlignment.spaceEvenly,
+//                     crossAxisAlignment: CrossAxisAlignment
+//                         .center,
+//                     children: [
+//                       Image.asset(
+//                         'images/upload.png',
+//                         width: 125,
+//                         height: 125,
+//                       ),
+//                       Text(
+//                         'Successfully',
+//                         style: GoogleFonts.firaSans(
+//                           fontSize: 30,
+//                           color: Color(0xff686464),
+//                           fontWeight: FontWeight.w700,),
+//                       ),
+//                       Text(
+//                         'Your password has been reset successfully',
+//                         style: GoogleFonts.firaSans(
+//                           fontSize: 12,
+//                           color: Color(0xff686464),
+//                           fontWeight: FontWeight.w500,),
+//                       ),
+//                       CustomButton(
+//                           width: 182,
+//                           height: 46,
+//                           text: 'CONTINUE',
+//                           borderRadius: 28,
+//                           onPressed: () {
+//                             Navigator.push(
+//                                 context,
+//                                 MaterialPageRoute(
+//                                     builder: (context) =>
+//                                         LoginScreen()));
+//                           })
+//                     ],
+//                   ),
+//                 ));
+//           });
+//     }
+//     //   Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordVerifyScreen()));
+//   },
+// ),

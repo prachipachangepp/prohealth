@@ -624,9 +624,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   : null;
                                             },
                                             onChanged: (value) {
-                                              if (value.isNotEmpty &&
+                                                if (value.isNotEmpty &&
                                                   index < 3) {
-                                                FocusScope.of(context)
+                                                 FocusScope.of(context)
                                                     .nextFocus();
                                               } else if (value.isNotEmpty &&
                                                   index == 3) {
@@ -747,8 +747,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   if (_isLoggingIn)
                                     CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.green),
+                                      valueColor:
+                                      AlwaysStoppedAnimation<Color>(Colors.green),
                                       strokeWidth: 3,
                                       value: 0.70,
                                     ),
