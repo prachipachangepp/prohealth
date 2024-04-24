@@ -13,7 +13,7 @@ class ConfirmPassManager {
           {"email": email, "verificationCode": otp, "newPassword": password});
       var dio = Dio();
       var response = await dio.request(
-        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
+        'https://wwx3rebc2b.execute-api_hr.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
         options: Options(
           method: 'POST',
           headers: headers,
