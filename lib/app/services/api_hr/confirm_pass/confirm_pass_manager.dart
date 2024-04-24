@@ -1,30 +1,32 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
-class ForgotPassManager{
+
+class ConfirmPassManager {
   Dio dio = Dio();
 
-  Future<void> forgotPassword(String email) async {
-    try{
+  Future<void> confirmPassword(
+      String email, String otp, String password) async {
+    try {
       var headers = {'Content-Type': 'application/json'};
-      var data = json.encode({
-        "email": email});
+      var data = json.encode(
+          {"email": email, "verificationCode": otp, "newPassword": password});
       var dio = Dio();
       var response = await dio.request(
-        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/forgotPassword',
+        'https://wwx3rebc2b.execute-api_hr.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
         options: Options(
           method: 'POST',
           headers: headers,
         ),
         data: data,
       );
+
       if (response.statusCode == 200) {
         print(json.encode(response.data));
-      }
-      else {
+      } else {
         print(response.statusMessage);
       }
-    }
-    catch(e){
+    } catch (e) {
       print('Error occurred: $e');
     }
   }

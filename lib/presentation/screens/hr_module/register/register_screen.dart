@@ -24,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
             Container(
               width: 100,
               margin: EdgeInsets.only(right: 30),
-              child: CustomIconButton(
+              child: CustomIconButtonConst(
                   text: 'Enroll',
                   onPressed: () {
                     _controller.openDialog(context);

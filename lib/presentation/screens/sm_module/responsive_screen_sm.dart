@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'sm_desktop_screen.dart';
 
 class ResponsiveScreenSM extends StatelessWidget {
@@ -8,10 +8,8 @@ class ResponsiveScreenSM extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 850) {
-          // Render SMDesktop screen for large screens
           return SMDesktop();
         } else {
-          // Render SMTablet screen for small screens
           return SMTablet();
         }
       },

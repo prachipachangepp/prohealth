@@ -49,7 +49,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 Container(
                   width: 100,
                   margin: EdgeInsets.only(right: 40),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
@@ -66,7 +66,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 Container(
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
@@ -83,7 +83,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 Container(
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
@@ -127,7 +127,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 Container(
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
@@ -153,7 +153,7 @@ class _ManageScreenState extends State<ManageScreen> {
             Container(
              // width: 100,
               margin: EdgeInsets.only(right: 20),
-              child: CustomIconButton(
+              child: CustomIconButtonConst(
                   text: 'Add New', icon: Icons.add, onPressed: () {}),
             ),
           ],
@@ -171,7 +171,7 @@ class _ManageScreenState extends State<ManageScreen> {
               Container(
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
-                child: CustomIconButton(
+                child: CustomIconButtonConst(
                     text: 'Add New', icon: Icons.add, onPressed: () {}),
               ),
             ],
@@ -188,7 +188,7 @@ class _ManageScreenState extends State<ManageScreen> {
               Container(
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
-                child: CustomIconButton(
+                child: CustomIconButtonConst(
                     text: 'Add New', icon: Icons.add, onPressed: () {}),
               ),
             ],
@@ -205,7 +205,7 @@ class _ManageScreenState extends State<ManageScreen> {
               Container(
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
-                child: CustomIconButton(
+                child: CustomIconButtonConst(
                     text: 'Add New', icon: Icons.add, onPressed: () {}),
               ),
             ],
@@ -250,7 +250,7 @@ class _ManageScreenState extends State<ManageScreen> {
                     ],
                   ),
                   margin: EdgeInsets.only(right: 10),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add New', icon: Icons.add, onPressed: () {}),
                 ),
               ],
