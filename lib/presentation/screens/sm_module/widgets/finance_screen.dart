@@ -1,9 +1,8 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/sm_module/widgets/table_constant.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/text_form_field_const.dart';
-
 import '../../../widgets/custom_icon_button_constant.dart';
 import 'button_constant.dart';
 
@@ -23,12 +22,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
   late int itemsPerPage;
   late List<String> items;
 
-
   @override
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 5;
+    itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
   }
 
@@ -41,7 +39,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
     return Material(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal:  35.0,vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal:  35.0,vertical: 12),
         child: Column(
           children: [
             Row(
@@ -61,7 +59,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   ),),
               ],
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 15,),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -82,6 +80,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   children: [
                     Row(
                       children: [
+                        ///home health dropdown
                         Container(
                           height: 31,
                           width: 185,
@@ -115,6 +114,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           ),
                         ),
                         SizedBox(width: 20,),
+                        ///NC dropdown
                         Container(
                           height: 31,
                           width: 185,
@@ -149,78 +149,82 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         ),
                       ],
                     ),
+                    ///add payrate button
                     Container(
                       width: 130,
                       height: 32,
                       child: CustomIconButtonConst(
-                          text: 'Add Payrate', icon: Icons.add, onPressed: () {}),
+                          text: 'Add Payrate', icon: Icons.add,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  content: Container(
+                                    height: 243,
+                                    width: 309,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8)
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [IconButton(onPressed: (){
+                                            Navigator.pop(context);
+                                          }, icon: Icon(Icons.close))],),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Type of Visit',),
+                                            SizedBox(height: 15,),
+                                            SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Zone',),
+                                            SizedBox(height: 15,),
+                                            SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Rate',),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    Center(
+                                      child: CustomElevatedButton(
+                                          width: 105,
+                                          height: 31,
+                                          text: 'Submit',
+                                          onPressed: () {
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             LoginScreen()));
+                                          }),
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }),
                     ),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 20,),
-            Container(
-              height: 30,
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'Sr No',
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  Text('Type of Visit',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      )),
-                  // SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                  Text('Rate',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      )),
-
-                  //SizedBox(width: MediaQuery.of(context).size.width/5.5,),
-                  Text('Zone',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      )),
-                  // SizedBox(height: 1,),
-                  //SizedBox(width: MediaQuery.of(context).size.width/150,),
-                  Text('Actions',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      )),
-                ],
-              ),
+            SizedBox(height: 15,),
+            TableHeadConstant(
+              items: [
+                TableHeadItem(text: 'Sr No', textAlign: TextAlign.start),
+                TableHeadItem(text: 'Type of Visit', textAlign: TextAlign.start),
+                TableHeadItem(text: 'Rate', textAlign: TextAlign.start),
+                TableHeadItem(text: 'Zone', textAlign: TextAlign.start),
+                TableHeadItem(text: 'Actions', textAlign: TextAlign.center),
+              ],
             ),
             SizedBox(
-              height: 10,
+              height: 5,
             ),
             ///list
             Expanded(
@@ -293,11 +297,64 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   ),
                                 ),
                                 IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.edit_outlined,
-                                      color: Color(0xffF6928A),
-                                    )),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          backgroundColor: Colors.white,
+                                          content: Container(
+                                            height: 243,
+                                            width: 309,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8)
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [IconButton(onPressed: (){
+                                                    Navigator.pop(context);
+                                                  }, icon: Icon(Icons.close))],),
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Type of Visit',textColor: Color(0xFFB1B1B1),),
+                                                    SizedBox(height: 15,),
+                                                    SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Zone',),
+                                                    SizedBox(height: 15,),
+                                                    SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Rate',),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: [
+                                            Center(
+                                              child: CustomElevatedButton(
+                                                  width: 105,
+                                                  height: 31,
+                                                  text: 'Submit',
+                                                  onPressed: () {
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (context) =>
+                                                    //             LoginScreen()));
+                                                  }),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.edit_outlined,
+                                    color: Color(0xffF6928A),
+                                  ),
+                                ),
                               ],
                             )),
                       ],
@@ -310,95 +367,155 @@ class _FinanceScreenState extends State<FinanceScreen> {
     );
   }
 }
+//
+// Widget buildDropdownButton(BuildContext context) {
+//   return Container(
+//     height: 31,
+//     padding: EdgeInsets.symmetric(vertical: 6,horizontal: 15),
+//     decoration: BoxDecoration(
+//       color: Colors.white,
+//       border: Border.all(color: Color(0xff50B5E5),width: 1.2),
+//       borderRadius: BorderRadius.circular(12.0),
+//       boxShadow: [
+//         BoxShadow(
+//           color: Color(0xff000000).withOpacity(0.25),
+//           blurRadius: 2,
+//           offset: Offset(0,2),
+//         ),
+//       ],
+//     ),
+//     child: DropdownButton<String>(
+//       value: 'Sort By',
+//       style: GoogleFonts.firaSans(
+//         fontSize: 10,
+//         fontWeight: FontWeight.w500,
+//         color: Color(0xff50B5E5),
+//         decoration: TextDecoration.none,
+//       ),
+//       icon: Icon(Icons.arrow_drop_down,color: Color(0xff50B5E5),),
+//       iconSize: 20,
+//       underline: SizedBox(),
+//       onChanged: (String? newValue) {
+//         // Show popup or AlertDialog
+//         if (newValue != null) {
+//           showDialog(
+//             context: context,
+//             builder: (BuildContext context) {
+//               TextEditingController nameController = TextEditingController();
+//               TextEditingController addressController = TextEditingController();
+//               TextEditingController emailController = TextEditingController();
+//               return AlertDialog(
+//                 backgroundColor: Colors.white,
+//                 content:  Container(
+//                   height: 343,
+//                   width: 409,
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.start,
+//                     children: [
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.end,
+//                         crossAxisAlignment: CrossAxisAlignment.end,
+//                         children: [IconButton(onPressed: (){
+//                           Navigator.pop(context);
+//                         }, icon: Icon(Icons.close))],),
+//                       Column(
+//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                         children: [
+//                           SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Type of Visit',),
+//                           SizedBox(height: 25,),
+//                           SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Zone',),
+//                           SizedBox(height: 25,),
+//                           SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Rate',),
+//                         ],
+//                       ),
+//                       SizedBox(height: 60,),
+//                       CustomElevatedButton(
+//                           width: 105,
+//                           height: 31,
+//                           text: 'Submit',
+//                           onPressed: () {
+//                             // Navigator.push(
+//                             //     context,
+//                             //     MaterialPageRoute(
+//                             //         builder: (context) =>
+//                             //             LoginScreen()));
+//                           })
+//                     ],
+//                   ),
+//                 )
+//               );
+//             },
+//           );
+//         }
+//       },
+//       items: <String>['Sort By','For all zones', 'San Jose z4','San Jose z4','San Jose z4','San Jose z4',]
+//           .map<DropdownMenuItem<String>>((String value) {
+//         return DropdownMenuItem<String>(
+//           value: value,
+//           child: Text(value,
+//           style: TextStyle(color: Color(0xff50B5E5)),),
+//         );
+//       }).toList(),
+//     ),
+//   );
+// }
 
 Widget buildDropdownButton(BuildContext context) {
-  return Container(
-    height: 31,
-    padding: EdgeInsets.symmetric(vertical: 6,horizontal: 15),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: Color(0xff50B5E5),width: 1.2),
-      borderRadius: BorderRadius.circular(12.0),
-      boxShadow: [
-        BoxShadow(
-          color: Color(0xff000000).withOpacity(0.25),
-          blurRadius: 2,
-          offset: Offset(0,2),
+  ValueNotifier<String> selectedValueNotifier = ValueNotifier<String>('Sort By');
+
+  return ValueListenableBuilder<String>(
+    valueListenable: selectedValueNotifier,
+    builder: (context, selectedValue, child) {
+      return Container(
+        height: 31,
+        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(
+            color: selectedValue == 'For all zones' ? Colors.red : Color(0xff50B5E5),
+            width: 1.2,
+          ),
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xff000000).withOpacity(0.25),
+              blurRadius: 2,
+              offset: Offset(0, 2),
+            ),
+          ],
         ),
-      ],
-    ),
-    child: DropdownButton<String>(
-      value: 'Sort By',
-      style: GoogleFonts.firaSans(
-        fontSize: 10,
-        fontWeight: FontWeight.w500,
-        color: Color(0xff50B5E5),
-        decoration: TextDecoration.none,
-      ),
-      icon: Icon(Icons.arrow_drop_down,color: Color(0xff50B5E5),),
-      iconSize: 20,
-      underline: SizedBox(),
-      onChanged: (String? newValue) {
-        // Show popup or AlertDialog
-        if (newValue != null) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              TextEditingController nameController = TextEditingController();
-              TextEditingController addressController = TextEditingController();
-              TextEditingController emailController = TextEditingController();
-              return AlertDialog(
-                backgroundColor: Colors.white,
-                content:  Container(
-                  height: 343,
-                  width: 409,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [IconButton(onPressed: (){
-                          Navigator.pop(context);
-                        }, icon: Icon(Icons.close))],),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Type of Visit',),
-                          SizedBox(height: 25,),
-                          SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Zone',),
-                          SizedBox(height: 25,),
-                          SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Rate',),
-                        ],
-                      ),
-                      SizedBox(height: 60,),
-                      CustomElevatedButton(
-                          width: 105,
-                          height: 31,
-                          text: 'Submit',
-                          onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             LoginScreen()));
-                          })
-                    ],
-                  ),
-                )
-              );
-            },
-          );
-        }
-      },
-      items: <String>['Sort By','For all zones', 'San Jose z4','San Jose z4','San Jose z4','San Jose z4',]
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value,
-          style: TextStyle(color: Color(0xff50B5E5)),),
-        );
-      }).toList(),
-    ),
+        child: DropdownButton<String>(
+          value: selectedValue,
+          style: GoogleFonts.firaSans(
+            fontSize: 10,
+            fontWeight: FontWeight.w500,
+            color: selectedValue == 'For all zones' ? Colors.red : Color(0xff50B5E5),
+            decoration: TextDecoration.none,
+          ),
+          icon: Icon(
+            Icons.arrow_drop_down,
+            color: selectedValue == 'For all zones' ? Colors.red : Color(0xff50B5E5),
+          ),
+          iconSize: 20,
+          underline: SizedBox(),
+          onChanged: (newValue) {
+            selectedValueNotifier.value = newValue!;
+          },
+          items: <String>['Sort By', 'For all zones', 'San Jose z4']
+              .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(
+                value,
+                style: TextStyle(
+                  color: selectedValue == 'For all zones' ? Colors.red : Color(0xff50B5E5),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      );
+    },
   );
 }
+

@@ -422,7 +422,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         MediaQuery.of(context).size.height / 20,
                                     width:
                                         MediaQuery.of(context).size.height / 18,
-                                    child: CircularProgressIndicator(),
+                                    child: CircularProgressIndicator(color: Color(0xFF50B5E5)),
                                   ),
                                 )
                               : !_loginSuccessful
@@ -726,7 +726,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         },
                                       ),
                                     ),
-                                  if (_isLoggingIn) CircularProgressIndicator(),
+                                  if (_isLoggingIn) CircularProgressIndicator(color: Color(0xFF50B5E5)),
 
                                   /// 2nd
                                   // _isauthLoginLoading

@@ -8,38 +8,38 @@ class CompanyIdentityManager{
   Dio dio = Dio();
 
   ///get
-   Future<void> getCompanyById() async {
-     var dio = Dio();
-     var response = await dio.request(
-       'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
-       options: Options(
-         method: 'GET',
-       ),
-     );
-
-     if (response.statusCode == 200) {
-       print(json.encode(response.data));
-     }
-     else {
-       print(response.statusMessage);
-     }
-   }
+  //  Future<void> getCompanyById() async {
+  //    var dio = Dio();
+  //    var response = await dio.request(
+  //      'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
+  //      options: Options(
+  //        method: 'GET',
+  //      ),
+  //    );
+  //
+  //    if (response.statusCode == 200) {
+  //      print(json.encode(response.data));
+  //    }
+  //    else {
+  //      print(response.statusMessage);
+  //    }
+  //  }
 ///new
-//   Future<CompanyDataGet> getCompanyById() async {
-//     try {
-//       final response = await dio.get(
-//         'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
-//       );
-//
-//       if (response.statusCode == 200) {
-//         return CompanyDataGet.fromJson(response.data);
-//       } else {
-//         throw Exception('Failed to load company data');
-//       }
-//     } catch (e) {
-//       throw Exception('Failed to load company data: $e');
-//     }
-//   }
+  Future<CompanyDataGet> getCompanyById() async {
+    try {
+      final response = await dio.get(
+        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
+      );
+
+      if (response.statusCode == 200) {
+        return CompanyDataGet.fromJson(response.data);
+      } else {
+        throw Exception('Failed to load company data');
+      }
+    } catch (e) {
+      throw Exception('Failed to load company data: $e');
+    }
+  }
    ///post
   Future outAddCompany() async{
     var headers = {
