@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/finance_screen.dart';
+import 'package:prohealth/presentation/screens/sm_module/widgets/hr_screen.dart';
 import 'package:prohealth/presentation/widgets/const_appbar/controller.dart';
 
 import '../hr_module/manage/widgets/bottom_row.dart';
@@ -15,8 +16,10 @@ class SMDesktop extends StatelessWidget {
   final ValueChanged<String?>? onChanged;
   final HRController hrController = Get.put(HRController());
   final VoidCallback? onItem2Selected;
+  String selectedOption = 'Select';
   // final controller = Get.put(DropdownController());
   // final PageController pageController;
+  bool showSelectOption = true;
   final ButtonSelectionController myController =
       Get.put(ButtonSelectionController());
   // final PageController _pageController = PageController();
@@ -408,7 +411,8 @@ class SMDesktop extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width / 100),
+                            horizontal:
+                                MediaQuery.of(context).size.width / 100),
                         child: Container(
                           height: 40,
                           child: Row(
@@ -491,7 +495,7 @@ class SMDesktop extends StatelessWidget {
             children: [
               Container(color: Colors.red),
               CompanyIdentityScreen(),
-              Container(color: Colors.teal),
+              HrScreen(),
               FinanceScreen()
             ],
           ),
@@ -611,7 +615,6 @@ class ButtonSelectionController extends GetxController {
 //       Container(color: Colors.orange),
 //     ],
 //   ),
-
 ///
 // Obx(() => CustomDropdownButton(
 //       height: 35,
@@ -629,7 +632,6 @@ class ButtonSelectionController extends GetxController {
 //         }
 //       },
 //     )),
-
 ///
 // Obx(
 //   () => CustomDropdownButton(
