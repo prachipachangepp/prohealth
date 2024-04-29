@@ -332,7 +332,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                             ),
                             Text(''),
                             Text(
-                             office.name.isEmpty ?  'Pro Health' : office.name,
+                             office.name!,
+                                 //.isEmpty ?  'Pro Health' : office.name,
                               //office.name?.isEmpty ?? true ? 'Pro Health' : office.name!,
                               style: GoogleFonts.firaSans(
                                 fontSize: 10,
@@ -343,7 +344,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                             ),
                             Text(''),
                             Text(
-                              office.address.isEmpty ? '2700 Zankar Road Suite 180, San Jose, CA, USA' : office.address,
+                              office.address!,
+                                  //.isEmpty ? '2700 Zankar Road Suite 180, San Jose, CA, USA' : office.address,
                               textAlign: TextAlign.end,
                               style: GoogleFonts.firaSans(
                                 fontSize: 10,

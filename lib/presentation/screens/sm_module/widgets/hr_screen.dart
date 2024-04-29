@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/sm_module/hr_screens/hr_clinical.dart';
 
 class HrScreen extends StatefulWidget {
   @override
@@ -54,8 +56,9 @@ class HrWidget extends StatelessWidget {
               elevation: 4,
               borderRadius: BorderRadius.circular(20),
               child: Container(
-                height: MediaQuery.of(context).size.height / 20,
-                width: MediaQuery.of(context).size.width / 3,
+              //  height: MediaQuery.of(context).size.height / 22,
+                height: 30,
+                width: MediaQuery.of(context).size.width / 2.99,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Color(0xff50B5E5),
@@ -69,7 +72,7 @@ class HrWidget extends StatelessWidget {
                         (entry) => InkWell(
                           child: Container(
                             height: 30,
-                            width: 80,
+                            width: MediaQuery.of(context).size.width / 9,
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -100,14 +103,17 @@ class HrWidget extends StatelessWidget {
           ),
           Expanded(
             flex: 10,
-            child: PageView(
-              controller: hrPageController,
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                Container(color: Colors.red),
-                Container(color: Colors.yellow),
-                Container(color: Colors.brown),
-              ],
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/60),
+              child: PageView(
+                controller: hrPageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  HrClinicalScreen(),
+                  Container(color: Colors.yellow),
+                  Container(color: Colors.brown),
+                ],
+              ),
             ),
           ),
         ],

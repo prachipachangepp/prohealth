@@ -87,8 +87,8 @@ class Phone {
 
 class Office {
   final String id;
-  final String name;
-  final String address;
+  final String? name;
+  final String? address;
   final String email;
   final List<String> phones;
   final List<String> zones;
@@ -109,8 +109,8 @@ class Office {
   factory Office.fromJson(Map<String, dynamic> json) {
     return Office(
       id: json['id'],
-      name: json['name'] ?? '',
-      address: json['address'] ?? '',
+      name: json['name'] ,
+      address: json['address'] ,
       email: json['email'],
       phones: List<String>.from(json['phones']),
       zones: json['zones'] != null ? List<String>.from(json['zones']) : [],
