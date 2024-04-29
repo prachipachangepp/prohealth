@@ -5,12 +5,14 @@ class SMTextFConst extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String text;
+  final Color textColor;
 
    SMTextFConst({
      Key? key,
     required this.controller,
     required this.keyboardType,
      required this.text,
+     this.textColor = const Color(0xff686464),
   }) : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class SMTextFConst extends StatelessWidget {
           style: GoogleFonts.firaSans(
             fontSize: 12,
             fontWeight: FontWeight.w700,
-            color: Color(0xff686464),
+            color: textColor,
             decoration: TextDecoration.none,
           ),
         ),
