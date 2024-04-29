@@ -57,7 +57,6 @@ class Contact {
   final List<String> phones;
   final List<String> fax;
   final String email;
-
   Contact({required this.phones, required this.fax, required this.email});
 
   factory Contact.fromJson(Map<String, dynamic> json) {
