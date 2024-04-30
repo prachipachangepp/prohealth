@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 150;
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xFF686464),
       fontWeight: FontWeight.w400,
@@ -15,8 +15,7 @@ class ThemeManager {
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 150;
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xFF2A2827),
       fontWeight: FontWeight.w400,
@@ -27,8 +26,7 @@ class ThemeManagerDark {
 class ThemeManagerLightblue {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width /120 ;
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xff2B647F),
       fontWeight: FontWeight.w600,
@@ -39,8 +37,7 @@ class ThemeManagerLightblue {
 class ThemeManagerWhite {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 130;
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.white,
       fontWeight: FontWeight.bold,
@@ -51,8 +48,7 @@ class ThemeManagerWhite {
 class ThemeManagerBlack {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 130;
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.black,
       fontWeight: FontWeight.bold,
@@ -63,8 +59,7 @@ class ThemeManagerBlack {
 class ThemeManagerAccentblue {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 130;
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.blueAccent,
       fontWeight: FontWeight.w200,
@@ -75,8 +70,7 @@ class ThemeManagerAccentblue {
 class ThemeManagerblue {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 120;
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xff2B647F),
       fontWeight: FontWeight.w700,
@@ -87,8 +81,7 @@ class ThemeManagerblue {
 class ThemeManageWhitebold {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 99;
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.white,
       fontWeight: FontWeight.bold,
@@ -99,8 +92,7 @@ class ThemeManageWhitebold {
 class RegisterTableHead {
   static TextStyle customTextStyle(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width / 100;
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.white,
       fontWeight: FontWeight.w700,
@@ -110,11 +102,25 @@ class RegisterTableHead {
 
 class AknowledgementStyleConst {
   static TextStyle customTextStyle(BuildContext context) {
-    return TextStyle(
-      fontFamily: 'FiraSans',
+    return GoogleFonts.firaSans(
       fontSize: 10,
       color: Color(0xFF000000),
       fontWeight: FontWeight.w500,
+    );
+  }
+}
+
+///common theme
+class CustomTextStylesCommon {
+  static TextStyle commonStyle({
+    double? fontSize,
+    Color? color,
+    FontWeight? fontWeight,
+  }) {
+    return GoogleFonts.firaSans(
+      fontSize: fontSize ?? 14,
+      color: color ?? Color(0xff4B89BA),
+      fontWeight: fontWeight ?? FontWeight.bold,
     );
   }
 }

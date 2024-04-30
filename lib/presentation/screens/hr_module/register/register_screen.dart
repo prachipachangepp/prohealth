@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/app/theme_manager.dart';
+import 'package:prohealth/resources/color.dart';
+import 'package:prohealth/resources/const_string.dart';
+import 'package:prohealth/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/profile_bar.dart';
+import 'package:prohealth/resources/value_manager.dart';
 
 ///saloni
 class RegisterScreen extends StatelessWidget {
@@ -16,16 +19,16 @@ class RegisterScreen extends StatelessWidget {
       children: [
         ProfileBar(),
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              width: 100,
-              margin: EdgeInsets.only(right: 30),
+              width: AppSize.s100,
+              margin: EdgeInsets.only(right: AppMargin.m30),
               child: CustomIconButtonConst(
-                  text: 'Enroll',
+                  text: AppString.enroll,
                   onPressed: () {
                     _controller.openDialog(context);
                   }),
@@ -33,13 +36,13 @@ class RegisterScreen extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 20,
+          height: AppSize.s20,
         ),
         Container(
-          height: 30,
-          margin: EdgeInsets.symmetric(horizontal: 35),
+          height: AppSize.s30,
+          margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
           decoration: BoxDecoration(
-            color: Colors.grey,
+            color: ColorManager.grey,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -47,54 +50,53 @@ class RegisterScreen extends StatelessWidget {
               Expanded(
                   child: Center(
                       child: Text(
-                'Sr. No',
+                        AppString.srNo,
                 style: RegisterTableHead.customTextStyle(context),
               ))),
               Expanded(
-                  child: SizedBox(
-                width: 15,
+                  child: SizedBox(width: AppSize.s16,
               )),
               Expanded(
                   child: Center(
                       child: Text(
-                'Name',
+                        AppString.name,
                 style: RegisterTableHead.customTextStyle(context),
               ))),
               Expanded(
                   child: Center(
                       child: Text(
-                'Code',
+                        AppString.code,
                 style: RegisterTableHead.customTextStyle(context),
               ))),
               Expanded(
                   child: Center(
                       child: Text(
-                'Phone No',
+                        AppString.phone,
                 style: RegisterTableHead.customTextStyle(context),
               ))),
               Expanded(
                   child: Center(
                       child: Text(
-                'Email',
+                        AppString.email,
                 style: RegisterTableHead.customTextStyle(context),
               ))),
               Expanded(
                   child: Center(
                       child: Text(
-                'Link',
+                        AppString.link,
                 style: RegisterTableHead.customTextStyle(context),
               ))),
               Expanded(
                   child: Center(
                       child: Text(
-                'Status',
+                        AppString.status,
                 style: RegisterTableHead.customTextStyle(context),
               ))),
             ],
           ),
         ),
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ), // Adjust spacing as needed
         Expanded(
           child: ListView.builder(
@@ -103,23 +105,23 @@ class RegisterScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  SizedBox(height: 5),
+                  SizedBox(height: AppSize.s5),
                   Container(
-                    padding: EdgeInsets.only(bottom: 5),
-                    margin: EdgeInsets.symmetric(horizontal: 50),
+                    padding: EdgeInsets.only(bottom: AppPadding.p5),
+                    margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
                     decoration: BoxDecoration(
-                      color:Colors.white,
+                      color:ColorManager.white,
                       borderRadius: BorderRadius.circular(4),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: ColorManager.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 4,
                           offset: Offset(0, 2),
                         ),
                       ],
                     ),
-                    height: 56,
+                    height: AppSize.s56,
                     
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,14 +136,14 @@ class RegisterScreen extends StatelessWidget {
                         Expanded(
                           child: CircleAvatar(
                             radius: 15,
-                            backgroundColor: Colors.blue, // Example color
+                            backgroundColor: ColorManager.blueprime,
                             child: Image.asset('images/profile.png'),
                           ),
                         ),
                         Expanded(
                           child: Center(
                               child: Text(
-                            'Amogh Joshi',
+                            AppString.amogh,
                             textAlign: TextAlign.start,
                             style: ThemeManagerDark.customTextStyle(context),
                           )),
@@ -149,33 +151,33 @@ class RegisterScreen extends StatelessWidget {
                         Expanded(
                           child: Center(
                               child: Text(
-                            '351631',
+                            AppString.pincode,
                             style: ThemeManagerDark.customTextStyle(context),
                           )),
                         ),
                         Expanded(
                           child: Center(
                               child: Text(
-                            '+1 1234567890',
+                            AppString.mobile,
                             style: ThemeManagerDark.customTextStyle(context),
                           )),
                         ),
                         Expanded(
                           child: Center(
                               child: Text(
-                            'amogh@gmail.com',
+                            AppString.mail,
                             style: ThemeManagerDark.customTextStyle(context),
                           )),
                         ),
                         Center(
                             child: Text(
-                          'https://prohealth.symmetry.care/register $index',
+                          AppString.path +'$index',
                           style: ThemeManagerDark.customTextStyle(context),
                         )),
                         Expanded(
                           child: Center(
                               child: Text(
-                            'Opened',
+                            AppString.open,
                             style: ThemeManagerDark.customTextStyle(context),
                           )),
                         ),

@@ -1,5 +1,7 @@
 // import 'package:dio/dio.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
+//
+// import '../../../../constants/app_config.dart';
 //  /// login with email refactored
 // class LoginManager{
 //   Dio dio = Dio();
@@ -20,7 +22,8 @@
 //     try {
 //       var dio = Dio();
 //       var response = await dio.post(
-//         'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
+//         '${AppConfig.endpoint}/auth/sign-in',
+//         //'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
 //         data: {
 //           'email': email,
 //           'password': password,

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/resources/color.dart';
+import 'package:prohealth/resources/const_string.dart';
+import 'package:prohealth/resources/font_manager.dart';
+import 'package:prohealth/resources/theme_manager.dart';
+import 'package:prohealth/resources/value_manager.dart';
 
 ///prachi
 class OnboardingGeneral extends StatelessWidget {
@@ -27,44 +32,33 @@ class OnboardingGeneral extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
                               width: 1,
-                              color: Colors.grey,
+                              color: ColorManager.grey,
                             ),
-                            color: Colors.white,
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     blurRadius: 3.0,
-                            //     offset: Offset(0, 3),
-                            //     color: Colors.grey.withOpacity(0.5),
-                            //   ),
-                            //   BoxShadow(
-                            //       color: Colors.white, offset: Offset(-3, 0)),
-                            //   BoxShadow(
-                            //       color: Colors.white, offset: Offset(3, 0)),
-                            // ],
+                            color: ColorManager.white,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Container(
-                                  width: 88,
-                                  height: 20,
+                                  width: AppSize.s88,
+                                  height: AppSize.s20,
                                   decoration: BoxDecoration(
-                                      color: Color(0xff52A889),
+                                      color: ColorManager.greenF,
                                       borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(20))),
                                   child: Text(
-                                    "Approved",
+                                    AppString.approve,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.bold),
+                                    style: CustomTextStylesCommon.commonStyle(
+                                        color: ColorManager.white,
+                                        fontSize: FontSize.s11,
+                                        fontWeight: FontWeightManager.bold
+                                    )
                                   )),
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left:
-                                        MediaQuery.of(context).size.width / 60),
+                                    left: MediaQuery.of(context).size.width / 60),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,20 +71,16 @@ class OnboardingGeneral extends StatelessWidget {
                                       children: [
                                         CircleAvatar(
                                           radius: 28,
-                                          backgroundColor:
-                                              Colors.blue, // Example color
                                           child:
                                               Image.asset('images/profile.png'),
                                         ),
                                         Text(
-                                          "Anogh Joshi",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  99),
+                                         AppString.amogh,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                              color: ColorManager.black,
+                                              fontSize: MediaQuery.of(context).size.width / 99,
+                                              fontWeight: FontWeightManager.bold
+                                          )
                                         )
                                       ],
                                     ),
@@ -100,10 +90,10 @@ class OnboardingGeneral extends StatelessWidget {
                                     ),
                                     InfoTextWidget(
                                       texts: [
-                                        "Social Security no",
-                                        "Type of clinician",
-                                        "Phone Number",
-                                        "Personal Email",
+                                       AppString.genSocSec,
+                                       AppString.genClinician,
+                                       AppString.genPhoneNo,
+                                       AppString.genEmail,
                                       ],
                                     ),
                                     SizedBox(
@@ -112,10 +102,10 @@ class OnboardingGeneral extends StatelessWidget {
                                     ),
                                     InfoTextWidget(
                                       texts: [
-                                        "142-23-546",
-                                        "ST",
-                                        "98-345-789",
-                                        "09-234-0976",
+                                        AppString.gennum,
+                                        AppString.genst,
+                                        AppString.gennum2,
+                                        AppString.genbdate,
                                       ],
                                     ),
                                     SizedBox(
@@ -124,10 +114,10 @@ class OnboardingGeneral extends StatelessWidget {
                                     ),
                                     InfoTextWidget(
                                       texts: [
-                                        "142-23-546",
-                                        "ST",
-                                        "98-345-789",
-                                        "09-234-0976",
+                                        AppString.gennum,
+                                        AppString.genst,
+                                        AppString.gennum2,
+                                        AppString.genbdate,
                                       ],
                                     ),
                                     SizedBox(
@@ -136,10 +126,10 @@ class OnboardingGeneral extends StatelessWidget {
                                     ),
                                     InfoTextWidget(
                                       texts: [
-                                        "142-23-546",
-                                        "ST",
-                                        "98-345-789",
-                                        "09-234-0976",
+                                        AppString.gennum,
+                                        AppString.genst,
+                                        AppString.gennum2,
+                                        AppString.genbdate,
                                       ],
                                     ),
                                     SizedBox(
@@ -148,10 +138,10 @@ class OnboardingGeneral extends StatelessWidget {
                                     ),
                                     InfoTextWidget(
                                       texts: [
-                                        "142-23-546",
-                                        "ST",
-                                        "98-345-789",
-                                        "09-234-0976",
+                                        AppString.gennum,
+                                        AppString.genst,
+                                        AppString.gennum2,
+                                        AppString.genbdate,
                                       ],
                                     ),
                                   ],
@@ -161,8 +151,7 @@ class OnboardingGeneral extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 8,
+                      SizedBox(height: AppSize.s8,
                       )
                     ],
                   );
@@ -190,7 +179,7 @@ class InfoTextWidget extends StatelessWidget {
           (index) => Text(
             texts[index],
             style: TextStyle(
-              color: Color(0xff686464),
+              color: ColorManager.darktgrey,
               fontSize: MediaQuery.of(context).size.width / 120,
             ),
           ),
@@ -199,34 +188,3 @@ class InfoTextWidget extends StatelessWidget {
     );
   }
 }
-//   Expanded(
-//     child: Column(
-//   mainAxisAlignment: MainAxisAlignment.spaceAround,
-//   crossAxisAlignment: CrossAxisAlignment.start,
-//   children: [
-//     Text(
-//       "Social Security no",
-//       style: TextStyle(
-//           color: Color(0xff686464),
-//           fontSize: MediaQuery.of(context).size.width / 120),
-//     ),
-//     Text(
-//       "Type of clinician",
-//       style: TextStyle(
-//           color: Color(0xff686464),
-//           fontSize: MediaQuery.of(context).size.width / 120),
-//     ),
-//     Text(
-//       "Personal No.",
-//       style: TextStyle(
-//           color: Color(0xff686464),
-//           fontSize: MediaQuery.of(context).size.width / 120),
-//     ),
-//     Text(
-//       "Personal Email",
-//       style: TextStyle(
-//           color: Color(0xff686464),
-//           fontSize: MediaQuery.of(context).size.width / 120),
-//     ),
-//   ],
-// ));

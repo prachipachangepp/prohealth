@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../../../app/theme_manager.dart';
+import '../../../../../../../resources/theme_manager.dart';
 
 class CompensationChildTabbar extends StatelessWidget {
   const CompensationChildTabbar({super.key});

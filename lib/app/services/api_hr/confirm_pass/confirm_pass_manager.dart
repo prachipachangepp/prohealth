@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
+import '../../../../constants/app_config.dart';
+
 class ConfirmPassManager {
   Dio dio = Dio();
 
@@ -13,7 +15,8 @@ class ConfirmPassManager {
           {"email": email, "verificationCode": otp, "newPassword": password});
       var dio = Dio();
       var response = await dio.request(
-        'https://wwx3rebc2b.execute-api_hr.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
+        '${AppConfig.endpoint}/auth/confirmPassword',
+      //  'https://wwx3rebc2b.execute-api_hr.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
         options: Options(
           method: 'POST',
           headers: headers,

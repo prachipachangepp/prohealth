@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/constants/app_config.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
@@ -32,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isPasswordVisible = false;
   String? _errorMessage;
   bool _showEmailInput = true;
-  // bool _isLoading = false;
   bool _loginSuccessful = false;
   bool _isauthLoginLoading = false;
   FocusNode emailFocusNode = FocusNode();
@@ -72,14 +72,14 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       return;
     }
-
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
     try {
       var dio = Dio();
       var response = await dio.post(
-        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
+        '${AppConfig.endpoint}/auth/sign-in',
+        //'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-in',
         data: {
           'email': email,
           'password': password,
@@ -96,12 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await prefs.setString('access_token', access ?? '');
         await prefs.setString('refresh_token', refresh ?? '');
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MenuScreen(),
-          ),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MenuScreen(),),);
       } else {
         setState(() {
           _errorMessage = response.statusMessage;
@@ -126,7 +121,8 @@ class _LoginScreenState extends State<LoginScreen> {
       var data = json.encode({"email": email});
       var dio = Dio();
       var response = await dio.post(
-        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/getotp',
+        '${AppConfig.endpoint}/auth/getotp',
+       // 'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/getotp',
         options: Options(
           headers: headers,
         ),
@@ -164,14 +160,14 @@ class _LoginScreenState extends State<LoginScreen> {
     var dio = Dio();
     try {
       var response = await dio.request(
-        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
+        '${AppConfig.endpoint}/auth/verifyotp',
+        //'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/verifyotp',
         options: Options(
           method: 'POST',
           headers: headers,
         ),
         data: data,
       );
-
       if (response.statusCode == 200) {
         print(json.encode(response.data));
         Navigator.push(

@@ -19,10 +19,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       home:
-          ResponsiveScreenSM()
-      //     ResponsivePage(
-      //   controller: myController,
-      // ),
+        //  ResponsiveScreenSM()
+          ResponsivePage(
+        controller: myController,
+      ),
     );
   }
 }

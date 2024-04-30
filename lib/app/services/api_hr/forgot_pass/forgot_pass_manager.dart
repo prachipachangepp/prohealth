@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
+import '../../../../constants/app_config.dart';
+
 /// main
 class ForgotPassManager {
   Dio dio = Dio();
@@ -34,7 +36,8 @@ class ForgotPassManager {
     var data = json.encode({"email": email});
     var dio = Dio();
     var response = await dio.request(
-      'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/forgotPassword',
+      '${AppConfig.endpoint}/auth/forgotPassword',
+      //'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/forgotPassword',
       options: Options(
         method: 'POST',
         headers: headers,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/app/theme_manager.dart';
+import 'package:prohealth/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/add_employee_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/web_manage/manage_screen.dart';
