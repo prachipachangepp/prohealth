@@ -348,7 +348,6 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
 // }
 
 ///
-
 ///
 //
 // class ForgotPassScreen extends StatefulWidget {

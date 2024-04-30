@@ -2,15 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:js';
 import 'dart:ui';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/constants/app_config.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
-
 import '../../../../app/services/api_hr/confirm_pass/confirm_pass_manager.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -37,6 +36,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool isOtpFieldEmpty = true;
   ConfirmPassManager confirmPassManager = ConfirmPassManager();
   TextEditingController newPasswordController = TextEditingController();
+
   Future<void> updatePassword() async {
     // Replace 'email', 'otp', and 'newPassword' with actual values
     String email = 'user@example.com';
@@ -72,7 +72,33 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       print('Error occurred: $e');
     }
   }
-
+  // Future<void> confirmPassword() async {
+  //   var headers = {
+  //     'Content-Type': 'application/json'
+  //   };
+  //   var data = json.encode({
+  //     "email": "srojkrjha@gmail.com",
+  //     "verificationCode": "009031",
+  //     "newPassword": "Test@test12"
+  //   });
+  //   var dio = Dio();
+  //   var response = await dio.request(
+  //     '${AppConfig.endpoint}/auth/confirmPassword',
+  //    // 'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
+  //     options: Options(
+  //       method: 'POST',
+  //       headers: headers,
+  //     ),
+  //     data: data,
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     print(json.encode(response.data));
+  //   }
+  //   else {
+  //     print(response.statusMessage);
+  //   }
+  // }
   @override
   void initState() {
     super.initState();
@@ -839,70 +865,3 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 }
-// CustomButton(
-//   width: MediaQuery.of(context).size.width / 7,
-//   height: MediaQuery.of(context).size.height / 22,
-//   text: 'Update Password',
-//   backgroundColor: isOtpFieldEmpty? Colors.grey : Color(0xFF50B5E5),
-//   onPressed: () async{
-//     if(_formKey.currentState!.validate()) {
-//       if (controllerNew.text != controllerConfirm.text) {
-//         setState(() {
-//           _errorMessage = 'Passwords do not match.';
-//         });
-//         return;
-//       }
-//       showDialog(
-//           context: context,
-//           builder: (BuildContext context) {
-//             return AlertDialog(
-//                 backgroundColor: Colors.white,
-//                 content: Container(
-//                   padding: EdgeInsets.only(top: 25),
-//                   height: 400,
-//                   width: 500,
-//                   child: Column(
-//                     mainAxisAlignment:
-//                     MainAxisAlignment.spaceEvenly,
-//                     crossAxisAlignment: CrossAxisAlignment
-//                         .center,
-//                     children: [
-//                       Image.asset(
-//                         'images/upload.png',
-//                         width: 125,
-//                         height: 125,
-//                       ),
-//                       Text(
-//                         'Successfully',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 30,
-//                           color: Color(0xff686464),
-//                           fontWeight: FontWeight.w700,),
-//                       ),
-//                       Text(
-//                         'Your password has been reset successfully',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 12,
-//                           color: Color(0xff686464),
-//                           fontWeight: FontWeight.w500,),
-//                       ),
-//                       CustomButton(
-//                           width: 182,
-//                           height: 46,
-//                           text: 'CONTINUE',
-//                           borderRadius: 28,
-//                           onPressed: () {
-//                             Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                     builder: (context) =>
-//                                         LoginScreen()));
-//                           })
-//                     ],
-//                   ),
-//                 ));
-//           });
-//     }
-//     //   Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordVerifyScreen()));
-//   },
-// ),
