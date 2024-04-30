@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/add_employee_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/web_manage/manage_screen.dart';
@@ -20,23 +20,22 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(MyAppTabBarController(
-      tabs: [
-        Tab(text: 'Dashboard'),
-        Tab(text: 'Manage'),
-        Tab(text: 'Add Employee'),
-        Tab(text: 'Register'),
-        Tab(text: 'Onboarding'),
-      ],
-      tabViews: [
-        Center(child: Text('Dashboard Screen')),
-        ManageScreen(),
-        AddEmployeeHomeScreen(),
-        RegisterScreen(),
-        OnBoardingScreen(),
-      ],
-      tabBarViewWidth: MediaQuery.of(context).size.width / 1.04,
-      tabBarViewHeight: MediaQuery.of(context).size.height/1.2
-    ));
+        tabs: [
+          Tab(text: 'Dashboard'),
+          Tab(text: 'Manage'),
+          Tab(text: 'Add Employee'),
+          Tab(text: 'Register'),
+          Tab(text: 'Onboarding'),
+        ],
+        tabViews: [
+          Center(child: Text('Dashboard Screen')),
+          ManageScreen(),
+          AddEmployeeHomeScreen(),
+          RegisterScreen(),
+          OnBoardingScreen(),
+        ],
+        tabBarViewWidth: MediaQuery.of(context).size.width / 1.04,
+        tabBarViewHeight: MediaQuery.of(context).size.height / 1.2));
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -127,13 +126,13 @@ class MyAppBar extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text("Human Resource Manager",
-                                    style: ThemeManagerLightblue.customTextStyle(
-                                        context)),
+                                    style:
+                                        ThemeManagerLightblue.customTextStyle(
+                                            context)),
                                 Icon(
                                   Icons.close,
                                   color: Color(0xff434343),
-                                  size:
-                                  MediaQuery.of(context).size.width / 70,
+                                  size: MediaQuery.of(context).size.width / 70,
                                 ),
                               ],
                             ),
@@ -168,6 +167,7 @@ class MyAppBar extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 20,
                       ),
+
                       ///3 icons
                       Material(
                         elevation: 4,
@@ -181,7 +181,7 @@ class MyAppBar extends StatelessWidget {
                               color: Colors.white,
                             ),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
@@ -208,6 +208,7 @@ class MyAppBar extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 60,
                       ),
+
                       ///dropdown
                       Container(
                         height: 23,
@@ -244,10 +245,12 @@ class MyAppBar extends StatelessWidget {
                                       child: Text(
                                         value,
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(color: Colors.white,
+                                        style: TextStyle(
+                                          color: Colors.white,
                                           fontFamily: 'FiraSans',
                                           fontSize: 11,
-                                          fontWeight: FontWeight.w200,),
+                                          fontWeight: FontWeight.w200,
+                                        ),
                                       ),
                                     ),
                                   )
@@ -344,7 +347,6 @@ class MyAppBar extends StatelessWidget {
                           ],
                         ),
                       ),
-
                     ])),
               ),
             ),

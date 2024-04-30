@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../resources/theme_manager.dart';
-
+import 'package:prohealth/app/resources/theme_manager.dart';
 
 ///saloni
 class MyConstants {
@@ -39,10 +38,7 @@ class MyConstantsColumn {
   static List<Widget> personalInfoTexts(BuildContext context) {
     final textStyle = ThemeManagerDark.customTextStyle(context);
     return [
-      Text(
-      "Personal Email",
-      style: textStyle
-    ),
+      Text("Personal Email", style: textStyle),
       Text(
         "Work Email",
         style: textStyle,
@@ -62,6 +58,7 @@ class MyConstantsColumn {
       Text(
         "Work No.",
         style: textStyle,
-      ),];
+      ),
+    ];
   }
 }

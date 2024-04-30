@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
-import 'package:prohealth/resources/color.dart';
-import 'package:prohealth/resources/value_manager.dart';
-import '../../../../../resources/font_manager.dart';
-import '../../../../../resources/theme_manager.dart';
 
 class QualificationTabarConstant extends StatelessWidget {
   final QualificationTabBarController controller;
@@ -24,11 +24,9 @@ class QualificationTabarConstant extends StatelessWidget {
               tabs: controller.tabs,
               dividerColor: Colors.transparent,
               indicatorColor: ColorManager.blueprime,
-              labelColor:  ColorManager.blueprime,
+              labelColor: ColorManager.blueprime,
               labelStyle: CustomTextStylesCommon.commonStyle(
-                  fontSize: FontSize.s12,
-                  fontWeight: FontWeightManager.bold
-              ),
+                  fontSize: FontSize.s12, fontWeight: FontWeightManager.bold),
               unselectedLabelColor: ColorManager.black,
             ),
           ),

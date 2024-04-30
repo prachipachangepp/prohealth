@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../../../resources/theme_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 
 class AdditionalVaccinationsChildBar extends StatelessWidget {
   const AdditionalVaccinationsChildBar({super.key});
@@ -16,10 +15,11 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
             children: [
               SizedBox(height: 5),
               Container(
-                padding: EdgeInsets.only(top: 5,bottom:5, left: 10,right: 100),
+                padding:
+                    EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 100),
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 decoration: BoxDecoration(
-                  color:Colors.white,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
@@ -42,23 +42,30 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              border: Border.all(width: 2,color: Color(0xffF6928A)),
+                              border: Border.all(
+                                  width: 2, color: Color(0xffF6928A)),
                             ),
                             child: IconButton(
-                              onPressed: () {
-                              },
-                              icon: Icon(Icons.remove_red_eye,color: Color(0xff50B5E5),),
-                              iconSize: 24,) ),
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.remove_red_eye,
+                                color: Color(0xff50B5E5),
+                              ),
+                              iconSize: 24,
+                            )),
                         SizedBox(width: 10),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('ID: 248d1eb1-9020-4d8d-8168-43a3ef90a261',
-                                style:AknowledgementStyleConst.customTextStyle(context)),
-                            SizedBox(height: 5,),
+                                style: AknowledgementStyleConst.customTextStyle(
+                                    context)),
+                            SizedBox(
+                              height: 5,
+                            ),
                             Text('NanDOC',
-                                style:TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'FiraSans',
                                   fontSize: 10,
                                   color: Color(0xFF686464),
@@ -72,31 +79,47 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         IconButton(
-                          onPressed: () {
-                          },
-                          icon: Icon(Icons.refresh_outlined,color: Color(0xff1696C8),),
-                          iconSize: 20,),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.refresh_outlined,
+                            color: Color(0xff1696C8),
+                          ),
+                          iconSize: 20,
+                        ),
                         IconButton(
-                          onPressed: () {
-                          },
-                          icon: Icon(Icons.print_outlined,color: Color(0xff1696C8),),
-                          iconSize: 20,),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.print_outlined,
+                            color: Color(0xff1696C8),
+                          ),
+                          iconSize: 20,
+                        ),
                         IconButton(
-                          onPressed: () {
-                          },
-                          icon: Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),
-                          iconSize: 20,),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.save_alt_outlined,
+                            color: Color(0xff1696C8),
+                          ),
+                          iconSize: 20,
+                        ),
                         IconButton(
-                          onPressed: () {
-                          },
-                          icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
-                          iconSize: 20,),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.edit_outlined,
+                            color: Color(0xff1696C8),
+                          ),
+                          iconSize: 20,
+                        ),
                         IconButton(
-                          onPressed: () {
-                          },
-                          icon: Icon(Icons.delete_outline,color: Color(0xffFF0000),),
-                          iconSize: 20,),
-                      ],)
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.delete_outline,
+                            color: Color(0xffFF0000),
+                          ),
+                          iconSize: 20,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
