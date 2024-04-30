@@ -98,6 +98,7 @@ class AppString{
   static const String reject = "Reject";
   static const String enterText= "Please enter some text";
 
+  ///login
    static const String login = "Log In";
    static const String forgotpass = "Forgot your account password ?";
    static const String loginemail = "Login with Email";
@@ -111,6 +112,11 @@ class AppString{
    static const String otp = "Please enter OTP";
    static const String didntreccode = "If you didn’t receive a code! ";
    static const String resend = "Resend";
-  // static const String = "";
+   ///forgot
+   static const String forgotpassword= "Forgot Password";
+   static const String forgotbtnpress= "forgot button press";
+   static const String continuet= "Continue";
+   static const String backtologin= "Back to Login";
+   static const String forgotenter= "Enter your email for the verification process,we will send 6\ndigits code to your email.";
   // static const String = "";
 }

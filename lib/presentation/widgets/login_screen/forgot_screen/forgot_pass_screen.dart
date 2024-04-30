@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
-
+import '../../../../app/resources/const_string.dart';
 import '../../../../app/services/api_hr/forgot_pass/forgot_pass_manager.dart';
 
 class ForgotPassScreen extends StatefulWidget {
@@ -37,8 +39,8 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       },
       textActionPadding:
           EdgeInsets.only(left: MediaQuery.of(context).size.width / 4.5),
-      titleText: 'Forgot Password',
-      textAction: 'Back to Login',
+      titleText: AppString.forgotpassword,
+      textAction: AppString.backtologin,
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width / 40),
         child: Form(
@@ -47,12 +49,11 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                'Enter your email for the verification process,we will send 6\ndigits code to your email.',
-                style: GoogleFonts.firaSans(
-                  color: Color(0xff686464),
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
+              Text(AppString.forgotenter,
+                style: CustomTextStylesCommon.commonStyle(
+                  color: ColorManager.darktgrey,
+                  fontSize: FontSize.s10,
+                  fontWeight: FontWeightManager.semiBold,
                 ),
               ),
               Padding(
@@ -68,23 +69,23 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   //   );
                   // },
                   controller: _emailcontroller,
-                  style: GoogleFonts.firaSans(
+                  style: CustomTextStylesCommon.commonStyle(
                     color: Color(0xff000000).withOpacity(0.5),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
+                    fontWeight: FontWeightManager.medium,
+                    fontSize: FontSize.s12,
                   ),
                   cursorHeight: 22,
-                  cursorColor: Colors.black,
+                  cursorColor: ColorManager.black,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.only(top: 2),
-                    labelText: 'Email',
-                    labelStyle: GoogleFonts.firaSans(
+                    labelText: AppString.email,
+                    labelStyle: CustomTextStylesCommon.commonStyle(
                       color: Color(0xff000000).withOpacity(0.3),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      fontSize: FontSize.s14,
+                      fontWeight: FontWeightManager.medium,
                     ),
                     border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color: ColorManager.black),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -94,10 +95,10 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter Email';
+                      return AppString.enteremail;
                     }
                     if (!emailRegex.hasMatch(value)) {
-                      return 'Enter a valid email address';
+                      return AppString.entervalidemail;
                     }
                     return null;
                   },
@@ -121,7 +122,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   ),
                   child: CustomButton(
                     borderRadius: 28,
-                    text: 'Continue',
+                    text: AppString.continuet,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         setState(() {
@@ -137,7 +138,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                                     email: _emailcontroller.text,
                                   )),
                         );
-                        print('forgot button press');
+                        print(AppString.forgotbtnpress);
                       }
                     },
                     width: MediaQuery.of(context).size.width / 9,
