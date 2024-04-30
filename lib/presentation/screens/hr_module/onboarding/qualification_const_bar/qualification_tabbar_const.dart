@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
-import 'package:prohealth/resources/color.dart';
-import 'package:prohealth/resources/value_manager.dart';
-import '../../../../../resources/font_manager.dart';
-import '../../../../../resources/theme_manager.dart';
+
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
+
 
 class QualificationTabarConstant extends StatelessWidget {
   final QualificationTabBarController controller;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../resources/theme_manager.dart';
-
+import '../../../../app/resources/theme_manager.dart';
 
 ///saloni
 class MyConstants {

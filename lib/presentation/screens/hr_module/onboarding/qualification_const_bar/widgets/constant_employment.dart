@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/resources/const_string.dart';
-import 'package:prohealth/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/row_container_widget_const.dart';
-import 'package:prohealth/resources/value_manager.dart';
-import '../../../../../../resources/color.dart';
-import '../../../../../../resources/font_manager.dart';
+
+import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 
 class OnboardingEmployement extends StatelessWidget {
   const OnboardingEmployement({Key? key}) : super(key: key);

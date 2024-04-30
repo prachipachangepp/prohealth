@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/add_employee_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/web_manage/manage_screen.dart';
@@ -8,6 +7,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/app_bar_
 import 'package:prohealth/presentation/screens/hr_module/onboarding/onboarding_screen.dart';
 import 'package:prohealth/presentation/widgets/const_appbar/controller.dart';
 
+import '../../../app/resources/theme_manager.dart';
 import '../../screens/hr_module/register/register_screen.dart';
 
 ///tabbar saloni

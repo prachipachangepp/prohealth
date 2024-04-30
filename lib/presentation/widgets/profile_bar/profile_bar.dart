@@ -487,7 +487,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
-import '../../../resources/theme_manager.dart';
+import '../../../app/resources/theme_manager.dart';
 import '../profile_bar/widget/profil_custom_widget.dart';
 
 class ProfileBar extends StatelessWidget {

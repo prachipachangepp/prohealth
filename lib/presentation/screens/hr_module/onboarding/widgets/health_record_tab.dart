@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/resources/color.dart';
-import 'package:prohealth/resources/value_manager.dart';
+
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/value_manager.dart';
 
 class HealthRecordTab extends StatelessWidget {
   const HealthRecordTab({Key? key}) : super(key: key);
