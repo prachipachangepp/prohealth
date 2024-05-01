@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
-creen.dart';
+
 import '../../../../app/services/api_hr/confirm_pass/confirm_pass_manager.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -74,6 +74,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       print('Error occurred: $e');
     }
   }
+
   // Future<void> confirmPassword() async {
   //   var headers = {
   //     'Content-Type': 'application/json'
@@ -331,7 +332,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                         ),
                                                         validator: (value) {
                                                           return value!.isEmpty
-                                                              ? AppString.enterotp
+                                                              ? AppString
+                                                                  .enterotp
                                                               : null;
                                                         },
                                                         onChanged: (value) {
@@ -395,9 +397,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                     ),
                                                     children: [
                                                       TextSpan(
-                                                        text:
-                                                           AppString.didntrecieveCode
-                                                      ),
+                                                          text: AppString
+                                                              .didntrecieveCode),
                                                       TextSpan(
                                                         text: AppString.resend,
                                                         style: GoogleFonts
@@ -416,7 +417,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 ),
                                                 Divider(),
                                                 Text(
-                                                 AppString.setnewPassword,
+                                                  AppString.setnewPassword,
                                                   style: GoogleFonts.firaSans(
                                                     color: isOtpFieldEmpty
                                                         ? Colors.grey
@@ -578,7 +579,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   validator: (value) {
                                                     if (value == null ||
                                                         value.isEmpty) {
-                                                      return AppString.enterconfmpass;
+                                                      return AppString
+                                                          .enterconfmpass;
                                                     }
                                                     return null;
                                                   },
@@ -611,7 +613,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                   .size
                                                                   .height /
                                                               22,
-                                                      text: AppString.updatepass,
+                                                      text:
+                                                          AppString.updatepass,
                                                       backgroundColor:
                                                           isOtpFieldEmpty
                                                               ? Colors.grey
@@ -682,7 +685,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                               125,
                                                                         ),
                                                                         Text(
-                                                                          AppString.successfully,
+                                                                          AppString
+                                                                              .successfully,
                                                                           style:
                                                                               GoogleFonts.firaSans(
                                                                             fontSize:
@@ -694,7 +698,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                        AppString.resetsuccessfully,
+                                                                          AppString
+                                                                              .resetsuccessfully,
                                                                           style:
                                                                               GoogleFonts.firaSans(
                                                                             fontSize:
@@ -711,7 +716,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           height:
                                                                               46,
                                                                           text:
-                                                                             AppString.continuebutton,
+                                                                              AppString.continuebutton,
                                                                           borderRadius:
                                                                               28,
                                                                           onPressed:
@@ -749,7 +754,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           .center,
                                                                   children: [
                                                                     Text(
-                                                                     AppString.threetimepasscanchange,
+                                                                      AppString
+                                                                          .threetimepasscanchange,
                                                                       style: GoogleFonts
                                                                           .firaSans(
                                                                         fontSize:
@@ -761,7 +767,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                       ),
                                                                     ),
                                                                     Text(
-                                                                     AppString.cannotchangepass,
+                                                                      AppString
+                                                                          .cannotchangepass,
                                                                       style: GoogleFonts
                                                                           .firaSans(
                                                                         fontSize:
@@ -827,6 +834,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   height:
                                       MediaQuery.of(context).size.height / 60,
                                 ),
+
                                 ///back to login text
                                 Padding(
                                   padding: EdgeInsets.only(
