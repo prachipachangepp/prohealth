@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/theme_manager.dart';
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 
 class AcknowledgementTab extends StatelessWidget {
   const AcknowledgementTab({Key? key}) : super(key: key);
@@ -7,24 +10,16 @@ class AcknowledgementTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 40),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80, vertical: AppPadding.p40),
       child: Material(
         elevation: 5,
         borderRadius: BorderRadius.all(Radius.circular(12)),
         child: Container(
-          height: 181,
+          height: AppSize.s181,
           width: MediaQuery.of(context).size.width / 70,
-          padding: EdgeInsets.symmetric(vertical: 10),
+          padding: EdgeInsets.symmetric(vertical: AppPadding.p10),
           decoration: BoxDecoration(
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Colors.grey.withOpacity(0.25),
-            //     spreadRadius: 1,
-            //     blurRadius: 4,
-            //     offset: Offset(0, 5),
-            //   ),
-            // ],
-            color: Colors.white,
+            color: ColorManager.white,
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Row(
@@ -38,48 +33,47 @@ class AcknowledgementTab extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                          width: 62,
-                          height: 45,
+                          width: AppSize.s62,
+                          height: AppSize.s45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             border:
-                                Border.all(width: 2, color: Color(0xffF6928A)),
+                                Border.all(width: 2, color:ColorManager.faintOrange ),
                           ),
                           child: IconButton(
                             onPressed: () {},
                             icon: Icon(
                               Icons.remove_red_eye,
-                              color: Color(0xff50B5E5),
+                              color: ColorManager.blueprime,
                             ),
-                            iconSize: 24,
+                            iconSize: AppSize.s24,
                           )),
-                      SizedBox(width: 10),
-                      Text('Candidate Release Authorization Form',
-                          style:
-                              AknowledgementStyleConst.customTextStyle(context))
+                      SizedBox(width: AppSize.s10),
+                      Text(AppString.ackCandidate,
+                          style: AknowledgementStyleConst.customTextStyle(context))
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSize.s10),
                   Row(
                     children: [
                       Container(
-                          width: 62,
-                          height: 45,
+                          width: AppSize.s62,
+                          height: AppSize.s45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             border:
-                                Border.all(width: 2, color: Color(0xffF6928A)),
+                                Border.all(width: 2, color: ColorManager.faintOrange),
                           ),
                           child: IconButton(
                             onPressed: () {},
                             icon: Icon(
                               Icons.remove_red_eye,
-                              color: Color(0xff50B5E5),
+                              color: ColorManager.blueprime,
                             ),
-                            iconSize: 24,
+                            iconSize: AppSize.s24,
                           )),
-                      SizedBox(width: 10),
-                      Text('Confidentiality Statement',
+                      SizedBox(width: AppSize.s10),
+                      Text(AppString.ackConfidential,
                           style:
                               AknowledgementStyleConst.customTextStyle(context))
                     ],
@@ -94,48 +88,48 @@ class AcknowledgementTab extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                          width: 62,
-                          height: 45,
+                          width: AppSize.s62,
+                          height: AppSize.s45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             border:
-                                Border.all(width: 2, color: Color(0xffF6928A)),
+                                Border.all(width: 2, color: ColorManager.faintOrange),
                           ),
                           child: IconButton(
                             onPressed: () {},
                             icon: Icon(
                               Icons.remove_red_eye,
-                              color: Color(0xff50B5E5),
+                              color: ColorManager.blueprime,
                             ),
-                            iconSize: 24,
+                            iconSize: AppSize.s24,
                           )),
-                      SizedBox(width: 10),
-                      Text('On call',
+                      SizedBox(width: AppSize.s10),
+                      Text(AppString.ackonCall,
                           style:
                               AknowledgementStyleConst.customTextStyle(context))
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSize.s20),
                   Row(
                     children: [
                       Container(
-                          width: 62,
-                          height: 45,
+                          width: AppSize.s62,
+                          height: AppSize.s45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             border:
-                                Border.all(width: 2, color: Color(0xffF6928A)),
+                                Border.all(width: 2, color:ColorManager.faintOrange),
                           ),
                           child: IconButton(
                             onPressed: () {},
                             icon: Icon(
                               Icons.remove_red_eye,
-                              color: Color(0xff50B5E5),
+                              color: ColorManager.blueprime,
                             ),
-                            iconSize: 24,
+                            iconSize: AppSize.s24,
                           )),
-                      SizedBox(width: 10),
-                      Text('Policy Concerning 3rd Party',
+                      SizedBox(width: AppSize.s10),
+                      Text(AppString.ackpolicy,
                           style:
                               AknowledgementStyleConst.customTextStyle(context))
                     ],

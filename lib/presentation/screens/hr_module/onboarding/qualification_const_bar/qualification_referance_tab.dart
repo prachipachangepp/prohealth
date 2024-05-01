@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/constant_employment.dart';
+import '../../../../../app/resources/value_manager.dart';
 
 class QualificationReferance extends StatelessWidget {
   const QualificationReferance({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class QualificationReferance extends StatelessWidget {
                     children: [
                       OnboardingEmployement(),
                       SizedBox(
-                        height: 8,
+                        height: AppSize.s8,
                       )
                     ],
                   );

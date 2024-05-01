@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/profile_bar.dart';
+
+import '../../../../app/resources/value_manager.dart';
+
 ///prachi
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
@@ -17,7 +20,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         /// green blue container
         ProfileBar(),
         SizedBox(
-          height: 5,
+          height: AppSize.s5,
         ),
       ]),
     );

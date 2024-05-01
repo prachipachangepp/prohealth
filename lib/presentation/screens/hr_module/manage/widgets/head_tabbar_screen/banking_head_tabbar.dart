@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../app/theme_manager.dart';
+import '../../../../../../app/resources/theme_manager.dart';
 
 class BankingHeadTabbar extends StatefulWidget {
   @override

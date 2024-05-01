@@ -18,10 +18,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
-      home: ResponsiveScreenSM()
-      // ResponsivePage(
-      //   controller: myController,
-      // ),
+      home:
+        //  ResponsiveScreenSM()
+          ResponsivePage(
+        controller: myController,
+      ),
     );
   }
 }

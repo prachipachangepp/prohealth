@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/theme_manager.dart';
-
+import '../../../../../../../app/resources/theme_manager.dart';
 class AcknowledgementsChildBar extends StatelessWidget {
   const AcknowledgementsChildBar({super.key});
 

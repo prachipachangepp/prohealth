@@ -82,10 +82,70 @@ class CustomButtonTransparent extends StatelessWidget {
 
 ///custombutton size managebleimport 'package:flutter/material.dart';
 
+// class CustomButton extends StatelessWidget {
+//   final String? text;
+//   final VoidCallback onPressed;
+//   // final Color color;
+//   final Color textColor;
+//   final double borderRadius;
+//   final double paddingVertical;
+//   final double paddingHorizontal;
+//   final double width;
+//   final double height;
+//   final TextStyle style;
+//   final Widget? child;
+//
+//   const CustomButton({
+//     Key? key,
+//     this.text,
+//     required this.onPressed,
+//     // this.color = Colors.blue,
+//     this.textColor = Colors.white,
+//     this.borderRadius = 14.0,
+//     this.paddingVertical = 12.0,
+//     this.paddingHorizontal = 16.0,
+//     this.width = 50,
+//     //this.width = double.infinity,
+//     this.height = 50.0,
+//     this.style = const TextStyle(color: Colors.white),
+//     this.child,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       width: width,
+//       height: height,
+//       child: ElevatedButton(
+//         onPressed: onPressed,
+//         style: ElevatedButton.styleFrom(
+//           backgroundColor: Color(0xFF50B5E5),
+//           foregroundColor: textColor,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(borderRadius),
+//           ),
+//           padding: EdgeInsets.symmetric(
+//             vertical: paddingVertical,
+//             horizontal: paddingHorizontal,
+//           ),
+//         ),
+//         child: text != null
+//             ? Text(
+//                 text!,
+//                 style: GoogleFonts.firaSans(
+//                   fontSize: MediaQuery.of(context).size.width / 90,
+//                   fontWeight: FontWeight.w700,
+//                 ),
+//               )
+//             : child,
+//       ),
+//     );
+//   }
+// }
 class CustomButton extends StatelessWidget {
   final String? text;
   final VoidCallback onPressed;
-  // final Color color;
+  final Color backgroundColor; // Added parameter for background color
   final Color textColor;
   final double borderRadius;
   final double paddingVertical;
@@ -99,13 +159,12 @@ class CustomButton extends StatelessWidget {
     Key? key,
     this.text,
     required this.onPressed,
-    // this.color = Colors.blue,
+    this.backgroundColor = const Color(0xFF50B5E5), // Default background color
     this.textColor = Colors.white,
     this.borderRadius = 14.0,
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
     this.width = 50,
-    //this.width = double.infinity,
     this.height = 50.0,
     this.style = const TextStyle(color: Colors.white),
     this.child,
@@ -119,7 +178,7 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF50B5E5),
+          backgroundColor: backgroundColor, // Utilizing the backgroundColor parameter
           foregroundColor: textColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -130,13 +189,163 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         child: text != null
-            ? Text(text!,
-                style: GoogleFonts.firaSans(
-                  fontSize: MediaQuery.of(context).size.width / 90,
-                  fontWeight: FontWeight.w700,
-                ),)
+            ? Text(
+          text!,
+          style: GoogleFonts.firaSans(
+            fontSize: MediaQuery.of(context).size.width / 90,
+            fontWeight: FontWeight.w700,
+          ),
+        )
             : child,
       ),
     );
   }
 }
+
+
+///CustomTitleButton
+///sm desktop
+class CustomTitleButton extends StatelessWidget {
+  final String? text;
+  final VoidCallback onPressed;
+  // final Color color;
+  final Color textColor;
+  final double borderRadius;
+  final double paddingVertical;
+  final double paddingHorizontal;
+  final double width;
+  final double height;
+  final TextStyle style;
+  final Widget? child;
+  final bool isSelected;
+
+  const CustomTitleButton({
+    Key? key,
+    this.text,
+    required this.onPressed,
+    // this.color = Colors.blue,
+    this.textColor = Colors.white,
+    this.borderRadius = 8.0,
+    this.paddingVertical = 10.0,
+    this.paddingHorizontal = 16.0,
+    this.width = 50,
+    //this.width = double.infinity,
+    this.height = 50.0,
+    this.style = const TextStyle(color: Colors.white),
+    this.child,
+    required this.isSelected,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(borderRadius),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: isSelected ? Color(0xFF50B5E5) : Colors.white,
+            foregroundColor: textColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
+            ),
+            padding: EdgeInsets.symmetric(
+              vertical: paddingVertical,
+              horizontal: paddingHorizontal,
+            ),
+          ),
+          child: text != null
+              ? Text(
+                  text!,
+                  style: GoogleFonts.firaSans(
+                    fontSize: MediaQuery.of(context).size.width / 120,
+                    fontWeight: FontWeight.w700,
+                    color: isSelected ? Colors.white : Colors.black,
+                  ),
+                )
+              : child,
+        ),
+      ),
+    );
+  }
+}
+
+///CustomDropdownButton
+/// sm desktop
+class CustomDropdownButton extends StatelessWidget {
+  final List<String> items;
+  final String? selectedItem;
+  final ValueChanged<String?>? onChanged;
+  final double borderRadius;
+  final double paddingVertical;
+  final double paddingHorizontal;
+  final double width;
+  final double height;
+
+  const CustomDropdownButton({
+    Key? key,
+    required this.items,
+    this.selectedItem,
+    this.onChanged,
+    this.borderRadius = 8.0,
+    this.paddingVertical = 12.0,
+    this.paddingHorizontal = 16.0,
+    this.width = 50,
+    this.height = 50.0,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(borderRadius),
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Color(0xFF50B5E5),
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            value: selectedItem,
+            onChanged: onChanged,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: MediaQuery.of(context).size.width / 120,
+              fontWeight: FontWeight.w700,
+            ),
+            dropdownColor: Colors.blue, // Background color for dropdown
+            borderRadius: BorderRadius.circular(borderRadius),
+            icon: Icon(Icons.arrow_drop_down, color: Colors.white),
+            iconSize: 24.0,
+            isExpanded: true,
+            items: items.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: paddingVertical,
+                    horizontal: paddingHorizontal,
+                  ),
+                  child: Text(
+                    value,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: MediaQuery.of(context).size.width / 120,
+                    ), // Text color
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+///

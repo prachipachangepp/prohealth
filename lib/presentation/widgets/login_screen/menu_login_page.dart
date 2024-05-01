@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/home_screen.dart';
+import 'package:prohealth/presentation/screens/sm_module/responsive_screen_sm.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/child_container_constant_login.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -102,10 +103,18 @@ class MenuScreen extends StatelessWidget {
                                                   .width /
                                               40,
                                         ),
-                                        ResponsiveContainer(
-                                          'Establishment Manager',
-                                          AssetImage("images/e_m.png"),
-                                        ),
+                                        InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ResponsiveScreenSM()));
+                                            },
+                                            child: ResponsiveContainer(
+                                              'Establishment Manager',
+                                              AssetImage("images/e_m.png"),
+                                            )),
                                         SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
