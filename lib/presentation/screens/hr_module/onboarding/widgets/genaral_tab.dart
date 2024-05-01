@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
-
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 ///prachi
 class OnboardingGeneral extends StatelessWidget {
   const OnboardingGeneral({Key? key}) : super(key: key);
@@ -47,16 +46,18 @@ class OnboardingGeneral extends StatelessWidget {
                                       color: ColorManager.greenF,
                                       borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(20))),
-                                  child: Text(AppString.approve,
-                                      textAlign: TextAlign.center,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                          color: ColorManager.white,
-                                          fontSize: FontSize.s11,
-                                          fontWeight: FontWeightManager.bold))),
+                                  child: Text(
+                                    AppString.approve,
+                                    textAlign: TextAlign.center,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                        color: ColorManager.white,
+                                        fontSize: FontSize.s11,
+                                        fontWeight: FontWeightManager.bold
+                                    )
+                                  )),
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left:
-                                        MediaQuery.of(context).size.width / 60),
+                                    left: MediaQuery.of(context).size.width / 60),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,17 +73,14 @@ class OnboardingGeneral extends StatelessWidget {
                                           child:
                                               Image.asset('images/profile.png'),
                                         ),
-                                        Text(AppString.amogh,
-                                            style: CustomTextStylesCommon
-                                                .commonStyle(
-                                                    color: ColorManager.black,
-                                                    fontSize:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            99,
-                                                    fontWeight:
-                                                        FontWeightManager.bold))
+                                        Text(
+                                         AppString.amogh,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                              color: ColorManager.black,
+                                              fontSize: MediaQuery.of(context).size.width / 99,
+                                              fontWeight: FontWeightManager.bold
+                                          )
+                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -91,10 +89,10 @@ class OnboardingGeneral extends StatelessWidget {
                                     ),
                                     InfoTextWidget(
                                       texts: [
-                                        AppString.genSocSec,
-                                        AppString.genClinician,
-                                        AppString.genPhoneNo,
-                                        AppString.genEmail,
+                                       AppString.genSocSec,
+                                       AppString.genClinician,
+                                       AppString.genPhoneNo,
+                                       AppString.genEmail,
                                       ],
                                     ),
                                     SizedBox(
@@ -152,8 +150,7 @@ class OnboardingGeneral extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: AppSize.s8,
+                      SizedBox(height: AppSize.s8,
                       )
                     ],
                   );

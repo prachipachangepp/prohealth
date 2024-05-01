@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
+
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/value_manager.dart';
 
 class HealthRecordTab extends StatelessWidget {
   const HealthRecordTab({Key? key}) : super(key: key);
@@ -8,8 +9,7 @@ class HealthRecordTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppPadding.p80, vertical: AppPadding.p40),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80, vertical: AppPadding.p40),
       child: Material(
         elevation: 5,
         borderRadius: BorderRadius.all(Radius.circular(12)),

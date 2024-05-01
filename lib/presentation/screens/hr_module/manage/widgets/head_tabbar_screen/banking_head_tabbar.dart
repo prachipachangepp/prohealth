@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
+
+import '../../../../../../app/resources/theme_manager.dart';
 
 class BankingHeadTabbar extends StatefulWidget {
   @override
@@ -40,15 +41,13 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Bank #1',
+                        Text('Bank #1',
                           style: TextStyle(
                             fontFamily: 'FiraSans',
                             fontSize: 13,
                             color: Color(0xFF333333),
                             fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                          ),),
                         Container(
                           decoration: BoxDecoration(
                             boxShadow: [
@@ -62,20 +61,20 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                           height: MediaQuery.of(context).size.height / 35,
                           width: MediaQuery.of(context).size.width / 20,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed:
+                                () {},
                             child: Text(
                               'Edit',
                               style: TextStyle(
-                                fontFamily: 'FiraSans',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
+                                  fontFamily: 'FiraSans',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 15,
-                              ),
+                                  horizontal: 15,),
                               backgroundColor: Color(0xFF50B5E5),
                               shadowColor: Colors.grey,
                               shape: RoundedRectangleBorder(
@@ -86,10 +85,10 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                         ),
                       ],
                     ),
+
                     Padding(
-                      padding: EdgeInsets.only(
-                          right: MediaQuery.of(context).size.width / 15,
-                          top: MediaQuery.of(context).size.height / 55),
+                      padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/15,
+                      top: MediaQuery.of(context).size.height/55),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -101,15 +100,13 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                   style: ThemeManager.customTextStyle(context)),
                               Text(
                                 'Checking',
-                                style:
-                                    ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context),
                               ),
                               Text('Account No.',
                                   style: ThemeManager.customTextStyle(context)),
                               Text(
                                 '1234567797',
-                                style:
-                                    ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context),
                               ),
                             ],
                           ),
@@ -121,54 +118,49 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                   style: ThemeManager.customTextStyle(context)),
                               Text(
                                 '24-03-23',
-                                style:
-                                    ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context),
                               ),
                               Text('Requested Percentage',
                                   style: ThemeManager.customTextStyle(context)),
                               Text(
                                 '30%',
-                                style:
-                                    ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context),
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 8,
-                          ),
+                          SizedBox(height: 8,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Bank Name',
                                   style: ThemeManager.customTextStyle(context)),
                               Text(
                                 'Bank Of America',
-                                style:
-                                    ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context),
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 8,
-                          ),
+                          SizedBox(height: 8,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Routing/Transit No.',
                                   style: ThemeManager.customTextStyle(context)),
                               Text(
                                 '123456789',
-                                style:
-                                    ThemeManagerDark.customTextStyle(context),
+                                style: ThemeManagerDark.customTextStyle(context),
                               ),
                             ],
                           ),
+
                         ],
                       ),
                     ),
-                    Row()
+                    Row(
+
+                    )
                   ],
                 )),
                 SizedBox(width: 16),
@@ -230,8 +222,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
 class BankingContainerConst extends StatelessWidget {
   final Widget child;
 
-  const BankingContainerConst({Key? key, required this.child})
-      : super(key: key);
+  const BankingContainerConst({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

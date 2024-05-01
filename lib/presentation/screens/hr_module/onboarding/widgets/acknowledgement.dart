@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 
 class AcknowledgementTab extends StatelessWidget {
   const AcknowledgementTab({Key? key}) : super(key: key);
@@ -10,8 +10,7 @@ class AcknowledgementTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppPadding.p80, vertical: AppPadding.p40),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80, vertical: AppPadding.p40),
       child: Material(
         elevation: 5,
         borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -38,8 +37,8 @@ class AcknowledgementTab extends StatelessWidget {
                           height: AppSize.s45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                                width: 2, color: ColorManager.faintOrange),
+                            border:
+                                Border.all(width: 2, color:ColorManager.faintOrange ),
                           ),
                           child: IconButton(
                             onPressed: () {},
@@ -51,8 +50,7 @@ class AcknowledgementTab extends StatelessWidget {
                           )),
                       SizedBox(width: AppSize.s10),
                       Text(AppString.ackCandidate,
-                          style:
-                              AknowledgementStyleConst.customTextStyle(context))
+                          style: AknowledgementStyleConst.customTextStyle(context))
                     ],
                   ),
                   SizedBox(height: AppSize.s10),
@@ -63,8 +61,8 @@ class AcknowledgementTab extends StatelessWidget {
                           height: AppSize.s45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                                width: 2, color: ColorManager.faintOrange),
+                            border:
+                                Border.all(width: 2, color: ColorManager.faintOrange),
                           ),
                           child: IconButton(
                             onPressed: () {},
@@ -94,8 +92,8 @@ class AcknowledgementTab extends StatelessWidget {
                           height: AppSize.s45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                                width: 2, color: ColorManager.faintOrange),
+                            border:
+                                Border.all(width: 2, color: ColorManager.faintOrange),
                           ),
                           child: IconButton(
                             onPressed: () {},
@@ -119,8 +117,8 @@ class AcknowledgementTab extends StatelessWidget {
                           height: AppSize.s45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                                width: 2, color: ColorManager.faintOrange),
+                            border:
+                                Border.all(width: 2, color:ColorManager.faintOrange),
                           ),
                           child: IconButton(
                             onPressed: () {},

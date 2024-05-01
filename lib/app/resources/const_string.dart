@@ -96,22 +96,27 @@ class AppString{
   static const String phoneNumber = "Phone Number";
   static const String next = "Next";
   static const String reject = "Reject";
-
   static const String enterText= "Please enter some text";
 
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
-  // static const String = "";
+  ///login
+   static const String login = "Log In";
+   static const String forgotpass = "Forgot your account password ?";
+   static const String loginemail = "Login with Email";
+   static const String loginauth = "Login with Authenticator";
+   static const String enteremail = "Enter Email";
+   static const String entervalidemail = "Enter a valid email address";
+   static const String password = "Password";
+   static const String enterpass = "Enter Password";
+   static const String loginbtn = "Login";
+   static const String btnpress = "Button pressed!";
+   static const String otp = "Please enter OTP";
+   static const String didntreccode = "If you didn’t receive a code! ";
+   static const String resend = "Resend";
+   ///forgot
+   static const String forgotpassword= "Forgot Password";
+   static const String forgotbtnpress= "forgot button press";
+   static const String continuet= "Continue";
+   static const String backtologin= "Back to Login";
+   static const String forgotenter= "Enter your email for the verification process,we will send 6\ndigits code to your email.";
   // static const String = "";
 }

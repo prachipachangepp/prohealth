@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
+
+import '../../../../app/resources/color.dart';
+import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/theme_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 
 ///prachi
 class OnboardingTabBar extends StatelessWidget {
@@ -21,7 +22,7 @@ class OnboardingTabBar extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              color: ColorManager.blueprime,
+              color:ColorManager.blueprime,
               boxShadow: [
                 BoxShadow(
                   // color: Colors.black.withOpacity(0.2),
@@ -44,10 +45,10 @@ class OnboardingTabBar extends StatelessWidget {
               indicatorColor: ColorManager.white,
               labelColor: ColorManager.darktgrey,
               labelStyle: CustomTextStylesCommon.commonStyle(
-                fontSize: FontSize.s12,
-                color: ColorManager.darktgrey,
-                fontWeight: FontWeightManager.semiBold,
-              ),
+    fontSize: FontSize.s12,
+    color:  ColorManager.darktgrey,
+    fontWeight: FontWeightManager.semiBold,
+    ),
               unselectedLabelColor: ColorManager.white,
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/profile_bar.dart';
+
+import '../../../../app/resources/value_manager.dart';
 
 ///prachi
 class DashBoardScreen extends StatefulWidget {

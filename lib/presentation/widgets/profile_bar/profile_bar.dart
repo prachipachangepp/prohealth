@@ -487,8 +487,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
-
+import '../../../app/resources/theme_manager.dart';
 import '../profile_bar/widget/profil_custom_widget.dart';
 
 class ProfileBar extends StatelessWidget {
@@ -529,8 +528,7 @@ class ProfileBar extends StatelessWidget {
               color: Color(0xffB1D6F4).withOpacity(0.25),
             ),
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -553,7 +551,7 @@ class ProfileBar extends StatelessWidget {
                               width: 53,
                               child: const CircularProgressIndicator(
                                 valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.green),
+                                AlwaysStoppedAnimation<Color>(Colors.green),
                                 strokeWidth: 3,
                                 value: 0.70,
                               ),
@@ -580,9 +578,7 @@ class ProfileBar extends StatelessWidget {
                         "John Scott",
                         style: ThemeManagerBlack.customTextStyle(context),
                       ),
-                      SizedBox(
-                        height: 2,
-                      ),
+                      SizedBox(height: 2,),
                       Container(
                         height: MediaQuery.of(context).size.height / 40,
                         width: MediaQuery.of(context).size.width / 10,
@@ -616,7 +612,7 @@ class ProfileBar extends StatelessWidget {
                       Text(
                         "House No., Street No. Area City, Zip\nCode",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
+                        style:TextStyle(
                           fontFamily: 'FiraSans',
                           fontSize: 10,
                           color: Color(0xff4B89BA),
@@ -758,7 +754,8 @@ class ProfileBar extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 16,
                             margin: EdgeInsets.only(right: 40),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed:
+                                  () {},
                               child: Text(
                                 'View Zone',
                                 style: TextStyle(
@@ -767,7 +764,8 @@ class ProfileBar extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
                                     decoration: TextDecoration.underline,
-                                    decorationColor: Colors.white),
+                                    decorationColor: Colors.white
+                                ),
                               ),
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
@@ -804,7 +802,7 @@ class ProfileBar extends StatelessWidget {
                         children: [
                           Text(
                             "Hide Date",
-                            style: TextStyle(
+                            style:TextStyle(
                               fontFamily: 'FiraSans',
                               fontSize: 10,
                               color: Color(0xFF686464),
@@ -848,31 +846,28 @@ class ProfileBar extends StatelessWidget {
                               ),
                               ClipOval(
                                   child: Container(
-                                height: MediaQuery.of(context).size.height / 55,
-                                width: MediaQuery.of(context).size.width / 99,
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    boxShadow: [
+                                    height: MediaQuery.of(context).size.height / 55,
+                                    width: MediaQuery.of(context).size.width / 99,
+                                    decoration:
+                                    BoxDecoration(color: Colors.red, boxShadow: [
                                       BoxShadow(
                                           color: Colors.grey.shade600,
                                           spreadRadius: 1,
                                           blurRadius: 10,
                                           offset: const Offset(0, 15))
                                     ]),
-                                child: Text(
-                                  "0",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width /
-                                              140,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              )),
+                                    child: Text(
+                                      "0",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize:
+                                          MediaQuery.of(context).size.width / 140,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  )),
                             ],
                           ),
-
                           ///"About To Expired License"
                           Row(
                             children: [
@@ -887,28 +882,26 @@ class ProfileBar extends StatelessWidget {
                               ),
                               ClipOval(
                                   child: Container(
-                                height: MediaQuery.of(context).size.height / 55,
-                                width: MediaQuery.of(context).size.width / 99,
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    boxShadow: [
+                                    height: MediaQuery.of(context).size.height / 55,
+                                    width: MediaQuery.of(context).size.width / 99,
+                                    decoration:
+                                    BoxDecoration(color: Colors.green, boxShadow: [
                                       BoxShadow(
                                           color: Colors.grey.shade600,
                                           spreadRadius: 1,
                                           blurRadius: 10,
                                           offset: const Offset(0, 15))
                                     ]),
-                                child: Text(
-                                  "2",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width /
-                                              140,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              )),
+                                    child: Text(
+                                      "2",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize:
+                                          MediaQuery.of(context).size.width / 140,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  )),
                             ],
                           ),
 
@@ -917,7 +910,8 @@ class ProfileBar extends StatelessWidget {
                             children: [
                               Text(
                                 "Up To Date License",
-                                style: TextStyle(
+                                style:
+                                TextStyle(
                                   fontFamily: 'FiraSans',
                                   fontSize: 10,
                                   color: Color(0xFF579EBA),
@@ -926,28 +920,26 @@ class ProfileBar extends StatelessWidget {
                               ),
                               ClipOval(
                                   child: Container(
-                                height: MediaQuery.of(context).size.height / 55,
-                                width: MediaQuery.of(context).size.width / 99,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow,
-                                    boxShadow: [
+                                    height: MediaQuery.of(context).size.height / 55,
+                                    width: MediaQuery.of(context).size.width / 99,
+                                    decoration:
+                                    BoxDecoration(color: Colors.yellow, boxShadow: [
                                       BoxShadow(
                                           color: Colors.grey.shade600,
                                           spreadRadius: 1,
                                           blurRadius: 10,
                                           offset: const Offset(0, 15))
                                     ]),
-                                child: Text(
-                                  "1",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width /
-                                              140,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              )),
+                                    child: Text(
+                                      "1",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize:
+                                          MediaQuery.of(context).size.width / 140,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  )),
                             ],
                           ),
                         ],

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/row_container_widget_const.dart';
+
+import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/resources/value_manager.dart';
 
 class OnboardingEmployement extends StatelessWidget {
   const OnboardingEmployement({Key? key}) : super(key: key);
@@ -20,13 +21,16 @@ class OnboardingEmployement extends StatelessWidget {
           child1: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
+               Row(
                 children: [
-                  Text(AppString.emp1,
-                      style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.blackfaint,
-                          fontSize: FontSize.s13,
-                          fontWeight: FontWeightManager.medium)),
+                  Text(
+                    AppString.emp1,
+                    style: CustomTextStylesCommon.commonStyle(
+                        color: ColorManager.blackfaint,
+                        fontSize: FontSize.s13,
+                        fontWeight: FontWeightManager.medium
+                    )
+                  ),
                 ],
               ),
               Row(
@@ -63,7 +67,7 @@ class OnboardingEmployement extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppString.developer,
+                       AppString.developer,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       const SizedBox(
@@ -185,11 +189,14 @@ class OnboardingEmployement extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(AppString.emp2,
+                  Text(
+                      AppString.emp2,
                       style: CustomTextStylesCommon.commonStyle(
                           color: ColorManager.blackfaint,
                           fontSize: FontSize.s13,
-                          fontWeight: FontWeightManager.medium)),
+                          fontWeight: FontWeightManager.medium
+                      )
+                  ),
                 ],
               ),
               Row(
