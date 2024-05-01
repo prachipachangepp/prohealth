@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +103,12 @@ class _LoginScreenState extends State<LoginScreen> {
         await prefs.setString('access_token', access ?? '');
         await prefs.setString('refresh_token', refresh ?? '');
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MenuScreen(),),);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MenuScreen(),
+          ),
+        );
       } else {
         setState(() {
           _errorMessage = response.statusMessage;
@@ -110,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       setState(() {
-        _errorMessage = 'The email or password you entered is incorrect.';
+        _errorMessage = 'The email or password you entered is incorrect !';
       });
       print('Error occurred: $e');
     } finally {
@@ -128,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
       var dio = Dio();
       var response = await dio.post(
         '${AppConfig.endpoint}/auth/getotp',
-       // 'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/getotp',
+        // 'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/getotp',
         options: Options(
           headers: headers,
         ),
@@ -228,8 +234,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           AppString.loginemail,
                           style: GoogleFonts.firaSans(
                             color: _selectedIndex == 0
-                                  ? ColorManager.blueprime
-                                  : const Color(0xff686464),
+                                ? ColorManager.blueprime
+                                : const Color(0xff686464),
                             fontSize: MediaQuery.of(context).size.width / 90,
                             fontWeight: FontWeight.w700,
                           ),
@@ -242,12 +248,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(13),
                             boxShadow: _selectedIndex == 0
                                 ? [
-                              BoxShadow(
-                                color: Color(0xff000000).withOpacity(0.4),
-                                offset: Offset(1, 3),
-                                blurRadius: 4,
-                              ),
-                            ]
+                                    BoxShadow(
+                                      color: Color(0xff000000).withOpacity(0.4),
+                                      offset: Offset(1, 3),
+                                      blurRadius: 4,
+                                    ),
+                                  ]
                                 : [],
                             color: _selectedIndex == 0
                                 ? ColorManager.blueprime
@@ -281,12 +287,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(13),
                             boxShadow: _selectedIndex == 1
                                 ? [
-                              BoxShadow(
-                                color: Color(0xff000000).withOpacity(0.4),
-                                offset: Offset(1, 3),
-                                blurRadius: 4,
-                              ),
-                            ]
+                                    BoxShadow(
+                                      color: Color(0xff000000).withOpacity(0.4),
+                                      offset: Offset(1, 3),
+                                      blurRadius: 4,
+                                    ),
+                                  ]
                                 : [],
                             color: _selectedIndex == 1
                                 ? ColorManager.blueprime
@@ -321,8 +327,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.1,
-                            child:
-                            TextFormField(
+                            child: TextFormField(
                               style: GoogleFonts.firaSans(
                                 color: Color(0xff000000).withOpacity(0.5),
                                 fontWeight: FontWeightManager.medium,
@@ -338,9 +343,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets. only(top: 1),
+                                contentPadding: const EdgeInsets.only(top: 1),
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5),width: 0.5),
+                                  borderSide: BorderSide(
+                                      color: Color(0xff000000).withOpacity(0.5),
+                                      width: 0.5),
                                 ),
                                 labelText: AppString.email,
                                 labelStyle: GoogleFonts.firaSans(
@@ -380,7 +387,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.only(top: 2),
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5), width: 0.5),
+                                  borderSide: BorderSide(
+                                      color: Color(0xff000000).withOpacity(0.5),
+                                      width: 0.5),
                                 ),
                                 labelText: AppString.password,
                                 labelStyle: CustomTextStylesCommon.commonStyle(
@@ -391,13 +400,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 suffixIcon: IconButton(
                                   icon: _isPasswordVisible
                                       ? Icon(
-                                    Icons.visibility_off_outlined,
-                                    color: ColorManager.whitesheed,
-                                  )
+                                          Icons.visibility_off_outlined,
+                                          color: ColorManager.whitesheed,
+                                        )
                                       : Icon(
-                                    Icons.visibility_outlined,
-                                    color: ColorManager.whitesheed,
-                                  ),
+                                          Icons.visibility_outlined,
+                                          color: ColorManager.whitesheed,
+                                        ),
                                   onPressed: () {
                                     setState(() {
                                       _isPasswordVisible = !_isPasswordVisible;
@@ -424,14 +433,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                         MediaQuery.of(context).size.height / 20,
                                     width:
                                         MediaQuery.of(context).size.height / 18,
-                                    child: CircularProgressIndicator(color: ColorManager.blueprime),
+                                    child: CircularProgressIndicator(
+                                        color: ColorManager.blueprime),
                                   ),
                                 )
                               : !_loginSuccessful
                                   ? Center(
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(14),
+                                          borderRadius:
+                                              BorderRadius.circular(14),
                                           boxShadow: [
                                             BoxShadow(
                                               color: Color(0x40000000),
@@ -443,12 +454,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         child: CustomButton(
                                           borderRadius: 28,
-                                          height:
-                                              MediaQuery.of(context).size.height /
-                                                  20,
-                                          width:
-                                              MediaQuery.of(context).size.height /
-                                                  7,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              20,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              7,
                                           text: AppString.loginbtn,
                                           onPressed: () {
                                             if (_formKey.currentState!
@@ -472,9 +485,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               child: Text(
                                 _errorMessage!,
+                                textAlign: TextAlign.center,
                                 style: GoogleFonts.firaSans(
-                                  color: ColorManager.red
-                                ),
+                                    color: ColorManager.red,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width /
+                                            110),
                               ),
                             ),
                         ],
@@ -497,8 +514,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: AppPadding.p5),
                                     child: TextFormField(
-                                      style:CustomTextStylesCommon.commonStyle(
-                                        color: Color(0xff000000).withOpacity(0.5),
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        color:
+                                            Color(0xff000000).withOpacity(0.5),
                                         fontWeight: FontWeightManager.medium,
                                         fontSize: FontSize.s14,
                                       ),
@@ -507,13 +525,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                       cursorColor: Colors.black,
                                       cursorHeight: 22,
                                       decoration: InputDecoration(
-                                        contentPadding: const EdgeInsets. only(top: 1),
+                                        contentPadding:
+                                            const EdgeInsets.only(top: 1),
                                         focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(color: Color(0xff000000).withOpacity(0.5),width: 0.5),
+                                          borderSide: BorderSide(
+                                              color: Color(0xff000000)
+                                                  .withOpacity(0.5),
+                                              width: 0.5),
                                         ),
                                         labelText: AppString.email,
-                                        labelStyle: CustomTextStylesCommon.commonStyle(
-                                          color: Color(0xff000000).withOpacity(0.3),
+                                        labelStyle:
+                                            CustomTextStylesCommon.commonStyle(
+                                          color: Color(0xff000000)
+                                              .withOpacity(0.3),
                                           fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.medium,
                                         ),
@@ -533,27 +557,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                     height:
                                         MediaQuery.of(context).size.height / 15,
                                   ),
+
                                   ///next button
                                   Center(
                                       child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(14),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0x40000000),
-                                              offset: Offset(0, 4),
-                                              blurRadius: 4,
-                                              spreadRadius: 0,
-                                            ),
-                                          ],
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x40000000),
+                                          offset: Offset(0, 4),
+                                          blurRadius: 4,
+                                          spreadRadius: 0,
                                         ),
-                                        child: CustomButton(
-                                          borderRadius: 28,
-                                          height: MediaQuery.of(context).size.height / 20,
-                                          width: MediaQuery.of(context).size.height / 7,
-
-                                          text: AppString.next,
-                                          onPressed: () {
+                                      ],
+                                    ),
+                                    child: CustomButton(
+                                      borderRadius: 28,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              20,
+                                      width:
+                                          MediaQuery.of(context).size.height /
+                                              7,
+                                      text: AppString.next,
+                                      onPressed: () {
                                         if (_formKey.currentState?.validate() ??
                                             false) {
                                           setState(() {
@@ -561,12 +589,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                           });
                                           _handleNextButton();
                                         }
-                                                                            },
-                                                                          ),
-                                      ))
+                                      },
+                                    ),
+                                  ))
                                 ]
                               : [
-                                ///
+                                  ///
                                   Center(
                                     child: Row(
                                       mainAxisAlignment:
@@ -574,7 +602,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       children: List.generate(
                                         4,
                                         (index) => Container(
-                                          width: MediaQuery.of(context).size.width / 40,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              40,
                                           height: AppSize.s40,
                                           margin: EdgeInsets.symmetric(
                                               horizontal: AppPadding.p10),
@@ -591,7 +622,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             textAlign: TextAlign.center,
                                             maxLength: 1,
                                             decoration: InputDecoration(
-                                              contentPadding: const EdgeInsets. only(top: 2),
+                                              contentPadding:
+                                                  const EdgeInsets.only(top: 2),
                                               counterText: '',
                                               focusedBorder:
                                                   UnderlineInputBorder(
@@ -680,8 +712,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Center(
                                       child: CustomButton(
                                         borderRadius: 28,
-                                        height: MediaQuery.of(context).size.height / 20,
-                                        width: MediaQuery.of(context).size.height / 8,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                20,
+                                        width:
+                                            MediaQuery.of(context).size.height /
+                                                8,
                                         text: AppString.login,
                                         onPressed: () async {
                                           String enteredEmail =
@@ -722,7 +758,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         },
                                       ),
                                     ),
-                                  if (_isLoggingIn) CircularProgressIndicator(color: ColorManager.blueprime),
+                                  if (_isLoggingIn)
+                                    CircularProgressIndicator(
+                                        color: ColorManager.blueprime),
 
                                   /// 2nd
                                   // _isauthLoginLoading
