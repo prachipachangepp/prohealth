@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -228,6 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () {
                       _handleSelected(0);
                     },
+                    ///login with email text
                     child: Column(
                       children: [
                         Text(
@@ -242,7 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: AppSize.s5),
                         Container(
-                          width: MediaQuery.of(context).size.width / 12,
+                          width: MediaQuery.of(context).size.width / 10.5,
                           height: 3,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(13),
@@ -267,6 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () {
                       _handleSelected(1);
                     },
+                    ///login with auth text
                     child: Column(
                       children: [
                         Text(
@@ -281,7 +282,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: AppSize.s5),
                         Container(
-                          width: MediaQuery.of(context).size.width / 8,
+                          width: MediaQuery.of(context).size.width / 7,
                           height: 3,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(13),
@@ -311,13 +312,14 @@ class _LoginScreenState extends State<LoginScreen> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 20),
+                  horizontal: MediaQuery.of(context).size.width / 28),
               child: PageView(
                 controller: _pageController,
                 scrollDirection: Axis.horizontal,
                 children: [
                   /// Page 1: Log in with mail
                   Container(
+                    //color: Colors.red,
                     width: MediaQuery.of(context).size.width / 4,
                     height: MediaQuery.of(context).size.height / 4,
                     child: Form(
@@ -461,7 +463,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              7,
+                                              5.5,
                                           text: AppString.loginbtn,
                                           onPressed: () {
                                             if (_formKey.currentState!
@@ -563,14 +565,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(14),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0x40000000),
-                                          offset: Offset(0, 4),
-                                          blurRadius: 4,
-                                          spreadRadius: 0,
-                                        ),
-                                      ],
                                     ),
                                     child: CustomButton(
                                       borderRadius: 28,
@@ -579,7 +573,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               20,
                                       width:
                                           MediaQuery.of(context).size.height /
-                                              7,
+                                              5.5,
                                       text: AppString.next,
                                       onPressed: () {
                                         if (_formKey.currentState?.validate() ??
@@ -628,7 +622,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               focusedBorder:
                                                   UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: ColorManager.grey,
+                                                  color: ColorManager.black,
                                                   width: 2,
                                                 ),
                                               ),
@@ -704,100 +698,77 @@ class _LoginScreenState extends State<LoginScreen> {
                                         MediaQuery.of(context).size.height / 20,
                                   ),
 
-                                  ///login button
+                                  ///login button auth
                                   if (_errorLoginMessage != null)
                                     Text(_errorLoginMessage!,
                                         style: TextStyle(color: Colors.red)),
                                   if (!_isLoggingIn)
                                     Center(
-                                      child: CustomButton(
-                                        borderRadius: 28,
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                20,
-                                        width:
-                                            MediaQuery.of(context).size.height /
-                                                8,
-                                        text: AppString.login,
-                                        onPressed: () async {
-                                          String enteredEmail =
-                                              _emailController.text;
-                                          String enteredOTP = _otpControllers
-                                              .map((controller) =>
-                                                  controller.text)
-                                              .join();
-                                          bool anyFieldEmpty = _otpControllers
-                                              .any((controller) =>
-                                                  controller.text.isEmpty);
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(14),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0x40000000),
+                                              offset: Offset(0, 4),
+                                              blurRadius: 4,
+                                              spreadRadius: 0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: CustomButton(
+                                          borderRadius: 28,
+                                          height:
+                                              MediaQuery.of(context).size.height /
+                                                  20,
+                                          width:
+                                              MediaQuery.of(context).size.height /
+                                                  5.5,
+                                          text: AppString.loginbtn,
+                                          onPressed: () async {
+                                            String enteredEmail =
+                                                _emailController.text;
+                                            String enteredOTP = _otpControllers
+                                                .map((controller) =>
+                                                    controller.text)
+                                                .join();
+                                            bool anyFieldEmpty = _otpControllers
+                                                .any((controller) =>
+                                                    controller.text.isEmpty);
 
-                                          if (!anyFieldEmpty &&
-                                              (_formKey.currentState
-                                                      ?.validate() ??
-                                                  false)) {
-                                            setState(() {
-                                              _isLoggingIn = true;
-                                              _errorLoginMessage = null;
-                                            });
-                                            await _verifyOTPAndLogin(
-                                              enteredEmail,
-                                              enteredOTP,
-                                            );
+                                            if (!anyFieldEmpty &&
+                                                (_formKey.currentState
+                                                        ?.validate() ??
+                                                    false)) {
+                                              setState(() {
+                                                _isLoggingIn = true;
+                                                _errorLoginMessage = null;
+                                              });
+                                              await _verifyOTPAndLogin(
+                                                enteredEmail,
+                                                enteredOTP,
+                                              );
 
-                                            /// After the login attempt is completed
-                                            setState(() {
-                                              /// Reset login in progress
-                                              _isLoggingIn = false;
+                                              /// After the login attempt is completed
+                                              setState(() {
+                                                /// Reset login in progress
+                                                _isLoggingIn = false;
 
-                                              /// Show error message if exists
-                                              if (_errorLoginMessage == null) {
-                                                /// Show loader if no error
-                                                _isLoading = true;
-                                              }
-                                            });
-                                          }
-                                        },
+                                                /// Show error message if exists
+                                                if (_errorLoginMessage == null) {
+                                                  /// Show loader if no error
+                                                  _isLoading = true;
+                                                }
+                                              });
+                                            }
+                                          },
+                                        ),
                                       ),
                                     ),
                                   if (_isLoggingIn)
                                     CircularProgressIndicator(
                                         color: ColorManager.blueprime),
-
-                                  /// 2nd
-                                  // _isauthLoginLoading
-                                  //     ? CircularProgressIndicator()
-                                  //     : Center(
-                                  //         child: CustomButton(
-                                  //         height: MediaQuery.of(context)
-                                  //                 .size
-                                  //                 .height /
-                                  //             20,
-                                  //         width: MediaQuery.of(context)
-                                  //                 .size
-                                  //                 .height /
-                                  //             8,
-                                  //         text: 'LogIn',
-                                  //         onPressed: () {
-                                  //           String enteredEmail =
-                                  //               _emailController.text;
-                                  //           String enteredOTP = _otpControllers
-                                  //               .map((controller) =>
-                                  //                   controller.text)
-                                  //               .join();
-                                  //           bool anyFieldEmpty = _otpControllers
-                                  //               .any((controller) =>
-                                  //                   controller.text.isEmpty);
-                                  //
-                                  //           if (!anyFieldEmpty &&
-                                  //               (_formKey.currentState
-                                  //                       ?.validate() ??
-                                  //                   false)) {
-                                  //             _verifyOTPAndLogin(
-                                  //               enteredEmail,
-                                  //               enteredOTP,
-                                  //             );
-                                  //           }
-                                  //         },
-                                  //       )),
                                 ],
                         ),
                       ),
