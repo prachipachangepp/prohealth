@@ -109,7 +109,7 @@ class MenuScreen extends StatelessWidget {
                                                 );
                                               },
                                               width: MediaQuery.of(context).size.width / 15,
-                                              height: MediaQuery.of(context).size.height / 25,
+                                              height: MediaQuery.of(context).size.height / 22,
                                             ),
                                           ),
                                         ],

@@ -1,5 +1,7 @@
+///code for get api data to show in listview
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/button_constant.dart';
@@ -60,8 +62,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
   }
 
   Widget buildCompanyData(CompanyDataGet companyData) {
-    List<Office> offices = companyData.offices;
-    List<Office> currentPageItems = offices.sublist(
+    List<Office>? offices = companyData.offices;
+    List<Office>? currentPageItems = offices?.sublist(
       (currentPage - 1) * itemsPerPage,
       min(currentPage * itemsPerPage, offices.length),
     );
@@ -281,12 +283,12 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
         Expanded(
           child: ListView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: currentPageItems.length,
+              itemCount: currentPageItems?.length,
               itemBuilder: (context, index) {
                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                 String formattedSerialNumber =
                 serialNumber.toString().padLeft(2, '0');
-                Office office = currentPageItems[index];
+                Office office = currentPageItems![index];
                 // var office =
                 // Map<String, dynamic> office = offices[index];
                 //  String officeName = office['name'];
@@ -332,9 +334,9 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                             ),
                             Text(''),
                             Text(
-                             office.name!,
-                                 //.isEmpty ?  'Pro Health' : office.name,
-                              //office.name?.isEmpty ?? true ? 'Pro Health' : office.name!,
+                             office.name.isNull? 'Pro Health' : office.name!,
+                              //    .isEmpty ?  'Pro Health' : office.name,
+                              // office.name?.isEmpty ?? true ? 'Pro Health' : office.name!,
                               style: GoogleFonts.firaSans(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w500,
@@ -353,7 +355,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                 color: Color(0xff686464),
                                 decoration: TextDecoration.none,
                               ),
-                            ),
+                             ),
                             Text(''),
                             CustomButtonTransparentSM(
                                 text: 'Manage', onPressed: () {})
@@ -399,9 +401,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
 ///
 ///
 ///
-// ///
+///code that shows get api data in terminal
 // import 'dart:math';
-//
 // import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
@@ -633,7 +634,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
 //                         color: Colors.white,
 //                         decoration: TextDecoration.none,
 //                       )),
-//
 //                   //SizedBox(width: MediaQuery.of(context).size.width/5.5,),
 //                   Text('Address  ',
 //                       textAlign: TextAlign.start,

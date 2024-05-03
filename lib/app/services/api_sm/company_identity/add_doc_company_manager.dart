@@ -1,17 +1,20 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../constants/app_config.dart';
 import 'get_company_by_id_data.dart';
 
 
 class CompanyIdentityManager{
   Dio dio = Dio();
 
-  ///get
+  ///get shows response in terminal
   //  Future<void> getCompanyById() async {
   //    var dio = Dio();
   //    var response = await dio.request(
-  //      'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
+  //      '${AppConfig.endpoint}/establishment/company/1',
+  //     // 'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
   //      options: Options(
   //        method: 'GET',
   //      ),
@@ -24,11 +27,46 @@ class CompanyIdentityManager{
   //      print(response.statusMessage);
   //    }
   //  }
-///new
+
+  ///copy try pheonix
+  // Future<List<CompanyDataGet>> getCompanyById() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   String? token = prefs.getString('access_token');
+  //   var dio = Dio();
+  //   var response = await dio.request(
+  //     '${AppConfig.endpoint}/establishment/company/1',
+  //    // 'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
+  //     options: Options(
+  //       method: 'GET',
+  //     ),
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     var data = response.data;
+  //     List<dynamic> list = data;
+  //     List<CompanyDataGet> companydatalist = [];
+  //     for(var a in list){
+  //       companydatalist.add(CompanyDataGet.fromJson(a));
+  //     }
+  //     return companydatalist;
+  //     //print(json.encode(response.data));
+  //   }
+  //   else {
+  //     print(response.statusMessage);
+  //     return [];
+  //   }
+  // }
+
+
+///new shows null error
   Future<CompanyDataGet> getCompanyById() async {
     try {
-      final response = await dio.get(
-        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
+      final response = await dio.request(
+        '${AppConfig.endpoint}/establishment/company/1',
+       // 'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
+          options: Options(
+                   method: 'GET',
+                 ),
       );
 
       if (response.statusCode == 200) {
@@ -40,6 +78,8 @@ class CompanyIdentityManager{
       throw Exception('Failed to load company data: $e');
     }
   }
+
+
    ///post
   Future outAddCompany() async{
     var headers = {

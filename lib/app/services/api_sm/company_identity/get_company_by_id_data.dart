@@ -1,14 +1,14 @@
 ///get api get company by id
 class CompanyDataGet {
-  final String companyId;
-  final String name;
-  final String description;
-  final String url;
-  final Logo logo;
-  final Contact contact;
-  final String address;
-  final String headOfficeId;
-  final List<Office> offices;
+  final String? companyId;
+  final String? name;
+  final String? description;
+  final String? url;
+  final Logo? logo;
+  final Contact? contact;
+  final String? address;
+  final String? headOfficeId;
+  final List<Office>? offices;
 
   CompanyDataGet({
     required this.companyId,
@@ -24,14 +24,14 @@ class CompanyDataGet {
 
   factory CompanyDataGet.fromJson(Map<String, dynamic> json) {
     return CompanyDataGet(
-      companyId: json['company_id'],
-      name: json['name'],
-      description: json['description'],
-      url: json['url'],
+      companyId: json['company_id'] as String?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      url: json['url'] as String?,
       logo: Logo.fromJson(json['logo']),
       contact: Contact.fromJson(json['contact']),
-      address: json['address'],
-      headOfficeId: json['head_office_id'],
+      address: json['address'] as String?,
+      headOfficeId: json['head_office_id'] as String?,
       offices: List<Office>.from(
           json['offices'].map((office) => Office.fromJson(office))),
     );
@@ -110,8 +110,8 @@ class Office {
   factory Office.fromJson(Map<String, dynamic> json) {
     return Office(
       id: json['id'],
-      name: json['name'] ,
-      address: json['address'] ,
+      name: json['name'] as String? ,
+      address: json['address'] as String?,
       email: json['email'],
       phones: List<String>.from(json['phones']),
       zones: json['zones'] != null ? List<String>.from(json['zones']) : [],
