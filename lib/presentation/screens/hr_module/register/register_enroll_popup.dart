@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/resources/color.dart';
-import 'package:prohealth/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
-import 'package:prohealth/resources/font_manager.dart';
-import 'package:prohealth/resources/theme_manager.dart';
-import 'package:prohealth/resources/value_manager.dart';
+import '../../../../app/resources/color.dart';
+import '../../../../app/resources/const_string.dart';
+import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/theme_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/custom_icon_button_constant.dart';
 import '../../../widgets/mcq_const_widget/mcq_const_widget.dart';
 ///saloni

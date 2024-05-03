@@ -405,7 +405,7 @@ class SMDesktop extends StatelessWidget {
                   height: 10,
                 ),
 
-                /// buttons
+                ///2nd  buttons
                 Row(
                   children: [
                     Expanded(

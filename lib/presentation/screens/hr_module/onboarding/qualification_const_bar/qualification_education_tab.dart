@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/constant_employment.dart';
-import 'package:prohealth/resources/value_manager.dart';
+
+import '../../../../../app/resources/value_manager.dart';
 
 class QualificationEducation extends StatelessWidget {
   const QualificationEducation({Key? key}) : super(key: key);

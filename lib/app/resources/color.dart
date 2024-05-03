@@ -11,6 +11,7 @@ class ColorManager {
   static Color white = HexColor.fromHex('#FFFFFF');
   static Color black = Color(0xfc000000);
   static Color blackfaint = Color(0xFF333333);
+  static Color whitesheed = Color(0xffACA5BB);
 
   static Color faintb = Color(0xff1E56A0);
   static Color navybluenew = Color(0xff163172);
@@ -20,9 +21,7 @@ class ColorManager {
   static Color red = Color(0xffD93D3D);
   static Color rednew = Color(0xffEB3223);
   static Color transparentColor = Color(0x808B8781);
-  static Color whitesheed = Color(0xFFF6F6F6);
   static Color lightgreyheading = Color(0xff8b8781);
-
   static Color navyblue = HexColor.fromHex('#004181');
   static Color faintgrey = HexColor.fromHex('#8B8781');
   static Color faintblueweb = HexColor.fromHex('#3A74B4');

@@ -1,8 +1,10 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/table_constant.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/text_form_field_const.dart';
+
 import '../../../widgets/custom_icon_button_constant.dart';
 import 'button_constant.dart';
 
@@ -39,40 +41,45 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
     return Material(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal:  35.0,vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 12),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                buildDropdownButton(context)
-            ],),
+              children: [buildDropdownButton(context)],
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Clinicians Pay Rates',
+                Text(
+                  'Clinicians Pay Rates',
                   style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                     color: Color(0xff686464),
                     decoration: TextDecoration.none,
-                  ),),
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Pick Employee',
+                    Text(
+                      'Pick Employee',
                       style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xff686464),
-                      decoration: TextDecoration.none,
-                    ),),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff686464),
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -84,26 +91,37 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         Container(
                           height: 31,
                           width: 185,
-                         // margin: EdgeInsets.symmetric(horizontal: 20),
-                          padding: EdgeInsets.symmetric(vertical: 6,horizontal: 15),
+                          // margin: EdgeInsets.symmetric(horizontal: 20),
+                          padding:
+                              EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border: Border.all(color: Color(0xff686464).withOpacity(0.5),width: 1), // Black border
-                            borderRadius: BorderRadius.circular(12), // Rounded corners
+                            border: Border.all(
+                                color: Color(0xff686464).withOpacity(0.5),
+                                width: 1), // Black border
+                            borderRadius:
+                                BorderRadius.circular(12), // Rounded corners
                           ),
                           child: DropdownButtonFormField<String>(
                             focusColor: Colors.transparent,
-                            icon: Icon(Icons.arrow_drop_down_sharp,color: Color(0xff686464),),
+                            icon: Icon(
+                              Icons.arrow_drop_down_sharp,
+                              color: Color(0xff686464),
+                            ),
                             decoration: InputDecoration.collapsed(hintText: ''),
-                            items: <String>['Home Health', 'Option 1', 'Option 2', 'Option 3', 'Option 4']
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: <String>[
+                              'Home Health',
+                              'Option 1',
+                              'Option 2',
+                              'Option 3',
+                              'Option 4'
+                            ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
                               );
                             }).toList(),
-                            onChanged: (String? newValue) {
-                            },
+                            onChanged: (String? newValue) {},
                             value: 'Home Health',
                             style: GoogleFonts.firaSans(
                               fontSize: 12,
@@ -113,31 +131,45 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        SizedBox(
+                          width: 20,
+                        ),
+
                         ///NC dropdown
                         Container(
                           height: 31,
                           width: 185,
                           // margin: EdgeInsets.symmetric(horizontal: 20),
-                          padding: EdgeInsets.symmetric(vertical: 6,horizontal: 15),
+                          padding:
+                              EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border: Border.all(color: Color(0xff686464).withOpacity(0.5),width: 1), // Black border
-                            borderRadius: BorderRadius.circular(12), // Rounded corners
+                            border: Border.all(
+                                color: Color(0xff686464).withOpacity(0.5),
+                                width: 1), // Black border
+                            borderRadius:
+                                BorderRadius.circular(12), // Rounded corners
                           ),
                           child: DropdownButtonFormField<String>(
                             focusColor: Colors.transparent,
-                            icon: Icon(Icons.arrow_drop_down_sharp,color: Color(0xff686464),),
+                            icon: Icon(
+                              Icons.arrow_drop_down_sharp,
+                              color: Color(0xff686464),
+                            ),
                             decoration: InputDecoration.collapsed(hintText: ''),
-                            items: <String>['NC', 'Option 1', 'Option 2', 'Option 3', 'Option 4']
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: <String>[
+                              'NC',
+                              'Option 1',
+                              'Option 2',
+                              'Option 3',
+                              'Option 4'
+                            ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
                               );
                             }).toList(),
-                            onChanged: (String? newValue) {
-                            },
+                            onChanged: (String? newValue) {},
                             value: 'NC',
                             style: GoogleFonts.firaSans(
                               fontSize: 12,
@@ -149,12 +181,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         ),
                       ],
                     ),
+
                     ///add payrate button
                     Container(
                       width: 130,
                       height: 32,
                       child: CustomIconButtonConst(
-                          text: 'Add Payrate', icon: Icons.add,
+                          text: 'Add Payrate',
+                          icon: Icons.add,
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -165,25 +199,51 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     height: 243,
                                     width: 309,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8)
-                                    ),
+                                        borderRadius: BorderRadius.circular(8)),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [IconButton(onPressed: (){
-                                            Navigator.pop(context);
-                                          }, icon: Icon(Icons.close))],),
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
                                           children: [
-                                            SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Type of Visit',),
-                                            SizedBox(height: 15,),
-                                            SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Zone',),
-                                            SizedBox(height: 15,),
-                                            SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Rate',),
+                                            IconButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: Icon(Icons.close))
+                                          ],
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SMTextFConst(
+                                              controller: nameController,
+                                              keyboardType: TextInputType.text,
+                                              text: 'Type of Visit',
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            SMTextFConst(
+                                              controller: addressController,
+                                              keyboardType:
+                                                  TextInputType.streetAddress,
+                                              text: 'Zone',
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            SMTextFConst(
+                                              controller: emailController,
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
+                                              text: 'Rate',
+                                            ),
                                           ],
                                         ),
                                       ],
@@ -213,11 +273,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             TableHeadConstant(
               items: [
                 TableHeadItem(text: 'Sr No', textAlign: TextAlign.start),
-                TableHeadItem(text: 'Type of Visit', textAlign: TextAlign.start),
+                TableHeadItem(
+                    text: 'Type of Visit', textAlign: TextAlign.start),
                 TableHeadItem(text: 'Rate', textAlign: TextAlign.start),
                 TableHeadItem(text: 'Zone', textAlign: TextAlign.start),
                 TableHeadItem(text: 'Actions', textAlign: TextAlign.center),
@@ -226,15 +289,17 @@ class _FinanceScreenState extends State<FinanceScreen> {
             SizedBox(
               height: 5,
             ),
+
             ///list
             Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: currentPageItems.length,
                   itemBuilder: (context, index) {
-                    int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                    int serialNumber =
+                        index + 1 + (currentPage - 1) * itemsPerPage;
                     String formattedSerialNumber =
-                    serialNumber.toString().padLeft(2, '0');
+                        serialNumber.toString().padLeft(2, '0');
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -307,25 +372,62 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                             height: 243,
                                             width: 309,
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(8)
-                                            ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
                                               children: [
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  children: [IconButton(onPressed: (){
-                                                    Navigator.pop(context);
-                                                  }, icon: Icon(Icons.close))],),
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
                                                   children: [
-                                                    SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Type of Visit',textColor: Color(0xFFB1B1B1),),
-                                                    SizedBox(height: 15,),
-                                                    SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Zone',),
-                                                    SizedBox(height: 15,),
-                                                    SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Rate',),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        icon: Icon(Icons.close))
+                                                  ],
+                                                ),
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    SMTextFConst(
+                                                      controller:
+                                                          nameController,
+                                                      keyboardType:
+                                                          TextInputType.text,
+                                                      text: 'Type of Visit',
+                                                      textColor:
+                                                          Color(0xFFB1B1B1),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    SMTextFConst(
+                                                      controller:
+                                                          addressController,
+                                                      keyboardType:
+                                                          TextInputType
+                                                              .streetAddress,
+                                                      text: 'Zone',
+                                                    ),
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    SMTextFConst(
+                                                      controller:
+                                                          emailController,
+                                                      keyboardType:
+                                                          TextInputType
+                                                              .emailAddress,
+                                                      text: 'Rate',
+                                                    ),
                                                   ],
                                                 ),
                                               ],
@@ -371,16 +473,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
 Widget buildDropdownButton(BuildContext context) {
   return Container(
     height: 31,
-    padding: EdgeInsets.symmetric(vertical: 6,horizontal: 15),
+    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
     decoration: BoxDecoration(
       color: Colors.white,
-      border: Border.all(color: Color(0xff50B5E5),width: 1.2),
+      border: Border.all(color: Color(0xff50B5E5), width: 1.2),
       borderRadius: BorderRadius.circular(12.0),
       boxShadow: [
         BoxShadow(
           color: Color(0xff000000).withOpacity(0.25),
           blurRadius: 2,
-          offset: Offset(0,2),
+          offset: Offset(0, 2),
         ),
       ],
     ),
@@ -392,7 +494,10 @@ Widget buildDropdownButton(BuildContext context) {
         color: Color(0xff50B5E5),
         decoration: TextDecoration.none,
       ),
-      icon: Icon(Icons.arrow_drop_down,color: Color(0xff50B5E5),),
+      icon: Icon(
+        Icons.arrow_drop_down,
+        color: Color(0xff50B5E5),
+      ),
       iconSize: 20,
       underline: SizedBox(),
       onChanged: (String? newValue) {
@@ -405,55 +510,85 @@ Widget buildDropdownButton(BuildContext context) {
               TextEditingController addressController = TextEditingController();
               TextEditingController emailController = TextEditingController();
               return AlertDialog(
-                backgroundColor: Colors.white,
-                content:  Container(
-                  height: 343,
-                  width: 409,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [IconButton(onPressed: (){
-                          Navigator.pop(context);
-                        }, icon: Icon(Icons.close))],),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Type of Visit',),
-                          SizedBox(height: 25,),
-                          SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Zone',),
-                          SizedBox(height: 25,),
-                          SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Rate',),
-                        ],
-                      ),
-                      SizedBox(height: 60,),
-                      CustomElevatedButton(
-                          width: 105,
-                          height: 31,
-                          text: 'Submit',
-                          onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             LoginScreen()));
-                          })
-                    ],
-                  ),
-                )
-              );
+                  backgroundColor: Colors.white,
+                  content: Container(
+                    height: 343,
+                    width: 409,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(Icons.close))
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SMTextFConst(
+                              controller: nameController,
+                              keyboardType: TextInputType.text,
+                              text: 'Type of Visit',
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            SMTextFConst(
+                              controller: addressController,
+                              keyboardType: TextInputType.streetAddress,
+                              text: 'Zone',
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            SMTextFConst(
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              text: 'Rate',
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 60,
+                        ),
+                        CustomElevatedButton(
+                            width: 105,
+                            height: 31,
+                            text: 'Submit',
+                            onPressed: () {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             LoginScreen()));
+                            })
+                      ],
+                    ),
+                  ));
             },
           );
         }
       },
-      items: <String>['Sort By','For all zones', 'San Jose z4','San Jose z4','San Jose z4','San Jose z4',]
-          .map<DropdownMenuItem<String>>((String value) {
+      items: <String>[
+        'Sort By',
+        'For all zones',
+        'San Jose z4',
+        'San Jose z4',
+        'San Jose z4',
+        'San Jose z4',
+      ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value,
-          style: TextStyle(color: Color(0xff50B5E5)),),
+          child: Text(
+            value,
+            style: TextStyle(color: Color(0xff50B5E5)),
+          ),
         );
       }).toList(),
     ),
@@ -519,4 +654,3 @@ Widget buildDropdownButton(BuildContext context) {
 //     },
 //   );
 // }
-

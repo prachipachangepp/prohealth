@@ -1,54 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/add_employee_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/web_manage/manage_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/app_bar_tabbar_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/onboarding_screen.dart';
-import 'package:prohealth/presentation/widgets/const_appbar/controller.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/register_screen.dart';
 
-import '../../../app/resources/theme_manager.dart';
-import '../../screens/hr_module/register/register_screen.dart';
-
-///tabbar saloni
-///appbar prachi
-
-class MyAppBar extends StatelessWidget {
+class HrAppBar extends StatelessWidget {
   final HRController hrController = Get.put(HRController());
-  final CustomButtonController customController =
-      Get.put(CustomButtonController());
+  final PageController _pageController = PageController();
+  final ButtonSelectionController myController =
+      Get.put(ButtonSelectionController());
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(MyAppTabBarController(
-      tabs: [
-        Tab(text: 'Dashboard'),
-        Tab(text: 'Manage'),
-        Tab(text: 'Add Employee'),
-        Tab(text: 'Register'),
-        Tab(text: 'Onboarding'),
-      ],
-      tabViews: [
-        Center(child: Text('Dashboard Screen')),
-        ManageScreen(),
-        AddEmployeeHomeScreen(),
-        RegisterScreen(),
-        OnBoardingScreen(),
-      ],
-      tabBarViewWidth: MediaQuery.of(context).size.width / 1.04,
-      tabBarViewHeight: MediaQuery.of(context).size.height/1.2
-    ));
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /// first row logo
+        ///row one
         Row(
           children: [
             Expanded(
               flex: 1,
               child: Container(
-                height: 40,
+                height: 30,
                 child: Image.asset('images/logo.png'),
               ),
             ),
@@ -60,7 +37,7 @@ class MyAppBar extends StatelessWidget {
                     bottomLeft: Radius.circular(10),
                     topLeft: Radius.circular(10)),
                 child: Container(
-                    height: 40,
+                    height: 37,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(10),
@@ -79,18 +56,17 @@ class MyAppBar extends StatelessWidget {
                     child: Row(children: [
                       Padding(
                         padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width / 99,
+                          left: MediaQuery.of(context).size.width / 90,
                         ),
                         child: Container(
-                          height: 33,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: Colors.white),
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            height: 33,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: Colors.white),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
+                            child: Row(children: [
                               Image.asset("images/mike.png"),
                               Padding(
                                 padding: const EdgeInsets.only(top: 4),
@@ -105,9 +81,7 @@ class MyAppBar extends StatelessWidget {
                                   ],
                                 ),
                               )
-                            ],
-                          ),
-                        ),
+                            ])),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 10,
@@ -127,13 +101,13 @@ class MyAppBar extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text("Human Resource Manager",
-                                    style: ThemeManagerLightblue.customTextStyle(
-                                        context)),
+                                    style:
+                                        ThemeManagerLightblue.customTextStyle(
+                                            context)),
                                 Icon(
                                   Icons.close,
                                   color: Color(0xff434343),
-                                  size:
-                                  MediaQuery.of(context).size.width / 70,
+                                  size: MediaQuery.of(context).size.width / 70,
                                 ),
                               ],
                             ),
@@ -143,32 +117,33 @@ class MyAppBar extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 120,
                       ),
-                      GetBuilder<CustomButtonController>(
-                        builder: (controller) => Material(
-                          elevation: 3,
-                          shape: CircleBorder(),
-                          child: InkWell(
-                            child: Container(
-                              width: 33,
-                              height: 33,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              child: Icon(
-                                Icons.add,
-                                color: Color(0xff2B647F),
-                                size: 25,
-                              ),
-                            ),
-                            onTap: () {},
-                          ),
-                        ),
-                      ),
+
+                      ///
+                      // GetBuilder<CustomButtonController>(
+                      //   builder: (controller) => Material(
+                      //     elevation: 3,
+                      //     shape: CircleBorder(),
+                      //     child: InkWell(
+                      //       child: Container(
+                      //         width: 33,
+                      //         height: 33,
+                      //         decoration: BoxDecoration(
+                      //           shape: BoxShape.circle,
+                      //           color: Colors.white,
+                      //         ),
+                      //         child: Icon(
+                      //           Icons.add,
+                      //           color: Color(0xff2B647F),
+                      //           size: 25,
+                      //         ),
+                      //       ),
+                      //       onTap: () {},
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 20,
                       ),
-                      ///3 icons
                       Material(
                         elevation: 4,
                         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -181,7 +156,7 @@ class MyAppBar extends StatelessWidget {
                               color: Colors.white,
                             ),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
@@ -208,6 +183,7 @@ class MyAppBar extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 60,
                       ),
+
                       ///dropdown
                       Container(
                         height: 23,
@@ -244,10 +220,12 @@ class MyAppBar extends StatelessWidget {
                                       child: Text(
                                         value,
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(color: Colors.white,
+                                        style: TextStyle(
+                                          color: Colors.white,
                                           fontFamily: 'FiraSans',
                                           fontSize: 11,
-                                          fontWeight: FontWeight.w200,),
+                                          fontWeight: FontWeight.w200,
+                                        ),
                                       ),
                                     ),
                                   )
@@ -256,41 +234,6 @@ class MyAppBar extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Material(
-                      //   elevation: 4,
-                      //   borderRadius: BorderRadius.all(Radius.circular(20)),
-                      //   child: Container(
-                      //     height: 33,
-                      //     width: MediaQuery.of(context).size.width / 15,
-                      //     decoration: BoxDecoration(
-                      //       border: Border.all(width: 1, color: Colors.white),
-                      //       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      //     ),
-                      //     child: Material(
-                      //       shape: CircleBorder(),
-                      //       color: Colors.transparent,
-                      //       child: InkWell(
-                      //         customBorder: CircleBorder(),
-                      //         onTap: () {},
-                      //         child: Row(
-                      //             mainAxisAlignment: MainAxisAlignment.center,
-                      //             children: [
-                      //               Text(
-                      //                 "Admin",
-                      //                 style: RegisterTableHead.customTextStyle(
-                      //                     context),
-                      //               ),
-                      //               Icon(
-                      //                 Icons.arrow_drop_down_rounded,
-                      //                 color: Colors.white,
-                      //                 size: MediaQuery.of(context).size.width /
-                      //                     60,
-                      //               ),
-                      //             ]),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 60,
                       ),
@@ -344,19 +287,142 @@ class MyAppBar extends StatelessWidget {
                           ],
                         ),
                       ),
-
                     ])),
               ),
             ),
           ],
         ),
         SizedBox(
-          height: 10,
+          height: 5,
         ),
 
-        ///second row title heading
-        AppBarTabBarConstant(controller),
+        ///row two
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 100),
+                child: Container(
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Obx(() => CustomTitleButton(
+                            height: 30,
+                            width: 100,
+                            onPressed: () {
+                              myController.selectButton(0);
+                              _pageController.animateToPage(0,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Dashboard',
+                            isSelected: myController.selectedIndex.value == 0,
+                          )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Obx(() => CustomTitleButton(
+                            height: 30,
+                            width: 140,
+                            onPressed: () {
+                              myController.selectButton(1);
+                              _pageController.animateToPage(1,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Manage',
+                            isSelected: myController.selectedIndex.value == 1,
+                          )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Obx(() => CustomTitleButton(
+                            height: 30,
+                            width: 100,
+                            onPressed: () {
+                              myController.selectButton(2);
+                              _pageController.animateToPage(2,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Add Employee',
+                            isSelected: myController.selectedIndex.value == 2,
+                          )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Obx(() => CustomTitleButton(
+                            height: 30,
+                            width: 140,
+                            onPressed: () {
+                              myController.selectButton(3);
+                              _pageController.animateToPage(3,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Register',
+                            isSelected: myController.selectedIndex.value == 3,
+                          )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Obx(() => CustomTitleButton(
+                            height: 30,
+                            width: 140,
+                            onPressed: () {
+                              myController.selectButton(4);
+                              _pageController.animateToPage(4,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Onboarding',
+                            isSelected: myController.selectedIndex.value == 4,
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Expanded(
+          flex: 10,
+          child: PageView(
+            controller: _pageController,
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              Container(color: Colors.green),
+              ManageScreen(),
+              AddEmployeeHomeScreen(),
+              RegisterScreen(),
+              OnBoardingScreen(),
+              // Container(color: Colors.orange),
+              // Container(color: Colors.blue),
+            ],
+          ),
+        ),
       ],
     );
+  }
+}
+
+class HRController extends GetxController {
+  var selectedItem = 'Admin'.obs;
+  void changeSelectedItem(String newItem) {
+    selectedItem.value = newItem;
+  }
+}
+
+class CustomButtonController extends GetxController {}
+
+class ButtonSelectionController extends GetxController {
+  RxInt selectedIndex = 0.obs;
+  void selectButton(int index) {
+    selectedIndex.value = index;
   }
 }

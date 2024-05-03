@@ -5,7 +5,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/home_screen.dart';
 import 'package:prohealth/presentation/screens/sm_module/responsive_screen_sm.dart';
+import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/child_container_constant_login.dart';
+
+import '../../../app/resources/const_string.dart';
+import '../../screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -45,10 +49,8 @@ class MenuScreen extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width / 90,
-                              vertical:
-                                  MediaQuery.of(context).size.height / 100),
+                              horizontal: MediaQuery.of(context).size.width / 90,
+                              vertical: MediaQuery.of(context).size.height / 100),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -71,15 +73,46 @@ class MenuScreen extends StatelessWidget {
                                                   .size
                                                   .height /
                                               80),
-                                      child: Text(
-                                        'Select a Module',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'FiraSans',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
-                                          color: Color(0xff565656),
-                                        ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Select a Module',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontFamily: 'FiraSans',
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff565656),
+                                            ),
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(14),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0x40000000),
+                                                  offset: Offset(0, 4),
+                                                  blurRadius: 4,
+                                                  spreadRadius: 0,
+                                                ),
+                                              ],
+                                            ),
+                                            child: CustomButton(
+                                              borderRadius: 14,
+                                              text: AppString.logout,
+                                              onPressed: (){
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) => LoginScreen()),
+                                                );
+                                              },
+                                              width: MediaQuery.of(context).size.width / 15,
+                                              height: MediaQuery.of(context).size.height / 25,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                     Text(

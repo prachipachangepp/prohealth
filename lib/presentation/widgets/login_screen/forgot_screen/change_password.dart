@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:js';
 import 'dart:ui';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
-
+import '../../../../app/resources/color.dart';
 import '../../../../app/services/api_hr/confirm_pass/confirm_pass_manager.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -24,19 +24,23 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController controllerNew = TextEditingController();
   final TextEditingController controllerConfirm = TextEditingController();
-  List<TextEditingController> _otpControllers =
-      List.generate(6, (_) => TextEditingController());
+  List<TextEditingController> _otpControllers = List.generate(6, (_) => TextEditingController());
+  List<FocusNode> _focusNodes =
+  List.generate(6, (_) => FocusNode());
   bool _obscureText = true;
   bool _obscureTextconfirm = true;
   final _formKey = GlobalKey<FormState>();
-  FocusNode passwordFocusNode = FocusNode();
-  FocusNode confirmpassFocusNode = FocusNode();
+  FocusNode newPasswordFocusNode = FocusNode();
+  FocusNode confirmPasswordFocusNode = FocusNode();
   String? _errorMessage;
   late Timer _timer;
   int _timerCount = 30;
   bool isOtpFieldEmpty = true;
   ConfirmPassManager confirmPassManager = ConfirmPassManager();
   TextEditingController newPasswordController = TextEditingController();
+  List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
+  bool _isUpdatingPassword = false;
+
   Future<void> updatePassword() async {
     // Replace 'email', 'otp', and 'newPassword' with actual values
     String email = 'user@example.com';
@@ -73,6 +77,33 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     }
   }
 
+  // Future<void> confirmPassword() async {
+  //   var headers = {
+  //     'Content-Type': 'application/json'
+  //   };
+  //   var data = json.encode({
+  //     "email": "srojkrjha@gmail.com",
+  //     "verificationCode": "009031",
+  //     "newPassword": "Test@test12"
+  //   });
+  //   var dio = Dio();
+  //   var response = await dio.request(
+  //     '${AppConfig.endpoint}/auth/confirmPassword',
+  //    // 'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
+  //     options: Options(
+  //       method: 'POST',
+  //       headers: headers,
+  //     ),
+  //     data: data,
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     print(json.encode(response.data));
+  //   }
+  //   else {
+  //     print(response.statusMessage);
+  //   }
+  // }
   @override
   void initState() {
     super.initState();
@@ -148,7 +179,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Verification',
+                                AppString.verfication,
                                 style: GoogleFonts.firaSans(
                                   color: Color(0xff686464),
                                   fontSize: 40,
@@ -229,7 +260,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Enter your 6 digits code that you received on your email.',
+                                                  AppString.entersixdigitCode,
                                                   style: GoogleFonts.firaSans(
                                                     color: Color(0xff686464),
                                                     fontSize: 10,
@@ -237,24 +268,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   ),
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: List.generate(
                                                     6,
                                                     (index) => Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              40,
+                                                      width: MediaQuery.of(context).size.width / 40,
                                                       height: 40,
-                                                      margin: EdgeInsets.symmetric(
-                                                          horizontal:
-                                                              MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width /
-                                                                  200),
+                                                      margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 200),
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
@@ -268,29 +288,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       child: TextFormField(
                                                         style: GoogleFonts
                                                             .firaSans(
-                                                          color: Color(
-                                                                  0xff000000)
-                                                              .withOpacity(0.7),
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                                          color: Color(0xff000000).withOpacity(0.7),
+                                                          fontWeight: FontWeight.w500,
                                                           fontSize: 12,
                                                         ),
-                                                        controller:
-                                                            _otpControllers[
-                                                                index],
-                                                        cursorColor:
-                                                            Colors.black,
+                                                        controller: _otpControllers[index],
+                                                        cursorColor: Colors.black,
                                                         inputFormatters: [
-                                                          FilteringTextInputFormatter
-                                                              .allow(RegExp(
-                                                                  r'[0-9]')),
+                                                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                                                         ],
                                                         keyboardType:
-                                                            TextInputType
-                                                                .number,
-                                                        textAlign:
-                                                            TextAlign.center,
+                                                            TextInputType.number,
+                                                        textAlign: TextAlign.center,
                                                         maxLength: 1,
+                                                        focusNode: _focusNodes[index],
                                                         decoration:
                                                             InputDecoration(
                                                           contentPadding:
@@ -303,47 +314,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                         ),
                                                         validator: (value) {
                                                           return value!.isEmpty
-                                                              ? 'Please enter OTP'
+                                                              ? AppString
+                                                                  .enterotp
                                                               : null;
                                                         },
                                                         onChanged: (value) {
+                                                          _otpFieldFilledStatus[index] = value.isNotEmpty;
+                                                          bool allFieldsFilled = _otpFieldFilledStatus.every((filled) => filled);
                                                           setState(() {
-                                                            isOtpFieldEmpty =
-                                                                _otpControllers.any(
-                                                                    (controller) =>
-                                                                        controller
-                                                                            .text
-                                                                            .isEmpty);
+                                                            isOtpFieldEmpty = !allFieldsFilled;
                                                           });
-                                                          if (!isOtpFieldEmpty) {
-                                                            FocusScope.of(
-                                                                    context)
-                                                                .nextFocus();
-                                                          } else if (value
-                                                                  .isNotEmpty &&
-                                                              index == 5) {
-                                                            String enteredOTP =
-                                                                _otpControllers
-                                                                    .map((controller) =>
-                                                                        controller
-                                                                            .text)
-                                                                    .join();
-                                                            bool anyFieldEmpty =
-                                                                _otpControllers.any(
-                                                                    (controller) =>
-                                                                        controller
-                                                                            .text
-                                                                            .isEmpty);
-                                                            if (!anyFieldEmpty &&
-                                                                (_formKey
-                                                                        .currentState
-                                                                        ?.validate() ??
-                                                                    false)) {
-                                                              FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      passwordFocusNode);
-                                                            }
+                                                          if (value.isNotEmpty && index < 5) {
+                                                            FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
+                                                          } else if (value.isNotEmpty && index == 5) {
+                                                            FocusScope.of(context).requestFocus(newPasswordFocusNode);
                                                           }
                                                         },
                                                       ),
@@ -367,11 +351,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                     ),
                                                     children: [
                                                       TextSpan(
-                                                        text:
-                                                            'If you didn’t receive a code! ',
-                                                      ),
+                                                          text: AppString
+                                                              .didntrecieveCode),
                                                       TextSpan(
-                                                        text: 'Resend',
+                                                        text: AppString.resend,
                                                         style: GoogleFonts
                                                             .firaSans(
                                                           color:
@@ -388,7 +371,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 ),
                                                 Divider(),
                                                 Text(
-                                                  'Set the new password for your account so you can login and\naccess all features.',
+                                                  AppString.setnewPassword,
                                                   style: GoogleFonts.firaSans(
                                                     color: isOtpFieldEmpty
                                                         ? Colors.grey
@@ -404,11 +387,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 14,
                                                   ),
-                                                  focusNode: passwordFocusNode,
+                                                  focusNode: newPasswordFocusNode,
                                                   onFieldSubmitted: (_) {
                                                     FocusScope.of(context)
                                                         .requestFocus(
-                                                            confirmpassFocusNode);
+                                                        confirmPasswordFocusNode);
                                                   },
                                                   cursorHeight: 22,
                                                   obscuringCharacter: '*',
@@ -438,7 +421,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       },
                                                     ),
                                                     labelText:
-                                                        'Enter New Password',
+                                                        AppString.enternewpass,
                                                     labelStyle:
                                                         GoogleFonts.firaSans(
                                                       color: isOtpFieldEmpty
@@ -478,7 +461,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 ),
                                                 TextFormField(
                                                   focusNode:
-                                                      confirmpassFocusNode,
+                                                  confirmPasswordFocusNode,
                                                   onFieldSubmitted: (_) {
                                                     //_loginWithEmail();
                                                   },
@@ -517,7 +500,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       },
                                                     ),
                                                     labelText:
-                                                        'Confirm Password',
+                                                        AppString.confmpass,
                                                     labelStyle:
                                                         GoogleFonts.firaSans(
                                                       color: isOtpFieldEmpty
@@ -550,14 +533,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   validator: (value) {
                                                     if (value == null ||
                                                         value.isEmpty) {
-                                                      return 'Enter Confirm Password';
+                                                      return AppString
+                                                          .enterconfmpass;
                                                     }
                                                     return null;
                                                   },
                                                 ),
                                                 SizedBox(height: 12),
                                                 Center(
-                                                  child: Container(
+                                                  child: _isUpdatingPassword
+                                                      ? CircularProgressIndicator( color: ColorManager.blueprime)
+                                                      : Container(
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -573,36 +559,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       ],
                                                     ),
                                                     child: CustomButton(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              7,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              22,
-                                                      text: 'Update Password',
-                                                      backgroundColor:
-                                                          isOtpFieldEmpty
-                                                              ? Colors.grey
-                                                              : Color(
-                                                                  0xFF50B5E5),
+                                                      width: MediaQuery.of(context).size.width / 7,
+                                                      height: MediaQuery.of(context).size.height / 22,
+                                                      text: AppString.updatepass,
+                                                      backgroundColor: isOtpFieldEmpty ? Colors.grey : Color(0xFF50B5E5),
                                                       onPressed: () async {
-                                                        if (_formKey
-                                                            .currentState!
-                                                            .validate()) {
-                                                          if (controllerNew
-                                                                  .text !=
-                                                              controllerConfirm
-                                                                  .text) {
+                                                        if (_formKey.currentState!.validate()) {
+                                                          if (controllerNew.text != controllerConfirm.text) {
                                                             setState(() {
                                                               _errorMessage =
                                                                   'Passwords do not match.';
                                                             });
                                                             return;
                                                           }
+                                                          setState(() {
+                                                            _isUpdatingPassword = true;
+                                                          });
                                                           try {
                                                             await ConfirmPassManager()
                                                                 .confirmPassword(
@@ -654,7 +626,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                               125,
                                                                         ),
                                                                         Text(
-                                                                          'Successfully',
+                                                                          AppString
+                                                                              .successfully,
                                                                           style:
                                                                               GoogleFonts.firaSans(
                                                                             fontSize:
@@ -666,7 +639,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          'Your password has been reset successfully',
+                                                                          AppString
+                                                                              .resetsuccessfully,
                                                                           style:
                                                                               GoogleFonts.firaSans(
                                                                             fontSize:
@@ -683,7 +657,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           height:
                                                                               46,
                                                                           text:
-                                                                              'CONTINUE',
+                                                                              AppString.continuebutton,
                                                                           borderRadius:
                                                                               28,
                                                                           onPressed:
@@ -721,7 +695,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           .center,
                                                                   children: [
                                                                     Text(
-                                                                      'Only Three Times you can change the password',
+                                                                      AppString
+                                                                          .threetimepasscanchange,
                                                                       style: GoogleFonts
                                                                           .firaSans(
                                                                         fontSize:
@@ -733,7 +708,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                       ),
                                                                     ),
                                                                     Text(
-                                                                      'You Cannot change the password today',
+                                                                      AppString
+                                                                          .cannotchangepass,
                                                                       style: GoogleFonts
                                                                           .firaSans(
                                                                         fontSize:
@@ -771,6 +747,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                 'Error occurred while confirming password: $e');
                                                             // Handle error
                                                           }
+                                                          finally{
+                                                            setState(() {
+                                                              _isUpdatingPassword = false;
+                                                            });
+                                                          }
                                                         }
                                                       },
                                                     ),
@@ -807,10 +788,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                           4.5),
                                   child: GestureDetector(
                                     onTap: () {
-                                      updatePassword();
+                                     // updatePassword();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                                      );
                                     },
                                     child: Text(
-                                      'Back to login',
+                                      AppString.backtologin,
                                       textAlign: TextAlign.right,
                                       style: GoogleFonts.firaSans(
                                         color: Color(0xff1696C8),
@@ -839,70 +824,3 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 }
-// CustomButton(
-//   width: MediaQuery.of(context).size.width / 7,
-//   height: MediaQuery.of(context).size.height / 22,
-//   text: 'Update Password',
-//   backgroundColor: isOtpFieldEmpty? Colors.grey : Color(0xFF50B5E5),
-//   onPressed: () async{
-//     if(_formKey.currentState!.validate()) {
-//       if (controllerNew.text != controllerConfirm.text) {
-//         setState(() {
-//           _errorMessage = 'Passwords do not match.';
-//         });
-//         return;
-//       }
-//       showDialog(
-//           context: context,
-//           builder: (BuildContext context) {
-//             return AlertDialog(
-//                 backgroundColor: Colors.white,
-//                 content: Container(
-//                   padding: EdgeInsets.only(top: 25),
-//                   height: 400,
-//                   width: 500,
-//                   child: Column(
-//                     mainAxisAlignment:
-//                     MainAxisAlignment.spaceEvenly,
-//                     crossAxisAlignment: CrossAxisAlignment
-//                         .center,
-//                     children: [
-//                       Image.asset(
-//                         'images/upload.png',
-//                         width: 125,
-//                         height: 125,
-//                       ),
-//                       Text(
-//                         'Successfully',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 30,
-//                           color: Color(0xff686464),
-//                           fontWeight: FontWeight.w700,),
-//                       ),
-//                       Text(
-//                         'Your password has been reset successfully',
-//                         style: GoogleFonts.firaSans(
-//                           fontSize: 12,
-//                           color: Color(0xff686464),
-//                           fontWeight: FontWeight.w500,),
-//                       ),
-//                       CustomButton(
-//                           width: 182,
-//                           height: 46,
-//                           text: 'CONTINUE',
-//                           borderRadius: 28,
-//                           onPressed: () {
-//                             Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                     builder: (context) =>
-//                                         LoginScreen()));
-//                           })
-//                     ],
-//                   ),
-//                 ));
-//           });
-//     }
-//     //   Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordVerifyScreen()));
-//   },
-// ),

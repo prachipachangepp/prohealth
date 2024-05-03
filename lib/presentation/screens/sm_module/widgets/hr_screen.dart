@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/hr_clinical.dart';
 
@@ -56,7 +55,7 @@ class HrWidget extends StatelessWidget {
               elevation: 4,
               borderRadius: BorderRadius.circular(20),
               child: Container(
-              //  height: MediaQuery.of(context).size.height / 22,
+                //  height: MediaQuery.of(context).size.height / 22,
                 height: 30,
                 width: MediaQuery.of(context).size.width / 2.99,
                 decoration: BoxDecoration(
@@ -84,12 +83,11 @@ class HrWidget extends StatelessWidget {
                               entry.value,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 8, // Example font size
-                                fontWeight:
-                                    FontWeight.bold, // Example font weight
+                                fontSize: 8,
+                                fontWeight: FontWeight.bold,
                                 color: selectedIndex == entry.key
                                     ? Color(0xff50B5E5)
-                                    : Colors.black, // Example text color
+                                    : Colors.black,
                               ),
                             ),
                           ),
@@ -104,7 +102,8 @@ class HrWidget extends StatelessWidget {
           Expanded(
             flex: 10,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/60),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 60),
               child: PageView(
                 controller: hrPageController,
                 physics: NeverScrollableScrollPhysics(),

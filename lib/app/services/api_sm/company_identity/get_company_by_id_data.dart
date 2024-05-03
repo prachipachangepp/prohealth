@@ -32,7 +32,8 @@ class CompanyDataGet {
       contact: Contact.fromJson(json['contact']),
       address: json['address'],
       headOfficeId: json['head_office_id'],
-      offices: List<Office>.from(json['offices'].map((office) => Office.fromJson(office))),
+      offices: List<Office>.from(
+          json['offices'].map((office) => Office.fromJson(office))),
     );
   }
 }
@@ -114,8 +115,12 @@ class Office {
       email: json['email'],
       phones: List<String>.from(json['phones']),
       zones: json['zones'] != null ? List<String>.from(json['zones']) : [],
-      services: List<Service>.from(json['services'].map((service) => Service.fromJson(service))),
-      documents: json['documents'] != null ? List<Document>.from(json['documents'].map((doc) => Document.fromJson(doc))) : [],
+      services: List<Service>.from(
+          json['services'].map((service) => Service.fromJson(service))),
+      documents: json['documents'] != null
+          ? List<Document>.from(
+              json['documents'].map((doc) => Document.fromJson(doc)))
+          : [],
     );
   }
 }
@@ -169,7 +174,6 @@ class Document {
   }
 }
 
-
 class CorporateDocs {
   final List<License> licenses;
 
@@ -179,7 +183,8 @@ class CorporateDocs {
 
   factory CorporateDocs.fromJson(Map<String, dynamic> json) {
     return CorporateDocs(
-      licenses: List<License>.from(json['licenses'].map((x) => License.fromJson(x))),
+      licenses:
+          List<License>.from(json['licenses'].map((x) => License.fromJson(x))),
     );
   }
 }
@@ -199,7 +204,8 @@ class License {
     return License(
       docId: json['doc_id'],
       docName: json['doc_name'],
-      docData: List<DocData>.from(json['doc_data'].map((x) => DocData.fromJson(x))),
+      docData:
+          List<DocData>.from(json['doc_data'].map((x) => DocData.fromJson(x))),
     );
   }
 }
@@ -250,7 +256,8 @@ class InsuranceContracts {
 
   factory InsuranceContracts.fromJson(Map<String, dynamic> json) {
     return InsuranceContracts(
-      noSubtype: List<InsuranceContract>.from(json['no_subtype'].map((x) => InsuranceContract.fromJson(x))),
+      noSubtype: List<InsuranceContract>.from(
+          json['no_subtype'].map((x) => InsuranceContract.fromJson(x))),
     );
   }
 }
@@ -270,7 +277,8 @@ class InsuranceContract {
     return InsuranceContract(
       docId: json['doc_id'],
       docName: json['doc_name'],
-      docData: List<DocData>.from(json['doc_data'].map((x) => DocData.fromJson(x))),
+      docData:
+          List<DocData>.from(json['doc_data'].map((x) => DocData.fromJson(x))),
     );
   }
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/resources/color.dart';
-import 'package:prohealth/resources/const_string.dart';
-import 'package:prohealth/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/profile_bar.dart';
-import 'package:prohealth/resources/value_manager.dart';
+
+import '../../../../app/resources/color.dart';
+import '../../../../app/resources/const_string.dart';
+import '../../../../app/resources/theme_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 
 ///saloni
 class RegisterScreen extends StatelessWidget {

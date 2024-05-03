@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/resources/color.dart';
-import 'package:prohealth/resources/const_string.dart';
-import 'package:prohealth/resources/theme_manager.dart';
-import 'package:prohealth/resources/value_manager.dart';
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
 
 class AcknowledgementTab extends StatelessWidget {
   const AcknowledgementTab({Key? key}) : super(key: key);

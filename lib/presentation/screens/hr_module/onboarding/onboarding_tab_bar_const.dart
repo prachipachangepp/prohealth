@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
-import 'package:prohealth/resources/font_manager.dart';
-import 'package:prohealth/resources/theme_manager.dart';
-import 'package:prohealth/resources/value_manager.dart';
-import '../../../../resources/color.dart';
+
+import '../../../../app/resources/color.dart';
+import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/theme_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 
 ///prachi
 class OnboardingTabBar extends StatelessWidget {
