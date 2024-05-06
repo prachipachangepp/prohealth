@@ -8,6 +8,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
+
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/services/api_hr/forgot_pass/forgot_pass_manager.dart';
 
@@ -36,11 +37,38 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
+          PageRouteBuilder(
+            transitionDuration:
+                Duration(milliseconds: 500), // Adjust the duration as needed
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                LoginScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              const begin = Offset(1.0, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              // Apply the translation to the child's position
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ),
         );
+
+        ///
+        //
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => LoginScreen()),
+        // );
       },
       textActionPadding:
-      EdgeInsets.only(left: MediaQuery.of(context).size.width / 4.5),
+          EdgeInsets.only(left: MediaQuery.of(context).size.width / 4.5),
       titleText: AppString.forgotpassword,
       textAction: AppString.backtologin,
       child: Padding(
