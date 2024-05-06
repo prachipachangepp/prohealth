@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
                               style: GoogleFonts.firaSans(
-                                color: Color(0xff000000).withOpacity(0.5),
+                                color: ColorManager.black.withOpacity(0.5),
                                 fontWeight: FontWeightManager.medium,
                                 fontSize: FontSize.s14,
                               ),
@@ -176,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 FocusScope.of(context)
                                     .requestFocus(passwordFocusNode);
                               },
-                              cursorColor: Colors.black,
+                              cursorColor: ColorManager.black,
                               cursorHeight: 22,
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
@@ -184,12 +184,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 contentPadding: const EdgeInsets.only(top: 1),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff000000).withOpacity(0.5),
+                                      color: ColorManager.black.withOpacity(0.5),
                                       width: 0.5),
                                 ),
                                 labelText: AppString.email,
                                 labelStyle: GoogleFonts.firaSans(
-                                  color: Color(0xff000000).withOpacity(0.3),
+                                  color: ColorManager.black.withOpacity(0.3),
                                   fontSize: FontSize.s14,
                                   fontWeight: FontWeightManager.medium,
                                 ),
@@ -209,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
                               style: GoogleFonts.firaSans(
-                                color: Color(0xff000000).withOpacity(0.5),
+                                color: ColorManager.black.withOpacity(0.5),
                                 fontWeight: FontWeightManager.medium,
                                 fontSize: FontSize.s14,
                               ),
@@ -226,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                                 // _loginWithEmail();
                               },
-                              cursorColor: Colors.black,
+                              cursorColor: ColorManager.black,
                               controller: _passwordController,
                               keyboardType: TextInputType.visiblePassword,
                               obscuringCharacter: '*',
@@ -235,12 +235,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 contentPadding: const EdgeInsets.only(top: 2),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff000000).withOpacity(0.5),
+                                      color: ColorManager.black.withOpacity(0.5),
                                       width: 0.5),
                                 ),
                                 labelText: AppString.password,
                                 labelStyle: CustomTextStylesCommon.commonStyle(
-                                  color: Color(0xff000000).withOpacity(0.3),
+                                  color: ColorManager.black.withOpacity(0.3),
                                   fontSize: FontSize.s14,
                                   fontWeight: FontWeightManager.medium,
                                 ),
@@ -270,18 +270,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               obscureText: !_isPasswordVisible,
                             ),
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 120,
-                          ),
+                          SizedBox(height: MediaQuery.of(context).size.height / 120,),
                           _isLoading
                               ? Center(
                                   child: SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 20,
-                                    width:
-                                        MediaQuery.of(context).size.height / 18,
-                                    child: CircularProgressIndicator(
-                                        color: ColorManager.blueprime),
+                                    height: MediaQuery.of(context).size.height / 20,
+                                    width: MediaQuery.of(context).size.height / 18,
+                                    child: CircularProgressIndicator(color: ColorManager.blueprime),
                                   ),
                                 )
                               : !_loginSuccessful
@@ -301,14 +296,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         child: CustomButton(
                                           borderRadius: 28,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              20,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              5.5,
+                                          height: MediaQuery.of(context).size.height / 20,
+                                          width: MediaQuery.of(context).size.height / 5.5,
                                           text: AppString.loginbtn,
                                           onPressed: () {
                                             if (_formKey.currentState!
@@ -345,10 +334,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.firaSans(
                                     color: ColorManager.red,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width /
-                                            110),
+                                    fontWeight: FontWeightManager.extrabold,
+                                    fontSize: MediaQuery.of(context).size.width / 110),
                               ),
                             ),
                         ],
@@ -368,12 +355,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: _showEmailInput
                               ? [
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: AppPadding.p5),
+                                    padding: const EdgeInsets.symmetric(horizontal: AppPadding.p5),
                                     child: TextFormField(
                                       style: CustomTextStylesCommon.commonStyle(
-                                        color:
-                                            Color(0xff000000).withOpacity(0.5),
+                                        color:ColorManager.black.withOpacity(0.5),
                                         fontWeight: FontWeightManager.medium,
                                         fontSize: FontSize.s14,
                                       ),
@@ -382,19 +367,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       cursorColor: Colors.black,
                                       cursorHeight: 22,
                                       decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.only(top: 1),
+                                        contentPadding: const EdgeInsets.only(top: 1),
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Color(0xff000000)
-                                                  .withOpacity(0.5),
+                                              color: ColorManager.black.withOpacity(0.5),
                                               width: 0.5),
                                         ),
                                         labelText: AppString.email,
-                                        labelStyle:
-                                            CustomTextStylesCommon.commonStyle(
-                                          color: Color(0xff000000)
-                                              .withOpacity(0.3),
+                                        labelStyle: CustomTextStylesCommon.commonStyle(
+                                          color: ColorManager.black.withOpacity(0.3),
                                           fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.medium,
                                         ),
@@ -410,10 +391,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       },
                                     ),
                                   ),
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 15,
-                                  ),
+                                  SizedBox(height: MediaQuery.of(context).size.height / 15,),
 
                                   ///next button
                                   Center(
@@ -423,16 +401,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     child: CustomButton(
                                       borderRadius: 28,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              20,
-                                      width:
-                                          MediaQuery.of(context).size.height /
-                                              5.5,
+                                      height: MediaQuery.of(context).size.height / 20,
+                                      width: MediaQuery.of(context).size.height / 5.5,
                                       text: AppString.next,
                                       onPressed: () {
-                                        if (_formKey.currentState?.validate() ??
-                                            false) {
+                                        if (_formKey.currentState?.validate() ?? false) {
                                           setState(() {
                                             _showEmailInput = false;
                                           });
@@ -446,15 +419,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ///
                                   Center(
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: List.generate(
                                         4,
                                         (index) => Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              40,
+                                          width: MediaQuery.of(context).size.width / 40,
                                           height: AppSize.s40,
                                           margin: EdgeInsets.symmetric(
                                               horizontal: AppPadding.p10),
@@ -471,49 +440,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                             textAlign: TextAlign.center,
                                             maxLength: 1,
                                             decoration: InputDecoration(
-                                              contentPadding:
-                                                  const EdgeInsets.only(top: 2),
+                                              contentPadding: const EdgeInsets.only(top: 2),
                                               counterText: '',
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: ColorManager.black,
-                                                  width: 2,
-                                                ),
+                                              focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(color: ColorManager.black, width: 2,),
                                               ),
                                             ),
                                             validator: (value) {
-                                              return value!.isEmpty
-                                                  ? AppString.otp
-                                                  : null;
+                                              return value!.isEmpty ? AppString.otp : null;
                                             },
                                             onChanged: (value) {
                                               if (value.isNotEmpty &&
-                                                  index < 3) {
-                                                FocusScope.of(context)
-                                                    .nextFocus();
-                                              } else if (value.isNotEmpty &&
-                                                  index == 3) {
-                                                String enteredOTP =
-                                                    _otpControllers
-                                                        .map((controller) =>
-                                                            controller.text)
-                                                        .join();
-                                                bool anyFieldEmpty =
-                                                    _otpControllers
-                                                        .any((controller) =>
-                                                            controller
-                                                                .text.isEmpty);
-                                                if (!anyFieldEmpty &&
-                                                    (_formKey.currentState
-                                                            ?.validate() ??
-                                                        false)) {
+                                                  index < 3) {FocusScope.of(context).nextFocus();
+                                              } else if (value.isNotEmpty && index == 3) {
+                                                String enteredOTP = _otpControllers.map((controller) => controller.text).join();
+                                                bool anyFieldEmpty = _otpControllers.any((controller) => controller.text.isEmpty);
+                                                if (!anyFieldEmpty && (_formKey.currentState?.validate() ?? false)) {
                                                   VerifyOTPService
-                                                      .verifyOTPAndLogin(
-                                                    context,
-                                                    _emailController.text,
-                                                    enteredOTP,
-                                                    (message) {
+                                                      .verifyOTPAndLogin(context, _emailController.text, enteredOTP, (message) {
                                                       print(message);
                                                     },
                                                   );
@@ -529,10 +473,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 20,
-                                  ),
+                                  SizedBox(height: MediaQuery.of(context).size.height / 20,),
                                   RichText(
                                     text: TextSpan(
                                       style: CustomTextStylesCommon.commonStyle(
@@ -541,37 +482,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: ColorManager.grey,
                                       ),
                                       children: [
-                                        TextSpan(
-                                          text: AppString.didntreccode,
-                                        ),
+                                        TextSpan(text: AppString.didntreccode,),
                                         TextSpan(
                                           text: AppString.resend,
                                           style: GoogleFonts.firaSans(
                                             color: ColorManager.blueprime,
                                           ),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () {
-                                              // Handle resend OTP
-                                            },
+                                          recognizer: TapGestureRecognizer()..onTap = () {// Handle resend OTP
+                                             },
                                         ),
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 20,
-                                  ),
-
+                                  SizedBox(height: MediaQuery.of(context).size.height / 20,),
                                   ///login button auth
                                   if (_errorLoginMessage != null)
-                                    Text(_errorLoginMessage!,
-                                        style: TextStyle(color: Colors.red)),
+                                    Text(_errorLoginMessage!, style: TextStyle(color: ColorManager.rednew)),
                                   if (!_isLoggingIn)
                                     Center(
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(14),
+                                          borderRadius: BorderRadius.circular(14),
                                           boxShadow: [
                                             BoxShadow(
                                               color: Color(0x40000000),
@@ -583,14 +514,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         child: CustomButton(
                                           borderRadius: 28,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              20,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              5.5,
+                                          height: MediaQuery.of(context).size.height / 20,
+                                          width: MediaQuery.of(context).size.height / 5.5,
                                           text: AppString.loginbtn,
                                           onPressed: () async {
                                             String enteredEmail =

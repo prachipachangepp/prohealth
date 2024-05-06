@@ -12,7 +12,6 @@ import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_b
 
 import '../../../../app/resources/const_string.dart';
 
-
 class ForgotPassScreen extends StatefulWidget {
   ForgotPassScreen({Key? key}) : super(key: key);
 
@@ -25,7 +24,6 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   FocusNode emailFocusNode = FocusNode();
-  
   ForgotPassManager _forgotPassManager = ForgotPassManager();
   int _passwordChangeAttempts = 0;
   final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
