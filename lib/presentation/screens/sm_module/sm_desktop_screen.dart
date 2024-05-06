@@ -450,6 +450,49 @@ class SMDesktop extends StatelessWidget {
                               SizedBox(
                                 width: 10,
                               ),
+                              // Obx(
+                              //   () => DropdownButton<String>(
+                              //     icon: Icon(Icons.arrow_drop_down),
+                              //     style: TextStyle(color: Colors.white),
+                              //     dropdownColor: Colors.blue,
+                              //     elevation: 2,
+                              //     underline: Container(
+                              //       height: 2,
+                              //       color: Colors.blue,
+                              //     ),
+                              //     value: myController.selectedIndex.value == 2
+                              //         ? 'HR'
+                              //         : 'Finance',
+                              //     onChanged: (String? newValue) {
+                              //       // Accepts a nullable String argument
+                              //       if (newValue == 'HR') {
+                              //         myController.selectButton(2);
+                              //         _pageController.animateToPage(
+                              //           2,
+                              //           duration: Duration(milliseconds: 500),
+                              //           curve: Curves.ease,
+                              //         );
+                              //       } else if (newValue == 'Finance') {
+                              //         myController.selectButton(3);
+                              //         _pageController.animateToPage(
+                              //           3,
+                              //           duration: Duration(milliseconds: 500),
+                              //           curve: Curves.ease,
+                              //         );
+                              //       }
+                              //     },
+                              //     items: ['HR', 'Finance']
+                              //         .map<DropdownMenuItem<String>>(
+                              //       (String value) {
+                              //         return DropdownMenuItem<String>(
+                              //           value: value,
+                              //           child: Text(value),
+                              //         );
+                              //       },
+                              //     ).toList(),
+                              //   ),
+                              // )
+                              ///main
                               Obx(() => CustomDropdownButton(
                                     height: 35,
                                     width: 130,

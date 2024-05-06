@@ -3,8 +3,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
-import 'package:prohealth/presentation/screens/sm_module/responsive_screen_sm.dart';
-import 'package:prohealth/presentation/tablet_screen/tab_screen.dart';
 import 'package:prohealth/presentation/widgets/responsive_screens.dart';
 
 void main() {
@@ -17,14 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: "/",
-      home:
-      //TabletScreen()
-        //ResponsiveScreenSM()
-          ResponsivePage(
-        controller: myController,
-      ),
-    );
+        debugShowCheckedModeBanner: false,
+        initialRoute: "/",
+        home:
+            // MobileLogIn()
+            ///
+            //  ResponsiveScreenSM()
+            ///
+            ResponsivePage(
+          controller: myController,
+        ));
   }
 }
