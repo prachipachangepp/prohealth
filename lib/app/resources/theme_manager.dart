@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+
+import 'color.dart';
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
@@ -29,7 +32,7 @@ class ThemeManagerLightblue {
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xff2B647F),
-      fontWeight: FontWeight.w600,
+      fontWeight:  FontWeightManager.semiBold,
     );
   }
 }
@@ -109,7 +112,47 @@ class AknowledgementStyleConst {
     );
   }
 }
+///profile bar
+class ProfileBarConst{
+  static TextStyle profileTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      fontSize: FontSize.s8,
+      color: ColorManager.primary,
+      decoration: TextDecoration.underline,
+      decorationColor: Colors.blueAccent,
+    );
+  }
+}
 
+class ProfileBarConstText{
+  static TextStyle profileTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+    fontSize: FontSize.s10,
+    color: ColorManager.darktgrey,
+    fontWeight: FontWeightManager.semiBold,
+    );
+  }
+}
+
+class ProfileBarLastColText{
+  static TextStyle profileTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      fontSize: FontSize.s10,
+      color: ColorManager.bluelight,
+      fontWeight:  FontWeightManager.semiBold,
+    );
+  }
+}
+
+class ProfileBarClipText{
+  static TextStyle profileTextStyle(BuildContext context) {
+    return GoogleFonts.firaSans(
+      fontSize: MediaQuery.of(context).size.width / 140,
+      color: ColorManager.white,
+      fontWeight:  FontWeightManager.semiBold,
+    );
+  }
+}
 ///common theme
 class CustomTextStylesCommon {
   static TextStyle commonStyle({

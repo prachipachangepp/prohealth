@@ -2,16 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:js';
 import 'dart:ui';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/services/login_flow_api/confirm_pass/confirm_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
+
 import '../../../../app/resources/color.dart';
-import '../../../../app/services/api_hr/confirm_pass/confirm_pass_manager.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   final String email;
@@ -24,9 +26,9 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController controllerNew = TextEditingController();
   final TextEditingController controllerConfirm = TextEditingController();
-  List<TextEditingController> _otpControllers = List.generate(6, (_) => TextEditingController());
-  List<FocusNode> _focusNodes =
-  List.generate(6, (_) => FocusNode());
+  List<TextEditingController> _otpControllers =
+      List.generate(6, (_) => TextEditingController());
+  List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
   bool _obscureText = true;
   bool _obscureTextconfirm = true;
   final _formKey = GlobalKey<FormState>();
@@ -268,13 +270,24 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   ),
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: List.generate(
                                                     6,
                                                     (index) => Container(
-                                                      width: MediaQuery.of(context).size.width / 40,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              40,
                                                       height: 40,
-                                                      margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 200),
+                                                      margin: EdgeInsets.symmetric(
+                                                          horizontal:
+                                                              MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  200),
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
@@ -288,20 +301,31 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       child: TextFormField(
                                                         style: GoogleFonts
                                                             .firaSans(
-                                                          color: Color(0xff000000).withOpacity(0.7),
-                                                          fontWeight: FontWeight.w500,
+                                                          color: Color(
+                                                                  0xff000000)
+                                                              .withOpacity(0.7),
+                                                          fontWeight:
+                                                              FontWeight.w500,
                                                           fontSize: 12,
                                                         ),
-                                                        controller: _otpControllers[index],
-                                                        cursorColor: Colors.black,
+                                                        controller:
+                                                            _otpControllers[
+                                                                index],
+                                                        cursorColor:
+                                                            Colors.black,
                                                         inputFormatters: [
-                                                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
                                                         ],
                                                         keyboardType:
-                                                            TextInputType.number,
-                                                        textAlign: TextAlign.center,
+                                                            TextInputType
+                                                                .number,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         maxLength: 1,
-                                                        focusNode: _focusNodes[index],
+                                                        focusNode:
+                                                            _focusNodes[index],
                                                         decoration:
                                                             InputDecoration(
                                                           contentPadding:
@@ -319,15 +343,34 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                               : null;
                                                         },
                                                         onChanged: (value) {
-                                                          _otpFieldFilledStatus[index] = value.isNotEmpty;
-                                                          bool allFieldsFilled = _otpFieldFilledStatus.every((filled) => filled);
+                                                          _otpFieldFilledStatus[
+                                                                  index] =
+                                                              value.isNotEmpty;
+                                                          bool allFieldsFilled =
+                                                              _otpFieldFilledStatus
+                                                                  .every(
+                                                                      (filled) =>
+                                                                          filled);
                                                           setState(() {
-                                                            isOtpFieldEmpty = !allFieldsFilled;
+                                                            isOtpFieldEmpty =
+                                                                !allFieldsFilled;
                                                           });
-                                                          if (value.isNotEmpty && index < 5) {
-                                                            FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
-                                                          } else if (value.isNotEmpty && index == 5) {
-                                                            FocusScope.of(context).requestFocus(newPasswordFocusNode);
+                                                          if (value
+                                                                  .isNotEmpty &&
+                                                              index < 5) {
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(
+                                                                    _focusNodes[
+                                                                        index +
+                                                                            1]);
+                                                          } else if (value
+                                                                  .isNotEmpty &&
+                                                              index == 5) {
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(
+                                                                    newPasswordFocusNode);
                                                           }
                                                         },
                                                       ),
@@ -387,11 +430,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 14,
                                                   ),
-                                                  focusNode: newPasswordFocusNode,
+                                                  focusNode:
+                                                      newPasswordFocusNode,
                                                   onFieldSubmitted: (_) {
                                                     FocusScope.of(context)
                                                         .requestFocus(
-                                                        confirmPasswordFocusNode);
+                                                            confirmPasswordFocusNode);
                                                   },
                                                   cursorHeight: 22,
                                                   obscuringCharacter: '*',
@@ -461,7 +505,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 ),
                                                 TextFormField(
                                                   focusNode:
-                                                  confirmPasswordFocusNode,
+                                                      confirmPasswordFocusNode,
                                                   onFieldSubmitted: (_) {
                                                     //_loginWithEmail();
                                                   },
@@ -542,220 +586,217 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 SizedBox(height: 12),
                                                 Center(
                                                   child: _isUpdatingPassword
-                                                      ? CircularProgressIndicator( color: ColorManager.blueprime)
+                                                      ? CircularProgressIndicator(
+                                                          color: ColorManager
+                                                              .blueprime)
                                                       : Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              14),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color:
-                                                              Color(0x40000000),
-                                                          offset: Offset(0, 4),
-                                                          blurRadius: 4,
-                                                          spreadRadius: 0,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: CustomButton(
-                                                      width: MediaQuery.of(context).size.width / 7,
-                                                      height: MediaQuery.of(context).size.height / 22,
-                                                      text: AppString.updatepass,
-                                                      backgroundColor: isOtpFieldEmpty ? Colors.grey : Color(0xFF50B5E5),
-                                                      onPressed: () async {
-                                                        if (_formKey.currentState!.validate()) {
-                                                          if (controllerNew.text != controllerConfirm.text) {
-                                                            setState(() {
-                                                              _errorMessage =
-                                                                  'Passwords do not match.';
-                                                            });
-                                                            return;
-                                                          }
-                                                          setState(() {
-                                                            _isUpdatingPassword = true;
-                                                          });
-                                                          try {
-                                                            await ConfirmPassManager()
-                                                                .confirmPassword(
-                                                              widget.email,
-                                                              _otpControllers
-                                                                  .map((controller) =>
-                                                                      controller
-                                                                          .text)
-                                                                  .join(),
-                                                              controllerNew
-                                                                  .text,
-                                                            );
-                                                            print(
-                                                                '${widget.email}');
-                                                            print(
-                                                                '${controllerNew.text}');
-                                                            showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (BuildContext
-                                                                      context) {
-                                                                return AlertDialog(
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  content:
-                                                                      Container(
-                                                                    padding: EdgeInsets
-                                                                        .only(
-                                                                            top:
-                                                                                25),
-                                                                    height: 400,
-                                                                    width: 500,
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceEvenly,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Image
-                                                                            .asset(
-                                                                          'images/upload.png',
-                                                                          width:
-                                                                              125,
-                                                                          height:
-                                                                              125,
-                                                                        ),
-                                                                        Text(
-                                                                          AppString
-                                                                              .successfully,
-                                                                          style:
-                                                                              GoogleFonts.firaSans(
-                                                                            fontSize:
-                                                                                30,
-                                                                            color:
-                                                                                Color(0xff686464),
-                                                                            fontWeight:
-                                                                                FontWeight.w700,
-                                                                          ),
-                                                                        ),
-                                                                        Text(
-                                                                          AppString
-                                                                              .resetsuccessfully,
-                                                                          style:
-                                                                              GoogleFonts.firaSans(
-                                                                            fontSize:
-                                                                                12,
-                                                                            color:
-                                                                                Color(0xff686464),
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                        ),
-                                                                        CustomButton(
-                                                                          width:
-                                                                              182,
-                                                                          height:
-                                                                              46,
-                                                                          text:
-                                                                              AppString.continuebutton,
-                                                                          borderRadius:
-                                                                              28,
-                                                                          onPressed:
-                                                                              () {
-                                                                            Navigator.push(
-                                                                              context,
-                                                                              MaterialPageRoute(builder: (context) => LoginScreen()),
-                                                                            );
-                                                                          },
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              },
-                                                            );
-                                                          } catch (e) {
-                                                            AlertDialog(
-                                                              backgroundColor:
-                                                                  Colors.white,
-                                                              content:
-                                                                  Container(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        top:
-                                                                            25),
-                                                                height: 400,
-                                                                width: 500,
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceEvenly,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Text(
-                                                                      AppString
-                                                                          .threetimepasscanchange,
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            30,
-                                                                        color: Color(
-                                                                            0xff686464),
-                                                                        fontWeight:
-                                                                            FontWeight.w700,
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                      AppString
-                                                                          .cannotchangepass,
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize:
-                                                                            12,
-                                                                        color: Color(
-                                                                            0xff686464),
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                      ),
-                                                                    ),
-                                                                    CustomButton(
-                                                                      width:
-                                                                          182,
-                                                                      height:
-                                                                          46,
-                                                                      text:
-                                                                          'CONTINUE',
-                                                                      borderRadius:
-                                                                          28,
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator
-                                                                            .push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                              builder: (context) => LoginScreen()),
-                                                                        );
-                                                                      },
-                                                                    )
-                                                                  ],
-                                                                ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        14),
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                color: Color(
+                                                                    0x40000000),
+                                                                offset: Offset(
+                                                                    0, 4),
+                                                                blurRadius: 4,
+                                                                spreadRadius: 0,
                                                               ),
-                                                            );
-                                                            print(
-                                                                'Error occurred while confirming password: $e');
-                                                            // Handle error
-                                                          }
-                                                          finally{
-                                                            setState(() {
-                                                              _isUpdatingPassword = false;
-                                                            });
-                                                          }
-                                                        }
-                                                      },
-                                                    ),
-                                                  ),
+                                                            ],
+                                                          ),
+                                                          child: CustomButton(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                7,
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height /
+                                                                22,
+                                                            text: AppString
+                                                                .updatepass,
+                                                            backgroundColor:
+                                                                isOtpFieldEmpty
+                                                                    ? Colors
+                                                                        .grey
+                                                                    : Color(
+                                                                        0xFF50B5E5),
+                                                            onPressed:
+                                                                () async {
+                                                              if (_formKey
+                                                                  .currentState!
+                                                                  .validate()) {
+                                                                if (controllerNew
+                                                                        .text !=
+                                                                    controllerConfirm
+                                                                        .text) {
+                                                                  setState(() {
+                                                                    _errorMessage =
+                                                                        'Passwords do not match.';
+                                                                  });
+                                                                  return;
+                                                                }
+                                                                setState(() {
+                                                                  _isUpdatingPassword =
+                                                                      true;
+                                                                });
+                                                                try {
+                                                                  await ConfirmPassManager()
+                                                                      .confirmPassword(
+                                                                    widget
+                                                                        .email,
+                                                                    _otpControllers
+                                                                        .map((controller) =>
+                                                                            controller.text)
+                                                                        .join(),
+                                                                    controllerNew
+                                                                        .text,
+                                                                  );
+                                                                  print(
+                                                                      '${widget.email}');
+                                                                  print(
+                                                                      '${controllerNew.text}');
+                                                                  showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (BuildContext
+                                                                            context) {
+                                                                      return AlertDialog(
+                                                                        backgroundColor:
+                                                                            Colors.white,
+                                                                        content:
+                                                                            Container(
+                                                                          padding:
+                                                                              EdgeInsets.only(top: 25),
+                                                                          height:
+                                                                              400,
+                                                                          width:
+                                                                              500,
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceEvenly,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.center,
+                                                                            children: [
+                                                                              Image.asset(
+                                                                                'images/upload.png',
+                                                                                width: 125,
+                                                                                height: 125,
+                                                                              ),
+                                                                              Text(
+                                                                                AppString.successfully,
+                                                                                style: GoogleFonts.firaSans(
+                                                                                  fontSize: 30,
+                                                                                  color: Color(0xff686464),
+                                                                                  fontWeight: FontWeight.w700,
+                                                                                ),
+                                                                              ),
+                                                                              Text(
+                                                                                AppString.resetsuccessfully,
+                                                                                style: GoogleFonts.firaSans(
+                                                                                  fontSize: 12,
+                                                                                  color: Color(0xff686464),
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                ),
+                                                                              ),
+                                                                              CustomButton(
+                                                                                width: 182,
+                                                                                height: 46,
+                                                                                text: AppString.continuebutton,
+                                                                                borderRadius: 28,
+                                                                                onPressed: () {
+                                                                                  Navigator.push(
+                                                                                    context,
+                                                                                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                                                                                  );
+                                                                                },
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                } catch (e) {
+                                                                  AlertDialog(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    content:
+                                                                        Container(
+                                                                      padding: EdgeInsets
+                                                                          .only(
+                                                                              top: 25),
+                                                                      height:
+                                                                          400,
+                                                                      width:
+                                                                          500,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            AppString.threetimepasscanchange,
+                                                                            style:
+                                                                                GoogleFonts.firaSans(
+                                                                              fontSize: 30,
+                                                                              color: Color(0xff686464),
+                                                                              fontWeight: FontWeight.w700,
+                                                                            ),
+                                                                          ),
+                                                                          Text(
+                                                                            AppString.cannotchangepass,
+                                                                            style:
+                                                                                GoogleFonts.firaSans(
+                                                                              fontSize: 12,
+                                                                              color: Color(0xff686464),
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                          ),
+                                                                          CustomButton(
+                                                                            width:
+                                                                                182,
+                                                                            height:
+                                                                                46,
+                                                                            text:
+                                                                                'CONTINUE',
+                                                                            borderRadius:
+                                                                                28,
+                                                                            onPressed:
+                                                                                () {
+                                                                              Navigator.push(
+                                                                                context,
+                                                                                MaterialPageRoute(builder: (context) => LoginScreen()),
+                                                                              );
+                                                                            },
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                  print(
+                                                                      'Error occurred while confirming password: $e');
+                                                                  // Handle error
+                                                                } finally {
+                                                                  setState(() {
+                                                                    _isUpdatingPassword =
+                                                                        false;
+                                                                  });
+                                                                }
+                                                              }
+                                                            },
+                                                          ),
+                                                        ),
                                                 ),
                                                 if (_errorMessage != null)
                                                   Padding(
@@ -788,10 +829,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                           4.5),
                                   child: GestureDetector(
                                     onTap: () {
-                                     // updatePassword();
+                                      // updatePassword();
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginScreen()),
                                       );
                                     },
                                     child: Text(

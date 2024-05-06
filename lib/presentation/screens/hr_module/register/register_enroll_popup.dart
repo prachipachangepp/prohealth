@@ -6,11 +6,15 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/custom_icon_button_constant.dart';
-import '../../../widgets/mcq_const_widget/mcq_const_widget.dart';
+import 'widgets/mcq_widget_register.dart';
 ///saloni
 
 class RegisterEnrollAlertDialog {
   final TextEditingController controller = TextEditingController();
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+  final TextEditingController email = TextEditingController();
   FocusNode _focusNode = FocusNode();
   int? _selectedItemIndex;
   void show(BuildContext context) {
@@ -44,7 +48,7 @@ class RegisterEnrollAlertDialog {
                         CustomTextFieldRegister(
                           height: AppSize.s26,
                           width: MediaQuery.of(context).size.width/7,
-                          controller: controller,
+                          controller: firstName,
                           labelText: AppString.fname,
                           keyboardType: TextInputType.text,
                           padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
@@ -79,7 +83,7 @@ class RegisterEnrollAlertDialog {
                         CustomTextFieldRegister(
                           height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
-                          controller: controller,
+                          controller: email,
                           labelText: AppString.email,
                           keyboardType: TextInputType.text,
                           padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
@@ -117,7 +121,7 @@ class RegisterEnrollAlertDialog {
                         CustomTextFieldRegister(
                           height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
-                          controller: controller,
+                          controller: lastName,
                           labelText: AppString.lname,
                           keyboardType: TextInputType.text,
                           padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
@@ -174,7 +178,7 @@ class RegisterEnrollAlertDialog {
                         CustomTextFieldRegister(
                           height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
-                          controller: controller,
+                          controller: phone,
                           labelText: AppString.phoneNumber,
                           keyboardType: TextInputType.text,
                           padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
@@ -205,7 +209,7 @@ class RegisterEnrollAlertDialog {
                             return null;
                           },
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: AppSize.s10,),
                         CustomTextFieldRegister(
                           height: AppSize.s27,
                           width: MediaQuery.of(context).size.width/7,

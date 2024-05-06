@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 
 class CustomTextFieldRegister extends StatelessWidget {
   final TextEditingController? controller;
@@ -59,7 +60,7 @@ class CustomTextFieldRegister extends StatelessWidget {
               ),
               labelText: labelText,
               labelStyle: TextStyle(
-                fontSize: 10
+                fontSize: FontSize.s10
               ),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
@@ -67,7 +68,7 @@ class CustomTextFieldRegister extends StatelessWidget {
           ),
           keyboardType: keyboardType,
           textInputAction: textInputAction,
-          style: TextStyle(fontSize: 12,),
+          style: TextStyle(fontSize: FontSize.s12,),
           obscureText: obscureText,
           autofocus: autofocus,
           enabled: enabled,

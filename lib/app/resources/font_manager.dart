@@ -2,7 +2,8 @@
 import 'dart:ui';
 
 class FontWeightManager {
-  static const FontWeight light = FontWeight.w300;
+  static const FontWeight light = FontWeight.w200;
+  static const FontWeight lightbold = FontWeight.w300;
   static const FontWeight regular = FontWeight.w400;
   static const FontWeight medium = FontWeight.w500;
   static const FontWeight semiBold = FontWeight.w600;
@@ -12,6 +13,7 @@ class FontWeightManager {
 
 class FontSize {
   static const double s8 = 8.0;
+  static const double s9 = 9.0;
   static const double s10 = 10.0;
   static const double s11 = 11.0;
   static const double s12 = 12.0;

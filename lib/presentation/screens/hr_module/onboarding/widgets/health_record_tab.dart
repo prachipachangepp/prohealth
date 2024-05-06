@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/value_manager.dart';
 
@@ -14,7 +13,7 @@ class HealthRecordTab extends StatelessWidget {
         elevation: 5,
         borderRadius: BorderRadius.all(Radius.circular(12)),
         child: Container(
-          height: 181,
+          height: AppSize.s181,
           width: MediaQuery.of(context).size.width / 70,
           padding: EdgeInsets.symmetric(vertical: AppPadding.p10),
           decoration: BoxDecoration(

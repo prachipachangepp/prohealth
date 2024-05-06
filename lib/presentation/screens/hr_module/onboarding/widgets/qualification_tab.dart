@@ -5,7 +5,6 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/qualificatio
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualification_license_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualification_referance_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualification_tabbar_const.dart';
-
 import '../../../../../app/resources/const_string.dart';
 
 /// to do prachi

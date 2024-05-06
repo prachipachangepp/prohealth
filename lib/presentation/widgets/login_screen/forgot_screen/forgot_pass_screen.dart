@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/services/login_flow_api/forgot_pass/forgot_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 
 import '../../../../app/resources/const_string.dart';
-import '../../../../app/services/api_hr/forgot_pass/forgot_pass_manager.dart';
 
 class ForgotPassScreen extends StatefulWidget {
   ForgotPassScreen({Key? key}) : super(key: key);
@@ -94,7 +94,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 child: TextFormField(
                   controller: _emailController,
                   style: CustomTextStylesCommon.commonStyle(
-                    color: Color(0xff000000).withOpacity(0.5),
+                    color: ColorManager.black.withOpacity(0.5),
                     fontWeight: FontWeightManager.medium,
                     fontSize: FontSize.s12,
                   ),
@@ -104,7 +104,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                     contentPadding: const EdgeInsets.only(top: 2),
                     labelText: AppString.email,
                     labelStyle: CustomTextStylesCommon.commonStyle(
-                      color: Color(0xff000000).withOpacity(0.3),
+                      color: ColorManager.darktgrey.withOpacity(0.5),
                       fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.medium,
                     ),
@@ -113,7 +113,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
-                          color: Color(0xff000000).withOpacity(0.5),
+                          color: ColorManager.black.withOpacity(0.5),
                           width: 0.5),
                     ),
                   ),
