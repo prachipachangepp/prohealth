@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginBaseConstant extends StatelessWidget {
@@ -9,7 +10,7 @@ class LoginBaseConstant extends StatelessWidget {
   final VoidCallback onTap;
   final String textAction;
   final EdgeInsetsGeometry? textActionPadding;
-
+  final SvgPicture backImg = SvgPicture.asset("images/background.svg");
   LoginBaseConstant(
       {required this.child,
       required this.onTap,
@@ -23,10 +24,18 @@ class LoginBaseConstant extends StatelessWidget {
     return Material(
       elevation: 4,
       child: Container(
-          // height: 725,
+          height: 725,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images/login_screen_no_blur.png'),
+              image:
+                  // SvgPicture.asset(
+                  //   'images/background.svg',
+                  //   width: 200,
+                  //   height: 200,
+                  // ),
+                  AssetImage(
+                      // 'images/background.svg'
+                      'images/login_screen_no_blur.png'),
               fit: BoxFit.fill,
             ),
           ),
@@ -96,8 +105,8 @@ class LoginBaseConstant extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        30,
+                                    height:
+                                        MediaQuery.of(context).size.height / 30,
                                   ),
 
                                   ///todo prachi
@@ -110,32 +119,44 @@ class LoginBaseConstant extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          width: MediaQuery.of(context).size.width / 3.3,
-                                          height: MediaQuery.of(context).size.height / 2.25,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              3.3,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              2.25,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(24),
-                                            color: Colors.white,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Color(0xff000000).withOpacity(0.1), // 0x1A for the first shadow
-                                                spreadRadius: 0,
-                                                blurRadius: 0,
-                                                offset: Offset(0, 0),
-                                              ),
-                                              BoxShadow(
-                                                color: Color(0xff000000).withOpacity(0.1), // 0x1A for the second shadow
-                                                spreadRadius: 1,
-                                                blurRadius: 4,
-                                                offset: Offset(0, 3),
-                                              ),
-                                            ]
-                                          ),
+                                              borderRadius:
+                                                  BorderRadius.circular(24),
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0xff000000)
+                                                      .withOpacity(
+                                                          0.1), // 0x1A for the first shadow
+                                                  spreadRadius: 0,
+                                                  blurRadius: 0,
+                                                  offset: Offset(0, 0),
+                                                ),
+                                                BoxShadow(
+                                                  color: Color(0xff000000)
+                                                      .withOpacity(
+                                                          0.1), // 0x1A for the second shadow
+                                                  spreadRadius: 1,
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 3),
+                                                ),
+                                              ]),
                                           child: child,
                                         ),
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: MediaQuery.of(context).size.height / 60,
+                                  SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 60,
                                   ),
 
                                   ///forget password text
@@ -157,6 +178,13 @@ class LoginBaseConstant extends StatelessWidget {
                                   )
                                 ],
                               ),
+                              // SvgPicture.asset(
+                              //   'images/background.svg',
+                              //   width: MediaQuery.of(context).size.width / 3,
+                              //     height: MediaQuery.of(context).size.height / 2,
+                              //   // width: 200,
+                              //   // height: 200,
+                              // ),
                               Image.asset(
                                 'images/amico.png',
                                 width: MediaQuery.of(context).size.width / 3,

@@ -178,7 +178,8 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor, // Utilizing the backgroundColor parameter
+          backgroundColor:
+              backgroundColor, // Utilizing the backgroundColor parameter
           foregroundColor: textColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -190,18 +191,17 @@ class CustomButton extends StatelessWidget {
         ),
         child: text != null
             ? Text(
-          text!,
-          style: GoogleFonts.firaSans(
-            fontSize: MediaQuery.of(context).size.width / 90,
-            fontWeight: FontWeight.w700,
-          ),
-        )
+                text!,
+                style: GoogleFonts.firaSans(
+                  fontSize: MediaQuery.of(context).size.width / 90,
+                  fontWeight: FontWeight.w700,
+                ),
+              )
             : child,
       ),
     );
   }
 }
-
 
 ///CustomTitleButton
 ///sm desktop
@@ -306,7 +306,7 @@ class CustomDropdownButton extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: Color(0xFF50B5E5),
+          color: Color(0xff50B5E5),
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: DropdownButtonHideUnderline(
@@ -318,7 +318,7 @@ class CustomDropdownButton extends StatelessWidget {
               fontSize: MediaQuery.of(context).size.width / 120,
               fontWeight: FontWeight.w700,
             ),
-            dropdownColor: Colors.blue, // Background color for dropdown
+            dropdownColor: Color(0xff50B5E5),
             borderRadius: BorderRadius.circular(borderRadius),
             icon: Icon(Icons.arrow_drop_down, color: Colors.white),
             iconSize: 24.0,

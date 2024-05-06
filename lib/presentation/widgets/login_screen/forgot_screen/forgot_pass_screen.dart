@@ -4,13 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/services/login_flow_api/forgot_pass/forgot_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 
 import '../../../../app/resources/const_string.dart';
-import '../../../../app/services/api_hr/forgot_pass/forgot_pass_manager.dart';
+
 
 class ForgotPassScreen extends StatefulWidget {
   ForgotPassScreen({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   FocusNode emailFocusNode = FocusNode();
+  
   ForgotPassManager _forgotPassManager = ForgotPassManager();
   int _passwordChangeAttempts = 0;
   final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
