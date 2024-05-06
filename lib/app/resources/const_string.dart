@@ -1,4 +1,39 @@
 class AppString {
+  ///profile bar
+  static const String profile = "Profile\n100%";
+  static const String active = "Active";
+  static const String annualSkill = "Annual skills 92%";
+  static const String physical =  "Physical Therapy";
+  static const String employmentType =  "Employment Type";
+  static const String saanJoes =  "Saan joes.24";
+  static const String address =  "Address";
+  static const String houseaddress =  "House No., Street No. Area City, Zip\nCode";
+  static const String dateprofile = "05-03-1997(27)";
+  static const String male = "Male";
+  static const String star = "****-**-***";
+  static const String text = "(+1)-123-56";
+  static const String personmail = "personal@gmail.com";
+  static const String proheaalthsan = "Prohealth San Joes 74";
+  static const String viewzone = "View Zone";
+  static const String na = "NA";
+  static const String hideDate = "Hide Date";
+  static const String datetime = "09/02/2024(11 PM)";
+  static const String expiredlicense = "Expired License";
+  static const String zero = "0";
+  static const String two = "2";
+  static const String four = "4";
+  static const String abouttoexpire = "About To Expired License";
+  static const String uptodate = "Up To Date License";
+  static const String age = "Age";
+  static const String gender = "Gender";
+  static const String ssn = "Social Security No.";
+  static const String personalno = "Personal No.";
+  static const String workno = "Work No.";
+  static const String personalEmail = "Personal Email";
+  static const String workemail = "Work Email";
+  // static const String four = "4";
+  // static const String four = "4";
+  // static const String four = "4";
   ///Dashboard
   static const String dashboard = "Dashboard";
 
@@ -82,7 +117,7 @@ class AppString {
   static const String srNo = "Sr. No";
   static const String name = "Name";
   static const String code = "Code";
-  static const String phone = "Phone No";
+  static const String phone = "Phone No.";
   static const String email = "Email";
   static const String link = "Link";
   static const String status = "Status";

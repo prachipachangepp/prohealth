@@ -32,22 +32,16 @@ class AcknowledgementTab extends StatelessWidget {
                   // Adding top padding
                   Row(
                     children: [
-                      Container(
-                          width: AppSize.s62,
-                          height: AppSize.s45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            border:
-                                Border.all(width: 2, color:ColorManager.faintOrange ),
+                      AcknowledgementContainer(
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.remove_red_eye,
+                            color: ColorManager.blueprime,
                           ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.remove_red_eye,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: AppSize.s24,
-                          )),
+                          iconSize: AppSize.s24,
+                        ),
+                      ),
                       SizedBox(width: AppSize.s10),
                       Text(AppString.ackCandidate,
                           style: AknowledgementStyleConst.customTextStyle(context))
@@ -56,22 +50,16 @@ class AcknowledgementTab extends StatelessWidget {
                   SizedBox(height: AppSize.s10),
                   Row(
                     children: [
-                      Container(
-                          width: AppSize.s62,
-                          height: AppSize.s45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            border:
-                                Border.all(width: 2, color: ColorManager.faintOrange),
+                      AcknowledgementContainer(
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.remove_red_eye,
+                            color: ColorManager.blueprime,
                           ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.remove_red_eye,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: AppSize.s24,
-                          )),
+                          iconSize: AppSize.s24,
+                        ),
+                      ),
                       SizedBox(width: AppSize.s10),
                       Text(AppString.ackConfidential,
                           style:
@@ -87,22 +75,16 @@ class AcknowledgementTab extends StatelessWidget {
                   // Adding top padding
                   Row(
                     children: [
-                      Container(
-                          width: AppSize.s62,
-                          height: AppSize.s45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            border:
-                                Border.all(width: 2, color: ColorManager.faintOrange),
+                      AcknowledgementContainer(
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.remove_red_eye,
+                            color: ColorManager.blueprime,
                           ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.remove_red_eye,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: AppSize.s24,
-                          )),
+                          iconSize: AppSize.s24,
+                        ),
+                      ),
                       SizedBox(width: AppSize.s10),
                       Text(AppString.ackonCall,
                           style:
@@ -112,22 +94,16 @@ class AcknowledgementTab extends StatelessWidget {
                   SizedBox(height: AppSize.s20),
                   Row(
                     children: [
-                      Container(
-                          width: AppSize.s62,
-                          height: AppSize.s45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            border:
-                                Border.all(width: 2, color:ColorManager.faintOrange),
+                      AcknowledgementContainer(
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.remove_red_eye,
+                            color: ColorManager.blueprime,
                           ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.remove_red_eye,
-                              color: ColorManager.blueprime,
-                            ),
-                            iconSize: AppSize.s24,
-                          )),
+                          iconSize: AppSize.s24,
+                        ),
+                      ),
                       SizedBox(width: AppSize.s10),
                       Text(AppString.ackpolicy,
                           style:
@@ -140,6 +116,28 @@ class AcknowledgementTab extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class AcknowledgementContainer extends StatelessWidget {
+  final Widget child;
+
+  const AcknowledgementContainer({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: AppSize.s62,
+      height: AppSize.s45,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(width: 2, color: ColorManager.faintOrange),
+      ),
+      child: child,
     );
   }
 }

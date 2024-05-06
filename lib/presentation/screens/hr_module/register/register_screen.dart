@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
 import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/profile_bar.dart';
-
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/theme_manager.dart';
@@ -19,9 +18,7 @@ class RegisterScreen extends StatelessWidget {
     return Column(
       children: [
         ProfileBar(),
-        SizedBox(
-          height: AppSize.s10,
-        ),
+        SizedBox(height: AppSize.s10,),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -36,9 +33,7 @@ class RegisterScreen extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
-          height: AppSize.s20,
-        ),
+        SizedBox(height: AppSize.s20,),
         Container(
           height: AppSize.s30,
           margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
@@ -96,9 +91,7 @@ class RegisterScreen extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
-          height: AppSize.s10,
-        ), // Adjust spacing as needed
+        SizedBox(height: AppSize.s10,), // Adjust spacing as needed
         Expanded(
           child: ListView.builder(
             scrollDirection: Axis.vertical,

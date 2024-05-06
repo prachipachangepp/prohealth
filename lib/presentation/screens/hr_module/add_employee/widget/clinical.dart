@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/widgets/constant_textfield/const_textfield.dart';
-import 'package:prohealth/presentation/widgets/mcq_const_widget/mcq_const_widget.dart';
-
 import '../../manage/widgets/custom_icon_button_constant.dart';
+import 'mcq_widget_add-employee.dart';
 
 ///prachi to do
 class ClinicalTab extends StatelessWidget {

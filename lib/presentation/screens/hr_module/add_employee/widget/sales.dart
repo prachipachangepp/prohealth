@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/widgets/constant_textfield/const_textfield.dart';
-import 'package:prohealth/presentation/widgets/mcq_const_widget/mcq_const_widget.dart';
-
 import '../../manage/widgets/custom_icon_button_constant.dart';
+import 'mcq_widget_add-employee.dart';
 
 ///prachi
 class SalesTab extends StatelessWidget {
   final TextEditingController _sale1Controller = TextEditingController();
-  final TextEditingController _socialsecuritynoController =
-      TextEditingController();
   final TextEditingController _workemailController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _firstnameController = TextEditingController();
@@ -16,9 +13,7 @@ class SalesTab extends StatelessWidget {
   final TextEditingController _lastnameController = TextEditingController();
   final TextEditingController _worknoController = TextEditingController();
   final TextEditingController _dateofbirthController = TextEditingController();
-  final TextEditingController _reportingofficeController = TextEditingController();
   final TextEditingController _personalemailController = TextEditingController();
-  final TextEditingController _personalcontactnoController = TextEditingController();
   int? _selectedItemIndex;
   @override
   Widget build(BuildContext context) {

@@ -14,7 +14,6 @@ import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot
 import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../app/resources/theme_manager.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -115,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       setState(() {
-        _errorMessage = 'The email or password you entered is incorrect !';
+        _errorMessage = 'The email or password you entered is incorrect.';
       });
       print('Error occurred: $e');
     } finally {
@@ -237,9 +236,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: GoogleFonts.firaSans(
                               color: _selectedIndex == 0
                                   ? ColorManager.blueprime
-                                  : const Color(0xff686464),
+                                  : ColorManager.darktgrey,
                               fontSize: MediaQuery.of(context).size.width / 90,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeightManager.bold,
                             ),
                           ),
                         ),
@@ -252,7 +251,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             boxShadow: _selectedIndex == 0
                                 ? [
                                     BoxShadow(
-                                      color: Color(0xff000000).withOpacity(0.4),
+                                      color: ColorManager.black.withOpacity(0.4),
                                       offset: Offset(1, 3),
                                       blurRadius: 4,
                                     ),
@@ -280,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: GoogleFonts.firaSans(
                               color: _selectedIndex == 1
                                   ? ColorManager.blueprime
-                                  : const Color(0xff686464),
+                                  : ColorManager.darktgrey,
                               fontSize: MediaQuery.of(context).size.width / 90,
                               fontWeight: FontWeightManager.bold,
                             ),
@@ -295,7 +294,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             boxShadow: _selectedIndex == 1
                                 ? [
                                     BoxShadow(
-                                      color: Color(0xff000000).withOpacity(0.4),
+                                      color: ColorManager.black.withOpacity(0.4),
                                       offset: Offset(1, 3),
                                       blurRadius: 4,
                                     ),
@@ -337,7 +336,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
                               style: GoogleFonts.firaSans(
-                                color: Color(0xff000000).withOpacity(0.5),
+                                color: ColorManager.black.withOpacity(0.5),
                                 fontWeight: FontWeightManager.medium,
                                 fontSize: FontSize.s14,
                               ),
@@ -354,12 +353,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 contentPadding: const EdgeInsets.only(top: 1),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff000000).withOpacity(0.5),
+                                      color:ColorManager.black.withOpacity(0.5),
                                       width: 0.5),
                                 ),
                                 labelText: AppString.email,
                                 labelStyle: GoogleFonts.firaSans(
-                                  color: Color(0xff000000).withOpacity(0.3),
+                                  //color: Color(0xff000000).withOpacity(0.5),
+                                  color: ColorManager.darktgrey.withOpacity(0.5),
                                   fontSize: FontSize.s14,
                                   fontWeight: FontWeightManager.medium,
                                 ),
@@ -379,7 +379,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: MediaQuery.of(context).size.height * 0.1,
                             child: TextFormField(
                               style: GoogleFonts.firaSans(
-                                color: Color(0xff000000).withOpacity(0.5),
+                                color: ColorManager.black.withOpacity(0.5),
                                 fontWeight: FontWeightManager.medium,
                                 fontSize: FontSize.s14,
                               ),
@@ -396,12 +396,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 contentPadding: const EdgeInsets.only(top: 2),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color(0xff000000).withOpacity(0.5),
+                                      color: ColorManager.black.withOpacity(0.5),
                                       width: 0.5),
                                 ),
                                 labelText: AppString.password,
                                 labelStyle: CustomTextStylesCommon.commonStyle(
-                                  color: Color(0xff000000).withOpacity(0.3),
+                                  color: ColorManager.darktgrey.withOpacity(0.5),
                                   fontSize: FontSize.s14,
                                   fontWeight: FontWeightManager.medium,
                                 ),
@@ -453,7 +453,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               BorderRadius.circular(14),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Color(0x40000000),
+                                              color:Color(0x40000000),
                                               offset: Offset(0, 4),
                                               blurRadius: 4,
                                               spreadRadius: 0,
@@ -496,7 +496,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.firaSans(
                                     color: ColorManager.red,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeightManager.bold,
                                     fontSize:
                                         MediaQuery.of(context).size.width /
                                             110),
@@ -523,8 +523,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         horizontal: AppPadding.p5),
                                     child: TextFormField(
                                       style: CustomTextStylesCommon.commonStyle(
-                                        color:
-                                            Color(0xff000000).withOpacity(0.5),
+                                        color: ColorManager.black.withOpacity(0.5),
                                         fontWeight: FontWeightManager.medium,
                                         fontSize: FontSize.s14,
                                       ),
@@ -537,15 +536,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                             const EdgeInsets.only(top: 1),
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Color(0xff000000)
+                                              color: ColorManager.black
                                                   .withOpacity(0.5),
                                               width: 0.5),
                                         ),
                                         labelText: AppString.email,
                                         labelStyle:
                                             CustomTextStylesCommon.commonStyle(
-                                          color: Color(0xff000000)
-                                              .withOpacity(0.3),
+                                          color: ColorManager.darktgrey
+                                              .withOpacity(0.5),
                                           fontSize: FontSize.s14,
                                           fontWeight: FontWeightManager.medium,
                                         ),

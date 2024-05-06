@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/theme_manager.dart';
 
 ///saloni
@@ -7,27 +8,27 @@ class MyConstants {
     final textStyle = ThemeManagerDark.customTextStyle(context);
     return [
       Text(
-        "Age",
+        AppString.age,
         style: textStyle,
       ),
       Text(
-        "Gender",
+        AppString.gender,
         style: textStyle,
       ),
       Text(
-        "Social Security No.",
+        AppString.ssn,
         style: textStyle,
       ),
       Text(
-        "Phone No.",
+        AppString.phone,
         style: textStyle,
       ),
       Text(
-        "Personal No.",
+        AppString.personalno,
         style: textStyle,
       ),
       Text(
-        "Work No.",
+        AppString.workno,
         style: textStyle,
       ),
     ];
@@ -39,27 +40,27 @@ class MyConstantsColumn {
     final textStyle = ThemeManagerDark.customTextStyle(context);
     return [
       Text(
-      "Personal Email",
+          AppString.personalEmail,
       style: textStyle
     ),
       Text(
-        "Work Email",
+        AppString.workemail,
         style: textStyle,
       ),
       Text(
-        "Zone",
+        AppString.zone,
         style: textStyle,
       ),
       Text(
-        "Speciality ",
+        AppString.speciality,
         style: textStyle,
       ),
       Text(
-        "Service",
+        AppString.service,
         style: textStyle,
       ),
       Text(
-        "Work No.",
+        AppString.workno,
         style: textStyle,
       ),];
   }

@@ -66,7 +66,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 child: TextFormField(
                   controller: _emailController,
                   style: CustomTextStylesCommon.commonStyle(
-                    color: Color(0xff000000).withOpacity(0.5),
+                    color: ColorManager.black.withOpacity(0.5),
                     fontWeight: FontWeightManager.medium,
                     fontSize: FontSize.s12,
                   ),
@@ -76,7 +76,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                     contentPadding: const EdgeInsets.only(top: 2),
                     labelText: AppString.email,
                     labelStyle: CustomTextStylesCommon.commonStyle(
-                      color: Color(0xff000000).withOpacity(0.3),
+                      color: ColorManager.darktgrey.withOpacity(0.5),
                       fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.medium,
                     ),
@@ -85,7 +85,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
-                          color: Color(0xff000000).withOpacity(0.5),
+                          color: ColorManager.black.withOpacity(0.5),
                           width: 0.5),
                     ),
                   ),
