@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../app/resources/color.dart';
+
 ///done by saloni
 ///button constant for circularborder with text and with/without icon
 class CustomIconButton extends StatelessWidget {
@@ -306,7 +308,7 @@ class CustomDropdownButton extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: Color(0xFF50B5E5),
+          color: ColorManager.blueprime,
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: DropdownButtonHideUnderline(
@@ -318,7 +320,7 @@ class CustomDropdownButton extends StatelessWidget {
               fontSize: MediaQuery.of(context).size.width / 120,
               fontWeight: FontWeight.w700,
             ),
-            dropdownColor: Colors.blue, // Background color for dropdown
+            dropdownColor: ColorManager.blueprime, // Background color for dropdown
             borderRadius: BorderRadius.circular(borderRadius),
             icon: Icon(Icons.arrow_drop_down, color: Colors.white),
             iconSize: 24.0,

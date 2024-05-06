@@ -134,3 +134,10 @@ class AppString {
   static const String threetimepasscanchange = 'Only Three Times you can change the password';
   static const String cannotchangepass = 'You Cannot change the password today';
 }
+
+///mobile screen constant
+
+class AppStringMobile{
+  ///login screen
+  static const String poweredBy = 'Powered by';
+}

@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 
 class LoginBaseConstant extends StatelessWidget {
   final Widget child;
@@ -89,9 +91,9 @@ class LoginBaseConstant extends StatelessWidget {
                                     child: Text(
                                       titleText,
                                       style: GoogleFonts.firaSans(
-                                        color: Color(0xff686464),
+                                        color: ColorManager.darktgrey,
                                         fontSize: 40,
-                                        fontWeight: FontWeight.w800,
+                                        fontWeight: FontWeightManager.extrabold,
                                       ),
                                     ),
                                   ),
@@ -142,15 +144,18 @@ class LoginBaseConstant extends StatelessWidget {
                                   Padding(
                                     padding:
                                         textActionPadding ?? EdgeInsets.zero,
-                                    child: GestureDetector(
-                                      onTap: onTap,
-                                      child: Text(
-                                        textAction,
-                                        textAlign: TextAlign.right,
-                                        style: GoogleFonts.firaSans(
-                                          color: Color(0xff1696C8),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
+                                    child: MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                        onTap: onTap,
+                                        child: Text(
+                                          textAction,
+                                          textAlign: TextAlign.right,
+                                          style: GoogleFonts.firaSans(
+                                            color: Color(0xff1696C8),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),

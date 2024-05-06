@@ -230,14 +230,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     ///login with email text
                     child: Column(
                       children: [
-                        Text(
-                          AppString.loginemail,
-                          style: GoogleFonts.firaSans(
-                            color: _selectedIndex == 0
-                                ? ColorManager.blueprime
-                                : const Color(0xff686464),
-                            fontSize: MediaQuery.of(context).size.width / 90,
-                            fontWeight: FontWeight.w700,
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Text(
+                            AppString.loginemail,
+                            style: GoogleFonts.firaSans(
+                              color: _selectedIndex == 0
+                                  ? ColorManager.blueprime
+                                  : const Color(0xff686464),
+                              fontSize: MediaQuery.of(context).size.width / 90,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                         const SizedBox(height: AppSize.s5),
@@ -270,14 +273,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     ///login with auth text
                     child: Column(
                       children: [
-                        Text(
-                          AppString.loginauth,
-                          style: GoogleFonts.firaSans(
-                            color: _selectedIndex == 1
-                                ? ColorManager.blueprime
-                                : const Color(0xff686464),
-                            fontSize: MediaQuery.of(context).size.width / 90,
-                            fontWeight: FontWeightManager.bold,
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Text(
+                            AppString.loginauth,
+                            style: GoogleFonts.firaSans(
+                              color: _selectedIndex == 1
+                                  ? ColorManager.blueprime
+                                  : const Color(0xff686464),
+                              fontSize: MediaQuery.of(context).size.width / 90,
+                              fontWeight: FontWeightManager.bold,
+                            ),
                           ),
                         ),
                         const SizedBox(height: AppSize.s5),
