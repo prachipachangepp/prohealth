@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/sm_module/hr_screens/hr_administrative.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/hr_clinical.dart';
+import 'package:prohealth/presentation/screens/sm_module/hr_screens/hr_sales.dart';
 
 class HrScreen extends StatefulWidget {
   @override
@@ -109,8 +111,8 @@ class HrWidget extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   HrClinicalScreen(),
-                  Container(color: Colors.yellow),
-                  Container(color: Colors.brown),
+                  HrSalesScreen(),
+                  HrAdministrativeScreen(),
                 ],
               ),
             ),

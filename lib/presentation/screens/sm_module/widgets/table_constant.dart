@@ -12,6 +12,7 @@ class TableHeadConstant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(right: 30,),
       height: 30,
       decoration: BoxDecoration(
         color: Colors.grey,
@@ -19,6 +20,7 @@ class TableHeadConstant extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: items.map((item) {
           return Text(
             item.text,
