@@ -51,12 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        _isLoadingScreen = false;
-      });
-    });
   }
 
   @override
@@ -148,6 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
+                  vertical: 10,
                   horizontal: MediaQuery.of(context).size.width / 28),
               child: PageView(
                 controller: _pageController,
@@ -156,209 +151,238 @@ class _LoginScreenState extends State<LoginScreen> {
                   /// Page 1: Log in with mail
                   Container(
                     //color: Colors.red,
-                    width: MediaQuery.of(context).size.width / 4,
-                    height: MediaQuery.of(context).size.height / 4,
                     child: Form(
                       key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.1,
-                            child: TextFormField(
-                              style: GoogleFonts.firaSans(
-                                color: Color(0xff000000).withOpacity(0.5),
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: FontSize.s14,
-                              ),
-                              focusNode: emailFocusNode,
-                              onFieldSubmitted: (_) {
-                                FocusScope.of(context)
-                                    .requestFocus(passwordFocusNode);
-                              },
-                              cursorColor: Colors.black,
-                              cursorHeight: 22,
-                              controller: _emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(top: 1),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  child: TextFormField(
+                                    style: GoogleFonts.firaSans(
                                       color: Color(0xff000000).withOpacity(0.5),
-                                      width: 0.5),
-                                ),
-                                labelText: AppString.email,
-                                labelStyle: GoogleFonts.firaSans(
-                                  color: Color(0xff000000).withOpacity(0.3),
-                                  fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.medium,
-                                ),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return AppString.enteremail;
-                                }
-                                if (!emailRegex.hasMatch(value)) {
-                                  return AppString.entervalidemail;
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.1,
-                            child: TextFormField(
-                              style: GoogleFonts.firaSans(
-                                color: Color(0xff000000).withOpacity(0.5),
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: FontSize.s14,
-                              ),
-                              focusNode: passwordFocusNode,
-                              onFieldSubmitted: (_) {
-                                AuthService.loginWithEmail(
-                                  context,
-                                  _emailController,
-                                  _passwordController,
-                                  _isLoading,
-                                  (value) => setState(() => _isLoading = value),
-                                  (message) =>
-                                      setState(() => _errorMessage = message),
-                                );
-                                // _loginWithEmail();
-                              },
-                              cursorColor: Colors.black,
-                              controller: _passwordController,
-                              keyboardType: TextInputType.visiblePassword,
-                              obscuringCharacter: '*',
-                              cursorHeight: 22,
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(top: 2),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0xff000000).withOpacity(0.5),
-                                      width: 0.5),
-                                ),
-                                labelText: AppString.password,
-                                labelStyle: CustomTextStylesCommon.commonStyle(
-                                  color: Color(0xff000000).withOpacity(0.3),
-                                  fontSize: FontSize.s14,
-                                  fontWeight: FontWeightManager.medium,
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: _isPasswordVisible
-                                      ? Icon(
-                                          Icons.visibility_off_outlined,
-                                          color: ColorManager.whitesheed,
-                                        )
-                                      : Icon(
-                                          Icons.visibility_outlined,
-                                          color: ColorManager.whitesheed,
-                                        ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isPasswordVisible = !_isPasswordVisible;
-                                    });
-                                  },
-                                ),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return AppString.enterpass;
-                                }
-                                return null;
-                              },
-                              obscureText: !_isPasswordVisible,
-                            ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 120,
-                          ),
-                          _isLoading
-                              ? Center(
-                                  child: SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 20,
-                                    width:
-                                        MediaQuery.of(context).size.height / 18,
-                                    child: CircularProgressIndicator(
-                                        color: ColorManager.blueprime),
-                                  ),
-                                )
-                              : !_loginSuccessful
-                                  ? Center(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(14),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0x40000000),
-                                              offset: Offset(0, 4),
-                                              blurRadius: 4,
-                                              spreadRadius: 0,
-                                            ),
-                                          ],
-                                        ),
-                                        child: CustomButton(
-                                          borderRadius: 28,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              20,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              5.5,
-                                          text: AppString.loginbtn,
-                                          onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              setState(() {
-                                                _isLoading = true;
-                                                _errorMessage = null;
-                                              });
-                                              AuthService.loginWithEmail(
-                                                context,
-                                                _emailController,
-                                                _passwordController,
-                                                _isLoading,
-                                                (value) => setState(
-                                                    () => _isLoading = value),
-                                                (message) => setState(() =>
-                                                    _errorMessage = message),
-                                              );
-                                              // _loginWithEmail();
-                                            }
-                                            print(AppString.btnpress);
-                                          },
-                                        ),
+                                      fontWeight: FontWeightManager.medium,
+                                      fontSize: FontSize.s14,
+                                    ),
+                                    focusNode: emailFocusNode,
+                                    onFieldSubmitted: (_) {
+                                      FocusScope.of(context)
+                                          .requestFocus(passwordFocusNode);
+                                    },
+                                    cursorColor: Colors.black,
+                                    cursorHeight: 22,
+                                    controller: _emailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    decoration: InputDecoration(
+                                      contentPadding:
+                                          const EdgeInsets.only(top: 1),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff000000)
+                                                .withOpacity(0.5),
+                                            width: 0.5),
                                       ),
-                                    )
-                                  : SizedBox(),
-                          if (_errorMessage != null)
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height / 99,
-                              ),
-                              child: Text(
-                                _errorMessage!,
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.firaSans(
-                                    color: ColorManager.red,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width /
-                                            110),
-                              ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff000000)
+                                                .withOpacity(0.5),
+                                            width: 0.5),
+                                      ),
+                                      labelText: AppString.email,
+                                      labelStyle: GoogleFonts.firaSans(
+                                        color:
+                                            Color(0xff000000).withOpacity(0.3),
+                                        fontSize: FontSize.s14,
+                                        fontWeight: FontWeightManager.medium,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return AppString.enteremail;
+                                      }
+                                      if (!emailRegex.hasMatch(value)) {
+                                        return AppString.entervalidemail;
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  child: TextFormField(
+                                    style: GoogleFonts.firaSans(
+                                      color: Color(0xff000000).withOpacity(0.5),
+                                      fontWeight: FontWeightManager.medium,
+                                      fontSize: FontSize.s14,
+                                    ),
+                                    focusNode: passwordFocusNode,
+                                    onFieldSubmitted: (_) {
+                                      AuthService.loginWithEmail(
+                                        context,
+                                        _emailController,
+                                        _passwordController,
+                                        _isLoading,
+                                        (value) =>
+                                            setState(() => _isLoading = value),
+                                        (message) => setState(
+                                            () => _errorMessage = message),
+                                      );
+                                      // _loginWithEmail();
+                                    },
+                                    cursorColor: Colors.black,
+                                    controller: _passwordController,
+                                    keyboardType: TextInputType.visiblePassword,
+                                    obscuringCharacter: '*',
+                                    cursorHeight: 22,
+                                    decoration: InputDecoration(
+                                      contentPadding:
+                                          const EdgeInsets.only(top: 2),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff000000)
+                                                .withOpacity(0.5),
+                                            width: 0.5),
+                                      ),
+                                      labelText: AppString.password,
+                                      labelStyle:
+                                          CustomTextStylesCommon.commonStyle(
+                                        color:
+                                            Color(0xff000000).withOpacity(0.3),
+                                        fontSize: FontSize.s14,
+                                        fontWeight: FontWeightManager.medium,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff000000)
+                                                .withOpacity(0.5),
+                                            width: 0.5),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        icon: _isPasswordVisible
+                                            ? Icon(
+                                                Icons.visibility_off_outlined,
+                                                color: ColorManager.whitesheed,
+                                              )
+                                            : Icon(
+                                                Icons.visibility_outlined,
+                                                color: ColorManager.whitesheed,
+                                              ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _isPasswordVisible =
+                                                !_isPasswordVisible;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return AppString.enterpass;
+                                      }
+                                      return null;
+                                    },
+                                    obscureText: !_isPasswordVisible,
+                                  ),
+                                ),
+                              ],
                             ),
-                        ],
+                            _isLoading
+                                ? Center(
+                                    child: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              25,
+                                      width:
+                                          MediaQuery.of(context).size.height /
+                                              25,
+                                      child: CircularProgressIndicator(
+                                          color: ColorManager.blueiconColor),
+                                    ),
+                                  )
+                                : !_loginSuccessful
+                                    ? Center(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(14),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0x40000000),
+                                                offset: Offset(0, 4),
+                                                blurRadius: 4,
+                                                spreadRadius: 0,
+                                              ),
+                                            ],
+                                          ),
+                                          child: CustomButton(
+                                            borderRadius: 28,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                20,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                5.5,
+                                            text: AppString.loginbtn,
+                                            onPressed: () {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                setState(() {
+                                                  _isLoading = true;
+                                                  _errorMessage = null;
+                                                });
+                                                AuthService.loginWithEmail(
+                                                  context,
+                                                  _emailController,
+                                                  _passwordController,
+                                                  _isLoading,
+                                                  (value) => setState(
+                                                      () => _isLoading = value),
+                                                  (message) => setState(() =>
+                                                      _errorMessage = message),
+                                                );
+                                                // _loginWithEmail();
+                                              }
+                                              print(AppString.btnpress);
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    : SizedBox(),
+                            if (_errorMessage != null)
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height / 99,
+                                ),
+                                child: Text(
+                                  _errorMessage!,
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.firaSans(
+                                      color: ColorManager.red,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              110),
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
 
                   /// Page 2: Log in with authenticator
                   Form(
-                    key: _formKey,
+                    key: _formKeyAuth,
                     child: Container(
                       width: MediaQuery.of(context).size.width / 4,
                       height: MediaQuery.of(context).size.height / 4,

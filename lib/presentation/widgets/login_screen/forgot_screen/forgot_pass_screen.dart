@@ -12,7 +12,6 @@ import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_b
 
 import '../../../../app/resources/const_string.dart';
 
-
 class ForgotPassScreen extends StatefulWidget {
   ForgotPassScreen({Key? key}) : super(key: key);
 
@@ -25,7 +24,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   FocusNode emailFocusNode = FocusNode();
-  
+
   ForgotPassManager _forgotPassManager = ForgotPassManager();
   int _passwordChangeAttempts = 0;
   final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
@@ -69,8 +68,6 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
         //   MaterialPageRoute(builder: (context) => LoginScreen()),
         // );
       },
-      textActionPadding:
-          EdgeInsets.only(left: MediaQuery.of(context).size.width / 4.5),
       titleText: AppString.forgotpassword,
       textAction: AppString.backtologin,
       child: Padding(
@@ -86,7 +83,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 style: GoogleFonts.firaSans(
                   letterSpacing: 0.5,
                   color: ColorManager.darktgrey,
-                  fontSize: FontSize.s10,
+                  fontSize: FontSize.s14,
                   fontWeight: FontWeightManager.semiBold,
                 ),
               ),
