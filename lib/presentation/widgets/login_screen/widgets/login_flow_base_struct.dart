@@ -24,24 +24,32 @@ class LoginBaseConstant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 4,
-      child: Container(
-          height: 725,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image:
-                  // SvgPicture.asset(
-                  //   'images/background.svg',
-                  //   width: 200,
-                  //   height: 200,
-                  // ),
-                  AssetImage(
-                      // 'images/background.svg'
-                      'images/login_screen_no_blur.png'),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Center(
+      elevation: 0,
+      child: Stack(
+        children: [
+          Container(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: SvgPicture.asset(
+                      'images/vector.svg',
+                    ),
+                  ),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: SvgPicture.asset(
+                        'images/vector1.svg',
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+          Center(
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.height / 30,
@@ -49,162 +57,179 @@ class LoginBaseConstant extends StatelessWidget {
               child: ClipRect(
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xff000000).withOpacity(0.045),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          offset: Offset(1, 4),
-                        ),
-                      ],
-                      color: Color(0xffFFFFFF).withOpacity(0.35),
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width / 90,
-                          vertical: MediaQuery.of(context).size.height / 100),
-                      child: Column(
-                        children: [
-                          ///logo
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    right:
-                                        MediaQuery.of(context).size.height / 3),
-                                child: Image.asset(
-                                  'images/logo_login.png',
-                                  width: MediaQuery.of(context).size.width / 5,
-                                  height:
-                                      MediaQuery.of(context).size.height / 5,
-                                ),
-                              )
-                            ],
+                  child: SingleChildScrollView(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xff000000).withOpacity(0.045),
+                            spreadRadius: 1,
+                            blurRadius: 4,
+                            offset: Offset(1, 4),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ///head text
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height /
-                                                30),
-                                    child: Text(
-                                      titleText,
-                                      style: GoogleFonts.firaSans(
-                                        color: ColorManager.darktgrey,
-                                        fontSize: 40,
-                                        fontWeight: FontWeightManager.extrabold,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
+                        ],
+                        color: Color(0xffFFFFFF).withOpacity(0.35),
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width / 90,
+                            vertical: MediaQuery.of(context).size.height / 100),
+                        child: Column(
+                          children: [
+                            ///logo
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      right:
+                                          MediaQuery.of(context).size.height /
+                                              3),
+                                  child: Image.asset(
+                                    'images/logo_login.png',
+                                    width:
+                                        MediaQuery.of(context).size.width / 5,
                                     height:
-                                        MediaQuery.of(context).size.height / 30,
+                                        MediaQuery.of(context).size.height / 5,
                                   ),
-
-                                  ///todo prachi
-                                  ///main container
-                                  Material(
-                                    elevation: 9,
-                                    borderRadius: BorderRadius.circular(24),
-                                    child: Column(
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3.3,
+                                        ///head text
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  30),
+                                          child: Text(
+                                            titleText,
+                                            style: GoogleFonts.firaSans(
+                                              color: ColorManager.darktgrey,
+                                              fontSize: 40,
+                                              fontWeight:
+                                                  FontWeightManager.extrabold,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              2.25,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Color(0xff000000)
-                                                      .withOpacity(
-                                                          0.1), // 0x1A for the first shadow
-                                                  spreadRadius: 0,
-                                                  blurRadius: 0,
-                                                  offset: Offset(0, 0),
-                                                ),
-                                                BoxShadow(
-                                                  color: Color(0xff000000)
-                                                      .withOpacity(
-                                                          0.1), // 0x1A for the second shadow
-                                                  spreadRadius: 1,
-                                                  blurRadius: 4,
-                                                  offset: Offset(0, 3),
-                                                ),
-                                              ]),
-                                          child: child,
+                                              30,
+                                        ),
+
+                                        ///todo prachi
+                                        ///main container
+                                        Material(
+                                          elevation: 9,
+                                          borderRadius:
+                                              BorderRadius.circular(24),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                2,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(24),
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Color(0xff000000)
+                                                        .withOpacity(
+                                                            0.1), // 0x1A for the first shadow
+                                                    spreadRadius: 0,
+                                                    blurRadius: 0,
+                                                    offset: Offset(0, 0),
+                                                  ),
+                                                  BoxShadow(
+                                                    color: Color(0xff000000)
+                                                        .withOpacity(
+                                                            0.1), // 0x1A for the second shadow
+                                                    spreadRadius: 1,
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 3),
+                                                  ),
+                                                ]),
+                                            child: child,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              60,
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 60,
-                                  ),
 
-                                  ///forget password text
-                                  Padding(
-                                    padding:
-                                        textActionPadding ?? EdgeInsets.zero,
-                                    child: MouseRegion(
-                                      cursor: SystemMouseCursors.click,
-                                      child: GestureDetector(
-                                        onTap: onTap,
-                                        child: Text(
-                                          textAction,
-                                          textAlign: TextAlign.right,
-                                          style: GoogleFonts.firaSans(
-                                            color: Color(0xff1696C8),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
+                                    ///forget password text
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.centerRight,
+                                          child: InkWell(
+                                            onTap: onTap,
+                                            child: Text(
+                                              textAction,
+                                              textAlign: TextAlign.end,
+                                              style: GoogleFonts.firaSans(
+                                                color: Color(0xff1696C8),
+                                                fontSize: FontSize.s14,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
-                              // SvgPicture.asset(
-                              //   'images/background.svg',
-                              //   width: MediaQuery.of(context).size.width / 3,
-                              //     height: MediaQuery.of(context).size.height / 2,
-                              //   // width: 200,
-                              //   // height: 200,
-                              // ),
-                              Image.asset(
-                                'images/amico.png',
-                                width: MediaQuery.of(context).size.width / 3,
-                                height: MediaQuery.of(context).size.height / 2,
-                              )
-                            ],
-                          )
-                        ],
+                                  ],
+                                ),
+
+                                // SvgPicture.asset(
+                                //   'images/background.svg',
+                                //   width: MediaQuery.of(context).size.width / 3,
+                                //     height: MediaQuery.of(context).size.height / 2,
+                                //   // width: 200,
+                                //   // height: 200,
+                                // ),
+                                Image.asset(
+                                  'images/amico.png',
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  height:
+                                      MediaQuery.of(context).size.height / 2,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          )),
+          ),
+        ],
+      ),
     );
   }
 }
