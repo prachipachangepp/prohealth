@@ -144,6 +144,7 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),
                     ),
+
                     child:
                     _isLoading ?
                         CircularProgressIndicator(color: ColorManager.blueprime,)
