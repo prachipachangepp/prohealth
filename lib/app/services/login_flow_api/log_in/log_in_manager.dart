@@ -50,7 +50,7 @@ class AuthService {
         setErrorMessage(response.statusMessage ?? 'Unknown error occurred');
       }
     } catch (e) {
-      setErrorMessage('The email or password you entered is incorrect !');
+      setErrorMessage('The password you entered is incorrect !');
       print('Error occurred: $e');
     } finally {
       setLoading(false);
