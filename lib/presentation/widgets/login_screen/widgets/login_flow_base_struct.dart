@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -251,46 +249,3 @@ class LoginBaseConstant extends StatelessWidget {
     );
   }
 }
-
-//Material(
-//       child: Container(
-//           // height: 725,
-//           decoration: BoxDecoration(
-//             image: DecorationImage(
-//               image: AssetImage('images/login_screen_no_blur.png'),
-//               fit: BoxFit.fill,
-//             ),
-//           ),
-//           child: Center(
-//             child: Padding(
-//               padding: EdgeInsets.symmetric(
-//                   horizontal: MediaQuery.of(context).size.height / 30,
-//                   vertical: MediaQuery.of(context).size.width / 30),
-//               child: Container(
-//                 decoration: BoxDecoration(
-//                   boxShadow: [
-//                     BoxShadow(
-//                       color: Color(0xff000000).withOpacity(0.045),
-//                       spreadRadius: 1,
-//                       blurRadius: 4,
-//                       offset: Offset(1, 4),
-//                     ),
-//                   ],
-//                   color: Color(0xffFFFFFF).withOpacity(0.35),
-//                   borderRadius: BorderRadius.all(Radius.circular(25)),
-//                 ),
-//                 child: Padding(
-//                   padding: EdgeInsets.symmetric(
-//                       horizontal: MediaQuery.of(context).size.width / 90,
-//                       vertical: MediaQuery.of(context).size.height / 100),
-//                   child: Column(
-//                     children: [
-//                       ///logo
-//
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           )),
-//     );
