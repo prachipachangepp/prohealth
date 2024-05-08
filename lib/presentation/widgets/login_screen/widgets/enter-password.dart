@@ -6,7 +6,6 @@ import 'package:prohealth/app/services/login_flow_api/log_in/log_in_manager.dart
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
-
 import '../../../../app/resources/color.dart';
 
 class PasswordLoginScreen extends StatefulWidget {
@@ -25,7 +24,6 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
   final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
   bool _obscureText = true;
 
-  // Function to handle login
   void _login() {
     if (_formKey.currentState?.validate() ?? false) {
       setState(() {
@@ -100,6 +98,9 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                         fontWeight: FontWeightManager.medium,
                         fontSize: FontSize.s14,
                       ),
+                      onFieldSubmitted: (_) {
+                        _login();
+                      },
                       controller: _passwordController,
                       cursorColor: Colors.black,
                       cursorHeight: 22,
@@ -112,6 +113,7 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                             width: 0.5,
                           ),
                         ),
+
                         labelText: AppString.password,
                         labelStyle: CustomTextStylesCommon.commonStyle(
                           color: Color(0xff000000).withOpacity(0.3),

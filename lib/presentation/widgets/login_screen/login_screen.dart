@@ -145,13 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                         },
                                       ),
                                     );
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => AuthVerifyScreen(
-                                    //         email: _emailController.text),
-                                    //   ),
-                                    // );
                                   } catch (e) {
                                     // Handle error
                                     print('Error occurred: $e');
