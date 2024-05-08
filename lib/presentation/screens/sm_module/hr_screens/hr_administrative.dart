@@ -1,12 +1,14 @@
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/admin_emp_data.dart';
+import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/edit_emp_popup_const.dart';
 import '../../../../app/resources/color.dart';
+import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/custom_icon_button_constant.dart';
-import '../widgets/button_constant.dart';
 import '../widgets/table_constant.dart';
-import '../widgets/text_form_field_const.dart';
 
 class HrAdministrativeScreen extends StatefulWidget {
   const HrAdministrativeScreen({super.key});
@@ -18,6 +20,8 @@ class HrAdministrativeScreen extends StatefulWidget {
 class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController typeController = TextEditingController();
+  TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
   AdministrativeData administrativeData = AdministrativeData();
@@ -49,85 +53,12 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    backgroundColor: Colors.white,
-                    content: Container(
-                      height: 273,
-                      width: 309,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8)
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [IconButton(onPressed: (){
-                              Navigator.pop(context);
-                            }, icon: Icon(Icons.close))],),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Employee Type',),
-                              SizedBox(height: 15,),
-                              SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Shorthand',),
-                              SizedBox(height: 15,),
-                              SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Type of Employee',),
-                              SizedBox(height: 15,),
-                              Row(
-                                children: [
-                                  Text('Color',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),),
-                                  SizedBox(width: 25,),
-                                  Container(
-                                    padding: EdgeInsets.all(3),
-                                    width: 61,
-                                    height: 22,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(2),
-                                      border: Border.all(width: 1, color: Colors.black26,
-                                      ),
-                                    ),
-                                    child: Container(
-                                      width: 57,
-                                      height: 16,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(2),
-                                        color: Color(0xffE8A87D),
-                                      ),
-                                    ),
-                                  )
-
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 20,)
-                        ],
-                      ),
-                    ),
-                    actions: [
-                      Center(
-                        child: CustomElevatedButton(
-                            width: 105,
-                            height: 31,
-                            text: 'Add',
-                            onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             LoginScreen()));
-                            }),
-                      )
-                    ],
-                  );
+                  return CustomPopupWidget(
+                    nameController: nameController,
+                    addressController: addressController,
+                    emailController: emailController,
+                    onAddPressed: () {  },
+                    containerColor: Color(0xffE8A87D),);
                 },
               );
             }),
@@ -151,7 +82,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                 serialNumber.toString().padLeft(2, '0');
                 return Container(
                     margin: EdgeInsets.all(5,),
-                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/13),
+                    //padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/13),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(4),
@@ -164,154 +95,96 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                         ),
                       ],
                     ),
-                    height: 56,
+                    height: AppSize.s56,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          formattedSerialNumber,
-                          textAlign: TextAlign.end,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff686464),
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                            formattedSerialNumber,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff686464),
+                              decoration: TextDecoration.none,
+                            ),
                           ),
                         ),
-                        Text(
-                            administrativeData.employeeList[index].employeeType,
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff686464),
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                              administrativeData.employeeList[index].employeeType,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff686464),
+                              decoration: TextDecoration.none,
+                            ),
                           ),
                         ),
-                        Text(
-                            administrativeData.employeeList[index].abbreviation,
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff686464),
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                              administrativeData.employeeList[index].abbreviation,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff686464),
+                              decoration: TextDecoration.none,
+                            ),
                           ),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width/20,
-                          height: 22,
-                          // margin: EdgeInsets.only(right: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Color(0xffE8A87D),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.center,
+                            //width: MediaQuery.of(context).size.width/20,
+                            width: 64,
+                            height: 22,
+                            // margin: EdgeInsets.only(right: 20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Color(0xffE8A87D),
+                            ),
                           ),
                         ),
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      backgroundColor: Colors.white,
-                                      content: Container(
-                                        height: 283,
-                                        width: 309,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(8)
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              crossAxisAlignment: CrossAxisAlignment.end,
-                                              children: [IconButton(onPressed: (){
-                                                Navigator.pop(context);
-                                              }, icon: Icon(Icons.close))],),
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text('Color',
-                                                      style: GoogleFonts.firaSans(
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: Color(0xff686464),
-                                                        decoration: TextDecoration.none,
-                                                      ),),
-                                                    SizedBox(width: 25,),
-                                                    Container(
-                                                      padding: EdgeInsets.all(3),
-                                                      width: 61,
-                                                      height: 22,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(2),
-                                                        border: Border.all(width: 1, color: Colors.black26,
-                                                        ),
-                                                      ),
-                                                      child: Container(
-                                                        width: 57,
-                                                        height: 16,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(2),
-                                                          color: Color(0xffE4CCF3),
-                                                        ),
-                                                      ),
-                                                    )
+                        //SizedBox(width: MediaQuery.of(context).size.width/15,),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return EditPopupWidget(
+                                          typeController: typeController,
+                                          shorthandController: shorthandController,
+                                          emailController: emailController,
+                                          containerColor: Color(0xffF37F81),
+                                          onSavePressed: (){});
+                                    },
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.edit_outlined,
+                                  color: ColorManager.darktgrey,
+                                ),
+                              ),
 
-                                                  ],
-                                                ),
-                                                SizedBox(height: 15,),
-                                                SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Type',),
-                                                SizedBox(height: 15,),
-                                                SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Shorthand',),
-                                                SizedBox(height: 15,),
-                                                SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Type of Employee',),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      actions: [
-                                        Center(
-                                          child: CustomElevatedButton(
-                                              width: 105,
-                                              height: 31,
-                                              text: 'Save',
-                                              onPressed: () {
-                                                // Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //         builder: (context) =>
-                                                //             LoginScreen()));
-                                              }),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              icon: Icon(
-                                Icons.edit_outlined,
-                                color: ColorManager.darktgrey,
+                              IconButton(
+                                onPressed: () {
+                                },
+                                icon: Icon(
+                                  Icons.delete_outline,
+                                  color: ColorManager.faintOrange,
+                                ),
                               ),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                              },
-                              icon: Icon(
-                                Icons.delete_outline,
-                                color: ColorManager.faintOrange,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ));

@@ -1,5 +1,3 @@
-//
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -218,17 +216,6 @@ class MenuScreen extends StatelessWidget {
                                                     AssetImage(
                                                         "images/finance.png"),
                                                   ),
-                                                  // SizedBox(
-                                                  //   width: MediaQuery.of(context)
-                                                  //           .size
-                                                  //           .width /
-                                                  //       25,
-                                                  // ),
-                                                  // ResponsiveContainer(
-                                                  //   'Other',
-                                                  //   AssetImage(
-                                                  //       "images/other.png"),
-                                                  // ),
                                                 ],
                                               ),
                                               Text(
@@ -278,17 +265,6 @@ class MenuScreen extends StatelessWidget {
                                                     AssetImage(
                                                         "images/h_h_emr.png"),
                                                   ),
-                                                  // SizedBox(
-                                                  //   width: MediaQuery.of(context)
-                                                  //           .size
-                                                  //           .width /
-                                                  //       40,
-                                                  // ),
-                                                  // ResponsiveContainer(
-                                                  //   'Hospice EMR',
-                                                  //   AssetImage(
-                                                  //       "images/h_emr.png"),
-                                                  // ),
                                                 ],
                                               ),
                                               SizedBox(height: 5,),

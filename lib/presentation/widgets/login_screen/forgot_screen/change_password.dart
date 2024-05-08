@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:js';
 import 'dart:ui';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/login_flow_api/confirm_pass/confirm_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
-
 import '../../../../app/resources/color.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
