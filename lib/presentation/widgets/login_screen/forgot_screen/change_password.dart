@@ -675,9 +675,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           padding:
                                                                               EdgeInsets.only(top: 25),
                                                                           height:
-                                                                              400,
+                                                                              300,
                                                                           width:
-                                                                              500,
+                                                                              400,
                                                                           child:
                                                                               Column(
                                                                             mainAxisAlignment:
@@ -726,18 +726,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                   );
                                                                 } catch (e) {
                                                                   AlertDialog(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .white,
+                                                                    backgroundColor: Colors.white,
                                                                     content:
                                                                         Container(
-                                                                      padding: EdgeInsets
-                                                                          .only(
-                                                                              top: 25),
-                                                                      height:
-                                                                          400,
-                                                                      width:
-                                                                          500,
+                                                                      padding: EdgeInsets.only(top: 25),
+                                                                      height: 300,
+                                                                      width: 400,
                                                                       child:
                                                                           Column(
                                                                         mainAxisAlignment:

@@ -12,7 +12,7 @@ class ResponsiveContainer extends StatelessWidget {
       elevation: 4,
       borderRadius: BorderRadius.all(Radius.circular(24)),
       child: Container(
-        height: MediaQuery.of(context).size.height / 5,
+        height: MediaQuery.of(context).size.height / 5.5,
         width: MediaQuery.of(context).size.width / 7.7,
         padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width / 70,
