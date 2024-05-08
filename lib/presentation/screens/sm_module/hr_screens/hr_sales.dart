@@ -1,13 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/add_emp_popup_const.dart';
+import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/edit_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/table_constant.dart';
 import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
-
-import '../widgets/button_constant.dart';
-import '../widgets/text_form_field_const.dart';
 
 class HrSalesScreen extends StatefulWidget {
    HrSalesScreen({super.key});
@@ -19,6 +17,8 @@ class HrSalesScreen extends StatefulWidget {
 class _HrSalesScreenState extends State<HrSalesScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController typeController = TextEditingController();
+  TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
    late int currentPage;
@@ -47,85 +47,12 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    backgroundColor: Colors.white,
-                    content: Container(
-                      height: 273,
-                      width: 309,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8)
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [IconButton(onPressed: (){
-                              Navigator.pop(context);
-                            }, icon: Icon(Icons.close))],),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Employee Type',),
-                              SizedBox(height: 15,),
-                              SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Shorthand',),
-                              SizedBox(height: 15,),
-                              SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Type of Employee',),
-                              SizedBox(height: 15,),
-                              Row(
-                                children: [
-                                  Text('Color',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),),
-                                  SizedBox(width: 25,),
-                                  Container(
-                                    padding: EdgeInsets.all(3),
-                                    width: 61,
-                                    height: 22,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(2),
-                                      border: Border.all(width: 1, color: Colors.black26,
-                                      ),
-                                    ),
-                                    child: Container(
-                                      width: 57,
-                                      height: 16,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(2),
-                                        color: Color(0xffE8A87D),
-                                      ),
-                                    ),
-                                  )
-
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 20,)
-                        ],
-                      ),
-                    ),
-                    actions: [
-                      Center(
-                        child: CustomElevatedButton(
-                            width: 105,
-                            height: 31,
-                            text: 'Add',
-                            onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             LoginScreen()));
-                            }),
-                      )
-                    ],
-                  );
+                  return CustomPopupWidget(
+                    nameController: nameController,
+                    addressController: addressController,
+                    emailController: emailController,
+                    onAddPressed: () {  },
+                    containerColor: Color(0xffF69DF6),);
                 },
               );
             }),
@@ -212,84 +139,12 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          backgroundColor: Colors.white,
-                                          content: Container(
-                                            height: 283,
-                                            width: 309,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(8)
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                                  children: [IconButton(onPressed: (){
-                                                    Navigator.pop(context);
-                                                  }, icon: Icon(Icons.close))],),
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text('Color',
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: 12,
-                                                            fontWeight: FontWeight.w700,
-                                                            color: Color(0xff686464),
-                                                            decoration: TextDecoration.none,
-                                                          ),),
-                                                        SizedBox(width: 25,),
-                                                        Container(
-                                                          padding: EdgeInsets.all(3),
-                                                          width: 61,
-                                                          height: 22,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(2),
-                                                            border: Border.all(width: 1, color: Colors.black26,
-                                                            ),
-                                                          ),
-                                                          child: Container(
-                                                            width: 57,
-                                                            height: 16,
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(2),
-                                                              color: Color(0xffE4CCF3),
-                                                            ),
-                                                          ),
-                                                        )
-
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: 15,),
-                                                    SMTextFConst(controller: nameController, keyboardType: TextInputType.text, text: 'Type',),
-                                                    SizedBox(height: 15,),
-                                                    SMTextFConst(controller: addressController, keyboardType: TextInputType.streetAddress, text: 'Shorthand',),
-                                                    SizedBox(height: 15,),
-                                                    SMTextFConst(controller: emailController, keyboardType: TextInputType.emailAddress, text: 'Type of Employee',),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          actions: [
-                                            Center(
-                                              child: CustomElevatedButton(
-                                                  width: 105,
-                                                  height: 31,
-                                                  text: 'Save',
-                                                  onPressed: () {
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) =>
-                                                    //             LoginScreen()));
-                                                  }),
-                                            )
-                                          ],
-                                        );
+                                        return EditPopupWidget(
+                                            typeController: typeController,
+                                            shorthandController: shorthandController,
+                                            emailController: emailController,
+                                            containerColor: Color(0xffE8A87D),
+                                            onSavePressed: (){});
                                       },
                                     );
                                   },
