@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:js';
 import 'dart:ui';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/login_flow_api/confirm_pass/confirm_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
-
 import '../../../../app/resources/color.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -675,9 +673,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           padding:
                                                                               EdgeInsets.only(top: 25),
                                                                           height:
-                                                                              400,
+                                                                              300,
                                                                           width:
-                                                                              500,
+                                                                              400,
                                                                           child:
                                                                               Column(
                                                                             mainAxisAlignment:
@@ -726,18 +724,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                   );
                                                                 } catch (e) {
                                                                   AlertDialog(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .white,
+                                                                    backgroundColor: Colors.white,
                                                                     content:
                                                                         Container(
-                                                                      padding: EdgeInsets
-                                                                          .only(
-                                                                              top: 25),
-                                                                      height:
-                                                                          400,
-                                                                      width:
-                                                                          500,
+                                                                      padding: EdgeInsets.only(top: 25),
+                                                                      height: 300,
+                                                                      width: 400,
                                                                       child:
                                                                           Column(
                                                                         mainAxisAlignment:

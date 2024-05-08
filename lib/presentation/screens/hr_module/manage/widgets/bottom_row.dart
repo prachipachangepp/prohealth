@@ -55,20 +55,21 @@ class BottomBarRow extends StatelessWidget {
                       decoration: TextDecoration.none,),
                   ),
                 ],
+                //
               ),
               ///logo
               Column(
                 children: [
                   Image.asset(
                     'images/powered_logo.png',
-                    height: 20,
+                    height: MediaQuery.of(context).size.height/35,
                     width: 27,
                   ),
                   Text(
                     'Powered by',
                     style: TextStyle(
                         fontFamily: 'FiraSans',
-                        fontSize: 10,
+                        fontSize: MediaQuery.of(context).size.height/90,
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
                       decoration: TextDecoration.none,),
