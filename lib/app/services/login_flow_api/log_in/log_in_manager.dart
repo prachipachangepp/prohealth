@@ -58,6 +58,7 @@ class AuthService {
   }
 }
 
+///...
 ///
 // class AuthService {
 //   static  Future<void> _loginWithEmail() async {
@@ -113,7 +114,6 @@ class AuthService {
 //     });
 //   }
 // }
-
 ///
 // import 'package:dio/dio.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
