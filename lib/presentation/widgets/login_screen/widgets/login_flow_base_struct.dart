@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -140,7 +141,6 @@ class LoginBaseConstant extends StatelessWidget {
                                                   .height /
                                               30,
                                         ),
-
                                         ///todo prachi
                                         ///main container
                                         Container(
@@ -184,7 +184,6 @@ class LoginBaseConstant extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-
                                     ///forget password text
                                     Column(
                                       crossAxisAlignment:
@@ -209,11 +208,13 @@ class LoginBaseConstant extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Image.asset(
-                                  'images/amico.png',
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  height:
-                                      MediaQuery.of(context).size.height / 2,
+                                Expanded(
+                                  child: Image.asset(
+                                    'images/amico.png',
+                                    width: MediaQuery.of(context).size.width / 3,
+                                    height:
+                                        MediaQuery.of(context).size.height / 2,
+                                  ),
                                 )
                               ],
                             )

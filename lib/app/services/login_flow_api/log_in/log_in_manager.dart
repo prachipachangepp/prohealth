@@ -7,17 +7,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService {
   static Future<void> loginWithEmail(
     BuildContext context,
-    TextEditingController emailController,
+    String emailController,
     TextEditingController passwordController,
     bool isLoading,
     Function(bool) setLoading,
     Function(String) setErrorMessage,
   ) async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+    if (emailController.isEmpty || passwordController.text.isEmpty) {
       setErrorMessage('Please enter username and password.');
       return;
     }
-    String email = emailController.text.trim();
+    String email = emailController.trim();
     String password = passwordController.text.trim();
 
     try {

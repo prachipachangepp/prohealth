@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/login_flow_api/get_otp/getotp_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'package:prohealth/presentation/widgets/login_screen/auth_verify_screen.dart';
+import 'package:prohealth/presentation/widgets/login_screen/verify_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -96,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Center(
                     child: _isSendingEmail
                         ? CircularProgressIndicator(
-                            color: Colors.blue,
+                            color: ColorManager.blueprime,
                           )
                         : Container(
                             decoration: BoxDecoration(
@@ -125,8 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 500), // Adjust the duration as needed
                                         pageBuilder: (context, animation,
                                                 secondaryAnimation) =>
-                                            AuthVerifyScreen(
-                                                email: _emailController.text),
+                                            VerifyScreen(email: _emailController.text),
                                         transitionsBuilder: (context, animation,
                                             secondaryAnimation, child) {
                                           const begin = Offset(1.0, 0.0);
