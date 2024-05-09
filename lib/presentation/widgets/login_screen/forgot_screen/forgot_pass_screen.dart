@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
+import 'package:prohealth/presentation/widgets/profile_bar/widget/screen_transition.dart';
 
 import '../../../../app/resources/const_string.dart';
 
@@ -38,35 +39,8 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       onTap: () {
         Navigator.push(
           context,
-          PageRouteBuilder(
-            transitionDuration:
-                Duration(milliseconds: 500), // Adjust the duration as needed
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                LoginScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              const begin = Offset(1.0, 0.0);
-              const end = Offset.zero;
-              const curve = Curves.ease;
-
-              var tween =
-                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-              // Apply the translation to the child's position
-              return SlideTransition(
-                position: animation.drive(tween),
-                child: child,
-              );
-            },
-          ),
+          RouteTransitions.slideTransition(page: LoginScreen()),
         );
-
-        ///
-        //
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => LoginScreen()),
-        // );
       },
       titleText: AppString.forgotpassword,
       textAction: AppString.backtologin,
@@ -83,7 +57,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 style: GoogleFonts.firaSans(
                   letterSpacing: 0.5,
                   color: ColorManager.darktgrey,
-                  fontSize: FontSize.s14,
+                  fontSize: MediaQuery.of(context).size.width / 100,
                   fontWeight: FontWeightManager.semiBold,
                 ),
               ),

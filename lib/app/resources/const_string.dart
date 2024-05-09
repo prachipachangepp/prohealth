@@ -3,11 +3,12 @@ class AppString {
   static const String profile = "Profile\n100%";
   static const String active = "Active";
   static const String annualSkill = "Annual skills 92%";
-  static const String physical =  "Physical Therapy";
-  static const String employmentType =  "Employment Type";
-  static const String saanJoes =  "Saan joes.24";
-  static const String address =  "Address";
-  static const String houseaddress =  "House No., Street No. Area City, Zip\nCode";
+  static const String physical = "Physical Therapy";
+  static const String employmentType = "Employment Type";
+  static const String saanJoes = "Saan joes.24";
+  static const String address = "Address";
+  static const String houseaddress =
+      "House No., Street No. Area City, Zip\nCode";
   static const String dateprofile = "05-03-1997(27)";
   static const String male = "Male";
   static const String star = "****-**-***";
@@ -145,34 +146,39 @@ class AppString {
   static const String resend = "Resend";
 
   ///forgot
-  static const String forgotpassword = "Forgot Password";
+  static const String forgotpassword = "Forgot Password ?";
   static const String forgotbtnpress = "forgot button press";
   static const String continuet = "Continue";
   static const String logout = "Logout";
   static const String backtologin = "Back to Login";
-  static const String forgotenter = "Enter your email for the verification process, we will send 6\ndigits code to your email.";
+  static const String forgotenter =
+      "Enter your email for the verification process,\nwe will send 6 digits code to your email.";
   // static const String = "";
   /// change password
   static const String verfication = 'Verification';
-  static const String entersixdigitCode = 'Enter your 6 digits code that you received on your email.';
+  static const String entersixdigitCode =
+      'Enter your 6 digits code that you received on your email.';
   static const String enterotp = 'Please enter OTP';
   static const String didntrecieveCode = 'If you didn’t receive a code! ';
-  static const String setnewPassword = 'Set the new password for your account so you can login and\naccess all features.';
+  static const String setnewPassword =
+      'Set the new password for your account \nso you can login and access all features.';
   static const String enternewpass = 'Enter New Password';
   static const String confmpass = 'Confirm Password';
   static const String enterconfmpass = 'Enter Confirm Password';
   static const String updatepass = 'Update Password';
   static const String passdontmatch = 'Passwords do not match.';
   static const String successfully = 'Successfully';
-  static const String resetsuccessfully = 'Your password has been reset successfully';
+  static const String resetsuccessfully =
+      'Your password has been reset successfully';
   static const String continuebutton = 'CONTINUE';
-  static const String threetimepasscanchange = 'Only Three Times you can change the password';
+  static const String threetimepasscanchange =
+      'Only Three Times you can change the password';
   static const String cannotchangepass = 'You Cannot change the password today';
 }
 
 ///mobile screen constant
 
-class AppStringMobile{
+class AppStringMobile {
   ///login screen
   static const String poweredBy = 'Powered by';
 }

@@ -157,16 +157,14 @@ class LoginBaseConstant extends StatelessWidget {
                                               boxShadow: [
                                                 BoxShadow(
                                                   color: Color(0xff000000)
-                                                      .withOpacity(
-                                                          0.1), // 0x1A for the first shadow
+                                                      .withOpacity(0.1),
                                                   spreadRadius: 0,
                                                   blurRadius: 0,
                                                   offset: Offset(0, 0),
                                                 ),
                                                 BoxShadow(
                                                   color: Color(0xff000000)
-                                                      .withOpacity(
-                                                          0.1), // 0x1A for the second shadow
+                                                      .withOpacity(0.1),
                                                   spreadRadius: 1,
                                                   blurRadius: 4,
                                                   offset: Offset(0, 3),

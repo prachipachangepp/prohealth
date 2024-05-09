@@ -57,8 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ///textfield Email
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height / 10,
-                        horizontal: MediaQuery.of(context).size.width / 30),
+                      vertical: MediaQuery.of(context).size.height / 10,
+                      horizontal: MediaQuery.of(context).size.width / 30,
+                    ),
                     child: TextFormField(
                       style: CustomTextStylesCommon.commonStyle(
                         color: Color(0xff000000).withOpacity(0.5),
@@ -73,8 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         contentPadding: const EdgeInsets.only(top: 1),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Color(0xff000000).withOpacity(0.5),
-                              width: 0.5),
+                            color: Color(0xff000000).withOpacity(0.5),
+                            width: 0.5,
+                          ),
                         ),
                         labelText: AppString.email,
                         labelStyle: CustomTextStylesCommon.commonStyle(
@@ -92,8 +94,34 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                         return null;
                       },
+                      onFieldSubmitted: (_) async {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          setState(() {
+                            _isSendingEmail = true;
+                            _showEmailInput = false;
+                          });
+                          try {
+                            await GetOTPService.getOTP(_emailController.text);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    VerifyScreen(email: _emailController.text),
+                              ),
+                            );
+                          } catch (e) {
+                            // Handle error
+                            print('Error occurred: $e');
+                          } finally {
+                            setState(() {
+                              _isSendingEmail = false;
+                            });
+                          }
+                        }
+                      },
                     ),
                   ),
+
                   Center(
                     child: _isSendingEmail
                         ? CircularProgressIndicator(
@@ -121,12 +149,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.push(
                                       context,
                                       PageRouteBuilder(
-                                        transitionDuration: Duration(
-                                            milliseconds:
-                                                500), // Adjust the duration as needed
+                                        transitionDuration:
+                                            Duration(milliseconds: 500),
                                         pageBuilder: (context, animation,
                                                 secondaryAnimation) =>
-                                            VerifyScreen(email: _emailController.text),
+                                            VerifyScreen(
+                                                email: _emailController.text),
                                         transitionsBuilder: (context, animation,
                                             secondaryAnimation, child) {
                                           const begin = Offset(1.0, 0.0);
@@ -136,8 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           var tween = Tween(
                                                   begin: begin, end: end)
                                               .chain(CurveTween(curve: curve));
-
-                                          // Apply the translation to the child's position
                                           return SlideTransition(
                                             position: animation.drive(tween),
                                             child: child,
