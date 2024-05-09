@@ -39,7 +39,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
       (currentPage - 1) * itemsPerPage,
       min(currentPage * itemsPerPage, items.length),
     );
-    return Column(
+    return
+      Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomIconButtonConst(text: 'Add Employee Type', icon: Icons.add,

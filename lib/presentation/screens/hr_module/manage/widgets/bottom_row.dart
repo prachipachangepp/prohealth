@@ -55,6 +55,7 @@ class BottomBarRow extends StatelessWidget {
                       decoration: TextDecoration.none,),
                   ),
                 ],
+                //
               ),
               ///logo
               Column(
