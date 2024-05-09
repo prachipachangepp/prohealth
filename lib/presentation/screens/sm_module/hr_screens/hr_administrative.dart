@@ -190,6 +190,34 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     ));
               }),
         ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 30,
+          color: Colors.black12,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              (items.length / itemsPerPage).ceil(),
+                  (index) => IconButton(
+                icon: Text(
+                  '${index + 1}',
+                  style: TextStyle(
+                      color:
+                      currentPage == index + 1 ? Colors.blue : Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12),
+                ),
+                onPressed: () {
+                  setState(() {
+                    currentPage = index + 1;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

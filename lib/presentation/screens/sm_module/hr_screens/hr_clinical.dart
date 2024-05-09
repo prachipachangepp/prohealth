@@ -23,9 +23,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   TextEditingController emailController = TextEditingController();
 
    late int currentPage;
-
    late int itemsPerPage;
-
    late List<String> items;
 
    @override
@@ -102,7 +100,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
         SizedBox(height: 5,),
         TableHeadConstant(
             items: [
-              TableHeadItem(text: 'Sr No', textAlign: TextAlign.start),
+              TableHeadItem(text: 'Sr No.', textAlign: TextAlign.start),
               TableHeadItem(text: 'EmployeeType', textAlign: TextAlign.start),
               TableHeadItem(text: 'Abbreviation', textAlign: TextAlign.start),
               TableHeadItem(text: 'Color', textAlign: TextAlign.start),
@@ -225,6 +223,34 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                       ],
                     ));
               }),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 30,
+          color: Colors.black12,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              (items.length / itemsPerPage).ceil(),
+                  (index) => IconButton(
+                icon: Text(
+                  '${index + 1}',
+                  style: TextStyle(
+                      color:
+                      currentPage == index + 1 ? Colors.blue : Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12),
+                ),
+                onPressed: () {
+                  setState(() {
+                    currentPage = index + 1;
+                  });
+                },
+              ),
+            ),
+          ),
         ),
       ],
     );
