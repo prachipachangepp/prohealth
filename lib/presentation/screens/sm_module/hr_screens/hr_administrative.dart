@@ -62,7 +62,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                 },
               );
             }),
-        SizedBox(height: 5,),
+        SizedBox(height: 20,),
         TableHeadConstant(items: [
           TableHeadItem(text: 'Sr No', textAlign: TextAlign.start),
           TableHeadItem(text: 'EmployeeType', textAlign: TextAlign.start),
@@ -171,7 +171,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                 },
                                 icon: Icon(
                                   Icons.edit_outlined,
-                                  color: ColorManager.darktgrey,
+                                  color: ColorManager.mediumgrey,
                                 ),
                               ),
 

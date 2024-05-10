@@ -7,7 +7,8 @@ class ColorManager {
   static Color bluelight = Color(0xFF579EBA);
   static Color cream = Color(0xffD9D9D9);
   static Color grey = Color(0xff8B8781);
-  static Color darktgrey = Color(0xFF686464);
+  static Color mediumgrey = Color(0xFF686464);
+  static Color darkgrey = Color(0xFF565656);
   static Color faintOrange = Color(0xffF6928A);
   static Color greenF = Color(0xff52A889);
   static Color green = Color(0xffB4DB4C);

@@ -128,7 +128,7 @@ class ProfileBarConstText{
   static TextStyle profileTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
     fontSize: FontSize.s10,
-    color: ColorManager.darktgrey,
+    color: ColorManager.mediumgrey,
     fontWeight: FontWeightManager.semiBold,
     );
   }
@@ -165,5 +165,15 @@ class CustomTextStylesCommon {
       color: color ?? Color(0xff4B89BA),
       fontWeight: fontWeight ?? FontWeight.bold,
     );
+  }
+}
+
+///menu screen
+class MenuScreenHeadStyle{
+  static TextStyle menuHead(BuildContext context){
+    return GoogleFonts.firaSans(
+        color: ColorManager.darkgrey,
+        fontSize: 13.0,
+        fontWeight: FontWeightManager.bold);
   }
 }

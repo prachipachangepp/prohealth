@@ -194,7 +194,7 @@ class CustomButton extends StatelessWidget {
             ? Text(
           text!,
           style: GoogleFonts.firaSans(
-            fontSize: MediaQuery.of(context).size.width / 90,
+            fontSize: MediaQuery.of(context).size.width / 100,
             fontWeight: FontWeight.w700,
           ),
         )

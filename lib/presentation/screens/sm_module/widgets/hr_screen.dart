@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/hr_administrative.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/hr_clinical.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/hr_sales.dart';
@@ -88,8 +89,8 @@ class HrWidget extends StatelessWidget {
                                 fontSize: 8,
                                 fontWeight: FontWeight.bold,
                                 color: selectedIndex == entry.key
-                                    ? Color(0xff50B5E5)
-                                    : Colors.black,
+                                    ? ColorManager.black
+                                    : ColorManager.white,
                               ),
                             ),
                           ),

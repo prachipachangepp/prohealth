@@ -2,6 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/home_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/sm_module/responsive_screen_sm.dart';
@@ -99,11 +103,10 @@ class MenuScreen extends StatelessWidget {
                                                 Text(
                                                   'Select a Module',
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontFamily: 'FiraSans',
+                                                  style: GoogleFonts.firaSans(
                                                     fontSize: 14,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Color(0xff565656),
+                                                    fontWeight: FontWeightManager.bold,
+                                                    color: ColorManager.darkgrey,
                                                   ),
                                                 ),
                                                 Container(
@@ -149,11 +152,7 @@ class MenuScreen extends StatelessWidget {
                                             Text(
                                               'Administration',
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontFamily: 'FiraSans',
-                                                  color: Color(0xff565656),
-                                                  fontSize: 13.0,
-                                                  fontWeight: FontWeight.w700),
+                                              style: MenuScreenHeadStyle.menuHead(context),
                                             ),
                                             Row(
                                               children: [
@@ -205,11 +204,7 @@ class MenuScreen extends StatelessWidget {
                                             Text(
                                               'Business',
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontFamily: 'FiraSans',
-                                                  color: Color(0xff565656),
-                                                  fontSize: 13.0,
-                                                  fontWeight: FontWeight.w700),
+                                              style: MenuScreenHeadStyle.menuHead(context),
                                             ),
                                             Row(
                                               children: [
@@ -234,11 +229,7 @@ class MenuScreen extends StatelessWidget {
                                             Text(
                                               'Patient Related',
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontFamily: 'FiraSans',
-                                                  color: Color(0xff565656),
-                                                  fontSize: 13.0,
-                                                  fontWeight: FontWeight.w700),
+                                              style:MenuScreenHeadStyle.menuHead(context),
                                             ),
                                             Row(
                                               children: [
