@@ -247,18 +247,34 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
         ),
         Container(
           height: 30,
-          color: Colors.black12,
+          // color: Colors.black12,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.chevron_left),
-                onPressed: () {
-                  setState(() {
-                    currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                  });
-                },
+              Container(
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1.0,
+                  ),
+                ),
+                child: IconButton(
+                  padding: EdgeInsets.only(bottom: 2),
+                  icon: Icon(Icons.chevron_left),
+                  onPressed: () {
+                    setState(() {
+                      currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                    });
+                  },
+                  color: Colors.black,
+                  iconSize: 20,
+                ),
               ),
+              SizedBox(width: 3), // Add space between containers
               for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
                 if (i == 1 ||
                     i == currentPage ||
@@ -270,24 +286,23 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                       });
                     },
                     child: Container(
-                      width: 25,
-                      height: 25,
+                      width: 20,
+                      height: 20,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                          color: currentPage == i ? Colors.blue : Colors.grey,
+                          width: currentPage == i ? 2.0 : 1.0,
+                        ),
                         color:
                             currentPage == i ? Colors.blue : Colors.transparent,
-                        border: Border.all(
-                          color: currentPage == i
-                              ? Colors.blue
-                              : Colors.transparent,
-                        ),
                       ),
                       child: Text(
                         '$i',
                         style: TextStyle(
-                          color: currentPage == i ? Colors.white : Colors.black,
+                          color: currentPage == i ? Colors.white : Colors.grey,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),
@@ -303,45 +318,36 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                       fontSize: 12,
                     ),
                   ),
-              IconButton(
-                icon: Icon(Icons.chevron_right),
-                onPressed: () {
-                  setState(() {
-                    currentPage =
-                        currentPage < (items.length / itemsPerPage).ceil()
-                            ? currentPage + 1
-                            : (items.length / itemsPerPage).ceil();
-                  });
-                },
+              SizedBox(width: 3),
+              Container(
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1.0,
+                  ),
+                ),
+                child: IconButton(
+                  padding: EdgeInsets.only(bottom: 2),
+                  icon: Icon(Icons.chevron_right),
+                  onPressed: () {
+                    setState(() {
+                      currentPage =
+                          currentPage < (items.length / itemsPerPage).ceil()
+                              ? currentPage + 1
+                              : (items.length / itemsPerPage).ceil();
+                    });
+                  },
+                  color: Colors.black,
+                  iconSize: 20,
+                ),
               ),
             ],
           ),
         )
-        // Container(
-        //   height: 30,
-        //   color: Colors.black12,
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: List.generate(
-        //       (items.length / itemsPerPage).ceil(),
-        //       (index) => IconButton(
-        //         icon: Text(
-        //           '${index + 1}',
-        //           style: TextStyle(
-        //               color:
-        //                   currentPage == index + 1 ? Colors.blue : Colors.black,
-        //               fontWeight: FontWeight.bold,
-        //               fontSize: 12),
-        //         ),
-        //         onPressed: () {
-        //           setState(() {
-        //             currentPage = index + 1;
-        //           });
-        //         },
-        //       ),
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }

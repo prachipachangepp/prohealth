@@ -338,7 +338,6 @@ class SMDesktop extends StatelessWidget {
                                   ),
                                 ),
                               ),
-
                               // Container(
                               //   height: 23,
                               //   width: 90,
@@ -394,7 +393,6 @@ class SMDesktop extends StatelessWidget {
                               //     ),
                               //   ),
                               // ),
-
                               SizedBox(
                                 width: MediaQuery.of(context).size.width / 60,
                               ),
@@ -551,7 +549,7 @@ class SMDesktop extends StatelessWidget {
                               // )
                               ///main
                               Obx(() => CustomDropdownButton(
-                                    height: 35,
+                                    height: 34,
                                     width: 130,
                                     items: ['HR', 'Finance'],
                                     selectedItem:

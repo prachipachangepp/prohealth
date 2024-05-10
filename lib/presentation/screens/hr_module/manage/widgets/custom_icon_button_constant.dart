@@ -180,7 +180,8 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor, // Utilizing the backgroundColor parameter
+          backgroundColor:
+              backgroundColor, // Utilizing the backgroundColor parameter
           foregroundColor: textColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -192,18 +193,17 @@ class CustomButton extends StatelessWidget {
         ),
         child: text != null
             ? Text(
-          text!,
-          style: GoogleFonts.firaSans(
-            fontSize: MediaQuery.of(context).size.width / 100,
-            fontWeight: FontWeight.w700,
-          ),
-        )
+                text!,
+                style: GoogleFonts.firaSans(
+                  fontSize: MediaQuery.of(context).size.width / 90,
+                  fontWeight: FontWeight.w700,
+                ),
+              )
             : child,
       ),
     );
   }
 }
-
 
 ///CustomTitleButton
 ///sm desktop
@@ -295,8 +295,8 @@ class CustomDropdownButton extends StatelessWidget {
     this.borderRadius = 8.0,
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
-    this.width = 50,
-    this.height = 50.0,
+    this.width = 40,
+    this.height = 40.0,
   }) : super(key: key);
 
   @override
@@ -316,14 +316,17 @@ class CustomDropdownButton extends StatelessWidget {
             value: selectedItem,
             onChanged: onChanged,
             style: TextStyle(
-              color: Colors.white,
-              fontSize: MediaQuery.of(context).size.width / 120,
+              color: Colors.black,
+              fontSize: 13,
+              // MediaQuery.of(context).size.width / 10,
               fontWeight: FontWeight.w700,
             ),
-            dropdownColor: ColorManager.blueprime, // Background color for dropdown
+            dropdownColor: ColorManager.white,
+
+            /// Background color for dropdown
             borderRadius: BorderRadius.circular(borderRadius),
-            icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-            iconSize: 24.0,
+            icon: Icon(Icons.arrow_drop_down, color: Colors.black),
+            iconSize: 20.0,
             isExpanded: true,
             items: items.map((String value) {
               return DropdownMenuItem<String>(
@@ -336,7 +339,7 @@ class CustomDropdownButton extends StatelessWidget {
                   child: Text(
                     value,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: MediaQuery.of(context).size.width / 120,
                     ), // Text color
                   ),
