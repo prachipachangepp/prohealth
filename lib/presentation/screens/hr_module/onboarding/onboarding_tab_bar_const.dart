@@ -41,10 +41,10 @@ class OnboardingTabBar extends StatelessWidget {
                   color: ColorManager.white),
               indicatorSize: TabBarIndicatorSize.tab,
               indicatorColor: ColorManager.white,
-              labelColor: ColorManager.darktgrey,
+              labelColor: ColorManager.mediumgrey,
               labelStyle: CustomTextStylesCommon.commonStyle(
     fontSize: FontSize.s12,
-    color:  ColorManager.darktgrey,
+    color:  ColorManager.mediumgrey,
     fontWeight: FontWeightManager.semiBold,
     ),
               unselectedLabelColor: ColorManager.white,

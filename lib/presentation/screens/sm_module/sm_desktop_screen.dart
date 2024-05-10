@@ -593,7 +593,7 @@ class SMDesktop extends StatelessWidget {
             controller: _pageController,
             physics: NeverScrollableScrollPhysics(),
             children: [
-              Container(color: Colors.red),
+              Container(color: Colors.white),
               CompanyIdentityScreen(),
               HrScreen(),
               FinanceScreen()

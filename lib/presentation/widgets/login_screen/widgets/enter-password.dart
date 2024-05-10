@@ -66,7 +66,7 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
         );
       },
       titleText: AppString.login,
-      textAction: AppString.forgotpassword,
+      textAction: AppString.forgotpass,
       textActionPadding:
           EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
       child: Column(

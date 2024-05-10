@@ -110,7 +110,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
           ],
         ),
         SizedBox(
-          height: 5,
+          height: 20,
         ),
         TableHeadConstant(items: [
           TableHeadItem(text: AppString.srno, textAlign: TextAlign.start),

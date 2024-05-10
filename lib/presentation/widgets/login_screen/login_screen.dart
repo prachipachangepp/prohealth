@@ -45,8 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       onTap: () {},
       titleText: AppString.login,
       textAction: "",
-      textActionPadding:
-          EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
+     // textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

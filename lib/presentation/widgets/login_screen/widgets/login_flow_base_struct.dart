@@ -122,11 +122,11 @@ class LoginBaseConstant extends StatelessWidget {
                                               left: MediaQuery.of(context)
                                                       .size
                                                       .height /
-                                                  30),
+                                                  28),
                                           child: Text(
                                             titleText,
                                             style: GoogleFonts.firaSans(
-                                              color: ColorManager.darktgrey,
+                                              color: ColorManager.mediumgrey,
                                               fontSize: 40,
                                               fontWeight:
                                                   FontWeightManager.extrabold,

@@ -56,7 +56,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 AppString.forgotenter,
                 style: GoogleFonts.firaSans(
                   letterSpacing: 0.5,
-                  color: ColorManager.darktgrey,
+                  color: ColorManager.mediumgrey,
                   fontSize: MediaQuery.of(context).size.width / 100,
                   fontWeight: FontWeightManager.semiBold,
                 ),
@@ -77,7 +77,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                     contentPadding: const EdgeInsets.only(top: 2),
                     labelText: AppString.email,
                     labelStyle: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.darktgrey.withOpacity(0.5),
+                      color: ColorManager.mediumgrey.withOpacity(0.5),
                       fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.medium,
                     ),

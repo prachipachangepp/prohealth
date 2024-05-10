@@ -65,7 +65,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
     } catch (e) {
       print('Error occurred during OTP verification: $e');
       setState(() {
-        _errorMessage = 'Incorrect OTP. Please try again!';
+        _errorMessage = 'Incorrect OTP. Please try again.';
       });
     } finally {
       setState(() {

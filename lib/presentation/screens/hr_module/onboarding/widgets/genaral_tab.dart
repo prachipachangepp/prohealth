@@ -178,7 +178,7 @@ class InfoTextWidget extends StatelessWidget {
           (index) => Text(
             texts[index],
             style: TextStyle(
-              color: ColorManager.darktgrey,
+              color: ColorManager.mediumgrey,
               fontSize: MediaQuery.of(context).size.width / 120,
             ),
           ),

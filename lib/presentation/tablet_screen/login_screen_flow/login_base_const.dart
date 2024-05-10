@@ -74,7 +74,7 @@ class LoginBaseConst extends StatelessWidget {
                             Text(
                               titleText,
                               style: GoogleFonts.firaSans(
-                                color: ColorManager.darktgrey,
+                                color: ColorManager.mediumgrey,
                                 fontSize: FontSize.s25,
                                 fontWeight: FontWeightManager.extrabold,
                               ),
