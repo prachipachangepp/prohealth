@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/finance_screen.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/hr_screen.dart';
 import 'package:prohealth/presentation/widgets/const_appbar/controller.dart';
@@ -285,7 +286,6 @@ class SMDesktop extends StatelessWidget {
                               Container(
                                 height: 23,
                                 width: 90,
-                                // padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.white),
@@ -294,13 +294,14 @@ class SMDesktop extends StatelessWidget {
                                 child: Obx(
                                   () => Center(
                                     child: DropdownButton<String>(
-                                      icon: Icon(Icons.arrow_drop_down,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              89,
-                                          color: Colors.white),
-                                      dropdownColor: Colors.grey,
+                                      icon: Icon(
+                                        Icons.arrow_drop_down,
+                                        size:
+                                            MediaQuery.of(context).size.width /
+                                                89,
+                                        color: Colors.white,
+                                      ),
+                                      dropdownColor: ColorManager.blueprime,
                                       style: TextStyle(
                                         fontSize:
                                             MediaQuery.of(context).size.width /
@@ -337,6 +338,62 @@ class SMDesktop extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
+                              // Container(
+                              //   height: 23,
+                              //   width: 90,
+                              //   // padding: EdgeInsets.all(5),
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(20),
+                              //     border: Border.all(color: Colors.white),
+                              //     color: Colors.transparent,
+                              //   ),
+                              //   child: Obx(
+                              //     () => Center(
+                              //       child: DropdownButton<String>(
+                              //         icon: Icon(Icons.arrow_drop_down,
+                              //             size: MediaQuery.of(context)
+                              //                     .size
+                              //                     .width /
+                              //                 89,
+                              //             color: Colors.white),
+                              //         dropdownColor: Colors.grey,
+                              //         style: TextStyle(
+                              //           fontSize:
+                              //               MediaQuery.of(context).size.width /
+                              //                   92,
+                              //           color: Colors.white,
+                              //         ),
+                              //         underline: Container(),
+                              //         value: hrController.selectedItem.value,
+                              //         onChanged: (String? newValue) {
+                              //           if (newValue != null) {
+                              //             hrController
+                              //                 .changeSelectedItem(newValue);
+                              //           }
+                              //         },
+                              //         items: ['Admin', 'Staff', 'Patient']
+                              //             .map<DropdownMenuItem<String>>(
+                              //               (String value) =>
+                              //                   DropdownMenuItem<String>(
+                              //                 value: value,
+                              //                 child: Text(
+                              //                   value,
+                              //                   textAlign: TextAlign.center,
+                              //                   style: TextStyle(
+                              //                     color: Colors.white,
+                              //                     fontFamily: 'FiraSans',
+                              //                     fontSize: 11,
+                              //                     fontWeight: FontWeight.w200,
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //             )
+                              //             .toList(),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
 
                               SizedBox(
                                 width: MediaQuery.of(context).size.width / 60,

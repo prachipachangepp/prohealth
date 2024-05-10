@@ -1,15 +1,16 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/edit_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/table_constant.dart';
+
 import '../../../widgets/custom_icon_button_constant.dart';
-import '../widgets/button_constant.dart';
-import '../widgets/text_form_field_const.dart';
 
 class HrClinicalScreen extends StatefulWidget {
-   HrClinicalScreen({super.key});
+  HrClinicalScreen({super.key});
 
   @override
   State<HrClinicalScreen> createState() => _HrClinicalScreenState();
@@ -22,17 +23,17 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
-   late int currentPage;
-   late int itemsPerPage;
-   late List<String> items;
+  late int currentPage;
+  late int itemsPerPage;
+  late List<String> items;
 
-   @override
-   void initState() {
-     super.initState();
-     currentPage = 1;
-     itemsPerPage = 6;
-     items = List.generate(20, (index) => 'Item ${index + 1}');
-   }
+  @override
+  void initState() {
+    super.initState();
+    currentPage = 1;
+    itemsPerPage = 6;
+    items = List.generate(20, (index) => 'Item ${index + 1}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,24 +50,33 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
             Container(
               height: 32,
               width: 103,
-              padding: EdgeInsets.symmetric(vertical: 6,horizontal: 6),
+              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
               decoration: BoxDecoration(
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.circular(12), // Rounded corners
               ),
               child: DropdownButtonFormField<String>(
                 focusColor: Colors.transparent,
-                icon: Icon(Icons.arrow_drop_down_sharp,color: Colors.white,),
-                decoration: InputDecoration.collapsed(hintText: '',),
-                items: <String>['Sort By','Available', 'Unavailable',]
-                    .map<DropdownMenuItem<String>>((String value) {
+                icon: Icon(
+                  Icons.arrow_drop_down_sharp,
+                  color: Colors.white,
+                ),
+                decoration: InputDecoration.collapsed(
+                  hintText: '',
+                ),
+                items: <String>[
+                  'Sort By',
+                  'Available',
+                  'Unavailable',
+                ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value,),
+                    child: Text(
+                      value,
+                    ),
                   );
                 }).toList(),
-                onChanged: (String? newValue) {
-                },
+                onChanged: (String? newValue) {},
                 value: 'Sort By',
                 style: GoogleFonts.firaSans(
                   fontSize: 12,
@@ -80,7 +90,8 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
               width: 170,
               height: 32,
               child: CustomIconButtonConst(
-                  text: 'Add Employee Type', icon: Icons.add,
+                  text: 'Add Employee Type',
+                  icon: Icons.add,
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -89,24 +100,29 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                           nameController: nameController,
                           addressController: addressController,
                           emailController: emailController,
-                          onAddPressed: () {  },
-                          containerColor: Color(0xffE8A87D),);
+                          onAddPressed: () {},
+                          containerColor: Color(0xffE8A87D),
+                        );
                       },
                     );
                   }),
             ),
           ],
         ),
-        SizedBox(height: 5,),
-        TableHeadConstant(
-            items: [
-              TableHeadItem(text: 'Sr No.', textAlign: TextAlign.start),
-              TableHeadItem(text: 'EmployeeType', textAlign: TextAlign.start),
-              TableHeadItem(text: 'Abbreviation', textAlign: TextAlign.start),
-              TableHeadItem(text: 'Color', textAlign: TextAlign.start),
-              TableHeadItem(text: 'Actions', textAlign: TextAlign.center),
-            ]),
-        SizedBox(height: 5,),
+        SizedBox(
+          height: 5,
+        ),
+        TableHeadConstant(items: [
+          TableHeadItem(text: AppString.srno, textAlign: TextAlign.start),
+          TableHeadItem(text: AppString.employee, textAlign: TextAlign.start),
+          TableHeadItem(
+              text: AppString.abbrevation, textAlign: TextAlign.start),
+          TableHeadItem(text: AppString.color, textAlign: TextAlign.start),
+          TableHeadItem(text: AppString.action, textAlign: TextAlign.center),
+        ]),
+        SizedBox(
+          height: 5,
+        ),
         Expanded(
           child: ListView.builder(
               scrollDirection: Axis.vertical,
@@ -114,9 +130,11 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
               itemBuilder: (context, index) {
                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                 String formattedSerialNumber =
-                serialNumber.toString().padLeft(2, '0');
+                    serialNumber.toString().padLeft(2, '0');
                 return Container(
-                  margin: EdgeInsets.all(5,),
+                    margin: EdgeInsets.all(
+                      5,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(4),
@@ -135,16 +153,16 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 5, right: 10),
-                            height: 7,
-                            width:7,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              color: Color(0xff008000)
-                            ),
-                          )
-                        ],),
+                            Container(
+                              margin: EdgeInsets.only(top: 5, right: 10),
+                              height: 7,
+                              width: 7,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Color(0xff008000)),
+                            )
+                          ],
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -179,7 +197,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width/20,
+                              width: MediaQuery.of(context).size.width / 20,
                               height: 22,
                               // margin: EdgeInsets.only(right: 20),
                               decoration: BoxDecoration(
@@ -196,10 +214,11 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                       builder: (BuildContext context) {
                                         return EditPopupWidget(
                                             typeController: typeController,
-                                            shorthandController: shorthandController,
+                                            shorthandController:
+                                                shorthandController,
                                             emailController: emailController,
                                             containerColor: Color(0xffE4CCF3),
-                                            onSavePressed: (){});
+                                            onSavePressed: () {});
                                       },
                                     );
                                   },
@@ -209,8 +228,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: () {
-                                  },
+                                  onPressed: () {},
                                   icon: Icon(
                                     Icons.delete_outline,
                                     color: Color(0xffF6928A),
@@ -232,26 +250,98 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
           color: Colors.black12,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              (items.length / itemsPerPage).ceil(),
-                  (index) => IconButton(
-                icon: Text(
-                  '${index + 1}',
-                  style: TextStyle(
-                      color:
-                      currentPage == index + 1 ? Colors.blue : Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
-                ),
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.chevron_left),
                 onPressed: () {
                   setState(() {
-                    currentPage = index + 1;
+                    currentPage = currentPage > 1 ? currentPage - 1 : 1;
                   });
                 },
               ),
-            ),
+              for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
+                if (i == 1 ||
+                    i == currentPage ||
+                    i == (items.length / itemsPerPage).ceil())
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        currentPage = i;
+                      });
+                    },
+                    child: Container(
+                      width: 25,
+                      height: 25,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(4),
+                        color:
+                            currentPage == i ? Colors.blue : Colors.transparent,
+                        border: Border.all(
+                          color: currentPage == i
+                              ? Colors.blue
+                              : Colors.transparent,
+                        ),
+                      ),
+                      child: Text(
+                        '$i',
+                        style: TextStyle(
+                          color: currentPage == i ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  )
+                else if (i == currentPage - 1 || i == currentPage + 1)
+                  Text(
+                    '..',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+              IconButton(
+                icon: Icon(Icons.chevron_right),
+                onPressed: () {
+                  setState(() {
+                    currentPage =
+                        currentPage < (items.length / itemsPerPage).ceil()
+                            ? currentPage + 1
+                            : (items.length / itemsPerPage).ceil();
+                  });
+                },
+              ),
+            ],
           ),
-        ),
+        )
+        // Container(
+        //   height: 30,
+        //   color: Colors.black12,
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: List.generate(
+        //       (items.length / itemsPerPage).ceil(),
+        //       (index) => IconButton(
+        //         icon: Text(
+        //           '${index + 1}',
+        //           style: TextStyle(
+        //               color:
+        //                   currentPage == index + 1 ? Colors.blue : Colors.black,
+        //               fontWeight: FontWeight.bold,
+        //               fontSize: 12),
+        //         ),
+        //         onPressed: () {
+        //           setState(() {
+        //             currentPage = index + 1;
+        //           });
+        //         },
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

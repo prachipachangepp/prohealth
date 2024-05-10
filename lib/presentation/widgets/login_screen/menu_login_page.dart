@@ -46,7 +46,6 @@ class MenuScreen extends StatelessWidget {
                           left: MediaQuery.of(context).size.height / 30,
                           right: MediaQuery.of(context).size.height / 30,
                           top: MediaQuery.of(context).size.width / 40,
-                          // bottom: MediaQuery.of(context).size.width / 90,
                         ),
                         child: SingleChildScrollView(
                           child: ClipRect(
@@ -71,7 +70,6 @@ class MenuScreen extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                     horizontal:
                                         MediaQuery.of(context).size.width / 90,
-                                    // vertical: MediaQuery.of(context).size.height / 100
                                   ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
