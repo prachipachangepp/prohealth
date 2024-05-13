@@ -232,7 +232,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                   iconSize: 20,
                 ),
               ),
-              SizedBox(width: 3), // Add space between containers
+              SizedBox(width: 3),
               for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
                 if (i == 1 ||
                     i == currentPage ||
