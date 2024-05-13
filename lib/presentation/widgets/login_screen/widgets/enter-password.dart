@@ -134,6 +134,14 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x40000000),
+                          offset: Offset(0, 4),
+                          blurRadius: 3,
+                          spreadRadius: 0,
+                        ),
+                      ],
                     ),
                     child: _isLoading
                         ? CircularProgressIndicator(

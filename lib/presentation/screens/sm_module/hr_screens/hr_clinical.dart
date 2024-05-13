@@ -1,11 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/edit_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/table_constant.dart';
+import 'package:prohealth/presentation/widgets/const_appbar/controller.dart';
 
 import '../../../widgets/custom_icon_button_constant.dart';
 
@@ -22,10 +26,12 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  final HRClincicalController hrClinController = Get.put(HRClincicalController());
 
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
+  String? selectedValue;
 
   @override
   void initState() {
@@ -55,36 +61,97 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.circular(12), // Rounded corners
               ),
-              child: DropdownButtonFormField<String>(
-                focusColor: Colors.transparent,
-                icon: Icon(
-                  Icons.arrow_drop_down_sharp,
-                  color: Colors.white,
-                ),
-                decoration: InputDecoration.collapsed(
-                  hintText: '',
-                ),
-                items: <String>[
-                  'Sort By',
-                  'Available',
-                  'Unavailable',
-                ].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
+              child: Obx(
+                    () => Center(
+                  child: DropdownButton<String>(
+
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      size: MediaQuery.of(context).size.width /
+                          89,
+                      color: Colors.white,
                     ),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {},
-                value: 'Sort By',
-                style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xff686464),
-                  decoration: TextDecoration.none,
+                    dropdownColor: ColorManager.white,
+                    style: TextStyle(
+                      fontSize:
+                      MediaQuery.of(context).size.width /
+                          92,
+                      color: Colors.white,
+                    ),
+                    underline: Container(),
+                    value: hrClinController.selectedItem.value,
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        hrClinController
+                            .changeSelectedItem(newValue);
+                      }
+                    },
+                    items: ['Sort By',
+                          'Available',
+                          'Unavailable',]
+                        .map<DropdownMenuItem<String>>(
+                          (String value) =>
+                          DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: hrClinController.selectedItem.value == value
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontFamily: 'FiraSans',
+                                fontSize: 11,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            ),
+                          ),
+                    )
+                        .toList(),
+                  ),
                 ),
               ),
+              // DropdownButtonFormField<String>(
+              //   focusColor: Colors.transparent,
+              //   icon: Icon(
+              //     Icons.arrow_drop_down_sharp,
+              //     color: Colors.white,
+              //   ),
+              //   decoration: InputDecoration.collapsed(
+              //     hintText: '',
+              //   ),
+              //   items: <String>[
+              //     'Sort By',
+              //     'Available',
+              //     'Unavailable',
+              //   ].map<DropdownMenuItem<String>>((String value) {
+              //     return DropdownMenuItem<String>(
+              //       value: value,
+              //       child: Text(
+              //         textAlign: TextAlign.center,
+              //         value,
+              //         style: TextStyle(
+              //           color: selectedValue != null ? Colors.white : Colors.black,
+              //         ),
+              //       ),
+              //     );
+              //   }).toList(),
+              //   onChanged: (String? newValue) {
+              //     // setState(() {
+              //     //   selectedValue = newValue;
+              //     // });
+              //     if (newValue != null) {
+              //       selectedValue == newValue;
+              //     }
+              //   },
+              //   value: selectedValue,
+              //   style: GoogleFonts.firaSans(
+              //     fontSize: 12,
+              //     fontWeight: FontWeight.w600,
+              //     color: Color(0xff686464),
+              //     decoration: TextDecoration.none,
+              //   ),
+              // ),
             ),
             Container(
               width: 170,
@@ -124,123 +191,126 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
           height: 5,
         ),
         Expanded(
-          child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: currentPageItems.length,
-              itemBuilder: (context, index) {
-                int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-                String formattedSerialNumber =
-                    serialNumber.toString().padLeft(2, '0');
-                return Container(
-                    margin: EdgeInsets.all(
-                      5,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xff000000).withOpacity(0.25),
-                          spreadRadius: 0,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    height: 56,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 5, right: 10),
-                              height: 7,
-                              width: 7,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                  color: Color(0xff008000)),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              formattedSerialNumber,
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff686464),
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                            Text(
-                              'License Vocational Nurse',
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff686464),
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                            Text(
-                              'NC',
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff686464),
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 20,
-                              height: 22,
-                              // margin: EdgeInsets.only(right: 20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Color(0xffE8A87D),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return EditPopupWidget(
-                                            typeController: typeController,
-                                            shorthandController:
-                                                shorthandController,
-                                            emailController: emailController,
-                                            containerColor: Color(0xffE4CCF3),
-                                            onSavePressed: () {});
-                                      },
-                                    );
-                                  },
-                                  icon: Icon(
-                                    Icons.edit_outlined,
-                                    color: Color(0xff898989),
-                                  ),
+          child: ScrollConfiguration(
+            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: currentPageItems.length,
+                itemBuilder: (context, index) {
+                  int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                  String formattedSerialNumber =
+                      serialNumber.toString().padLeft(2, '0');
+                  return Container(
+                      margin: EdgeInsets.all(
+                        5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xff000000).withOpacity(0.25),
+                            spreadRadius: 0,
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      height: 56,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 5, right: 10),
+                                height: 7,
+                                width: 7,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    color: Color(0xff008000)),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                formattedSerialNumber,
+                                textAlign: TextAlign.end,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff686464),
+                                  decoration: TextDecoration.none,
                                 ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.delete_outline,
-                                    color: Color(0xffF6928A),
-                                  ),
+                              ),
+                              Text(
+                                'License Vocational Nurse',
+                                textAlign: TextAlign.end,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff686464),
+                                  decoration: TextDecoration.none,
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ));
-              }),
+                              ),
+                              Text(
+                                'NC',
+                                textAlign: TextAlign.end,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff686464),
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width / 20,
+                                height: 22,
+                                // margin: EdgeInsets.only(right: 20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Color(0xffE8A87D),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return EditPopupWidget(
+                                              typeController: typeController,
+                                              shorthandController:
+                                                  shorthandController,
+                                              emailController: emailController,
+                                              containerColor: Color(0xffE4CCF3),
+                                              onSavePressed: () {});
+                                        },
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.edit_outlined,
+                                      color: Color(0xff898989),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.delete_outline,
+                                      color: Color(0xffF6928A),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ));
+                }),
+          ),
         ),
         SizedBox(
           height: 10,
@@ -274,7 +344,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                   iconSize: 20,
                 ),
               ),
-              SizedBox(width: 3), // Add space between containers
+              SizedBox(width: 3),
               for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
                 if (i == 1 ||
                     i == currentPage ||
@@ -311,7 +381,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                   )
                 else if (i == currentPage - 1 || i == currentPage + 1)
                   Text(
-                    '..',
+                    ' .. ',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -326,8 +396,8 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(
-                    color: Colors.grey,
-                    width: 1.0,
+                    color: Color(0xffF1F1F1),
+                    width: 0.79,
                   ),
                 ),
                 child: IconButton(

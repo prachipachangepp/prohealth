@@ -87,7 +87,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "Enter your 4 digit code that you recieve through mail.",
+              "Enter your 4 digit code that you recieved through mail.",
               style: TextStyle(
                   fontFamily: 'FiraSans',
                   color: Color(0xff565656),
@@ -104,6 +104,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   height: MediaQuery.of(context).size.width / 38,
                   margin: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2.0),
                     border: Border.all(
                       color: ColorManager.grey,
                       width: 1,
@@ -149,7 +150,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
             // SizedBox(height: 10),
             RichText(
               text: TextSpan(
-                text: "Didn't receive code? ",
+                text: "Didn't receive a code? ",
                 style: TextStyle(
                     fontFamily: 'FiraSans',
                     color: Color(0xff565656),
@@ -175,6 +176,14 @@ class _VerifyScreenState extends State<VerifyScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x40000000),
+                    offset: Offset(0, 4),
+                    blurRadius: 3,
+                    spreadRadius: 0,
+                  ),
+                ],
               ),
               child: CustomButton(
                 borderRadius: 28,
@@ -200,7 +209,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
               ),
             InkWell(
               child: Text(
-                "Dont have authentication application with me.",
+                "Dont have authentication application with me?",
                 style: TextStyle(
                     fontFamily: 'FiraSans',
                     color: ColorManager.bluelight,

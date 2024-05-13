@@ -1,4 +1,4 @@
-///put or update addDocToCompany
+///post addDocToCompany
 class Company {
   final String companyId;
   final String name;

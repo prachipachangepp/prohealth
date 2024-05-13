@@ -294,14 +294,14 @@ class SMDesktop extends StatelessWidget {
                                 child: Obx(
                                   () => Center(
                                     child: DropdownButton<String>(
+
                                       icon: Icon(
                                         Icons.arrow_drop_down,
-                                        size:
-                                            MediaQuery.of(context).size.width /
+                                        size: MediaQuery.of(context).size.width /
                                                 89,
                                         color: Colors.white,
                                       ),
-                                      dropdownColor: ColorManager.blueprime,
+                                      dropdownColor: ColorManager.white,
                                       style: TextStyle(
                                         fontSize:
                                             MediaQuery.of(context).size.width /
@@ -325,7 +325,9 @@ class SMDesktop extends StatelessWidget {
                                                 value,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: hrController.selectedItem.value == value
+                                                      ? Colors.white
+                                                      : Colors.black,
                                                   fontFamily: 'FiraSans',
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.w200,

@@ -48,7 +48,7 @@ class CustomPopupWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p3,horizontal: AppPadding.p20),
+                  vertical: AppPadding.p3,horizontal: AppPadding.p25),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

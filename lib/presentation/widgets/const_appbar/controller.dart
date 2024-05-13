@@ -9,3 +9,11 @@ class HRController extends GetxController {
 }
 
 class CustomButtonController extends GetxController {}
+
+
+class HRClincicalController extends GetxController {
+  var selectedItem = 'Sort By'.obs;
+  void changeSelectedItem(String newItem) {
+    selectedItem.value = newItem;
+  }
+}

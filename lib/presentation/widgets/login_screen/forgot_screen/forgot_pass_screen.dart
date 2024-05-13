@@ -111,11 +111,11 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Color(0x40000000),
                         offset: Offset(0, 4),
-                        blurRadius: 4,
+                        blurRadius: 3,
                         spreadRadius: 0,
                       ),
                     ],
