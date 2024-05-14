@@ -5,6 +5,7 @@ class ColorManager {
   static Color blueprime = Color(0xff50B5E5);
   static Color blueiconColor = Color(0xff4FB8EB);
   static Color bluelight = Color(0xFF579EBA);
+  static Color bluebottom = Color(0xFF1696C8);
   static Color cream = Color(0xffD9D9D9);
   ///static Color grey = Color(0xff8B8781);
   static Color grey = Color(0xff8B8781);
@@ -13,6 +14,7 @@ class ColorManager {
   static Color faintOrange = Color(0xffF6928A);
   static Color greenF = Color(0xff52A889);
   static Color green = Color(0xffB4DB4C);
+  static Color orange = Color(0xffF2451C);
   static Color white = HexColor.fromHex('#FFFFFF');
   static Color black = Color(0xff000000);
   static Color blackfaint = Color(0xFF333333);
@@ -20,12 +22,7 @@ class ColorManager {
   static Color whitebluecolor = Color(0xffB1D6F4);
   static Color red = Color(0xffD93D3D);
   static Color rednew = Color(0xffEB3223);
-
-  static Color faintb = Color(0xff1E56A0);
-  static Color navybluenew = Color(0xff163172);
-  static Color lightblue = Color(0xfc3A74B4);
   static Color buttoncolor = Color(0xfc79AEF5);
-  static Color sidebar = Color(0xffF6F6F6);
   static Color lightgreyheading = Color(0xff575757);
 
   static Color transparentColor = Color(0x808B8781);

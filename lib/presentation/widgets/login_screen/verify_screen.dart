@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -11,10 +10,11 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/enter-password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
+import '../../../app/resources/font_manager.dart';
+import '../../../app/resources/theme_manager.dart';
 
 class VerifyScreen extends StatefulWidget {
   final String email;
-
   const VerifyScreen({Key? key, required this.email}) : super(key: key);
 
   @override
@@ -59,13 +59,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
         );
       } else {
         setState(() {
-          _errorMessage = 'Incorrect OTP. Please try again.';
+          _errorMessage = AppString.incorrectOtp;
         });
       }
     } catch (e) {
       print('Error occurred during OTP verification: $e');
       setState(() {
-        _errorMessage = 'Incorrect OTP. Please try again.';
+        _errorMessage = AppString.incorrectOtp;
       });
     } finally {
       setState(() {
@@ -79,7 +79,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
     return LoginBaseConstant(
       onTap: () {},
       textAction: '',
-      titleText: 'Verification',
+      titleText: AppString.verification,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
         child: Column(
@@ -87,14 +87,14 @@ class _VerifyScreenState extends State<VerifyScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "Enter your 4 digit code that you recieved through mail.",
-              style: TextStyle(
-                  fontFamily: 'FiraSans',
-                  color: Color(0xff565656),
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w700),
+              AppString.enter4digitcode,
+              style:  CustomTextStylesCommon.commonStyle(
+                  color: ColorManager.darkgrey,
+                  fontSize: FontSize.s12,
+                  fontWeight: FontWeightManager.bold
+              ),
             ),
-            // SizedBox(height: 10),
+            ///txtfield
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
@@ -104,7 +104,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   height: MediaQuery.of(context).size.width / 38,
                   margin: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2.0),
+                    borderRadius: BorderRadius.circular(2.26),
                     border: Border.all(
                       color: ColorManager.grey,
                       width: 1,
@@ -126,7 +126,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     textAlignVertical: TextAlignVertical.center,
                     maxLength: 1,
                     decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(bottom: 15),
+                      contentPadding: const EdgeInsets.only(bottom: AppSize.s15),
                       counterText: '',
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -147,32 +147,33 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 ),
               ),
             ),
-            // SizedBox(height: 10),
-            RichText(
-              text: TextSpan(
-                text: "Didn't receive a code? ",
-                style: TextStyle(
-                    fontFamily: 'FiraSans',
-                    color: Color(0xff565656),
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w700),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: "Resend",
-                    style: TextStyle(
-                        fontFamily: 'FiraSans',
-                        color: ColorManager.bluelight,
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w700),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        print("Resend code tapped");
-                      },
+           ///didnt receive code
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  AppString.didntrecieveCode,
+                  style: CodeVerficationText.VerifyCode(context)),
+                TextButton(
+                  onPressed: () {
+                  },
+                  child: Text(
+                    AppString.resend,
+                    style: CustomTextStylesCommon.commonStyle(
+                      color: ColorManager.blueprime,
+                      fontSize: FontSize.s10,
+                      fontWeight: FontWeightManager.semiBold,
+                    )
                   ),
-                ],
-              ),
+                )
+
+                // recognizer: TapGestureRecognizer()
+                    //   ..onTap = () {
+                    //     print("Resend code tapped");
+                    //   },
+              ],
             ),
-            // SizedBox(height: 20),
+            ///button
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
@@ -186,10 +187,10 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 ],
               ),
               child: CustomButton(
-                borderRadius: 28,
-                height: MediaQuery.of(context).size.height / 20,
-                width: MediaQuery.of(context).size.height / 5.5,
-                text: _isVerifyingOTP ? 'Verifying...' : AppString.login,
+                borderRadius: 24,
+                height: MediaQuery.of(context).size.height / 18,
+                width: MediaQuery.of(context).size.height / 4,
+                text: _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
                 onPressed: () {
                   verifyOTPAndLogin();
                 },
@@ -200,21 +201,22 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   _errorMessage!,
-                  style: TextStyle(
-                      fontFamily: 'FiraSans',
-                      color: ColorManager.red,
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w700),
+                  style:  CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.red,
+                    fontSize: FontSize.s10,
+                    fontWeight: FontWeightManager.bold,
+                  ),
                 ),
               ),
+            ///bottomtxt
             InkWell(
               child: Text(
-                "Dont have authentication application with me?",
-                style: TextStyle(
-                    fontFamily: 'FiraSans',
-                    color: ColorManager.bluelight,
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w700),
+                AppString.donthaveauth,
+                style:  CustomTextStylesCommon.commonStyle(
+                  color: ColorManager.blueprime,
+                  fontSize: FontSize.s10,
+                  fontWeight: FontWeightManager.medium,
+                ),
               ),
               onTap: () {
                 Navigator.push(
