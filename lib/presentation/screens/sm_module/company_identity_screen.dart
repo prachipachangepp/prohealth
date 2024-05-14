@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/get_company_by_id_data.dart';
 //import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/button_constant.dart';
@@ -502,10 +503,10 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                 height: 20,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(6.39),
                   border: Border.all(
-                    color: Colors.grey,
-                    width: 1.0,
+                    color: ColorManager.grey,
+                    width: 0.79,
                   ),
                 ),
                 child: IconButton(
@@ -516,7 +517,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                       currentPage = currentPage > 1 ? currentPage - 1 : 1;
                     });
                   },
-                  color: Colors.black,
+                  color: ColorManager.black,
                   iconSize: 20,
                 ),
               ),
@@ -534,16 +535,17 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     child: Container(
                       width: 20,
                       height: 20,
+                      margin: EdgeInsets.only(left: 5,right: 5),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                          color: currentPage == i ? Colors.blue : Colors.grey,
+                          color: currentPage == i ? ColorManager.blueprime : ColorManager.grey,
                           width: currentPage == i ? 2.0 : 1.0,
                         ),
                         color:
-                        currentPage == i ? Colors.blue : Colors.transparent,
+                        currentPage == i ? ColorManager.blueprime : Colors.transparent,
                         // border: Border.all(
                         //   color: currentPage == i
                         //       ? Colors.blue
@@ -555,7 +557,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                         '$i',
                         style: TextStyle(
                           color: currentPage == i ? Colors.white : Colors.grey,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeightManager.bold,
                           fontSize: 12,
                         ),
                       ),
@@ -563,10 +565,10 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                   )
                 else if (i == currentPage - 1 || i == currentPage + 1)
                   Text(
-                    ' .. ',
+                    '..',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                      color: ColorManager.black,
+                      fontWeight: FontWeightManager.bold,
                       fontSize: 12,
                     ),
                   ),
@@ -577,8 +579,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Color(0xffF1F1F1),
+                  border:Border.all(
+                    color: Colors.grey,
                     width: 0.79,
                   ),
                 ),
@@ -593,7 +595,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                           : (items.length / itemsPerPage).ceil();
                     });
                   },
-                  color: Colors.black,
+                  color: ColorManager.black,
                   iconSize: 20,
                 ),
               ),

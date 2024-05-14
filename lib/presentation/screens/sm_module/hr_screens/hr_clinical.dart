@@ -11,6 +11,7 @@ import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/edit
 import 'package:prohealth/presentation/screens/sm_module/widgets/table_constant.dart';
 import 'package:prohealth/presentation/widgets/const_appbar/controller.dart';
 
+import '../../../../app/resources/font_manager.dart';
 import '../../../widgets/custom_icon_button_constant.dart';
 
 class HrClinicalScreen extends StatefulWidget {
@@ -318,7 +319,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
         Container(
           height: 30,
           // color: Colors.black12,
-          child: Row(
+          child:  Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
@@ -326,21 +327,21 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 height: 20,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(6.39),
                   border: Border.all(
-                    color: Colors.grey,
-                    width: 1.0,
+                    color: ColorManager.grey,
+                    width: 0.79,
                   ),
                 ),
                 child: IconButton(
-                  padding: EdgeInsets.only(bottom: 2),
+                  padding: EdgeInsets.only(bottom: 1.5),
                   icon: Icon(Icons.chevron_left),
                   onPressed: () {
                     setState(() {
                       currentPage = currentPage > 1 ? currentPage - 1 : 1;
                     });
                   },
-                  color: Colors.black,
+                  color: ColorManager.black,
                   iconSize: 20,
                 ),
               ),
@@ -358,22 +359,29 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                     child: Container(
                       width: 20,
                       height: 20,
+                      margin: EdgeInsets.only(left: 5,right: 5),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                          color: currentPage == i ? Colors.blue : Colors.grey,
+                          color: currentPage == i ? ColorManager.blueprime : ColorManager.grey,
                           width: currentPage == i ? 2.0 : 1.0,
                         ),
                         color:
-                            currentPage == i ? Colors.blue : Colors.transparent,
+                        currentPage == i ? ColorManager.blueprime : Colors.transparent,
+                        // border: Border.all(
+                        //   color: currentPage == i
+                        //       ? Colors.blue
+                        //       : Colors.transparent,
+                        // ),
+
                       ),
                       child: Text(
                         '$i',
                         style: TextStyle(
                           color: currentPage == i ? Colors.white : Colors.grey,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeightManager.bold,
                           fontSize: 12,
                         ),
                       ),
@@ -381,22 +389,22 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                   )
                 else if (i == currentPage - 1 || i == currentPage + 1)
                   Text(
-                    ' .. ',
+                    '..',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                      color: ColorManager.black,
+                      fontWeight: FontWeightManager.bold,
                       fontSize: 12,
                     ),
                   ),
-              SizedBox(width: 3),
               Container(
                 width: 20,
                 height: 20,
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Color(0xffF1F1F1),
+                  border:Border.all(
+                    color: Colors.grey,
                     width: 0.79,
                   ),
                 ),
@@ -406,12 +414,12 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                   onPressed: () {
                     setState(() {
                       currentPage =
-                          currentPage < (items.length / itemsPerPage).ceil()
-                              ? currentPage + 1
-                              : (items.length / itemsPerPage).ceil();
+                      currentPage < (items.length / itemsPerPage).ceil()
+                          ? currentPage + 1
+                          : (items.length / itemsPerPage).ceil();
                     });
                   },
-                  color: Colors.black,
+                  color: ColorManager.black,
                   iconSize: 20,
                 ),
               ),
