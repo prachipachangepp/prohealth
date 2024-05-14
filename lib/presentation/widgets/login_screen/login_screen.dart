@@ -129,11 +129,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         : Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x40000000),
+                                  offset: Offset(0, 4),
+                                  blurRadius: 3,
+                                  spreadRadius: 0,
+                                ),
+                              ],
                             ),
                             child: CustomButton(
                               borderRadius: 28,
-                              height: MediaQuery.of(context).size.height / 20,
-                              width: MediaQuery.of(context).size.height / 5.5,
+                              height: MediaQuery.of(context).size.height / 18,
+                              width: MediaQuery.of(context).size.height / 5.3,
                               text: AppString.next,
                               onPressed: () async {
                                 if (_formKey.currentState?.validate() ??

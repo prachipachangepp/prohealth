@@ -1,10 +1,11 @@
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/admin_emp_data.dart';
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/edit_emp_popup_const.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../widgets/custom_icon_button_constant.dart';
@@ -48,7 +49,9 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        CustomIconButtonConst(text: 'Add Employee Type', icon: Icons.add,
+        CustomIconButtonConst(
+            text: 'Add Employee Type',
+            icon: Icons.add,
             onPressed: () {
               showDialog(
                 context: context,
@@ -57,20 +60,26 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     nameController: nameController,
                     addressController: addressController,
                     emailController: emailController,
-                    onAddPressed: () {  },
-                    containerColor: Color(0xffE8A87D),);
+                    onAddPressed: () {},
+                    containerColor: Color(0xffE8A87D),
+                  );
                 },
               );
             }),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         TableHeadConstant(items: [
           TableHeadItem(text: 'Sr No', textAlign: TextAlign.start),
           TableHeadItem(text: 'EmployeeType', textAlign: TextAlign.start),
-          TableHeadItem(text: 'Abbreviation            ', textAlign: TextAlign.start),
+          TableHeadItem(
+              text: 'Abbreviation            ', textAlign: TextAlign.start),
           TableHeadItem(text: 'Color', textAlign: TextAlign.start),
           TableHeadItem(text: 'Actions ', textAlign: TextAlign.center),
         ]),
-        SizedBox(height: 5,),
+        SizedBox(
+          height: 5,
+        ),
         Expanded(
           child: ListView.builder(
               scrollDirection: Axis.vertical,
@@ -79,9 +88,11 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                 EmployeeData employee = administrativeData.employeeList[index];
                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                 String formattedSerialNumber =
-                serialNumber.toString().padLeft(2, '0');
+                    serialNumber.toString().padLeft(2, '0');
                 return Container(
-                    margin: EdgeInsets.all(5,),
+                    margin: EdgeInsets.all(
+                      5,
+                    ),
                     //padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/13),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -98,7 +109,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     height: AppSize.s56,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                     // crossAxisAlignment: CrossAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
                       // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Expanded(
@@ -115,7 +126,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                         ),
                         Expanded(
                           child: Text(
-                              administrativeData.employeeList[index].employeeType,
+                            administrativeData.employeeList[index].employeeType,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.firaSans(
                               fontSize: 10,
@@ -127,7 +138,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                         ),
                         Expanded(
                           child: Text(
-                              administrativeData.employeeList[index].abbreviation,
+                            administrativeData.employeeList[index].abbreviation,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.firaSans(
                               fontSize: 10,
@@ -162,10 +173,11 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                     builder: (BuildContext context) {
                                       return EditPopupWidget(
                                           typeController: typeController,
-                                          shorthandController: shorthandController,
+                                          shorthandController:
+                                              shorthandController,
                                           emailController: emailController,
                                           containerColor: Color(0xffF37F81),
-                                          onSavePressed: (){});
+                                          onSavePressed: () {});
                                     },
                                   );
                                 },
@@ -174,10 +186,8 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                   color: ColorManager.mediumgrey,
                                 ),
                               ),
-
                               IconButton(
-                                onPressed: () {
-                                },
+                                onPressed: () {},
                                 icon: Icon(
                                   Icons.delete_outline,
                                   color: ColorManager.faintOrange,
@@ -195,29 +205,107 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
         ),
         Container(
           height: 30,
-          color: Colors.black12,
+          // color: Colors.black12,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              (items.length / itemsPerPage).ceil(),
-                  (index) => IconButton(
-                icon: Text(
-                  '${index + 1}',
-                  style: TextStyle(
-                      color:
-                      currentPage == index + 1 ? Colors.blue : Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
+            children: <Widget>[
+              Container(
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1.0,
+                  ),
                 ),
-                onPressed: () {
-                  setState(() {
-                    currentPage = index + 1;
-                  });
-                },
+                child: IconButton(
+                  padding: EdgeInsets.only(bottom: 2),
+                  icon: Icon(Icons.chevron_left),
+                  onPressed: () {
+                    setState(() {
+                      currentPage = currentPage > 1 ? currentPage - 1 : 1;
+                    });
+                  },
+                  color: Colors.black,
+                  iconSize: 20,
+                ),
               ),
-            ),
+              SizedBox(width: 3),
+              for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
+                if (i == 1 ||
+                    i == currentPage ||
+                    i == (items.length / itemsPerPage).ceil())
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        currentPage = i;
+                      });
+                    },
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                          color: currentPage == i ? Colors.blue : Colors.grey,
+                          width: currentPage == i ? 2.0 : 1.0,
+                        ),
+                        color:
+                            currentPage == i ? Colors.blue : Colors.transparent,
+                      ),
+                      child: Text(
+                        '$i',
+                        style: TextStyle(
+                          color: currentPage == i ? Colors.white : Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  )
+                else if (i == currentPage - 1 || i == currentPage + 1)
+                  Text(
+                    '..',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+              SizedBox(width: 3),
+              Container(
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1.0,
+                  ),
+                ),
+                child: IconButton(
+                  padding: EdgeInsets.only(bottom: 2),
+                  icon: Icon(Icons.chevron_right),
+                  onPressed: () {
+                    setState(() {
+                      currentPage =
+                          currentPage < (items.length / itemsPerPage).ceil()
+                              ? currentPage + 1
+                              : (items.length / itemsPerPage).ceil();
+                    });
+                  },
+                  color: Colors.black,
+                  iconSize: 20,
+                ),
+              ),
+            ],
           ),
-        ),
+        )
       ],
     );
   }

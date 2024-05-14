@@ -43,10 +43,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
   bool _isUpdatingPassword = false;
 
-  Future<void> updatePassword() async {
+  Future<void> updatePassword( String email, String otp) async {
     // Replace 'email', 'otp', and 'newPassword' with actual values
-    String email = 'user@example.com';
-    String otp = '123456';
+
     String newPassword = newPasswordController.text;
 
     try {

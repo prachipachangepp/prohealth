@@ -12,7 +12,6 @@ class EmployeeData {
   }
 }
 
-
 class AdministrativeData {
   List<EmployeeData> employeeList = [];
   Future<void> loadEmployeeData() async {

@@ -1,4 +1,4 @@
-///put or update addDocToCompany
+///post addDocToCompany
 class Company {
   final String companyId;
   final String name;
@@ -32,7 +32,8 @@ class Company {
       contact: Contact.fromJson(json['contact']),
       address: json['address'],
       headOfficeId: json['head_office_id'],
-      offices: List<Office>.from(json['offices'].map((x) => Office.fromJson(x))),
+      offices:
+          List<Office>.from(json['offices'].map((x) => Office.fromJson(x))),
     );
   }
 }
@@ -50,7 +51,7 @@ class Logo {
 
   factory Logo.fromJson(Map<String, dynamic> json) {
     return Logo(
-      main: json['main'],
+      main: json['company']['main'],
       app: json['app'],
       web: json['web'],
     );
@@ -123,8 +124,10 @@ class Office {
       email: json['email'],
       phones: List<String>.from(json['phones']),
       zones: List<String>.from(json['zones']),
-      services: List<Service>.from(json['services'].map((x) => Service.fromJson(x))),
-      documents: List<Document>.from(json['documents'].map((x) => Document.fromJson(x))),
+      services:
+          List<Service>.from(json['services'].map((x) => Service.fromJson(x))),
+      documents: List<Document>.from(
+          json['documents'].map((x) => Document.fromJson(x))),
     );
   }
 }
@@ -170,10 +173,19 @@ class Document {
 
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
-      corporateDocs: json['documents']['corporate_docs'] != null ? CorporateDocs.fromJson(json['documents']['corporate_docs']) : null,
-      insuranceContracts: json['documents']['insurance_contracts'] != null ? InsuranceContracts.fromJson(json['documents']['insurance_contracts']) : null,
-      vendorContracts: json['documents']['vendor_contracts'] != null ? VendorContracts.fromJson(json['documents']['vendor_contracts']) : null,
-      policies: json['documents']['policies'] != null ? Policies.fromJson(json['documents']['policies']) : null,
+      corporateDocs: json['documents']['corporate_docs'] != null
+          ? CorporateDocs.fromJson(json['documents']['corporate_docs'])
+          : null,
+      insuranceContracts: json['documents']['insurance_contracts'] != null
+          ? InsuranceContracts.fromJson(
+              json['documents']['insurance_contracts'])
+          : null,
+      vendorContracts: json['documents']['vendor_contracts'] != null
+          ? VendorContracts.fromJson(json['documents']['vendor_contracts'])
+          : null,
+      policies: json['documents']['policies'] != null
+          ? Policies.fromJson(json['documents']['policies'])
+          : null,
     );
   }
 }
@@ -187,7 +199,8 @@ class CorporateDocs {
 
   factory CorporateDocs.fromJson(Map<String, dynamic> json) {
     return CorporateDocs(
-      licenses: List<License>.from(json['licenses'].map((x) => License.fromJson(x))),
+      licenses:
+          List<License>.from(json['licenses'].map((x) => License.fromJson(x))),
     );
   }
 }
@@ -207,7 +220,8 @@ class License {
     return License(
       docId: json['doc_id'],
       docName: json['doc_name'],
-      docData: List<DocData>.from(json['doc_data'].map((x) => DocData.fromJson(x))),
+      docData:
+          List<DocData>.from(json['doc_data'].map((x) => DocData.fromJson(x))),
     );
   }
 }
@@ -258,7 +272,8 @@ class InsuranceContracts {
 
   factory InsuranceContracts.fromJson(Map<String, dynamic> json) {
     return InsuranceContracts(
-      noSubtype: List<InsuranceContract>.from(json['no_subtype'].map((x) => InsuranceContract.fromJson(x))),
+      noSubtype: List<InsuranceContract>.from(
+          json['no_subtype'].map((x) => InsuranceContract.fromJson(x))),
     );
   }
 }
@@ -278,7 +293,8 @@ class InsuranceContract {
     return InsuranceContract(
       docId: json['doc_id'],
       docName: json['doc_name'],
-      docData: List<DocData>.from(json['doc_data'].map((x) => DocData.fromJson(x))),
+      docData:
+          List<DocData>.from(json['doc_data'].map((x) => DocData.fromJson(x))),
     );
   }
 }
