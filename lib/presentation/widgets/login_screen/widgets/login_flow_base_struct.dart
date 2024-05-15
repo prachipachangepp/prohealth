@@ -169,7 +169,30 @@ class LoginBaseConstant extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
+      SizedBox(height: AppSize.s2,),
+      Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppString.poweredby,
+                      style: GoogleFonts.firaSans(
+                        color: ColorManager.black,
+                        fontSize: FontSize.s14,
+                        fontWeight: FontWeightManager.regular,
+                      ),
+                    ),
+                    SizedBox(
+                      width: AppSize.s2,
+                    ),
+                    Image.asset('images/powered_logo.png', width: AppSize.s25, height: AppSize.s25)
+                  ],
+                ),
+              )
+
       ]),
     );
     //   Material(
