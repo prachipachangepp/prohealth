@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -27,7 +26,8 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  final HRClincicalController hrClinController = Get.put(HRClincicalController());
+  final HRClincicalController hrClinController =
+      Get.put(HRClincicalController());
 
   late int currentPage;
   late int itemsPerPage;
@@ -63,51 +63,48 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 borderRadius: BorderRadius.circular(12), // Rounded corners
               ),
               child: Obx(
-                    () => Center(
+                () => Center(
                   child: DropdownButton<String>(
-
                     icon: Icon(
                       Icons.arrow_drop_down,
-                      size: MediaQuery.of(context).size.width /
-                          89,
+                      size: MediaQuery.of(context).size.width / 89,
                       color: Colors.white,
                     ),
                     dropdownColor: ColorManager.white,
                     style: TextStyle(
-                      fontSize:
-                      MediaQuery.of(context).size.width /
-                          92,
+                      fontSize: MediaQuery.of(context).size.width / 92,
                       color: Colors.white,
                     ),
                     underline: Container(),
                     value: hrClinController.selectedItem.value,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
-                        hrClinController
-                            .changeSelectedItem(newValue);
+                        hrClinController.changeSelectedItem(newValue);
                       }
                     },
-                    items: ['Sort By',
-                          'Available',
-                          'Unavailable',]
+                    items: [
+                      'Sort By',
+                      'Available',
+                      'Unavailable',
+                    ]
                         .map<DropdownMenuItem<String>>(
-                          (String value) =>
-                          DropdownMenuItem<String>(
+                          (String value) => DropdownMenuItem<String>(
                             value: value,
                             child: Text(
                               value,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: hrClinController.selectedItem.value == value
-                                    ? Colors.white
-                                    : Colors.black,
+                                color:
+                                    hrClinController.selectedItem.value == value
+                                        ? Colors.white
+                                        : Colors.black,
                                 fontFamily: 'FiraSans',
                                 fontSize: 11,
                                 fontWeight: FontWeight.w200,
                               ),
                             ),
                           ),
-                    )
+                        )
                         .toList(),
                   ),
                 ),
@@ -193,12 +190,14 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
         ),
         Expanded(
           child: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: currentPageItems.length,
                 itemBuilder: (context, index) {
-                  int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                  int serialNumber =
+                      index + 1 + (currentPage - 1) * itemsPerPage;
                   String formattedSerialNumber =
                       serialNumber.toString().padLeft(2, '0');
                   return Container(
@@ -283,12 +282,15 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                         context: context,
                                         builder: (BuildContext context) {
                                           return EditPopupWidget(
-                                              typeController: typeController,
-                                              shorthandController:
-                                                  shorthandController,
-                                              emailController: emailController,
-                                              containerColor: Color(0xffE4CCF3),
-                                              onSavePressed: () {});
+                                            typeController: typeController,
+                                            shorthandController:
+                                                shorthandController,
+                                            emailController: emailController,
+                                            containerColor: Color(0xffE4CCF3),
+                                            onSavePressed: () {},
+                                            onColorChanged: (Color) {},
+                                            // onColorChanged: (Color) {},
+                                          );
                                         },
                                       );
                                     },
@@ -319,7 +321,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
         Container(
           height: 30,
           // color: Colors.black12,
-          child:  Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
@@ -359,23 +361,25 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                     child: Container(
                       width: 20,
                       height: 20,
-                      margin: EdgeInsets.only(left: 5,right: 5),
+                      margin: EdgeInsets.only(left: 5, right: 5),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                          color: currentPage == i ? ColorManager.blueprime : ColorManager.grey,
+                          color: currentPage == i
+                              ? ColorManager.blueprime
+                              : ColorManager.grey,
                           width: currentPage == i ? 2.0 : 1.0,
                         ),
-                        color:
-                        currentPage == i ? ColorManager.blueprime : Colors.transparent,
+                        color: currentPage == i
+                            ? ColorManager.blueprime
+                            : Colors.transparent,
                         // border: Border.all(
                         //   color: currentPage == i
                         //       ? Colors.blue
                         //       : Colors.transparent,
                         // ),
-
                       ),
                       child: Text(
                         '$i',
@@ -403,7 +407,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(4),
-                  border:Border.all(
+                  border: Border.all(
                     color: Colors.grey,
                     width: 0.79,
                   ),
@@ -414,9 +418,9 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                   onPressed: () {
                     setState(() {
                       currentPage =
-                      currentPage < (items.length / itemsPerPage).ceil()
-                          ? currentPage + 1
-                          : (items.length / itemsPerPage).ceil();
+                          currentPage < (items.length / itemsPerPage).ceil()
+                              ? currentPage + 1
+                              : (items.length / itemsPerPage).ceil();
                     });
                   },
                   color: ColorManager.black,

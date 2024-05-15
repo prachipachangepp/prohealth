@@ -173,12 +173,15 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return EditPopupWidget(
-                                          typeController: typeController,
-                                          shorthandController:
-                                              shorthandController,
-                                          emailController: emailController,
-                                          containerColor: Color(0xffF37F81),
-                                          onSavePressed: () {});
+                                        typeController: typeController,
+                                        shorthandController:
+                                            shorthandController,
+                                        emailController: emailController,
+                                        containerColor: Color(0xffF37F81),
+                                        onSavePressed: () {},
+                                        onColorChanged: (Color) {},
+                                        // onColorChanged: (Color) {},
+                                      );
                                     },
                                   );
                                 },
@@ -207,7 +210,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
         Container(
           height: 30,
           // color: Colors.black12,
-          child:  Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
@@ -247,23 +250,25 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     child: Container(
                       width: 20,
                       height: 20,
-                      margin: EdgeInsets.only(left: 5,right: 5),
+                      margin: EdgeInsets.only(left: 5, right: 5),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                          color: currentPage == i ? ColorManager.blueprime : ColorManager.grey,
+                          color: currentPage == i
+                              ? ColorManager.blueprime
+                              : ColorManager.grey,
                           width: currentPage == i ? 2.0 : 1.0,
                         ),
-                        color:
-                        currentPage == i ? ColorManager.blueprime : Colors.transparent,
+                        color: currentPage == i
+                            ? ColorManager.blueprime
+                            : Colors.transparent,
                         // border: Border.all(
                         //   color: currentPage == i
                         //       ? Colors.blue
                         //       : Colors.transparent,
                         // ),
-
                       ),
                       child: Text(
                         '$i',
@@ -291,7 +296,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(4),
-                  border:Border.all(
+                  border: Border.all(
                     color: Colors.grey,
                     width: 0.79,
                   ),
@@ -302,9 +307,9 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                   onPressed: () {
                     setState(() {
                       currentPage =
-                      currentPage < (items.length / itemsPerPage).ceil()
-                          ? currentPage + 1
-                          : (items.length / itemsPerPage).ceil();
+                          currentPage < (items.length / itemsPerPage).ceil()
+                              ? currentPage + 1
+                              : (items.length / itemsPerPage).ceil();
                     });
                   },
                   color: ColorManager.black,
