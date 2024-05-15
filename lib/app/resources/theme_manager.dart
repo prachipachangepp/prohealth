@@ -177,3 +177,22 @@ class MenuScreenHeadStyle{
         fontWeight: FontWeightManager.bold);
   }
 }
+///email theme
+class EmailTextStyle{
+  static TextStyle enterEmail(BuildContext context){
+    return GoogleFonts.firaSans(
+      color: Color(0xff000000).withOpacity(0.3),
+      fontSize: FontSize.s14,
+      fontWeight: FontWeightManager.lightbold,);
+  }
+}
+
+///didnt receive code
+class CodeVerficationText{
+  static TextStyle VerifyCode(BuildContext context){
+    return GoogleFonts.firaSans(
+      color: ColorManager.darkgrey,
+      fontSize: FontSize.s10,
+      fontWeight: FontWeightManager.semiBold,);
+  }
+}

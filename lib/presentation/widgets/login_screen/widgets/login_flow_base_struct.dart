@@ -4,6 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import '../../../../app/resources/const_string.dart';
+import '../../../../app/resources/theme_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 
 class LoginBaseConstant extends StatelessWidget {
   final Widget child;
@@ -15,7 +18,6 @@ class LoginBaseConstant extends StatelessWidget {
   LoginBaseConstant(
       {required this.child,
       required this.onTap,
-      // required this.child2,
       required this.titleText,
       required this.textAction,
       this.textActionPadding});
@@ -93,9 +95,7 @@ class LoginBaseConstant extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      right:
-                                          MediaQuery.of(context).size.height /
-                                              3),
+                                      right: MediaQuery.of(context).size.height / 3),
                                   child: Image.asset(
                                     'images/logo_login.png',
                                     width:
@@ -121,15 +121,14 @@ class LoginBaseConstant extends StatelessWidget {
                                           padding: EdgeInsets.only(
                                               left: MediaQuery.of(context)
                                                       .size
-                                                      .height /
-                                                  28),
+                                                      .width /
+                                                  20),
                                           child: Text(
                                             titleText,
                                             style: GoogleFonts.firaSans(
                                               color: ColorManager.mediumgrey,
-                                              fontSize: 40,
-                                              fontWeight:
-                                                  FontWeightManager.extrabold,
+                                              fontSize: FontSize.s38,
+                                              fontWeight: FontWeightManager.extrabold,
                                             ),
                                           ),
                                         ),
@@ -141,36 +140,43 @@ class LoginBaseConstant extends StatelessWidget {
                                         ),
                                         ///todo prachi
                                         ///main container
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              2,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Color(0xff000000)
-                                                      .withOpacity(0.1),
-                                                  spreadRadius: 0,
-                                                  blurRadius: 0,
-                                                  offset: Offset(0, 0),
-                                                ),
-                                                BoxShadow(
-                                                  color: Color(0xff000000)
-                                                      .withOpacity(0.1),
-                                                  spreadRadius: 1,
-                                                  blurRadius: 4,
-                                                  offset: Offset(0, 3),
-                                                ),
-                                              ]),
-                                          child: child,
+                                        Padding(
+                                            padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                    20),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                2,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(24),
+                                                color: ColorManager.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Color(0xff000000)
+                                                        .withOpacity(0.1),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 0,
+                                                    offset: Offset(0, 0),
+                                                  ),
+                                                  BoxShadow(
+                                                    color: Color(0xff000000)
+                                                        .withOpacity(0.1),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 3),
+                                                  ),
+                                                ]),
+                                            child: child,
+                                          ),
                                         ),
                                         SizedBox(
                                           height: MediaQuery.of(context)
@@ -192,10 +198,10 @@ class LoginBaseConstant extends StatelessWidget {
                                             child: Text(
                                               textAction,
                                               textAlign: TextAlign.end,
-                                              style: GoogleFonts.firaSans(
-                                                color: Color(0xff1696C8),
-                                                fontSize: FontSize.s14,
-                                                fontWeight: FontWeight.bold,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                color:ColorManager.bluebottom,
+                                                fontSize: FontSize.s12,
+                                                fontWeight: FontWeightManager.medium,
                                               ),
                                             ),
                                           ),
@@ -230,17 +236,17 @@ class LoginBaseConstant extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Powered By",
+                  AppString.poweredby,
                   style: GoogleFonts.firaSans(
                     color: ColorManager.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeightManager.regular,
                   ),
                 ),
                 SizedBox(
-                  width: 2,
+                  width: AppSize.s2,
                 ),
-                Image.asset('images/powered_logo.png', width: 25, height: 25)
+                Image.asset('images/powered_logo.png', width: AppSize.s25, height: AppSize.s25)
               ],
             ),
           )

@@ -132,18 +132,26 @@ class AppString {
 
   ///login
   static const String login = "Log In";
+  static const String emailhint = "Enter your email address";
   static const String forgotpass = "Forgot your account password ?";
   static const String loginemail = "Login with Email";
   static const String loginauth = "Login with Authenticator";
   static const String enteremail = "Enter Email";
   static const String entervalidemail = "Enter a valid email address";
   static const String password = "Password";
-  static const String enterpass = "Enter Password";
+  static const String enterpass = "Enter your password";
   static const String loginbtn = "Login";
   static const String btnpress = "Button pressed!";
   static const String otp = "Enter OTP";
   static const String didntreccode = "Didn’t recieve a code? ";
   static const String resend = "Resend";
+  static const String poweredby = "Powered By";
+
+  ///verify
+  static const String incorrectOtp = 'Incorrect OTP. Please try again.';
+  static const String donthaveauth = "Dont have authentication application with me?";
+  static const String verify = "Verifying...";
+  static const String enter4digitcode = "Enter your 4 digits code that you received on your email.";
 
   ///forgot
   static const String forgotpassword = "Forgot Password ?";
@@ -152,27 +160,23 @@ class AppString {
   static const String logout = "Logout";
   static const String backtologin = "Back to Login";
   static const String forgotenter =
-      "Enter your email for the verification process,\nwe will send 6 digits code to your email.";
+      "Enter your email for the verification proccess,we will send 6\ndigits code to your email.";
   // static const String = "";
   /// change password
-  static const String verfication = 'Verification';
-  static const String entersixdigitCode =
-      'Enter your 6 digits code that you received on your email.';
+  static const String verification = 'Verification';
+  static const String entersixdigitCode = 'Enter your 6 digits code that you received on your email.';
   static const String enterotp = 'Please enter OTP';
   static const String didntrecieveCode = 'If you didn’t receive a code! ';
-  static const String setnewPassword =
-      'Set the new password for your account \nso you can login and access all features.';
+  static const String setnewPassword = 'Set the new password for your account \nso you can login and access all features.';
   static const String enternewpass = 'Enter New Password';
   static const String confmpass = 'Confirm Password';
   static const String enterconfmpass = 'Enter Confirm Password';
   static const String updatepass = 'Update Password';
   static const String passdontmatch = 'Passwords do not match.';
   static const String successfully = 'Successfully';
-  static const String resetsuccessfully =
-      'Your password has been reset successfully';
+  static const String resetsuccessfully = 'Your password has been reset successfully';
   static const String continuebutton = 'CONTINUE';
-  static const String threetimepasscanchange =
-      'Only Three Times you can change the password';
+  static const String threetimepasscanchange = 'Only Three Times you can change the password';
   static const String cannotchangepass = 'You Cannot change the password today';
   ///hr screen
    static const String srno = 'Sr No.';

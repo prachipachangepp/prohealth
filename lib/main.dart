@@ -22,14 +22,14 @@ class MyApp extends StatelessWidget {
         home:// MenuScreen()
         //HrAdministrativeScreen()
             //DummyScreen()
-            SMDesktop()
+            //SMDesktop()
             // MobileLogIn()
             ///
             //  ResponsiveScreenSM()
             ///
-        //     ResponsivePage(
-        //   controller: myController,
-        // )
+            ResponsivePage(
+          controller: myController,
+        )
     );
   }
 }

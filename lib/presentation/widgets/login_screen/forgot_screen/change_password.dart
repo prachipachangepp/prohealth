@@ -1,19 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:js';
 import 'dart:ui';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/login_flow_api/confirm_pass/confirm_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
+import '../../../../app/resources/theme_manager.dart';
+import '../../../../constants/app_config.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   final String email;
@@ -44,13 +45,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool _isUpdatingPassword = false;
 
   Future<void> updatePassword( String email, String otp) async {
-    // Replace 'email', 'otp', and 'newPassword' with actual values
-
     String newPassword = newPasswordController.text;
-
     try {
       var headers = {'Content-Type': 'application/json'};
-
       var data = json.encode({
         "email": email,
         "verificationCode": otp,
@@ -58,13 +55,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       });
 
       var response = await Dio().post(
-        'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
+        '${AppConfig.endpoint}/auth/confirmPassword',
+      //  'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
         data: data,
         options: Options(headers: headers),
       );
-
       if (response.statusCode == 200) {
-        print('Password changed successfully');
+        print(AppString.resetsuccessfully);
         print(json.encode(response.data));
         // Optionally, navigate back to the login screen
         Navigator.pop(context as BuildContext);
@@ -109,13 +106,67 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
 
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: ColorManager.white,
+          content: Container(
+            padding: EdgeInsets.only(top: AppPadding.p25),
+            height: AppSize.s300,
+            width: AppSize.s400,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'images/upload.png',
+                  width: AppSize.s120,
+                  height: AppSize.s120,
+                ),
+                Text(
+                  AppString.successfully,
+                  style: CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.darkgrey,
+                    fontSize: FontSize.s30,
+                    fontWeight: FontWeightManager.extrabold,
+                  ),
+                ),
+                Text(
+                  AppString.resetsuccessfully,
+                  style: CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.darkgrey,
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeightManager.medium,
+                  ),
+                ),
+                CustomButton(
+                  width: AppSize.s181,
+                  height: AppSize.s45,
+                  text: AppString.continuebutton,
+                  borderRadius: 24,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
       elevation: 0,
       child: Stack(children: [
         Container(
-            //height: double.maxFinite,
             width: double.maxFinite,
             child: Stack(
               fit: StackFit.expand,
@@ -179,12 +230,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              AppString.verfication,
-                              style: GoogleFonts.firaSans(
-                                color: Color(0xff686464),
-                                fontSize: 40,
-                                fontWeight: FontWeight.w800,
-                              ),
+                              AppString.verification,
+                              style: CustomTextStylesCommon.commonStyle(
+                                color: ColorManager.mediumgrey,
+                                fontSize: FontSize.s40,
+                                fontWeight: FontWeightManager.extrabold,
+                              )
                             ),
                             Image.asset(
                               'images/logo_login.png',
@@ -219,7 +270,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(24),
-                                          color: Colors.white,
+                                          color: ColorManager.white,
                                           boxShadow: [
                                             BoxShadow(
                                               color: Color(0xff000000)
@@ -258,11 +309,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                             children: [
                                               Text(
                                                 AppString.entersixdigitCode,
-                                                style: GoogleFonts.firaSans(
-                                                  color: Color(0xff686464),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  color: ColorManager.mediumgrey,
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight: FontWeightManager.semiBold,
+                                                )
                                               ),
                                               Row(
                                                 mainAxisAlignment:
@@ -294,18 +345,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       ),
                                                     ),
                                                     child: TextFormField(
-                                                      style:
-                                                          GoogleFonts.firaSans(
+                                                      style: CustomTextStylesCommon.commonStyle(
                                                         color: Color(0xff000000)
                                                             .withOpacity(0.7),
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 12,
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeightManager.medium,
                                                       ),
                                                       controller:
                                                           _otpControllers[
                                                               index],
-                                                      cursorColor: Colors.black,
+                                                      cursorColor: ColorManager.black,
                                                       inputFormatters: [
                                                         FilteringTextInputFormatter
                                                             .allow(RegExp(
@@ -323,7 +372,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                         contentPadding:
                                                             const EdgeInsets
                                                                 .only(
-                                                                bottom: 10),
+                                                                bottom: AppPadding.p10),
                                                         counterText: '',
                                                         border:
                                                             InputBorder.none,
@@ -366,37 +415,32 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 ),
                                               ),
                                               Text('${getTimerString()}',
-                                                  style: GoogleFonts.firaSans(
-                                                    color: Color(0xffF2451C),
-                                                    fontSize: 8,
-                                                    fontWeight: FontWeight.w600,
-                                                  )),
-                                              RichText(
-                                                text: TextSpan(
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff686464),
+                                                  style: CustomTextStylesCommon.commonStyle(
+                                                    color:  ColorManager.orange,
+                                                    fontSize: FontSize.s8,
+                                                    fontWeight: FontWeightManager.semiBold,
                                                   ),
-                                                  children: [
-                                                    TextSpan(
-                                                        text: AppString
-                                                            .didntrecieveCode),
-                                                    TextSpan(
-                                                      text: AppString.resend,
-                                                      style:
-                                                          GoogleFonts.firaSans(
-                                                        color:
-                                                            Color(0xffF2451C),
-                                                      ),
-                                                      recognizer:
-                                                          TapGestureRecognizer()
-                                                            ..onTap = () {
-                                                              //Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
-                                                            },
+                                                  ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    AppString.didntrecieveCode,
+                                                    style: CodeVerficationText.VerifyCode(context)),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      print("Resend tapped!");
+                                                    },
+                                                    child: Text(
+                                                      AppString.resend,
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        color: ColorManager.blueprime,
+                                                        fontSize: FontSize.s10,
+                                                        fontWeight: FontWeightManager.semiBold,
+                                                      )
                                                     ),
-                                                  ],
-                                                ),
+                                                  )
+                                                ],
                                               ),
                                               Divider(),
                                               Text(
@@ -404,17 +448,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 style: GoogleFonts.firaSans(
                                                   color: isOtpFieldEmpty
                                                       ? Colors.grey
-                                                      : Color(0xff686464),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
+                                                      : ColorManager.mediumgrey,
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight: FontWeightManager.semiBold,
                                                 ),
                                               ),
                                               TextFormField(
-                                                style: GoogleFonts.firaSans(
-                                                  color: Color(0xff000000)
-                                                      .withOpacity(0.5),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 14,
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  color: ColorManager.black.withOpacity(0.5),
+                                                  fontSize: FontSize.s14,
+                                                  fontWeight: FontWeightManager.medium,
                                                 ),
                                                 focusNode: newPasswordFocusNode,
                                                 onFieldSubmitted: (_) {
@@ -438,7 +481,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                               .visibility_outlined
                                                           : Icons
                                                               .visibility_off_outlined,
-                                                      size: 15,
+                                                      size: AppSize.s15,
                                                       color: Color(0xffACA5BB),
                                                     ),
                                                     onPressed: () {
@@ -451,13 +494,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   labelText:
                                                       AppString.enternewpass,
                                                   labelStyle:
-                                                      GoogleFonts.firaSans(
+                                                  CustomTextStylesCommon.commonStyle(
                                                     color: isOtpFieldEmpty
                                                         ? Colors.grey
-                                                        : Color(0xff686464),
-                                                    //Color(0xff000000).withOpacity(0.3),
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
+                                                        : ColorManager.darkgrey,
+                                                    fontSize: FontSize.s14,
+                                                    fontWeight: FontWeightManager.medium,
                                                   ),
                                                   border: UnderlineInputBorder(
                                                     borderSide: BorderSide(
@@ -479,7 +521,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 validator: (value) {
                                                   if (value == null ||
                                                       value.isEmpty) {
-                                                    return 'Enter Password';
+                                                    return AppString.enterpass;
                                                   }
                                                   return null;
                                                 },
@@ -488,18 +530,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 focusNode:
                                                     confirmPasswordFocusNode,
                                                 onFieldSubmitted: (_) {
-                                                  //_loginWithEmail();
+                                                  _showSuccessDialog();
                                                 },
+                                                // onChanged: (value) {
+                                                //   if (_formKey.currentState!.validate()) {
+                                                //     _showSuccessDialog();
+                                                //   }
+                                                // },
                                                 cursorHeight: 22,
                                                 obscuringCharacter: '*',
                                                 controller: controllerConfirm,
-                                                style: GoogleFonts.firaSans(
-                                                  color: Color(0xff000000)
-                                                      .withOpacity(0.5),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 14,
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  color: ColorManager.black.withOpacity(0.5),
+                                                  fontSize: FontSize.s14,
+                                                  fontWeight: FontWeightManager.medium,
                                                 ),
-                                                cursorColor: Colors.black,
+                                                cursorColor: ColorManager.black,
                                                 obscureText:
                                                     _obscureTextconfirm,
                                                 decoration: InputDecoration(
@@ -513,7 +559,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                               .visibility_outlined
                                                           : Icons
                                                               .visibility_off_outlined,
-                                                      size: 15,
+                                                      size: AppSize.s15,
                                                       color: Color(0xffACA5BB),
                                                     ),
                                                     onPressed: () {
@@ -525,14 +571,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   ),
                                                   labelText:
                                                       AppString.confmpass,
-                                                  labelStyle:
-                                                      GoogleFonts.firaSans(
+                                                  labelStyle: CustomTextStylesCommon.commonStyle(
                                                     color: isOtpFieldEmpty
                                                         ? Colors.grey
-                                                        : Color(0xff686464),
-                                                    //Color(0xff000000).withOpacity(0.3),
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
+                                                        : ColorManager.darkgrey,
+                                                    fontSize: FontSize.s14,
+                                                    fontWeight: FontWeightManager.medium,
                                                   ),
                                                   border: UnderlineInputBorder(
                                                     borderSide: BorderSide(
@@ -548,7 +592,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                   enabledBorder:
                                                       UnderlineInputBorder(
                                                     borderSide: BorderSide(
-                                                        color: Colors.grey),
+                                                        color: ColorManager.grey),
                                                   ),
                                                 ),
                                                 validator: (value) {
@@ -585,22 +629,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                         ),
                                                         child: CustomButton(
                                                           width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              7,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height /
-                                                              22,
-                                                          text: AppString
-                                                              .updatepass,
-                                                          backgroundColor:
-                                                              isOtpFieldEmpty
-                                                                  ? Colors.grey
-                                                                  : Color(
-                                                                      0xFF50B5E5),
+                                                                      context).size.width / 7,
+                                                          height: MediaQuery.of(context).size.height / 22,
+                                                          text: AppString.updatepass,
+                                                          backgroundColor: isOtpFieldEmpty ? Colors.grey : ColorManager.blueprime,
                                                           onPressed: () async {
                                                             if (_formKey
                                                                 .currentState!
@@ -610,8 +642,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                   controllerConfirm
                                                                       .text) {
                                                                 setState(() {
-                                                                  _errorMessage =
-                                                                      'Passwords do not match.';
+                                                                  _errorMessage = AppString.passdontmatch;
                                                                 });
                                                                 return;
                                                               }
@@ -641,18 +672,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                   builder:
                                                                       (BuildContext
                                                                           context) {
-                                                                    return AlertDialog(
+                                                                    return
+                                                                      AlertDialog(
                                                                       backgroundColor:
-                                                                          Colors
-                                                                              .white,
+                                                                          ColorManager.white,
                                                                       content:
                                                                           Container(
                                                                         padding:
-                                                                            EdgeInsets.only(top: 25),
-                                                                        height:
-                                                                            300,
-                                                                        width:
-                                                                            400,
+                                                                            EdgeInsets.only(top: AppPadding.p25),
+                                                                        height: AppSize.s300,
+                                                                        width: AppSize.s400,
                                                                         child:
                                                                             Column(
                                                                           mainAxisAlignment:
@@ -662,30 +691,30 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           children: [
                                                                             Image.asset(
                                                                               'images/upload.png',
-                                                                              width: 125,
-                                                                              height: 125,
+                                                                              width: AppSize.s120,
+                                                                              height: AppSize.s120,
                                                                             ),
                                                                             Text(
                                                                               AppString.successfully,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 30,
-                                                                                color: Color(0xff686464),
-                                                                                fontWeight: FontWeight.w700,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                color: ColorManager.darkgrey,
+                                                                                fontSize: FontSize.s30,
+                                                                                fontWeight: FontWeightManager.extrabold,
                                                                               ),
                                                                             ),
                                                                             Text(
                                                                               AppString.resetsuccessfully,
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 12,
-                                                                                color: Color(0xff686464),
-                                                                                fontWeight: FontWeight.w500,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                color: ColorManager.darkgrey,
+                                                                                fontSize: FontSize.s12,
+                                                                                fontWeight: FontWeightManager.medium,
                                                                               ),
                                                                             ),
                                                                             CustomButton(
-                                                                              width: 182,
-                                                                              height: 46,
+                                                                              width: AppSize.s181,
+                                                                              height: AppSize.s45,
                                                                               text: AppString.continuebutton,
-                                                                              borderRadius: 28,
+                                                                              borderRadius: 24,
                                                                               onPressed: () {
                                                                                 Navigator.push(
                                                                                   context,
@@ -702,16 +731,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                               } catch (e) {
                                                                 AlertDialog(
                                                                   backgroundColor:
-                                                                      Colors
-                                                                          .white,
+                                                                      ColorManager.white,
                                                                   content:
                                                                       Container(
-                                                                    padding: EdgeInsets
-                                                                        .only(
-                                                                            top:
-                                                                                25),
-                                                                    height: 300,
-                                                                    width: 400,
+                                                                    padding: EdgeInsets.only(top: AppPadding.p10),
+                                                                    height: AppSize.s300,
+                                                                    width: AppSize.s400,
                                                                     child:
                                                                         Column(
                                                                       mainAxisAlignment:
@@ -727,35 +752,28 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           style:
                                                                               GoogleFonts.firaSans(
                                                                             fontSize:
-                                                                                30,
+                                                                                FontSize.s30,
                                                                             color:
                                                                                 Color(0xff686464),
                                                                             fontWeight:
-                                                                                FontWeight.w700,
+                                                                                FontWeightManager.bold,
                                                                           ),
                                                                         ),
                                                                         Text(
                                                                           AppString
                                                                               .cannotchangepass,
-                                                                          style:
-                                                                              GoogleFonts.firaSans(
-                                                                            fontSize:
-                                                                                12,
-                                                                            color:
-                                                                                Color(0xff686464),
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
+                                                                          style: CustomTextStylesCommon.commonStyle(
+                                                                            color:ColorManager.darkgrey,
+                                                                            fontSize: FontSize.s12,
+                                                                            fontWeight: FontWeightManager.medium,
                                                                           ),
                                                                         ),
                                                                         CustomButton(
-                                                                          width:
-                                                                              182,
-                                                                          height:
-                                                                              46,
-                                                                          text:
-                                                                              'CONTINUE',
+                                                                          width: AppSize.s181,
+                                                                          height: AppSize.s45,
+                                                                          text: AppString.continuebutton,
                                                                           borderRadius:
-                                                                              28,
+                                                                              24,
                                                                           onPressed:
                                                                               () {
                                                                             Navigator.push(
@@ -821,10 +839,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   child: Text(
                                     AppString.backtologin,
                                     textAlign: TextAlign.right,
-                                    style: GoogleFonts.firaSans(
-                                      color: Color(0xff1696C8),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
+                                    style: CustomTextStylesCommon.commonStyle(
+                                      color:ColorManager.bluebottom,
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeightManager.medium,
                                     ),
                                   ),
                                 ),
@@ -852,17 +870,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Powered By",
+                AppString.poweredby,
                 style: GoogleFonts.firaSans(
                   color: ColorManager.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
+                  fontSize: FontSize.s14,
+                  fontWeight: FontWeightManager.regular,
                 ),
               ),
               SizedBox(
-                width: 2,
+                width: AppSize.s2,
               ),
-              Image.asset('images/powered_logo.png', width: 25, height: 25)
+              Image.asset('images/powered_logo.png', width: AppSize.s25, height: AppSize.s25)
             ],
           ),
         )

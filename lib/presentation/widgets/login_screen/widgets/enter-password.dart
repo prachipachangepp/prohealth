@@ -7,7 +7,6 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/widget/screen_transition.dart';
-
 import '../../../../app/resources/color.dart';
 
 class PasswordLoginScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class PasswordLoginScreen extends StatefulWidget {
 class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
   final String email;
   bool _isLoading = false;
-  String? _errorMessage; // Declare error message variable
+  String? _errorMessage;
   _PasswordLoginScreenState({required this.email});
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -91,6 +90,7 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                       onFieldSubmitted: (_) {
                         _login();
                       },
+                      obscuringCharacter: '*',
                       controller: _passwordController,
                       cursorColor: Colors.black,
                       cursorHeight: 22,
@@ -103,12 +103,10 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                             width: 0.5,
                           ),
                         ),
+                        hintText: AppString.enterpass,
+                        hintStyle:  EmailTextStyle.enterEmail(context),
                         labelText: AppString.password,
-                        labelStyle: CustomTextStylesCommon.commonStyle(
-                          color: Color(0xff000000).withOpacity(0.3),
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.medium,
-                        ),
+                        labelStyle: EmailTextStyle.enterEmail(context),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscureText
@@ -125,43 +123,31 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Enter Password";
+                          return AppString.enterpass;
                         }
                         return null;
                       },
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x40000000),
-                          offset: Offset(0, 4),
-                          blurRadius: 3,
-                          spreadRadius: 0,
+                  ///button
+                  _isLoading
+                      ? CircularProgressIndicator(
+                          color: ColorManager.blueprime,
+                        )
+                      : CustomButton(
+                    borderRadius: 24,
+                    height: MediaQuery.of(context).size.height / 18,
+                    width: MediaQuery.of(context).size.height / 4,
+                          text: AppString.loginbtn,
+                          onPressed: _isLoading ? () {} : _login,
                         ),
-                      ],
-                    ),
-                    child: _isLoading
-                        ? CircularProgressIndicator(
-                            color: ColorManager.blueprime,
-                          )
-                        : CustomButton(
-                            borderRadius: 28,
-                            height: MediaQuery.of(context).size.height / 20,
-                            width: MediaQuery.of(context).size.height / 5.5,
-                            text: AppString.login,
-                            onPressed: _isLoading ? () {} : _login,
-                          ),
-                  ),
                   // Display error message if exists
                   if (_errorMessage != null)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Text(
                         _errorMessage!,
-                        style: TextStyle(color: Colors.red),
+                        style: TextStyle(color: ColorManager.red),
                       ),
                     ),
                 ],

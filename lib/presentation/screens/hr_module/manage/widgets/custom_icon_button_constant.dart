@@ -240,36 +240,33 @@ class CustomTitleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(borderRadius),
-      child: SizedBox(
-        width: width,
-        height: height,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: isSelected ? Color(0xFF50B5E5) : Colors.white,
-            foregroundColor: textColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-            padding: EdgeInsets.symmetric(
-              vertical: paddingVertical,
-              horizontal: paddingHorizontal,
-            ),
+    return SizedBox(
+      width: width,
+      height: height,
+      child:
+      ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: isSelected ? Color(0xFF50B5E5) : Colors.white,
+          foregroundColor: textColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
-          child: text != null
-              ? Text(
-                  text!,
-                  style: GoogleFonts.firaSans(
-                    fontSize: MediaQuery.of(context).size.width / 120,
-                    fontWeight: FontWeight.w700,
-                    color: isSelected ? Colors.white : Colors.black,
-                  ),
-                )
-              : child,
+          padding: EdgeInsets.symmetric(
+            vertical: paddingVertical,
+            horizontal: paddingHorizontal,
+          ),
         ),
+        child: text != null
+            ? Text(
+                text!,
+                style: GoogleFonts.firaSans(
+                  fontSize: MediaQuery.of(context).size.width / 120,
+                  fontWeight: FontWeight.w700,
+                  color: isSelected ? Colors.white : Colors.black,
+                ),
+              )
+            : child,
       ),
     );
   }
@@ -293,7 +290,7 @@ class CustomDropdownButton extends StatelessWidget {
     this.selectedItem,
     this.onChanged,
     this.borderRadius = 8.0,
-    this.paddingVertical = 12.0,
+    this.paddingVertical = 11.0,
     this.paddingHorizontal = 16.0,
     this.width = 40,
     this.height = 40.0,
@@ -339,8 +336,9 @@ class CustomDropdownButton extends StatelessWidget {
                   child: Text(
                     value,
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: MediaQuery.of(context).size.width / 120,
+                      color: Color(0xff686464),
+                     // fontSize: MediaQuery.of(context).size.width / 120,
+                      fontSize: 12,
                     ), // Text color
                   ),
                 ),
