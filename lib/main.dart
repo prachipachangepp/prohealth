@@ -3,8 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
-import 'package:prohealth/presentation/screens/sm_module/sm_desktop_screen.dart';
-import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
+import 'package:prohealth/presentation/widgets/profile_bar/dummy_login.dart';
 import 'package:prohealth/presentation/widgets/responsive_screens.dart';
 
 void main() {
@@ -19,10 +18,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
-        home:// MenuScreen()
-        //HrAdministrativeScreen()
-            //DummyScreen()
-            //SMDesktop()
+        home: // MenuScreen()
+            //HrAdministrativeScreen()
+             //DumLogInScreen()
+            // SMDesktop()
             // MobileLogIn()
             ///
             //  ResponsiveScreenSM()

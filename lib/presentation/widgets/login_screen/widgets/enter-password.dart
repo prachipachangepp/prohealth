@@ -34,7 +34,6 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
         _errorMessage = null;
       });
 
-      String enteredPassword = _passwordController.text;
       AuthService.loginWithEmail(
         context,
         widget.email,
@@ -66,95 +65,99 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
       },
       titleText: AppString.login,
       textAction: AppString.forgotpass,
-      textActionPadding:
-          EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Form(
+     // textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5),
+      child: Material(
+        elevation: 4,
+        borderRadius: BorderRadius.circular(24),
+        child: Container(
+          width: MediaQuery.of(context).size.width / 3.5,
+          height: MediaQuery.of(context).size.height / 3,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            color: ColorManager.white,
+          ),
+          child: Form(
             key: _formKey,
-            child: Center(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height / 10,
-                      horizontal: MediaQuery.of(context).size.width / 30,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 30,
+                  ),
+                  child: TextFormField(
+                    style: CustomTextStylesCommon.commonStyle(
+                      color: Color(0xff000000).withOpacity(0.5),
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s14,
                     ),
-                    child: TextFormField(
-                      style: CustomTextStylesCommon.commonStyle(
-                        color: Color(0xff000000).withOpacity(0.5),
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s14,
-                      ),
-                      onFieldSubmitted: (_) {
-                        _login();
-                      },
-                      obscuringCharacter: '*',
-                      controller: _passwordController,
-                      cursorColor: Colors.black,
-                      cursorHeight: 22,
-                      obscureText: _obscureText,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.only(top: 1),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xff000000).withOpacity(0.5),
-                            width: 0.5,
-                          ),
-                        ),
-                        hintText: AppString.enterpass,
-                        hintStyle:  EmailTextStyle.enterEmail(context),
-                        labelText: AppString.password,
-                        labelStyle: EmailTextStyle.enterEmail(context),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscureText
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Colors.grey,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
+                    onFieldSubmitted: (_) {
+                      _login();
+                    },
+                    obscuringCharacter: '*',
+                    controller: _passwordController,
+                    cursorColor: Colors.black,
+                    cursorHeight: 22,
+                    obscureText: _obscureText,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.only(top: 1),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xff000000).withOpacity(0.5),
+                          width: 0.5,
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return AppString.enterpass;
-                        }
-                        return null;
-                      },
+                      hintText: AppString.enterpass,
+                      hintStyle:  EmailTextStyle.enterEmail(context),
+                      labelText: AppString.password,
+                      labelStyle: EmailTextStyle.enterEmail(context),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterpass;
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                ///button
+                _isLoading
+                    ? CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      )
+                    : CustomButton(
+                  borderRadius: 24,
+                  height: MediaQuery.of(context).size.height / 18,
+                  width: MediaQuery.of(context).size.height / 4,
+                        text: AppString.loginbtn,
+                        onPressed: _isLoading ? () {} : _login,
+                      ),
+                if (_errorMessage != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      _errorMessage!,
+                      style: TextStyle(color: ColorManager.red),
                     ),
                   ),
-                  ///button
-                  _isLoading
-                      ? CircularProgressIndicator(
-                          color: ColorManager.blueprime,
-                        )
-                      : CustomButton(
-                    borderRadius: 24,
-                    height: MediaQuery.of(context).size.height / 18,
-                    width: MediaQuery.of(context).size.height / 4,
-                          text: AppString.loginbtn,
-                          onPressed: _isLoading ? () {} : _login,
-                        ),
-                  // Display error message if exists
-                  if (_errorMessage != null)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
-                        _errorMessage!,
-                        style: TextStyle(color: ColorManager.red),
-                      ),
-                    ),
-                ],
-              ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

@@ -160,7 +160,7 @@ class AppString {
   static const String logout = "Logout";
   static const String backtologin = "Back to Login";
   static const String forgotenter =
-      "Enter your email for the verification proccess,we will send 6\ndigits code to your email.";
+      "Enter your email for the verification proccess, we will send 6 digits code to your email.";
   // static const String = "";
   /// change password
   static const String verification = 'Verification';
