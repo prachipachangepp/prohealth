@@ -2,10 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
@@ -16,8 +15,6 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../constants/app_config.dart';
-import '../../profile_bar/widget/screen_transition.dart';
-import '../widgets/login_flow_base_struct.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   final String email;
@@ -26,716 +23,6 @@ class ChangePasswordScreen extends StatefulWidget {
   @override
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
-/// used new base const
-// class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-//   final TextEditingController controllerNew = TextEditingController();
-//   final TextEditingController controllerConfirm = TextEditingController();
-//   List<TextEditingController> _otpControllers =
-//   List.generate(6, (_) => TextEditingController());
-//   List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
-//   bool _obscureText = true;
-//   bool _obscureTextconfirm = true;
-//   final _formKey = GlobalKey<FormState>();
-//   FocusNode newPasswordFocusNode = FocusNode();
-//   FocusNode confirmPasswordFocusNode = FocusNode();
-//   String? _errorMessage;
-//   late Timer _timer;
-//   int _timerCount = 30;
-//   bool isOtpFieldEmpty = true;
-//   ConfirmPassManager confirmPassManager = ConfirmPassManager();
-//   TextEditingController newPasswordController = TextEditingController();
-//   List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
-//   bool _isUpdatingPassword = false;
-//
-//   Future<void> updatePassword( String email, String otp) async {
-//     String newPassword = newPasswordController.text;
-//     try {
-//       var headers = {'Content-Type': 'application/json'};
-//       var data = json.encode({
-//         "email": email,
-//         "verificationCode": otp,
-//         "newPassword": newPassword
-//       });
-//
-//       var response = await Dio().post(
-//         '${AppConfig.endpoint}/auth/confirmPassword',
-//         //  'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
-//         data: data,
-//         options: Options(headers: headers),
-//       );
-//       if (response.statusCode == 200) {
-//         print(AppString.resetsuccessfully);
-//         print(json.encode(response.data));
-//         // Optionally, navigate back to the login screen
-//         Navigator.pop(context as BuildContext);
-//       } else {
-//         print('Failed to change password: ${response.statusMessage}');
-//         // Print response data for debugging if needed
-//         print(json.encode(response.data));
-//       }
-//     } catch (e) {
-//       print('Error occurred: $e');
-//     }
-//   }
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     startTimer();
-//   }
-//
-//   @override
-//   void dispose() {
-//     _timer.cancel();
-//     super.dispose();
-//   }
-//
-//   void startTimer() {
-//     const oneSec = Duration(seconds: 1);
-//     _timer = Timer.periodic(oneSec, (timer) {
-//       if (_timerCount == 0) {
-//         timer.cancel();
-//       } else {
-//         setState(() {
-//           _timerCount--;
-//         });
-//       }
-//     });
-//   }
-//
-//   String getTimerString() {
-//     int minutes = _timerCount ~/ 60;
-//     int seconds = _timerCount % 60;
-//     return '$minutes:${seconds.toString().padLeft(2, '0')}';
-//   }
-//
-//   void _showSuccessDialog() {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           backgroundColor: ColorManager.white,
-//           content: Container(
-//             padding: EdgeInsets.only(top: AppPadding.p25),
-//             height: AppSize.s300,
-//             width: AppSize.s400,
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: [
-//                 Image.asset(
-//                   'images/upload.png',
-//                   width: AppSize.s120,
-//                   height: AppSize.s120,
-//                 ),
-//                 Text(
-//                   AppString.successfully,
-//                   style: CustomTextStylesCommon.commonStyle(
-//                     color: ColorManager.darkgrey,
-//                     fontSize: FontSize.s30,
-//                     fontWeight: FontWeightManager.extrabold,
-//                   ),
-//                 ),
-//                 Text(
-//                   AppString.resetsuccessfully,
-//                   style: CustomTextStylesCommon.commonStyle(
-//                     color: ColorManager.darkgrey,
-//                     fontSize: FontSize.s12,
-//                     fontWeight: FontWeightManager.medium,
-//                   ),
-//                 ),
-//                 CustomButton(
-//                   width: AppSize.s181,
-//                   height: AppSize.s45,
-//                   text: AppString.continuebutton,
-//                   borderRadius: 24,
-//                   onPressed: () {
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => LoginScreen()),
-//                     );
-//                   },
-//                 )
-//               ],
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return LoginBaseConstant(
-//       onTap: () {
-//         Navigator.push(
-//           context,
-//           RouteTransitions.slideTransition(page: LoginScreen()),
-//         );
-//       },
-//       titleText: AppString.verification,
-//       textAction: AppString.backtologin,
-//       child: Material(
-//         elevation: 4,
-//         borderRadius: BorderRadius.circular(24),
-//         child: Container(
-//           width: MediaQuery.of(context).size.width / 3.5,
-//           height: MediaQuery.of(context).size.height / 1.8,
-//           decoration: BoxDecoration(
-//               borderRadius:
-//               BorderRadius.circular(24),
-//                color: ColorManager.white,
-//               // boxShadow: [
-//               //   BoxShadow(
-//               //     color: Color(0xff000000)
-//               //         .withOpacity(0.1),
-//               //     spreadRadius: 0,
-//               //     blurRadius: 0,
-//               //     offset: Offset(0, 0),
-//               //   ),
-//               //   BoxShadow(
-//               //     color: Color(0xff000000)
-//               //         .withOpacity(0.1),
-//               //     spreadRadius: 1,
-//               //     blurRadius: 4,
-//               //     offset: Offset(0, 3),
-//               //   ),
-//               // ]
-//           ),
-//
-//           ///column
-//           child: Padding(
-//             padding: EdgeInsets.symmetric(
-//                 horizontal: MediaQuery.of(context)
-//                     .size
-//                     .width /
-//                     30,
-//                 vertical: MediaQuery.of(context)
-//                     .size
-//                     .height /
-//                     40),
-//             child: Form(
-//               key: _formKey,
-//               child: Column(
-//                 crossAxisAlignment:
-//                 CrossAxisAlignment.center,
-//                 mainAxisAlignment:
-//                 MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Text(
-//                       AppString.entersixdigitCode,
-//                       style: CustomTextStylesCommon.commonStyle(
-//                         color: ColorManager.mediumgrey,
-//                         fontSize: FontSize.s10,
-//                         fontWeight: FontWeightManager.semiBold,
-//                       )
-//                   ),
-//                   Row(
-//                     mainAxisAlignment:
-//                     MainAxisAlignment.center,
-//                     children: List.generate(
-//                       6,
-//                           (index) => Container(
-//                         width:
-//                         MediaQuery.of(context)
-//                             .size
-//                             .width /
-//                             40,
-//                         height: 40,
-//                         margin: EdgeInsets.symmetric(
-//                             horizontal:
-//                             MediaQuery.of(
-//                                 context)
-//                                 .size
-//                                 .width /
-//                                 200),
-//                         decoration: BoxDecoration(
-//                           borderRadius:
-//                           BorderRadius.circular(
-//                               2),
-//                           border: Border.all(
-//                             color:
-//                             Color(0xff9BADCA),
-//                             width: 0.55,
-//                           ),
-//                         ),
-//                         child: TextFormField(
-//                           style: CustomTextStylesCommon.commonStyle(
-//                             color: Color(0xff000000)
-//                                 .withOpacity(0.7),
-//                             fontSize: FontSize.s12,
-//                             fontWeight: FontWeightManager.medium,
-//                           ),
-//                           controller:
-//                           _otpControllers[
-//                           index],
-//                           cursorColor: ColorManager.black,
-//                           inputFormatters: [
-//                             FilteringTextInputFormatter
-//                                 .allow(RegExp(
-//                                 r'[0-9]')),
-//                           ],
-//                           keyboardType:
-//                           TextInputType.number,
-//                           textAlign:
-//                           TextAlign.center,
-//                           maxLength: 1,
-//                           focusNode:
-//                           _focusNodes[index],
-//                           decoration:
-//                           InputDecoration(
-//                             contentPadding:
-//                             const EdgeInsets
-//                                 .only(
-//                                 bottom: AppPadding.p10),
-//                             counterText: '',
-//                             border:
-//                             InputBorder.none,
-//                           ),
-//                           validator: (value) {
-//                             return value!.isEmpty
-//                                 ? AppString.enterotp
-//                                 : null;
-//                           },
-//                           onChanged: (value) {
-//                             _otpFieldFilledStatus[
-//                             index] =
-//                                 value.isNotEmpty;
-//                             bool allFieldsFilled =
-//                             _otpFieldFilledStatus
-//                                 .every(
-//                                     (filled) =>
-//                                 filled);
-//                             setState(() {
-//                               isOtpFieldEmpty =
-//                               !allFieldsFilled;
-//                             });
-//                             if (value.isNotEmpty &&
-//                                 index < 5) {
-//                               FocusScope.of(context)
-//                                   .requestFocus(
-//                                   _focusNodes[
-//                                   index +
-//                                       1]);
-//                             } else if (value
-//                                 .isNotEmpty &&
-//                                 index == 5) {
-//                               FocusScope.of(context)
-//                                   .requestFocus(
-//                                   newPasswordFocusNode);
-//                             }
-//                           },
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   Text('${getTimerString()}',
-//                     style: CustomTextStylesCommon.commonStyle(
-//                       color:  ColorManager.orange,
-//                       fontSize: FontSize.s8,
-//                       fontWeight: FontWeightManager.semiBold,
-//                     ),
-//                   ),
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       Text(
-//                           AppString.didntrecieveCode,
-//                           style: CodeVerficationText.VerifyCode(context)),
-//                       TextButton(
-//                         onPressed: () {
-//                           print("Resend tapped!");
-//                         },
-//                         child: Text(
-//                             AppString.resend,
-//                             style: CustomTextStylesCommon.commonStyle(
-//                               color: ColorManager.blueprime,
-//                               fontSize: FontSize.s10,
-//                               fontWeight: FontWeightManager.semiBold,
-//                             )
-//                         ),
-//                       )
-//                     ],
-//                   ),
-//                   Divider(),
-//                   Text(
-//                     AppString.setnewPassword,
-//                     style: GoogleFonts.firaSans(
-//                       color: isOtpFieldEmpty
-//                           ? Colors.grey
-//                           : ColorManager.mediumgrey,
-//                       fontSize: FontSize.s10,
-//                       fontWeight: FontWeightManager.semiBold,
-//                     ),
-//                   ),
-//                   TextFormField(
-//                     style: CustomTextStylesCommon.commonStyle(
-//                       color: ColorManager.black.withOpacity(0.5),
-//                       fontSize: FontSize.s14,
-//                       fontWeight: FontWeightManager.medium,
-//                     ),
-//                     focusNode: newPasswordFocusNode,
-//                     onFieldSubmitted: (_) {
-//                       FocusScope.of(context)
-//                           .requestFocus(
-//                           confirmPasswordFocusNode);
-//                     },
-//                     cursorHeight: 22,
-//                     obscuringCharacter: '*',
-//                     controller: controllerNew,
-//                     cursorColor: Colors.black,
-//                     obscureText: _obscureText,
-//                     decoration: InputDecoration(
-//                       contentPadding:
-//                       const EdgeInsets.only(
-//                           top: 2),
-//                       suffixIcon: IconButton(
-//                         icon: Icon(
-//                           _obscureText
-//                               ? Icons
-//                               .visibility_outlined
-//                               : Icons
-//                               .visibility_off_outlined,
-//                           size: AppSize.s15,
-//                           color: Color(0xffACA5BB),
-//                         ),
-//                         onPressed: () {
-//                           setState(() {
-//                             _obscureText =
-//                             !_obscureText;
-//                           });
-//                         },
-//                       ),
-//                       labelText:
-//                       AppString.enternewpass,
-//                       labelStyle:
-//                       CustomTextStylesCommon.commonStyle(
-//                         color: isOtpFieldEmpty
-//                             ? Colors.grey
-//                             : ColorManager.darkgrey,
-//                         fontSize: FontSize.s14,
-//                         fontWeight: FontWeightManager.medium,
-//                       ),
-//                       border: UnderlineInputBorder(
-//                         borderSide: BorderSide(
-//                             color: Colors.black),
-//                       ),
-//                       focusedBorder:
-//                       UnderlineInputBorder(
-//                         borderSide: BorderSide(
-//                             color: Color(0xff000000)
-//                                 .withOpacity(0.5),
-//                             width: 0.5),
-//                       ),
-//                       enabledBorder:
-//                       UnderlineInputBorder(
-//                         borderSide: BorderSide(
-//                             color: Colors.grey),
-//                       ),
-//                     ),
-//                     validator: (value) {
-//                       if (value == null ||
-//                           value.isEmpty) {
-//                         return AppString.enterpass;
-//                       }
-//                       return null;
-//                     },
-//                   ),
-//                   TextFormField(
-//                     focusNode:
-//                     confirmPasswordFocusNode,
-//                     onFieldSubmitted: (_) {
-//                       _showSuccessDialog();
-//                     },
-//                     // onChanged: (value) {
-//                     //   if (_formKey.currentState!.validate()) {
-//                     //     _showSuccessDialog();
-//                     //   }
-//                     // },
-//                     cursorHeight: 22,
-//                     obscuringCharacter: '*',
-//                     controller: controllerConfirm,
-//                     style: CustomTextStylesCommon.commonStyle(
-//                       color: ColorManager.black.withOpacity(0.5),
-//                       fontSize: FontSize.s14,
-//                       fontWeight: FontWeightManager.medium,
-//                     ),
-//                     cursorColor: ColorManager.black,
-//                     obscureText:
-//                     _obscureTextconfirm,
-//                     decoration: InputDecoration(
-//                       contentPadding:
-//                       const EdgeInsets.only(
-//                           top: 2),
-//                       suffixIcon: IconButton(
-//                         icon: Icon(
-//                           _obscureTextconfirm
-//                               ? Icons
-//                               .visibility_outlined
-//                               : Icons
-//                               .visibility_off_outlined,
-//                           size: AppSize.s15,
-//                           color: Color(0xffACA5BB),
-//                         ),
-//                         onPressed: () {
-//                           setState(() {
-//                             _obscureTextconfirm =
-//                             !_obscureTextconfirm;
-//                           });
-//                         },
-//                       ),
-//                       labelText:
-//                       AppString.confmpass,
-//                       labelStyle: CustomTextStylesCommon.commonStyle(
-//                         color: isOtpFieldEmpty
-//                             ? Colors.grey
-//                             : ColorManager.darkgrey,
-//                         fontSize: FontSize.s14,
-//                         fontWeight: FontWeightManager.medium,
-//                       ),
-//                       border: UnderlineInputBorder(
-//                         borderSide: BorderSide(
-//                             color: Colors.black),
-//                       ),
-//                       focusedBorder:
-//                       UnderlineInputBorder(
-//                         borderSide: BorderSide(
-//                             color: Color(0xff000000)
-//                                 .withOpacity(0.5),
-//                             width: 0.5),
-//                       ),
-//                       enabledBorder:
-//                       UnderlineInputBorder(
-//                         borderSide: BorderSide(
-//                             color: ColorManager.grey),
-//                       ),
-//                     ),
-//                     validator: (value) {
-//                       if (value == null ||
-//                           value.isEmpty) {
-//                         return AppString
-//                             .enterconfmpass;
-//                       }
-//                       return null;
-//                     },
-//                   ),
-//                   SizedBox(height: 12),
-//                   Center(
-//                     child: _isUpdatingPassword
-//                         ? CircularProgressIndicator(
-//                         color: ColorManager
-//                             .blueprime)
-//                         : Container(
-//                       decoration:
-//                       BoxDecoration(
-//                         borderRadius:
-//                         BorderRadius
-//                             .circular(14),
-//                         boxShadow: [
-//                           BoxShadow(
-//                             color: Color(
-//                                 0x40000000),
-//                             offset:
-//                             Offset(0, 4),
-//                             blurRadius: 4,
-//                             spreadRadius: 0,
-//                           ),
-//                         ],
-//                       ),
-//                       child: CustomButton(
-//                         width: MediaQuery.of(
-//                             context).size.width / 7,
-//                         height: MediaQuery.of(context).size.height / 22,
-//                         text: AppString.updatepass,
-//                         backgroundColor: isOtpFieldEmpty ? Colors.grey : ColorManager.blueprime,
-//                         onPressed: () async {
-//                           if (_formKey
-//                               .currentState!
-//                               .validate()) {
-//                             if (controllerNew
-//                                 .text !=
-//                                 controllerConfirm
-//                                     .text) {
-//                               setState(() {
-//                                 _errorMessage = AppString.passdontmatch;
-//                               });
-//                               return;
-//                             }
-//                             setState(() {
-//                               _isUpdatingPassword =
-//                               true;
-//                             });
-//                             try {
-//                               await ConfirmPassManager()
-//                                   .confirmPassword(
-//                                 widget.email,
-//                                 _otpControllers
-//                                     .map((controller) =>
-//                                 controller
-//                                     .text)
-//                                     .join(),
-//                                 controllerNew
-//                                     .text,
-//                               );
-//                               print(
-//                                   '${widget.email}');
-//                               print(
-//                                   '${controllerNew.text}');
-//                               showDialog(
-//                                 context:
-//                                 context,
-//                                 builder:
-//                                     (BuildContext
-//                                 context) {
-//                                   return
-//                                     AlertDialog(
-//                                       backgroundColor:
-//                                       ColorManager.white,
-//                                       content:
-//                                       Container(
-//                                         padding:
-//                                         EdgeInsets.only(top: AppPadding.p25),
-//                                         height: AppSize.s300,
-//                                         width: AppSize.s400,
-//                                         child:
-//                                         Column(
-//                                           mainAxisAlignment:
-//                                           MainAxisAlignment.spaceEvenly,
-//                                           crossAxisAlignment:
-//                                           CrossAxisAlignment.center,
-//                                           children: [
-//                                             Image.asset(
-//                                               'images/upload.png',
-//                                               width: AppSize.s120,
-//                                               height: AppSize.s120,
-//                                             ),
-//                                             Text(
-//                                               AppString.successfully,
-//                                               style: CustomTextStylesCommon.commonStyle(
-//                                                 color: ColorManager.darkgrey,
-//                                                 fontSize: FontSize.s30,
-//                                                 fontWeight: FontWeightManager.extrabold,
-//                                               ),
-//                                             ),
-//                                             Text(
-//                                               AppString.resetsuccessfully,
-//                                               style: CustomTextStylesCommon.commonStyle(
-//                                                 color: ColorManager.darkgrey,
-//                                                 fontSize: FontSize.s12,
-//                                                 fontWeight: FontWeightManager.medium,
-//                                               ),
-//                                             ),
-//                                             CustomButton(
-//                                               width: AppSize.s181,
-//                                               height: AppSize.s45,
-//                                               text: AppString.continuebutton,
-//                                               borderRadius: 24,
-//                                               onPressed: () {
-//                                                 Navigator.push(
-//                                                   context,
-//                                                   MaterialPageRoute(builder: (context) => LoginScreen()),
-//                                                 );
-//                                               },
-//                                             )
-//                                           ],
-//                                         ),
-//                                       ),
-//                                     );
-//                                 },
-//                               );
-//                             } catch (e) {
-//                               AlertDialog(
-//                                 backgroundColor:
-//                                 ColorManager.white,
-//                                 content:
-//                                 Container(
-//                                   padding: EdgeInsets.only(top: AppPadding.p10),
-//                                   height: AppSize.s300,
-//                                   width: AppSize.s400,
-//                                   child:
-//                                   Column(
-//                                     mainAxisAlignment:
-//                                     MainAxisAlignment
-//                                         .spaceEvenly,
-//                                     crossAxisAlignment:
-//                                     CrossAxisAlignment
-//                                         .center,
-//                                     children: [
-//                                       Text(
-//                                         AppString
-//                                             .threetimepasscanchange,
-//                                         style:
-//                                         GoogleFonts.firaSans(
-//                                           fontSize:
-//                                           FontSize.s30,
-//                                           color:
-//                                           Color(0xff686464),
-//                                           fontWeight:
-//                                           FontWeightManager.bold,
-//                                         ),
-//                                       ),
-//                                       Text(
-//                                         AppString
-//                                             .cannotchangepass,
-//                                         style: CustomTextStylesCommon.commonStyle(
-//                                           color:ColorManager.darkgrey,
-//                                           fontSize: FontSize.s12,
-//                                           fontWeight: FontWeightManager.medium,
-//                                         ),
-//                                       ),
-//                                       CustomButton(
-//                                         width: AppSize.s181,
-//                                         height: AppSize.s45,
-//                                         text: AppString.continuebutton,
-//                                         borderRadius:
-//                                         24,
-//                                         onPressed:
-//                                             () {
-//                                           Navigator.push(
-//                                             context,
-//                                             MaterialPageRoute(builder: (context) => LoginScreen()),
-//                                           );
-//                                         },
-//                                       )
-//                                     ],
-//                                   ),
-//                                 ),
-//                               );
-//                               print(
-//                                   'Error occurred while confirming password: $e');
-//                               // Handle error
-//                             } finally {
-//                               setState(() {
-//                                 _isUpdatingPassword =
-//                                 false;
-//                               });
-//                             }
-//                           }
-//                         },
-//                       ),
-//                     ),
-//                   ),
-//                   if (_errorMessage != null)
-//                     Padding(
-//                       padding: const EdgeInsets
-//                           .symmetric(vertical: 8.0),
-//                       child: Text(
-//                         _errorMessage!,
-//                         style: TextStyle(
-//                             color: Colors.red),
-//                       ),
-//                     ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-///old code
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController controllerNew = TextEditingController();
@@ -874,6 +161,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -969,451 +257,514 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               Material(
                                 elevation: 9,
                                 borderRadius: BorderRadius.circular(24),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width /
-                                      3.5,
-                                  height:
-                                      MediaQuery.of(context).size.height /
-                                          1.6,
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(24),
-                                      color: ColorManager.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0xff000000)
-                                              .withOpacity(0.1),
-                                          spreadRadius: 0,
-                                          blurRadius: 0,
-                                          offset: Offset(0, 0),
-                                        ),
-                                        BoxShadow(
-                                          color: Color(0xff000000)
-                                              .withOpacity(0.1),
-                                          spreadRadius: 1,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 3),
-                                        ),
-                                      ]),
-
-                                  ///column
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: MediaQuery.of(context)
-                                                .size
-                                                .width /
-                                            30,
-                                        vertical: MediaQuery.of(context)
-                                                .size
-                                                .height /
-                                            40),
-                                    child: Form(
-                                      key: _formKey,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            AppString.entersixdigitCode,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              color: ColorManager.mediumgrey,
-                                              fontSize: FontSize.s10,
-                                              fontWeight: FontWeightManager.semiBold,
-                                            )
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: List.generate(
-                                              6,
-                                              (index) => Container(
-                                                width:
-                                                    MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        40,
-                                                height: 40,
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            200),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          2),
-                                                  border: Border.all(
-                                                    color:
-                                                        Color(0xff9BADCA),
-                                                    width: 0.55,
-                                                  ),
-                                                ),
-                                                child: TextFormField(
-                                                  style: CustomTextStylesCommon.commonStyle(
-                                                    color: Color(0xff000000)
-                                                        .withOpacity(0.7),
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight: FontWeightManager.medium,
-                                                  ),
-                                                  controller:
-                                                      _otpControllers[
-                                                          index],
-                                                  cursorColor: ColorManager.black,
-                                                  inputFormatters: [
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp(
-                                                            r'[0-9]')),
-                                                  ],
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  textAlign:
-                                                      TextAlign.center,
-                                                  maxLength: 1,
-                                                  focusNode:
-                                                      _focusNodes[index],
-                                                  decoration:
-                                                      InputDecoration(
-                                                    contentPadding:
-                                                        const EdgeInsets
-                                                            .only(
-                                                            bottom: AppPadding.p10),
-                                                    counterText: '',
-                                                    border:
-                                                        InputBorder.none,
-                                                  ),
-                                                  validator: (value) {
-                                                    return value!.isEmpty
-                                                        ? AppString.enterotp
-                                                        : null;
-                                                  },
-                                                  onChanged: (value) {
-                                                    _otpFieldFilledStatus[
-                                                            index] =
-                                                        value.isNotEmpty;
-                                                    bool allFieldsFilled =
-                                                        _otpFieldFilledStatus
-                                                            .every(
-                                                                (filled) =>
-                                                                    filled);
-                                                    setState(() {
-                                                      isOtpFieldEmpty =
-                                                          !allFieldsFilled;
-                                                    });
-                                                    if (value.isNotEmpty &&
-                                                        index < 5) {
-                                                      FocusScope.of(context)
-                                                          .requestFocus(
-                                                              _focusNodes[
-                                                                  index +
-                                                                      1]);
-                                                    } else if (value
-                                                            .isNotEmpty &&
-                                                        index == 5) {
-                                                      FocusScope.of(context)
-                                                          .requestFocus(
-                                                              newPasswordFocusNode);
-                                                    }
-                                                  },
-                                                ),
-                                              ),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width /
+                                          3.5,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              1.6,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(24),
+                                          color: ColorManager.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0xff000000)
+                                                  .withOpacity(0.1),
+                                              spreadRadius: 0,
+                                              blurRadius: 0,
+                                              offset: Offset(0, 0),
                                             ),
-                                          ),
-                                          Text('${getTimerString()}',
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                color:  ColorManager.orange,
-                                                fontSize: FontSize.s8,
-                                                fontWeight: FontWeightManager.semiBold,
-                                              ),
-                                              ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            BoxShadow(
+                                              color: Color(0xff000000)
+                                                  .withOpacity(0.1),
+                                              spreadRadius: 1,
+                                              blurRadius: 4,
+                                              offset: Offset(0, 3),
+                                            ),
+                                          ]),
+
+                                      ///column
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                30,
+                                            vertical: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                40),
+                                        child: Form(
+                                          key: _formKey,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                AppString.didntrecieveCode,
-                                                style: CodeVerficationText.VerifyCode(context)),
-                                              TextButton(
-                                                onPressed: () {
-                                                  print("Resend tapped!");
-                                                },
-                                                child: Text(
-                                                  AppString.resend,
-                                                  style: CustomTextStylesCommon.commonStyle(
-                                                    color: ColorManager.blueprime,
-                                                    fontSize: FontSize.s10,
-                                                    fontWeight: FontWeightManager.semiBold,
-                                                  )
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Divider(),
-                                          Text(
-                                            AppString.setnewPassword,
-                                            style: GoogleFonts.firaSans(
-                                              color: isOtpFieldEmpty
-                                                  ? Colors.grey
-                                                  : ColorManager.mediumgrey,
-                                              fontSize: FontSize.s10,
-                                              fontWeight: FontWeightManager.semiBold,
-                                            ),
-                                          ),
-                                          TextFormField(
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              color: ColorManager.black.withOpacity(0.5),
-                                              fontSize: FontSize.s14,
-                                              fontWeight: FontWeightManager.medium,
-                                            ),
-                                            focusNode: newPasswordFocusNode,
-                                            onFieldSubmitted: (_) {
-                                              FocusScope.of(context)
-                                                  .requestFocus(
-                                                      confirmPasswordFocusNode);
-                                            },
-                                            cursorHeight: 22,
-                                            obscuringCharacter: '*',
-                                            controller: controllerNew,
-                                            cursorColor: Colors.black,
-                                            obscureText: _obscureText,
-                                            decoration: InputDecoration(
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                      top: 2),
-                                              suffixIcon: IconButton(
-                                                icon: Icon(
-                                                  _obscureText
-                                                      ? Icons
-                                                          .visibility_outlined
-                                                      : Icons
-                                                          .visibility_off_outlined,
-                                                  size: AppSize.s15,
-                                                  color: Color(0xffACA5BB),
-                                                ),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    _obscureText =
-                                                        !_obscureText;
-                                                  });
-                                                },
+                                                AppString.entersixdigitCode,
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  color: ColorManager.mediumgrey,
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight: FontWeightManager.semiBold,
+                                                )
                                               ),
-                                              labelText:
-                                                  AppString.enternewpass,
-                                              labelStyle:
-                                              CustomTextStylesCommon.commonStyle(
-                                                color: isOtpFieldEmpty
-                                                    ? Colors.grey
-                                                    : ColorManager.darkgrey,
-                                                fontSize: FontSize.s14,
-                                                fontWeight: FontWeightManager.medium,
-                                              ),
-                                              border: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(0xff000000)
-                                                        .withOpacity(0.5),
-                                                    width: 0.5),
-                                              ),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey),
-                                              ),
-                                            ),
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return AppString.enterpass;
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          TextFormField(
-                                            focusNode:
-                                                confirmPasswordFocusNode,
-                                            onFieldSubmitted: (_) {
-                                              _showSuccessDialog();
-                                            },
-                                            // onChanged: (value) {
-                                            //   if (_formKey.currentState!.validate()) {
-                                            //     _showSuccessDialog();
-                                            //   }
-                                            // },
-                                            cursorHeight: 22,
-                                            obscuringCharacter: '*',
-                                            controller: controllerConfirm,
-                                            style: CustomTextStylesCommon.commonStyle(
-                                              color: ColorManager.black.withOpacity(0.5),
-                                              fontSize: FontSize.s14,
-                                              fontWeight: FontWeightManager.medium,
-                                            ),
-                                            cursorColor: ColorManager.black,
-                                            obscureText:
-                                                _obscureTextconfirm,
-                                            decoration: InputDecoration(
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                      top: 2),
-                                              suffixIcon: IconButton(
-                                                icon: Icon(
-                                                  _obscureTextconfirm
-                                                      ? Icons
-                                                          .visibility_outlined
-                                                      : Icons
-                                                          .visibility_off_outlined,
-                                                  size: AppSize.s15,
-                                                  color: Color(0xffACA5BB),
-                                                ),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    _obscureTextconfirm =
-                                                        !_obscureTextconfirm;
-                                                  });
-                                                },
-                                              ),
-                                              labelText:
-                                                  AppString.confmpass,
-                                              labelStyle: CustomTextStylesCommon.commonStyle(
-                                                color: isOtpFieldEmpty
-                                                    ? Colors.grey
-                                                    : ColorManager.darkgrey,
-                                                fontSize: FontSize.s14,
-                                                fontWeight: FontWeightManager.medium,
-                                              ),
-                                              border: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(0xff000000)
-                                                        .withOpacity(0.5),
-                                                    width: 0.5),
-                                              ),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: ColorManager.grey),
-                                              ),
-                                            ),
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return AppString
-                                                    .enterconfmpass;
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          SizedBox(height: 12),
-                                          Center(
-                                            child: _isUpdatingPassword
-                                                ? CircularProgressIndicator(
-                                                    color: ColorManager
-                                                        .blueprime)
-                                                : Container(
-                                                    decoration:
-                                                        BoxDecoration(
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: List.generate(
+                                                  6,
+                                                  (index) => Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            40,
+                                                    height: 40,
+                                                    margin: EdgeInsets.symmetric(
+                                                        horizontal:
+                                                            MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                200),
+                                                    decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius
-                                                              .circular(14),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Color(
-                                                              0x40000000),
-                                                          offset:
-                                                              Offset(0, 4),
-                                                          blurRadius: 4,
-                                                          spreadRadius: 0,
-                                                        ),
-                                                      ],
+                                                          BorderRadius.circular(
+                                                              2),
+                                                      border: Border.all(
+                                                        color:
+                                                            Color(0xff9BADCA),
+                                                        width: 0.55,
+                                                      ),
                                                     ),
-                                                    child: CustomButton(
-                                                      width: MediaQuery.of(
-                                                                  context).size.width / 7,
-                                                      height: MediaQuery.of(context).size.height / 22,
-                                                      text: AppString.updatepass,
-                                                      backgroundColor: isOtpFieldEmpty ? Colors.grey : ColorManager.blueprime,
-                                                      onPressed: () async {
-                                                        if (_formKey
-                                                            .currentState!
-                                                            .validate()) {
-                                                          if (controllerNew
-                                                                  .text !=
-                                                              controllerConfirm
-                                                                  .text) {
-                                                            setState(() {
-                                                              _errorMessage = AppString.passdontmatch;
-                                                            });
-                                                            return;
-                                                          }
-                                                          setState(() {
-                                                            _isUpdatingPassword =
-                                                                true;
-                                                          });
-                                                          try {
-                                                            await ConfirmPassManager()
-                                                                .confirmPassword(
-                                                              widget.email,
-                                                              _otpControllers
-                                                                  .map((controller) =>
-                                                                      controller
-                                                                          .text)
-                                                                  .join(),
-                                                              controllerNew
-                                                                  .text,
-                                                            );
-                                                            print(
-                                                                '${widget.email}');
-                                                            print(
-                                                                '${controllerNew.text}');
-                                                            showDialog(
-                                                              context:
-                                                                  context,
-                                                              builder:
-                                                                  (BuildContext
-                                                                      context) {
-                                                                return
-                                                                  AlertDialog(
+                                                    child: TextFormField(
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        color: Color(0xff000000)
+                                                            .withOpacity(0.7),
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight: FontWeightManager.medium,
+                                                      ),
+                                                      controller:
+                                                          _otpControllers[
+                                                              index],
+                                                      cursorColor: ColorManager.black,
+                                                      inputFormatters: [
+                                                        FilteringTextInputFormatter
+                                                            .allow(RegExp(
+                                                                r'[0-9]')),
+                                                      ],
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      maxLength: 1,
+                                                      focusNode:
+                                                          _focusNodes[index],
+                                                      decoration:
+                                                          InputDecoration(
+                                                        contentPadding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                bottom: AppPadding.p10),
+                                                        counterText: '',
+                                                        border:
+                                                            InputBorder.none,
+                                                      ),
+                                                      validator: (value) {
+                                                        return value!.isEmpty
+                                                            ? AppString.enterotp
+                                                            : null;
+                                                      },
+                                                      onChanged: (value) {
+                                                        _otpFieldFilledStatus[
+                                                                index] =
+                                                            value.isNotEmpty;
+                                                        bool allFieldsFilled =
+                                                            _otpFieldFilledStatus
+                                                                .every(
+                                                                    (filled) =>
+                                                                        filled);
+                                                        setState(() {
+                                                          isOtpFieldEmpty =
+                                                              !allFieldsFilled;
+                                                        });
+                                                        if (value.isNotEmpty &&
+                                                            index < 5) {
+                                                          FocusScope.of(context)
+                                                              .requestFocus(
+                                                                  _focusNodes[
+                                                                      index +
+                                                                          1]);
+                                                        } else if (value
+                                                                .isNotEmpty &&
+                                                            index == 5) {
+                                                          FocusScope.of(context)
+                                                              .requestFocus(
+                                                                  newPasswordFocusNode);
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Text('${getTimerString()}',
+                                                  style: CustomTextStylesCommon.commonStyle(
+                                                    color:  ColorManager.orange,
+                                                    fontSize: FontSize.s8,
+                                                    fontWeight: FontWeightManager.semiBold,
+                                                  ),
+                                                  ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    AppString.didntrecieveCode,
+                                                    style: CodeVerficationText.VerifyCode(context)),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      print("Resend tapped!");
+                                                    },
+                                                    child: Text(
+                                                      AppString.resend,
+                                                      style: CustomTextStylesCommon.commonStyle(
+                                                        color: ColorManager.blueprime,
+                                                        fontSize: FontSize.s10,
+                                                        fontWeight: FontWeightManager.semiBold,
+                                                      )
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              Divider(),
+                                              Text(
+                                                AppString.setnewPassword,
+                                                style: GoogleFonts.firaSans(
+                                                  color: isOtpFieldEmpty
+                                                      ? Colors.grey
+                                                      : ColorManager.mediumgrey,
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight: FontWeightManager.semiBold,
+                                                ),
+                                              ),
+                                              TextFormField(
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  color: ColorManager.black.withOpacity(0.5),
+                                                  fontSize: FontSize.s14,
+                                                  fontWeight: FontWeightManager.medium,
+                                                ),
+                                                focusNode: newPasswordFocusNode,
+                                                onFieldSubmitted: (_) {
+                                                  FocusScope.of(context)
+                                                      .requestFocus(
+                                                          confirmPasswordFocusNode);
+                                                },
+                                                cursorHeight: 22,
+                                                obscuringCharacter: '*',
+                                                controller: controllerNew,
+                                                cursorColor: Colors.black,
+                                                obscureText: _obscureText,
+                                                decoration: InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets.only(
+                                                          top: 2),
+                                                  suffixIcon: IconButton(
+                                                    icon: Icon(
+                                                      _obscureText
+                                                          ? Icons
+                                                              .visibility_outlined
+                                                          : Icons
+                                                              .visibility_off_outlined,
+                                                      size: AppSize.s15,
+                                                      color: Color(0xffACA5BB),
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        _obscureText =
+                                                            !_obscureText;
+                                                      });
+                                                    },
+                                                  ),
+                                                  labelText:
+                                                      AppString.enternewpass,
+                                                  labelStyle:
+                                                  CustomTextStylesCommon.commonStyle(
+                                                    color: isOtpFieldEmpty
+                                                        ? Colors.grey
+                                                        : ColorManager.darkgrey,
+                                                    fontSize: FontSize.s14,
+                                                    fontWeight: FontWeightManager.medium,
+                                                  ),
+                                                  border: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black),
+                                                  ),
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Color(0xff000000)
+                                                            .withOpacity(0.5),
+                                                        width: 0.5),
+                                                  ),
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                                validator: (value) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
+                                                    return AppString.enterpass;
+                                                  }
+                                                  return null;
+                                                },
+                                              ),
+                                              TextFormField(
+                                                focusNode:
+                                                    confirmPasswordFocusNode,
+                                                onFieldSubmitted: (_) {
+                                                  _showSuccessDialog();
+                                                },
+                                                // onChanged: (value) {
+                                                //   if (_formKey.currentState!.validate()) {
+                                                //     _showSuccessDialog();
+                                                //   }
+                                                // },
+                                                cursorHeight: 22,
+                                                obscuringCharacter: '*',
+                                                controller: controllerConfirm,
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  color: ColorManager.black.withOpacity(0.5),
+                                                  fontSize: FontSize.s14,
+                                                  fontWeight: FontWeightManager.medium,
+                                                ),
+                                                cursorColor: ColorManager.black,
+                                                obscureText:
+                                                    _obscureTextconfirm,
+                                                decoration: InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets.only(
+                                                          top: 2),
+                                                  suffixIcon: IconButton(
+                                                    icon: Icon(
+                                                      _obscureTextconfirm
+                                                          ? Icons
+                                                              .visibility_outlined
+                                                          : Icons
+                                                              .visibility_off_outlined,
+                                                      size: AppSize.s15,
+                                                      color: Color(0xffACA5BB),
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        _obscureTextconfirm =
+                                                            !_obscureTextconfirm;
+                                                      });
+                                                    },
+                                                  ),
+                                                  labelText:
+                                                      AppString.confmpass,
+                                                  labelStyle: CustomTextStylesCommon.commonStyle(
+                                                    color: isOtpFieldEmpty
+                                                        ? Colors.grey
+                                                        : ColorManager.darkgrey,
+                                                    fontSize: FontSize.s14,
+                                                    fontWeight: FontWeightManager.medium,
+                                                  ),
+                                                  border: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black),
+                                                  ),
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Color(0xff000000)
+                                                            .withOpacity(0.5),
+                                                        width: 0.5),
+                                                  ),
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: ColorManager.grey),
+                                                  ),
+                                                ),
+                                                validator: (value) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
+                                                    return AppString
+                                                        .enterconfmpass;
+                                                  }
+                                                  return null;
+                                                },
+                                              ),
+                                              SizedBox(height: 12),
+                                              Center(
+                                                child: _isUpdatingPassword
+                                                    ? CircularProgressIndicator(
+                                                        color: ColorManager
+                                                            .blueprime)
+                                                    : Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(14),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Color(
+                                                                  0x40000000),
+                                                              offset:
+                                                                  Offset(0, 4),
+                                                              blurRadius: 4,
+                                                              spreadRadius: 0,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        child: CustomButton(
+                                                          width: MediaQuery.of(
+                                                                      context).size.width / 7,
+                                                          height: MediaQuery.of(context).size.height / 22,
+                                                          text: AppString.updatepass,
+                                                          backgroundColor: isOtpFieldEmpty ? Colors.grey : ColorManager.blueprime,
+                                                          onPressed: () async {
+                                                            if (_formKey
+                                                                .currentState!
+                                                                .validate()) {
+                                                              if (controllerNew
+                                                                      .text !=
+                                                                  controllerConfirm
+                                                                      .text) {
+                                                                setState(() {
+                                                                  _errorMessage = AppString.passdontmatch;
+                                                                });
+                                                                return;
+                                                              }
+                                                              setState(() {
+                                                                _isUpdatingPassword =
+                                                                    true;
+                                                              });
+                                                              try {
+                                                                await ConfirmPassManager()
+                                                                    .confirmPassword(
+                                                                  widget.email,
+                                                                  _otpControllers
+                                                                      .map((controller) =>
+                                                                          controller
+                                                                              .text)
+                                                                      .join(),
+                                                                  controllerNew
+                                                                      .text,
+                                                                );
+                                                                print(
+                                                                    '${widget.email}');
+                                                                print(
+                                                                    '${controllerNew.text}');
+                                                                showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (BuildContext
+                                                                          context) {
+                                                                    return
+                                                                      AlertDialog(
+                                                                      backgroundColor:
+                                                                          ColorManager.white,
+                                                                      content:
+                                                                          Container(
+                                                                        padding:
+                                                                            EdgeInsets.only(top: AppPadding.p25),
+                                                                        height: AppSize.s300,
+                                                                        width: AppSize.s400,
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceEvenly,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.center,
+                                                                          children: [
+                                                                            Image.asset(
+                                                                              'images/upload.png',
+                                                                              width: AppSize.s120,
+                                                                              height: AppSize.s120,
+                                                                            ),
+                                                                            Text(
+                                                                              AppString.successfully,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                color: ColorManager.darkgrey,
+                                                                                fontSize: FontSize.s30,
+                                                                                fontWeight: FontWeightManager.extrabold,
+                                                                              ),
+                                                                            ),
+                                                                            Text(
+                                                                              AppString.resetsuccessfully,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                color: ColorManager.darkgrey,
+                                                                                fontSize: FontSize.s12,
+                                                                                fontWeight: FontWeightManager.medium,
+                                                                              ),
+                                                                            ),
+                                                                            CustomButton(
+                                                                              width: AppSize.s181,
+                                                                              height: AppSize.s45,
+                                                                              text: AppString.continuebutton,
+                                                                              borderRadius: 24,
+                                                                              onPressed: () {
+                                                                                Navigator.push(
+                                                                                  context,
+                                                                                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                                                                                );
+                                                                              },
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                );
+                                                              } catch (e) {
+                                                                AlertDialog(
                                                                   backgroundColor:
                                                                       ColorManager.white,
                                                                   content:
                                                                       Container(
-                                                                    padding:
-                                                                        EdgeInsets.only(top: AppPadding.p25),
+                                                                    padding: EdgeInsets.only(top: AppPadding.p10),
                                                                     height: AppSize.s300,
                                                                     width: AppSize.s400,
                                                                     child:
                                                                         Column(
                                                                       mainAxisAlignment:
-                                                                          MainAxisAlignment.spaceEvenly,
+                                                                          MainAxisAlignment
+                                                                              .spaceEvenly,
                                                                       crossAxisAlignment:
-                                                                          CrossAxisAlignment.center,
+                                                                          CrossAxisAlignment
+                                                                              .center,
                                                                       children: [
-                                                                        Image.asset(
-                                                                          'images/upload.png',
-                                                                          width: AppSize.s120,
-                                                                          height: AppSize.s120,
-                                                                        ),
                                                                         Text(
-                                                                          AppString.successfully,
-                                                                          style: CustomTextStylesCommon.commonStyle(
-                                                                            color: ColorManager.darkgrey,
-                                                                            fontSize: FontSize.s30,
-                                                                            fontWeight: FontWeightManager.extrabold,
+                                                                          AppString
+                                                                              .threetimepasscanchange,
+                                                                          style:
+                                                                              GoogleFonts.firaSans(
+                                                                            fontSize:
+                                                                                FontSize.s30,
+                                                                            color:
+                                                                                Color(0xff686464),
+                                                                            fontWeight:
+                                                                                FontWeightManager.bold,
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          AppString.resetsuccessfully,
+                                                                          AppString
+                                                                              .cannotchangepass,
                                                                           style: CustomTextStylesCommon.commonStyle(
-                                                                            color: ColorManager.darkgrey,
+                                                                            color:ColorManager.darkgrey,
                                                                             fontSize: FontSize.s12,
                                                                             fontWeight: FontWeightManager.medium,
                                                                           ),
@@ -1422,8 +773,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                           width: AppSize.s181,
                                                                           height: AppSize.s45,
                                                                           text: AppString.continuebutton,
-                                                                          borderRadius: 24,
-                                                                          onPressed: () {
+                                                                          borderRadius:
+                                                                              24,
+                                                                          onPressed:
+                                                                              () {
                                                                             Navigator.push(
                                                                               context,
                                                                               MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -1434,99 +787,42 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                     ),
                                                                   ),
                                                                 );
-                                                              },
-                                                            );
-                                                          } catch (e) {
-                                                            AlertDialog(
-                                                              backgroundColor:
-                                                                  ColorManager.white,
-                                                              content:
-                                                                  Container(
-                                                                padding: EdgeInsets.only(top: AppPadding.p10),
-                                                                height: AppSize.s300,
-                                                                width: AppSize.s400,
-                                                                child:
-                                                                    Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceEvenly,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Text(
-                                                                      AppString
-                                                                          .threetimepasscanchange,
-                                                                      style:
-                                                                          GoogleFonts.firaSans(
-                                                                        fontSize:
-                                                                            FontSize.s30,
-                                                                        color:
-                                                                            Color(0xff686464),
-                                                                        fontWeight:
-                                                                            FontWeightManager.bold,
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                      AppString
-                                                                          .cannotchangepass,
-                                                                      style: CustomTextStylesCommon.commonStyle(
-                                                                        color:ColorManager.darkgrey,
-                                                                        fontSize: FontSize.s12,
-                                                                        fontWeight: FontWeightManager.medium,
-                                                                      ),
-                                                                    ),
-                                                                    CustomButton(
-                                                                      width: AppSize.s181,
-                                                                      height: AppSize.s45,
-                                                                      text: AppString.continuebutton,
-                                                                      borderRadius:
-                                                                          24,
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator.push(
-                                                                          context,
-                                                                          MaterialPageRoute(builder: (context) => LoginScreen()),
-                                                                        );
-                                                                      },
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            );
-                                                            print(
-                                                                'Error occurred while confirming password: $e');
-                                                            // Handle error
-                                                          } finally {
-                                                            setState(() {
-                                                              _isUpdatingPassword =
-                                                                  false;
-                                                            });
-                                                          }
-                                                        }
-                                                      },
-                                                    ),
-                                                  ),
-                                          ),
-                                          if (_errorMessage != null)
-                                            Padding(
-                                              padding: const EdgeInsets
-                                                  .symmetric(vertical: 8.0),
-                                              child: Text(
-                                                _errorMessage!,
-                                                style: TextStyle(
-                                                    color: Colors.red),
+                                                                print(
+                                                                    'Error occurred while confirming password: $e');
+                                                                // Handle error
+                                                              } finally {
+                                                                setState(() {
+                                                                  _isUpdatingPassword =
+                                                                      false;
+                                                                });
+                                                              }
+                                                            }
+                                                          },
+                                                        ),
+                                                      ),
                                               ),
-                                            ),
-                                        ],
+                                              if (_errorMessage != null)
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 8.0),
+                                                  child: Text(
+                                                    _errorMessage!,
+                                                    style: TextStyle(
+                                                        color: Colors.red),
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
                               SizedBox(
                                 height: MediaQuery.of(context).size.height / 60,
                               ),
+
                               ///back to login text
                               Padding(
                                 padding: EdgeInsets.only(
@@ -1593,4 +889,3 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 }
-

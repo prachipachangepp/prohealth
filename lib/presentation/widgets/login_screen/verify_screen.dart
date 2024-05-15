@@ -116,8 +116,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
                         border: Border.all(
-                          color: ColorManager.grey,
-                          width: 1,
+                          color: const Color(0xff9BADCA),
+                          width: 0.85,
                         ),
                       ),
                       child: TextFormField(
