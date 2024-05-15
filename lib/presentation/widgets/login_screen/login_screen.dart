@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -43,107 +44,81 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return LoginBaseConstant(
       onTap: () {},
-      titleText: AppString.login,
-      textAction: "",
-     // textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Form(
-              key: _formKey,
-              child: Center(
-                child: Column(children: [
-                  ///textfield Email
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height / 10,
-                      horizontal: MediaQuery.of(context).size.width / 30,
-                    ),
-                    child: TextFormField(
-                      style: CustomTextStylesCommon.commonStyle(
-                        color: Color(0xff000000).withOpacity(0.5),
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s14,
-                      ),
-                      focusNode: emailFocusNode,
-                      controller: _emailController,
-                      cursorColor: Colors.black,
-                      cursorHeight: 22,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.only(top: 1),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xff000000).withOpacity(0.5),
-                            width: 0.5,
-                          ),
-                        ),
-                        labelText: AppString.email,
-                        labelStyle: CustomTextStylesCommon.commonStyle(
-                          color: Color(0xff000000).withOpacity(0.3),
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.medium,
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return AppString.enteremail;
-                        }
-                        if (!emailRegex.hasMatch(value)) {
-                          return AppString.entervalidemail;
-                        }
-                        return null;
-                      },
-                      onFieldSubmitted: (_) async {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          setState(() {
-                            _isSendingEmail = true;
-                            _showEmailInput = false;
-                          });
-                          try {
-                            await GetOTPService.getOTP(_emailController.text);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    VerifyScreen(email: _emailController.text),
-                              ),
-                            );
-                          } catch (e) {
-                            // Handle error
-                            print('Error occurred: $e');
-                          } finally {
-                            setState(() {
-                              _isSendingEmail = false;
-                            });
-                          }
-                        }
-                      },
-                    ),
-                  ),
-
-                  Center(
-                    child: _isSendingEmail
-                        ? CircularProgressIndicator(
-                            color: ColorManager.blueprime,
-                          )
-                        : Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x40000000),
-                                  offset: Offset(0, 4),
-                                  blurRadius: 3,
-                                  spreadRadius: 0,
-                                ),
-                              ],
+      titleText: 'Log In',
+      textAction: '',
+      child: Padding(
+        padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppString.login,
+              style: GoogleFonts.firaSans(
+                color: ColorManager.mediumgrey,
+                fontSize: 40,
+                fontWeight: FontWeightManager.extrabold,
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 60),
+            Material(
+              elevation: 4,
+              borderRadius: BorderRadius.circular(24),
+              child: Container(
+                width: MediaQuery.of(context).size.width / 3.5,
+                height: MediaQuery.of(context).size.height / 3,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  color: Colors.white,
+                ),
+                child: Form(
+                    key: _formKey,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ///textfield Email
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: MediaQuery.of(context).size.height / 80,
+                              horizontal:
+                                  MediaQuery.of(context).size.width / 30,
                             ),
-                            child: CustomButton(
-                              borderRadius: 28,
-                              height: MediaQuery.of(context).size.height / 18,
-                              width: MediaQuery.of(context).size.height / 5.3,
-                              text: AppString.next,
-                              onPressed: () async {
+                            child: TextFormField(
+                              style: CustomTextStylesCommon.commonStyle(
+                                color: Color(0xff000000).withOpacity(0.5),
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: FontSize.s14,
+                              ),
+                              focusNode: emailFocusNode,
+                              controller: _emailController,
+                              cursorColor: Colors.black,
+                              cursorHeight: 22,
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(top: 1),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xff000000).withOpacity(0.5),
+                                    width: 0.5,
+                                  ),
+                                ),
+                                labelText: AppString.email,
+                                labelStyle: CustomTextStylesCommon.commonStyle(
+                                  color: Color(0xff000000).withOpacity(0.3),
+                                  fontSize: FontSize.s14,
+                                  fontWeight: FontWeightManager.medium,
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return AppString.enteremail;
+                                }
+                                if (!emailRegex.hasMatch(value)) {
+                                  return AppString.entervalidemail;
+                                }
+                                return null;
+                              },
+                              onFieldSubmitted: (_) async {
                                 if (_formKey.currentState?.validate() ??
                                     false) {
                                   setState(() {
@@ -155,27 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         _emailController.text);
                                     Navigator.push(
                                       context,
-                                      PageRouteBuilder(
-                                        transitionDuration:
-                                            Duration(milliseconds: 500),
-                                        pageBuilder: (context, animation,
-                                                secondaryAnimation) =>
-                                            VerifyScreen(
-                                                email: _emailController.text),
-                                        transitionsBuilder: (context, animation,
-                                            secondaryAnimation, child) {
-                                          const begin = Offset(1.0, 0.0);
-                                          const end = Offset.zero;
-                                          const curve = Curves.ease;
-
-                                          var tween = Tween(
-                                                  begin: begin, end: end)
-                                              .chain(CurveTween(curve: curve));
-                                          return SlideTransition(
-                                            position: animation.drive(tween),
-                                            child: child,
-                                          );
-                                        },
+                                      MaterialPageRoute(
+                                        builder: (context) => VerifyScreen(
+                                            email: _emailController.text),
                                       ),
                                     );
                                   } catch (e) {
@@ -190,12 +147,251 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             ),
                           ),
-                  ),
-                ]),
-              ))
-        ],
+                          Center(
+                            child: _isSendingEmail
+                                ? CircularProgressIndicator(
+                                    color: ColorManager.blueprime,
+                                  )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x40000000),
+                                          offset: Offset(0, 4),
+                                          blurRadius: 3,
+                                          spreadRadius: 0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: CustomButton(
+                                      borderRadius: 28,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              18,
+                                      width:
+                                          MediaQuery.of(context).size.height /
+                                              5.3,
+                                      text: AppString.next,
+                                      onPressed: () async {
+                                        if (_formKey.currentState?.validate() ??
+                                            false) {
+                                          setState(() {
+                                            _isSendingEmail = true;
+                                            _showEmailInput = false;
+                                          });
+                                          try {
+                                            await GetOTPService.getOTP(
+                                                _emailController.text);
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                transitionDuration:
+                                                    Duration(milliseconds: 500),
+                                                pageBuilder: (context,
+                                                        animation,
+                                                        secondaryAnimation) =>
+                                                    VerifyScreen(
+                                                        email: _emailController
+                                                            .text),
+                                                transitionsBuilder: (context,
+                                                    animation,
+                                                    secondaryAnimation,
+                                                    child) {
+                                                  const begin =
+                                                      Offset(1.0, 0.0);
+                                                  const end = Offset.zero;
+                                                  const curve = Curves.ease;
+
+                                                  var tween = Tween(
+                                                          begin: begin,
+                                                          end: end)
+                                                      .chain(CurveTween(
+                                                          curve: curve));
+                                                  return SlideTransition(
+                                                    position:
+                                                        animation.drive(tween),
+                                                    child: child,
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          } catch (e) {
+                                            // Handle error
+                                            print('Error occurred: $e');
+                                          } finally {
+                                            setState(() {
+                                              _isSendingEmail = false;
+                                            });
+                                          }
+                                        }
+                                      },
+                                    ),
+                                  ),
+                          ),
+                        ])),
+              ),
+            )
+          ],
+        ),
       ),
     );
+
+    //   LoginBaseConstant(
+    //   onTap: () {},
+    //   titleText: AppString.login,
+    //   textAction: "",
+    //  // textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.5),
+    //   child: Column(
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: [
+    //       Form(
+    //           key: _formKey,
+    //           child: Center(
+    //             child: Column(children: [
+    //               ///textfield Email
+    //               Padding(
+    //                 padding: EdgeInsets.symmetric(
+    //                   vertical: MediaQuery.of(context).size.height / 10,
+    //                   horizontal: MediaQuery.of(context).size.width / 30,
+    //                 ),
+    //                 child: TextFormField(
+    //                   style: CustomTextStylesCommon.commonStyle(
+    //                     color: Color(0xff000000).withOpacity(0.5),
+    //                     fontWeight: FontWeightManager.medium,
+    //                     fontSize: FontSize.s14,
+    //                   ),
+    //                   focusNode: emailFocusNode,
+    //                   controller: _emailController,
+    //                   cursorColor: Colors.black,
+    //                   cursorHeight: 22,
+    //                   decoration: InputDecoration(
+    //                     contentPadding: const EdgeInsets.only(top: 1),
+    //                     focusedBorder: UnderlineInputBorder(
+    //                       borderSide: BorderSide(
+    //                         color: Color(0xff000000).withOpacity(0.5),
+    //                         width: 0.5,
+    //                       ),
+    //                     ),
+    //                     labelText: AppString.email,
+    //                     labelStyle: CustomTextStylesCommon.commonStyle(
+    //                       color: Color(0xff000000).withOpacity(0.3),
+    //                       fontSize: FontSize.s14,
+    //                       fontWeight: FontWeightManager.medium,
+    //                     ),
+    //                   ),
+    //                   validator: (value) {
+    //                     if (value == null || value.isEmpty) {
+    //                       return AppString.enteremail;
+    //                     }
+    //                     if (!emailRegex.hasMatch(value)) {
+    //                       return AppString.entervalidemail;
+    //                     }
+    //                     return null;
+    //                   },
+    //                   onFieldSubmitted: (_) async {
+    //                     if (_formKey.currentState?.validate() ?? false) {
+    //                       setState(() {
+    //                         _isSendingEmail = true;
+    //                         _showEmailInput = false;
+    //                       });
+    //                       try {
+    //                         await GetOTPService.getOTP(_emailController.text);
+    //                         Navigator.push(
+    //                           context,
+    //                           MaterialPageRoute(
+    //                             builder: (context) =>
+    //                                 VerifyScreen(email: _emailController.text),
+    //                           ),
+    //                         );
+    //                       } catch (e) {
+    //                         // Handle error
+    //                         print('Error occurred: $e');
+    //                       } finally {
+    //                         setState(() {
+    //                           _isSendingEmail = false;
+    //                         });
+    //                       }
+    //                     }
+    //                   },
+    //                 ),
+    //               ),
+    //
+    //               Center(
+    //                 child: _isSendingEmail
+    //                     ? CircularProgressIndicator(
+    //                         color: ColorManager.blueprime,
+    //                       )
+    //                     : Container(
+    //                         decoration: BoxDecoration(
+    //                           borderRadius: BorderRadius.circular(14),
+    //                           boxShadow: [
+    //                             BoxShadow(
+    //                               color: Color(0x40000000),
+    //                               offset: Offset(0, 4),
+    //                               blurRadius: 3,
+    //                               spreadRadius: 0,
+    //                             ),
+    //                           ],
+    //                         ),
+    //                         child: CustomButton(
+    //                           borderRadius: 28,
+    //                           height: MediaQuery.of(context).size.height / 18,
+    //                           width: MediaQuery.of(context).size.height / 5.3,
+    //                           text: AppString.next,
+    //                           onPressed: () async {
+    //                             if (_formKey.currentState?.validate() ??
+    //                                 false) {
+    //                               setState(() {
+    //                                 _isSendingEmail = true;
+    //                                 _showEmailInput = false;
+    //                               });
+    //                               try {
+    //                                 await GetOTPService.getOTP(
+    //                                     _emailController.text);
+    //                                 Navigator.push(
+    //                                   context,
+    //                                   PageRouteBuilder(
+    //                                     transitionDuration:
+    //                                         Duration(milliseconds: 500),
+    //                                     pageBuilder: (context, animation,
+    //                                             secondaryAnimation) =>
+    //                                         VerifyScreen(
+    //                                             email: _emailController.text),
+    //                                     transitionsBuilder: (context, animation,
+    //                                         secondaryAnimation, child) {
+    //                                       const begin = Offset(1.0, 0.0);
+    //                                       const end = Offset.zero;
+    //                                       const curve = Curves.ease;
+    //
+    //                                       var tween = Tween(
+    //                                               begin: begin, end: end)
+    //                                           .chain(CurveTween(curve: curve));
+    //                                       return SlideTransition(
+    //                                         position: animation.drive(tween),
+    //                                         child: child,
+    //                                       );
+    //                                     },
+    //                                   ),
+    //                                 );
+    //                               } catch (e) {
+    //                                 // Handle error
+    //                                 print('Error occurred: $e');
+    //                               } finally {
+    //                                 setState(() {
+    //                                   _isSendingEmail = false;
+    //                                 });
+    //                               }
+    //                             }
+    //                           },
+    //                         ),
+    //                       ),
+    //               ),
+    //             ]),
+    //           ))
+    //     ],
+    //   ),
+    // );
   }
 }
 
