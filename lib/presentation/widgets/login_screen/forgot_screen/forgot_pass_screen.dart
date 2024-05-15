@@ -22,7 +22,6 @@ class ForgotPassScreen extends StatefulWidget {
 class _ForgotPassScreenState extends State<ForgotPassScreen> {
   final TextEditingController _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
   FocusNode emailFocusNode = FocusNode();
 
   ForgotPassManager _forgotPassManager = ForgotPassManager();
@@ -43,10 +42,20 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       },
       titleText: AppString.forgotpassword,
       textAction: AppString.backtologin,
-      child: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width / 40),
-        child: Form(
-          key: _formKey,
+         child: Material(
+          elevation: 4,
+          borderRadius: BorderRadius.circular(24),
+          child: Container(
+            width: MediaQuery.of(context).size.width / 3.5,
+            height: MediaQuery.of(context).size.height / 2.5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: ColorManager.white,
+            ),
+            child: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -60,49 +69,42 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   fontWeight: FontWeightManager.semiBold,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 100),
-                child: TextFormField(
-                  controller: _emailController,
-                  style: CustomTextStylesCommon.commonStyle(
-                    color: ColorManager.black.withOpacity(0.5),
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                  ),
-                  cursorHeight: 22,
-                  cursorColor: ColorManager.black,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.only(top: 2),
-                    hintText: AppString.emailhint,
-                    hintStyle: EmailTextStyle.enterEmail(context),
-                    labelText: AppString.email,
-                    labelStyle: EmailTextStyle.enterEmail(context),
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorManager.black),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: ColorManager.black.withOpacity(0.5),
-                          width: 0.5),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enteremail;
-                    }
-                    if (!emailRegex.hasMatch(value)) {
-                      return AppString.entervalidemail;
-                    }
-                    return null;
-                  },
-                  onFieldSubmitted: (_) {
-                    _submitForm();
-                  },
+              TextFormField(
+                controller: _emailController,
+                style: CustomTextStylesCommon.commonStyle(
+                  color: Color(0xff000000).withOpacity(0.5),
+                  fontWeight: FontWeightManager.medium,
+                  fontSize: FontSize.s14,
                 ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 99,
+                cursorHeight: 22,
+                cursorColor: ColorManager.black,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(top: 2),
+                  hintText: AppString.emailhint,
+                  hintStyle: EmailTextStyle.enterEmail(context),
+                  labelText: AppString.email,
+                  labelStyle: EmailTextStyle.enterEmail(context),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorManager.black),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: ColorManager.black.withOpacity(0.5),
+                        width: 0.5),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return AppString.enteremail;
+                  }
+                  if (!emailRegex.hasMatch(value)) {
+                    return AppString.entervalidemail;
+                  }
+                  return null;
+                },
+                onFieldSubmitted: (_) {
+                  _submitForm();
+                },
               ),
               ///button
               Center(
@@ -131,13 +133,13 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
           ),
         ),
       ),
+    ))
     );
   }
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       setState(() {
-        _isLoading = true;
       });
       String email = _emailController.text;
       _forgotPassManager.forgotPassword(email);
