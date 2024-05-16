@@ -111,7 +111,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     4,
                         (index) => Container(
                       width: MediaQuery.of(context).size.width / 38,
-                      height: MediaQuery.of(context).size.width / 38,
+                      height: MediaQuery.of(context).size.height / 19,
                       margin: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
@@ -176,11 +176,6 @@ class _VerifyScreenState extends State<VerifyScreen> {
                           )
                       ),
                     )
-
-                    // recognizer: TapGestureRecognizer()
-                    //   ..onTap = () {
-                    //     print("Resend code tapped");
-                    //   },
                   ],
                 ),
                 ///button

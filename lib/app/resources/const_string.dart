@@ -164,10 +164,12 @@ class AppString {
   // static const String = "";
   /// change password
   static const String verification = 'Verification';
+  static const String newPass = 'New Password';
   static const String entersixdigitCode = 'Enter your 6 digits code that you received on your email.';
   static const String enterotp = 'Please enter OTP';
+  static const String fillfield = 'Please fill all fields.';
   static const String didntrecieveCode = 'Didn’t receive a code?';
-  static const String setnewPassword = 'Set the new password for your account \nso you can login and access all features.';
+  static const String setnewPassword = 'Set the new password for your account so you can login and\naccess all features.';
   static const String enternewpass = 'Enter New Password';
   static const String confmpass = 'Confirm Password';
   static const String enterconfmpass = 'Enter Confirm Password';
