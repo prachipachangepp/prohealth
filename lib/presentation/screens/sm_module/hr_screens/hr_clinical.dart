@@ -34,24 +34,24 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   late int itemsPerPage;
   late List<String> items;
   String? selectedValue;
-  late List<Color> containerColors;
+  late List<Color> hrcontainerColors;
   @override
   void initState() {
     super.initState();
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    containerColors = List.generate(20, (index) => Color(0xffE8A87D));
+    hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
   }
 
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      for (int i = 0; i < containerColors.length; i++) {
+      for (int i = 0; i < hrcontainerColors.length; i++) {
         int? colorValue = prefs.getInt('containerColor$i');
         if (colorValue != null) {
-          containerColors[i] = Color(colorValue);
+          hrcontainerColors[i] = Color(colorValue);
         }
       }
     });
@@ -134,7 +134,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
               width: 170,
               height: 32,
               child: CustomIconButtonConst(
-                  text: 'Add Employee Type',
+                  text: AppString.addemployeetype,
                   icon: Icons.add,
                   onPressed: () {
                     showDialog(
@@ -249,7 +249,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                 height: 22,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
-                                  color: containerColors[index],
+                                  color: hrcontainerColors[index],
                                 ),
                               ),
                               Row(
@@ -267,11 +267,12 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                             emailController:
                                                 TextEditingController(),
                                             containerColor:
-                                                containerColors[index],
+                                                hrcontainerColors[index],
                                             onSavePressed: () {},
                                             onColorChanged: (Color color) {
                                               setState(() {
-                                                containerColors[index] = color;
+                                                hrcontainerColors[index] =
+                                                    color;
                                                 _saveColor(index, color);
                                               });
                                             },
