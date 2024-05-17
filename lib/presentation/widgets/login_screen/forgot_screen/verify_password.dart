@@ -116,10 +116,11 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                         ),
                       ),
                       child: TextFormField(
+
                         style: CustomTextStylesCommon.commonStyle(
                           color: Color(0xff000000)
                               .withOpacity(0.7),
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.medium,
                         ),
                         controller: _otpControllers[index],
@@ -139,7 +140,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                           contentPadding:
                           const EdgeInsets
                               .only(
-                              bottom: AppPadding.p10),
+                              bottom: AppPadding.p11),
                           counterText: '',
                           border:
                           InputBorder.none,
