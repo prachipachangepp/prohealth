@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
-        home: // MenuScreen()
+        home:
+        // MenuScreen()
             //HrAdministrativeScreen()
              //DumLogInScreen()
             // SMDesktop()

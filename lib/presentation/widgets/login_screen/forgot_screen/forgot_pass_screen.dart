@@ -6,7 +6,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/login_flow_api/forgot_pass/forgot_pass_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/change_password.dart';
+import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/verify_password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/login_screen.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/widgets/profile_bar/widget/screen_transition.dart';
@@ -42,6 +42,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       },
       titleText: AppString.forgotpassword,
       textAction: AppString.backtologin,
+        textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width/2),
          child: Material(
           elevation: 4,
           borderRadius: BorderRadius.circular(24),
@@ -74,6 +75,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 style: CustomTextStylesCommon.commonStyle(
                   color: Color(0xff000000).withOpacity(0.5),
                   fontWeight: FontWeightManager.medium,
+                  //fontSize: MediaQuery.of(context).size.width / 92,
                   fontSize: FontSize.s14,
                 ),
                 cursorHeight: 22,
@@ -123,7 +125,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   child: CustomButton(
                     borderRadius: 24,
                     height: MediaQuery.of(context).size.height / 18,
-                    width: MediaQuery.of(context).size.height / 4,
+                    width: MediaQuery.of(context).size.width / 10,
                     text: AppString.continuet,
                     onPressed: _submitForm,
                   ),
@@ -146,7 +148,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ChangePasswordScreen(
+          builder: (context) => VerifyPasswordScreen(
             email: _emailController.text,
           ),
         ),

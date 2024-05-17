@@ -113,13 +113,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     4,
                     (index) => Container(
                       width: MediaQuery.of(context).size.width / 38,
-                      height: MediaQuery.of(context).size.width / 38,
+                      height: MediaQuery.of(context).size.height / 19,
                       margin: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
                         border: Border.all(
-                          color: ColorManager.grey,
-                          width: 1,
+                          color: const Color(0xff9BADCA),
+                          width: 0.85,
                         ),
                       ),
                       child: TextFormField(
@@ -176,11 +176,6 @@ class _VerifyScreenState extends State<VerifyScreen> {
                             fontWeight: FontWeightManager.semiBold,
                           )),
                     )
-
-                    // recognizer: TapGestureRecognizer()
-                    //   ..onTap = () {
-                    //     print("Resend code tapped");
-                    //   },
                   ],
                 ),
 

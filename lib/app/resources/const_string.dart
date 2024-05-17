@@ -150,7 +150,7 @@ class AppString {
   ///verify
   static const String incorrectOtp = 'Incorrect OTP. Please try again.';
   static const String donthaveauth =
-      "Dont have authentication application with me?";
+      "Don't have authentication application with me?";
   static const String verify = "Verifying...";
   static const String enter4digitcode =
       "Enter your 4 digits code that you received on your email.";
@@ -166,12 +166,14 @@ class AppString {
   // static const String = "";
   /// change password
   static const String verification = 'Verification';
+  static const String newPass = 'New Password';
   static const String entersixdigitCode =
       'Enter your 6 digits code that you received on your email.';
   static const String enterotp = 'Please enter OTP';
-  static const String didntrecieveCode = 'If you didn’t receive a code!';
+  static const String fillfield = 'Please fill all fields.';
+  static const String didntrecieveCode = 'Didn’t receive a code?';
   static const String setnewPassword =
-      'Set the new password for your account \nso you can login and access all features.';
+      'Set the new password for your account so you can login and\naccess all features.';
   static const String enternewpass = 'Enter New Password';
   static const String confmpass = 'Confirm Password';
   static const String enterconfmpass = 'Enter Confirm Password';
@@ -193,12 +195,12 @@ class AppString {
   static const String action = 'Actions';
 
   ///sm hr clinical
+  static const String licensevocnurse = 'license Vocational Nurse';
   static const String nc = 'NC';
-  static const String licensevocnurse = 'License Vocational Nurse';
 
-  ///sm hr administration
+  /// sm hr administration
   static const String addemployeetype = 'Add Employee Type';
-  static const String employeetype = 'EmployeeType';
+  static const String employeetype = 'Employee Type';
 }
 
 ///mobile screen constant

@@ -1,15 +1,10 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/get_company_by_id_data.dart';
-//import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
-//import '../../../app/services/api_sm/company_identity/get_company_by_id_data.dart';
 import '../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
 
@@ -27,7 +22,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
   TextEditingController mobNumController = TextEditingController();
   TextEditingController secNumController = TextEditingController();
   TextEditingController OptionalController = TextEditingController();
-
   late CompanyIdentityManager _companyManager;
 
   late int currentPage;
@@ -40,7 +34,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
     currentPage = 1;
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-   // fetchData();
     _companyManager = CompanyIdentityManager();
   }
   //
@@ -371,7 +364,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
             },
           ),
         ),
-
         // Expanded(
         //   child:
         //   // FutureBuilder<CompanyDataGet>(
