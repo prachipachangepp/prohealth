@@ -42,6 +42,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
       },
       titleText: AppString.forgotpassword,
       textAction: AppString.backtologin,
+        textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width/2),
          child: Material(
           elevation: 4,
           borderRadius: BorderRadius.circular(24),

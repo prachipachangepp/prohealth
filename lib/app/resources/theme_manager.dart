@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
 import 'color.dart';
+
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
@@ -28,11 +29,11 @@ class ThemeManagerDark {
 
 class ThemeManagerLightblue {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width /120 ;
+    double fontSize = MediaQuery.of(context).size.width / 120;
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xff2B647F),
-      fontWeight:  FontWeightManager.semiBold,
+      fontWeight: FontWeightManager.semiBold,
     );
   }
 }
@@ -112,8 +113,9 @@ class AknowledgementStyleConst {
     );
   }
 }
+
 ///profile bar
-class ProfileBarConst{
+class ProfileBarConst {
   static TextStyle profileTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
       fontSize: FontSize.s8,
@@ -124,35 +126,36 @@ class ProfileBarConst{
   }
 }
 
-class ProfileBarConstText{
+class ProfileBarConstText {
   static TextStyle profileTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
-    fontSize: FontSize.s10,
-    color: ColorManager.mediumgrey,
-    fontWeight: FontWeightManager.semiBold,
+      fontSize: FontSize.s10,
+      color: ColorManager.mediumgrey,
+      fontWeight: FontWeightManager.semiBold,
     );
   }
 }
 
-class ProfileBarLastColText{
+class ProfileBarLastColText {
   static TextStyle profileTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
       fontSize: FontSize.s10,
       color: ColorManager.bluelight,
-      fontWeight:  FontWeightManager.semiBold,
+      fontWeight: FontWeightManager.semiBold,
     );
   }
 }
 
-class ProfileBarClipText{
+class ProfileBarClipText {
   static TextStyle profileTextStyle(BuildContext context) {
     return GoogleFonts.firaSans(
       fontSize: MediaQuery.of(context).size.width / 140,
       color: ColorManager.white,
-      fontWeight:  FontWeightManager.semiBold,
+      fontWeight: FontWeightManager.semiBold,
     );
   }
 }
+
 ///common theme
 class CustomTextStylesCommon {
   static TextStyle commonStyle({
@@ -161,7 +164,7 @@ class CustomTextStylesCommon {
     FontWeight? fontWeight,
   }) {
     return GoogleFonts.firaSans(
-      fontSize: fontSize ?? 14,
+      fontSize: fontSize ?? 15,
       color: color ?? Color(0xff4B89BA),
       fontWeight: fontWeight ?? FontWeight.bold,
     );
@@ -169,31 +172,34 @@ class CustomTextStylesCommon {
 }
 
 ///menu screen
-class MenuScreenHeadStyle{
-  static TextStyle menuHead(BuildContext context){
+class MenuScreenHeadStyle {
+  static TextStyle menuHead(BuildContext context) {
     return GoogleFonts.firaSans(
         color: ColorManager.darkgrey,
         fontSize: 13.0,
         fontWeight: FontWeightManager.bold);
   }
 }
+
 ///email theme
-class EmailTextStyle{
-  static TextStyle enterEmail(BuildContext context){
+class EmailTextStyle {
+  static TextStyle enterEmail(BuildContext context) {
     return GoogleFonts.firaSans(
       color: Color(0xff000000).withOpacity(0.3),
       fontSize: FontSize.s14,
-      fontWeight: FontWeightManager.lightbold,);
+      fontWeight: FontWeightManager.lightbold,
+    );
   }
 }
 
 ///didnt receive code
-class CodeVerficationText{
-  static TextStyle VerifyCode(BuildContext context){
+class CodeVerficationText {
+  static TextStyle VerifyCode(BuildContext context) {
     return GoogleFonts.firaSans(
       color: ColorManager.darkgrey,
       //fontSize: FontSize.s10,
-      fontSize: MediaQuery.of(context).size.width/150,
-      fontWeight: FontWeightManager.semiBold,);
+      fontSize: MediaQuery.of(context).size.width / 120,
+      fontWeight: FontWeightManager.semiBold,
+    );
   }
 }

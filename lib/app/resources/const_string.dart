@@ -149,9 +149,11 @@ class AppString {
 
   ///verify
   static const String incorrectOtp = 'Incorrect OTP. Please try again.';
-  static const String donthaveauth = "Don't have authentication application with me?";
+  static const String donthaveauth =
+      "Don't have authentication application with me?";
   static const String verify = "Verifying...";
-  static const String enter4digitcode = "Enter your 4 digits code that you received on your email.";
+  static const String enter4digitcode =
+      "Enter your 4 digits code that you received on your email.";
 
   ///forgot
   static const String forgotpassword = "Forgot Password ?";
@@ -165,27 +167,40 @@ class AppString {
   /// change password
   static const String verification = 'Verification';
   static const String newPass = 'New Password';
-  static const String entersixdigitCode = 'Enter your 6 digits code that you received on your email.';
+  static const String entersixdigitCode =
+      'Enter your 6 digits code that you received on your email.';
   static const String enterotp = 'Please enter OTP';
   static const String fillfield = 'Please fill all fields.';
   static const String didntrecieveCode = 'Didn’t receive a code?';
-  static const String setnewPassword = 'Set the new password for your account so you can login and\naccess all features.';
+  static const String setnewPassword =
+      'Set the new password for your account so you can login and\naccess all features.';
   static const String enternewpass = 'Enter New Password';
   static const String confmpass = 'Confirm Password';
   static const String enterconfmpass = 'Enter Confirm Password';
   static const String updatepass = 'Update Password';
   static const String passdontmatch = 'Passwords do not match.';
   static const String successfully = 'Successfully';
-  static const String resetsuccessfully = 'Your password has been reset successfully';
+  static const String resetsuccessfully =
+      'Your password has been reset successfully';
   static const String continuebutton = 'CONTINUE';
-  static const String threetimepasscanchange = 'Only Three Times you can change the password';
+  static const String threetimepasscanchange =
+      'Only Three Times you can change the password';
   static const String cannotchangepass = 'You Cannot change the password today';
+
   ///hr screen
-   static const String srno = 'Sr No.';
-   static const String employee = 'EmployeeType';
-   static const String abbrevation = 'Abbreviation';
-   static const String color = 'Color';
-   static const String action = 'Actions';
+  static const String srno = 'Sr No.';
+  static const String employee = 'EmployeeType';
+  static const String abbrevation = 'Abbreviation';
+  static const String color = 'Color';
+  static const String action = 'Actions';
+
+  ///sm hr clinical
+  static const String licensevocnurse = 'license Vocational Nurse';
+  static const String nc = 'NC';
+
+  /// sm hr administration
+  static const String addemployeetype = 'Add Employee Type';
+  static const String employeetype = 'Employee Type';
 }
 
 ///mobile screen constant
@@ -193,6 +208,4 @@ class AppString {
 class AppStringMobile {
   ///login screen
   static const String poweredBy = 'Powered by';
-
-
 }
