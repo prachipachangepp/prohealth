@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/enter-password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
+
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/theme_manager.dart';
 
@@ -90,26 +92,26 @@ class _VerifyScreenState extends State<VerifyScreen> {
             borderRadius: BorderRadius.circular(24),
             color: ColorManager.white,
           ),
-          child:  Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   AppString.enter4digitcode,
-                  style:  CustomTextStylesCommon.commonStyle(
+                  style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.darkgrey,
                       fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.bold
-                  ),
+                      fontWeight: FontWeightManager.bold),
                 ),
+
                 ///txtfield
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     4,
-                        (index) => Container(
+                    (index) => Container(
                       width: MediaQuery.of(context).size.width / 38,
                       height: MediaQuery.of(context).size.width / 38,
                       margin: EdgeInsets.symmetric(horizontal: AppPadding.p10),
@@ -136,7 +138,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
                         textAlignVertical: TextAlignVertical.center,
                         maxLength: 1,
                         decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(bottom: AppSize.s15),
+                          contentPadding:
+                              const EdgeInsets.only(bottom: AppSize.s15),
                           counterText: '',
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
@@ -157,24 +160,21 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     ),
                   ),
                 ),
+
                 ///didnt receive code
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                        AppString.didntrecieveCode,
+                    Text(AppString.didntrecieveCode,
                         style: CodeVerficationText.VerifyCode(context)),
                     TextButton(
-                      onPressed: () {
-                      },
-                      child: Text(
-                          AppString.resend,
+                      onPressed: () {},
+                      child: Text(AppString.resend,
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.blueprime,
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.semiBold,
-                          )
-                      ),
+                          )),
                     )
 
                     // recognizer: TapGestureRecognizer()
@@ -183,6 +183,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     //   },
                   ],
                 ),
+
                 ///button
                 Container(
                   decoration: BoxDecoration(
@@ -200,7 +201,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     borderRadius: 24,
                     height: MediaQuery.of(context).size.height / 18,
                     width: MediaQuery.of(context).size.height / 4,
-                    text: _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
+                    text:
+                        _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
                     onPressed: () {
                       verifyOTPAndLogin();
                     },
@@ -211,18 +213,19 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       _errorMessage!,
-                      style:  CustomTextStylesCommon.commonStyle(
+                      style: CustomTextStylesCommon.commonStyle(
                         color: ColorManager.red,
                         fontSize: FontSize.s10,
                         fontWeight: FontWeightManager.bold,
                       ),
                     ),
                   ),
+
                 ///bottomtxt
                 InkWell(
                   child: Text(
                     AppString.donthaveauth,
-                    style:  CustomTextStylesCommon.commonStyle(
+                    style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.blueprime,
                       fontSize: FontSize.s10,
                       fontWeight: FontWeightManager.medium,

@@ -39,10 +39,19 @@ class EditPopupWidget extends StatefulWidget {
 class _EditPopupWidgetState extends State<EditPopupWidget> {
   int index = 0;
 
-  List<Color> _selectedColors = List.filled(2, Color(0xffE8A87D));
+  // List<Color> _selectedColors = List.filled(2, Color(0xffE8A87D));
   List<String> _selectedColorCodes = List.filled(2, '');
+  late List<Color> _selectedColors;
+  // late List<Color> _selectedColors;
 
-  void _openColorPicker(int index) async {
+  @override
+  void initState() {
+    super.initState();
+    // Initialize _selectedColors with the initial color passed from the parent widget
+    _selectedColors = [widget.containerColor];
+  }
+
+  void _openColorPicker() async {
     Color? pickedColor = await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -53,12 +62,10 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ColorPicker(
-                  borderColor: _selectedColors[index],
+                  borderColor: _selectedColors[0],
                   onColorChanged: (Color color) {
                     setState(() {
-                      _selectedColors[index] = color;
-                      _selectedColorCodes[index] =
-                          color.value.toRadixString(16).toUpperCase();
+                      _selectedColors[0] = color;
                     });
                   },
                 ),
@@ -69,7 +76,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
             TextButton(
               child: Text('OK'),
               onPressed: () {
-                Navigator.of(context).pop(_selectedColors[index]);
+                Navigator.of(context).pop(_selectedColors[0]);
               },
             ),
           ],
@@ -79,14 +86,66 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
 
     if (pickedColor != null) {
       setState(() {
-        _selectedColors[index] = pickedColor;
-        _selectedColorCodes[index] =
-            pickedColor.value.toRadixString(16).toUpperCase();
+        _selectedColors[0] = pickedColor;
         // Update container color by calling the function passed from HrSalesScreen
         widget.onColorChanged(pickedColor);
       });
     }
   }
+  // void _openColorPicker(int index) async {
+  //   Color? pickedColor = await showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text('Pick a color'),
+  //         content: SingleChildScrollView(
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.stretch,
+  //             children: [
+  //               ColorPicker(
+  //                 borderColor: _selectedColors[index],
+  //                 onColorChanged: (Color color) {
+  //                   setState(() {
+  //                     _selectedColors[0] = color;
+  //                   });
+  //                   // setState(() {
+  //                   //   _selectedColors[index] = color;
+  //                   //   _selectedColorCodes[index] =
+  //                   //       color.value.toRadixString(16).toUpperCase();
+  //                   // });
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: Text('OK'),
+  //             onPressed: () {
+  //               // Navigator.of(context).pop(_selectedColors[index]);
+  //               Navigator.of(context).pop(_selectedColors[0]);
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  //
+  //   if (pickedColor != null) {
+  //     setState(() {
+  //       _selectedColors[0] = pickedColor;
+  //       // Update container color by calling the function passed from HrSalesScreen
+  //       widget.onColorChanged(pickedColor);
+  //     });
+  //     // setState(() {
+  //     //   _selectedColors[index] = pickedColor;
+  //     //   _selectedColorCodes[index] =
+  //     //       pickedColor.value.toRadixString(16).toUpperCase();
+  //     //   // Update container color by calling the function passed from HrSalesScreen
+  //     //   widget.onColorChanged(pickedColor);
+  //     // });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -123,17 +182,28 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                       Text('Color'),
                       SizedBox(width: 10),
                       GestureDetector(
-                        onTap: () => _openColorPicker(index),
+                        onTap:
+                            _openColorPicker, // Call _openColorPicker directly
                         child: Container(
                           width: 60,
                           height: 20,
                           decoration: BoxDecoration(
-                            color: _selectedColors[index], // Use selected color
+                            color: _selectedColors[0],
                             border: Border.all(
                               width: 1,
-                              color:
-                                  _selectedColors[index], // Use selected color
+                              color: _selectedColors[0],
                             ),
+                            // GestureDetector(
+                            //   onTap: () => _openColorPicker(index),
+                            //   child: Container(
+                            //     width: 60,
+                            //     height: 20,
+                            //     decoration: BoxDecoration(
+                            //       color: _selectedColors[index],
+                            //       border: Border.all(
+                            //         width: 1,
+                            //         color: _selectedColors[index],
+                            //       ),
                           ),
                         ),
                       ),

@@ -1,13 +1,12 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import '../../../../app/resources/const_string.dart';
+
 import '../../../../app/resources/theme_manager.dart';
-import '../../../../app/resources/value_manager.dart';
 
 class LoginBaseConstant extends StatelessWidget {
   final Widget child;
@@ -29,7 +28,7 @@ class LoginBaseConstant extends StatelessWidget {
       elevation: 0,
       child: Stack(children: [
         Container(
-          //height: double.maxFinite,
+            //height: double.maxFinite,
             width: double.maxFinite,
             child: Stack(
               fit: StackFit.expand,
@@ -93,53 +92,64 @@ class LoginBaseConstant extends StatelessWidget {
                                 topLeft: Radius.circular(25)),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 20,
-                           top: MediaQuery.of(context).size.width / 11 ),
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width / 20,
+                                top: MediaQuery.of(context).size.width / 11),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                              Text(
-                                titleText,
-                                style: GoogleFonts.firaSans(
-                                  color: ColorManager.mediumgrey,
-                                  fontSize: FontSize.s38,
-                                  fontWeight: FontWeightManager.extrabold,
-                                ),
-                              ),
-                                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-                                child,
-                                SizedBox(height: MediaQuery.of(context).size.height / 70),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                    onTap: onTap,
-                                    child: Text(
-                                      textAction,
-                                      textAlign: TextAlign.end,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                        color:ColorManager.bluebottom,
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeightManager.medium,
-                                      ),
+                                Expanded(
+                                  child: Text(
+                                    titleText,
+                                    style: GoogleFonts.firaSans(
+                                      color: ColorManager.mediumgrey,
+                                      fontSize: FontSize.s38,
+                                      fontWeight: FontWeightManager.extrabold,
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        60),
+                                child,
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        70),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.centerRight,
+                                      child: InkWell(
+                                        onTap: onTap,
+                                        child: Text(
+                                          textAction,
+                                          textAlign: TextAlign.end,
+                                          style: CustomTextStylesCommon
+                                              .commonStyle(
+                                            color: ColorManager.bluebottom,
+                                            fontSize: FontSize.s12,
+                                            fontWeight:
+                                                FontWeightManager.medium,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
                         )),
+
                     ///logo, amico image
                     Expanded(
                       flex: 1,
                       child: Container(
                           decoration: BoxDecoration(
-                           // color: Colors.red,
+                            // color: Colors.red,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(25),
                                 bottomRight: Radius.circular(25)),
