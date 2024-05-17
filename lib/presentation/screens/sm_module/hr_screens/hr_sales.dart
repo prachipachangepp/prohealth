@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -8,6 +7,7 @@ import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/add_
 import 'package:prohealth/presentation/screens/sm_module/hr_screens/widgets/edit_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/table_constant.dart';
 import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HrSalesScreen extends StatefulWidget {
   HrSalesScreen({super.key});
@@ -26,107 +26,46 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
-
+  Color containerColor = Color(0xffF69DF6);
+  late List<Color> containerColors;
   @override
   void initState() {
     super.initState();
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
+    containerColors = List.generate(20, (index) => Color(0xffE8A87D));
+    _loadColors(); // Load saved colors
   }
 
-  ///
-  List<Color> _selectedColors = List.filled(
-      2, Color(0xffE8A87D)); // Initialize with default color for 2 items
-  List<String> _selectedColorCodes =
-      List.filled(2, ''); // Initialize with empty strings for 2 items
-
-  void _openColorPicker(int index) async {
-    Color? pickedColor = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Pick a color'),
-          content: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                ColorPicker(
-                  borderColor: _selectedColors[index],
-                  onColorChanged: (Color color) {
-                    setState(() {
-                      _selectedColors[index] = color;
-                      _selectedColorCodes[index] =
-                          color.value.toRadixString(16).toUpperCase();
-                    });
-                  },
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop(_selectedColors[index]);
-              },
-            ),
-          ],
-        );
-      },
-    );
-
-    if (pickedColor != null) {
-      setState(() {
-        _selectedColors[index] = pickedColor;
-        _selectedColorCodes[index] =
-            pickedColor.value.toRadixString(16).toUpperCase();
-      });
-    }
+  // Load saved colors from SharedPreferences
+  void _loadColors() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      for (int i = 0; i < containerColors.length; i++) {
+        int? colorValue = prefs.getInt('containerColor$i');
+        if (colorValue != null) {
+          containerColors[i] = Color(colorValue);
+        }
+      }
+    });
   }
 
-  ///
-  // Color _selectedColor = Color(0xffE8A87D); // Default color
-  // void _openColorPicker() async {
-  //   Color? pickedColor = await showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Pick a color'),
-  //         content: SingleChildScrollView(
-  //           child: ColorPicker(
-  //             // The initial color selected in the picker
-  //             borderColor: _selectedColor,
-  //
-  //             // Function that gets called whenever the picked color changes
-  //             onColorChanged: (Color color) {
-  //               setState(() {
-  //                 _selectedColor = color;
-  //               });
-  //             },
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: Text('OK'),
-  //             onPressed: () {
-  //               Navigator.of(context).pop(_selectedColor);
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  //
-  //   if (pickedColor != null) {
-  //     setState(() {
-  //       _selectedColor = pickedColor;
-  //     });
-  //   }
-  // }
+  // Save color to SharedPreferences
+  void _saveColor(int index, Color color) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('containerColor$index', color.value);
+  }
 
   @override
   Widget build(BuildContext context) {
+    void updateContainerColor(Color color) {
+      setState(() {
+        containerColor = color;
+      });
+    }
+
+    ///
     List<String> currentPageItems = items.sublist(
       (currentPage - 1) * itemsPerPage,
       min(currentPage * itemsPerPage, items.length),
@@ -225,16 +164,14 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                 decoration: TextDecoration.none,
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () => _openColorPicker(
-                                  index), // Pass index to open color picker for the correct item
-                              child: Container(
-                                width: MediaQuery.of(context).size.width / 20,
-                                height: 22,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: _selectedColors[index],
-                                ),
+
+                            ///also change the color of this container
+                            Container(
+                              width: MediaQuery.of(context).size.width / 20,
+                              height: 22,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: containerColors[index],
                               ),
                             ),
                             Row(
@@ -252,11 +189,21 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                           emailController:
                                               TextEditingController(),
                                           containerColor:
-                                              _selectedColors[index],
+                                              containerColors[index],
                                           onSavePressed: () {},
                                           onColorChanged: (Color color) {
-                                            // Handle color change here
+                                            setState(() {
+                                              containerColors[index] = color;
+                                              _saveColor(
+                                                  index, color); // Save color
+                                            });
                                           },
+                                          // onColorChanged: (Color color) {
+                                          //   setState(() {
+                                          //     containerColors[index] =
+                                          //      color; // Update color for this item
+                                          //   });
+                                          // },
                                         );
                                       },
                                     );
@@ -264,28 +211,6 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                   icon: Icon(Icons.edit_outlined),
                                   color: ColorManager.mediumgrey,
                                 ),
-                                // IconButton(
-                                //   onPressed: () {
-                                //     showDialog(
-                                //       context: context,
-                                //       builder: (BuildContext context) {
-                                //         return EditPopupWidget(
-                                //           typeController: typeController,
-                                //           shorthandController:
-                                //               shorthandController,
-                                //           emailController: emailController,
-                                //           containerColor: Color(0xffE8A87D),
-                                //           onSavePressed: () {},
-                                //           onColorChanged: (Color) {},
-                                //         );
-                                //       },
-                                //     );
-                                //   },
-                                //   icon: Icon(
-                                //     Icons.edit_outlined,
-                                //     color: ColorManager.mediumgrey,
-                                //   ),
-                                // ),
                                 IconButton(
                                   onPressed: () {},
                                   icon: Icon(
@@ -411,6 +336,6 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     );
   }
 }
-//add employee popup need table in which we can fetch list  from api
+
 ///Abbrevation
 ///Type of employee

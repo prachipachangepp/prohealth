@@ -29,7 +29,6 @@ class LoginBaseConstant extends StatelessWidget {
       elevation: 0,
       child: Stack(children: [
         Container(
-          //height: double.maxFinite,
             width: double.maxFinite,
             child: Stack(
               fit: StackFit.expand,
@@ -103,13 +102,15 @@ class LoginBaseConstant extends StatelessWidget {
                                 titleText,
                                 style: GoogleFonts.firaSans(
                                   color: ColorManager.mediumgrey,
-                                  fontSize: FontSize.s38,
+                                 // fontSize: FontSize.s38,
+                                  fontSize: MediaQuery.of(context).size.width / 42,
                                   fontWeight: FontWeightManager.extrabold,
                                 ),
                               ),
                                  SizedBox(height: MediaQuery.of(context).size.height / 60),
                                 child,
                                 SizedBox(height: MediaQuery.of(context).size.height / 70),
+                            ///bottom text
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -122,7 +123,8 @@ class LoginBaseConstant extends StatelessWidget {
                                       textAlign: TextAlign.end,
                                       style: CustomTextStylesCommon.commonStyle(
                                         color:ColorManager.bluebottom,
-                                        fontSize: FontSize.s12,
+                                        //fontSize: FontSize.s12,
+                                        fontSize: MediaQuery.of(context).size.height/55,
                                         fontWeight: FontWeightManager.medium,
                                       ),
                                     ),
@@ -156,9 +158,6 @@ class LoginBaseConstant extends StatelessWidget {
                               Expanded(
                                 child: Image.asset(
                                   'images/amico.png',
-                                  // width: MediaQuery.of(context).size.width / 1.7,
-                                  // height:
-                                  //     MediaQuery.of(context).size.height / 1.7,
                                 ),
                               ),
                             ],
