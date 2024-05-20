@@ -67,7 +67,7 @@ class LoginBaseConstant extends StatelessWidget {
               ],
             )),
         Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(AppPadding.p30),
           child: ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
@@ -83,7 +83,7 @@ class LoginBaseConstant extends StatelessWidget {
                       offset: Offset(1, 4),
                     ),
                   ],
-                  color: Color(0xffFFFFFF).withOpacity(0.35),
+                  color: ColorManager.white.withOpacity(0.35),
                   borderRadius: BorderRadius.all(Radius.circular(30)),
                 ),
                 child: Row(
@@ -215,24 +215,25 @@ class LoginBaseConstant extends StatelessWidget {
           ),
         )
       ]));
-
-      ///tablet
-    } else if (MediaQuery.of(context).size.width > 600) {
+    }
+    ///tablet
+    else if (MediaQuery.of(context).size.width > 600) {
       return Scaffold(
         body: Container(
             height: MediaQuery.of(context).size.height, color: Colors.purple,
           child: Center(child: Text("Tablet Screen"),)
         ),
       );
-
-      ///mobile
-    } else if (MediaQuery.of(context).size.width > 450) {
+    }
+    ///mobile
+    else if (MediaQuery.of(context).size.width > 450) {
       return Scaffold(
           body: Container(
               height: MediaQuery.of(context).size.height, color: Colors.green,
               child: Center(child: Text("Mobile Screen"),)
           ));
-    } else {
+    }
+    else {
       return Scaffold(
         body: Container(color: Colors.yellow),
       );

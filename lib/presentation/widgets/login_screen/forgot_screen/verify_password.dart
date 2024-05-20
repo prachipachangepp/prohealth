@@ -110,15 +110,14 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
                         border: Border.all(
-                          color:
-                          Color(0xff9BADCA),
+                          color: ColorManager.bluecontainer,
                           width: 0.85,
                         ),
                       ),
                       child: TextFormField(
 
                         style: CustomTextStylesCommon.commonStyle(
-                          color: Color(0xff000000)
+                          color: ColorManager.black
                               .withOpacity(0.7),
                           fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.medium,
@@ -210,7 +209,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                 ),
                 if (_errorMessage != null)
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
                       _errorMessage!,
                       style:  CustomTextStylesCommon.commonStyle(

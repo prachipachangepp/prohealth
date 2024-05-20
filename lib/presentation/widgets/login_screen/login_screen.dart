@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           focusNode: emailFocusNode,
                           controller: _emailController,
-                          cursorColor: Colors.black,
+                          cursorColor: ColorManager.black,
                           cursorHeight: 22,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(top: 1),

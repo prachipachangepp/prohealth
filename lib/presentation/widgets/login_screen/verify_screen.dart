@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +10,6 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/enter-password.dart';
 import 'package:prohealth/presentation/widgets/login_screen/widgets/login_flow_base_struct.dart';
-
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/theme_manager.dart';
 
@@ -118,7 +116,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
                         border: Border.all(
-                          color: const Color(0xff9BADCA),
+                          color: ColorManager.bluecontainer,
                           width: 0.85,
                         ),
                       ),
@@ -205,7 +203,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 ),
                 if (_errorMessage != null)
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
                       _errorMessage!,
                       style: CustomTextStylesCommon.commonStyle(

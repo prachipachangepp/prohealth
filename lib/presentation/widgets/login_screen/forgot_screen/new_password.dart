@@ -102,18 +102,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
 
       var response = await Dio().post(
         '${AppConfig.endpoint}/auth/confirmPassword',
-      //  'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
         data: data,
         options: Options(headers: headers),
       );
       if (response.statusCode == 200) {
         print(AppString.resetsuccessfully);
         print(json.encode(response.data));
-        // Optionally, navigate back to the login screen
         Navigator.pop(context as BuildContext);
       } else {
         print('Failed to change password: ${response.statusMessage}');
-        // Print response data for debugging if needed
         print(json.encode(response.data));
       }
     } catch (e) {
@@ -163,7 +160,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   ///txtfield
                   TextFormField(
                     style: CustomTextStylesCommon.commonStyle(
-                      color: Color(0xff000000).withOpacity(0.5),
+                      color: ColorManager.black.withOpacity(0.5),
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s14,
                     ),
@@ -180,8 +177,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     obscureText: _obscureText,
                     decoration: InputDecoration(
                       contentPadding:
-                      const EdgeInsets.only(
-                          top: 2),
+                      const EdgeInsets.only(top: AppPadding.p2),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscureText
@@ -190,7 +186,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               : Icons
                               .visibility_off_outlined,
                           size: AppSize.s15,
-                          color: Color(0xffACA5BB),
+                          color: ColorManager.whitesheed,
                         ),
                         onPressed: () {
                           setState(() {
@@ -205,19 +201,19 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       hintStyle: EmailTextStyle.enterEmail(context),
                       border: UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: Colors.black),
+                            color: ColorManager.black),
                       ),
                       focusedBorder:
                       UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color(0xff000000)
+                            color: ColorManager.black
                                 .withOpacity(0.5),
                             width: 0.5),
                       ),
                       enabledBorder:
                       UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: Colors.grey),
+                            color: ColorManager.grey),
                       ),
                     ),
                     validator: (value) {
@@ -238,7 +234,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     obscuringCharacter: '*',
                     controller: controllerConfirm,
                     style: CustomTextStylesCommon.commonStyle(
-                      color: Color(0xff000000).withOpacity(0.5),
+                      color: ColorManager.black.withOpacity(0.5),
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s14,
                     ),
@@ -257,7 +253,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               : Icons
                               .visibility_off_outlined,
                           size: AppSize.s15,
-                          color: Color(0xffACA5BB),
+                          color: ColorManager.whitesheed,
                         ),
                         onPressed: () {
                           setState(() {
@@ -277,7 +273,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       focusedBorder:
                       UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color(0xff000000)
+                            color: ColorManager.black
                                 .withOpacity(0.5),
                             width: 0.5),
                       ),
@@ -311,10 +307,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                             .circular(14),
                         boxShadow: [
                           BoxShadow(
-                            color: Color(
-                                0x40000000),
-                            offset:
-                            Offset(0, 4),
+                            color: Color(0x40000000),
+                            offset: Offset(0, 4),
                             blurRadius: 4,
                             spreadRadius: 0,
                           ),
