@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 
 import '../../../../../app/resources/color.dart';
 
@@ -144,6 +145,7 @@ class CustomButtonTransparent extends StatelessWidget {
 //     );
 //   }
 // }
+///
 class CustomButton extends StatelessWidget {
   final String? text;
   final VoidCallback onPressed;
@@ -154,7 +156,7 @@ class CustomButton extends StatelessWidget {
   final double paddingHorizontal;
   final double width;
   final double height;
-  final TextStyle style;
+  final TextStyle? style;
   final Widget? child;
 
   const CustomButton({
@@ -168,15 +170,32 @@ class CustomButton extends StatelessWidget {
     this.paddingHorizontal = 16.0,
     this.width = 50,
     this.height = 50.0,
-    this.style = const TextStyle(color: Colors.white),
+    this.style,
     this.child,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    final defaultTextStyle = GoogleFonts.firaSans(
+      color: textColor,
+      fontSize: MediaQuery.of(context).size.width / 90,
+      fontWeight: FontWeight.w700,
+    );
+    final mergedTextStyle = defaultTextStyle.merge(style);
+    return Container(
       width: width,
       height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x40000000),
+            offset: Offset(0, 4),
+            blurRadius: 3,
+            spreadRadius: 0,
+          ),
+        ],
+      ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -194,10 +213,7 @@ class CustomButton extends StatelessWidget {
         child: text != null
             ? Text(
                 text!,
-                style: GoogleFonts.firaSans(
-                  fontSize: MediaQuery.of(context).size.width / 90,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: mergedTextStyle
               )
             : child,
       ),
@@ -274,6 +290,83 @@ class CustomTitleButton extends StatelessWidget {
 
 ///CustomDropdownButton
 /// sm desktop
+// class CustomDropdownButton extends StatelessWidget {
+//   final List<String> items;
+//   final String? selectedItem;
+//   final ValueChanged<String?>? onChanged;
+//   final double borderRadius;
+//   final double paddingVertical;
+//   final double paddingHorizontal;
+//   final double width;
+//   final double height;
+//
+//   const CustomDropdownButton({
+//     Key? key,
+//     required this.items,
+//     this.selectedItem,
+//     this.onChanged,
+//     this.borderRadius = 8.0,
+//     this.paddingVertical = 11.0,
+//     this.paddingHorizontal = 16.0,
+//     this.width = 40,
+//     this.height = 40.0,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Material(
+//       elevation: 4,
+//       borderRadius: BorderRadius.circular(borderRadius),
+//       child: Container(
+//         width: width,
+//         height: height,
+//         decoration: BoxDecoration(
+//           color: ColorManager.blueprime,
+//           borderRadius: BorderRadius.circular(borderRadius),
+//         ),
+//         child: DropdownButtonHideUnderline(
+//           child: DropdownButton<String>(
+//             value: selectedItem,
+//             onChanged: onChanged,
+//             style: TextStyle(
+//               color: Colors.black,
+//               fontSize: 13,
+//               // MediaQuery.of(context).size.width / 10,
+//               fontWeight: FontWeight.w700,
+//             ),
+//             dropdownColor: ColorManager.white,
+//
+//             /// Background color for dropdown
+//             borderRadius: BorderRadius.circular(borderRadius),
+//             icon: Icon(Icons.arrow_drop_down, color: Colors.black),
+//             iconSize: 20.0,
+//             isExpanded: true,
+//             items: items.map((String value) {
+//               return DropdownMenuItem<String>(
+//                 value: value,
+//                 child: Padding(
+//                   padding: EdgeInsets.symmetric(
+//                     vertical: paddingVertical,
+//                     horizontal: paddingHorizontal,
+//                   ),
+//                   child: Text(
+//                     value,
+//                     style: TextStyle(
+//                       color: Color(0xff686464),
+//                      // fontSize: MediaQuery.of(context).size.width / 120,
+//                       fontSize: 12,
+//                     ), // Text color
+//                   ),
+//                 ),
+//               );
+//             }).toList(),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class CustomDropdownButton extends StatelessWidget {
   final List<String> items;
   final String? selectedItem;
@@ -315,12 +408,9 @@ class CustomDropdownButton extends StatelessWidget {
             style: TextStyle(
               color: Colors.black,
               fontSize: 13,
-              // MediaQuery.of(context).size.width / 10,
               fontWeight: FontWeight.w700,
             ),
             dropdownColor: ColorManager.white,
-
-            /// Background color for dropdown
             borderRadius: BorderRadius.circular(borderRadius),
             icon: Icon(Icons.arrow_drop_down, color: Colors.black),
             iconSize: 20.0,
@@ -328,6 +418,7 @@ class CustomDropdownButton extends StatelessWidget {
             items: items.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
+                enabled: value != 'Select a module', // Disable the heading item
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: paddingVertical,
@@ -336,10 +427,11 @@ class CustomDropdownButton extends StatelessWidget {
                   child: Text(
                     value,
                     style: TextStyle(
-                      color: Color(0xff686464),
-                     // fontSize: MediaQuery.of(context).size.width / 120,
+                      color: ColorManager.mediumgrey,
+                      //value == 'Select a module' ? ColorManager.mediumgrey : Color(0xff686464),
                       fontSize: 12,
-                    ), // Text color
+                      fontWeight: FontWeightManager.bold
+                    ),
                   ),
                 ),
               );

@@ -61,8 +61,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
               borderRadius: 12,
               text: 'Whitelabelling',
               style: CustomTextStylesCommon.commonStyle(
-                fontSize: FontSize.s10,
-                fontWeight: FontWeightManager.semiBold,
+                fontSize: FontSize.s12,
+                fontWeight: FontWeightManager.bold,
                 color: ColorManager.white
               ),
               width: 120,

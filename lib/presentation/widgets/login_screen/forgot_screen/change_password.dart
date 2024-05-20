@@ -643,201 +643,111 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                     ? CircularProgressIndicator(
                                                         color: ColorManager
                                                             .blueprime)
-                                                    : Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(14),
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                              color: Color(
-                                                                  0x40000000),
-                                                              offset:
-                                                                  Offset(0, 4),
-                                                              blurRadius: 4,
-                                                              spreadRadius: 0,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        child: CustomButton(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              7,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height /
-                                                              22,
-                                                          text: AppString
-                                                              .updatepass,
-                                                          backgroundColor:
-                                                              isOtpFieldEmpty
-                                                                  ? Colors.grey
-                                                                  : ColorManager
-                                                                      .blueprime,
-                                                          onPressed: () async {
-                                                            if (_formKey
-                                                                .currentState!
-                                                                .validate()) {
-                                                              if (controllerNew
-                                                                      .text !=
-                                                                  controllerConfirm
-                                                                      .text) {
-                                                                setState(() {
-                                                                  _errorMessage =
-                                                                      AppString
-                                                                          .passdontmatch;
-                                                                });
-                                                                return;
-                                                              }
-                                                              setState(() {
-                                                                _isUpdatingPassword =
-                                                                    true;
-                                                              });
-                                                              try {
-                                                                await ConfirmPassManager()
-                                                                    .confirmPassword(
-                                                                  widget.email,
-                                                                  _otpControllers
-                                                                      .map((controller) =>
-                                                                          controller
-                                                                              .text)
-                                                                      .join(),
-                                                                  controllerNew
-                                                                      .text,
-                                                                );
-                                                                print(
-                                                                    '${widget.email}');
-                                                                print(
-                                                                    '${controllerNew.text}');
-                                                                showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (BuildContext
-                                                                          context) {
-                                                                    return AlertDialog(
-                                                                      backgroundColor:
-                                                                          ColorManager
-                                                                              .white,
-                                                                      content:
-                                                                          Container(
-                                                                        padding:
-                                                                            EdgeInsets.only(top: AppPadding.p25),
-                                                                        height:
-                                                                            AppSize.s300,
-                                                                        width: AppSize
-                                                                            .s400,
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceEvenly,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.center,
-                                                                          children: [
-                                                                            Image.asset(
-                                                                              'images/upload.png',
-                                                                              width: AppSize.s120,
-                                                                              height: AppSize.s120,
-                                                                            ),
-                                                                            Text(
-                                                                              AppString.successfully,
-                                                                              style: CustomTextStylesCommon.commonStyle(
-                                                                                color: ColorManager.darkgrey,
-                                                                                fontSize: FontSize.s30,
-                                                                                fontWeight: FontWeightManager.extrabold,
-                                                                              ),
-                                                                            ),
-                                                                            Text(
-                                                                              AppString.resetsuccessfully,
-                                                                              style: CustomTextStylesCommon.commonStyle(
-                                                                                color: ColorManager.darkgrey,
-                                                                                fontSize: FontSize.s12,
-                                                                                fontWeight: FontWeightManager.medium,
-                                                                              ),
-                                                                            ),
-                                                                            CustomButton(
-                                                                              width: AppSize.s181,
-                                                                              height: AppSize.s45,
-                                                                              text: AppString.continuebutton,
-                                                                              borderRadius: 24,
-                                                                              onPressed: () {
-                                                                                Navigator.push(
-                                                                                  context,
-                                                                                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                                                                                );
-                                                                              },
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                );
-                                                              } catch (e) {
-                                                                AlertDialog(
+                                                    : CustomButton(
+                                                      width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width /
+                                                          7,
+                                                      height: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .height /
+                                                          22,
+                                                      text: AppString
+                                                          .updatepass,
+                                                      backgroundColor:
+                                                          isOtpFieldEmpty
+                                                              ? Colors.grey
+                                                              : ColorManager
+                                                                  .blueprime,
+                                                      onPressed: () async {
+                                                        if (_formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                          if (controllerNew
+                                                                  .text !=
+                                                              controllerConfirm
+                                                                  .text) {
+                                                            setState(() {
+                                                              _errorMessage =
+                                                                  AppString
+                                                                      .passdontmatch;
+                                                            });
+                                                            return;
+                                                          }
+                                                          setState(() {
+                                                            _isUpdatingPassword =
+                                                                true;
+                                                          });
+                                                          try {
+                                                            await ConfirmPassManager()
+                                                                .confirmPassword(
+                                                              widget.email,
+                                                              _otpControllers
+                                                                  .map((controller) =>
+                                                                      controller
+                                                                          .text)
+                                                                  .join(),
+                                                              controllerNew
+                                                                  .text,
+                                                            );
+                                                            print(
+                                                                '${widget.email}');
+                                                            print(
+                                                                '${controllerNew.text}');
+                                                            showDialog(
+                                                              context:
+                                                                  context,
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
+                                                                return AlertDialog(
                                                                   backgroundColor:
                                                                       ColorManager
                                                                           .white,
                                                                   content:
                                                                       Container(
-                                                                    padding: EdgeInsets.only(
-                                                                        top: AppPadding
-                                                                            .p10),
+                                                                    padding:
+                                                                        EdgeInsets.only(top: AppPadding.p25),
                                                                     height:
-                                                                        AppSize
-                                                                            .s300,
+                                                                        AppSize.s300,
                                                                     width: AppSize
                                                                         .s400,
                                                                     child:
                                                                         Column(
                                                                       mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceEvenly,
+                                                                          MainAxisAlignment.spaceEvenly,
                                                                       crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
+                                                                          CrossAxisAlignment.center,
                                                                       children: [
+                                                                        Image.asset(
+                                                                          'images/upload.png',
+                                                                          width: AppSize.s120,
+                                                                          height: AppSize.s120,
+                                                                        ),
                                                                         Text(
-                                                                          AppString
-                                                                              .threetimepasscanchange,
-                                                                          style:
-                                                                              GoogleFonts.firaSans(
-                                                                            fontSize:
-                                                                                FontSize.s30,
-                                                                            color:
-                                                                                Color(0xff686464),
-                                                                            fontWeight:
-                                                                                FontWeightManager.bold,
+                                                                          AppString.successfully,
+                                                                          style: CustomTextStylesCommon.commonStyle(
+                                                                            color: ColorManager.darkgrey,
+                                                                            fontSize: FontSize.s30,
+                                                                            fontWeight: FontWeightManager.extrabold,
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          AppString
-                                                                              .cannotchangepass,
-                                                                          style:
-                                                                              CustomTextStylesCommon.commonStyle(
-                                                                            color:
-                                                                                ColorManager.darkgrey,
-                                                                            fontSize:
-                                                                                FontSize.s12,
-                                                                            fontWeight:
-                                                                                FontWeightManager.medium,
+                                                                          AppString.resetsuccessfully,
+                                                                          style: CustomTextStylesCommon.commonStyle(
+                                                                            color: ColorManager.darkgrey,
+                                                                            fontSize: FontSize.s12,
+                                                                            fontWeight: FontWeightManager.medium,
                                                                           ),
                                                                         ),
                                                                         CustomButton(
-                                                                          width:
-                                                                              AppSize.s181,
-                                                                          height:
-                                                                              AppSize.s45,
-                                                                          text:
-                                                                              AppString.continuebutton,
-                                                                          borderRadius:
-                                                                              24,
-                                                                          onPressed:
-                                                                              () {
+                                                                          width: AppSize.s181,
+                                                                          height: AppSize.s45,
+                                                                          text: AppString.continuebutton,
+                                                                          borderRadius: 24,
+                                                                          onPressed: () {
                                                                             Navigator.push(
                                                                               context,
                                                                               MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -848,19 +758,91 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                     ),
                                                                   ),
                                                                 );
-                                                                print(
-                                                                    'Error occurred while confirming password: $e');
-                                                                // Handle error
-                                                              } finally {
-                                                                setState(() {
-                                                                  _isUpdatingPassword =
-                                                                      false;
-                                                                });
-                                                              }
-                                                            }
-                                                          },
-                                                        ),
-                                                      ),
+                                                              },
+                                                            );
+                                                          } catch (e) {
+                                                            AlertDialog(
+                                                              backgroundColor:
+                                                                  ColorManager
+                                                                      .white,
+                                                              content:
+                                                                  Container(
+                                                                padding: EdgeInsets.only(
+                                                                    top: AppPadding
+                                                                        .p10),
+                                                                height:
+                                                                    AppSize
+                                                                        .s300,
+                                                                width: AppSize
+                                                                    .s400,
+                                                                child:
+                                                                    Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceEvenly,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Text(
+                                                                      AppString
+                                                                          .threetimepasscanchange,
+                                                                      style:
+                                                                          GoogleFonts.firaSans(
+                                                                        fontSize:
+                                                                            FontSize.s30,
+                                                                        color:
+                                                                            Color(0xff686464),
+                                                                        fontWeight:
+                                                                            FontWeightManager.bold,
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      AppString
+                                                                          .cannotchangepass,
+                                                                      style:
+                                                                          CustomTextStylesCommon.commonStyle(
+                                                                        color:
+                                                                            ColorManager.darkgrey,
+                                                                        fontSize:
+                                                                            FontSize.s12,
+                                                                        fontWeight:
+                                                                            FontWeightManager.medium,
+                                                                      ),
+                                                                    ),
+                                                                    CustomButton(
+                                                                      width:
+                                                                          AppSize.s181,
+                                                                      height:
+                                                                          AppSize.s45,
+                                                                      text:
+                                                                          AppString.continuebutton,
+                                                                      borderRadius:
+                                                                          24,
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.push(
+                                                                          context,
+                                                                          MaterialPageRoute(builder: (context) => LoginScreen()),
+                                                                        );
+                                                                      },
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            );
+                                                            print(
+                                                                'Error occurred while confirming password: $e');
+                                                            // Handle error
+                                                          } finally {
+                                                            setState(() {
+                                                              _isUpdatingPassword =
+                                                                  false;
+                                                            });
+                                                          }
+                                                        }
+                                                      },
+                                                    ),
                                               ),
                                               if (_errorMessage != null)
                                                 Padding(

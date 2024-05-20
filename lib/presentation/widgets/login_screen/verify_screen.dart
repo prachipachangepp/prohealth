@@ -178,28 +178,15 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 ),
 
                 ///button
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x40000000),
-                        offset: Offset(0, 4),
-                        blurRadius: 3,
-                        spreadRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: CustomButton(
-                    borderRadius: 24,
-                    height: MediaQuery.of(context).size.height / 18,
-                    width: MediaQuery.of(context).size.height / 4,
-                    text:
-                        _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
-                    onPressed: () {
-                      verifyOTPAndLogin();
-                    },
-                  ),
+                CustomButton(
+                  borderRadius: 24,
+                  height: MediaQuery.of(context).size.height / 18,
+                  width: MediaQuery.of(context).size.height / 4,
+                  text:
+                      _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
+                  onPressed: () {
+                    verifyOTPAndLogin();
+                  },
                 ),
                 if (_errorMessage != null)
                   Padding(
