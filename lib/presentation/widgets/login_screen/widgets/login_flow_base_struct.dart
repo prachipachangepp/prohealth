@@ -34,9 +34,10 @@ class LoginBaseConstant extends StatelessWidget {
     if (MediaQuery.of(context).size.width > 870) {
       return Scaffold(
           body: Stack(children: [
-           Container(
-             width: double.maxFinite,
-             child: Stack(
+        Container(
+            width: double.maxFinite,
+            height: double.maxFinite,
+            child: Stack(
               fit: StackFit.expand,
               children: [
                 Column(
@@ -220,18 +221,22 @@ class LoginBaseConstant extends StatelessWidget {
     } else if (MediaQuery.of(context).size.width > 600) {
       return Scaffold(
         body: Container(
-            height: MediaQuery.of(context).size.height, color: Colors.purple,
-          child: Center(child: Text("Tablet Screen"),)
-        ),
+            height: MediaQuery.of(context).size.height,
+            color: Colors.purple,
+            child: Center(
+              child: Text("Tablet Screen"),
+            )),
       );
 
       ///mobile
     } else if (MediaQuery.of(context).size.width > 450) {
       return Scaffold(
           body: Container(
-              height: MediaQuery.of(context).size.height, color: Colors.green,
-              child: Center(child: Text("Mobile Screen"),)
-          ));
+              height: MediaQuery.of(context).size.height,
+              color: Colors.green,
+              child: Center(
+                child: Text("Mobile Screen"),
+              )));
     } else {
       return Scaffold(
         body: Container(color: Colors.yellow),
@@ -239,7 +244,6 @@ class LoginBaseConstant extends StatelessWidget {
     }
   }
 }
-
 
 ///old code
 // class LoginBaseConstant extends StatelessWidget {

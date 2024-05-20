@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -36,7 +34,9 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    _loadColors(); // Load saved colors
+    _loadColors();
+
+    /// Load saved colors
   }
 
   /// Load saved colors from SharedPreferences
@@ -60,16 +60,6 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // void updateContainerColor(Color color) {
-    //   setState(() {
-    //     containerColor = color;
-    //   });
-    // }
-
-    List<String> currentPageItems = items.sublist(
-      (currentPage - 1) * itemsPerPage,
-      min(currentPage * itemsPerPage, items.length),
-    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -369,6 +359,3 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     );
   }
 }
-
-///Abbrevation
-///Type of employee

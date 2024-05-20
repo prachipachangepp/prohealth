@@ -52,10 +52,8 @@ import '../screens/hr_module/manage/controller/controller.dart';
 //   }
 // }
 
-///
-// ///todo prachi
-//
-// ///old one
+///todo prachi
+///old one
 class ResponsivePage extends StatelessWidget {
   Future getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
