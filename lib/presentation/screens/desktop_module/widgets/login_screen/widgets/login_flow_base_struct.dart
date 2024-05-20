@@ -19,7 +19,8 @@ class LoginBaseConstant extends StatelessWidget {
       required this.onTap,
       required this.titleText,
       required this.textAction,
-      this.textActionPadding})
+      this.textActionPadding
+      })
       : super(key: key);
   final Widget child;
   final String titleText;
