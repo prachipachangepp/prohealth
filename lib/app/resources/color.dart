@@ -6,6 +6,7 @@ class ColorManager {
   static Color blueiconColor = Color(0xff4FB8EB);
   static Color bluelight = Color(0xFF579EBA);
   static Color bluebottom = Color(0xFF1696C8);
+  static Color bluecontainer = Color(0xff9BADCA);
   static Color cream = Color(0xffD9D9D9);
   ///static Color grey = Color(0xff8B8781);
   static Color grey = Color(0xff8B8781);

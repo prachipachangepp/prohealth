@@ -189,7 +189,7 @@ class AppString {
 
   ///hr screen
   static const String srno = 'Sr No.';
-  static const String employee = 'EmployeeType';
+  static const String employee = 'Employee Type';
   static const String abbrevation = 'Abbreviation';
   static const String color = 'Color';
   static const String action = 'Actions';
