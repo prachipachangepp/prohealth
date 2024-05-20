@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/constants/app_config.dart';
-import 'package:prohealth/presentation/widgets/login_screen/menu_login_page.dart';
+
+import '../../../../presentation/screens/desktop_module/widgets/login_screen/menu_login_page.dart';
 
 class VerifyOTPService {
   static Future<void> verifyOTPAndLogin(
