@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/login_flow_api/log_in/log_in_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
@@ -88,7 +89,7 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                   ),
                   child: TextFormField(
                     style: CustomTextStylesCommon.commonStyle(
-                      color: Color(0xff000000).withOpacity(0.5),
+                      color: ColorManager.black.withOpacity(0.5),
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s14,
                     ),
@@ -97,14 +98,14 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                     },
                     obscuringCharacter: '*',
                     controller: _passwordController,
-                    cursorColor: Colors.black,
+                    cursorColor: ColorManager.black,
                     cursorHeight: 22,
                     obscureText: _obscureText,
                     decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(top: 1),
+                      contentPadding: EdgeInsets.only(top: AppPadding.p1),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xff000000).withOpacity(0.5),
+                          color: ColorManager.black.withOpacity(0.5),
                           width: 0.5,
                         ),
                       ),
@@ -148,7 +149,7 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                       ),
                 if (_errorMessage != null)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
                     child: Text(
                       _errorMessage!,
                       style: TextStyle(color: ColorManager.red),

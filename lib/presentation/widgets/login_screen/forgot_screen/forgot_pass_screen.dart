@@ -110,25 +110,12 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
               ),
               ///button
               Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x40000000),
-                        offset: Offset(0, 4),
-                        blurRadius: 3,
-                        spreadRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: CustomButton(
-                    borderRadius: 24,
-                    height: MediaQuery.of(context).size.height / 18,
-                    width: MediaQuery.of(context).size.width / 10,
-                    text: AppString.continuet,
-                    onPressed: _submitForm,
-                  ),
+                child: CustomButton(
+                  borderRadius: 24,
+                  height: MediaQuery.of(context).size.height / 18,
+                  width: MediaQuery.of(context).size.width / 10,
+                  text: AppString.continuet,
+                  onPressed: _submitForm,
                 ),
               )
             ],

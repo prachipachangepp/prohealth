@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/sm_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
@@ -59,7 +60,11 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
             CustomButton(
               borderRadius: 12,
               text: 'Whitelabelling',
-              style: GoogleFonts.firaSans(fontSize: 10),
+              style: CustomTextStylesCommon.commonStyle(
+                fontSize: FontSize.s12,
+                fontWeight: FontWeightManager.bold,
+                color: ColorManager.white
+              ),
               width: 120,
               height: 30,
               onPressed: () {

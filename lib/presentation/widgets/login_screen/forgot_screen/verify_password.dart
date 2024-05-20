@@ -110,15 +110,14 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
                         border: Border.all(
-                          color:
-                          Color(0xff9BADCA),
+                          color: ColorManager.bluecontainer,
                           width: 0.85,
                         ),
                       ),
                       child: TextFormField(
 
                         style: CustomTextStylesCommon.commonStyle(
-                          color: Color(0xff000000)
+                          color: ColorManager.black
                               .withOpacity(0.7),
                           fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.medium,
@@ -185,32 +184,19 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                 ),
                 ///button
                 Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0x40000000),
-                          offset: Offset(0, 4),
-                          blurRadius: 3,
-                          spreadRadius: 0,
-                        ),
-                      ],
-                    ),
-                    child: CustomButton(
-                      borderRadius: 24,
-                      height: MediaQuery.of(context).size.height / 18,
-                      width: MediaQuery.of(context).size.width / 10,
-                      text: AppString.continuet,
-                      onPressed: (){
-                        navigateToNextScreen();
-                      },
-                    ),
+                  child: CustomButton(
+                    borderRadius: 24,
+                    height: MediaQuery.of(context).size.height / 18,
+                    width: MediaQuery.of(context).size.width / 10,
+                    text: AppString.continuet,
+                    onPressed: (){
+                      navigateToNextScreen();
+                    },
                   ),
                 ),
                 if (_errorMessage != null)
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
                       _errorMessage!,
                       style:  CustomTextStylesCommon.commonStyle(

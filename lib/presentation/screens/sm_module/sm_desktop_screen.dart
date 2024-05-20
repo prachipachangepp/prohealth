@@ -294,10 +294,10 @@ class SMDesktop extends StatelessWidget {
                                 child: Obx(
                                   () => Center(
                                     child: DropdownButton<String>(
-
                                       icon: Icon(
                                         Icons.arrow_drop_down,
-                                        size: MediaQuery.of(context).size.width /
+                                        size:
+                                            MediaQuery.of(context).size.width /
                                                 89,
                                         color: Colors.white,
                                       ),
@@ -325,7 +325,10 @@ class SMDesktop extends StatelessWidget {
                                                 value,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                  color: hrController.selectedItem.value == value
+                                                  color: hrController
+                                                              .selectedItem
+                                                              .value ==
+                                                          value
                                                       ? Colors.white
                                                       : Colors.black,
                                                   fontFamily: 'FiraSans',
@@ -552,12 +555,15 @@ class SMDesktop extends StatelessWidget {
                               ///main
                               Obx(() => CustomDropdownButton(
                                     height: 34,
-                                    width: 130,
-                                    items: ['HR', 'Finance'],
-                                    selectedItem:
-                                        myController.selectedIndex.value == 2
-                                            ? 'HR'
-                                            : 'Finance',
+                                    width: 140,
+                                    items: ['Select a module', 'HR', 'Finance'],
+                                    selectedItem: myController
+                                                .selectedIndex.value ==
+                                            2
+                                        ? 'HR'
+                                        : myController.selectedIndex.value == 3
+                                            ? 'Finance'
+                                            : 'Select a module',
                                     onChanged: (newValue) {
                                       if (newValue == 'HR') {
                                         myController.selectButton(2);
@@ -576,6 +582,33 @@ class SMDesktop extends StatelessWidget {
                                       }
                                     },
                                   ))
+
+                              // Obx(() => CustomDropdownButton(
+                              //       height: 34,
+                              //       width: 130,
+                              //       items: ['HR', 'Finance'],
+                              //       selectedItem:
+                              //           myController.selectedIndex.value == 2
+                              //               ? 'HR'
+                              //               : 'Finance',
+                              //       onChanged: (newValue) {
+                              //         if (newValue == 'HR') {
+                              //           myController.selectButton(2);
+                              //           _pageController.animateToPage(
+                              //             2,
+                              //             duration: Duration(milliseconds: 500),
+                              //             curve: Curves.ease,
+                              //           );
+                              //         } else if (newValue == 'Finance') {
+                              //           myController.selectButton(3);
+                              //           _pageController.animateToPage(
+                              //             3,
+                              //             duration: Duration(milliseconds: 500),
+                              //             curve: Curves.ease,
+                              //           );
+                              //         }
+                              //       },
+                              //     ))
                             ],
                           ),
                         ),

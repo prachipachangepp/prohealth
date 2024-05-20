@@ -102,18 +102,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
 
       var response = await Dio().post(
         '${AppConfig.endpoint}/auth/confirmPassword',
-      //  'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
         data: data,
         options: Options(headers: headers),
       );
       if (response.statusCode == 200) {
         print(AppString.resetsuccessfully);
         print(json.encode(response.data));
-        // Optionally, navigate back to the login screen
         Navigator.pop(context as BuildContext);
       } else {
         print('Failed to change password: ${response.statusMessage}');
-        // Print response data for debugging if needed
         print(json.encode(response.data));
       }
     } catch (e) {
@@ -163,7 +160,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   ///txtfield
                   TextFormField(
                     style: CustomTextStylesCommon.commonStyle(
-                      color: Color(0xff000000).withOpacity(0.5),
+                      color: ColorManager.black.withOpacity(0.5),
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s14,
                     ),
@@ -180,8 +177,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     obscureText: _obscureText,
                     decoration: InputDecoration(
                       contentPadding:
-                      const EdgeInsets.only(
-                          top: 2),
+                      const EdgeInsets.only(top: AppPadding.p2),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscureText
@@ -190,7 +186,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               : Icons
                               .visibility_off_outlined,
                           size: AppSize.s15,
-                          color: Color(0xffACA5BB),
+                          color: ColorManager.whitesheed,
                         ),
                         onPressed: () {
                           setState(() {
@@ -205,19 +201,19 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       hintStyle: EmailTextStyle.enterEmail(context),
                       border: UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: Colors.black),
+                            color: ColorManager.black),
                       ),
                       focusedBorder:
                       UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color(0xff000000)
+                            color: ColorManager.black
                                 .withOpacity(0.5),
                             width: 0.5),
                       ),
                       enabledBorder:
                       UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: Colors.grey),
+                            color: ColorManager.grey),
                       ),
                     ),
                     validator: (value) {
@@ -238,7 +234,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     obscuringCharacter: '*',
                     controller: controllerConfirm,
                     style: CustomTextStylesCommon.commonStyle(
-                      color: Color(0xff000000).withOpacity(0.5),
+                      color: ColorManager.black.withOpacity(0.5),
                       fontWeight: FontWeightManager.medium,
                       fontSize: FontSize.s14,
                     ),
@@ -257,7 +253,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               : Icons
                               .visibility_off_outlined,
                           size: AppSize.s15,
-                          color: Color(0xffACA5BB),
+                          color: ColorManager.whitesheed,
                         ),
                         onPressed: () {
                           setState(() {
@@ -277,7 +273,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       focusedBorder:
                       UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color(0xff000000)
+                            color: ColorManager.black
                                 .withOpacity(0.5),
                             width: 0.5),
                       ),
@@ -303,185 +299,167 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         ? CircularProgressIndicator(
                         color: ColorManager
                             .blueprime)
-                        : Container(
-                      decoration:
-                      BoxDecoration(
-                        borderRadius:
-                        BorderRadius
-                            .circular(14),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(
-                                0x40000000),
-                            offset:
-                            Offset(0, 4),
-                            blurRadius: 4,
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: CustomButton(
-                        width: MediaQuery.of(
-                            context).size.width / 7,
-                        height: MediaQuery.of(context).size.height / 22,
-                        text: AppString.updatepass,
-                        backgroundColor:  ColorManager.blueprime,
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            if (controllerNew.text != controllerConfirm.text) {
-                              setState(() {
-                                _errorMessage = AppString.passdontmatch;
-                              });
-                              return;
-                            }
-                            setState(() {
-                              _isUpdatingPassword =
-                              true;
-                            });
-                            try {
-                              await ConfirmPassManager()
-                                  .confirmPassword(
-                                widget.email,
-                                widget.otp,
-                                controllerNew.text,
-                              );
-                              print(
-                                  '${widget.email}');
-                              print(
-                                  '${controllerNew.text}');
-                              showDialog(
-                                context:
-                                context,
-                                builder:
-                                    (BuildContext
-                                context) {
-                                  return
-                                    AlertDialog(
-                                      backgroundColor:
-                                      ColorManager.white,
-                                      content:
-                                      Container(
-                                        padding:
-                                        EdgeInsets.only(top: AppPadding.p25),
-                                        height: AppSize.s300,
-                                        width: AppSize.s400,
-                                        child:
-                                        Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              'images/upload.png',
-                                              width: AppSize.s120,
-                                              height: AppSize.s120,
-                                            ),
-                                            Text(
-                                              AppString.successfully,
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                color: ColorManager.darkgrey,
-                                                fontSize: FontSize.s30,
-                                                fontWeight: FontWeightManager.extrabold,
-                                              ),
-                                            ),
-                                            Text(
-                                              AppString.resetsuccessfully,
-                                              style: CustomTextStylesCommon.commonStyle(
-                                                color: ColorManager.darkgrey,
-                                                fontSize: FontSize.s12,
-                                                fontWeight: FontWeightManager.medium,
-                                              ),
-                                            ),
-                                            CustomButton(
-                                              width: AppSize.s181,
-                                              height: AppSize.s45,
-                                              text: AppString.continuebutton,
-                                              borderRadius: 24,
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                                                );
-                                              },
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                },
-                              );
-                            } catch (e) {
-                              AlertDialog(
-                                backgroundColor:
-                                ColorManager.white,
-                                content:
-                                Container(
-                                  padding: EdgeInsets.only(top: AppPadding.p10),
-                                  height: AppSize.s300,
-                                  width: AppSize.s400,
-                                  child:
-                                  Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment
-                                        .spaceEvenly,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment
-                                        .center,
-                                    children: [
-                                      Text(
-                                        AppString
-                                            .threetimepasscanchange,
-                                        style:
-                                        GoogleFonts.firaSans(
-                                          fontSize:
-                                          FontSize.s30,
-                                          color:
-                                          Color(0xff686464),
-                                          fontWeight:
-                                          FontWeightManager.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        AppString
-                                            .cannotchangepass,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          color:ColorManager.darkgrey,
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeightManager.medium,
-                                        ),
-                                      ),
-                                      CustomButton(
-                                        width: AppSize.s181,
-                                        height: AppSize.s45,
-                                        text: AppString.continuebutton,
-                                        borderRadius:
-                                        24,
-                                        onPressed:
-                                            () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => LoginScreen()),
-                                          );
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                              print(
-                                  'Error occurred while confirming password: $e');
-                              // Handle error
-                            } finally {
+                        : CustomButton(
+                          width: MediaQuery.of(
+                              context).size.width / 7,
+                          height: MediaQuery.of(context).size.height / 22,
+                          text: AppString.updatepass,
+                          backgroundColor:  ColorManager.blueprime,
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              if (controllerNew.text != controllerConfirm.text) {
+                                setState(() {
+                                  _errorMessage = AppString.passdontmatch;
+                                });
+                                return;
+                              }
                               setState(() {
                                 _isUpdatingPassword =
-                                false;
+                                true;
                               });
+                              try {
+                                await ConfirmPassManager()
+                                    .confirmPassword(
+                                  widget.email,
+                                  widget.otp,
+                                  controllerNew.text,
+                                );
+                                print(
+                                    '${widget.email}');
+                                print(
+                                    '${controllerNew.text}');
+                                showDialog(
+                                  context:
+                                  context,
+                                  builder:
+                                      (BuildContext
+                                  context) {
+                                    return
+                                      AlertDialog(
+                                        backgroundColor:
+                                        ColorManager.white,
+                                        content:
+                                        Container(
+                                          padding:
+                                          EdgeInsets.only(top: AppPadding.p25),
+                                          height: AppSize.s300,
+                                          width: AppSize.s400,
+                                          child:
+                                          Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                'images/upload.png',
+                                                width: AppSize.s120,
+                                                height: AppSize.s120,
+                                              ),
+                                              Text(
+                                                AppString.successfully,
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  color: ColorManager.darkgrey,
+                                                  fontSize: FontSize.s30,
+                                                  fontWeight: FontWeightManager.extrabold,
+                                                ),
+                                              ),
+                                              Text(
+                                                AppString.resetsuccessfully,
+                                                style: CustomTextStylesCommon.commonStyle(
+                                                  color: ColorManager.darkgrey,
+                                                  fontSize: FontSize.s12,
+                                                  fontWeight: FontWeightManager.medium,
+                                                ),
+                                              ),
+                                              CustomButton(
+                                                width: AppSize.s181,
+                                                height: AppSize.s45,
+                                                text: AppString.continuebutton,
+                                                borderRadius: 24,
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                                                  );
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                  },
+                                );
+                              } catch (e) {
+                                AlertDialog(
+                                  backgroundColor:
+                                  ColorManager.white,
+                                  content:
+                                  Container(
+                                    padding: EdgeInsets.only(top: AppPadding.p10),
+                                    height: AppSize.s300,
+                                    width: AppSize.s400,
+                                    child:
+                                    Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .spaceEvenly,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text(
+                                          AppString
+                                              .threetimepasscanchange,
+                                          style:
+                                          GoogleFonts.firaSans(
+                                            fontSize:
+                                            FontSize.s30,
+                                            color:
+                                            Color(0xff686464),
+                                            fontWeight:
+                                            FontWeightManager.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          AppString
+                                              .cannotchangepass,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            color:ColorManager.darkgrey,
+                                            fontSize: FontSize.s12,
+                                            fontWeight: FontWeightManager.medium,
+                                          ),
+                                        ),
+                                        CustomButton(
+                                          width: AppSize.s181,
+                                          height: AppSize.s45,
+                                          text: AppString.continuebutton,
+                                          borderRadius:
+                                          24,
+                                          onPressed:
+                                              () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => LoginScreen()),
+                                            );
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                                print(
+                                    'Error occurred while confirming password: $e');
+                                // Handle error
+                              } finally {
+                                setState(() {
+                                  _isUpdatingPassword =
+                                  false;
+                                });
+                              }
                             }
-                          }
-                        },
-                      ),
-                    ),
+                          },
+                        ),
                   ),
                   if (_errorMessage != null)
                     Padding(

@@ -109,43 +109,27 @@ class MenuScreen extends StatelessWidget {
                                                     color: ColorManager.darkgrey,
                                                   ),
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color:
-                                                            Color(0x40000000),
-                                                        offset: Offset(0, 4),
-                                                        blurRadius: 4,
-                                                        spreadRadius: 0,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: CustomButton(
-                                                    borderRadius: 14,
-                                                    text: AppString.logout,
-                                                    onPressed: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                LoginScreen()),
-                                                      );
-                                                    },
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            15,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            22,
-                                                  ),
+                                                CustomButton(
+                                                  borderRadius: 14,
+                                                  text: AppString.logout,
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              LoginScreen()),
+                                                    );
+                                                  },
+                                                  width:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          15,
+                                                  height:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height /
+                                                          22,
                                                 ),
                                               ],
                                             ),

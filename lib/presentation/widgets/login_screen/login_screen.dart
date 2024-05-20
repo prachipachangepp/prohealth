@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           focusNode: emailFocusNode,
                           controller: _emailController,
-                          cursorColor: Colors.black,
+                          cursorColor: ColorManager.black,
                           cursorHeight: 22,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(top: 1),
@@ -131,75 +131,62 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: ColorManager.blueprime,
                             )
                           : Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x40000000),
-                                      offset: Offset(0, 4),
-                                      blurRadius: 3,
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                ),
-                                child: CustomButton(
-                                  borderRadius: 28,
-                                  height:
-                                      MediaQuery.of(context).size.height / 18,
-                                  width:
-                                      MediaQuery.of(context).size.height / 5.3,
-                                  text: AppString.next,
-                                  onPressed: () async {
-                                    if (_formKey.currentState?.validate() ??
-                                        false) {
-                                      setState(() {
-                                        _isSendingEmail = true;
-                                      });
-                                      try {
-                                        await GetOTPService.getOTP(
-                                            _emailController.text);
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            transitionDuration:
-                                                Duration(milliseconds: 500),
-                                            pageBuilder: (context, animation,
-                                                    secondaryAnimation) =>
-                                                VerifyScreen(
-                                                    email:
-                                                        _emailController.text),
-                                            transitionsBuilder: (context,
-                                                animation,
-                                                secondaryAnimation,
-                                                child) {
-                                              const begin = Offset(1.0, 0.0);
-                                              const end = Offset.zero;
-                                              const curve = Curves.ease;
+                              child: CustomButton(
+                                borderRadius: 28,
+                                height:
+                                    MediaQuery.of(context).size.height / 18,
+                                width:
+                                    MediaQuery.of(context).size.height / 5.3,
+                                text: AppString.next,
+                                onPressed: () async {
+                                  if (_formKey.currentState?.validate() ??
+                                      false) {
+                                    setState(() {
+                                      _isSendingEmail = true;
+                                    });
+                                    try {
+                                      await GetOTPService.getOTP(
+                                          _emailController.text);
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          transitionDuration:
+                                              Duration(milliseconds: 500),
+                                          pageBuilder: (context, animation,
+                                                  secondaryAnimation) =>
+                                              VerifyScreen(
+                                                  email:
+                                                      _emailController.text),
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            const begin = Offset(1.0, 0.0);
+                                            const end = Offset.zero;
+                                            const curve = Curves.ease;
 
-                                              var tween = Tween(
-                                                      begin: begin, end: end)
-                                                  .chain(
-                                                      CurveTween(curve: curve));
-                                              return SlideTransition(
-                                                position:
-                                                    animation.drive(tween),
-                                                child: child,
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      } catch (e) {
-                                        // Handle error
-                                        print('Error occurred: $e');
-                                      } finally {
-                                        setState(() {
-                                          _isSendingEmail = false;
-                                        });
-                                      }
+                                            var tween = Tween(
+                                                    begin: begin, end: end)
+                                                .chain(
+                                                    CurveTween(curve: curve));
+                                            return SlideTransition(
+                                              position:
+                                                  animation.drive(tween),
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    } catch (e) {
+                                      // Handle error
+                                      print('Error occurred: $e');
+                                    } finally {
+                                      setState(() {
+                                        _isSendingEmail = false;
+                                      });
                                     }
-                                  },
-                                ),
+                                  }
+                                },
                               ),
                             ),
                     ),

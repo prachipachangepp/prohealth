@@ -198,7 +198,7 @@ class CodeVerficationText {
     return GoogleFonts.firaSans(
       color: ColorManager.darkgrey,
       //fontSize: FontSize.s10,
-      fontSize: MediaQuery.of(context).size.width / 120,
+      fontSize: MediaQuery.of(context).size.width / 150,
       fontWeight: FontWeightManager.semiBold,
     );
   }
