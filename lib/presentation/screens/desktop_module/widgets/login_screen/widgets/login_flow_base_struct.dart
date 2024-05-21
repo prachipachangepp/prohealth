@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/mobile_module/mobile_login_screen.dart';
 
 import '../../../../../../app/resources/color.dart';
 
@@ -19,12 +20,14 @@ class LoginBaseConstant extends StatelessWidget {
       required this.onTap,
       required this.titleText,
       required this.textAction,
-      this.textActionPadding})
+      this.textActionPadding,
+      this.mobileChild})
       : super(key: key);
   final Widget child;
   final String titleText;
   final VoidCallback onTap;
   final String textAction;
+  final Widget? mobileChild;
   final EdgeInsetsGeometry? textActionPadding;
   final SvgPicture backImg = SvgPicture.asset("images/background.svg");
 
@@ -34,9 +37,9 @@ class LoginBaseConstant extends StatelessWidget {
     if (MediaQuery.of(context).size.width > 870) {
       return Scaffold(
           body: Stack(children: [
-           Container(
-             width: double.maxFinite,
-             child: Stack(
+        Container(
+            width: double.maxFinite,
+            child: Stack(
               fit: StackFit.expand,
               children: [
                 Column(
@@ -216,32 +219,33 @@ class LoginBaseConstant extends StatelessWidget {
         )
       ]));
     }
+
     ///tablet
-    else
-      if (MediaQuery.of(context).size.width > 600) {
-      return Scaffold(
-        body: Container(
-            height: MediaQuery.of(context).size.height, color: Colors.purple,
-          child: Center(child: Text("Tablet Screen"),)
-        ),
-      );
-    }
+    // else if (MediaQuery.of(context).size.width > 600) {
+    //   return Scaffold(
+    //     body: Container(
+    //         height: MediaQuery.of(context).size.height,
+    //         color: Colors.purple,
+    //         child: Center(
+    //           child: Text("Tablet Screen"),
+    //         )),
+    //   );
+    // }
+
     ///mobile
     else if (MediaQuery.of(context).size.width > 450) {
       return Scaffold(
           body: Container(
-              height: MediaQuery.of(context).size.height, color: Colors.green,
-              child: Center(child: Text("Mobile Screen"),)
-          ));
-    }
-    else {
-      return Scaffold(
-        body: Container(color: Colors.yellow),
-      );
+        height: MediaQuery.of(context).size.height,
+        color: Colors.green,
+        // child: MobileLogIn(),
+        // MobileConst()
+      ));
+    } else {
+      return Scaffold(body: MobileLogIn());
     }
   }
 }
-
 
 ///old code
 // class LoginBaseConstant extends StatelessWidget {

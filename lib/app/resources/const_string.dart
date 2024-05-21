@@ -154,6 +154,8 @@ class AppString {
   static const String verify = "Verifying...";
   static const String enter4digitcode =
       "Enter your 4 digits code that you received on your email.";
+  static const String enter4digitotp =
+      "Enter your 4 digits code that\n you received on your email.";
 
   ///forgot
   static const String forgotpassword = "Forgot Password ?";
