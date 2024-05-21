@@ -1,49 +1,36 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:prohealth/constants/app_config.dart';
+import '../../../resources/const_string.dart';
 
-import '../../../../presentation/screens/desktop_module/widgets/login_screen/menu_login_page.dart';
-
-class VerifyOTPService {
-  static Future<void> verifyOTPAndLogin(
-    BuildContext context,
-    String email,
-    String enteredOTP,
-    Function(String) setErrorMessage,
-  ) async {
+class VerifyOtpService {
+  static Future<Map<String, dynamic>> verifyOTPAndLogin({
+    required String email,
+    required String otp,
+  }) async {
     try {
+      String trimmedEmail = email.trim();
       var headers = {'Content-Type': 'application/json'};
-      email = email.trim();
       var data = json.encode({
-        "email": email,
-        "otp": enteredOTP,
+        "email": trimmedEmail,
+        "otp": otp,
       });
       var dio = Dio();
-      var response = await dio.request(
+      var response = await dio.post(
         '${AppConfig.endpoint}/auth/verifyotp',
+        data: data,
         options: Options(
-          method: 'POST',
           headers: headers,
         ),
-        data: data,
       );
       if (response.statusCode == 200) {
-        print(json.encode(response.data));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MenuScreen(),
-          ),
-        );
+        return {"success": true, "data": response.data};
       } else {
-        print(response.statusMessage);
-        setErrorMessage('Incorrect OTP. Please try again.');
+        return {"success": false, "message": AppString.incorrectOtp};
       }
     } catch (e) {
       print('Error occurred during OTP verification: $e');
-      setErrorMessage(
-          'Error occurred during OTP verification. Please try again.');
+      return {"success": false, "message": AppString.incorrectOtp};
     }
   }
 }

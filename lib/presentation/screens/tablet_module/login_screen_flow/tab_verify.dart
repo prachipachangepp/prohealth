@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/enter-password.dart';
-import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
-import '../../../../../app/resources/font_manager.dart';
-import '../../../../../app/resources/theme_manager.dart';
-import '../../../../../app/services/login_flow_api/verify_otp/verify_otp_manager.dart';
-import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'menu_login_page.dart';
+import 'package:prohealth/presentation/screens/tablet_module/tab_const.dart';
+import 'package:prohealth/presentation/screens/tablet_module/login_screen_flow/tab_pass_login.dart';
 
-class VerifyScreen extends StatefulWidget {
+import '../../../../app/resources/color.dart';
+import '../../../../app/resources/const_string.dart';
+import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/theme_manager.dart';
+import '../../../../app/resources/value_manager.dart';
+import '../../../../app/services/login_flow_api/verify_otp/verify_otp_manager.dart';
+import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../desktop_module/widgets/login_screen/menu_login_page.dart';
+
+class TabVerifyScreen extends StatefulWidget {
   final String email;
-  const VerifyScreen({Key? key, required this.email}) : super(key: key);
+  const TabVerifyScreen({Key? key, required this.email}) : super(key: key);
 
   @override
-  State<VerifyScreen> createState() => _VerifyScreenState(email: email);
+  State<TabVerifyScreen> createState() => _TabVerifyScreenState(email: email);
 }
 
-class _VerifyScreenState extends State<VerifyScreen> {
+class _TabVerifyScreenState extends State<TabVerifyScreen> {
   List<TextEditingController> _otpControllers =
-      List.generate(4, (_) => TextEditingController());
+  List.generate(4, (_) => TextEditingController());
   bool _isVerifyingOTP = false;
   String? _errorMessage;
   final String email;
-  _VerifyScreenState({required this.email});
+  _TabVerifyScreenState({required this.email});
 
   Future<void> _verifyOTPAndLogin() async {
     setState(() {
@@ -54,18 +55,19 @@ class _VerifyScreenState extends State<VerifyScreen> {
       _isVerifyingOTP = false;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return LoginBaseConstant(
-      onTap: () {},
-      textAction: '',
-      titleText: AppString.verification,
-      child: Material(
+    return LoginBaseConstTab(
+        titleText: AppString.verification,
+        onTap: (){},
+        textAction: '',
+      childTab: Material(
         elevation: 4,
         borderRadius: BorderRadius.circular(24),
         child: Container(
-          width: MediaQuery.of(context).size.width / 3.5,
-          height: MediaQuery.of(context).size.height / 2.1,
+          height: MediaQuery.of(context).size.height / 3,
+          width: MediaQuery.of(context).size.width/2,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             color: ColorManager.white,
@@ -89,9 +91,9 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     4,
-                    (index) => Container(
-                      width: MediaQuery.of(context).size.width / 38,
-                      height: MediaQuery.of(context).size.height / 19,
+                        (index) => Container(
+                      width: MediaQuery.of(context).size.width / 35,
+                      height: MediaQuery.of(context).size.height / 22,
                       margin: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
@@ -117,7 +119,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                         maxLength: 1,
                         decoration: InputDecoration(
                           contentPadding:
-                              const EdgeInsets.only(bottom: AppSize.s15),
+                          const EdgeInsets.only(bottom: AppSize.s15),
                           counterText: '',
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
@@ -160,10 +162,10 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 ///button
                 CustomButton(
                   borderRadius: 24,
-                  height: MediaQuery.of(context).size.height / 18,
-                  width: MediaQuery.of(context).size.height / 4,
+                  height: MediaQuery.of(context).size.height / 22,
+                  width: MediaQuery.of(context).size.height / 6,
                   text:
-                      _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
+                  _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
                   onPressed: () {
                     _verifyOTPAndLogin();
                   },
@@ -197,7 +199,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                       PageRouteBuilder(
                         transitionDuration: Duration(milliseconds: 500),
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            PasswordLoginScreen(email: email),
+                            TabPassLoginScreen(email: email),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
                           const begin = Offset(1.0, 0.0);
@@ -222,3 +224,4 @@ class _VerifyScreenState extends State<VerifyScreen> {
     );
   }
 }
+

@@ -6,7 +6,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/child_container_constant_login.dart';
-import 'package:prohealth/presentation/screens/home_screen.dart';
+import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/desk_dashboard_hrm.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../hr_module/manage/widgets/bottom_row.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
