@@ -20,27 +20,39 @@ class CustomIconButtonConst extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: icon != null
-          ? Icon(icon!, color: ColorManager.white, size: AppSize.s20)
-          : SizedBox.shrink(),
-      label: Text(
-        text,
-        style: GoogleFonts.firaSans(
-          fontSize: AppSize.s12,
-          fontWeight: FontWeightManager.bold,
-          color: ColorManager.white,
-        )
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x40000000),
+            offset: Offset(0, 2),
+            blurRadius: 4,
+          ),
+        ],
+        borderRadius: BorderRadius.circular(12)
       ),
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: AppSize.s15, vertical: AppSize.s10),
-        backgroundColor: ColorManager.blueprime,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: icon != null
+            ? Icon(icon!, color: ColorManager.white, size: AppSize.s20)
+            : SizedBox.shrink(),
+        label: Text(
+          text,
+          style: GoogleFonts.firaSans(
+            fontSize: AppSize.s12,
+            fontWeight: FontWeightManager.bold,
+            color: ColorManager.white,
+          )
         ),
-        elevation: 4,
-        shadowColor: ColorManager.black.withOpacity(0.4)
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: AppSize.s15, vertical: AppSize.s10),
+          backgroundColor: ColorManager.blueprime,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 4,
+          shadowColor: ColorManager.black.withOpacity(0.4),
+        ),
       ),
     );
   }

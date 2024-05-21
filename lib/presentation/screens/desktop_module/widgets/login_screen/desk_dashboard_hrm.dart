@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'desktop_module/hr_module/manage/controller/controller.dart';
-import 'desktop_module/widgets/const_appbar/app_bar.dart';
+import '../../hr_module/manage/controller/controller.dart';
+import '../const_appbar/app_bar.dart';
+
 
 ///saloni
 class HomeScreen extends StatefulWidget {
@@ -17,7 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MyAppBar();
-    // HrAppBar();
+    return
+      // HrAppBar();
+      MyAppBar();
   }
 }

@@ -182,8 +182,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return EditPopupWidget(
-                                          typeController:
-                                              TextEditingController(),
+                                          typeController: TextEditingController(),
                                           shorthandController:
                                               TextEditingController(),
                                           emailController:
