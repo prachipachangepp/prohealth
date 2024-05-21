@@ -178,13 +178,37 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SMTextFConst(
+                    controller: widget.typeController,
+                    keyboardType: TextInputType.text,
+                    text: 'Type',
+                  ),
+                  SizedBox(
+                    height: AppSize.s16,
+                  ),
+                  SMTextFConst(
+                    controller: widget.shorthandController,
+                    keyboardType: TextInputType.streetAddress,
+                    text: 'Shorthand',
+                  ),
+                  SizedBox(
+                    height: AppSize.s16,
+                  ),
+                  SMTextFConst(
+                    controller: widget.emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    text: 'Type of Employee',
+                  ),
+                  SizedBox(
+                    height: AppSize.s16,
+                  ),
                   Row(
                     children: [
                       Text('Color'),
                       SizedBox(width: 10),
                       GestureDetector(
                         onTap:
-                            _openColorPicker, // Call _openColorPicker directly
+                        _openColorPicker, // Call _openColorPicker directly
                         child: Container(
                           width: 60,
                           height: 20,
@@ -211,31 +235,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                     ],
                   ),
                   SizedBox(
-                    height: AppSize.s16,
-                  ),
-                  SMTextFConst(
-                    controller: widget.typeController,
-                    keyboardType: TextInputType.text,
-                    text: 'Type',
-                  ),
-                  SizedBox(
-                    height: AppSize.s16,
-                  ),
-                  SMTextFConst(
-                    controller: widget.shorthandController,
-                    keyboardType: TextInputType.streetAddress,
-                    text: 'Shorthand',
-                  ),
-                  SizedBox(
-                    height: AppSize.s16,
-                  ),
-                  SMTextFConst(
-                    controller: widget.emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    text: 'Type of Employee',
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width / 27,
+                    height: MediaQuery.of(context).size.width / 22,
                   ),
                   Center(
                     child: CustomElevatedButton(
