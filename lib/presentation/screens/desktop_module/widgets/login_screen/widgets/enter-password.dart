@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/login_flow_api/log_in/log_in_manager.dart';
+
 import '../../../../../../app/resources/color.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../profile_bar/widget/screen_transition.dart';
@@ -66,7 +67,7 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
       },
       titleText: AppString.login,
       textAction: AppString.forgotpass,
-     // textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5),
+      // textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 5),
       child: Material(
         elevation: 4,
         borderRadius: BorderRadius.circular(24),
@@ -110,7 +111,7 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                         ),
                       ),
                       hintText: AppString.enterpass,
-                      hintStyle:  EmailTextStyle.enterEmail(context),
+                      hintStyle: EmailTextStyle.enterEmail(context),
                       labelText: AppString.password,
                       labelStyle: EmailTextStyle.enterEmail(context),
                       suffixIcon: IconButton(
@@ -135,21 +136,23 @@ class _PasswordLoginScreenState extends State<PasswordLoginScreen> {
                     },
                   ),
                 ),
+
                 ///button
                 _isLoading
                     ? CircularProgressIndicator(
                         color: ColorManager.blueprime,
                       )
                     : CustomButton(
-                  borderRadius: 24,
-                  height: MediaQuery.of(context).size.height / 18,
-                  width: MediaQuery.of(context).size.height / 4,
+                        borderRadius: 24,
+                        height: MediaQuery.of(context).size.height / 18,
+                        width: MediaQuery.of(context).size.height / 4,
                         text: AppString.loginbtn,
                         onPressed: _isLoading ? () {} : _login,
                       ),
                 if (_errorMessage != null)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: AppPadding.p10),
                     child: Text(
                       _errorMessage!,
                       style: TextStyle(color: ColorManager.red),

@@ -51,10 +51,8 @@ import 'login_screen/menu_login_page.dart';
 //   }
 // }
 
-///
-// ///todo prachi
-//
-// ///old one
+///todo prachi
+///old one
 class ResponsivePage extends StatelessWidget {
   Future getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
