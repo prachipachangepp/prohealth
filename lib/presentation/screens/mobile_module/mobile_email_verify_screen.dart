@@ -96,7 +96,7 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: MediaQuery.of(context).size.width / 90,
             ),
             Text(
               AppString.enter4digitotp,
@@ -105,7 +105,9 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
                   fontSize: FontSize.s10,
                   fontWeight: FontWeightManager.bold),
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 60,
+            ),
 
             ///txtfield
             Row(
@@ -207,7 +209,9 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
                   ),
                 ),
               ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 90,
+            ),
 
             ///bottomtxt
             InkWell(
