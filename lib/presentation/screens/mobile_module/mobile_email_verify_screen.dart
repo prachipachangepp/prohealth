@@ -79,27 +79,36 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
   @override
   Widget build(BuildContext context) {
     return MobileConst(
-      VoidCallback: () {},
-      textAction: '',
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            transitionDuration: Duration(milliseconds: 500),
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                MobilePasswordLogIn(email: AppString.email),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              const begin = Offset(1.0, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+              var tween = Tween(begin: begin, end: end)
+                  .chain(CurveTween(curve: curve));
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ),
+        );
+      },
+      textAction: AppString.donthaveauth,
       titleText: AppString.verification,
       mobileChild: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
         child: Column(
           children: [
             Text(
-              AppString.verification,
-              style: GoogleFonts.firaSans(
-                color: ColorManager.mediumgrey,
-                // fontSize: FontSize.s38,
-                fontSize: MediaQuery.of(context).size.width / 13,
-                fontWeight: FontWeightManager.extrabold,
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 90,
-            ),
-            Text(
-              AppString.enter4digitotp,
+              AppString.enter4digitcode,
               style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.darkgrey,
                   fontSize: FontSize.s10,
@@ -189,7 +198,7 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
             ///button
             CustomButton(
               borderRadius: 24,
-              height: MediaQuery.of(context).size.height / 18,
+              height: MediaQuery.of(context).size.height / 22,
               width: MediaQuery.of(context).size.height / 4,
               text: _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
               style: TextStyle(fontSize: 13),
@@ -214,38 +223,38 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
             ),
 
             ///bottomtxt
-            InkWell(
-              child: Text(
-                AppString.donthaveauth,
-                style: CustomTextStylesCommon.commonStyle(
-                  color: ColorManager.blueprime,
-                  fontSize: FontSize.s10,
-                  fontWeight: FontWeightManager.medium,
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    transitionDuration: Duration(milliseconds: 500),
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        MobilePasswordLogIn(email: AppString.email),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(1.0, 0.0);
-                      const end = Offset.zero;
-                      const curve = Curves.ease;
-                      var tween = Tween(begin: begin, end: end)
-                          .chain(CurveTween(curve: curve));
-                      return SlideTransition(
-                        position: animation.drive(tween),
-                        child: child,
-                      );
-                    },
-                  ),
-                );
-              },
-            )
+            // InkWell(
+            //   child: Text(
+            //     AppString.donthaveauth,
+            //     style: CustomTextStylesCommon.commonStyle(
+            //       color: ColorManager.blueprime,
+            //       fontSize: FontSize.s10,
+            //       fontWeight: FontWeightManager.medium,
+            //     ),
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       PageRouteBuilder(
+            //         transitionDuration: Duration(milliseconds: 500),
+            //         pageBuilder: (context, animation, secondaryAnimation) =>
+            //             MobilePasswordLogIn(email: AppString.email),
+            //         transitionsBuilder:
+            //             (context, animation, secondaryAnimation, child) {
+            //           const begin = Offset(1.0, 0.0);
+            //           const end = Offset.zero;
+            //           const curve = Curves.ease;
+            //           var tween = Tween(begin: begin, end: end)
+            //               .chain(CurveTween(curve: curve));
+            //           return SlideTransition(
+            //             position: animation.drive(tween),
+            //             child: child,
+            //           );
+            //         },
+            //       ),
+            //     );
+            //   },
+            // )
           ],
         ),
       ),

@@ -68,7 +68,7 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
     return MobileConst(
       titleText: '',
       textAction: '',
-      VoidCallback: () {},
+      onTap: () {},
       mobileChild: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
         child: Column(

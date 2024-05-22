@@ -8,20 +8,21 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/theme_manager.dart';
 
 class MobileConst extends StatelessWidget {
   final Widget mobileChild;
   final String titleText;
   // final String text;
   // final String? text2;
-  final VoidCallback;
+  final VoidCallback onTap;
   final String textAction;
   const MobileConst({
     Key? key,
     required this.mobileChild,
     required this.titleText,
     required this.textAction,
-    required this.VoidCallback,
+    required this.onTap,
     // required this.text,
     //  required   this.text2,
   }) : super(key: key);
@@ -91,8 +92,8 @@ class MobileConst extends StatelessWidget {
                             child: Container(
                               child: Image.asset(
                                 'images/logo_login.png',
-                                width: MediaQuery.of(context).size.width / 2,
-                                height: MediaQuery.of(context).size.height / 5,
+                                width: MediaQuery.of(context).size.width / 3,
+                                height: MediaQuery.of(context).size.height / 4,
                               ),
                             )),
                         ///titletext
@@ -102,15 +103,23 @@ class MobileConst extends StatelessWidget {
                               style: GoogleFonts.firaSans(
                                 color: ColorManager.mediumgrey,
                                 // fontSize: FontSize.s38,
-                                fontSize: MediaQuery.of(context).size.width / 13,
+                                fontSize: MediaQuery.of(context).size.width / 18,
                                 fontWeight: FontWeightManager.extrabold,
                               ),)),
                         Expanded(
-                            flex: 2,
+                            flex: 3,
                             child: Container(
                               child: mobileChild,
                             )),
-                        Expanded(flex: 1, child: Text(textAction,
+                        Expanded(flex: 1, child: InkWell(
+                          onTap: onTap,
+                          child: Text(textAction,
+                              style: CustomTextStylesCommon.commonStyle(
+                                      color: ColorManager.blueprime,
+                                      fontSize: FontSize.s10,
+                                      fontWeight: FontWeightManager.medium,
+                                    ),
+                          ),
                         )),
                       ],
                     ),

@@ -61,32 +61,33 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
   @override
   Widget build(BuildContext context) {
     return MobileConst(
-      VoidCallback: () {},
-      titleText: '',
-      textAction: '',
+        onTap: (){
+
+        },
+      titleText: AppString.login,
+      textAction: AppString.forgotpass,
       mobileChild: Form(
         key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              AppString.login,
-              style: GoogleFonts.firaSans(
-                color: ColorManager.mediumgrey,
-                // fontSize: FontSize.s38,
-                fontSize: MediaQuery.of(context).size.width / 13,
-                fontWeight: FontWeightManager.extrabold,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width / 8,
+      ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppString.enterpasstologin,
+                    style: CustomTextStylesCommon.commonStyle(
+                        color: ColorManager.darkgrey,
+                        fontSize: FontSize.s10,
+                        fontWeight: FontWeightManager.bold),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 8,
-              ),
-              child: TextFormField(
+              TextFormField(
                 style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.black.withOpacity(0.5),
                   fontWeight: FontWeightManager.medium,
@@ -131,30 +132,30 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
                   return null;
                 },
               ),
-            ),
 
-            ///button
-            _isLoading
-                ? CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  )
-                : CustomButton(
-                    borderRadius: 24,
-                    height: MediaQuery.of(context).size.height / 18,
-                    width: MediaQuery.of(context).size.height / 4,
-                    text: AppString.loginbtn,
-                    style: TextStyle(fontSize: 15),
-                    onPressed: _isLoading ? () {} : _login,
+              ///button
+              _isLoading
+                  ? CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    )
+                  : CustomButton(
+                      borderRadius: 24,
+                      height: MediaQuery.of(context).size.height / 18,
+                      width: MediaQuery.of(context).size.height / 4,
+                      text: AppString.loginbtn,
+                      style: TextStyle(fontSize: 15),
+                      onPressed: _isLoading ? () {} : _login,
+                    ),
+              if (_errorMessage != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+                  child: Text(
+                    _errorMessage!,
+                    style: TextStyle(color: ColorManager.red),
                   ),
-            if (_errorMessage != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
-                child: Text(
-                  _errorMessage!,
-                  style: TextStyle(color: ColorManager.red),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

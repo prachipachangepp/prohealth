@@ -32,12 +32,13 @@ class _MobileLogInState extends State<MobileLogIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MobileConst(
+        onTap: (){},
         titleText: AppString.login,
         textAction: '',
         mobileChild: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -164,7 +165,6 @@ class _MobileLogInState extends State<MobileLogIn> {
             ],
           ),
         ),
-        VoidCallback: () {},
       ),
     );
   }

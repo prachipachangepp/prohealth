@@ -62,7 +62,7 @@ class _MobileLogInWithPassState extends State<MobileLogInWithPass> {
     return MobileConst(
       titleText: 'Log In',
       textAction: '',
-      VoidCallback: () {
+      onTap: () {
         Navigator.push(
           context,
           RouteTransitions.slideTransition(page: ForgotPassScreen()),
@@ -75,13 +75,11 @@ class _MobileLogInWithPassState extends State<MobileLogInWithPass> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              AppString.login,
-              style: GoogleFonts.firaSans(
-                color: ColorManager.mediumgrey,
-                // fontSize: FontSize.s38,
-                fontSize: MediaQuery.of(context).size.width / 13,
-                fontWeight: FontWeightManager.extrabold,
-              ),
+              AppString.enterpasstologin,
+              style: CustomTextStylesCommon.commonStyle(
+                  color: ColorManager.darkgrey,
+                  fontSize: FontSize.s10,
+                  fontWeight: FontWeightManager.bold),
             ),
             Padding(
               padding: EdgeInsets.symmetric(

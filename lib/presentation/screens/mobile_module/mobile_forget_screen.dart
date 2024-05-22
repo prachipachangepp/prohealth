@@ -33,7 +33,7 @@ class _MobileForgetScreenState extends State<MobileForgetScreen> {
     return MobileConst(
       titleText: '',
       textAction: '',
-      VoidCallback: null,
+      onTap: (){},
       mobileChild: Form(
         key: _formKey,
         child: Padding(
