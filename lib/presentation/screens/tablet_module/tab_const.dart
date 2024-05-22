@@ -1,7 +1,9 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../app/resources/color.dart';
 import '../../../app/resources/const_string.dart';
 import '../../../app/resources/font_manager.dart';
@@ -99,9 +101,10 @@ class LoginBaseConstTab extends StatelessWidget {
                       ),
                       Expanded(
                           flex: 3,
-                          child:
-                          Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/4),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width / 4),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -134,12 +137,14 @@ class LoginBaseConstTab extends StatelessWidget {
                                       child: Text(
                                         textAction,
                                         textAlign: TextAlign.end,
-                                        style: CustomTextStylesCommon.commonStyle(
+                                        style:
+                                            CustomTextStylesCommon.commonStyle(
                                           color: ColorManager.bluebottom,
                                           //fontSize: FontSize.s12,
-                                          fontSize:
-                                              MediaQuery.of(context).size.height /
-                                                  60,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              60,
                                           fontWeight: FontWeightManager.medium,
                                         ),
                                       ),
@@ -148,19 +153,20 @@ class LoginBaseConstTab extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          )
-                      ),
+                          )),
                       Expanded(
-                          flex: 2,
-                          child:Image.asset(
-                            'images/amico.png',
-                          ),),
+                        flex: 2,
+                        child: Image.asset(
+                          'images/amico.png',
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
           ),
+
           ///powered by
           Align(
             alignment: Alignment.bottomCenter,
