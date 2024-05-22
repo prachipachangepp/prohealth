@@ -5,7 +5,6 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_email_verify_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
-
 import '../../../app/resources/color.dart';
 import '../../../app/resources/const_string.dart';
 import '../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
@@ -33,89 +32,80 @@ class _MobileLogInState extends State<MobileLogIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MobileConst(
-        titleText: '',
+        titleText: AppString.login,
         textAction: '',
         mobileChild: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                AppString.login,
-                style: GoogleFonts.firaSans(
-                  color: ColorManager.mediumgrey,
-                  // fontSize: FontSize.s38,
-                  fontSize: MediaQuery.of(context).size.width / 13,
-                  fontWeight: FontWeightManager.extrabold,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 8,
                 ),
-                child: TextFormField(
-                  style: CustomTextStylesCommon.commonStyle(
-                    color: Color(0xff000000).withOpacity(0.5),
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s14,
-                  ),
-                  focusNode: emailFocusNode,
-                  controller: _emailController,
-                  cursorColor: ColorManager.black,
-                  cursorHeight: 22,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.only(top: 1),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xff000000).withOpacity(0.5),
-                        width: 0.5,
-                      ),
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 16,
+                  child: TextFormField(
+                    style: CustomTextStylesCommon.commonStyle(
+                      color: Color(0xff000000).withOpacity(0.5),
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s14,
                     ),
-                    labelText: AppString.email,
-                    hintText: AppString.emailhint,
-                    hintStyle: EmailTextStyle.enterEmail(context),
-                    labelStyle: EmailTextStyle.enterEmail(context),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enteremail;
-                    }
-                    if (!emailRegex.hasMatch(value)) {
-                      return AppString.entervalidemail;
-                    }
-                    return null;
-                  },
-                  onFieldSubmitted: (_) async {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      setState(() {
-                        _isSendingEmail = true;
-                      });
-                      try {
-                        await GetOTPService.getOTP(_emailController.text);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MobileEmailVerifyScreen(
-                                email: _emailController.text),
-                          ),
-                        );
-                      } catch (e) {
-                        // Handle error
-                        print('Error occurred: $e');
-                      } finally {
-                        setState(() {
-                          _isSendingEmail = false;
-                        });
+                    focusNode: emailFocusNode,
+                    controller: _emailController,
+                    cursorColor: ColorManager.black,
+                    cursorHeight: 22,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.only(top: 1),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xff000000).withOpacity(0.5),
+                          width: 0.5,
+                        ),
+                      ),
+                      labelText: AppString.email,
+                      hintText: AppString.emailhint,
+                      hintStyle: EmailTextStyle.enterEmail(context),
+                      labelStyle: EmailTextStyle.enterEmail(context),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enteremail;
                       }
-                    }
-                  },
+                      if (!emailRegex.hasMatch(value)) {
+                        return AppString.entervalidemail;
+                      }
+                      return null;
+                    },
+                    onFieldSubmitted: (_) async {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        setState(() {
+                          _isSendingEmail = true;
+                        });
+                        try {
+                          await GetOTPService.getOTP(_emailController.text);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MobileEmailVerifyScreen(
+                                  email: _emailController.text),
+                            ),
+                          );
+                        } catch (e) {
+                          // Handle error
+                          print('Error occurred: $e');
+                        } finally {
+                          setState(() {
+                            _isSendingEmail = false;
+                          });
+                        }
+                      }
+                    },
+                  ),
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: MediaQuery.of(context).size.height/40,
               ),
               Center(
                 child: _isSendingEmail
@@ -124,7 +114,7 @@ class _MobileLogInState extends State<MobileLogIn> {
                       )
                     : CustomButton(
                         borderRadius: 28,
-                        height: MediaQuery.of(context).size.height / 18,
+                        height: MediaQuery.of(context).size.height / 22,
                         width: MediaQuery.of(context).size.height / 5.3,
                         text: AppString.next,
                         style: TextStyle(fontSize: 13),

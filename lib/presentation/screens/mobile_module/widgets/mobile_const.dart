@@ -95,12 +95,23 @@ class MobileConst extends StatelessWidget {
                                 height: MediaQuery.of(context).size.height / 5,
                               ),
                             )),
+                        ///titletext
                         Expanded(
-                            flex: 4,
+                            flex: 1,
+                            child: Text(titleText,
+                              style: GoogleFonts.firaSans(
+                                color: ColorManager.mediumgrey,
+                                // fontSize: FontSize.s38,
+                                fontSize: MediaQuery.of(context).size.width / 13,
+                                fontWeight: FontWeightManager.extrabold,
+                              ),)),
+                        Expanded(
+                            flex: 2,
                             child: Container(
                               child: mobileChild,
                             )),
-                        Expanded(flex: 1, child: Container()),
+                        Expanded(flex: 1, child: Text(textAction,
+                        )),
                       ],
                     ),
                   ))),
