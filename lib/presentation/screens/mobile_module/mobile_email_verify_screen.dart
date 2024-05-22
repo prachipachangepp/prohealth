@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -10,18 +11,20 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/constants/app_config.dart';
 import 'package:prohealth/presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/mobile_module/mobile_menu_screen.dart';
+import 'package:prohealth/presentation/screens/mobile_module/mobile_pass_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
-import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_pass_screen.dart';
 
 ///
-class MobileverifyScreen extends StatefulWidget {
-  MobileverifyScreen({Key? key, required this.email}) : super(key: key);
+class MobileEmailVerifyScreen extends StatefulWidget {
+  MobileEmailVerifyScreen({Key? key, required this.email}) : super(key: key);
   final String email;
   @override
-  State<MobileverifyScreen> createState() => _MobileverifyScreenState();
+  State<MobileEmailVerifyScreen> createState() =>
+      _MobileEmailVerifyScreenState();
 }
 
-class _MobileverifyScreenState extends State<MobileverifyScreen> {
+class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
   List<TextEditingController> _otpControllers =
       List.generate(4, (_) => TextEditingController());
   bool _isVerifyingOTP = false;
@@ -50,12 +53,12 @@ class _MobileverifyScreenState extends State<MobileverifyScreen> {
         ),
       );
       if (response.statusCode == 200) {
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => MenuScreen(),
-        //   ),
-        // );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MobileMenuScreen(),
+          ),
+        );
       } else {
         setState(() {
           _errorMessage = AppString.incorrectOtp;
@@ -76,12 +79,25 @@ class _MobileverifyScreenState extends State<MobileverifyScreen> {
   @override
   Widget build(BuildContext context) {
     return MobileConst(
+      VoidCallback: () {},
       textAction: '',
       titleText: AppString.verification,
       mobileChild: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
         child: Column(
           children: [
+            Text(
+              AppString.verification,
+              style: GoogleFonts.firaSans(
+                color: ColorManager.mediumgrey,
+                // fontSize: FontSize.s38,
+                fontSize: MediaQuery.of(context).size.width / 13,
+                fontWeight: FontWeightManager.extrabold,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
             Text(
               AppString.enter4digitotp,
               style: CustomTextStylesCommon.commonStyle(

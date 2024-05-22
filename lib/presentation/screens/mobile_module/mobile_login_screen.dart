@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'package:prohealth/presentation/screens/mobile_module/mobile_verify_screen.dart';
+import 'package:prohealth/presentation/screens/mobile_module/mobile_email_verify_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
 
 import '../../../app/resources/color.dart';
 import '../../../app/resources/const_string.dart';
 import '../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
-import '../desktop_module/widgets/login_screen/verify_screen.dart';
 
 class MobileLogIn extends StatefulWidget {
   const MobileLogIn({Key? key}) : super(key: key);
@@ -33,17 +33,25 @@ class _MobileLogInState extends State<MobileLogIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MobileConst(
-        titleText: 'LogIn',
+        titleText: '',
         textAction: '',
         mobileChild: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // SizedBox(
-              //   height: 30,
-              // ),
+              Text(
+                AppString.login,
+                style: GoogleFonts.firaSans(
+                  color: ColorManager.mediumgrey,
+                  // fontSize: FontSize.s38,
+                  fontSize: MediaQuery.of(context).size.width / 13,
+                  fontWeight: FontWeightManager.extrabold,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 8,
@@ -90,8 +98,8 @@ class _MobileLogInState extends State<MobileLogIn> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                VerifyScreen(email: _emailController.text),
+                            builder: (context) => MobileEmailVerifyScreen(
+                                email: _emailController.text),
                           ),
                         );
                       } catch (e) {
@@ -134,7 +142,7 @@ class _MobileLogInState extends State<MobileLogIn> {
                                       Duration(milliseconds: 500),
                                   pageBuilder: (context, animation,
                                           secondaryAnimation) =>
-                                      MobileverifyScreen(
+                                      MobileEmailVerifyScreen(
                                           email: _emailController.text),
                                   transitionsBuilder: (context, animation,
                                       secondaryAnimation, child) {
@@ -166,6 +174,7 @@ class _MobileLogInState extends State<MobileLogIn> {
             ],
           ),
         ),
+        VoidCallback: () {},
       ),
     );
   }

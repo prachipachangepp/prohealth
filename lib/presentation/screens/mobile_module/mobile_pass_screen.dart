@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/login_flow_api/log_in/log_in_manager.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
 
-import '../../../../app/resources/color.dart';
-import '../../../../app/resources/const_string.dart';
-import '../../../../app/resources/font_manager.dart';
-import '../../../../app/resources/theme_manager.dart';
-import '../../../../app/resources/value_manager.dart';
-import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../app/resources/color.dart';
+import '../../../app/resources/const_string.dart';
+import '../../../app/resources/font_manager.dart';
+import '../../../app/resources/theme_manager.dart';
+import '../../../app/resources/value_manager.dart';
+import '../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 class MobilePasswordLogIn extends StatefulWidget {
   final String email;
@@ -60,7 +61,8 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
   @override
   Widget build(BuildContext context) {
     return MobileConst(
-      titleText: 'LogIn',
+      VoidCallback: () {},
+      titleText: '',
       textAction: '',
       mobileChild: Form(
         key: _formKey,
@@ -68,6 +70,18 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Text(
+              AppString.login,
+              style: GoogleFonts.firaSans(
+                color: ColorManager.mediumgrey,
+                // fontSize: FontSize.s38,
+                fontSize: MediaQuery.of(context).size.width / 13,
+                fontWeight: FontWeightManager.extrabold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 8,
@@ -129,6 +143,7 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
                     height: MediaQuery.of(context).size.height / 18,
                     width: MediaQuery.of(context).size.height / 4,
                     text: AppString.loginbtn,
+                    style: TextStyle(fontSize: 15),
                     onPressed: _isLoading ? () {} : _login,
                   ),
             if (_errorMessage != null)

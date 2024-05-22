@@ -21,7 +21,7 @@ class MobileConst extends StatelessWidget {
     required this.mobileChild,
     required this.titleText,
     required this.textAction,
-    this.VoidCallback,
+    required this.VoidCallback,
     // required this.text,
     //  required   this.text2,
   }) : super(key: key);
@@ -43,8 +43,8 @@ class MobileConst extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: SvgPicture.asset(
                         'images/vector.svg',
-                        height: MediaQuery.of(context).size.height / 3,
-                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.height / 3.5,
+                        width: MediaQuery.of(context).size.width / 3.5,
                       ),
                     ),
                   ],
@@ -57,22 +57,20 @@ class MobileConst extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: SvgPicture.asset(
                           'images/vector1.svg',
-                          height: MediaQuery.of(context).size.height / 3,
+                          height: MediaQuery.of(context).size.height / 2.6,
                           width: MediaQuery.of(context).size.width / 3,
                         ),
                       ),
                     ]),
               ],
             )),
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: AppPadding.p20, vertical: AppPadding.p50),
+        Center(
           child: ClipRect(
               child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
                   child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 1.9,
+                    width: MediaQuery.of(context).size.width / 1.2,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
