@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_login_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
 import '../../../app/resources/color.dart';
@@ -37,6 +38,8 @@ class _MobileForgetScreenState extends State<MobileForgetScreen> {
       onTap: (){
         Navigator.push(context, MaterialPageRoute(builder: (context)=> MobileLogIn()));
       },
+      containerHeight: MediaQuery.of(context).size.height / 2, // specify desired height
+      containerWidth: MediaQuery.of(context).size.width / 1.1,
       mobileChild: Form(
         key: _formKey,
         child: Padding(
@@ -51,6 +54,7 @@ class _MobileForgetScreenState extends State<MobileForgetScreen> {
                 style: GoogleFonts.firaSans(
                   color: ColorManager.mediumgrey,
                   fontSize: FontSize.s10,
+                  //fontSize: MediaQuery.of(context).size.width/32,
                   fontWeight: FontWeightManager.medium,
                 ),
               ),
@@ -65,6 +69,11 @@ class _MobileForgetScreenState extends State<MobileForgetScreen> {
                 cursorHeight: 22,
                 cursorColor: ColorManager.black,
                 decoration: InputDecoration(
+                  errorStyle: CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.red,
+                    fontSize: FontSize.s10,
+                    fontWeight: FontWeightManager.bold,
+                  ),
                   contentPadding: const EdgeInsets.only(top: 2),
                   hintText: AppString.emailhint,
                   hintStyle: EmailTextStyle.enterEmail(context),
@@ -97,6 +106,7 @@ class _MobileForgetScreenState extends State<MobileForgetScreen> {
                   borderRadius: 23.82,
                   height: MediaQuery.of(context).size.height / 22,
                   width: MediaQuery.of(context).size.width / 3.8,
+                  paddingVertical: AppPadding.p5,
                   text: AppString.continuet,
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.white,

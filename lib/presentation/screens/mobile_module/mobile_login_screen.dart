@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_email_verify_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
@@ -62,6 +63,11 @@ class _MobileLogInState extends State<MobileLogIn> {
                         width: 0.5,
                       ),
                     ),
+                    errorStyle: CustomTextStylesCommon.commonStyle(
+                      color: ColorManager.red,
+                      fontSize: FontSize.s10,
+                      fontWeight: FontWeightManager.bold,
+                    ),
                     labelText: AppString.email,
                     hintText: AppString.emailhint,
                     hintStyle: EmailTextStyle.enterEmail(context),
@@ -114,6 +120,7 @@ class _MobileLogInState extends State<MobileLogIn> {
                         borderRadius: 23.82,
                         height: MediaQuery.of(context).size.height / 22,
                         width: MediaQuery.of(context).size.width / 3.8,
+                        paddingVertical: AppPadding.p5,
                         text: AppString.next,
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.white,

@@ -81,6 +81,8 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
       },
       textAction: AppString.backtologin,
       titleText: AppString.newPass,
+      containerHeight: MediaQuery.of(context).size.height / 1.7, // specify desired height
+      containerWidth: MediaQuery.of(context).size.width / 1.1,
       mobileChild: Form(
         key: _formKey,
         child: Padding(
@@ -92,8 +94,8 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
                 AppString.setnewPassword,
                 style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.mediumgrey,
-                    fontSize: FontSize.s8,
-                   // fontSize: MediaQuery.of(context).size.width/90,
+                    fontSize: FontSize.s10,
+                   // fontSize: MediaQuery.of(context).size.width/33,
                     fontWeight: FontWeightManager.medium),
               ),
               TextFormField(

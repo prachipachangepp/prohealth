@@ -188,8 +188,9 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
             ///button
             CustomButton(
               borderRadius: 23.82,
-              height: MediaQuery.of(context).size.height / 22,
+              height: MediaQuery.of(context).size.height / 23,
               width: MediaQuery.of(context).size.width / 3.8,
+              paddingVertical: AppPadding.p5,
               text: _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
               style: CustomTextStylesCommon.commonStyle(
                 color: ColorManager.white,

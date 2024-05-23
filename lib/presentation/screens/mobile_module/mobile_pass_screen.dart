@@ -156,6 +156,11 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
                   hintStyle: EmailTextStyle.enterEmail(context),
                   labelText: AppString.password,
                   labelStyle: EmailTextStyle.enterEmail(context),
+                  errorStyle: CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.red,
+                    fontSize: FontSize.s10,
+                    fontWeight: FontWeightManager.bold,
+                  ),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
@@ -182,9 +187,10 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
                       color: ColorManager.blueprime,
                     )
                   : CustomButton(
-                      borderRadius: 24,
-                      height: MediaQuery.of(context).size.height / 18,
-                      width: MediaQuery.of(context).size.height / 4,
+                      borderRadius: 23.82,
+                      height: MediaQuery.of(context).size.height / 22,
+                      width: MediaQuery.of(context).size.width / 3.8,
+                      paddingVertical: AppPadding.p5,
                       text: AppString.loginbtn,
                       style: CustomTextStylesCommon.commonStyle(
                         fontSize: FontSize.s14,

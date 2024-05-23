@@ -73,6 +73,8 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
       onTap: (){
         Navigator.push(context, MaterialPageRoute(builder: (context)=> MobileLogIn()));
       },
+        containerHeight: MediaQuery.of(context).size.height / 2, // specify desired height
+        containerWidth: MediaQuery.of(context).size.width / 1.1,
       mobileChild: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
         child: Column(
@@ -83,6 +85,7 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
                 style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.mediumgrey,
                   fontSize: FontSize.s10,
+                  //fontSize: MediaQuery.of(context).size.width/32,
                   fontWeight: FontWeightManager.medium,
                 )),
 
@@ -92,8 +95,8 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
               children: List.generate(
                 6,
                 (index) => Container(
-                  width: MediaQuery.of(context).size.width / 13,
-                  height: MediaQuery.of(context).size.height / 23,
+                  width: MediaQuery.of(context).size.width / 12,
+                  height: MediaQuery.of(context).size.height / 25,
                   margin: EdgeInsets.symmetric(horizontal: AppPadding.p6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2.26),
@@ -118,6 +121,11 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
                     maxLength: 1,
                     focusNode: _focusNodes[index],
                     decoration: InputDecoration(
+                      errorStyle: CustomTextStylesCommon.commonStyle(
+                        color: ColorManager.red,
+                        fontSize: FontSize.s10,
+                        fontWeight: FontWeightManager.bold,
+                      ),
                       contentPadding:
                           const EdgeInsets.only(bottom: AppPadding.p11),
                       counterText: '',
@@ -163,10 +171,10 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
               children: [
                 Text(AppString.didntrecieveCode,
                     style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.darkgrey,
+                      color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
                     //  fontSize: MediaQuery.of(context).size.width / 120,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeightManager.medium,
                     )),
                 TextButton(
                   onPressed: () {
@@ -188,6 +196,7 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
                 borderRadius: 23.82,
                 height: MediaQuery.of(context).size.height / 22,
                 width: MediaQuery.of(context).size.width / 3.8,
+                paddingVertical: AppPadding.p5,
                 text: AppString.continuet,
                 style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.white,

@@ -116,9 +116,8 @@ class MobileConst extends StatelessWidget {
                               titleText,
                               style: GoogleFonts.firaSans(
                                 color: ColorManager.mediumgrey,
-                                // fontSize: FontSize.s38,
-                                fontSize:
-                                    MediaQuery.of(context).size.width / 18,
+                                fontSize: FontSize.s36,
+                             //   fontSize: MediaQuery.of(context).size.width / 18,
                                 fontWeight: FontWeightManager.extrabold,
                               ),
                             )),
