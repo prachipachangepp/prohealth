@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/login_flow_api/log_in/log_in_manager.dart';
-import 'package:prohealth/presentation/screens/mobile_module/mobile_forget_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
 
 import '../../../app/resources/color.dart';
@@ -62,17 +60,18 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
   @override
   Widget build(BuildContext context) {
     return MobileConst(
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> const MobileForgetScreen()));
-        },
+      containerHeight:
+          MediaQuery.of(context).size.height / 2, // specify desired height
+      containerWidth: MediaQuery.of(context).size.width / 1.1,
+      onTap: () {},
       titleText: AppString.login,
       textAction: AppString.forgotpass,
       mobileChild: Form(
         key: _formKey,
         child: Padding(
           padding: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width / 8,
-      ),
+            horizontal: MediaQuery.of(context).size.width / 8,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -82,9 +81,9 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
                   Text(
                     AppString.enterpasstologin,
                     style: CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.mediumgrey,
+                        color: ColorManager.darkgrey,
                         fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.medium),
+                        fontWeight: FontWeightManager.bold),
                   ),
                 ],
               ),
@@ -140,15 +139,11 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
                       color: ColorManager.blueprime,
                     )
                   : CustomButton(
-                      borderRadius: 23.82,
-                      height: MediaQuery.of(context).size.height / 22,
-                      width: MediaQuery.of(context).size.width / 3.8,
+                      borderRadius: 24,
+                      height: MediaQuery.of(context).size.height / 18,
+                      width: MediaQuery.of(context).size.height / 4,
                       text: AppString.loginbtn,
-                style: CustomTextStylesCommon.commonStyle(
-                  color: ColorManager.white,
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
-                ),
+                      style: TextStyle(fontSize: 15),
                       onPressed: _isLoading ? () {} : _login,
                     ),
               if (_errorMessage != null)
@@ -156,11 +151,7 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
                   padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
                   child: Text(
                     _errorMessage!,
-                    style: CustomTextStylesCommon.commonStyle(
-                    color: ColorManager.red,
-                    fontSize: FontSize.s10,
-                    fontWeight: FontWeightManager.bold,
-                  ),
+                    style: TextStyle(color: ColorManager.red),
                   ),
                 ),
             ],
