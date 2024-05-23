@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/mobile_module/mobile_login_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
-
 import '../../../app/resources/color.dart';
 import '../../../app/resources/const_string.dart';
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/theme_manager.dart';
 import '../../../app/services/login_flow_api/forgot_pass/forgot_pass_manager.dart';
 import '../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'mobile_password_verifyscreen.dart';
 
 class MobileForgetScreen extends StatefulWidget {
   const MobileForgetScreen({Key? key}) : super(key: key);
@@ -31,37 +32,26 @@ class _MobileForgetScreenState extends State<MobileForgetScreen> {
   @override
   Widget build(BuildContext context) {
     return MobileConst(
-      titleText: '',
-      textAction: '',
-      onTap: (){},
+      titleText: AppString.forgotpassword,
+      textAction: AppString.backtologin,
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> MobileLogIn()));
+      },
       mobileChild: Form(
         key: _formKey,
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width / 30),
+              horizontal: MediaQuery.of(context).size.width / 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                AppString.forgotpassword,
+                AppString.forgotentermobile,
                 style: GoogleFonts.firaSans(
                   color: ColorManager.mediumgrey,
-                  // fontSize: FontSize.s38,
-                  fontSize: MediaQuery.of(context).size.width / 13,
-                  fontWeight: FontWeightManager.extrabold,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                AppString.forgotenter,
-                style: GoogleFonts.firaSans(
-                  letterSpacing: 0.5,
-                  color: ColorManager.mediumgrey,
-                  fontSize: MediaQuery.of(context).size.width / 120,
-                  fontWeight: FontWeightManager.semiBold,
+                  fontSize: FontSize.s10,
+                  fontWeight: FontWeightManager.medium,
                 ),
               ),
               TextFormField(
@@ -101,15 +91,18 @@ class _MobileForgetScreenState extends State<MobileForgetScreen> {
                   _submitForm();
                 },
               ),
-
               ///button
               Center(
                 child: CustomButton(
-                  borderRadius: 24,
-                  height: MediaQuery.of(context).size.height / 18,
-                  width: MediaQuery.of(context).size.width / 10,
+                  borderRadius: 23.82,
+                  height: MediaQuery.of(context).size.height / 22,
+                  width: MediaQuery.of(context).size.width / 3.8,
                   text: AppString.continuet,
-                  style: TextStyle(fontSize: 13),
+                  style: CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.white,
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeightManager.bold,
+                  ),
                   onPressed: _submitForm,
                 ),
               )
@@ -125,14 +118,14 @@ class _MobileForgetScreenState extends State<MobileForgetScreen> {
       setState(() {});
       String email = _emailController.text;
       _forgotPassManager.forgotPassword(email);
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => VerifyPasswordScreen(
-      //       email: _emailController.text,
-      //     ),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MobileVerifyOtpScreen(
+            email: _emailController.text,
+          ),
+        ),
+      );
       print(AppString.forgotbtnpress);
     }
   }

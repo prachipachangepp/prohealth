@@ -11,6 +11,8 @@ import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/theme_manager.dart';
 import '../../../app/resources/value_manager.dart';
 import '../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'mobile_login_screen.dart';
+import 'mobile_new_pass.dart';
 
 class MobileVerifyOtpScreen extends StatefulWidget {
   final String email;
@@ -32,63 +34,56 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
   bool isOtpFieldEmpty = true;
   List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
 
-  @override
-  void initState() {
-    super.initState();
-    startTimer();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   startTimer();
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   _timer.cancel();
+  //   super.dispose();
+  // }
+  //
+  // void startTimer() {
+  //   const oneSec = Duration(seconds: 1);
+  //   _timer = Timer.periodic(oneSec, (timer) {
+  //     if (_timerCount == 0) {
+  //       timer.cancel();
+  //     } else {
+  //       setState(() {
+  //         _timerCount--;
+  //       });
+  //     }
+  //   });
+  // }
 
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  void startTimer() {
-    const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(oneSec, (timer) {
-      if (_timerCount == 0) {
-        timer.cancel();
-      } else {
-        setState(() {
-          _timerCount--;
-        });
-      }
-    });
-  }
-
-  String getTimerString() {
-    int minutes = _timerCount ~/ 60;
-    int seconds = _timerCount % 60;
-    return '$minutes:${seconds.toString().padLeft(2, '0')}';
-  }
+  // String getTimerString() {
+  //   int minutes = _timerCount ~/ 60;
+  //   int seconds = _timerCount % 60;
+  //   return '$minutes:${seconds.toString().padLeft(2, '0')}';
+  // }
 
   @override
   Widget build(BuildContext context) {
     return MobileConst(
-      titleText: '',
-      textAction: '',
-      onTap: () {},
+      titleText:  AppString.verification,
+      textAction: AppString.backtologin,
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> MobileLogIn()));
+      },
       mobileChild: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              AppString.verification,
-              style: GoogleFonts.firaSans(
-                color: ColorManager.mediumgrey,
-                // fontSize: FontSize.s38,
-                fontSize: MediaQuery.of(context).size.width / 13,
-                fontWeight: FontWeightManager.extrabold,
-              ),
-            ),
             Text(AppString.entersixdigitCode,
                 style: CustomTextStylesCommon.commonStyle(
                   color: ColorManager.mediumgrey,
                   fontSize: FontSize.s10,
-                  fontWeight: FontWeightManager.semiBold,
+                  fontWeight: FontWeightManager.medium,
                 )),
 
             ///txtfield
@@ -97,10 +92,9 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
               children: List.generate(
                 6,
                 (index) => Container(
-                  width: MediaQuery.of(context).size.width / 40,
-                  height: MediaQuery.of(context).size.height / 20,
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width / 200),
+                  width: MediaQuery.of(context).size.width / 13,
+                  height: MediaQuery.of(context).size.height / 23,
+                  margin: EdgeInsets.symmetric(horizontal: AppPadding.p6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2.26),
                     border: Border.all(
@@ -154,23 +148,52 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
             ),
 
             ///timer
-            Text(
-              '${getTimerString()}',
-              style: CustomTextStylesCommon.commonStyle(
-                color: ColorManager.orange,
-                fontSize: FontSize.s8,
-                fontWeight: FontWeightManager.semiBold,
-              ),
+            // Text(
+            //   '${getTimerString()}',
+            //   style: CustomTextStylesCommon.commonStyle(
+            //     color: ColorManager.orange,
+            //     fontSize: FontSize.s8,
+            //     fontWeight: FontWeightManager.semiBold,
+            //   ),
+            // ),
+
+            ///didnt receive code
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(AppString.didntrecieveCode,
+                    style: CustomTextStylesCommon.commonStyle(
+                      color: ColorManager.darkgrey,
+                      fontSize: FontSize.s10,
+                    //  fontSize: MediaQuery.of(context).size.width / 120,
+                      fontWeight: FontWeightManager.semiBold,
+                    )),
+                TextButton(
+                  onPressed: () {
+                    print("Resend tapped!");
+                  },
+                  child: Text(AppString.resend,
+                      style: CustomTextStylesCommon.commonStyle(
+                        color: ColorManager.blueprime,
+                        fontSize: FontSize.s10,
+                        fontWeight: FontWeightManager.semiBold,
+                      )),
+                )
+              ],
             ),
 
             ///button
             Center(
               child: CustomButton(
-                borderRadius: 24,
-                height: MediaQuery.of(context).size.height / 18,
-                width: MediaQuery.of(context).size.width / 10,
+                borderRadius: 23.82,
+                height: MediaQuery.of(context).size.height / 22,
+                width: MediaQuery.of(context).size.width / 3.8,
                 text: AppString.continuet,
-                style: TextStyle(fontSize: 13),
+                style: CustomTextStylesCommon.commonStyle(
+                  color: ColorManager.white,
+                  fontSize: FontSize.s14,
+                  fontWeight: FontWeightManager.bold,
+                ),
                 onPressed: () {
                   navigateToNextScreen();
                 },
@@ -188,26 +211,6 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
                   ),
                 ),
               ),
-
-            ///didnt receive code
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(AppString.didntrecieveCode,
-                    style: CodeVerficationText.VerifyCode(context)),
-                TextButton(
-                  onPressed: () {
-                    print("Resend tapped!");
-                  },
-                  child: Text(AppString.resend,
-                      style: CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.blueprime,
-                        fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.semiBold,
-                      )),
-                )
-              ],
-            ),
           ],
         ),
       ),
@@ -219,10 +222,10 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
     if (allFieldsFilled) {
       String email = widget.email;
       String otp = _otpControllers.map((controller) => controller.text).join();
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => NewPasswordScreen(email: email, otp: otp)),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MobileNewPassScreen(email: email, otp: otp)),
+      );
     } else {
       setState(() {
         _errorMessage = AppString.enterotp;

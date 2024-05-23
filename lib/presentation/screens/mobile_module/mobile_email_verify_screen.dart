@@ -110,9 +110,9 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
             Text(
               AppString.enter4digitcode,
               style: CustomTextStylesCommon.commonStyle(
-                  color: ColorManager.darkgrey,
+                  color: ColorManager.mediumgrey,
                   fontSize: FontSize.s10,
-                  fontWeight: FontWeightManager.bold),
+                  fontWeight: FontWeightManager.medium),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.width / 60,
@@ -124,9 +124,9 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
               children: List.generate(
                 4,
                 (index) => Container(
-                  width: MediaQuery.of(context).size.width / 10,
+                  width: MediaQuery.of(context).size.width / 13,
                   height: MediaQuery.of(context).size.height / 23,
-                  margin: EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                  margin: EdgeInsets.symmetric(horizontal: AppPadding.p6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2.26),
                     border: Border.all(
@@ -179,9 +179,9 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
               children: [
                 Text(AppString.didntrecieveCode,
                     style: CustomTextStylesCommon.commonStyle(
-                      color: ColorManager.grey,
+                      color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.semiBold,
+                      fontWeight: FontWeightManager.medium,
                     )),
                 TextButton(
                   onPressed: () {},
@@ -197,11 +197,15 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
 
             ///button
             CustomButton(
-              borderRadius: 24,
+              borderRadius: 23.82,
               height: MediaQuery.of(context).size.height / 22,
-              width: MediaQuery.of(context).size.height / 4,
+              width: MediaQuery.of(context).size.width / 3.8,
               text: _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
-              style: TextStyle(fontSize: 13),
+              style: CustomTextStylesCommon.commonStyle(
+                color: ColorManager.white,
+                fontSize: FontSize.s14,
+                fontWeight: FontWeightManager.bold,
+              ),
               onPressed: () {
                 verifyOTPAndLogin();
               },
@@ -218,43 +222,6 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
                   ),
                 ),
               ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 90,
-            ),
-
-            ///bottomtxt
-            // InkWell(
-            //   child: Text(
-            //     AppString.donthaveauth,
-            //     style: CustomTextStylesCommon.commonStyle(
-            //       color: ColorManager.blueprime,
-            //       fontSize: FontSize.s10,
-            //       fontWeight: FontWeightManager.medium,
-            //     ),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       PageRouteBuilder(
-            //         transitionDuration: Duration(milliseconds: 500),
-            //         pageBuilder: (context, animation, secondaryAnimation) =>
-            //             MobilePasswordLogIn(email: AppString.email),
-            //         transitionsBuilder:
-            //             (context, animation, secondaryAnimation, child) {
-            //           const begin = Offset(1.0, 0.0);
-            //           const end = Offset.zero;
-            //           const curve = Curves.ease;
-            //           var tween = Tween(begin: begin, end: end)
-            //               .chain(CurveTween(curve: curve));
-            //           return SlideTransition(
-            //             position: animation.drive(tween),
-            //             child: child,
-            //           );
-            //         },
-            //       ),
-            //     );
-            //   },
-            // )
           ],
         ),
       ),
