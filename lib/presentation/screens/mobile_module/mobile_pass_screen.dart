@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/login_flow_api/log_in/log_in_manager.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
 
@@ -61,17 +60,18 @@ class _MobilePasswordLogInState extends State<MobilePasswordLogIn> {
   @override
   Widget build(BuildContext context) {
     return MobileConst(
-        onTap: (){
-
-        },
+      containerHeight:
+          MediaQuery.of(context).size.height / 2, // specify desired height
+      containerWidth: MediaQuery.of(context).size.width / 1.1,
+      onTap: () {},
       titleText: AppString.login,
       textAction: AppString.forgotpass,
       mobileChild: Form(
         key: _formKey,
         child: Padding(
           padding: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width / 8,
-      ),
+            horizontal: MediaQuery.of(context).size.width / 8,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

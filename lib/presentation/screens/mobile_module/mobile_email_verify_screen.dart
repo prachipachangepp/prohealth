@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -79,6 +78,9 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
   @override
   Widget build(BuildContext context) {
     return MobileConst(
+      containerHeight:
+          MediaQuery.of(context).size.height / 2, // specify desired height
+      containerWidth: MediaQuery.of(context).size.width / 1.1,
       onTap: () {
         Navigator.push(
           context,
@@ -91,8 +93,8 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
               const begin = Offset(1.0, 0.0);
               const end = Offset.zero;
               const curve = Curves.ease;
-              var tween = Tween(begin: begin, end: end)
-                  .chain(CurveTween(curve: curve));
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
               return SlideTransition(
                 position: animation.drive(tween),
                 child: child,

@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +8,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_login_screen.dart';
+
 import '../../../../../../app/resources/color.dart';
 
 /// new code
@@ -17,12 +19,16 @@ class LoginBaseConstant extends StatelessWidget {
       required this.onTap,
       required this.titleText,
       required this.textAction,
-      this.textActionPadding})
+      this.textActionPadding,
+      this.containerHeight,
+      this.containerWidth})
       : super(key: key);
   final Widget child;
   final String titleText;
   final VoidCallback onTap;
   final String textAction;
+  final double? containerHeight;
+  final double? containerWidth;
   final EdgeInsetsGeometry? textActionPadding;
   final SvgPicture backImg = SvgPicture.asset("images/background.svg");
 
@@ -70,8 +76,10 @@ class LoginBaseConstant extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
               child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+                // height: MediaQuery.of(context).size.height,
+                // width: MediaQuery.of(context).size.width,
+                height: containerHeight ?? MediaQuery.of(context).size.height,
+                width: containerWidth ?? MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -218,16 +226,18 @@ class LoginBaseConstant extends StatelessWidget {
     ///mobile
     else if (MediaQuery.of(context).size.width > 450) {
       return Scaffold(
-          body: MobileLogIn(),
-          // LoginBaseConstTab(
-          //     childTab: child,
-          //     titleText: titleText,
-          //     onTap: onTap,
-          //     textAction: textAction)
+        body: MobileLogIn(),
+        // LoginBaseConstTab(
+        //     childTab: child,
+        //     titleText: titleText,
+        //     onTap: onTap,
+        //     textAction: textAction)
       );
     } else {
       return Scaffold(
-        body: MobileLogIn(),
+        body:
+            // MobileMenuScreen(),
+            MobileLogIn(),
       );
     }
   }

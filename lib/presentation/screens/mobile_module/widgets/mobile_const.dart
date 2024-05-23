@@ -17,12 +17,18 @@ class MobileConst extends StatelessWidget {
   // final String? text2;
   final VoidCallback onTap;
   final String textAction;
+  final double? containerHeight;
+  final double? containerWidth;
+
   const MobileConst({
     Key? key,
     required this.mobileChild,
     required this.titleText,
     required this.textAction,
     required this.onTap,
+    this.containerHeight,
+    this.containerWidth,
+
     // required this.text,
     //  required   this.text2,
   }) : super(key: key);
@@ -70,8 +76,14 @@ class MobileConst extends StatelessWidget {
               child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
                   child: Container(
-                    height: MediaQuery.of(context).size.height / 1.9,
-                    width: MediaQuery.of(context).size.width / 1.2,
+                    // height: MediaQuery.of(context).size.height / 1.9,
+                    // width: MediaQuery.of(context).size.width / 1.2,
+                    height: containerHeight,
+                    // ??
+                    // MediaQuery.of(context).size.height / 1.9,
+                    width: containerWidth,
+                    // ??
+                    // MediaQuery.of(context).size.width / 1.2,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -96,31 +108,38 @@ class MobileConst extends StatelessWidget {
                                 height: MediaQuery.of(context).size.height / 4,
                               ),
                             )),
+
                         ///titletext
                         Expanded(
                             flex: 1,
-                            child: Text(titleText,
+                            child: Text(
+                              titleText,
                               style: GoogleFonts.firaSans(
                                 color: ColorManager.mediumgrey,
                                 // fontSize: FontSize.s38,
-                                fontSize: MediaQuery.of(context).size.width / 18,
+                                fontSize:
+                                    MediaQuery.of(context).size.width / 18,
                                 fontWeight: FontWeightManager.extrabold,
-                              ),)),
+                              ),
+                            )),
                         Expanded(
                             flex: 3,
                             child: Container(
                               child: mobileChild,
                             )),
-                        Expanded(flex: 1, child: InkWell(
-                          onTap: onTap,
-                          child: Text(textAction,
-                              style: CustomTextStylesCommon.commonStyle(
-                                      color: ColorManager.blueprime,
-                                      fontSize: FontSize.s10,
-                                      fontWeight: FontWeightManager.medium,
-                                    ),
-                          ),
-                        )),
+                        Expanded(
+                            flex: 1,
+                            child: InkWell(
+                              onTap: onTap,
+                              child: Text(
+                                textAction,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  color: ColorManager.blueprime,
+                                  fontSize: FontSize.s10,
+                                  fontWeight: FontWeightManager.medium,
+                                ),
+                              ),
+                            )),
                       ],
                     ),
                   ))),

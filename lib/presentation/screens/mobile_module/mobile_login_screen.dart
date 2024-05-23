@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_email_verify_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
+
 import '../../../app/resources/color.dart';
 import '../../../app/resources/const_string.dart';
 import '../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
@@ -32,7 +32,10 @@ class _MobileLogInState extends State<MobileLogIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MobileConst(
-        onTap: (){},
+        containerHeight:
+            MediaQuery.of(context).size.height / 2, // specify desired height
+        containerWidth: MediaQuery.of(context).size.width / 1.1,
+        onTap: () {},
         titleText: AppString.login,
         textAction: '',
         mobileChild: Form(
@@ -106,7 +109,7 @@ class _MobileLogInState extends State<MobileLogIn> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height/40,
+                height: MediaQuery.of(context).size.height / 40,
               ),
               Center(
                 child: _isSendingEmail
