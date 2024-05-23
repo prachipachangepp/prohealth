@@ -14,13 +14,16 @@ import 'package:prohealth/presentation/screens/mobile_module/mobile_menu_screen.
 import 'package:prohealth/presentation/screens/mobile_module/mobile_pass_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
 
+import '../../../app/services/login_flow_api/verify_otp/verify_otp_manager.dart';
+
 ///
 class MobileEmailVerifyScreen extends StatefulWidget {
-  MobileEmailVerifyScreen({Key? key, required this.email}) : super(key: key);
   final String email;
+  MobileEmailVerifyScreen({Key? key, required this.email}) : super(key: key);
+
   @override
   State<MobileEmailVerifyScreen> createState() =>
-      _MobileEmailVerifyScreenState();
+      _MobileEmailVerifyScreenState(email: email);
 }
 
 class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
@@ -28,51 +31,36 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
       List.generate(4, (_) => TextEditingController());
   bool _isVerifyingOTP = false;
   String? _errorMessage;
+  final String email;
+  _MobileEmailVerifyScreenState({required this.email});
 
   ///
-  Future<void> verifyOTPAndLogin() async {
-    try {
-      setState(() {
-        _isVerifyingOTP = true;
-        _errorMessage = null;
-      });
-      String enteredOTP =
-          _otpControllers.map((controller) => controller.text).join();
-      var headers = {'Content-Type': 'application/json'};
-      var data = json.encode({
-        "email": widget.email.trim(),
-        "otp": enteredOTP,
-      });
-      var dio = Dio();
-      var response = await dio.post(
-        '${AppConfig.endpoint}/auth/verifyotp',
-        data: data,
-        options: Options(
-          headers: headers,
+  Future<void> _verifyOTPAndLogin() async {
+    setState(() {
+      _isVerifyingOTP = true;
+      _errorMessage = null;
+    });
+    String enteredOTP =
+    _otpControllers.map((controller) => controller.text).join();
+    var result = await VerifyOtpService.verifyOTPAndLogin(
+      email: widget.email,
+      otp: enteredOTP,
+    );
+    if (result["success"]) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MobileMenuScreen(),
         ),
       );
-      if (response.statusCode == 200) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MobileMenuScreen(),
-          ),
-        );
-      } else {
-        setState(() {
-          _errorMessage = AppString.incorrectOtp;
-        });
-      }
-    } catch (e) {
-      print('Error occurred during OTP verification: $e');
+    } else {
       setState(() {
-        _errorMessage = AppString.incorrectOtp;
-      });
-    } finally {
-      setState(() {
-        _isVerifyingOTP = false;
+        _errorMessage = result["message"];
       });
     }
+    setState(() {
+      _isVerifyingOTP = false;
+    });
   }
 
   @override
@@ -167,7 +155,7 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
                       if (value.isNotEmpty && index < 3) {
                         FocusScope.of(context).nextFocus();
                       } else if (value.isNotEmpty && index == 3) {
-                        verifyOTPAndLogin();
+                        _verifyOTPAndLogin();
                       }
                     },
                   ),
@@ -209,7 +197,7 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
                 fontWeight: FontWeightManager.bold,
               ),
               onPressed: () {
-                verifyOTPAndLogin();
+                _verifyOTPAndLogin();
               },
             ),
             if (_errorMessage != null)

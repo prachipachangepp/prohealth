@@ -46,7 +46,7 @@ class AuthService {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MenuScreen(),
+            builder: (context) => const MenuScreen(),
           ),
         );
       } else {
@@ -61,21 +61,16 @@ class AuthService {
   }
 }
 
-/// mobile tablet
+///mobile
 // class AuthServicePhone {
 //   static Future<void> loginWithEmailId(
 //     BuildContext context,
-//     String emailController,
+//     String email,
 //     TextEditingController passwordController,
-//     bool isLoading,
-//     Function(bool) setLoading,
-//     Function(String) setErrorMessage,
 //   ) async {
-//     if (emailController.isEmpty || passwordController.text.isEmpty) {
-//       setErrorMessage('Please enter username and password.');
-//       return;
+//     if (email.isEmpty || passwordController.text.isEmpty) {
+//       throw 'Please enter username and password.';
 //     }
-//     String email = emailController.trim();
 //     String password = passwordController.text.trim();
 //
 //     try {
@@ -87,11 +82,11 @@ class AuthService {
 //           'password': password,
 //         },
 //       );
-//       print(response);
+//
 //       if (response.statusCode == 200) {
 //         String? access = response.data["authResults"]['AccessToken'];
 //         String? refresh = response.data["authResults"]['RefreshToken'];
-//         print(access);
+//
 //         SharedPreferences prefs = await SharedPreferences.getInstance();
 //         await prefs.setString('email', email);
 //         await prefs.setString('password', password);
@@ -105,26 +100,33 @@ class AuthService {
 //           ),
 //         );
 //       } else {
-//         setErrorMessage(response.statusMessage ?? 'Unknown error occurred');
+//         String errorMsg = response.data['message'] ?? 'Unknown error occurred';
+//         print('Error response: ${response.data}');
+//         throw errorMsg;
 //       }
+//     } on DioException catch (e) {
+//       print('Request failed with status: ${e.response?.statusCode}');
+//       print('Response data: ${e.response?.data}');
+//       throw 'The password you entered is incorrect!';
 //     } catch (e) {
-//       setErrorMessage('The password you entered is incorrect !');
 //       print('Error occurred: $e');
-//     } finally {
-//       setLoading(false);
+//       throw 'An unexpected error occurred!';
 //     }
 //   }
 // }
-///
 class AuthServicePhone {
   static Future<void> loginWithEmailId(
-    BuildContext context,
-    String email,
-    TextEditingController passwordController,
-  ) async {
-    if (email.isEmpty || passwordController.text.isEmpty) {
-      throw 'Please enter username and password.';
+      BuildContext context,
+      String emailController,
+      TextEditingController passwordController,
+      Function(bool) setLoading,
+      Function(String) setErrorMessage,
+      ) async {
+    if (emailController.isEmpty || passwordController.text.isEmpty) {
+      setErrorMessage('Please enter username and password.');
+      return;
     }
+    String email = emailController.trim();
     String password = passwordController.text.trim();
 
     try {
@@ -154,17 +156,13 @@ class AuthServicePhone {
           ),
         );
       } else {
-        String errorMsg = response.data['message'] ?? 'Unknown error occurred';
-        print('Error response: ${response.data}');
-        throw errorMsg;
+        setErrorMessage(response.statusMessage ?? 'Unknown error occurred');
       }
-    } on DioException catch (e) {
-      print('Request failed with status: ${e.response?.statusCode}');
-      print('Response data: ${e.response?.data}');
-      throw 'The password you entered is incorrect!';
     } catch (e) {
+      setErrorMessage('The password you entered is incorrect !');
       print('Error occurred: $e');
-      throw 'An unexpected error occurred!';
+    } finally {
+      setLoading(false);
     }
   }
 }

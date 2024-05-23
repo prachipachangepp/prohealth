@@ -4,13 +4,12 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_email_verify_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
-
 import '../../../app/resources/color.dart';
 import '../../../app/resources/const_string.dart';
 import '../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
 
 class MobileLogIn extends StatefulWidget {
-  const MobileLogIn({Key? key}) : super(key: key);
+  const MobileLogIn({super.key});
 
   @override
   State<MobileLogIn> createState() => _MobileLogInState();
@@ -30,10 +29,8 @@ class _MobileLogInState extends State<MobileLogIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MobileConst(
-        containerHeight:
-            MediaQuery.of(context).size.height / 2, // specify desired height
+    return MobileConst(
+        containerHeight: MediaQuery.of(context).size.height / 2,
         containerWidth: MediaQuery.of(context).size.width / 1.1,
         onTap: () {},
         titleText: AppString.login,
@@ -169,7 +166,7 @@ class _MobileLogInState extends State<MobileLogIn> {
             ],
           ),
         ),
-      ),
-    );
+      );
+
   }
 }
