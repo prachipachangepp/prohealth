@@ -76,14 +76,8 @@ class MobileConst extends StatelessWidget {
               child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
                   child: Container(
-                    // height: MediaQuery.of(context).size.height / 1.9,
-                    // width: MediaQuery.of(context).size.width / 1.2,
                     height: containerHeight,
-                    // ??
-                    // MediaQuery.of(context).size.height / 1.9,
                     width: containerWidth,
-                    // ??
-                    // MediaQuery.of(context).size.width / 1.2,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(

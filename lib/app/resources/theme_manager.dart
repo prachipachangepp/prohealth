@@ -203,3 +203,14 @@ class CodeVerficationText {
     );
   }
 }
+
+///mobile menu screen text head
+class MobileMenuText {
+  static TextStyle MenuTextConst(BuildContext context){
+    return GoogleFonts.firaSans(
+      color: ColorManager.mediumgrey,
+      fontSize: FontSize.s12,
+      fontWeight: FontWeightManager.medium,
+    );
+  }
+}
