@@ -88,30 +88,6 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    child: Image.asset(
-                                      'images/logo_login.png',
-                                      width: 180,
-                                      height: 50,
-                                      // width: MediaQuery.of(context).size.width / 3,
-                                      // height: MediaQuery.of(context).size.height / 15,
-                                    ),
-                                  ),
-                                ),
-                                Center(
-                                  child: Text(
-                                    'Select a Module',
-                                    style: GoogleFonts.firaSans(
-                                      color: ColorManager.mediumgrey,
-                                      fontSize: FontSize.s16,
-                                      fontWeight: FontWeightManager.semiBold,
-                                    ),
-                                  ),
-                                ),
-
-                                ///
-                                Expanded(
                                   flex: 7,
                                   child: Container(
                                     width: double.infinity,
@@ -146,199 +122,10 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                          ],
-                                        )
                                       ],
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 7,
-                                  child: Container(
-                                    width: double.infinity,
-                                    // color: Colors.green,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: Container(
-                                    width: double.infinity,
-                                    // color: Colors.green,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(11.2)),
-                                              ),
-                                              height: 80,
-                                              width: 120,
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                // Expanded(
-                                //   flex: 7,
-                                //   child: Container(
-                                //     width: double.infinity,
-                                //     // color: Colors.green,
-                                //     child: Column(
-                                //       mainAxisAlignment:
-                                //           MainAxisAlignment.spaceAround,
-                                //       crossAxisAlignment:
-                                //           CrossAxisAlignment.center,
-                                //       children: [
-                                //         Row(
-                                //           mainAxisAlignment:
-                                //               MainAxisAlignment.spaceAround,
-                                //           children: [
-                                //             Container(
-                                //               decoration: BoxDecoration(
-                                //                 color: Colors.white,
-                                //                 borderRadius: BorderRadius.all(
-                                //                     Radius.circular(11.2)),
-                                //               ),
-                                //               height: 80,
-                                //               width: 120,
-                                //             ),
-                                //             Container(
-                                //               decoration: BoxDecoration(
-                                //                 color: Colors.white,
-                                //                 borderRadius: BorderRadius.all(
-                                //                     Radius.circular(11.2)),
-                                //               ),
-                                //               height: 80,
-                                //               width: 120,
-                                //             ),
-                                //           ],
-                                //         ),
-                                //       ],
-                                //     ),
-                                //   ),
-                                // ),
                               ],
                             )
 
@@ -567,3 +354,216 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
     );
   }
 }
+// Expanded(
+// flex: 2,
+// child: Container(
+// child: Image.asset(
+// 'images/logo_login.png',
+// width: 180,
+// height: 50,
+// // width: MediaQuery.of(context).size.width / 3,
+// // height: MediaQuery.of(context).size.height / 15,
+// ),
+// ),
+// ),
+// Center(
+// child: Text(
+// 'Select a Module',
+// style: GoogleFonts.firaSans(
+// color: ColorManager.mediumgrey,
+// fontSize: FontSize.s16,
+// fontWeight: FontWeightManager.semiBold,
+// ),
+// ),
+// ),
+//
+// ///
+// Expanded(
+// flex: 7,
+// child: Container(
+// width: double.infinity,
+// // color: Colors.green,
+// child: Column(
+// mainAxisAlignment:
+// MainAxisAlignment.spaceAround,
+// crossAxisAlignment:
+// CrossAxisAlignment.center,
+// children: [
+// Row(
+// mainAxisAlignment:
+// MainAxisAlignment.spaceAround,
+// children: [
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// ],
+// ),
+// Row(
+// mainAxisAlignment:
+// MainAxisAlignment.spaceAround,
+// children: [
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// ],
+// )
+// ],
+// ),
+// ),
+// ),
+// Expanded(
+// flex: 7,
+// child: Container(
+// width: double.infinity,
+// // color: Colors.green,
+// child: Column(
+// mainAxisAlignment:
+// MainAxisAlignment.spaceAround,
+// crossAxisAlignment:
+// CrossAxisAlignment.center,
+// children: [
+// Row(
+// mainAxisAlignment:
+// MainAxisAlignment.spaceAround,
+// children: [
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// ],
+// ),
+// Row(
+// mainAxisAlignment:
+// MainAxisAlignment.spaceAround,
+// children: [
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// ],
+// )
+// ],
+// ),
+// ),
+// ),
+// Expanded(
+// flex: 7,
+// child: Container(
+// width: double.infinity,
+// // color: Colors.green,
+// child: Column(
+// mainAxisAlignment:
+// MainAxisAlignment.spaceAround,
+// crossAxisAlignment:
+// CrossAxisAlignment.center,
+// children: [
+// Row(
+// mainAxisAlignment:
+// MainAxisAlignment.spaceAround,
+// children: [
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// ],
+// ),
+// Row(
+// mainAxisAlignment:
+// MainAxisAlignment.spaceAround,
+// children: [
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// Container(
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.all(
+// Radius.circular(11.2)),
+// ),
+// height: 80,
+// width: 120,
+// ),
+// ],
+// )
+// ],
+// ),
+// ),
+// ),
