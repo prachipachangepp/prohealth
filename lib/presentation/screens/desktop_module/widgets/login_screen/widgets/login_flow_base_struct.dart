@@ -7,11 +7,11 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/mobile_module/mobile_login_screen.dart';
 
 import '../../../../../../app/resources/color.dart';
 
 /// new code
-
 class LoginBaseConstant extends StatelessWidget {
   LoginBaseConstant(
       {Key? key,
@@ -19,25 +19,28 @@ class LoginBaseConstant extends StatelessWidget {
       required this.onTap,
       required this.titleText,
       required this.textAction,
-      this.textActionPadding
-      })
+      this.textActionPadding,
+      this.containerHeight,
+      this.containerWidth})
       : super(key: key);
   final Widget child;
   final String titleText;
   final VoidCallback onTap;
   final String textAction;
+  final double? containerHeight;
+  final double? containerWidth;
   final EdgeInsetsGeometry? textActionPadding;
   final SvgPicture backImg = SvgPicture.asset("images/background.svg");
 
   @override
   Widget build(BuildContext context) {
     ///desk
-    if (MediaQuery.of(context).size.width > 870) {
+    if (MediaQuery.of(context).size.width > 690) {
       return Scaffold(
           body: Stack(children: [
-           Container(
-             width: double.maxFinite,
-             child: Stack(
+        Container(
+            width: double.maxFinite,
+            child: Stack(
               fit: StackFit.expand,
               children: [
                 Column(
@@ -73,8 +76,10 @@ class LoginBaseConstant extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
               child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+                // height: MediaQuery.of(context).size.height,
+                // width: MediaQuery.of(context).size.width,
+                height: containerHeight ?? MediaQuery.of(context).size.height,
+                width: containerWidth ?? MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -217,32 +222,26 @@ class LoginBaseConstant extends StatelessWidget {
         )
       ]));
     }
-    ///tablet
-    else
-      if (MediaQuery.of(context).size.width > 600) {
-      return Scaffold(
-        body: Container(
-            height: MediaQuery.of(context).size.height, color: Colors.purple,
-          child: Center(child: Text("Tablet Screen"),)
-        ),
-      );
-    }
+
     ///mobile
     else if (MediaQuery.of(context).size.width > 450) {
       return Scaffold(
-          body: Container(
-              height: MediaQuery.of(context).size.height, color: Colors.green,
-              child: Center(child: Text("Mobile Screen"),)
-          ));
-    }
-    else {
+        body: MobileLogIn(),
+        // LoginBaseConstTab(
+        //     childTab: child,
+        //     titleText: titleText,
+        //     onTap: onTap,
+        //     textAction: textAction)
+      );
+    } else {
       return Scaffold(
-        body: Container(color: Colors.yellow),
+        body:
+            // MobileMenuScreen(),
+            MobileLogIn(),
       );
     }
   }
 }
-
 
 ///old code
 // class LoginBaseConstant extends StatelessWidget {

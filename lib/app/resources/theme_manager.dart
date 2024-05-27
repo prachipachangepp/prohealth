@@ -198,8 +198,19 @@ class CodeVerficationText {
     return GoogleFonts.firaSans(
       color: ColorManager.darkgrey,
       //fontSize: FontSize.s10,
-      fontSize: MediaQuery.of(context).size.width / 150,
+      fontSize: MediaQuery.of(context).size.width / 120,
       fontWeight: FontWeightManager.semiBold,
+    );
+  }
+}
+
+///mobile menu screen text head
+class MobileMenuText {
+  static TextStyle MenuTextConst(BuildContext context){
+    return GoogleFonts.firaSans(
+      color: ColorManager.mediumgrey,
+      fontSize: FontSize.s12,
+      fontWeight: FontWeightManager.medium,
     );
   }
 }

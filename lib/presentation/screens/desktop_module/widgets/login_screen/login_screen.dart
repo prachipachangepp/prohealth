@@ -131,10 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             )
                           : CustomButton(
                             borderRadius: 28,
-                            height:
-                                MediaQuery.of(context).size.height / 18,
-                            width:
-                                MediaQuery.of(context).size.height / 5.3,
+                            height: MediaQuery.of(context).size.height / 18,
+                            width: MediaQuery.of(context).size.height / 5.3,
                             text: AppString.next,
                             onPressed: () async {
                               if (_formKey.currentState?.validate() ??

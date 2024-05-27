@@ -154,6 +154,8 @@ class AppString {
   static const String verify = "Verifying...";
   static const String enter4digitcode =
       "Enter your 4 digits code that you received on your email.";
+   static const String enterpasstologin =
+       "Enter your password to login";
 
   ///forgot
   static const String forgotpassword = "Forgot Password ?";
@@ -161,8 +163,8 @@ class AppString {
   static const String continuet = "Continue";
   static const String logout = "Logout";
   static const String backtologin = "Back to Login";
-  static const String forgotenter =
-      "Enter your email for the verification proccess, we will send 6 digits code to your email.";
+  static const String forgotenter = "Enter your email for the verification proccess, we will send 6 digits code to your email.";
+  static const String forgotentermobile = "Enter your email for the verification proccess, we will\nsend 6 digits code to your email.";
   // static const String = "";
   /// change password
   static const String verification = 'Verification';
