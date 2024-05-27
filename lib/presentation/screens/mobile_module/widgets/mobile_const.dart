@@ -94,7 +94,7 @@ class MobileConst extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
-                            flex: 2,
+                            flex: 1,
                             child: Container(
                               child: Image.asset(
                                 'images/logo_login.png',

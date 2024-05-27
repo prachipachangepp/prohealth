@@ -21,8 +21,10 @@ class LoginBaseConstant extends StatelessWidget {
       required this.textAction,
       this.textActionPadding,
       this.containerHeight,
-      this.containerWidth})
+      this.containerWidth,
+      this.mobileChild})
       : super(key: key);
+  final Widget? mobileChild;
   final Widget child;
   final String titleText;
   final VoidCallback onTap;
@@ -227,17 +229,10 @@ class LoginBaseConstant extends StatelessWidget {
     else if (MediaQuery.of(context).size.width > 450) {
       return Scaffold(
         body: MobileLogIn(),
-        // LoginBaseConstTab(
-        //     childTab: child,
-        //     titleText: titleText,
-        //     onTap: onTap,
-        //     textAction: textAction)
       );
     } else {
       return Scaffold(
-        body:
-            // MobileMenuScreen(),
-            MobileLogIn(),
+        body: MobileLogIn(),
       );
     }
   }

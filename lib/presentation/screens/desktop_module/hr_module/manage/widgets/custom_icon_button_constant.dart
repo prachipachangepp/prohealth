@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+
 import '../../../../../../app/resources/color.dart';
 
 ///done by saloni
@@ -210,10 +211,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         child: text != null
-            ? Text(
-                text!,
-                style: mergedTextStyle
-              )
+            ? Text(text!, textAlign: TextAlign.center, style: mergedTextStyle)
             : child,
       ),
     );
@@ -258,8 +256,7 @@ class CustomTitleButton extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child:
-      ElevatedButton(
+      child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: isSelected ? Color(0xFF50B5E5) : Colors.white,
@@ -426,12 +423,13 @@ class CustomDropdownButton extends StatelessWidget {
                   child: Text(
                     value,
                     style: TextStyle(
-                     // color: ColorManager.mediumgrey,
-                      //value == 'Select a module' ? ColorManager.mediumgrey : Color(0xff686464),
-                        color: value == selectedItem ? ColorManager.white : ColorManager.mediumgrey,
+                        // color: ColorManager.mediumgrey,
+                        //value == 'Select a module' ? ColorManager.mediumgrey : Color(0xff686464),
+                        color: value == selectedItem
+                            ? ColorManager.white
+                            : ColorManager.mediumgrey,
                         fontSize: 12,
-                      fontWeight: FontWeightManager.bold
-                    ),
+                        fontWeight: FontWeightManager.bold),
                   ),
                 ),
               );

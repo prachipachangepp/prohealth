@@ -1,11 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/services/login_flow_api/log_in/log_in_manager.dart';
-import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/forgot_screen/forgot_pass_screen.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/profile_bar/widget/screen_transition.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_login_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
@@ -25,8 +21,7 @@ class MobileNewPassScreen extends StatefulWidget {
   const MobileNewPassScreen({Key? key, required this.email, required this.otp});
 
   @override
-  State<MobileNewPassScreen> createState() =>
-      _MobileNewPassScreenState();
+  State<MobileNewPassScreen> createState() => _MobileNewPassScreenState();
 }
 
 class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
@@ -41,7 +36,7 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
   bool _isUpdatingPassword = false;
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> updatePassword( String email, String otp) async {
+  Future<void> updatePassword(String email, String otp) async {
     String newPassword = newPasswordController.text;
     try {
       var headers = {'Content-Type': 'application/json'};
@@ -69,7 +64,6 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MobileConst(
@@ -81,12 +75,14 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
       },
       textAction: AppString.backtologin,
       titleText: AppString.newPass,
-      containerHeight: MediaQuery.of(context).size.height / 1.7, // specify desired height
+      containerHeight:
+          MediaQuery.of(context).size.height / 1.7, // specify desired height
       containerWidth: MediaQuery.of(context).size.width / 1.1,
       mobileChild: Form(
         key: _formKey,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 10),
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width / 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -95,7 +91,7 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
                 style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.mediumgrey,
                     fontSize: FontSize.s10,
-                   // fontSize: MediaQuery.of(context).size.width/33,
+                    // fontSize: MediaQuery.of(context).size.width/33,
                     fontWeight: FontWeightManager.medium),
               ),
               TextFormField(
@@ -106,9 +102,7 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
                 ),
                 focusNode: newPasswordFocusNode,
                 onFieldSubmitted: (_) {
-                  FocusScope.of(context)
-                      .requestFocus(
-                      confirmPasswordFocusNode);
+                  FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
                 },
                 cursorHeight: 22,
                 obscuringCharacter: '*',
@@ -116,22 +110,18 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
                 cursorColor: Colors.black,
                 obscureText: _obscureText,
                 decoration: InputDecoration(
-                  contentPadding:
-                  const EdgeInsets.only(top: AppPadding.p2),
+                  contentPadding: const EdgeInsets.only(top: AppPadding.p2),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText
-                          ? Icons
-                          .visibility_outlined
-                          : Icons
-                          .visibility_off_outlined,
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
                       size: AppSize.s15,
                       color: ColorManager.whitesheed,
                     ),
                     onPressed: () {
                       setState(() {
-                        _obscureText =
-                        !_obscureText;
+                        _obscureText = !_obscureText;
                       });
                     },
                   ),
@@ -140,20 +130,14 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
                   hintText: AppString.enternewpass,
                   hintStyle: EmailTextStyle.enterEmail(context),
                   border: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: ColorManager.black),
+                    borderSide: BorderSide(color: ColorManager.black),
                   ),
-                  focusedBorder:
-                  UnderlineInputBorder(
+                  focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                        color: ColorManager.black
-                            .withOpacity(0.5),
-                        width: 0.5),
+                        color: ColorManager.black.withOpacity(0.5), width: 0.5),
                   ),
-                  enabledBorder:
-                  UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: ColorManager.grey),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorManager.grey),
                   ),
                   errorStyle: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.red,
@@ -162,16 +146,14 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
                   ),
                 ),
                 validator: (value) {
-                  if (value == null ||
-                      value.isEmpty) {
+                  if (value == null || value.isEmpty) {
                     return AppString.enterpass;
                   }
                   return null;
                 },
               ),
               TextFormField(
-                focusNode:
-                confirmPasswordFocusNode,
+                focusNode: confirmPasswordFocusNode,
                 onFieldSubmitted: (_) {
                   // _showSuccessDialog();
                 },
@@ -184,26 +166,20 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
                   fontSize: FontSize.s14,
                 ),
                 cursorColor: ColorManager.black,
-                obscureText:
-                _obscureTextconfirm,
+                obscureText: _obscureTextconfirm,
                 decoration: InputDecoration(
-                  contentPadding:
-                  const EdgeInsets.only(
-                      top: 2),
+                  contentPadding: const EdgeInsets.only(top: 2),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureTextconfirm
-                          ? Icons
-                          .visibility_outlined
-                          : Icons
-                          .visibility_off_outlined,
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
                       size: AppSize.s15,
                       color: ColorManager.whitesheed,
                     ),
                     onPressed: () {
                       setState(() {
-                        _obscureTextconfirm =
-                        !_obscureTextconfirm;
+                        _obscureTextconfirm = !_obscureTextconfirm;
                       });
                     },
                   ),
@@ -212,33 +188,24 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
                   hintText: AppString.enterconfmpass,
                   hintStyle: EmailTextStyle.enterEmail(context),
                   border: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: ColorManager.black),
+                    borderSide: BorderSide(color: ColorManager.black),
                   ),
-                  focusedBorder:
-                  UnderlineInputBorder(
+                  focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                        color: ColorManager.black
-                            .withOpacity(0.5),
-                        width: 0.5),
+                        color: ColorManager.black.withOpacity(0.5), width: 0.5),
                   ),
-                  enabledBorder:
-                  UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: ColorManager.grey),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorManager.grey),
                   ),
                   errorStyle: CustomTextStylesCommon.commonStyle(
-                  color: ColorManager.red,
-                  fontSize: FontSize.s10,
-                  fontWeight: FontWeightManager.semiBold,
-                ),
+                    color: ColorManager.red,
+                    fontSize: FontSize.s10,
+                    fontWeight: FontWeightManager.semiBold,
+                  ),
                 ),
                 validator: (value) {
-                  if (value == null ||
-                      value.isEmpty) {
-                    return AppString
-                        .enterconfmpass;
-
+                  if (value == null || value.isEmpty) {
+                    return AppString.enterconfmpass;
                   }
                   return null;
                 },
@@ -249,181 +216,178 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
                 child: _isUpdatingPassword
                     ? CircularProgressIndicator(color: ColorManager.blueprime)
                     : CustomButton(
-                  borderRadius: 23.82,
-                  width: MediaQuery.of(context).size.width / 3.2,
-                  height: MediaQuery.of(context).size.height / 25,
-                  paddingVertical: AppPadding.p5,
-                  text: AppString.updatepass,
-                  style: CustomTextStylesCommon.commonStyle(
-                    color: ColorManager.white,
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeightManager.bold,
-                  ),
-                  backgroundColor:  ColorManager.blueprime,
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      if (controllerNew.text != controllerConfirm.text) {
-                        setState(() {
-                          _errorMessage = AppString.passdontmatch;
-                        });
-                        return;
-                      }
-                      setState(() {
-                        _isUpdatingPassword =
-                        true;
-                      });
-                      try {
-                        await ConfirmPassManager()
-                            .confirmPassword(
-                          widget.email,
-                          widget.otp,
-                          controllerNew.text,
-                        );
-                        print(
-                            '${widget.email}');
-                        print(
-                            '${controllerNew.text}');
-                        showDialog(
-                          context:
-                          context,
-                          builder:
-                              (BuildContext
-                          context) {
-                            return
-                              AlertDialog(
-                                backgroundColor:
-                                ColorManager.white,
-                                content:
-                                Container(
-                                  padding:
-                                  EdgeInsets.only(top: AppPadding.p25),
-                                  height: AppSize.s300,
-                                  width: AppSize.s400,
-                                  child:
-                                  Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'images/upload.png',
-                                        width: AppSize.s88,
-                                        height: AppSize.s88,
-                                      ),
-                                      Text(
-                                        AppString.successfully,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          color: ColorManager.mediumgrey,
-                                          fontSize: FontSize.s18,
-                                          fontWeight: FontWeightManager.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        AppString.resetsuccessfully,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          color: ColorManager.mediumgrey,
-                                          fontSize: FontSize.s12,
-                                          fontWeight: FontWeightManager.medium,
-                                        ),
-                                      ),
-                                      CustomButton(
-                                        width: AppSize.s181,
-                                        height: AppSize.s35,
-                                        text: AppString.continuebutton,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          color: ColorManager.white,
-                                          fontSize: FontSize.s10,
-                                          fontWeight: FontWeightManager.semiBold,
-                                        ),
-                                        borderRadius: 19.37,
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => MobileLogIn()),
-                                          );
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ),
+                        borderRadius: 23.82,
+                        width: MediaQuery.of(context).size.width / 3.2,
+                        height: MediaQuery.of(context).size.height / 25,
+                        paddingVertical: AppPadding.p5,
+                        text: AppString.updatepass,
+                        style: CustomTextStylesCommon.commonStyle(
+                          color: ColorManager.white,
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.bold,
+                        ),
+                        backgroundColor: ColorManager.blueprime,
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            if (controllerNew.text != controllerConfirm.text) {
+                              setState(() {
+                                _errorMessage = AppString.passdontmatch;
+                              });
+                              return;
+                            }
+                            setState(() {
+                              _isUpdatingPassword = true;
+                            });
+                            try {
+                              await ConfirmPassManager().confirmPassword(
+                                widget.email,
+                                widget.otp,
+                                controllerNew.text,
                               );
-                          },
-                        );
-                      } catch (e) {
-                        // AlertDialog(
-                        //   backgroundColor:
-                        //   ColorManager.white,
-                        //   content:
-                        //   Container(
-                        //     padding: EdgeInsets.only(top: AppPadding.p10),
-                        //     height: AppSize.s300,
-                        //     width: AppSize.s400,
-                        //     child:
-                        //     Column(
-                        //       mainAxisAlignment:
-                        //       MainAxisAlignment
-                        //           .spaceEvenly,
-                        //       crossAxisAlignment:
-                        //       CrossAxisAlignment
-                        //           .center,
-                        //       children: [
-                        //         Text(
-                        //           AppString
-                        //               .threetimepasscanchange,
-                        //           style:
-                        //           GoogleFonts.firaSans(
-                        //             fontSize:
-                        //             FontSize.s30,
-                        //             color:
-                        //             Color(0xff686464),
-                        //             fontWeight:
-                        //             FontWeightManager.bold,
-                        //           ),
-                        //         ),
-                        //         Text(
-                        //           AppString
-                        //               .cannotchangepass,
-                        //           style: CustomTextStylesCommon.commonStyle(
-                        //             color:ColorManager.darkgrey,
-                        //             fontSize: FontSize.s12,
-                        //             fontWeight: FontWeightManager.medium,
-                        //           ),
-                        //         ),
-                        //         CustomButton(
-                        //           width: AppSize.s181,
-                        //           height: AppSize.s45,
-                        //           text: AppString.continuebutton,
-                        //           borderRadius:
-                        //           24,
-                        //           onPressed:
-                        //               () {
-                        //             Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(builder: (context) => MobileLogIn()),
-                        //             );
-                        //           },
-                        //         )
-                        //       ],
-                        //     ),
-                        //   ),
-                        // );
-                        print('Error occurred while confirming password: $e');
-                        // Handle error
-                      } finally {
-                        setState(() {
-                          _isUpdatingPassword =
-                          false;
-                        });
-                      }
-                    }
-                  },
-                ),
+                              print('${widget.email}');
+                              print('${controllerNew.text}');
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor: ColorManager.white,
+                                    content: Container(
+                                      padding:
+                                          EdgeInsets.only(top: AppPadding.p25),
+                                      height: AppSize.s300,
+                                      width: AppSize.s400,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'images/upload.png',
+                                            width: AppSize.s88,
+                                            height: AppSize.s88,
+                                          ),
+                                          Text(
+                                            AppString.successfully,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              color: ColorManager.mediumgrey,
+                                              fontSize: FontSize.s18,
+                                              fontWeight:
+                                                  FontWeightManager.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            AppString.resetsuccessfully,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              color: ColorManager.mediumgrey,
+                                              fontSize: FontSize.s12,
+                                              fontWeight:
+                                                  FontWeightManager.medium,
+                                            ),
+                                          ),
+                                          CustomButton(
+                                            width: AppSize.s181,
+                                            height: AppSize.s35,
+                                            text: AppString.continuebutton,
+                                            style: CustomTextStylesCommon
+                                                .commonStyle(
+                                              color: ColorManager.white,
+                                              fontSize: FontSize.s10,
+                                              fontWeight:
+                                                  FontWeightManager.semiBold,
+                                            ),
+                                            borderRadius: 19.37,
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MobileLogIn()),
+                                              );
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            } catch (e) {
+                              // AlertDialog(
+                              //   backgroundColor:
+                              //   ColorManager.white,
+                              //   content:
+                              //   Container(
+                              //     padding: EdgeInsets.only(top: AppPadding.p10),
+                              //     height: AppSize.s300,
+                              //     width: AppSize.s400,
+                              //     child:
+                              //     Column(
+                              //       mainAxisAlignment:
+                              //       MainAxisAlignment
+                              //           .spaceEvenly,
+                              //       crossAxisAlignment:
+                              //       CrossAxisAlignment
+                              //           .center,
+                              //       children: [
+                              //         Text(
+                              //           AppString
+                              //               .threetimepasscanchange,
+                              //           style:
+                              //           GoogleFonts.firaSans(
+                              //             fontSize:
+                              //             FontSize.s30,
+                              //             color:
+                              //             Color(0xff686464),
+                              //             fontWeight:
+                              //             FontWeightManager.bold,
+                              //           ),
+                              //         ),
+                              //         Text(
+                              //           AppString
+                              //               .cannotchangepass,
+                              //           style: CustomTextStylesCommon.commonStyle(
+                              //             color:ColorManager.darkgrey,
+                              //             fontSize: FontSize.s12,
+                              //             fontWeight: FontWeightManager.medium,
+                              //           ),
+                              //         ),
+                              //         CustomButton(
+                              //           width: AppSize.s181,
+                              //           height: AppSize.s45,
+                              //           text: AppString.continuebutton,
+                              //           borderRadius:
+                              //           24,
+                              //           onPressed:
+                              //               () {
+                              //             Navigator.push(
+                              //               context,
+                              //               MaterialPageRoute(builder: (context) => MobileLogIn()),
+                              //             );
+                              //           },
+                              //         )
+                              //       ],
+                              //     ),
+                              //   ),
+                              // );
+                              print(
+                                  'Error occurred while confirming password: $e');
+                              // Handle error
+                            } finally {
+                              setState(() {
+                                _isUpdatingPassword = false;
+                              });
+                            }
+                          }
+                        },
+                      ),
               ),
               if (_errorMessage != null)
                 Padding(
-                  padding: EdgeInsets
-                      .symmetric(vertical: MediaQuery.of(context).size.height/80),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height / 90),
                   child: Text(
                     _errorMessage!,
                     style: CustomTextStylesCommon.commonStyle(
