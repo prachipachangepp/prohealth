@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
 
 import '../../../app/resources/color.dart';
@@ -68,13 +67,15 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
   @override
   Widget build(BuildContext context) {
     return MobileConst(
-      titleText:  AppString.verification,
+      titleText: AppString.verification,
       textAction: AppString.backtologin,
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> MobileLogIn()));
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MobileLogIn()));
       },
-        containerHeight: MediaQuery.of(context).size.height / 2, // specify desired height
-        containerWidth: MediaQuery.of(context).size.width / 1.1,
+      containerHeight:
+          MediaQuery.of(context).size.height / 2, // specify desired height
+      containerWidth: MediaQuery.of(context).size.width / 1.1,
       mobileChild: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
         child: Column(
@@ -127,7 +128,7 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
                         fontWeight: FontWeightManager.bold,
                       ),
                       contentPadding:
-                          const EdgeInsets.only(bottom: AppPadding.p11),
+                          const EdgeInsets.only(bottom: AppPadding.p14),
                       counterText: '',
                       border: InputBorder.none,
                     ),
@@ -173,7 +174,7 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
-                    //  fontSize: MediaQuery.of(context).size.width / 120,
+                      //  fontSize: MediaQuery.of(context).size.width / 120,
                       fontWeight: FontWeightManager.medium,
                     )),
                 TextButton(
@@ -233,7 +234,8 @@ class _MobileVerifyOtpScreenState extends State<MobileVerifyOtpScreen> {
       String otp = _otpControllers.map((controller) => controller.text).join();
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MobileNewPassScreen(email: email, otp: otp)),
+        MaterialPageRoute(
+            builder: (context) => MobileNewPassScreen(email: email, otp: otp)),
       );
     } else {
       setState(() {
