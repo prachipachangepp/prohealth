@@ -149,12 +149,12 @@ class AuthServicePhone {
         await prefs.setString('access_token', access ?? '');
         await prefs.setString('refresh_token', refresh ?? '');
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MobileMenuScreen(),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => MobileMenuScreen(),
+        //   ),
+        // );
       } else {
         setErrorMessage(response.statusMessage ?? 'Unknown error occurred');
       }

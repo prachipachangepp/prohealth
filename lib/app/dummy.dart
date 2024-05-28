@@ -41,7 +41,7 @@
 //     );
 //   }
 // }
-
+///
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
@@ -59,7 +59,7 @@ import 'package:prohealth/app/services/login_flow_api/confirm_pass/confirm_pass_
 
 import '../../../../app/resources/theme_manager.dart';
 import '../presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../presentation/screens/desktop_module/widgets/login_screen/login_screen.dart';
+import '../presentation/screens/login_module/login/login_screen.dart';
 import 'constants/app_config.dart';
 
 class ChangePasswordScreen extends StatefulWidget {

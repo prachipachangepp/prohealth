@@ -33,183 +33,185 @@ class LoginBaseConstant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Stack(children: [
-        Container(
-            width: double.maxFinite,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: SvgPicture.asset(
-                        'images/vector.svg',
-                        height: MediaQuery.of(context).size.height / 1.25,
-                        // width: MediaQuery.of(context).size.width / 1,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Stack(children: [
+          Container(
+              width: double.maxFinite,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Align(
-                        alignment: Alignment.topLeft,
-                        child: SvgPicture.asset('images/vector1.svg',
-                            height: MediaQuery.of(context).size.height / 1,
-                            width: MediaQuery.of(context).size.width),
+                        alignment: Alignment.bottomRight,
+                        child: SvgPicture.asset(
+                          'images/vector.svg',
+                          height: MediaQuery.of(context).size.height / 1.25,
+                          // width: MediaQuery.of(context).size.width / 1,
+                        ),
                       ),
-                    ]),
-              ],
-            )),
-        Padding(
-          padding: const EdgeInsets.all(AppPadding.p30),
-          child: ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
-              child: Container(
-                // height: MediaQuery.of(context).size.height,
-                // width: MediaQuery.of(context).size.width,
-                height: containerHeight ?? MediaQuery.of(context).size.height,
-                width: containerWidth ?? MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.045),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: const Offset(1, 4),
-                    ),
-                  ],
-                  color: ColorManager.white.withOpacity(0.35),
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            //color: Colors.green,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(25),
-                                topLeft: Radius.circular(25)),
-                          ),
-                          padding: EdgeInsets.only(left: 20, top: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                titleText,
-                                style: GoogleFonts.firaSans(
-                                  color: ColorManager.mediumgrey,
-                                  // fontSize: FontSize.s38,
-                                  fontSize: 30,
-                                  fontWeight: FontWeightManager.extrabold,
+                    ],
+                  ),
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: SvgPicture.asset('images/vector1.svg',
+                              height: MediaQuery.of(context).size.height / 1,
+                              width: MediaQuery.of(context).size.width),
+                        ),
+                      ]),
+                ],
+              )),
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p30),
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
+                child: Container(
+                  // height: MediaQuery.of(context).size.height,
+                  // width: MediaQuery.of(context).size.width,
+                  height: containerHeight ?? MediaQuery.of(context).size.height,
+                  width: containerWidth ?? MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.045),
+                        spreadRadius: 1,
+                        blurRadius: 4,
+                        offset: const Offset(1, 4),
+                      ),
+                    ],
+                    color: ColorManager.white.withOpacity(0.35),
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex: 1,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              //color: Colors.green,
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(25),
+                                  topLeft: Radius.circular(25)),
+                            ),
+                            padding: EdgeInsets.only(left: 20, top: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  titleText,
+                                  style: GoogleFonts.firaSans(
+                                    color: ColorManager.mediumgrey,
+                                    // fontSize: FontSize.s38,
+                                    fontSize: 30,
+                                    fontWeight: FontWeightManager.extrabold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 20),
-                              child,
-                              SizedBox(height: 20),
-
-                              ///bottom text
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    alignment: Alignment.centerRight,
-                                    child: InkWell(
-                                      onTap: onTap,
-                                      child: Text(
-                                        textAction,
-                                        textAlign: TextAlign.end,
-                                        style:
-                                            CustomTextStylesCommon.commonStyle(
-                                          color: ColorManager.bluebottom,
-                                          //fontSize: FontSize.s12,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              55,
-                                          fontWeight: FontWeightManager.medium,
+                                SizedBox(height: 20),
+                                child,
+                                SizedBox(height: 20),
+      
+                                ///bottom text
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.centerRight,
+                                      child: InkWell(
+                                        onTap: onTap,
+                                        child: Text(
+                                          textAction,
+                                          textAlign: TextAlign.end,
+                                          style:
+                                              CustomTextStylesCommon.commonStyle(
+                                            color: ColorManager.bluebottom,
+                                            //fontSize: FontSize.s12,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                55,
+                                            fontWeight: FontWeightManager.medium,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )),
-
-                    ///logo, amico image
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                          decoration: const BoxDecoration(
-                            // color: Colors.red,
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(25),
-                                bottomRight: Radius.circular(25)),
-                          ),
-                          // color: Colors.yellow,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Image.asset(
-                                'images/logo_login.png',
-                                width: MediaQuery.of(context).size.width / 5,
-                                height: MediaQuery.of(context).size.height / 5,
-                              ),
-                              Expanded(
-                                child: Image.asset(
-                                  'images/amico.png',
+                                  ],
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           )),
-                    )
-                  ],
+      
+                      ///logo, amico image
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                            decoration: const BoxDecoration(
+                              // color: Colors.red,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(25),
+                                  bottomRight: Radius.circular(25)),
+                            ),
+                            // color: Colors.yellow,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Image.asset(
+                                  'images/logo_login.png',
+                                  width: MediaQuery.of(context).size.width / 5,
+                                  height: MediaQuery.of(context).size.height / 5,
+                                ),
+                                Expanded(
+                                  child: Image.asset(
+                                    'images/amico.png',
+                                  ),
+                                ),
+                              ],
+                            )),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: AppSize.s2,
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                AppString.poweredby,
-                style: GoogleFonts.firaSans(
-                  color: ColorManager.black,
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.regular,
-                ),
-              ),
-              const SizedBox(
-                width: AppSize.s2,
-              ),
-              Image.asset('images/powered_logo.png',
-                  width: AppSize.s25, height: AppSize.s25)
-            ],
+          const SizedBox(
+            height: AppSize.s2,
           ),
-        )
-      ]),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  AppString.poweredby,
+                  style: GoogleFonts.firaSans(
+                    color: ColorManager.black,
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeightManager.regular,
+                  ),
+                ),
+                const SizedBox(
+                  width: AppSize.s2,
+                ),
+                Image.asset('images/powered_logo.png',
+                    width: AppSize.s25, height: AppSize.s25)
+              ],
+            ),
+          )
+        ]),
+      ),
     );
   }
 }

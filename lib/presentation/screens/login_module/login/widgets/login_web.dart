@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -111,7 +112,7 @@ class _LoginWebState extends State<LoginWeb> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => VerifyScreen(
+                                      builder: (context) => EmailVerification(
                                           email: _emailController.text),
                                     ),
                                   );
@@ -153,7 +154,7 @@ class _LoginWebState extends State<LoginWeb> {
                                                 Duration(milliseconds: 500),
                                             pageBuilder: (context, animation,
                                                     secondaryAnimation) =>
-                                                VerifyScreen(
+                                                EmailVerification(
                                                     email:
                                                         _emailController.text),
                                             transitionsBuilder: (context,

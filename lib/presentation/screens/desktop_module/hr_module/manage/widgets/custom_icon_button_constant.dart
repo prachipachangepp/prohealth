@@ -408,7 +408,7 @@ class CustomDropdownButton extends StatelessWidget {
             ),
             dropdownColor: ColorManager.white,
             borderRadius: BorderRadius.circular(borderRadius),
-            icon: Icon(Icons.arrow_drop_down, color: Colors.black),
+            icon: Icon(Icons.arrow_drop_down, color: Colors.white),
             iconSize: 20.0,
             isExpanded: true,
             items: items.map((String value) {

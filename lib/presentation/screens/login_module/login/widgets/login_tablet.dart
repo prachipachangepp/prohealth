@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -8,7 +9,6 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
 import '../../../desktop_module/hr_module/manage/controller/controller.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../tablet_module/login_screen_flow/tab_verify.dart';
 import '../../../tablet_module/tab_const.dart';
 
 class LoginTablet extends StatefulWidget {
@@ -101,7 +101,7 @@ class _LoginTabletState extends State<LoginTablet> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => TabVerifyScreen(
+                                  builder: (context) => EmailVerification(
                                       email: _emailController.text),
                                 ),
                               );
@@ -143,7 +143,7 @@ class _LoginTabletState extends State<LoginTablet> {
                                             Duration(milliseconds: 500),
                                         pageBuilder: (context, animation,
                                                 secondaryAnimation) =>
-                                            TabVerifyScreen(
+                                            EmailVerification(
                                                 email: _emailController.text),
                                         transitionsBuilder: (context, animation,
                                             secondaryAnimation, child) {
