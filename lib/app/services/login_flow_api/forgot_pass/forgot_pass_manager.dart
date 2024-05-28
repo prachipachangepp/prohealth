@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../../../constants/app_config.dart';
+import '../../../constants/app_config.dart';
 
 /// main
 class ForgotPassManager {

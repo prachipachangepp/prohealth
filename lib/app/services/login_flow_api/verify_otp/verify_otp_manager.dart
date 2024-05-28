@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:prohealth/constants/app_config.dart';
+
+import '../../../constants/app_config.dart';
 import '../../../resources/const_string.dart';
 
 class VerifyOtpService {

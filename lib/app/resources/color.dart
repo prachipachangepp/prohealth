@@ -8,6 +8,7 @@ class ColorManager {
   static Color bluebottom = Color(0xFF1696C8);
   static Color bluecontainer = Color(0xff9BADCA);
   static Color cream = Color(0xffD9D9D9);
+
   ///static Color grey = Color(0xff8B8781);
   static Color grey = Color(0xff8B8781);
   static Color mediumgrey = Color(0xFF686464);
@@ -18,6 +19,7 @@ class ColorManager {
   static Color orange = Color(0xffF2451C);
   static Color white = HexColor.fromHex('#FFFFFF');
   static Color black = Color(0xff000000);
+  static Color blackForLoginTexts = Color(0xff000000).withOpacity(0.5);
   static Color blackfaint = Color(0xFF333333);
   static Color whitesheed = Color(0xffACA5BB);
   static Color whitebluecolor = Color(0xffB1D6F4);
