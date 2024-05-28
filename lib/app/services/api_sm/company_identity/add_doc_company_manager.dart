@@ -1,11 +1,8 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_data.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../constants/app_config.dart';
-import 'get_company_by_id_data.dart';
-import 'package:dio/dio.dart';
+
+import '../../../constants/app_config.dart';
 
 class CompanyIdentityManager {
   Dio dio = Dio();
@@ -30,10 +27,8 @@ class CompanyIdentityManager {
   }
 
   ///post
-  Future outAddCompany() async{
-    var headers = {
-      'Content-Type': 'application/json'
-    };
+  Future outAddCompany() async {
+    var headers = {'Content-Type': 'application/json'};
     var data = json.encode({
       "company_id": "1",
       "name": "ABC Healthcare",
@@ -46,15 +41,9 @@ class CompanyIdentityManager {
       },
       "contact": {
         "phones": [
-          {
-            "primary": "+1-555-1234567",
-            "secondary": "+1-555-1234567"
-          }
+          {"primary": "+1-555-1234567", "secondary": "+1-555-1234567"}
         ],
-        "fax": [
-          "+1-555-1234567",
-          "+1-555-9876543"
-        ],
+        "fax": ["+1-555-1234567", "+1-555-9876543"],
         "email": "info@abchealthcare.com"
       },
       "address": "1234 Elm Street, Suite 567, Springfield, IL 62704",
@@ -65,13 +54,8 @@ class CompanyIdentityManager {
           "name": "Head Office",
           "address": "1234 Elm Street, Suite 567, Springfield, IL 62704",
           "email": "info@abchealthcare.com",
-          "phones": [
-            "+1-555-1234567"
-          ],
-          "zones": [
-            "Zone 1",
-            "Zone 2"
-          ],
+          "phones": ["+1-555-1234567"],
+          "zones": ["Zone 1", "Zone 2"],
           "services": [
             {
               "service_name": "Cardiology",
@@ -98,12 +82,9 @@ class CompanyIdentityManager {
                     "doc_data": [
                       {
                         "created_at": "2023-04-11T16:27:17.666Z",
-                        "url": "https://documents-hr-module.s3.us-west-1.amazonaws.com/1681230437493123",
-                        "expiry": {
-                          "type": 2,
-                          "date": "",
-                          "reminder": 32
-                        }
+                        "url":
+                            "https://documents-hr-module.s3.us-west-1.amazonaws.com/1681230437493123",
+                        "expiry": {"type": 2, "date": "", "reminder": 32}
                       }
                     ]
                   }
@@ -119,12 +100,9 @@ class CompanyIdentityManager {
                     "doc_data": [
                       {
                         "created_at": "2023-04-11T16:27:17.666Z",
-                        "url": "https://documents-hr-module.s3.us-west-1.amazonaws.com/1681230437493123",
-                        "expiry": {
-                          "type": 2,
-                          "date": "",
-                          "reminder": 32
-                        }
+                        "url":
+                            "https://documents-hr-module.s3.us-west-1.amazonaws.com/1681230437493123",
+                        "expiry": {"type": 2, "date": "", "reminder": 32}
                       }
                     ]
                   }
@@ -140,12 +118,8 @@ class CompanyIdentityManager {
           "name": "Branch Office",
           "address": "5678 Oak Street, Suite 890, Chicago, IL 60601",
           "email": "info@abchealthcare.com",
-          "phones": [
-            "+1-555-9876543"
-          ],
-          "zones": [
-            "Zone 3"
-          ],
+          "phones": ["+1-555-9876543"],
+          "zones": ["Zone 3"],
           "services": [
             {
               "service_name": "Pediatrics",
@@ -170,12 +144,10 @@ class CompanyIdentityManager {
 
     if (response.statusCode == 200) {
       print(json.encode(response.data));
-    }
-    else {
+    } else {
       print(response.statusMessage);
     }
   }
-
 }
 
 //

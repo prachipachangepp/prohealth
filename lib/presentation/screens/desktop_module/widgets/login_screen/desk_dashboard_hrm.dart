@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../hr_module/manage/controller/controller.dart';
 import '../const_appbar/app_bar.dart';
 
-
 ///saloni
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,12 +13,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final MyController myController = Get.find();
+  final ScreenSizeController myController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return
-      // HrAppBar();
-      MyAppBar();
+        // HrAppBar();
+        MyAppBar();
   }
 }

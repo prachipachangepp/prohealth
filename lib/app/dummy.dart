@@ -42,10 +42,10 @@
 //   }
 // }
 
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -56,10 +56,11 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/login_flow_api/confirm_pass/confirm_pass_manager.dart';
+
 import '../../../../app/resources/theme_manager.dart';
-import '../../../../constants/app_config.dart';
 import '../presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../presentation/screens/desktop_module/widgets/login_screen/login_screen.dart';
+import 'constants/app_config.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   final String email;
@@ -73,7 +74,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController controllerNew = TextEditingController();
   final TextEditingController controllerConfirm = TextEditingController();
   List<TextEditingController> _otpControllers =
-  List.generate(6, (_) => TextEditingController());
+      List.generate(6, (_) => TextEditingController());
   List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
   bool _obscureText = true;
   bool _obscureTextconfirm = true;
@@ -89,7 +90,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
   bool _isUpdatingPassword = false;
 
-  Future<void> updatePassword( String email, String otp) async {
+  Future<void> updatePassword(String email, String otp) async {
     String newPassword = newPasswordController.text;
     try {
       var headers = {'Content-Type': 'application/json'};
@@ -206,7 +207,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -275,14 +275,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                                AppString.verification,
+                            Text(AppString.verification,
                                 style: CustomTextStylesCommon.commonStyle(
                                   color: ColorManager.mediumgrey,
                                   fontSize: FontSize.s40,
                                   fontWeight: FontWeightManager.extrabold,
-                                )
-                            ),
+                                )),
                             Image.asset(
                               'images/logo_login.png',
                               width: MediaQuery.of(context).size.width / 5,
@@ -304,18 +302,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 borderRadius: BorderRadius.circular(24),
                                 child: Column(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
                                       width: MediaQuery.of(context).size.width /
                                           3.5,
                                       height:
-                                      MediaQuery.of(context).size.height /
-                                          1.6,
+                                          MediaQuery.of(context).size.height /
+                                              1.6,
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                          BorderRadius.circular(24),
+                                              BorderRadius.circular(24),
                                           color: ColorManager.white,
                                           boxShadow: [
                                             BoxShadow(
@@ -338,90 +336,99 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: MediaQuery.of(context)
-                                                .size
-                                                .width /
+                                                    .size
+                                                    .width /
                                                 30,
                                             vertical: MediaQuery.of(context)
-                                                .size
-                                                .height /
+                                                    .size
+                                                    .height /
                                                 40),
                                         child: Form(
                                           key: _formKey,
                                           child: Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                                CrossAxisAlignment.center,
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                  AppString.entersixdigitCode,
-                                                  style: CustomTextStylesCommon.commonStyle(
-                                                    color: ColorManager.mediumgrey,
+                                              Text(AppString.entersixdigitCode,
+                                                  style: CustomTextStylesCommon
+                                                      .commonStyle(
+                                                    color:
+                                                        ColorManager.mediumgrey,
                                                     fontSize: FontSize.s10,
-                                                    fontWeight: FontWeightManager.semiBold,
-                                                  )
-                                              ),
+                                                    fontWeight:
+                                                        FontWeightManager
+                                                            .semiBold,
+                                                  )),
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 children: List.generate(
                                                   6,
-                                                      (index) => Container(
+                                                  (index) => Container(
                                                     width:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                        40,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            40,
                                                     height: 40,
                                                     margin: EdgeInsets.symmetric(
                                                         horizontal:
-                                                        MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width /
-                                                            200),
+                                                            MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                200),
                                                     decoration: BoxDecoration(
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          2),
+                                                          BorderRadius.circular(
+                                                              2),
                                                       border: Border.all(
                                                         color:
-                                                        Color(0xff9BADCA),
+                                                            Color(0xff9BADCA),
                                                         width: 0.55,
                                                       ),
                                                     ),
                                                     child: TextFormField(
-                                                      style: CustomTextStylesCommon.commonStyle(
+                                                      style:
+                                                          CustomTextStylesCommon
+                                                              .commonStyle(
                                                         color: Color(0xff000000)
                                                             .withOpacity(0.7),
                                                         fontSize: FontSize.s12,
-                                                        fontWeight: FontWeightManager.medium,
+                                                        fontWeight:
+                                                            FontWeightManager
+                                                                .medium,
                                                       ),
                                                       controller:
-                                                      _otpControllers[
-                                                      index],
-                                                      cursorColor: ColorManager.black,
+                                                          _otpControllers[
+                                                              index],
+                                                      cursorColor:
+                                                          ColorManager.black,
                                                       inputFormatters: [
                                                         FilteringTextInputFormatter
                                                             .allow(RegExp(
-                                                            r'[0-9]')),
+                                                                r'[0-9]')),
                                                       ],
                                                       keyboardType:
-                                                      TextInputType.number,
+                                                          TextInputType.number,
                                                       textAlign:
-                                                      TextAlign.center,
+                                                          TextAlign.center,
                                                       maxLength: 1,
                                                       focusNode:
-                                                      _focusNodes[index],
+                                                          _focusNodes[index],
                                                       decoration:
-                                                      InputDecoration(
+                                                          InputDecoration(
                                                         contentPadding:
-                                                        const EdgeInsets
-                                                            .only(
-                                                            bottom: AppPadding.p10),
+                                                            const EdgeInsets
+                                                                .only(
+                                                                bottom:
+                                                                    AppPadding
+                                                                        .p10),
                                                         counterText: '',
                                                         border:
-                                                        InputBorder.none,
+                                                            InputBorder.none,
                                                       ),
                                                       validator: (value) {
                                                         return value!.isEmpty
@@ -430,61 +437,72 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       },
                                                       onChanged: (value) {
                                                         _otpFieldFilledStatus[
-                                                        index] =
+                                                                index] =
                                                             value.isNotEmpty;
                                                         bool allFieldsFilled =
-                                                        _otpFieldFilledStatus
-                                                            .every(
-                                                                (filled) =>
-                                                            filled);
+                                                            _otpFieldFilledStatus
+                                                                .every(
+                                                                    (filled) =>
+                                                                        filled);
                                                         setState(() {
                                                           isOtpFieldEmpty =
-                                                          !allFieldsFilled;
+                                                              !allFieldsFilled;
                                                         });
                                                         if (value.isNotEmpty &&
                                                             index < 5) {
                                                           FocusScope.of(context)
                                                               .requestFocus(
-                                                              _focusNodes[
-                                                              index +
-                                                                  1]);
+                                                                  _focusNodes[
+                                                                      index +
+                                                                          1]);
                                                         } else if (value
-                                                            .isNotEmpty &&
+                                                                .isNotEmpty &&
                                                             index == 5) {
                                                           FocusScope.of(context)
                                                               .requestFocus(
-                                                              newPasswordFocusNode);
+                                                                  newPasswordFocusNode);
                                                         }
                                                       },
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                              Text('${getTimerString()}',
-                                                style: CustomTextStylesCommon.commonStyle(
-                                                  color:  ColorManager.orange,
+                                              Text(
+                                                '${getTimerString()}',
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                  color: ColorManager.orange,
                                                   fontSize: FontSize.s8,
-                                                  fontWeight: FontWeightManager.semiBold,
+                                                  fontWeight: FontWeightManager
+                                                      .semiBold,
                                                 ),
                                               ),
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                      AppString.didntrecieveCode,
-                                                      style: CodeVerficationText.VerifyCode(context)),
+                                                      AppString
+                                                          .didntrecieveCode,
+                                                      style: CodeVerficationText
+                                                          .VerifyCode(context)),
                                                   TextButton(
                                                     onPressed: () {
                                                       print("Resend tapped!");
                                                     },
                                                     child: Text(
                                                         AppString.resend,
-                                                        style: CustomTextStylesCommon.commonStyle(
-                                                          color: ColorManager.blueprime,
-                                                          fontSize: FontSize.s10,
-                                                          fontWeight: FontWeightManager.semiBold,
-                                                        )
-                                                    ),
+                                                        style:
+                                                            CustomTextStylesCommon
+                                                                .commonStyle(
+                                                          color: ColorManager
+                                                              .blueprime,
+                                                          fontSize:
+                                                              FontSize.s10,
+                                                          fontWeight:
+                                                              FontWeightManager
+                                                                  .semiBold,
+                                                        )),
                                                   )
                                                 ],
                                               ),
@@ -496,20 +514,24 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                       ? Colors.grey
                                                       : ColorManager.mediumgrey,
                                                   fontSize: FontSize.s10,
-                                                  fontWeight: FontWeightManager.semiBold,
+                                                  fontWeight: FontWeightManager
+                                                      .semiBold,
                                                 ),
                                               ),
                                               TextFormField(
-                                                style: CustomTextStylesCommon.commonStyle(
-                                                  color: ColorManager.black.withOpacity(0.5),
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                  color: ColorManager.black
+                                                      .withOpacity(0.5),
                                                   fontSize: FontSize.s14,
-                                                  fontWeight: FontWeightManager.medium,
+                                                  fontWeight:
+                                                      FontWeightManager.medium,
                                                 ),
                                                 focusNode: newPasswordFocusNode,
                                                 onFieldSubmitted: (_) {
                                                   FocusScope.of(context)
                                                       .requestFocus(
-                                                      confirmPasswordFocusNode);
+                                                          confirmPasswordFocusNode);
                                                 },
                                                 cursorHeight: 22,
                                                 obscuringCharacter: '*',
@@ -518,48 +540,51 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 obscureText: _obscureText,
                                                 decoration: InputDecoration(
                                                   contentPadding:
-                                                  const EdgeInsets.only(
-                                                      top: 2),
+                                                      const EdgeInsets.only(
+                                                          top: 2),
                                                   suffixIcon: IconButton(
                                                     icon: Icon(
                                                       _obscureText
                                                           ? Icons
-                                                          .visibility_outlined
+                                                              .visibility_outlined
                                                           : Icons
-                                                          .visibility_off_outlined,
+                                                              .visibility_off_outlined,
                                                       size: AppSize.s15,
                                                       color: Color(0xffACA5BB),
                                                     ),
                                                     onPressed: () {
                                                       setState(() {
                                                         _obscureText =
-                                                        !_obscureText;
+                                                            !_obscureText;
                                                       });
                                                     },
                                                   ),
                                                   labelText:
-                                                  AppString.enternewpass,
+                                                      AppString.enternewpass,
                                                   labelStyle:
-                                                  CustomTextStylesCommon.commonStyle(
+                                                      CustomTextStylesCommon
+                                                          .commonStyle(
                                                     color: isOtpFieldEmpty
                                                         ? Colors.grey
                                                         : ColorManager.darkgrey,
                                                     fontSize: FontSize.s14,
-                                                    fontWeight: FontWeightManager.medium,
+                                                    fontWeight:
+                                                        FontWeightManager
+                                                            .medium,
                                                   ),
                                                   border: UnderlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Colors.black),
                                                   ),
                                                   focusedBorder:
-                                                  UnderlineInputBorder(
+                                                      UnderlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Color(0xff000000)
                                                             .withOpacity(0.5),
                                                         width: 0.5),
                                                   ),
                                                   enabledBorder:
-                                                  UnderlineInputBorder(
+                                                      UnderlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Colors.grey),
                                                   ),
@@ -574,7 +599,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                               ),
                                               TextFormField(
                                                 focusNode:
-                                                confirmPasswordFocusNode,
+                                                    confirmPasswordFocusNode,
                                                 onFieldSubmitted: (_) {
                                                   _showSuccessDialog();
                                                 },
@@ -586,59 +611,67 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                 cursorHeight: 22,
                                                 obscuringCharacter: '*',
                                                 controller: controllerConfirm,
-                                                style: CustomTextStylesCommon.commonStyle(
-                                                  color: ColorManager.black.withOpacity(0.5),
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                  color: ColorManager.black
+                                                      .withOpacity(0.5),
                                                   fontSize: FontSize.s14,
-                                                  fontWeight: FontWeightManager.medium,
+                                                  fontWeight:
+                                                      FontWeightManager.medium,
                                                 ),
                                                 cursorColor: ColorManager.black,
                                                 obscureText:
-                                                _obscureTextconfirm,
+                                                    _obscureTextconfirm,
                                                 decoration: InputDecoration(
                                                   contentPadding:
-                                                  const EdgeInsets.only(
-                                                      top: 2),
+                                                      const EdgeInsets.only(
+                                                          top: 2),
                                                   suffixIcon: IconButton(
                                                     icon: Icon(
                                                       _obscureTextconfirm
                                                           ? Icons
-                                                          .visibility_outlined
+                                                              .visibility_outlined
                                                           : Icons
-                                                          .visibility_off_outlined,
+                                                              .visibility_off_outlined,
                                                       size: AppSize.s15,
                                                       color: Color(0xffACA5BB),
                                                     ),
                                                     onPressed: () {
                                                       setState(() {
                                                         _obscureTextconfirm =
-                                                        !_obscureTextconfirm;
+                                                            !_obscureTextconfirm;
                                                       });
                                                     },
                                                   ),
                                                   labelText:
-                                                  AppString.confmpass,
-                                                  labelStyle: CustomTextStylesCommon.commonStyle(
+                                                      AppString.confmpass,
+                                                  labelStyle:
+                                                      CustomTextStylesCommon
+                                                          .commonStyle(
                                                     color: isOtpFieldEmpty
                                                         ? Colors.grey
                                                         : ColorManager.darkgrey,
                                                     fontSize: FontSize.s14,
-                                                    fontWeight: FontWeightManager.medium,
+                                                    fontWeight:
+                                                        FontWeightManager
+                                                            .medium,
                                                   ),
                                                   border: UnderlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Colors.black),
                                                   ),
                                                   focusedBorder:
-                                                  UnderlineInputBorder(
+                                                      UnderlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Color(0xff000000)
                                                             .withOpacity(0.5),
                                                         width: 0.5),
                                                   ),
                                                   enabledBorder:
-                                                  UnderlineInputBorder(
+                                                      UnderlineInputBorder(
                                                     borderSide: BorderSide(
-                                                        color: ColorManager.grey),
+                                                        color:
+                                                            ColorManager.grey),
                                                   ),
                                                 ),
                                                 validator: (value) {
@@ -654,114 +687,203 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                               Center(
                                                 child: _isUpdatingPassword
                                                     ? CircularProgressIndicator(
-                                                    color: ColorManager
-                                                        .blueprime)
+                                                        color: ColorManager
+                                                            .blueprime)
                                                     : Container(
-                                                  decoration:
-                                                  BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius
-                                                        .circular(14),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Color(
-                                                            0x40000000),
-                                                        offset:
-                                                        Offset(0, 4),
-                                                        blurRadius: 4,
-                                                        spreadRadius: 0,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: CustomButton(
-                                                    width: MediaQuery.of(
-                                                        context).size.width / 7,
-                                                    height: MediaQuery.of(context).size.height / 22,
-                                                    text: AppString.updatepass,
-                                                    backgroundColor: isOtpFieldEmpty ? Colors.grey : ColorManager.blueprime,
-                                                    onPressed: () async {
-                                                      if (_formKey
-                                                          .currentState!
-                                                          .validate()) {
-                                                        if (controllerNew
-                                                            .text !=
-                                                            controllerConfirm
-                                                                .text) {
-                                                          setState(() {
-                                                            _errorMessage = AppString.passdontmatch;
-                                                          });
-                                                          return;
-                                                        }
-                                                        setState(() {
-                                                          _isUpdatingPassword =
-                                                          true;
-                                                        });
-                                                        try {
-                                                          await ConfirmPassManager()
-                                                              .confirmPassword(
-                                                            widget.email,
-                                                            _otpControllers
-                                                                .map((controller) =>
-                                                            controller
-                                                                .text)
-                                                                .join(),
-                                                            controllerNew
-                                                                .text,
-                                                          );
-                                                          print(
-                                                              '${widget.email}');
-                                                          print(
-                                                              '${controllerNew.text}');
-                                                          showDialog(
-                                                            context:
-                                                            context,
-                                                            builder:
-                                                                (BuildContext
-                                                            context) {
-                                                              return
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(14),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Color(
+                                                                  0x40000000),
+                                                              offset:
+                                                                  Offset(0, 4),
+                                                              blurRadius: 4,
+                                                              spreadRadius: 0,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        child: CustomButton(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              7,
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height /
+                                                              22,
+                                                          text: AppString
+                                                              .updatepass,
+                                                          backgroundColor:
+                                                              isOtpFieldEmpty
+                                                                  ? Colors.grey
+                                                                  : ColorManager
+                                                                      .blueprime,
+                                                          onPressed: () async {
+                                                            if (_formKey
+                                                                .currentState!
+                                                                .validate()) {
+                                                              if (controllerNew
+                                                                      .text !=
+                                                                  controllerConfirm
+                                                                      .text) {
+                                                                setState(() {
+                                                                  _errorMessage =
+                                                                      AppString
+                                                                          .passdontmatch;
+                                                                });
+                                                                return;
+                                                              }
+                                                              setState(() {
+                                                                _isUpdatingPassword =
+                                                                    true;
+                                                              });
+                                                              try {
+                                                                await ConfirmPassManager()
+                                                                    .confirmPassword(
+                                                                  widget.email,
+                                                                  _otpControllers
+                                                                      .map((controller) =>
+                                                                          controller
+                                                                              .text)
+                                                                      .join(),
+                                                                  controllerNew
+                                                                      .text,
+                                                                );
+                                                                print(
+                                                                    '${widget.email}');
+                                                                print(
+                                                                    '${controllerNew.text}');
+                                                                showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (BuildContext
+                                                                          context) {
+                                                                    return AlertDialog(
+                                                                      backgroundColor:
+                                                                          ColorManager
+                                                                              .white,
+                                                                      content:
+                                                                          Container(
+                                                                        padding:
+                                                                            EdgeInsets.only(top: AppPadding.p25),
+                                                                        height:
+                                                                            AppSize.s300,
+                                                                        width: AppSize
+                                                                            .s400,
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceEvenly,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.center,
+                                                                          children: [
+                                                                            Image.asset(
+                                                                              'images/upload.png',
+                                                                              width: AppSize.s120,
+                                                                              height: AppSize.s120,
+                                                                            ),
+                                                                            Text(
+                                                                              AppString.successfully,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                color: ColorManager.darkgrey,
+                                                                                fontSize: FontSize.s30,
+                                                                                fontWeight: FontWeightManager.extrabold,
+                                                                              ),
+                                                                            ),
+                                                                            Text(
+                                                                              AppString.resetsuccessfully,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                color: ColorManager.darkgrey,
+                                                                                fontSize: FontSize.s12,
+                                                                                fontWeight: FontWeightManager.medium,
+                                                                              ),
+                                                                            ),
+                                                                            CustomButton(
+                                                                              width: AppSize.s181,
+                                                                              height: AppSize.s45,
+                                                                              text: AppString.continuebutton,
+                                                                              borderRadius: 24,
+                                                                              onPressed: () {
+                                                                                Navigator.push(
+                                                                                  context,
+                                                                                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                                                                                );
+                                                                              },
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                );
+                                                              } catch (e) {
                                                                 AlertDialog(
                                                                   backgroundColor:
-                                                                  ColorManager.white,
+                                                                      ColorManager
+                                                                          .white,
                                                                   content:
-                                                                  Container(
-                                                                    padding:
-                                                                    EdgeInsets.only(top: AppPadding.p25),
-                                                                    height: AppSize.s300,
-                                                                    width: AppSize.s400,
+                                                                      Container(
+                                                                    padding: EdgeInsets.only(
+                                                                        top: AppPadding
+                                                                            .p10),
+                                                                    height:
+                                                                        AppSize
+                                                                            .s300,
+                                                                    width: AppSize
+                                                                        .s400,
                                                                     child:
-                                                                    Column(
+                                                                        Column(
                                                                       mainAxisAlignment:
-                                                                      MainAxisAlignment.spaceEvenly,
+                                                                          MainAxisAlignment
+                                                                              .spaceEvenly,
                                                                       crossAxisAlignment:
-                                                                      CrossAxisAlignment.center,
+                                                                          CrossAxisAlignment
+                                                                              .center,
                                                                       children: [
-                                                                        Image.asset(
-                                                                          'images/upload.png',
-                                                                          width: AppSize.s120,
-                                                                          height: AppSize.s120,
-                                                                        ),
                                                                         Text(
-                                                                          AppString.successfully,
-                                                                          style: CustomTextStylesCommon.commonStyle(
-                                                                            color: ColorManager.darkgrey,
-                                                                            fontSize: FontSize.s30,
-                                                                            fontWeight: FontWeightManager.extrabold,
+                                                                          AppString
+                                                                              .threetimepasscanchange,
+                                                                          style:
+                                                                              GoogleFonts.firaSans(
+                                                                            fontSize:
+                                                                                FontSize.s30,
+                                                                            color:
+                                                                                Color(0xff686464),
+                                                                            fontWeight:
+                                                                                FontWeightManager.bold,
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          AppString.resetsuccessfully,
-                                                                          style: CustomTextStylesCommon.commonStyle(
-                                                                            color: ColorManager.darkgrey,
-                                                                            fontSize: FontSize.s12,
-                                                                            fontWeight: FontWeightManager.medium,
+                                                                          AppString
+                                                                              .cannotchangepass,
+                                                                          style:
+                                                                              CustomTextStylesCommon.commonStyle(
+                                                                            color:
+                                                                                ColorManager.darkgrey,
+                                                                            fontSize:
+                                                                                FontSize.s12,
+                                                                            fontWeight:
+                                                                                FontWeightManager.medium,
                                                                           ),
                                                                         ),
                                                                         CustomButton(
-                                                                          width: AppSize.s181,
-                                                                          height: AppSize.s45,
-                                                                          text: AppString.continuebutton,
-                                                                          borderRadius: 24,
-                                                                          onPressed: () {
+                                                                          width:
+                                                                              AppSize.s181,
+                                                                          height:
+                                                                              AppSize.s45,
+                                                                          text:
+                                                                              AppString.continuebutton,
+                                                                          borderRadius:
+                                                                              24,
+                                                                          onPressed:
+                                                                              () {
                                                                             Navigator.push(
                                                                               context,
                                                                               MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -772,79 +894,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                                                     ),
                                                                   ),
                                                                 );
-                                                            },
-                                                          );
-                                                        } catch (e) {
-                                                          AlertDialog(
-                                                            backgroundColor:
-                                                            ColorManager.white,
-                                                            content:
-                                                            Container(
-                                                              padding: EdgeInsets.only(top: AppPadding.p10),
-                                                              height: AppSize.s300,
-                                                              width: AppSize.s400,
-                                                              child:
-                                                              Column(
-                                                                mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                                crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                                children: [
-                                                                  Text(
-                                                                    AppString
-                                                                        .threetimepasscanchange,
-                                                                    style:
-                                                                    GoogleFonts.firaSans(
-                                                                      fontSize:
-                                                                      FontSize.s30,
-                                                                      color:
-                                                                      Color(0xff686464),
-                                                                      fontWeight:
-                                                                      FontWeightManager.bold,
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    AppString
-                                                                        .cannotchangepass,
-                                                                    style: CustomTextStylesCommon.commonStyle(
-                                                                      color:ColorManager.darkgrey,
-                                                                      fontSize: FontSize.s12,
-                                                                      fontWeight: FontWeightManager.medium,
-                                                                    ),
-                                                                  ),
-                                                                  CustomButton(
-                                                                    width: AppSize.s181,
-                                                                    height: AppSize.s45,
-                                                                    text: AppString.continuebutton,
-                                                                    borderRadius:
-                                                                    24,
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.push(
-                                                                        context,
-                                                                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                                                                      );
-                                                                    },
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          );
-                                                          print(
-                                                              'Error occurred while confirming password: $e');
-                                                          // Handle error
-                                                        } finally {
-                                                          setState(() {
-                                                            _isUpdatingPassword =
-                                                            false;
-                                                          });
-                                                        }
-                                                      }
-                                                    },
-                                                  ),
-                                                ),
+                                                                print(
+                                                                    'Error occurred while confirming password: $e');
+                                                                // Handle error
+                                                              } finally {
+                                                                setState(() {
+                                                                  _isUpdatingPassword =
+                                                                      false;
+                                                                });
+                                                              }
+                                                            }
+                                                          },
+                                                        ),
+                                                      ),
                                               ),
                                               if (_errorMessage != null)
                                                 Padding(
@@ -886,7 +948,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     AppString.backtologin,
                                     textAlign: TextAlign.right,
                                     style: CustomTextStylesCommon.commonStyle(
-                                      color:ColorManager.bluebottom,
+                                      color: ColorManager.bluebottom,
                                       fontSize: FontSize.s12,
                                       fontWeight: FontWeightManager.medium,
                                     ),
@@ -926,7 +988,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               SizedBox(
                 width: AppSize.s2,
               ),
-              Image.asset('images/powered_logo.png', width: AppSize.s25, height: AppSize.s25)
+              Image.asset('images/powered_logo.png',
+                  width: AppSize.s25, height: AppSize.s25)
             ],
           ),
         )

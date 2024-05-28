@@ -1,11 +1,11 @@
 import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../hr_module/manage/controller/controller.dart';
 import 'login_screen/login_screen.dart';
 import 'login_screen/menu_login_page.dart';
-
 
 // class ResponsivePage extends StatelessWidget {
 //   Future<String> getToken() async {
@@ -60,7 +60,7 @@ class ResponsivePage extends StatelessWidget {
     return token ?? "";
   }
 
-  final MyController controller;
+  final ScreenSizeController controller;
   ResponsivePage({required this.controller});
   @override
   Widget build(BuildContext context) {
@@ -77,18 +77,18 @@ class ResponsivePage extends StatelessWidget {
           //   ));
           // } else
           //if{
-            return FutureBuilder(
-                future: getToken(),
-                builder: (context, token) {
-                  if (token.hasData) {
-                    String d = token.data.toString();
-                    return d.isEmpty ? LoginScreen() : MenuScreen();
-                  } else {
-                    return Scaffold();
-                  }
-                });
-            // return SingleChildScrollView(
-            // scrollDirection: Axis.vertical, child: HomeScreen());
+          return FutureBuilder(
+              future: getToken(),
+              builder: (context, token) {
+                if (token.hasData) {
+                  String d = token.data.toString();
+                  return d.isEmpty ? LoginScreen() : MenuScreen();
+                } else {
+                  return Scaffold();
+                }
+              });
+          // return SingleChildScrollView(
+          // scrollDirection: Axis.vertical, child: HomeScreen());
           //}
         },
       ),

@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:prohealth/app/resources/const_string.dart';
+import 'package:get/get.dart';
 
-import '../../../../app/resources/color.dart';
-import '../../../../app/resources/font_manager.dart';
-import '../../../../app/resources/theme_manager.dart';
-import '../../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
-import '../../desktop_module/hr_module/manage/controller/controller.dart';
-import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../tab_const.dart';
-import 'tab_verify.dart';
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
+import '../../../desktop_module/hr_module/manage/controller/controller.dart';
+import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../tablet_module/login_screen_flow/tab_verify.dart';
+import '../../../tablet_module/tab_const.dart';
 
-///saloni
-class TabLoginScreen extends StatefulWidget {
-  const TabLoginScreen({super.key});
+class LoginTablet extends StatefulWidget {
+  const LoginTablet({super.key});
 
   @override
-  State<TabLoginScreen> createState() => _TabLoginScreenState();
+  State<LoginTablet> createState() => _LoginTabletState();
 }
 
-class _TabLoginScreenState extends State<TabLoginScreen> {
+class _LoginTabletState extends State<LoginTablet> {
   final ScreenSizeController myController = Get.find();
   final TextEditingController _emailController = TextEditingController();
   FocusNode fieldOne = FocusNode();
@@ -35,7 +33,8 @@ class _TabLoginScreenState extends State<TabLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LoginBaseConstTab(
+    return Scaffold(
+        body: LoginBaseConstTab(
       titleText: AppString.login, onTap: () {},
       textAction: '',
       //textActionPadding: EdgeInsets.only(right: 10),
@@ -58,6 +57,8 @@ class _TabLoginScreenState extends State<TabLoginScreen> {
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 23,
                       ),
+
+                      ///todo saloni change every hardcoded colors
                       child: TextFormField(
                         style: CustomTextStylesCommon.commonStyle(
                           color: Color(0xff000000).withOpacity(0.5),
@@ -175,6 +176,6 @@ class _TabLoginScreenState extends State<TabLoginScreen> {
                   ])),
         ),
       ),
-    );
+    ));
   }
 }

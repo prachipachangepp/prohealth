@@ -6,13 +6,13 @@ import 'package:prohealth/presentation/screens/desktop_module/widgets/profile_ba
 import 'package:prohealth/presentation/screens/mobile_module/mobile_login_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_const.dart';
 
+import '../../../app/constants/app_config.dart';
 import '../../../app/resources/color.dart';
 import '../../../app/resources/const_string.dart';
 import '../../../app/resources/font_manager.dart';
 import '../../../app/resources/theme_manager.dart';
 import '../../../app/resources/value_manager.dart';
 import '../../../app/services/login_flow_api/confirm_pass/confirm_pass_manager.dart';
-import '../../../constants/app_config.dart';
 import '../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 class MobileNewPassScreen extends StatefulWidget {
@@ -387,7 +387,7 @@ class _MobileNewPassScreenState extends State<MobileNewPassScreen> {
               if (_errorMessage != null)
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height / 90),
+                      vertical: MediaQuery.of(context).size.height / 80),
                   child: Text(
                     _errorMessage!,
                     style: CustomTextStylesCommon.commonStyle(

@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -8,7 +5,6 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/constants/app_config.dart';
 import 'package:prohealth/presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_menu_screen.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_pass_screen.dart';
@@ -41,7 +37,7 @@ class _MobileEmailVerifyScreenState extends State<MobileEmailVerifyScreen> {
       _errorMessage = null;
     });
     String enteredOTP =
-    _otpControllers.map((controller) => controller.text).join();
+        _otpControllers.map((controller) => controller.text).join();
     var result = await VerifyOtpService.verifyOTPAndLogin(
       email: widget.email,
       otp: enteredOTP,
