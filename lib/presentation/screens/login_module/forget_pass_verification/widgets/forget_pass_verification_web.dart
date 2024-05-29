@@ -1,13 +1,14 @@
 import 'dart:async';
-import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
+
 import '../../../../../../app/resources/theme_manager.dart';
-import '../../../../responsive_screen.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
 import '../../login/login_screen.dart';
@@ -23,7 +24,7 @@ class VerifyPasswordScreen extends StatefulWidget {
 
 class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
   List<TextEditingController> _otpControllers =
-  List.generate(6, (_) => TextEditingController());
+      List.generate(6, (_) => TextEditingController());
   List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
   final _formKey = GlobalKey<FormState>();
   String? _errorMessage;
@@ -62,6 +63,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
     int seconds = _timerCount % 60;
     return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
+
   @override
   Widget build(BuildContext context) {
     return LoginBaseConstant(
@@ -83,28 +85,27 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
             borderRadius: BorderRadius.circular(24),
             color: ColorManager.white,
           ),
-          child:  Padding(
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                    AppString.entersixdigitCode,
+                Text(AppString.entersixdigitCode,
                     style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
                       fontWeight: FontWeightManager.semiBold,
-                    )
-                ),
+                    )),
+
                 ///txtfield
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     6,
-                        (index) => Container(
+                    (index) => Container(
                       width: MediaQuery.of(context).size.width / 40,
-                      height:  MediaQuery.of(context).size.height / 20,
+                      height: MediaQuery.of(context).size.height / 20,
                       margin: EdgeInsets.symmetric(
                           horizontal: MediaQuery.of(context).size.width / 200),
                       decoration: BoxDecoration(
@@ -115,58 +116,42 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                         ),
                       ),
                       child: TextFormField(
-
                         style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.black
-                              .withOpacity(0.7),
+                          color: ColorManager.black.withOpacity(0.7),
                           fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.medium,
                         ),
                         controller: _otpControllers[index],
                         cursorColor: ColorManager.black,
                         inputFormatters: [
-                          FilteringTextInputFormatter
-                              .allow(RegExp(
-                              r'[0-9]')),
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                         ],
-                        keyboardType:
-                        TextInputType.number,
+                        keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         maxLength: 1,
                         focusNode: _focusNodes[index],
-                        decoration:
-                        InputDecoration(
+                        decoration: InputDecoration(
                           contentPadding:
-                          const EdgeInsets
-                              .only(
-                              bottom: AppPadding.p11),
+                              const EdgeInsets.only(bottom: AppPadding.p11),
                           counterText: '',
-                          border:
-                          InputBorder.none,
+                          border: InputBorder.none,
                         ),
                         validator: (value) {
-                          return value!.isEmpty
-                              ? AppString.enterotp
-                              : null;
+                          return value!.isEmpty ? AppString.enterotp : null;
                         },
+
                         ///
                         onChanged: (value) {
                           _otpFieldFilledStatus[index] = value.isNotEmpty;
-                          bool allFieldsFilled = _otpFieldFilledStatus.every(
-                                  (filled) => filled);
+                          bool allFieldsFilled =
+                              _otpFieldFilledStatus.every((filled) => filled);
                           setState(() {
-                            isOtpFieldEmpty =
-                            !allFieldsFilled;
+                            isOtpFieldEmpty = !allFieldsFilled;
                           });
-                          if (value.isNotEmpty &&
-                              index < 5) {
+                          if (value.isNotEmpty && index < 5) {
                             FocusScope.of(context)
-                                .requestFocus(
-                                _focusNodes[
-                                index +
-                                    1]);
-                          }
-                          else if(allFieldsFilled) {
+                                .requestFocus(_focusNodes[index + 1]);
+                          } else if (allFieldsFilled) {
                             navigateToNextScreen();
                           }
                         },
@@ -174,14 +159,17 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                     ),
                   ),
                 ),
+
                 ///timer
-                Text('${getTimerString()}',
+                Text(
+                  '${getTimerString()}',
                   style: CustomTextStylesCommon.commonStyle(
-                    color:  ColorManager.orange,
+                    color: ColorManager.orange,
                     fontSize: FontSize.s8,
                     fontWeight: FontWeightManager.semiBold,
                   ),
                 ),
+
                 ///button
                 Center(
                   child: CustomButton(
@@ -189,7 +177,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                     height: MediaQuery.of(context).size.height / 18,
                     width: MediaQuery.of(context).size.width / 10,
                     text: AppString.continuet,
-                    onPressed: (){
+                    onPressed: () {
                       navigateToNextScreen();
                     },
                   ),
@@ -199,32 +187,30 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                     padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
                       _errorMessage!,
-                      style:  CustomTextStylesCommon.commonStyle(
+                      style: CustomTextStylesCommon.commonStyle(
                         color: ColorManager.red,
                         fontSize: FontSize.s10,
                         fontWeight: FontWeightManager.bold,
                       ),
                     ),
                   ),
+
                 ///didnt receive code
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                        AppString.didntrecieveCode,
+                    Text(AppString.didntrecieveCode,
                         style: CodeVerficationText.VerifyCode(context)),
                     TextButton(
                       onPressed: () {
                         print("Resend tapped!");
                       },
-                      child: Text(
-                          AppString.resend,
+                      child: Text(AppString.resend,
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.blueprime,
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.semiBold,
-                          )
-                      ),
+                          )),
                     )
                   ],
                 ),
@@ -235,6 +221,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
       ),
     );
   }
+
   /// method to handle navigation
   void navigateToNextScreen() {
     bool allFieldsFilled = _otpFieldFilledStatus.every((filled) => filled);
@@ -243,7 +230,8 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
       String otp = _otpControllers.map((controller) => controller.text).join();
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => UpdatePassword(email: email, otp: otp)),
+        MaterialPageRoute(
+            builder: (context) => UpdatePassword(email: email, otp: otp)),
       );
     } else {
       setState(() {
@@ -251,5 +239,4 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
       });
     }
   }
-
 }
