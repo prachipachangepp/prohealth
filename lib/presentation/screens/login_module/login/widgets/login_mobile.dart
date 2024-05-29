@@ -20,167 +20,160 @@ class LoginMobile extends StatefulWidget {
 
 class _LoginMobileState extends State<LoginMobile> {
   final TextEditingController _emailController = TextEditingController();
-
   FocusNode fieldOne = FocusNode();
-
   FocusNode fieldTow = FocusNode();
-
   final _formKey = GlobalKey<FormState>();
-
   bool isPasswordVisible = true;
-
   bool _isSendingEmail = false;
-
   FocusNode emailFocusNode = FocusNode();
-
   FocusNode passwordFocusNode = FocusNode();
-
   String? otpFromRunTab;
-
   //final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   @override
   Widget build(BuildContext context) {
-    return MobileConst(
-      containerHeight: MediaQuery.of(context).size.height / 2,
-      containerWidth: MediaQuery.of(context).size.width / 1.1,
-      onTap: () {},
-      titleText: AppString.login,
-      textAction: '',
-      mobileChild: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 8,
-              ),
-              child: TextFormField(
-                style: CustomTextStylesCommon.commonStyle(
-                  color: ColorManager.black.withOpacity(0.5),
-                  fontWeight: FontWeightManager.medium,
-                  fontSize: FontSize.s14,
+    return Scaffold(
+      body: MobileConst(
+        containerHeight: MediaQuery.of(context).size.height / 2,
+        containerWidth: MediaQuery.of(context).size.width / 1.1,
+        onTap: () {},
+        titleText: AppString.login,
+        textAction: '',
+        mobileChild: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 8,
                 ),
-                focusNode: emailFocusNode,
-                controller: _emailController,
-                cursorColor: ColorManager.black,
-                cursorHeight: 22,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.only(top: 1),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: ColorManager.black.withOpacity(0.5),
-                      width: 0.5,
-                    ),
+                child: TextFormField(
+                  style: CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.black.withOpacity(0.5),
+                    fontWeight: FontWeightManager.medium,
+                    fontSize: FontSize.s14,
                   ),
-                  errorStyle: CustomTextStylesCommon.commonStyle(
-                    color: ColorManager.red,
-                    fontSize: FontSize.s10,
+                  focusNode: emailFocusNode,
+                  controller: _emailController,
+                  cursorColor: ColorManager.black,
+                  cursorHeight: 22,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.only(top: 1),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorManager.black.withOpacity(0.5),
+                        width: 0.5,
+                      ),
+                    ),
+                    errorStyle: CustomTextStylesCommon.commonStyle(
+                      color: ColorManager.red,
+                      fontSize: FontSize.s10,
+                      fontWeight: FontWeightManager.bold,
+                    ),
+                    labelText: AppString.email,
+                    hintText: AppString.emailhint,
+                    hintStyle: EmailTextStyle.enterEmail(context),
+                    labelStyle: EmailTextStyle.enterEmail(context),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return AppString.enteremail;
+                    }
+                    // if (!emailRegex.hasMatch(value)) {
+                    //   return AppString.entervalidemail;
+                    // }
+                    return null;
+                  },
+                  onFieldSubmitted: (_) async {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      setState(() {
+                        _isSendingEmail = true;
+                      });
+                      try {
+                        await GetOTPService.getOTP(_emailController.text);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EmailVerification(
+                                email: _emailController.text),
+                          ),
+                        );
+                      } catch (e) {
+                        // Handle error
+                        print('Error occurred: $e');
+                      } finally {
+                        setState(() {
+                          _isSendingEmail = false;
+                        });
+                      }
+                    }
+                  },
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 40,
+              ),
+              Center(
+                child: _isSendingEmail
+                    ? CircularProgressIndicator(
+                  color: ColorManager.blueprime,
+                )
+                    : CustomButton(
+                  borderRadius: 23.82,
+                  height: MediaQuery.of(context).size.height / 24,
+                  width: MediaQuery.of(context).size.width / 3,
+                  paddingVertical: AppPadding.p5,
+                  text: AppString.next,
+                  style: CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.white,
+                    fontSize: FontSize.s14,
                     fontWeight: FontWeightManager.bold,
                   ),
-                  labelText: AppString.email,
-                  hintText: AppString.emailhint,
-                  hintStyle: EmailTextStyle.enterEmail(context),
-                  labelStyle: EmailTextStyle.enterEmail(context),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return AppString.enteremail;
-                  }
-                  // if (!emailRegex.hasMatch(value)) {
-                  //   return AppString.entervalidemail;
-                  // }
-                  return null;
-                },
-                onFieldSubmitted: (_) async {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    setState(() {
-                      _isSendingEmail = true;
-                    });
-                    try {
-                      await GetOTPService.getOTP(_emailController.text);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EmailVerification(
-                              email: _emailController.text),
-                        ),
-                      );
-                    } catch (e) {
-                      // Handle error
-                      print('Error occurred: $e');
-                    } finally {
+                  onPressed: () async {
+                    if (_formKey.currentState?.validate() ?? false) {
                       setState(() {
-                        _isSendingEmail = false;
+                        _isSendingEmail = true;
                       });
+                      try {
+                        await GetOTPService.getOTP(_emailController.text);
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            transitionDuration:
+                            Duration(milliseconds: 500),
+                            pageBuilder: (context, animation,
+                                secondaryAnimation) =>
+                               EmailVerification(email: _emailController.text),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              const begin = Offset(1.0, 0.0);
+                              const end = Offset.zero;
+                              const curve = Curves.ease;
+      
+                              var tween = Tween(begin: begin, end: end)
+                                  .chain(CurveTween(curve: curve));
+                              return SlideTransition(
+                                position: animation.drive(tween),
+                                child: child,
+                              );
+                            },
+                          ),
+                        );
+                      } catch (e) {
+                        // Handle error
+                        print('Error occurred: $e');
+                      } finally {
+                        setState(() {
+                          _isSendingEmail = false;
+                        });
+                      }
                     }
-                  }
-                },
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 40,
-            ),
-            Center(
-              child: _isSendingEmail
-                  ? CircularProgressIndicator(
-                color: ColorManager.blueprime,
-              )
-                  : CustomButton(
-                borderRadius: 23.82,
-                height: MediaQuery.of(context).size.height / 24,
-                width: MediaQuery.of(context).size.width / 3,
-                paddingVertical: AppPadding.p5,
-                text: AppString.next,
-                style: CustomTextStylesCommon.commonStyle(
-                  color: ColorManager.white,
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.bold,
+                  },
                 ),
-                onPressed: () async {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    setState(() {
-                      _isSendingEmail = true;
-                    });
-                    try {
-                      await GetOTPService.getOTP(_emailController.text);
-                      Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                          transitionDuration:
-                          Duration(milliseconds: 500),
-                          pageBuilder: (context, animation,
-                              secondaryAnimation) =>
-                             EmailVerification(email: _emailController.text),
-                          transitionsBuilder: (context, animation,
-                              secondaryAnimation, child) {
-                            const begin = Offset(1.0, 0.0);
-                            const end = Offset.zero;
-                            const curve = Curves.ease;
-
-                            var tween = Tween(begin: begin, end: end)
-                                .chain(CurveTween(curve: curve));
-                            return SlideTransition(
-                              position: animation.drive(tween),
-                              child: child,
-                            );
-                          },
-                        ),
-                      );
-                    } catch (e) {
-                      // Handle error
-                      print('Error occurred: $e');
-                    } finally {
-                      setState(() {
-                        _isSendingEmail = false;
-                      });
-                    }
-                  }
-                },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

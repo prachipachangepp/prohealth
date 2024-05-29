@@ -224,7 +224,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                         : CustomButton(
                       borderRadius: 23.82,
                       height: MediaQuery.of(context).size.height / 24,
-                      width: MediaQuery.of(context).size.width / 3,
+                      width: MediaQuery.of(context).size.width / 2.6,
                       paddingVertical: AppPadding.p5,
                       text: AppString.updatepass,
                       style: CustomTextStylesCommon.commonStyle(
@@ -288,7 +288,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                           style: CustomTextStylesCommon
                                               .commonStyle(
                                             color: ColorManager.mediumgrey,
-                                            fontSize: FontSize.s12,
+                                            fontSize: FontSize.s10,
                                             fontWeight:
                                             FontWeightManager.medium,
                                           ),
@@ -301,8 +301,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                               .commonStyle(
                                             color: ColorManager.white,
                                             fontSize: FontSize.s10,
-                                            fontWeight:
-                                            FontWeightManager.semiBold,
+                                            fontWeight: FontWeightManager.semiBold,
                                           ),
                                           borderRadius: 19.37,
                                           onPressed: () {

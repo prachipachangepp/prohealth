@@ -23,31 +23,31 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
+  final TextEditingController emailController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  FocusNode emailFocusNode = FocusNode();
+  ForgotPassManager forgotPassManager = ForgotPassManager();
+ // final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+
+  void submitForm() {
+    if (formKey.currentState!.validate()) {
+      setState(() {});
+      String email = emailController.text;
+      forgotPassManager.forgotPassword(email);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VerifyPassword(
+            email: emailController.text,
+          ),
+        ),
+      );
+      print(AppString.forgotbtnpress);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
-    FocusNode emailFocusNode = FocusNode();
-    ForgotPassManager forgotPassManager = ForgotPassManager();
-    final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
-
-    void submitForm() {
-      if (formKey.currentState!.validate()) {
-        setState(() {});
-        String email = emailController.text;
-        forgotPassManager.forgotPassword(email);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => VerifyPassword(
-              email: emailController.text,
-            ),
-          ),
-        );
-        print(AppString.forgotbtnpress);
-      }
-    }
-
     return ResponsiveScreen(
         mobile: MobileConst(
           titleText: AppString.forgotpassword,
@@ -111,9 +111,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       if (value == null || value.isEmpty) {
                         return AppString.enteremail;
                       }
-                      if (!emailRegex.hasMatch(value)) {
-                        return AppString.entervalidemail;
-                      }
+                      // if (!emailRegex.hasMatch(value)) {
+                      //   return AppString.entervalidemail;
+                      // }
                       return null;
                     },
                     onFieldSubmitted: (_) {
@@ -211,9 +211,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               if (value == null || value.isEmpty) {
                                 return AppString.enteremail;
                               }
-                              if (!emailRegex.hasMatch(value)) {
-                                return AppString.entervalidemail;
-                              }
+                              // if (!emailRegex.hasMatch(value)) {
+                              //   return AppString.entervalidemail;
+                              // }
                               return null;
                             },
                             onFieldSubmitted: (_) {
@@ -300,9 +300,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           if (value == null || value.isEmpty) {
                             return AppString.enteremail;
                           }
-                          if (!emailRegex.hasMatch(value)) {
-                            return AppString.entervalidemail;
-                          }
+                          // if (!emailRegex.hasMatch(value)) {
+                          //   return AppString.entervalidemail;
+                          // }
                           return null;
                         },
                         onFieldSubmitted: (_) {
