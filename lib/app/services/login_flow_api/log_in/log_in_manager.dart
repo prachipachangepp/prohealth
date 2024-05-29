@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:prohealth/constants/app_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../presentation/screens/desktop_module/widgets/login_screen/menu_login_page.dart';
 import '../../../../presentation/screens/mobile_module/mobile_menu_screen.dart';
+import '../../../constants/app_config.dart';
 
 /// desktop
 class AuthService {
@@ -116,12 +116,12 @@ class AuthService {
 // }
 class AuthServicePhone {
   static Future<void> loginWithEmailId(
-      BuildContext context,
-      String emailController,
-      TextEditingController passwordController,
-      Function(bool) setLoading,
-      Function(String) setErrorMessage,
-      ) async {
+    BuildContext context,
+    String emailController,
+    TextEditingController passwordController,
+    Function(bool) setLoading,
+    Function(String) setErrorMessage,
+  ) async {
     if (emailController.isEmpty || passwordController.text.isEmpty) {
       setErrorMessage('Please enter username and password.');
       return;
@@ -149,12 +149,12 @@ class AuthServicePhone {
         await prefs.setString('access_token', access ?? '');
         await prefs.setString('refresh_token', refresh ?? '');
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MobileMenuScreen(),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => MobileMenuScreen(),
+        //   ),
+        // );
       } else {
         setErrorMessage(response.statusMessage ?? 'Unknown error occurred');
       }

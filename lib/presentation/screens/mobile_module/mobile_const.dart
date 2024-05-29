@@ -7,8 +7,8 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
-import '../../../../app/resources/font_manager.dart';
-import '../../../../app/resources/theme_manager.dart';
+import '../../../app/resources/font_manager.dart';
+import '../../../app/resources/theme_manager.dart';
 
 class MobileConst extends StatelessWidget {
   final Widget mobileChild;
@@ -37,6 +37,7 @@ class MobileConst extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
+        ///bg image
         Container(
             width: double.maxFinite,
             child: Stack(
@@ -71,6 +72,7 @@ class MobileConst extends StatelessWidget {
                     ]),
               ],
             )),
+
         Center(
           child: ClipRect(
               child: BackdropFilter(
@@ -99,7 +101,7 @@ class MobileConst extends StatelessWidget {
                               child: Image.asset(
                                 'images/logo_login.png',
                                 width: MediaQuery.of(context).size.width / 3,
-                                height: MediaQuery.of(context).size.height / 4,
+                                height: MediaQuery.of(context).size.height / 2,
                               ),
                             )),
 

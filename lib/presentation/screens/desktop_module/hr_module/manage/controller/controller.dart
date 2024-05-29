@@ -5,15 +5,20 @@ import '../../register/register_enroll_popup.dart';
 
 /// main screen controller
 /// prachi
-class MyController extends GetxController {
+class ScreenSizeController extends GetxController {
   /// Flag to determine if it's a tablet screen
   RxBool isTabletScreen = false.obs;
+  RxBool isMobileScreen = false.obs;
+  RxBool isDesktopScreen = false.obs;
 
   /// Method to check and set the screen type
   void checkScreenType(double screenWidth) {
-    isTabletScreen.value = screenWidth <= 800;
+    isTabletScreen.value = screenWidth < 712 && screenWidth > 414;
+    isMobileScreen.value = screenWidth <= 414;
+    isDesktopScreen.value = screenWidth >= 712;
   }
 }
+
 ///Login
 // class LoginTabBarController extends GetxController
 //     with GetSingleTickerProviderStateMixin {

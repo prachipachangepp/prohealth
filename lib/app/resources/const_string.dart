@@ -5,7 +5,7 @@ class AppString {
   static const String annualSkill = "Annual skills 92%";
   static const String physical = "Physical Therapy";
   static const String employmentType = "Employment Type";
-  static const String saanJoes = "Saan joes.24";
+  static const String saanJoes = "San joes.24";
   static const String address = "Address";
   static const String houseaddress =
       "House No., Street No. Area City, Zip\nCode";
@@ -165,7 +165,7 @@ class AppString {
   static const String forgotenter =
       "Enter your email for the verification proccess, we will send 6 digits code to your email.";
   static const String forgotentermobile =
-      "Enter your email for the verification proccess,\n we will send 6 digits code to your email.";
+      "Enter your email for the verification proccess, we will\nsend 6 digits code to your email.";
   // static const String = "";
   /// change password
   static const String verification = 'Verification';
@@ -176,7 +176,7 @@ class AppString {
   static const String fillfield = 'Please fill all fields.';
   static const String didntrecieveCode = 'Didn’t receive a code?';
   static const String setnewPassword =
-      'Set the new password for your account \nso you can login and access all features.';
+      'Set the new password for your account so you can login and\naccess all features.';
   static const String enternewpass = 'Enter New Password';
   static const String confmpass = 'Confirm Password';
   static const String enterconfmpass = 'Enter Confirm Password';
