@@ -223,8 +223,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                         ? CircularProgressIndicator(color: ColorManager.blueprime)
                         : CustomButton(
                       borderRadius: 23.82,
-                      width: MediaQuery.of(context).size.width / 3.2,
-                      height: MediaQuery.of(context).size.height / 25,
+                      height: MediaQuery.of(context).size.height / 24,
+                      width: MediaQuery.of(context).size.width / 3,
                       paddingVertical: AppPadding.p5,
                       text: AppString.updatepass,
                       style: CustomTextStylesCommon.commonStyle(

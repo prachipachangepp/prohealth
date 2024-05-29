@@ -13,8 +13,6 @@ import '../../../app/resources/theme_manager.dart';
 class MobileConst extends StatelessWidget {
   final Widget mobileChild;
   final String titleText;
-  // final String text;
-  // final String? text2;
   final VoidCallback onTap;
   final String textAction;
   final double? containerHeight;
@@ -28,9 +26,6 @@ class MobileConst extends StatelessWidget {
     required this.onTap,
     this.containerHeight,
     this.containerWidth,
-
-    // required this.text,
-    //  required   this.text2,
   }) : super(key: key);
 
   @override
@@ -90,18 +85,18 @@ class MobileConst extends StatelessWidget {
                         ),
                       ],
                       color: ColorManager.white.withOpacity(0.35),
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(11.5),),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Container(
                               child: Image.asset(
                                 'images/logo_login.png',
-                                width: MediaQuery.of(context).size.width / 3,
-                                height: MediaQuery.of(context).size.height / 2,
+                                width: MediaQuery.of(context).size.width / 1.5,
+                                //height: MediaQuery.of(context).size.height / 2,
                               ),
                             )),
 
@@ -112,16 +107,18 @@ class MobileConst extends StatelessWidget {
                               titleText,
                               style: GoogleFonts.firaSans(
                                 color: ColorManager.mediumgrey,
-                                fontSize: FontSize.s36,
+                                fontSize: FontSize.s24,
                              //   fontSize: MediaQuery.of(context).size.width / 18,
                                 fontWeight: FontWeightManager.extrabold,
                               ),
                             )),
+                        ///child
                         Expanded(
                             flex: 3,
                             child: Container(
                               child: mobileChild,
                             )),
+                        ///bottom
                         Expanded(
                             flex: 1,
                             child: InkWell(
@@ -149,15 +146,15 @@ class MobileConst extends StatelessWidget {
                 AppString.poweredby,
                 style: GoogleFonts.firaSans(
                   color: ColorManager.black,
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeightManager.regular,
+                  fontSize: FontSize.s10,
+                  fontWeight: FontWeightManager.medium,
                 ),
               ),
               SizedBox(
                 width: AppSize.s2,
               ),
               Image.asset('images/powered_logo.png',
-                  width: AppSize.s20, height: AppSize.s20)
+                  width: AppSize.s24, height: AppSize.s20)
             ],
           ),
         )

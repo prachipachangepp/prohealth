@@ -37,7 +37,7 @@ class _LoginMobileState extends State<LoginMobile> {
 
   String? otpFromRunTab;
 
-  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+  //final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +88,9 @@ class _LoginMobileState extends State<LoginMobile> {
                   if (value == null || value.isEmpty) {
                     return AppString.enteremail;
                   }
-                  if (!emailRegex.hasMatch(value)) {
-                    return AppString.entervalidemail;
-                  }
+                  // if (!emailRegex.hasMatch(value)) {
+                  //   return AppString.entervalidemail;
+                  // }
                   return null;
                 },
                 onFieldSubmitted: (_) async {
@@ -129,8 +129,8 @@ class _LoginMobileState extends State<LoginMobile> {
               )
                   : CustomButton(
                 borderRadius: 23.82,
-                height: MediaQuery.of(context).size.height / 22,
-                width: MediaQuery.of(context).size.width / 3.8,
+                height: MediaQuery.of(context).size.height / 24,
+                width: MediaQuery.of(context).size.width / 3,
                 paddingVertical: AppPadding.p5,
                 text: AppString.next,
                 style: CustomTextStylesCommon.commonStyle(
