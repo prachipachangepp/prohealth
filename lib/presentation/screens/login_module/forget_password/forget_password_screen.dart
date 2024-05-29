@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/widgets/responsive_screen.dart';
-
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -24,44 +23,43 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
+  final TextEditingController emailController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  FocusNode emailFocusNode = FocusNode();
+  ForgotPassManager forgotPassManager = ForgotPassManager();
+ // final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+
+  void submitForm() {
+    if (formKey.currentState!.validate()) {
+      setState(() {});
+      String email = emailController.text;
+      forgotPassManager.forgotPassword(email);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VerifyPassword(
+            email: emailController.text,
+          ),
+        ),
+      );
+      print(AppString.forgotbtnpress);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _emailController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
-    FocusNode emailFocusNode = FocusNode();
-    ForgotPassManager _forgotPassManager = ForgotPassManager();
-    final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
-
-    void _submitForm() {
-      if (_formKey.currentState!.validate()) {
-        setState(() {});
-        String email = _emailController.text;
-        _forgotPassManager.forgotPassword(email);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => VerifyPassword(
-              email: _emailController.text,
-            ),
-          ),
-        );
-        print(AppString.forgotbtnpress);
-      }
-    }
-
     return ResponsiveScreen(
         mobile: MobileConst(
           titleText: AppString.forgotpassword,
           textAction: AppString.backtologin,
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginScreen()));
+                MaterialPageRoute(builder: (context) => const LoginScreen()));
           },
-          containerHeight:
-              MediaQuery.of(context).size.height / 2, // specify desired height
+          containerHeight: MediaQuery.of(context).size.height / 2, // specify desired height
           containerWidth: MediaQuery.of(context).size.width / 1.1,
           mobileChild: Form(
-            key: _formKey,
+            key: formKey,
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 8),
@@ -74,12 +72,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     style: GoogleFonts.firaSans(
                       color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
-                      //fontSize: MediaQuery.of(context).size.width/32,
                       fontWeight: FontWeightManager.medium,
                     ),
                   ),
                   TextFormField(
-                    controller: _emailController,
+                    focusNode: emailFocusNode,
+                    keyboardType: TextInputType.visiblePassword,
+                    controller: emailController,
                     style: CustomTextStylesCommon.commonStyle(
                       color: Color(0xff000000).withOpacity(0.5),
                       fontWeight: FontWeightManager.medium,
@@ -112,13 +111,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       if (value == null || value.isEmpty) {
                         return AppString.enteremail;
                       }
-                      if (!emailRegex.hasMatch(value)) {
-                        return AppString.entervalidemail;
-                      }
+                      // if (!emailRegex.hasMatch(value)) {
+                      //   return AppString.entervalidemail;
+                      // }
                       return null;
                     },
                     onFieldSubmitted: (_) {
-                      _submitForm();
+                      submitForm();
                     },
                   ),
 
@@ -126,8 +125,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   Center(
                     child: CustomButton(
                       borderRadius: 23.82,
-                      height: MediaQuery.of(context).size.height / 22,
-                      width: MediaQuery.of(context).size.width / 3.8,
+                      height: MediaQuery.of(context).size.height / 24,
+                      width: MediaQuery.of(context).size.width / 3,
                       paddingVertical: AppPadding.p5,
                       text: AppString.continuet,
                       style: CustomTextStylesCommon.commonStyle(
@@ -135,7 +134,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         fontSize: FontSize.s14,
                         fontWeight: FontWeightManager.bold,
                       ),
-                      onPressed: _submitForm,
+                      onPressed: submitForm,
                     ),
                   )
                 ],
@@ -147,7 +146,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             onTap: () {
               Navigator.push(
                 context,
-                RouteTransitions.slideTransition(page: LoginScreen()),
+                RouteTransitions.slideTransition(page: const LoginScreen()),
               );
             },
             titleText: AppString.forgotpassword,
@@ -165,7 +164,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     color: ColorManager.white,
                   ),
                   child: Form(
-                    key: _formKey,
+                    key: formKey,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: MediaQuery.of(context).size.width / 30),
@@ -183,7 +182,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             ),
                           ),
                           TextFormField(
-                            controller: _emailController,
+                            controller: emailController,
                             style: CustomTextStylesCommon.commonStyle(
                               color: Color(0xff000000).withOpacity(0.5),
                               fontWeight: FontWeightManager.medium,
@@ -212,13 +211,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               if (value == null || value.isEmpty) {
                                 return AppString.enteremail;
                               }
-                              if (!emailRegex.hasMatch(value)) {
-                                return AppString.entervalidemail;
-                              }
+                              // if (!emailRegex.hasMatch(value)) {
+                              //   return AppString.entervalidemail;
+                              // }
                               return null;
                             },
                             onFieldSubmitted: (_) {
-                              _submitForm();
+                              submitForm();
                             },
                           ),
 
@@ -229,7 +228,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               height: MediaQuery.of(context).size.height / 18,
                               width: MediaQuery.of(context).size.width / 10,
                               text: AppString.continuet,
-                              onPressed: _submitForm,
+                              onPressed: submitForm,
                             ),
                           )
                         ],
@@ -255,7 +254,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(25)),
               child: Form(
-                key: _formKey,
+                key: formKey,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width / 30),
@@ -273,7 +272,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         ),
                       ),
                       TextFormField(
-                        controller: _emailController,
+                        controller: emailController,
                         style: CustomTextStylesCommon.commonStyle(
                           color: Color(0xff000000).withOpacity(0.5),
                           fontWeight: FontWeightManager.medium,
@@ -301,13 +300,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           if (value == null || value.isEmpty) {
                             return AppString.enteremail;
                           }
-                          if (!emailRegex.hasMatch(value)) {
-                            return AppString.entervalidemail;
-                          }
+                          // if (!emailRegex.hasMatch(value)) {
+                          //   return AppString.entervalidemail;
+                          // }
                           return null;
                         },
                         onFieldSubmitted: (_) {
-                          _submitForm();
+                          submitForm();
                         },
                       ),
 
@@ -318,7 +317,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           height: MediaQuery.of(context).size.height / 18,
                           width: MediaQuery.of(context).size.width / 10,
                           text: AppString.continuet,
-                          onPressed: _submitForm,
+                          onPressed: submitForm,
                         ),
                       )
                     ],

@@ -26,7 +26,8 @@ class AuthService {
     try {
       var dio = Dio();
       var response = await dio.post(
-        '${AppConfig.endpoint}/auth/sign-in',
+        //'${AppConfig.endpoint}/auth/sign-in',
+        '${AppConfig.endpoint}/auth/signIn',
         data: {
           'email': email,
           'password': password,

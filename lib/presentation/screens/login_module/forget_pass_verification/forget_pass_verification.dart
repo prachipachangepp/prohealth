@@ -216,8 +216,8 @@ class _VerifyPasswordState extends State<VerifyPassword> {
                 Center(
                   child: CustomButton(
                     borderRadius: 23.82,
-                    height: MediaQuery.of(context).size.height / 22,
-                    width: MediaQuery.of(context).size.width / 3.8,
+                    height: MediaQuery.of(context).size.height / 24,
+                    width: MediaQuery.of(context).size.width / 3,
                     paddingVertical: AppPadding.p5,
                     text: AppString.continuet,
                     style: CustomTextStylesCommon.commonStyle(

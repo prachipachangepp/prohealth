@@ -25,7 +25,7 @@ class EmailVerification extends StatefulWidget {
 
 class _EmailVerificationState extends State<EmailVerification> {
   List<TextEditingController> _otpControllers =
-      List.generate(4, (_) => TextEditingController());
+      List.generate(6, (_) => TextEditingController());
   bool _isVerifyingOTP = false;
   String? _errorMessage;
   final String email;
@@ -110,7 +110,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
-                    4,
+                    6,
                     (index) => Container(
                       width: MediaQuery.of(context).size.width / 13,
                       height: MediaQuery.of(context).size.height / 23,
@@ -150,9 +150,9 @@ class _EmailVerificationState extends State<EmailVerification> {
                           return value!.isEmpty ? AppString.otp : null;
                         },
                         onChanged: (value) {
-                          if (value.isNotEmpty && index < 3) {
+                          if (value.isNotEmpty && index < 5) {
                             FocusScope.of(context).nextFocus();
-                          } else if (value.isNotEmpty && index == 3) {
+                          } else if (value.isNotEmpty && index == 5) {
                             _verifyOTPAndLogin();
                           }
                         },
@@ -247,7 +247,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        4,
+                        6,
                         (index) => Container(
                           width: MediaQuery.of(context).size.width / 38,
                           height: MediaQuery.of(context).size.height / 19,
@@ -288,9 +288,9 @@ class _EmailVerificationState extends State<EmailVerification> {
                               return value!.isEmpty ? AppString.otp : null;
                             },
                             onChanged: (value) {
-                              if (value.isNotEmpty && index < 3) {
+                              if (value.isNotEmpty && index < 5) {
                                 FocusScope.of(context).nextFocus();
-                              } else if (value.isNotEmpty && index == 3) {
+                              } else if (value.isNotEmpty && index == 5) {
                                 _verifyOTPAndLogin();
                               }
                             },
@@ -414,7 +414,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        4,
+                        6,
                         (index) => Container(
                           width: MediaQuery.of(context).size.width / 35,
                           height: MediaQuery.of(context).size.height / 22,
@@ -455,9 +455,9 @@ class _EmailVerificationState extends State<EmailVerification> {
                               return value!.isEmpty ? AppString.otp : null;
                             },
                             onChanged: (value) {
-                              if (value.isNotEmpty && index < 3) {
+                              if (value.isNotEmpty && index < 5) {
                                 FocusScope.of(context).nextFocus();
-                              } else if (value.isNotEmpty && index == 3) {
+                              } else if (value.isNotEmpty && index == 5) {
                                 _verifyOTPAndLogin();
                               }
                             },
@@ -486,9 +486,10 @@ class _EmailVerificationState extends State<EmailVerification> {
 
                     ///button
                     CustomButton(
-                      borderRadius: 24,
-                      height: MediaQuery.of(context).size.height / 22,
-                      width: MediaQuery.of(context).size.height / 6,
+                      borderRadius: 23.82,
+                      paddingVertical: AppPadding.p5,
+                      height: MediaQuery.of(context).size.height / 24,
+                      width: MediaQuery.of(context).size.width / 3,
                       text: _isVerifyingOTP
                           ? AppString.verify
                           : AppString.loginbtn,

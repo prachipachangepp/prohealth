@@ -33,6 +33,7 @@ class App extends StatelessWidget {
                   } else {
                     return Scaffold();
                   }
-                }));
+                })
+    );
   }
 }

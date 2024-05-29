@@ -29,7 +29,7 @@ class _LoginTabletState extends State<LoginTablet> {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
   String? otpFromRunTab;
-  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+  //final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +86,9 @@ class _LoginTabletState extends State<LoginTablet> {
                           if (value == null || value.isEmpty) {
                             return AppString.enteremail;
                           }
-                          if (!emailRegex.hasMatch(value)) {
-                            return AppString.entervalidemail;
-                          }
+                          // if (!emailRegex.hasMatch(value)) {
+                          //   return AppString.entervalidemail;
+                          // }
                           return null;
                         },
                         onFieldSubmitted: (_) async {
