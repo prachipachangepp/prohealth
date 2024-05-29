@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_const.dart';
@@ -13,25 +11,25 @@ import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_cons
 import '../../login/login_screen.dart';
 import '../../update_password/update_password.dart';
 
-class mobileVerifyForgotPass extends StatefulWidget {
+class MobileVerifyForgotPass extends StatefulWidget {
   final String email;
-  const mobileVerifyForgotPass({Key? key, required this.email})
+  const MobileVerifyForgotPass({Key? key, required this.email})
       : super(key: key);
 
   @override
-  State<mobileVerifyForgotPass> createState() => _mobileVerifyForgotPassState();
+  State<MobileVerifyForgotPass> createState() => _MobileVerifyForgotPassState();
 }
 
-class _mobileVerifyForgotPassState extends State<mobileVerifyForgotPass> {
-  List<TextEditingController> _otpControllers =
+class _MobileVerifyForgotPassState extends State<MobileVerifyForgotPass> {
+  final List<TextEditingController> _otpControllers =
   List.generate(6, (_) => TextEditingController());
-  List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
-  final _formKey = GlobalKey<FormState>();
+  final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
+  //final _formKey = GlobalKey<FormState>();
   String? _errorMessage;
-  late Timer _timer;
-  int _timerCount = 30;
+  // late Timer _timer;
+  // int _timerCount = 30;
   bool isOtpFieldEmpty = true;
-  List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
+  final List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
 
   // @override
   // void initState() {
@@ -71,13 +69,13 @@ class _mobileVerifyForgotPassState extends State<mobileVerifyForgotPass> {
       textAction: AppString.backtologin,
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            context, MaterialPageRoute(builder: (context) => const LoginScreen()));
       },
       containerHeight:
       MediaQuery.of(context).size.height / 2, // specify desired height
       containerWidth: MediaQuery.of(context).size.width / 1.1,
       mobileChild: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,7 +96,7 @@ class _mobileVerifyForgotPassState extends State<mobileVerifyForgotPass> {
                     (index) => Container(
                   width: MediaQuery.of(context).size.width / 12,
                   height: MediaQuery.of(context).size.height / 25,
-                  margin: EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                  margin: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2.26),
                     border: Border.all(

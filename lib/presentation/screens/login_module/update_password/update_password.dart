@@ -82,7 +82,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
           textAction: AppString.backtologin,
           titleText: AppString.newPass,
           containerHeight:
-          MediaQuery.of(context).size.height / 1.7, // specify desired height
+          MediaQuery.of(context).size.height / 1.6, // specify desired height
           containerWidth: MediaQuery.of(context).size.width / 1.1,
           mobileChild: Form(
             key: _formKey,

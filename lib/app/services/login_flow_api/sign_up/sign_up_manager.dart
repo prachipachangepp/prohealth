@@ -18,7 +18,8 @@ class SignUpManager {
     });
     var dio = Dio();
     var response = await dio.request(
-      '${AppConfig.endpoint}/auth/sign-up/',
+     // '${AppConfig.endpoint}/auth/sign-up/',
+      '${AppConfig.endpoint}/users/signUp',
       //  'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/auth/sign-up',
       options: Options(
         method: 'POST',

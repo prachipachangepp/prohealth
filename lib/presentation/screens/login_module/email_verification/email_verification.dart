@@ -24,7 +24,7 @@ class EmailVerification extends StatefulWidget {
 }
 
 class _EmailVerificationState extends State<EmailVerification> {
-  List<TextEditingController> _otpControllers =
+  final List<TextEditingController> _otpControllers =
       List.generate(6, (_) => TextEditingController());
   bool _isVerifyingOTP = false;
   String? _errorMessage;
@@ -65,15 +65,15 @@ class _EmailVerificationState extends State<EmailVerification> {
     return ResponsiveScreen(
         mobile: MobileConst(
           containerHeight:
-              MediaQuery.of(context).size.height / 2, // specify desired height
+              MediaQuery.of(context).size.height / 1.9, // specify desired height
           containerWidth: MediaQuery.of(context).size.width / 1.1,
           onTap: () {
             Navigator.push(
               context,
               PageRouteBuilder(
-                transitionDuration: Duration(milliseconds: 500),
+                transitionDuration: const Duration(milliseconds: 500),
                 pageBuilder: (context, animation, secondaryAnimation) =>
-                    LoginWithPassword(email: AppString.email),
+                    const LoginWithPassword(email: AppString.email),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   const begin = Offset(1.0, 0.0);
@@ -92,7 +92,7 @@ class _EmailVerificationState extends State<EmailVerification> {
           textAction: AppString.donthaveauth,
           titleText: AppString.verification,
           mobileChild: Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
             child: Column(
               children: [
                 Text(
@@ -114,7 +114,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                     (index) => Container(
                       width: MediaQuery.of(context).size.width / 13,
                       height: MediaQuery.of(context).size.height / 23,
-                      margin: EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                      margin: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
                         border: Border.all(
@@ -127,7 +127,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                         cursorColor: ColorManager.black,
                         cursorHeight: 20,
                         cursorWidth: 2,
-                        cursorRadius: Radius.circular(1),
+                        cursorRadius: const Radius.circular(1),
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                             RegExp(r'[0-9]'),
@@ -137,9 +137,9 @@ class _EmailVerificationState extends State<EmailVerification> {
                         textAlign: TextAlign.center,
                         textAlignVertical: TextAlignVertical.center,
                         maxLength: 1,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           contentPadding:
-                              const EdgeInsets.only(bottom: AppSize.s15),
+                              EdgeInsets.only(bottom: AppSize.s15),
                           counterText: '',
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
@@ -230,7 +230,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                 color: ColorManager.white,
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -265,7 +265,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                             cursorColor: ColorManager.black,
                             cursorHeight: 20,
                             cursorWidth: 2,
-                            cursorRadius: Radius.circular(1),
+                            cursorRadius: const Radius.circular(1),
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                 RegExp(r'[0-9]'),
@@ -275,9 +275,9 @@ class _EmailVerificationState extends State<EmailVerification> {
                             textAlign: TextAlign.center,
                             textAlignVertical: TextAlignVertical.center,
                             maxLength: 1,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               contentPadding:
-                                  const EdgeInsets.only(bottom: AppSize.s15),
+                                  EdgeInsets.only(bottom: AppSize.s15),
                               counterText: '',
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -356,10 +356,10 @@ class _EmailVerificationState extends State<EmailVerification> {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            transitionDuration: Duration(milliseconds: 500),
+                            transitionDuration: const Duration(milliseconds: 500),
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    LoginWithPassword(email: email!),
+                                    LoginWithPassword(email: email),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               const begin = Offset(1.0, 0.0);
@@ -397,7 +397,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                 color: ColorManager.white,
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -419,7 +419,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                           width: MediaQuery.of(context).size.width / 35,
                           height: MediaQuery.of(context).size.height / 22,
                           margin:
-                              EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                              const EdgeInsets.symmetric(horizontal: AppPadding.p10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2.26),
                             border: Border.all(
@@ -432,7 +432,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                             cursorColor: ColorManager.black,
                             cursorHeight: 20,
                             cursorWidth: 2,
-                            cursorRadius: Radius.circular(1),
+                            cursorRadius: const Radius.circular(1),
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                 RegExp(r'[0-9]'),
@@ -442,9 +442,9 @@ class _EmailVerificationState extends State<EmailVerification> {
                             textAlign: TextAlign.center,
                             textAlignVertical: TextAlignVertical.center,
                             maxLength: 1,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               contentPadding:
-                                  const EdgeInsets.only(bottom: AppSize.s15),
+                                  EdgeInsets.only(bottom: AppSize.s15),
                               counterText: '',
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -524,7 +524,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            transitionDuration: Duration(milliseconds: 500),
+                            transitionDuration: const Duration(milliseconds: 500),
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
                                     LoginWithPassword(email: email),

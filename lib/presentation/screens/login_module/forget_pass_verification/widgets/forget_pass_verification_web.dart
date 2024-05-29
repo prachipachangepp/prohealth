@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -7,31 +6,30 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
-
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
 import '../../login/login_screen.dart';
 import '../../update_password/update_password.dart';
 
-class VerifyPasswordScreen extends StatefulWidget {
+class VerifyPasswordWeb extends StatefulWidget {
   final String email;
-  VerifyPasswordScreen({super.key, required this.email});
+  const VerifyPasswordWeb({super.key, required this.email});
 
   @override
-  State<VerifyPasswordScreen> createState() => _VerifyPasswordScreenState();
+  State<VerifyPasswordWeb> createState() => _VerifyPasswordWebState();
 }
 
-class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
-  List<TextEditingController> _otpControllers =
+class _VerifyPasswordWebState extends State<VerifyPasswordWeb> {
+  final List<TextEditingController> _otpControllers =
       List.generate(6, (_) => TextEditingController());
-  List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
-  final _formKey = GlobalKey<FormState>();
+  final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
+  //final _formKey = GlobalKey<FormState>();
   String? _errorMessage;
   late Timer _timer;
   int _timerCount = 30;
   bool isOtpFieldEmpty = true;
-  List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
+  final List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
 
   @override
   void initState() {
@@ -70,7 +68,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
       onTap: () {
         Navigator.push(
           context,
-          RouteTransitions.slideTransition(page: LoginScreen()),
+          RouteTransitions.slideTransition(page: const LoginScreen()),
         );
       },
       textAction: AppString.backtologin,
@@ -86,7 +84,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
             color: ColorManager.white,
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,9 +128,9 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                         textAlign: TextAlign.center,
                         maxLength: 1,
                         focusNode: _focusNodes[index],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           contentPadding:
-                              const EdgeInsets.only(bottom: AppPadding.p11),
+                              EdgeInsets.only(bottom: AppPadding.p11),
                           counterText: '',
                           border: InputBorder.none,
                         ),
@@ -162,7 +160,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
 
                 ///timer
                 Text(
-                  '${getTimerString()}',
+                  getTimerString(),
                   style: CustomTextStylesCommon.commonStyle(
                     color: ColorManager.orange,
                     fontSize: FontSize.s8,
