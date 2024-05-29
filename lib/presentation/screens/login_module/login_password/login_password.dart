@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/screens/login_module/forget_password/forget_password_screen.dart';
 
 import '../../../../app/resources/color.dart';
@@ -7,7 +8,6 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../../app/services/login_flow_api/log_in/log_in_manager.dart';
-import '../../../responsive_screen.dart';
 import '../../../widgets/responsive_screen.dart';
 import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
@@ -19,7 +19,8 @@ class LoginWithPassword extends StatefulWidget {
   const LoginWithPassword({super.key, required this.email});
 
   @override
-  State<LoginWithPassword> createState() => _LoginWithPasswordState(email: email);
+  State<LoginWithPassword> createState() =>
+      _LoginWithPasswordState(email: email);
 }
 
 class _LoginWithPasswordState extends State<LoginWithPassword> {
@@ -44,12 +45,12 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
         widget.email,
         _passwordController,
         true,
-            (isLoading) {
+        (isLoading) {
           setState(() {
             _isLoading = isLoading;
           });
         },
-            (errorMessage) {
+        (errorMessage) {
           setState(() {
             _errorMessage = errorMessage;
             _isLoading = false;
@@ -63,10 +64,12 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
   Widget build(BuildContext context) {
     return ResponsiveScreen(
         mobile: MobileConst(
-          containerHeight: MediaQuery.of(context).size.height / 2, // specify desired height
+          containerHeight:
+              MediaQuery.of(context).size.height / 2, // specify desired height
           containerWidth: MediaQuery.of(context).size.width / 1.1,
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgetPassword()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ForgetPassword()));
           },
           titleText: AppString.login,
           textAction: AppString.forgotpass,
@@ -124,7 +127,9 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscureText ? Icons.visibility : Icons.visibility_off,
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           color: Colors.grey,
                         ),
                         onPressed: () {
@@ -145,24 +150,25 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
                   ///button
                   _isLoading
                       ? CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  )
+                          color: ColorManager.blueprime,
+                        )
                       : CustomButton(
-                    borderRadius: 23.82,
-                    height: MediaQuery.of(context).size.height / 22,
-                    width: MediaQuery.of(context).size.width / 3.8,
-                    paddingVertical: AppPadding.p5,
-                    text: AppString.loginbtn,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.white,
-                    ),
-                    onPressed: _isLoading ? () {} : _login,
-                  ),
+                          borderRadius: 23.82,
+                          height: MediaQuery.of(context).size.height / 22,
+                          width: MediaQuery.of(context).size.width / 3.8,
+                          paddingVertical: AppPadding.p5,
+                          text: AppString.loginbtn,
+                          style: CustomTextStylesCommon.commonStyle(
+                            fontSize: FontSize.s14,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.white,
+                          ),
+                          onPressed: _isLoading ? () {} : _login,
+                        ),
                   if (_errorMessage != null)
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: AppPadding.p10),
                       child: Text(
                         _errorMessage!,
                         style: CustomTextStylesCommon.commonStyle(
@@ -177,7 +183,7 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
             ),
           ),
         ),
-        web:  LoginBaseConstant(
+        web: LoginBaseConstant(
           onTap: () {
             Navigator.push(
               context,
@@ -259,19 +265,19 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
                     ///button
                     _isLoading
                         ? CircularProgressIndicator(
-                      color: ColorManager.blueprime,
-                    )
+                            color: ColorManager.blueprime,
+                          )
                         : CustomButton(
-                      borderRadius: 24,
-                      height: MediaQuery.of(context).size.height / 18,
-                      width: MediaQuery.of(context).size.height / 4,
-                      text: AppString.loginbtn,
-                      onPressed: _isLoading ? () {} : _login,
-                    ),
+                            borderRadius: 24,
+                            height: MediaQuery.of(context).size.height / 18,
+                            width: MediaQuery.of(context).size.height / 4,
+                            text: AppString.loginbtn,
+                            onPressed: _isLoading ? () {} : _login,
+                          ),
                     if (_errorMessage != null)
                       Padding(
-                        padding:
-                        const EdgeInsets.symmetric(vertical: AppPadding.p10),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: AppPadding.p10),
                         child: Text(
                           _errorMessage!,
                           style: TextStyle(color: ColorManager.red),
@@ -283,9 +289,9 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
             ),
           ),
         ),
-        tablet:  LoginBaseConstTab(
+        tablet: LoginBaseConstTab(
           titleText: AppString.login,
-          onTap: (){
+          onTap: () {
             Navigator.push(
               context,
               RouteTransitions.slideTransition(page: ForgetPassword()),
@@ -293,12 +299,10 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
           },
           textAction: AppString.forgotpass,
           childTab: Container(
-            height: MediaQuery.of(context).size.height/3.5,
-            width: MediaQuery.of(context).size.width/2,
+            height: MediaQuery.of(context).size.height / 3.5,
+            width: MediaQuery.of(context).size.width / 2,
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(25)),
             child: Form(
               key: _formKey,
               child: Column(
@@ -332,7 +336,7 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
                           ),
                         ),
                         hintText: AppString.enterpass,
-                        hintStyle:  EmailTextStyle.enterEmail(context),
+                        hintStyle: EmailTextStyle.enterEmail(context),
                         labelText: AppString.password,
                         labelStyle: EmailTextStyle.enterEmail(context),
                         suffixIcon: IconButton(
@@ -357,21 +361,23 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
                       },
                     ),
                   ),
+
                   ///button
                   _isLoading
                       ? CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  )
+                          color: ColorManager.blueprime,
+                        )
                       : CustomButton(
-                    borderRadius: 24,
-                    height: MediaQuery.of(context).size.height / 18,
-                    width: MediaQuery.of(context).size.height / 4,
-                    text: AppString.loginbtn,
-                    onPressed: _isLoading ? () {} : _login,
-                  ),
+                          borderRadius: 24,
+                          height: MediaQuery.of(context).size.height / 18,
+                          width: MediaQuery.of(context).size.height / 4,
+                          text: AppString.loginbtn,
+                          onPressed: _isLoading ? () {} : _login,
+                        ),
                   if (_errorMessage != null)
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: AppPadding.p10),
                       child: Text(
                         _errorMessage!,
                         style: TextStyle(color: ColorManager.red),
@@ -380,8 +386,7 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
                 ],
               ),
             ),
-
-          ),));
-
+          ),
+        ));
   }
 }

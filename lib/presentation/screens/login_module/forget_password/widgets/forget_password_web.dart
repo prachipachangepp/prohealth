@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/login_flow_api/forgot_pass/forgot_pass_manager.dart';
-import '../../../../responsive_screen.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../desktop_module/widgets/login_screen/login_screen.dart';
 import '../../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
 import '../../forget_pass_verification/forget_pass_verification.dart';
 import '../../login/login_screen.dart';
@@ -38,7 +37,8 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
         },
         titleText: AppString.forgotpassword,
         textAction: AppString.backtologin,
-        textActionPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width/2),
+        textActionPadding:
+            EdgeInsets.only(left: MediaQuery.of(context).size.width / 2),
         child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(24),
@@ -52,7 +52,8 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
               child: Form(
                 key: _formKey,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 30),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width / 30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -104,6 +105,7 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                           _submitForm();
                         },
                       ),
+
                       ///button
                       Center(
                         child: CustomButton(
@@ -118,14 +120,12 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                   ),
                 ),
               ),
-            ))
-    );
+            )));
   }
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-      });
+      setState(() {});
       String email = _emailController.text;
       _forgotPassManager.forgotPassword(email);
       Navigator.push(
