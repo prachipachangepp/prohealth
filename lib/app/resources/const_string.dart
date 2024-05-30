@@ -152,8 +152,8 @@ class AppString {
   static const String donthaveauth =
       "Don't have authentication application with me?";
   static const String verify = "Verifying...";
-  static const String enter4digitcode =
-      "Enter your 4 digits code that you received on your email.";
+  static const String enter6digitcode =
+      "Enter your 6 digits code that you received on your email.";
   static const String enterpasstologin = "Enter your password to login";
 
   ///forgot

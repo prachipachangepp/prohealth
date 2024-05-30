@@ -210,7 +210,7 @@ class MobileMenuText {
     return GoogleFonts.firaSans(
       color: ColorManager.mediumgrey,
       fontSize: FontSize.s12,
-      fontWeight: FontWeightManager.medium,
+      fontWeight: FontWeightManager.semiBold,
     );
   }
 }

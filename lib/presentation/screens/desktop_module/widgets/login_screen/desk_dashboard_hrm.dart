@@ -5,14 +5,14 @@ import '../../hr_module/manage/controller/controller.dart';
 import '../const_appbar/app_bar.dart';
 
 ///saloni
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreenHRM extends StatefulWidget {
+  const HomeScreenHRM({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreenHRM> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreenHRM> {
   final ScreenSizeController myController = Get.find();
 
   @override

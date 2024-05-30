@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../presentation/screens/desktop_module/widgets/login_screen/menu_login_page.dart';
@@ -16,7 +17,7 @@ class App extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
-        home:
+        home: HomeScreen()
             //HrAdministrativeScreen()
             //DummyScreen()
             //SMDesktop()
@@ -24,16 +25,16 @@ class App extends StatelessWidget {
             ///
             //  ResponsiveScreenSM()
             ///
-            FutureBuilder(
-                future: getToken(),
-                builder: (context, token) {
-                  if (token.hasData) {
-                    String d = token.data.toString();
-                    return d.isEmpty ? LoginScreen() : MenuScreen();
-                  } else {
-                    return Scaffold();
-                  }
-                })
+            // FutureBuilder(
+            //     future: getToken(),
+            //     builder: (context, token) {
+            //       if (token.hasData) {
+            //         String d = token.data.toString();
+            //         return d.isEmpty ? LoginScreen() : HomeScreen();
+            //       } else {
+            //         return Scaffold();
+            //       }
+            //     })
     );
   }
 }

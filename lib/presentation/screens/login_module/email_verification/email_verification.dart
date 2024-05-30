@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/screens/login_module/login_password/login_password.dart';
-import 'package:prohealth/presentation/screens/mobile_module/mobile_menu_screen.dart';
 import 'package:prohealth/presentation/widgets/responsive_screen.dart';
-
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -12,6 +10,7 @@ import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../../app/services/login_flow_api/verify_otp/verify_otp_manager.dart';
 import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../home_module/home_screen.dart';
 import '../../mobile_module/mobile_const.dart';
 import '../../tablet_module/tab_const.dart';
 
@@ -48,7 +47,7 @@ class _EmailVerificationState extends State<EmailVerification> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MobileMenuScreen(),
+          builder: (context) => HomeScreen(),
         ),
       );
     } else {
@@ -97,7 +96,7 @@ class _EmailVerificationState extends State<EmailVerification> {
             child: Column(
               children: [
                 Text(
-                  AppString.enter4digitcode,
+                  AppString.enter6digitcode,
                   style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.mediumgrey,
                       fontSize: FontSize.s10,
@@ -237,7 +236,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      AppString.enter4digitcode,
+                      AppString.enter6digitcode,
                       style: CustomTextStylesCommon.commonStyle(
                           color: ColorManager.darkgrey,
                           fontSize: FontSize.s12,
@@ -405,7 +404,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      AppString.enter4digitcode,
+                      AppString.enter6digitcode,
                       style: CustomTextStylesCommon.commonStyle(
                           color: ColorManager.darkgrey,
                           fontSize: FontSize.s12,

@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../login_module/login/login_screen.dart';
@@ -83,7 +84,7 @@ class ResponsivePage extends StatelessWidget {
               builder: (context, token) {
                 if (token.hasData) {
                   String d = token.data.toString();
-                  return d.isEmpty ? LoginScreen() : MenuScreen();
+                  return d.isEmpty ? LoginScreen() : HomeScreen();
                 } else {
                   return Scaffold();
                 }

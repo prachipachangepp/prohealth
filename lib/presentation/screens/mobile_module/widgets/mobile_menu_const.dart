@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -17,13 +18,11 @@ class MobMenuScreenConst extends StatelessWidget {
       borderRadius: BorderRadius.all(Radius.circular(11.2)),
       child: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height / 6,
-          width: MediaQuery.of(context).size.width / 3.5,
-          padding: EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
+          height: MediaQuery.of(context).size.height / 10,
+          width: MediaQuery.of(context).size.width / 2.7,
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12,),
+          decoration:  BoxDecoration(
+            color: ColorManager.white,
             borderRadius: BorderRadius.all(Radius.circular(11.2)),
           ),
           child: Column(
@@ -41,7 +40,8 @@ class MobMenuScreenConst extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.firaSans(
                     color: ColorManager.mediumgrey,
-                    fontSize: MediaQuery.of(context).size.height / 90,
+                   // fontSize: MediaQuery.of(context).size.height / 90,
+                    fontSize: FontSize.s9,
                     fontWeight: FontWeightManager.medium,
                   ),
                 ),

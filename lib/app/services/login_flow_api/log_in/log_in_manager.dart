@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../presentation/screens/desktop_module/widgets/login_screen/desk_dashboard_hrm.dart';
 import '../../../../presentation/screens/desktop_module/widgets/login_screen/menu_login_page.dart';
+import '../../../../presentation/screens/home_module/home_screen.dart';
 import '../../../../presentation/screens/mobile_module/mobile_menu_screen.dart';
 import '../../../constants/app_config.dart';
 
@@ -117,7 +119,7 @@ class AuthService {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const MenuScreen(),
+            builder: (context) => HomeScreen(),
           ),
         );
       } else {

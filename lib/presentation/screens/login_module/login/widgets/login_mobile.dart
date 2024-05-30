@@ -7,7 +7,6 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../mobile_module/mobile_email_verify_screen.dart';
 import '../../../mobile_module/mobile_const.dart';
 import '../../email_verification/email_verification.dart';
 
