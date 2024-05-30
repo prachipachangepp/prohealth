@@ -19,15 +19,15 @@ class TabVerifyPassword extends StatefulWidget {
 }
 
 class _TabVerifyPasswordState extends State<TabVerifyPassword> {
-  List<TextEditingController> _otpControllers =
+  final List<TextEditingController> _otpControllers =
   List.generate(6, (_) => TextEditingController());
-  List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
-  final _formKey = GlobalKey<FormState>();
+  final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
+ // final _formKey = GlobalKey<FormState>();
   String? _errorMessage;
   late Timer _timer;
   int _timerCount = 30;
   bool isOtpFieldEmpty = true;
-  List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
+  final List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
 
   @override
   void initState() {
@@ -76,7 +76,7 @@ class _TabVerifyPasswordState extends State<TabVerifyPassword> {
                     borderRadius: BorderRadius.circular(25)
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
+                  padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,8 +109,7 @@ class _TabVerifyPasswordState extends State<TabVerifyPassword> {
                             child: TextFormField(
 
                               style: CustomTextStylesCommon.commonStyle(
-                                color: ColorManager.black
-                                    .withOpacity(0.7),
+                                color: ColorManager.black.withOpacity(0.7),
                                 fontSize: FontSize.s14,
                                 fontWeight: FontWeightManager.medium,
                               ),
@@ -127,9 +126,9 @@ class _TabVerifyPasswordState extends State<TabVerifyPassword> {
                               maxLength: 1,
                               focusNode: _focusNodes[index],
                               decoration:
-                              InputDecoration(
+                              const InputDecoration(
                                 contentPadding:
-                                const EdgeInsets
+                                EdgeInsets
                                     .only(
                                     bottom: AppPadding.p11),
                                 counterText: '',
@@ -167,7 +166,7 @@ class _TabVerifyPasswordState extends State<TabVerifyPassword> {
                         ),
                       ),
                       ///timer
-                      Text('${getTimerString()}',
+                      Text(getTimerString(),
                         style: CustomTextStylesCommon.commonStyle(
                           color:  ColorManager.orange,
                           fontSize: FontSize.s8,

@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
-
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -26,7 +24,7 @@ class VerifyPassword extends StatefulWidget {
 }
 
 class _VerifyPasswordState extends State<VerifyPassword> {
-  List<TextEditingController> _otpControllers =
+  final List<TextEditingController> _otpControllers =
       List.generate(6, (_) => TextEditingController());
   List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
   final _formKey = GlobalKey<FormState>();
@@ -34,7 +32,7 @@ class _VerifyPasswordState extends State<VerifyPassword> {
   late Timer _timer;
   int _timerCount = 30;
   bool isOtpFieldEmpty = true;
-  List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
+  final List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
 
   @override
   void initState() {
@@ -98,7 +96,7 @@ class _VerifyPasswordState extends State<VerifyPassword> {
               MediaQuery.of(context).size.height / 2, // specify desired height
           containerWidth: MediaQuery.of(context).size.width / 1.1,
           mobileChild: Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -119,7 +117,7 @@ class _VerifyPasswordState extends State<VerifyPassword> {
                     (index) => Container(
                       width: MediaQuery.of(context).size.width / 12,
                       height: MediaQuery.of(context).size.height / 25,
-                      margin: EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                      margin: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
                         border: Border.all(
@@ -250,7 +248,7 @@ class _VerifyPasswordState extends State<VerifyPassword> {
           onTap: () {
             Navigator.push(
               context,
-              RouteTransitions.slideTransition(page: LoginScreen()),
+              RouteTransitions.slideTransition(page: const LoginScreen()),
             );
           },
           textAction: AppString.backtologin,
@@ -266,7 +264,7 @@ class _VerifyPasswordState extends State<VerifyPassword> {
                 color: ColorManager.white,
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -312,9 +310,9 @@ class _VerifyPasswordState extends State<VerifyPassword> {
                             textAlign: TextAlign.center,
                             maxLength: 1,
                             focusNode: _focusNodes[index],
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               contentPadding:
-                                  const EdgeInsets.only(bottom: AppPadding.p11),
+                                  EdgeInsets.only(bottom: AppPadding.p11),
                               counterText: '',
                               border: InputBorder.none,
                             ),
@@ -344,7 +342,7 @@ class _VerifyPasswordState extends State<VerifyPassword> {
 
                     ///timer
                     Text(
-                      '${getTimerString()}',
+                      getTimerString(),
                       style: CustomTextStylesCommon.commonStyle(
                         color: ColorManager.orange,
                         fontSize: FontSize.s8,
@@ -417,7 +415,7 @@ class _VerifyPasswordState extends State<VerifyPassword> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(25)),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p14),
+                      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -464,8 +462,8 @@ class _VerifyPasswordState extends State<VerifyPassword> {
                                   textAlign: TextAlign.center,
                                   maxLength: 1,
                                   focusNode: _focusNodes[index],
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.only(
                                         bottom: AppPadding.p11),
                                     counterText: '',
                                     border: InputBorder.none,
@@ -499,7 +497,7 @@ class _VerifyPasswordState extends State<VerifyPassword> {
 
                           ///timer
                           Text(
-                            '${getTimerString()}',
+                            getTimerString(),
                             style: CustomTextStylesCommon.commonStyle(
                               color: ColorManager.orange,
                               fontSize: FontSize.s8,

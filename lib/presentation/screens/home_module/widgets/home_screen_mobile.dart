@@ -1,24 +1,17 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/mobile_module/widgets/mobile_menu_const.dart';
+import '../../../../app/resources/color.dart';
+import '../../../../app/resources/const_string.dart';
+import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/theme_manager.dart';
+import '../../../../app/resources/value_manager.dart';
+import '../../mobile_module/widgets/mobile_menu_const.dart';
 
-import '../../../app/resources/color.dart';
-import '../../../app/resources/const_string.dart';
-import '../../../app/resources/font_manager.dart';
-import '../../../app/resources/theme_manager.dart';
-import '../../../app/resources/value_manager.dart';
+class HomeScreenMobile extends StatelessWidget {
+  const HomeScreenMobile({super.key});
 
-class MobileMenuScreen extends StatefulWidget {
-  const MobileMenuScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MobileMenuScreen> createState() => _MobileMenuScreenState();
-}
-
-class _MobileMenuScreenState extends State<MobileMenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +75,7 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                         scrollDirection: Axis.vertical,
                         child: Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                          EdgeInsets.symmetric(horizontal: AppPadding.p20),
                           height: MediaQuery.of(context).size.height,
                           // color: Colors.pink,
                           child: Column(
@@ -92,7 +85,7 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                   flex: 2,
                                   child: Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceAround,
                                     children: [
                                       Image.asset(
                                         'images/logo_login.png',
@@ -108,7 +101,7 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                           color: ColorManager.mediumgrey,
                                           fontSize: FontSize.s16,
                                           fontWeight:
-                                              FontWeightManager.semiBold,
+                                          FontWeightManager.semiBold,
                                         ),
                                       ),
                                     ],
@@ -119,11 +112,11 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                 flex: 3,
                                 child: Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Text('Administration',
                                             style: MobileMenuText.MenuTextConst(
@@ -134,20 +127,20 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                     ///1st row
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         MobMenuScreenConst(
                                           text: 'Referral Resource Manager',
                                           imageProvider:
-                                              AssetImage("images/r_r_m.png"),
+                                          AssetImage("images/r_r_m.png"),
                                         ),
                                         MobMenuScreenConst(
                                           text:
-                                              'Business Intelligence & Reports',
+                                          'Business Intelligence & Reports',
                                           imageProvider:
-                                              AssetImage("images/b_i_r.png"),
+                                          AssetImage("images/b_i_r.png"),
                                         ),
                                       ],
                                     ),
@@ -155,17 +148,17 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                     ///2nd
                                     Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         MobMenuScreenConst(
                                           text: 'Intake & Scheduler',
                                           imageProvider:
-                                              AssetImage("images/i_s.png"),
+                                          AssetImage("images/i_s.png"),
                                         ),
-                                        SizedBox(
-                                          height: 77,
-                                          width: 128,
-                                        )
+                                        // SizedBox(
+                                        //   height: 77,
+                                        //   width: 128,
+                                        // )
                                       ],
                                     ),
                                   ],
@@ -177,11 +170,11 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                 flex: 3,
                                 child: Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Text('Business',
                                             style: MobileMenuText.MenuTextConst(
@@ -190,30 +183,30 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         MobMenuScreenConst(
                                           text: 'Rehab',
                                           imageProvider:
-                                              AssetImage("images/rehab.png"),
+                                          AssetImage("images/rehab.png"),
                                         ),
                                         MobMenuScreenConst(
                                           text: 'Home Care',
                                           imageProvider:
-                                              AssetImage("images/h_c.png"),
+                                          AssetImage("images/h_c.png"),
                                         ),
                                       ],
                                     ),
                                     Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         MobMenuScreenConst(
                                           text: 'Establishment Manager',
                                           imageProvider:
-                                              AssetImage("images/e_m.png"),
+                                          AssetImage("images/e_m.png"),
                                         ),
                                       ],
                                     ),
@@ -226,11 +219,11 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                 flex: 4,
                                 child: Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Text('Patient Related',
                                             style: MobileMenuText.MenuTextConst(
@@ -239,48 +232,48 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         MobMenuScreenConst(
                                           text: 'Human Resource Manager',
                                           imageProvider:
-                                              AssetImage("images/h_r_m.png"),
+                                          AssetImage("images/h_r_m.png"),
                                         ),
                                         MobMenuScreenConst(
                                           text: 'Home Health EMR',
                                           imageProvider:
-                                              AssetImage("images/h_h_emr.png"),
+                                          AssetImage("images/h_h_emr.png"),
                                         ),
                                       ],
                                     ),
-                                    // Row(
-                                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                                    //   children: [
-                                    //     MobMenuScreenConst(
-                                    //       text: 'Hospice EMR',
-                                    //       imageProvider:    AssetImage(
-                                    //           "images/h_emr.png"),
-                                    //     ),
-                                    //     MobMenuScreenConst(
-                                    //       text: 'Finance',
-                                    //       imageProvider:    AssetImage(
-                                    //           "images/finance.png"),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    // Row(
-                                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                                    //   children: [
-                                    //     MobMenuScreenConst(
-                                    //       text: 'Other',
-                                    //       imageProvider:    AssetImage(
-                                    //           "images/other.png"),
-                                    //     ),
-                                    //   ],
-                                    // ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        MobMenuScreenConst(
+                                          text: 'Hospice EMR',
+                                          imageProvider:    AssetImage(
+                                              "images/h_emr.png"),
+                                        ),
+                                        MobMenuScreenConst(
+                                          text: 'Finance',
+                                          imageProvider:    AssetImage(
+                                              "images/finance.png"),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        MobMenuScreenConst(
+                                          text: 'Other',
+                                          imageProvider:    AssetImage(
+                                              "images/other.png"),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -301,10 +294,6 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
                               // ),
                             ],
                           ),
-
-                          ///old code
-
-                          ///
                         ),
                       ),
                     ),
@@ -336,216 +325,3 @@ class _MobileMenuScreenState extends State<MobileMenuScreen> {
     );
   }
 }
-// Expanded(
-// flex: 2,
-// child: Container(
-// child: Image.asset(
-// 'images/logo_login.png',
-// width: 180,
-// height: 50,
-// // width: MediaQuery.of(context).size.width / 3,
-// // height: MediaQuery.of(context).size.height / 15,
-// ),
-// ),
-// ),
-// Center(
-// child: Text(
-// 'Select a Module',
-// style: GoogleFonts.firaSans(
-// color: ColorManager.mediumgrey,
-// fontSize: FontSize.s16,
-// fontWeight: FontWeightManager.semiBold,
-// ),
-// ),
-// ),
-//
-// ///
-// Expanded(
-// flex: 7,
-// child: Container(
-// width: double.infinity,
-// // color: Colors.green,
-// child: Column(
-// mainAxisAlignment:
-// MainAxisAlignment.spaceAround,
-// crossAxisAlignment:
-// CrossAxisAlignment.center,
-// children: [
-// Row(
-// mainAxisAlignment:
-// MainAxisAlignment.spaceAround,
-// children: [
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// ],
-// ),
-// Row(
-// mainAxisAlignment:
-// MainAxisAlignment.spaceAround,
-// children: [
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// ],
-// )
-// ],
-// ),
-// ),
-// ),
-// Expanded(
-// flex: 7,
-// child: Container(
-// width: double.infinity,
-// // color: Colors.green,
-// child: Column(
-// mainAxisAlignment:
-// MainAxisAlignment.spaceAround,
-// crossAxisAlignment:
-// CrossAxisAlignment.center,
-// children: [
-// Row(
-// mainAxisAlignment:
-// MainAxisAlignment.spaceAround,
-// children: [
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// ],
-// ),
-// Row(
-// mainAxisAlignment:
-// MainAxisAlignment.spaceAround,
-// children: [
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// ],
-// )
-// ],
-// ),
-// ),
-// ),
-// Expanded(
-// flex: 7,
-// child: Container(
-// width: double.infinity,
-// // color: Colors.green,
-// child: Column(
-// mainAxisAlignment:
-// MainAxisAlignment.spaceAround,
-// crossAxisAlignment:
-// CrossAxisAlignment.center,
-// children: [
-// Row(
-// mainAxisAlignment:
-// MainAxisAlignment.spaceAround,
-// children: [
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// ],
-// ),
-// Row(
-// mainAxisAlignment:
-// MainAxisAlignment.spaceAround,
-// children: [
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// Container(
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.all(
-// Radius.circular(11.2)),
-// ),
-// height: 80,
-// width: 120,
-// ),
-// ],
-// )
-// ],
-// ),
-// ),
-// ),

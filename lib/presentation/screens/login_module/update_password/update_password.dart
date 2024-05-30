@@ -1,10 +1,7 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/login_screen.dart';
-
 import '../../../../app/constants/app_config.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
@@ -82,7 +79,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
           textAction: AppString.backtologin,
           titleText: AppString.newPass,
           containerHeight:
-          MediaQuery.of(context).size.height / 1.7, // specify desired height
+          MediaQuery.of(context).size.height / 1.6, // specify desired height
           containerWidth: MediaQuery.of(context).size.width / 1.1,
           mobileChild: Form(
             key: _formKey,

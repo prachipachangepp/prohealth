@@ -13,19 +13,20 @@ class VerifyOtpService {
     try {
       String trimmedEmail = email.trim();
       var headers = {'Content-Type': 'application/json'};
-      var data = json.encode({
-        "email": trimmedEmail,
-        "otp": otp,
-      });
+      var data = json.encode({"email": email, "otp": int.parse(otp)});
+      print(data);
       var dio = Dio();
-      var response = await dio.post(
-        '${AppConfig.endpoint}/auth/verifyotp',
-        data: data,
+      var response = await dio.request(
+        '${AppConfig.endpoint}/auth/verifyOtp',
         options: Options(
+          method: 'POST',
           headers: headers,
         ),
+        data: data,
       );
-      if (response.statusCode == 200) {
+      print(response.data);
+      if (response.statusCode == 201) {
+        print(response.data);
         return {"success": true, "data": response.data};
       } else {
         return {"success": false, "message": AppString.incorrectOtp};

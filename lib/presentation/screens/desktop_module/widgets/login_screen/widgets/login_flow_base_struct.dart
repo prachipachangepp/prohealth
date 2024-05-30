@@ -172,9 +172,13 @@ class LoginBaseConstant extends StatelessWidget {
                                   height: MediaQuery.of(context).size.height / 5,
                                 ),
                                 Expanded(
-                                  child: Image.asset(
-                                    'images/amico.png',
+                                  child:  SvgPicture.asset(
+                                    'images/amico.svg',
+                                    // fit: BoxFit.fill,
                                   ),
+                                  // Image.asset(
+                                  //   'images/amico.png',
+                                  // ),
                                 ),
                               ],
                             )),
