@@ -17,7 +17,7 @@ class App extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
-        home: HomeScreen()
+        home:
             //HrAdministrativeScreen()
             //DummyScreen()
             //SMDesktop()
@@ -25,16 +25,16 @@ class App extends StatelessWidget {
             ///
             //  ResponsiveScreenSM()
             ///
-            // FutureBuilder(
-            //     future: getToken(),
-            //     builder: (context, token) {
-            //       if (token.hasData) {
-            //         String d = token.data.toString();
-            //         return d.isEmpty ? LoginScreen() : HomeScreen();
-            //       } else {
-            //         return Scaffold();
-            //       }
-            //     })
+            FutureBuilder(
+                future: getToken(),
+                builder: (context, token) {
+                  if (token.hasData) {
+                    String d = token.data.toString();
+                    return d.isEmpty ? LoginScreen() : HomeScreen();
+                  } else {
+                    return Scaffold();
+                  }
+                })
     );
   }
 }

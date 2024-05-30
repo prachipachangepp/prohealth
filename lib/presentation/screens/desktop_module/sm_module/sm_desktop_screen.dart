@@ -59,7 +59,7 @@ class SMDesktop extends StatelessWidget {
                   // ),
 
                   Image.asset(
-                    'images/logo.png',
+                    'images/logo_login.png',
                     fit: BoxFit.fill,
                   ),
                 )),
