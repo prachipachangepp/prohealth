@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/screens/login_module/login_password/login_password.dart';
+import 'package:prohealth/presentation/screens/mobile_module/mobile_menu_screen.dart';
 import 'package:prohealth/presentation/widgets/responsive_screen.dart';
 
 import '../../../../app/resources/color.dart';
@@ -44,12 +45,12 @@ class _EmailVerificationState extends State<EmailVerification> {
       otp: enteredOTP,
     );
     if (result["success"]) {
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => MobileMenuScreen(),
-      //   ),
-      // );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MobileMenuScreen(),
+        ),
+      );
     } else {
       setState(() {
         _errorMessage = result["message"];
@@ -64,8 +65,8 @@ class _EmailVerificationState extends State<EmailVerification> {
   Widget build(BuildContext context) {
     return ResponsiveScreen(
         mobile: MobileConst(
-          containerHeight:
-              MediaQuery.of(context).size.height / 1.9, // specify desired height
+          containerHeight: MediaQuery.of(context).size.height /
+              1.9, // specify desired height
           containerWidth: MediaQuery.of(context).size.width / 1.1,
           onTap: () {
             Navigator.push(
@@ -114,7 +115,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                     (index) => Container(
                       width: MediaQuery.of(context).size.width / 13,
                       height: MediaQuery.of(context).size.height / 23,
-                      margin: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                      margin:
+                          const EdgeInsets.symmetric(horizontal: AppPadding.p6),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2.26),
                         border: Border.all(
@@ -138,8 +140,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                         textAlignVertical: TextAlignVertical.center,
                         maxLength: 1,
                         decoration: const InputDecoration(
-                          contentPadding:
-                              EdgeInsets.only(bottom: AppSize.s15),
+                          contentPadding: EdgeInsets.only(bottom: AppSize.s15),
                           counterText: '',
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
@@ -356,7 +357,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            transitionDuration: const Duration(milliseconds: 500),
+                            transitionDuration:
+                                const Duration(milliseconds: 500),
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
                                     LoginWithPassword(email: email),
@@ -418,8 +420,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                         (index) => Container(
                           width: MediaQuery.of(context).size.width / 35,
                           height: MediaQuery.of(context).size.height / 22,
-                          margin:
-                              const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2.26),
                             border: Border.all(
@@ -524,7 +526,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            transitionDuration: const Duration(milliseconds: 500),
+                            transitionDuration:
+                                const Duration(milliseconds: 500),
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
                                     LoginWithPassword(email: email),

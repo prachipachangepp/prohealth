@@ -12,10 +12,11 @@ class ConfirmPassManager {
     try {
       var headers = {'Content-Type': 'application/json'};
       var data = json.encode(
-          {"email": email, "verificationCode": otp, "newPassword": password});
+          {"email": email, "otp": int.parse(otp), "password": password});
+      print(data);
       var dio = Dio();
       var response = await dio.request(
-        '${AppConfig.endpoint}/auth/confirmPassword',
+        '${AppConfig.endpoint}/auth/ResetPassword',
         //  'https://wwx3rebc2b.execute-api_hr.us-west-1.amazonaws.com/dev/serverlessSetup/auth/confirmPassword',
         options: Options(
           method: 'POST',
@@ -23,8 +24,8 @@ class ConfirmPassManager {
         ),
         data: data,
       );
-
-      if (response.statusCode == 200) {
+      print(response);
+      if (response.statusCode == 201) {
         print(json.encode(response.data));
       } else {
         print(response.statusMessage);
