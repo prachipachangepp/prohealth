@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../app/resources/font_manager.dart';
+
 class SMTextFConst extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
@@ -24,7 +26,7 @@ class SMTextFConst extends StatelessWidget {
         Text(
           text,
           style: GoogleFonts.firaSans(
-            fontSize: 12,
+            fontSize: FontSize.s12,
             fontWeight: FontWeight.w700,
             color: textColor,
             decoration: TextDecoration.none,
