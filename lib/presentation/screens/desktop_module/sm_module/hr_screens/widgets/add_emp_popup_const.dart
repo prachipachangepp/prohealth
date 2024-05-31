@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../widgets/button_constant.dart';
@@ -88,7 +89,7 @@ class CustomPopupWidget extends StatelessWidget {
                           }).toList(),
                           onChanged: (String? newValue) {
                           },
-                          value: 'Clinical',style: TextStyle(color: Color(0xff686464),fontSize: 12),
+                          value: 'Clinical',style: TextStyle(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.semiBold),
                         ),
                       ),
                     ],

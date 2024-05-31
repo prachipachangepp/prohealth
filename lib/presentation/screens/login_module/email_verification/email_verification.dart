@@ -249,10 +249,11 @@ class _EmailVerificationState extends State<EmailVerification> {
                       children: List.generate(
                         6,
                         (index) => Container(
-                          width: MediaQuery.of(context).size.width / 38,
+                         // width: MediaQuery.of(context).size.width /45,
+                          width: MediaQuery.of(context).size.width /45,
                           height: MediaQuery.of(context).size.height / 19,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: AppPadding.p10),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: MediaQuery.of(context).size.width /150),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2.26),
                             border: Border.all(
@@ -417,10 +418,10 @@ class _EmailVerificationState extends State<EmailVerification> {
                       children: List.generate(
                         6,
                         (index) => Container(
-                          width: MediaQuery.of(context).size.width / 35,
+                          width: MediaQuery.of(context).size.width / 30,
                           height: MediaQuery.of(context).size.height / 22,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: AppPadding.p10),
+                          margin: EdgeInsets.only(
+                              left: AppPadding.p12),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2.26),
                             border: Border.all(

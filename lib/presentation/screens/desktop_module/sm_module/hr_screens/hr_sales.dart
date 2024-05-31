@@ -6,6 +6,7 @@ import 'package:prohealth/presentation/screens/desktop_module/sm_module/hr_scree
 import 'package:prohealth/presentation/screens/desktop_module/sm_module/hr_screens/widgets/edit_emp_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../app/resources/const_string.dart';
 import '../../widgets/custom_icon_button_constant.dart';
 import '../../widgets/profile_bar/widget/pagination_widget.dart';
 import '../widgets/table_constant.dart';
@@ -94,12 +95,12 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
           height: 20,
         ),
         TableHeadConstant(items: [
-          TableHeadItem(text: 'Sr No', textAlign: TextAlign.start),
-          TableHeadItem(text: 'EmployeeType', textAlign: TextAlign.start),
+          TableHeadItem(text: AppString.srno, textAlign: TextAlign.start),
+          TableHeadItem(text: AppString.employeetype, textAlign: TextAlign.start),
           TableHeadItem(
-              text: 'Abbreviation            ', textAlign: TextAlign.start),
-          TableHeadItem(text: 'Color', textAlign: TextAlign.start),
-          TableHeadItem(text: 'Actions ', textAlign: TextAlign.center),
+              text: AppString.abbrevation, textAlign: TextAlign.start),
+          TableHeadItem(text: AppString.color, textAlign: TextAlign.start),
+          TableHeadItem(text: AppString.action, textAlign: TextAlign.center),
         ]),
         SizedBox(
           height: 5,

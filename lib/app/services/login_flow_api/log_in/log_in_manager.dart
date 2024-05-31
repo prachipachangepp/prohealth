@@ -106,20 +106,20 @@ class AuthService {
       //   },
       // );
       print(response);
-      if (response.statusCode == 200) {
-        String? access = response.data["authResults"]['AccessToken'];
-        String? refresh = response.data["authResults"]['RefreshToken'];
+      if (response.statusCode == 201) {
+        String? access = response.data['accessToken'];
+       // String? refresh = response.data["authResults"]['RefreshToken'];
         print(access);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('email', email);
         await prefs.setString('password', password);
-        await prefs.setString('access_token', access ?? '');
-        await prefs.setString('refresh_token', refresh ?? '');
+        await prefs.setString('accessToken', access ?? '');
+        //await prefs.setString('refresh_token', refresh ?? '');
 
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => const HomeScreen(),
           ),
         );
       } else {

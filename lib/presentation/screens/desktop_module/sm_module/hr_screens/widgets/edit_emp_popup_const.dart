@@ -2,9 +2,11 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
+import '../../../../../../app/resources/font_manager.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
 
@@ -204,7 +206,13 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                   ),
                   Row(
                     children: [
-                      Text('Color'),
+                      Text('Color',
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration.none,
+                      ),),
                       SizedBox(width: 10),
                       GestureDetector(
                         onTap:
