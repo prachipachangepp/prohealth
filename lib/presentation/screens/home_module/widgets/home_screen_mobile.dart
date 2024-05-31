@@ -278,20 +278,6 @@ class HomeScreenMobile extends StatelessWidget {
                                 ),
                               ),
 
-                              ///last container
-                              // Expanded(
-                              //   flex: 2,
-                              //   child: Row(
-                              //     crossAxisAlignment: CrossAxisAlignment.start,
-                              //     children: [
-                              //       MobileContainer(
-                              //         text: 'Other',
-                              //         imageProvider:    AssetImage(
-                              //             "images/other.png"),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),

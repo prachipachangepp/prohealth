@@ -12,6 +12,6 @@ class HomeScreen extends StatelessWidget {
     return ResponsiveScreen(
         mobile: const HomeScreenMobile(),
         web: const HomeScreenWeb(),
-        tablet: const HomeScreenMobile());
+        tablet: const HomeScreenTab());
   }
 }
