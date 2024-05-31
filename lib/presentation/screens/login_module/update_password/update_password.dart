@@ -49,7 +49,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
       });
 
       var response = await Dio().post(
-        '${AppConfig.endpoint}/auth/confirmPassword',
+        '${AppConfig.endpoint}/auth/ResetPassword',
+       // http://54.245.136.133:3000/auth/ResetPassword
         data: data,
         options: Options(headers: headers),
       );
