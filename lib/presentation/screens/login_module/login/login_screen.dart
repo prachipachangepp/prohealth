@@ -5,6 +5,7 @@ import 'package:prohealth/presentation/screens/login_module/login/widgets/login_
 import 'package:prohealth/presentation/widgets/responsive_screen.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const String routeName = "/logIn";
   const LoginScreen({super.key});
 
   @override

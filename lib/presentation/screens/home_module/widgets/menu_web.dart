@@ -1,8 +1,10 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/desk_dashboard_hrm.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
@@ -55,204 +57,204 @@ class HomeScreenWeb extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 9, sigmaY: 5),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 35),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 35),
                 child: Container(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color:
-                        Color(0xff000000).withOpacity(0.045),
-                        spreadRadius: 1,
-                        blurRadius: 4,
-                        offset: Offset(1, 4),
-                      ),
-                    ],
-                    color: ColorManager.white.withOpacity(0.35),
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(25)),
-                  ),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                      height: MediaQuery.of(context).size.height,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child:  Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                'Select a Module',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 14,
-                                  fontWeight: FontWeightManager.bold,
-                                  color: ColorManager.darkgrey,
-                                ),
-                                                              ),
-                              ],
-                            ),),
-                          Expanded(
-                              flex:2,
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Administration',
-                                textAlign: TextAlign.center,
-                                style: MenuScreenHeadStyle.menuHead(context),
-                              ),
-                              // SizedBox(
-                              //   height: 10,
-                              // ),
-                              Row(
-                                children: [
-                                  ResponsiveContainer(
-                                    'Referral Resource Manager',
-                                    AssetImage(
-                                        "images/r_r_m.png"),
-                                  ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context)
-                                        .size
-                                        .width /
-                                        25,
-                                  ),
-                                  InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ResponsiveScreenSM()));
-                                      },
-                                      child: ResponsiveContainer(
-                                        'Establishment Manager',
-                                        AssetImage(
-                                            "images/e_m.png"),
-                                      )),
-                                  SizedBox(
-                                    width: MediaQuery.of(context)
-                                        .size
-                                        .width /
-                                        25,
-                                  ),
-                                  InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomeScreenHRM()));
-                                      },
-                                      child: ResponsiveContainer(
-                                        'Human Resource Manager',
-                                        AssetImage(
-                                            "images/h_r_m.png"),
-                                      )),
-                                ],
-                              ),
-                            ],
-                          )),
-                          Expanded(
-                              flex:2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xff000000).withOpacity(0.045),
+                          spreadRadius: 1,
+                          blurRadius: 4,
+                          offset: const Offset(1, 4),
+                        ),
+                      ],
+                      color: ColorManager.white.withOpacity(0.35),
+                      borderRadius: const BorderRadius.all(Radius.circular(25)),
+                    ),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: AppPadding.p20),
+                        height: MediaQuery.of(context).size.height,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Business',
+                                    'Select a Module',
                                     textAlign: TextAlign.center,
-                                    style: MenuScreenHeadStyle.menuHead(context),
-                                  ),
-                                  Row(
-                                    children: [
-                                      ResponsiveContainer(
-                                        'Business Intelligence & Reports',
-                                        AssetImage(
-                                            "images/b_i_r.png"),
-                                      ),
-                                      SizedBox(
-                                        width: MediaQuery.of(context)
-                                            .size
-                                            .width /
-                                            25,
-                                      ),
-                                      ResponsiveContainer(
-                                        'Finance',
-                                        AssetImage(
-                                            "images/finance.png"),
-                                      ),
-                                    ],
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 14,
+                                      fontWeight: FontWeightManager.bold,
+                                      color: ColorManager.darkgrey,
+                                    ),
                                   ),
                                 ],
-                              )),
-                          Expanded(
-                              flex:4,child: Column(
+                              ),
+                            ),
+                            Expanded(
+                                flex: 2,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Administration',
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          MenuScreenHeadStyle.menuHead(context),
+                                    ),
+                                    // SizedBox(
+                                    //   height: 10,
+                                    // ),
+                                    Row(
+                                      children: [
+                                        const ResponsiveContainer(
+                                          'Referral Resource Manager',
+                                          AssetImage("images/r_r_m.png"),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              25,
+                                        ),
+                                        InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ResponsiveScreenSM()));
+                                            },
+                                            child: const ResponsiveContainer(
+                                              'Establishment Manager',
+                                              AssetImage("images/e_m.png"),
+                                            )),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              25,
+                                        ),
+                                        InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const HomeScreenHRM()));
+                                            },
+                                            child: const ResponsiveContainer(
+                                              'Human Resource Manager',
+                                              AssetImage("images/h_r_m.png"),
+                                            )),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Expanded(
+                                flex: 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Business',
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          MenuScreenHeadStyle.menuHead(context),
+                                    ),
+                                    Row(
+                                      children: [
+                                        const ResponsiveContainer(
+                                          'Business Intelligence & Reports',
+                                          AssetImage("images/b_i_r.png"),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              25,
+                                        ),
+                                        const ResponsiveContainer(
+                                          'Finance',
+                                          AssetImage("images/finance.png"),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                            Expanded(
+                                flex: 4,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       'Patient Related',
                                       textAlign: TextAlign.center,
-                                      style:MenuScreenHeadStyle.menuHead(context),
+                                      style:
+                                          MenuScreenHeadStyle.menuHead(context),
                                     ),
                                     Row(
                                       children: [
-                                        ResponsiveContainer(
+                                        const ResponsiveContainer(
                                           'Intake & Scheduler',
                                           AssetImage("images/i_s.png"),
                                         ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width /
+                                                  .size
+                                                  .width /
                                               25,
                                         ),
-                                        ResponsiveContainer(
+                                        const ResponsiveContainer(
                                           'Rehab',
-                                          AssetImage(
-                                              "images/rehab.png"),
+                                          AssetImage("images/rehab.png"),
                                         ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width /
+                                                  .size
+                                                  .width /
                                               25,
                                         ),
-                                        ResponsiveContainer(
+                                        const ResponsiveContainer(
                                           'Home Care',
                                           AssetImage("images/h_c.png"),
                                         ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width /
+                                                  .size
+                                                  .width /
                                               25,
                                         ),
-                                        ResponsiveContainer(
+                                        const ResponsiveContainer(
                                           'Home Health EMR',
-                                          AssetImage(
-                                              "images/h_h_emr.png"),
+                                          AssetImage("images/h_h_emr.png"),
                                         ),
                                       ],
                                     ),
-                                    ResponsiveContainer(
+                                    const ResponsiveContainer(
                                       'Hospice EMR',
                                       AssetImage("images/h_emr.png"),
                                     ),
                                   ],
                                 )),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ),
+                    )),
               ),
             ),
           ),
@@ -269,7 +271,7 @@ class HomeScreenWeb extends StatelessWidget {
                       color: Colors.black,
                       decoration: TextDecoration.none,
                     )),
-                Row(
+                const Row(
                   children: [
                     Text(
                       'Washington DC',
@@ -296,7 +298,6 @@ class HomeScreenWeb extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -317,7 +318,6 @@ class HomeScreenWeb extends StatelessWidget {
               ],
             ),
           )
-
         ],
       ),
     );

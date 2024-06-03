@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -6,12 +8,13 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
+import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../mobile_module/mobile_const.dart';
 import '../../email_verification/email_verification.dart';
 
 class LoginMobile extends StatefulWidget {
-   LoginMobile({super.key});
+  LoginMobile({super.key});
 
   @override
   State<LoginMobile> createState() => _LoginMobileState();
@@ -90,14 +93,13 @@ class _LoginMobileState extends State<LoginMobile> {
                         _isSendingEmail = true;
                       });
                       try {
-                        await GetOTPService.getOTP(_emailController.text,);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EmailVerification(
-                                email: _emailController.text),
-                          ),
+                        await GetOTPService.getOTP(
+                          _emailController.text,
                         );
+                        Navigator.pushNamed(
+                            context, EmailVerification.routeName,
+                            arguments:
+                                ScreenArguments(title: _emailController.text));
                       } catch (e) {
                         // Handle error
                         print('Error occurred: $e');
@@ -116,60 +118,41 @@ class _LoginMobileState extends State<LoginMobile> {
               Center(
                 child: _isSendingEmail
                     ? CircularProgressIndicator(
-                  color: ColorManager.blueprime,
-                )
+                        color: ColorManager.blueprime,
+                      )
                     : CustomButton(
-                  borderRadius: 23.82,
-                  height: MediaQuery.of(context).size.height / 24,
-                  width: MediaQuery.of(context).size.width / 3,
-                  paddingVertical: AppPadding.p5,
-                  text: AppString.next,
-                  style: CustomTextStylesCommon.commonStyle(
-                    color: ColorManager.white,
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeightManager.bold,
-                  ),
-                  onPressed: () async {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      setState(() {
-                        _isSendingEmail = true;
-                      });
-                      try {
-                        await GetOTPService.getOTP(_emailController.text);
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            transitionDuration:
-                            Duration(milliseconds: 500),
-                            pageBuilder: (context, animation,
-                                secondaryAnimation) =>
-                               EmailVerification(email: _emailController.text),
-                            transitionsBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              const begin = Offset(1.0, 0.0);
-                              const end = Offset.zero;
-                              const curve = Curves.ease;
-      
-                              var tween = Tween(begin: begin, end: end)
-                                  .chain(CurveTween(curve: curve));
-                              return SlideTransition(
-                                position: animation.drive(tween),
-                                child: child,
-                              );
-                            },
-                          ),
-                        );
-                      } catch (e) {
-                        // Handle error
-                        print('Error occurred: $e');
-                      } finally {
-                        setState(() {
-                          _isSendingEmail = false;
-                        });
-                      }
-                    }
-                  },
-                ),
+                        borderRadius: 23.82,
+                        height: MediaQuery.of(context).size.height / 24,
+                        width: MediaQuery.of(context).size.width / 3,
+                        paddingVertical: AppPadding.p5,
+                        text: AppString.next,
+                        style: CustomTextStylesCommon.commonStyle(
+                          color: ColorManager.white,
+                          fontSize: FontSize.s14,
+                          fontWeight: FontWeightManager.bold,
+                        ),
+                        onPressed: () async {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            setState(() {
+                              _isSendingEmail = true;
+                            });
+                            try {
+                              await GetOTPService.getOTP(_emailController.text);
+                              Navigator.pushNamed(
+                                  context, EmailVerification.routeName,
+                                  arguments: ScreenArguments(
+                                      title: _emailController.text));
+                            } catch (e) {
+                              // Handle error
+                              print('Error occurred: $e');
+                            } finally {
+                              setState(() {
+                                _isSendingEmail = false;
+                              });
+                            }
+                          }
+                        },
+                      ),
               ),
             ],
           ),

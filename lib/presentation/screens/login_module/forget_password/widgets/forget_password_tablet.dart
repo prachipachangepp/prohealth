@@ -6,8 +6,8 @@ import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/login_flow_api/forgot_pass/forgot_pass_manager.dart';
+import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../desktop_module/widgets/login_screen/login_screen.dart';
 import '../../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
 import '../../../tablet_module/tab_const.dart';
 import '../../forget_pass_verification/forget_pass_verification.dart';
@@ -31,7 +31,7 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
   Widget build(BuildContext context) {
     return LoginBaseConstTab(
       titleText: AppString.forgotpassword,
-      onTap: (){
+      onTap: () {
         Navigator.push(
           context,
           RouteTransitions.slideTransition(page: LoginScreen()),
@@ -42,16 +42,15 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
         elevation: 4,
         borderRadius: BorderRadius.circular(25),
         child: Container(
-          height: MediaQuery.of(context).size.height/3.5,
-          width: MediaQuery.of(context).size.width/2,
+          height: MediaQuery.of(context).size.height / 3.5,
+          width: MediaQuery.of(context).size.width / 2,
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25)
-          ),
+              color: Colors.white, borderRadius: BorderRadius.circular(25)),
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 30),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -103,6 +102,7 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                       _submitForm();
                     },
                   ),
+
                   ///button
                   Center(
                     child: CustomButton(
@@ -124,18 +124,11 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-      });
+      setState(() {});
       String email = _emailController.text;
       _forgotPassManager.forgotPassword(email);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VerifyPassword(
-            email: _emailController.text,
-          ),
-        ),
-      );
+      Navigator.pushNamed(context, VerifyPassword.routeName,
+          arguments: ScreenArguments(title: _emailController.text));
       print(AppString.forgotbtnpress);
     }
   }
