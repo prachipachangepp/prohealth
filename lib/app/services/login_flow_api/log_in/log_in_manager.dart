@@ -1,9 +1,10 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/api.dart';
+import 'package:prohealth/app/services/api/repository/auth/auth_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../../presentation/screens/home_module/home_screen.dart';
-import '../../../constants/app_config.dart';
 
 /// desktop
 class AuthService {
@@ -23,26 +24,12 @@ class AuthService {
     String password = passwordController.text.trim();
 
     try {
-      var headers = {
-        'Content-Type': 'application/json'
-      };
-      var data = json.encode({
-        "email": email,
-        "password": password
-      });
-      var dio = Dio();
-      var response = await dio.request(
-        '${AppConfig.endpoint}/auth/signIn',
-        options: Options(
-          method: 'POST',
-          headers: headers,
-        ),
-        data: data,
-      );
-      print(response);
+      Response response = await Api.post(
+          path: AuthenticationRepository.signInWithPassword,
+          data: {"email": email, "password": password});
       if (response.statusCode == 201) {
         String? access = response.data['accessToken'];
-       // String? refresh = response.data["authResults"]['RefreshToken'];
+        // String? refresh = response.data["authResults"]['RefreshToken'];
         print(access);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('email', email);

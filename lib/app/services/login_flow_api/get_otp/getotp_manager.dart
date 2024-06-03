@@ -30,15 +30,10 @@ class GetOTPService {
   // }
   static Future<void> getOTP(String email) async {
     try {
-      var headers = {
-        'Content-Type': 'application/json'
-      };
-      var data = json.encode({
-        "email": email
-      });
+      var headers = {'Content-Type': 'application/json'};
+      var data = json.encode({"email": email});
       var dio = Dio();
       var response = await dio.request(
-       // '${AppConfig.endpoint}/auth/getotp',
         '${AppConfig.endpoint}/auth/Otp',
         options: Options(
           method: 'POST',
@@ -46,7 +41,7 @@ class GetOTPService {
         ),
         data: data,
       );
-
+      print(response);
       if (response.statusCode == 200) {
         print(json.encode(response.data));
       } else {

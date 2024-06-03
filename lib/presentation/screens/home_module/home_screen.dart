@@ -5,6 +5,7 @@ import 'package:prohealth/presentation/screens/home_module/widgets/menu_web.dart
 import 'package:prohealth/presentation/widgets/responsive_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const String routeName = "/home";
   const HomeScreen({super.key});
 
   @override

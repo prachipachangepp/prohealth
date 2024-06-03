@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/screens/login_module/forget_password/forget_password_screen.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -14,6 +17,7 @@ import '../../mobile_module/mobile_const.dart';
 import '../../tablet_module/tab_const.dart';
 
 class LoginWithPassword extends StatefulWidget {
+  static const String label = "/logInWithPassword";
   final String email;
   const LoginWithPassword({super.key, required this.email});
 
@@ -29,16 +33,18 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
   _LoginWithPasswordState({required this.email});
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]\.com$');
   bool _obscureText = true;
 
-  void _login() {
+  Future<void> _login() async {
     if (_formKey.currentState?.validate() ?? false) {
       setState(() {
         _isLoading = true;
         _errorMessage = null;
       });
-
+      ApiData apiData =
+          await AuthManager.signInWithEmail(email, _passwordController.text);
+      if (apiData.success) {}
       AuthService.loginWithEmail(
         context,
         widget.email,
@@ -153,8 +159,8 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
                         )
                       : CustomButton(
                           borderRadius: 23.82,
-                    height: MediaQuery.of(context).size.height / 24,
-                    width: MediaQuery.of(context).size.width / 3,
+                          height: MediaQuery.of(context).size.height / 24,
+                          width: MediaQuery.of(context).size.width / 3,
                           paddingVertical: AppPadding.p5,
                           text: AppString.loginbtn,
                           style: CustomTextStylesCommon.commonStyle(

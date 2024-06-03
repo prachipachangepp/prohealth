@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/data/navigator_arguments/screen_arguments.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/widgets/responsive_screen.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -16,6 +18,7 @@ import '../forget_pass_verification/forget_pass_verification.dart';
 import '../login/login_screen.dart';
 
 class ForgetPassword extends StatefulWidget {
+  static const String routeName = "/forgetPassword";
   const ForgetPassword({super.key});
 
   @override
@@ -27,22 +30,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   final formKey = GlobalKey<FormState>();
   FocusNode emailFocusNode = FocusNode();
   ForgotPassManager forgotPassManager = ForgotPassManager();
- // final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+  // final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   void submitForm() {
     if (formKey.currentState!.validate()) {
       setState(() {});
-      String email = emailController.text;
-      forgotPassManager.forgotPassword(email);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VerifyPassword(
-            email: emailController.text,
-          ),
-        ),
-      );
-      print(AppString.forgotbtnpress);
+      forgotPassManager.forgotPassword(emailController.text);
+      Navigator.pushNamed(context, VerifyPassword.routeName,
+          arguments: ScreenArguments(title: emailController.text));
     }
   }
 
@@ -56,7 +51,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const LoginScreen()));
           },
-          containerHeight: MediaQuery.of(context).size.height / 2, // specify desired height
+          containerHeight:
+              MediaQuery.of(context).size.height / 2, // specify desired height
           containerWidth: MediaQuery.of(context).size.width / 1.1,
           mobileChild: Form(
             key: formKey,

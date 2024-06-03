@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/data/navigator_arguments/screen_arguments.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 
 import '../../../../../app/resources/color.dart';
@@ -98,13 +101,10 @@ class _LoginTabletState extends State<LoginTablet> {
                             });
                             try {
                               await GetOTPService.getOTP(_emailController.text);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EmailVerification(
-                                      email: _emailController.text),
-                                ),
-                              );
+                              Navigator.pushNamed(
+                                  context, EmailVerification.routeName,
+                                  arguments: ScreenArguments(
+                                      title: _emailController.text));
                             } catch (e) {
                               // Handle error
                               print('Error occurred: $e');
@@ -136,31 +136,10 @@ class _LoginTabletState extends State<LoginTablet> {
                                   try {
                                     await GetOTPService.getOTP(
                                         _emailController.text);
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        transitionDuration:
-                                            Duration(milliseconds: 500),
-                                        pageBuilder: (context, animation,
-                                                secondaryAnimation) =>
-                                            EmailVerification(
-                                                email: _emailController.text),
-                                        transitionsBuilder: (context, animation,
-                                            secondaryAnimation, child) {
-                                          const begin = Offset(1.0, 0.0);
-                                          const end = Offset.zero;
-                                          const curve = Curves.ease;
-
-                                          var tween = Tween(
-                                                  begin: begin, end: end)
-                                              .chain(CurveTween(curve: curve));
-                                          return SlideTransition(
-                                            position: animation.drive(tween),
-                                            child: child,
-                                          );
-                                        },
-                                      ),
-                                    );
+                                    Navigator.pushNamed(
+                                        context, EmailVerification.routeName,
+                                        arguments: ScreenArguments(
+                                            title: _emailController.text));
                                   } catch (e) {
                                     // Handle error
                                     print('Error occurred: $e');

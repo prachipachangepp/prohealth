@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/app_config.dart';
 import '../../../resources/const_string.dart';
@@ -10,6 +11,8 @@ class VerifyOtpService {
     required String email,
     required String otp,
   }) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
     try {
       String trimmedEmail = email.trim();
       var headers = {'Content-Type': 'application/json'};
@@ -26,7 +29,9 @@ class VerifyOtpService {
       );
       print(response.data);
       if (response.statusCode == 201) {
-        print(response.data);
+        print(response.data["accessToken"]);
+        sharedPreferences.setString(
+            "accessToken", response.data["accessToken"]);
         return {"success": true, "data": response.data};
       } else {
         return {"success": false, "message": AppString.incorrectOtp};
