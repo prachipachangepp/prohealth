@@ -6,6 +6,9 @@ class EstablishmentManagerRepository {
   static String companyLogo = "/company-logo";
   static String uploadLogo = "uploadLogo";
 
+  static String companyAll(){
+    return "$company";
+  }
   static String companyById({required int companyId}) {
     return "$company/$companyId";
   }

@@ -42,6 +42,7 @@ class _EmailVerificationState extends State<EmailVerification> {
         _otpControllers.map((controller) => controller.text).join();
     ApiData result = await AuthManager.verifyOTPAndLogin(
         email: email!, otp: enteredOTP, context: context);
+    print("::::result ${result.statusCode}");
     if (result.success) {
       Navigator.pushNamed(context, HomeScreen.routeName);
     } else {

@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/finance_screen.dart';
 import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/hr_screen.dart';
 import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
+import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../hr_module/manage/widgets/bottom_row.dart';
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../widgets/const_appbar/controller.dart';
@@ -509,6 +510,7 @@ class SMDesktop extends StatelessWidget {
                           height: 30,
                           width: 100,
                           onPressed: () {
+                            //companyAll(context);
                             myController.selectButton(0);
                             _pageController.animateToPage(0,
                                 duration: Duration(milliseconds: 500),
@@ -527,6 +529,9 @@ class SMDesktop extends StatelessWidget {
                           height: 30,
                           width: 140,
                           onPressed: () {
+                            // uploadCompanyLogoApi(context, 5, "employ");
+                            companyByIdApi(context, 18);
+                            // companyDetailsApi(context,5);
                             myController.selectButton(1);
                             _pageController.animateToPage(1,
                                 duration: Duration(milliseconds: 500),

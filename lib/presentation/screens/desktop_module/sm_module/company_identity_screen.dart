@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/model/company_data_model.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/text_form_field_const.dart';
 import '../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
@@ -36,7 +38,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
     currentPage = 1;
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    _companyManager = CompanyIdentityManager();
+   _companyManager = CompanyIdentityManager();
+    companyAllApi(context);
   }
   //
   // void fetchData() async {
@@ -50,6 +53,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body: Container(
       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 6),
@@ -268,225 +272,93 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
         ),
 
         ///list
-        Expanded(
-          child: FutureBuilder<Map<String, dynamic>>(
-            future: _companyManager.getCompany(1), // Fetch company data
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(color: ColorManager.blueprime,),
-                );
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error: ${snapshot.error}'),
-                );
-              } else if (snapshot.hasData) {
-                final companyData = snapshot.data!;
-                final List<dynamic>? offices = companyData['offices'] as List<dynamic>?;
 
+        Expanded(
+          child: FutureBuilder<List<CompanyModel>>(
+            future: companyAllApi(context),
+            builder: (BuildContext context, snapshot) {
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+              }
+              if(snapshot.hasData){
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: offices?.length ?? 0,
+                    itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      final office = offices![index];
+                      int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                       return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 5),
-                            Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0xff000000).withOpacity(0.25),
-                                      spreadRadius: 0,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.menu_sharp,
-                                          color: Color(0xff686464),
-                                        )
-                                    ),
-                                    Text('  '),
-                                    Text(
-                                      '${index + 1}',
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 5),
+                          Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(4),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xff000000).withOpacity(0.25),
+                                    spreadRadius: 0,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.menu_sharp,
                                         color: Color(0xff686464),
-                                        decoration: TextDecoration.none,
-                                      ),
+                                      )),
+                                  Text('  '),
+                                  Text(snapshot.data![index].name.toString(),
+                                    // formattedSerialNumber,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xff686464),
+                                      decoration: TextDecoration.none,
                                     ),
-                                    Text(''),
-                                    Text(
-                                      office['name'] ?? '',
-                                      // office.name.isNull ? 'Pro Health' : '',
-                                      //  'Pro Health',
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xff686464),
-                                        decoration: TextDecoration.none,
-                                      ),
+                                  ),
+                                  Text(''),
+                                  Text(
+                                    snapshot.data![index].officeName.toString(),
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xff686464),
+                                      decoration: TextDecoration.none,
                                     ),
-                                    Text(''),
-                                    Text(
-                                      office['address'] ?? '',
-                                      textAlign: TextAlign.end,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xff686464),
-                                        decoration: TextDecoration.none,
-                                      ),
+                                  ),
+                                  Text(''),
+                                  Text(
+                                    snapshot.data![index].address.toString(),
+                                    textAlign: TextAlign.end,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xff686464),
+                                      decoration: TextDecoration.none,
                                     ),
-                                    Text(''),
-                                    CustomButtonTransparentSM(
-                                        text: 'Manage',
-                                        onPressed: () {}
-                                    )
-                                  ],
-                                )
-                            )
-                          ]
+                                  ),
+                                  Text(''),
+                                  CustomButtonTransparentSM(
+                                      text: 'Manage', onPressed: () {})
+                                ],
+                              )),
+                        ],
                       );
-                    }
-                );
-              } else {
-                return Center(
-                  child: Text('No data available.'),
-                );
+                    });
               }
+              return Scaffold();
             },
+
           ),
         ),
-        // Expanded(
-        //   child:
-        //   // FutureBuilder<CompanyDataGet>(
-        //   //   future: _companyManager.getCompanyById(1),
-        //   //   builder: (context, snapshot) {
-        //   //     if (snapshot.connectionState == ConnectionState.waiting) {
-        //   //       return Center(
-        //   //         child: CircularProgressIndicator(color: ColorManager.blueprime,),
-        //   //       );
-        //   //     } else if (snapshot.hasError) {
-        //   //       return Center(
-        //   //         child: Text('Error: ${snapshot.error}'),
-        //   //       );
-        //   //     } else if (snapshot.hasData) {
-        //   //       final companyData = snapshot.data!;
-        //   //       final List<Office>? offices = companyData.offices as List<Office>?;
-        //   //       return
-        //           ListView.builder(
-        //             scrollDirection: Axis.vertical,
-        //             itemCount: 10,
-        //             itemBuilder: (context, index) {
-        //               // int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
-        //               // String formattedSerialNumber =
-        //               // serialNumber.toString().padLeft(2, '0');
-        //               //final office = offices![index];
-        //
-        //               // var office =
-        //               // Map<String, dynamic> office = offices[index];
-        //               //  String officeName = office['name'];
-        //               //  String officeAddress = office['address'];
-        //               //  String officeId = office['id'];
-        //
-        //               return Column(
-        //                 crossAxisAlignment: CrossAxisAlignment.start,
-        //                 children: [
-        //                   SizedBox(height: 5),
-        //                   Container(
-        //                       decoration: BoxDecoration(
-        //                         color: Colors.white,
-        //                         borderRadius: BorderRadius.circular(4),
-        //                         boxShadow: [
-        //                           BoxShadow(
-        //                             color: Color(0xff000000).withOpacity(0.25),
-        //                             spreadRadius: 0,
-        //                             blurRadius: 4,
-        //                             offset: Offset(0, 2),
-        //                           ),
-        //                         ],
-        //                       ),
-        //                       height: 50,
-        //                       child: Row(
-        //                         mainAxisAlignment:
-        //                             MainAxisAlignment.spaceEvenly,
-        //                         children: [
-        //                           IconButton(
-        //                               onPressed: () {},
-        //                               icon: Icon(
-        //                                 Icons.menu_sharp,
-        //                                 color: Color(0xff686464),
-        //                               )),
-        //                           Text('  '),
-        //                           Text(
-        //                             '${index + 1}',
-        //                             // formattedSerialNumber,
-        //                             style: GoogleFonts.firaSans(
-        //                               fontSize: 10,
-        //                               fontWeight: FontWeight.w500,
-        //                               color: Color(0xff686464),
-        //                               decoration: TextDecoration.none,
-        //                             ),
-        //                           ),
-        //                           Text(''),
-        //                           Text(
-        //                              //office.name ?? '',
-        //                            // office.name.isNull ? 'Pro Health' : '',
-        //                              'Pro Health',
-        //                             style: GoogleFonts.firaSans(
-        //                               fontSize: 10,
-        //                               fontWeight: FontWeight.w500,
-        //                               color: Color(0xff686464),
-        //                               decoration: TextDecoration.none,
-        //                             ),
-        //                           ),
-        //                           Text(''),
-        //                           Text(
-        //                            // office.address ?? '',
-        //                             //office.address.isNull ? '2700 Zankar Road': '',
-        //                             '2700 Zankar Road Suite 180, San Jose, CA, USA',
-        //                             textAlign: TextAlign.end,
-        //                             style: GoogleFonts.firaSans(
-        //                               fontSize: 10,
-        //                               fontWeight: FontWeight.w500,
-        //                               color: Color(0xff686464),
-        //                               decoration: TextDecoration.none,
-        //                             ),
-        //                           ),
-        //                           Text(''),
-        //                           CustomButtonTransparentSM(
-        //                               text: 'Manage', onPressed: () {})
-        //                         ],
-        //                       )),
-        //                 ],
-        //               );
-        //             }
-        //             )
-        // ),
-        //       } else {
-        //         return Center(
-        //           child: Text('No data available.'),
-        //         );
-        //       }
-        //       return Container(
-        //         color: Colors.red,
-        //       );
-        //     },
-        //   ),
-        // ),
+
         SizedBox(
           height: 10,
         ),
