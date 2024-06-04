@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';

@@ -14,6 +14,7 @@ import '../../forget_pass_verification/forget_pass_verification.dart';
 import '../../login/login_screen.dart';
 
 class ForgetPasswordWeb extends StatefulWidget {
+  static const String routeName = "/forgetPassword";
   const ForgetPasswordWeb({super.key});
 
   @override
@@ -21,10 +22,20 @@ class ForgetPasswordWeb extends StatefulWidget {
 }
 
 class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
-  final TextEditingController _emailController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   FocusNode emailFocusNode = FocusNode();
-  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]\.com$');
+
+  // final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+
+  void submitForm() {
+    if (formKey.currentState!.validate()) {
+      setState(() {});
+      AuthManager().forgotPassword(emailController.text, context);
+      Navigator.pushNamed(context, VerifyPassword.routeName,
+          arguments: ScreenArguments(title: emailController.text));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +43,13 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
         onTap: () {
           Navigator.push(
             context,
-            RouteTransitions.slideTransition(page: LoginScreen()),
+            RouteTransitions.slideTransition(page: const LoginScreen()),
           );
         },
         titleText: AppString.forgotpassword,
         textAction: AppString.backtologin,
         textActionPadding:
-            EdgeInsets.only(left: MediaQuery.of(context).size.width / 2),
+        EdgeInsets.only(left: MediaQuery.of(context).size.width / 2),
         child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(24),
@@ -50,7 +61,7 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                 color: ColorManager.white,
               ),
               child: Form(
-                key: _formKey,
+                key: formKey,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width / 30),
@@ -68,7 +79,7 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                         ),
                       ),
                       TextFormField(
-                        controller: _emailController,
+                        controller: emailController,
                         style: CustomTextStylesCommon.commonStyle(
                           color: Color(0xff000000).withOpacity(0.5),
                           fontWeight: FontWeightManager.medium,
@@ -84,7 +95,8 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                           labelText: AppString.email,
                           labelStyle: EmailTextStyle.enterEmail(context),
                           border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: ColorManager.black),
+                            borderSide:
+                            BorderSide(color: ColorManager.black),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -96,13 +108,13 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                           if (value == null || value.isEmpty) {
                             return AppString.enteremail;
                           }
-                          if (!emailRegex.hasMatch(value)) {
-                            return AppString.entervalidemail;
-                          }
+                          // if (!emailRegex.hasMatch(value)) {
+                          //   return AppString.entervalidemail;
+                          // }
                           return null;
                         },
                         onFieldSubmitted: (_) {
-                          _submitForm();
+                          submitForm();
                         },
                       ),
 
@@ -113,7 +125,7 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                           height: MediaQuery.of(context).size.height / 18,
                           width: MediaQuery.of(context).size.width / 10,
                           text: AppString.continuet,
-                          onPressed: _submitForm,
+                          onPressed: submitForm,
                         ),
                       )
                     ],
@@ -121,15 +133,5 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                 ),
               ),
             )));
-  }
-
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      setState(() {});
-      String email = _emailController.text;
-      AuthManager().forgotPassword(email, context);
-      Navigator.pushNamed(context, VerifyPassword.routeName,
-          arguments: ScreenArguments(title: _emailController.text));
-    }
   }
 }

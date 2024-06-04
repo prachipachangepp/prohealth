@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -14,7 +13,7 @@ import '../../../mobile_module/mobile_const.dart';
 import '../../email_verification/email_verification.dart';
 
 class LoginMobile extends StatefulWidget {
-  LoginMobile({super.key});
+  const LoginMobile({super.key});
 
   @override
   State<LoginMobile> createState() => _LoginMobileState();
