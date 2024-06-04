@@ -12,9 +12,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  ManagePopUpScreen(),
-      // initialRoute: "/",
-      // routes: RoutesManager().getRoutes(token: signedIn),
+      // home:  ManagePopUpScreen(),
+      initialRoute: "/",
+      routes: RoutesManager().getRoutes(token: signedIn),
     );
   }
 }

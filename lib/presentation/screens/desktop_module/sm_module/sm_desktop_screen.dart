@@ -6,6 +6,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/finance_screen.dart';
 import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/hr_screen.dart';
+import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/manage_screen.dart';
 import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../hr_module/manage/widgets/bottom_row.dart';
@@ -448,9 +449,7 @@ class SMDesktop extends StatelessWidget {
                             height: 34,
                             width: 140,
                             items: ['Select a module', 'HR', 'Finance'],
-                            selectedItem: myController
-                                        .selectedIndex.value ==
-                                    2
+                            selectedItem: myController.selectedIndex.value == 2
                                 ? 'HR'
                                 : myController.selectedIndex.value == 3
                                     ? 'Finance'
@@ -458,22 +457,36 @@ class SMDesktop extends StatelessWidget {
                             onChanged: (newValue) {
                               if (newValue == 'HR') {
                                 myController.selectButton(2);
-                                _pageController.animateToPage(
-                                  2,
-                                  duration: Duration(milliseconds: 500),
+                                _pageController.animateToPage(2, duration: Duration(milliseconds: 500),
                                   curve: Curves.ease,
                                 );
                               } else if (newValue == 'Finance') {
                                 myController.selectButton(3);
-                                _pageController.animateToPage(
-                                  3,
-                                  duration: Duration(milliseconds: 500),
+                                _pageController.animateToPage(3, duration: Duration(milliseconds: 500),
                                   curve: Curves.ease,
                                 );
                               }
                             },
-                          )
-                      )
+                          ),),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Obx(
+                              () => CustomTitleButton(
+                            height: 30,
+                            width: 100,
+                            onPressed: () {
+                              //companyAll(context);
+                              myController.selectButton(4);
+                              _pageController.animateToPage(4,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Manage',
+                            isSelected:
+                            myController.selectedIndex.value == 4,
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -490,7 +503,8 @@ class SMDesktop extends StatelessWidget {
               Container(color: Colors.white),
               CompanyIdentityScreen(),
               HrScreen(),
-              FinanceScreen()
+              FinanceScreen(),
+              ManagePopUpScreen()
             ],
           ),
         ),
