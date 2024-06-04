@@ -14,6 +14,7 @@ import '../../forget_pass_verification/forget_pass_verification.dart';
 import '../../login/login_screen.dart';
 
 class ForgetPasswordTablet extends StatefulWidget {
+  static const String routeName = "/forgetPassword";
   const ForgetPasswordTablet({super.key});
 
   @override
@@ -21,11 +22,20 @@ class ForgetPasswordTablet extends StatefulWidget {
 }
 
 class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
-  final TextEditingController _emailController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   FocusNode emailFocusNode = FocusNode();
 
-  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]\.com$');
+  // final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+
+  void submitForm() {
+    if (formKey.currentState!.validate()) {
+      setState(() {});
+      AuthManager().forgotPassword(emailController.text, context);
+      Navigator.pushNamed(context, VerifyPassword.routeName,
+          arguments: ScreenArguments(title: emailController.text));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +57,7 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(25)),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 30),
@@ -65,7 +75,7 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                     ),
                   ),
                   TextFormField(
-                    controller: _emailController,
+                    controller: emailController,
                     style: CustomTextStylesCommon.commonStyle(
                       color: Color(0xff000000).withOpacity(0.5),
                       fontWeight: FontWeightManager.medium,
@@ -93,13 +103,13 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                       if (value == null || value.isEmpty) {
                         return AppString.enteremail;
                       }
-                      if (!emailRegex.hasMatch(value)) {
-                        return AppString.entervalidemail;
-                      }
+                      // if (!emailRegex.hasMatch(value)) {
+                      //   return AppString.entervalidemail;
+                      // }
                       return null;
                     },
                     onFieldSubmitted: (_) {
-                      _submitForm();
+                      submitForm();
                     },
                   ),
 
@@ -110,7 +120,7 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
                       height: MediaQuery.of(context).size.height / 18,
                       width: MediaQuery.of(context).size.width / 10,
                       text: AppString.continuet,
-                      onPressed: _submitForm,
+                      onPressed: submitForm,
                     ),
                   )
                 ],
@@ -120,16 +130,5 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
         ),
       ),
     );
-  }
-
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      setState(() {});
-      String email = _emailController.text;
-      AuthManager().forgotPassword(email, context);
-      Navigator.pushNamed(context, VerifyPassword.routeName,
-          arguments: ScreenArguments(title: _emailController.text));
-      print(AppString.forgotbtnpress);
-    }
   }
 }
