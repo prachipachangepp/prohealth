@@ -504,38 +504,76 @@ class SMDesktop extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Obx(() => CustomTitleButton(
-                            height: 30,
-                            width: 100,
-                            onPressed: () {
-                              myController.selectButton(0);
-                              _pageController.animateToPage(0,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                            },
-                            text: 'Dashboard',
-                            isSelected:
-                                myController.selectedIndex.value == 0,
-                          )),
+                      Obx(
+                            () => CustomTitleButton(
+                          height: 30,
+                          width: 100,
+                          onPressed: () {
+                            myController.selectButton(0);
+                            _pageController.animateToPage(0,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          },
+                          text: 'Dashboard',
+                          isSelected:
+                          myController.selectedIndex.value == 0,
+                        ),
+                      ),
                       SizedBox(
                         width: 10,
                       ),
-                      Obx(() => CustomTitleButton(
-                            height: 30,
-                            width: 140,
-                            onPressed: () {
-                              myController.selectButton(1);
-                              _pageController.animateToPage(1,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                            },
-                            text: 'Company Identity',
-                            isSelected:
-                                myController.selectedIndex.value == 1,
-                          )),
+                      Obx(
+                            () => CustomTitleButton(
+                          height: 30,
+                          width: 140,
+                          onPressed: () {
+                            myController.selectButton(1);
+                            _pageController.animateToPage(1,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          },
+                          text: 'Company Identity',
+                          isSelected:
+                          myController.selectedIndex.value == 1,
+                        ),
+                      ),
+
                       SizedBox(
                         width: 10,
                       ),
+                      // Obx(() => CustomTitleButton(
+                      //       height: 30,
+                      //       width: 100,
+                      //       onPressed: () {
+                      //         myController.selectButton(0);
+                      //         _pageController.animateToPage(0,
+                      //             duration: Duration(milliseconds: 500),
+                      //             curve: Curves.ease);
+                      //       },
+                      //       text: 'Dashboard',
+                      //       isSelected:
+                      //           myController.selectedIndex.value == 0,
+                      //     )),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
+                      // Obx(() => CustomTitleButton(
+                      //       height: 30,
+                      //       width: 140,
+                      //       onPressed: () {
+                      //         myController.selectButton(1);
+                      //         _pageController.animateToPage(1,
+                      //             duration: Duration(milliseconds: 500),
+                      //             curve: Curves.ease);
+                      //       },
+                      //       text: 'Company Identity',
+                      //       isSelected:
+                      //           myController.selectedIndex.value == 1,
+                      //     )),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
+                      ///
                       // Obx(
                       //   () => DropdownButton<String>(
                       //     icon: Icon(Icons.arrow_drop_down),

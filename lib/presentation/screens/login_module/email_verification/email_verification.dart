@@ -1,58 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/screens/login_module/login_password/login_password.dart';
 import 'package:prohealth/presentation/widgets/responsive_screen.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../../../app/services/login_flow_api/verify_otp/verify_otp_manager.dart';
+import '../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../home_module/home_screen.dart';
 import '../../mobile_module/mobile_const.dart';
 import '../../tablet_module/tab_const.dart';
 
 class EmailVerification extends StatefulWidget {
-  final String email;
-  const EmailVerification({super.key, required this.email});
+  static const String routeName = "/emailVerification";
+
+  const EmailVerification({super.key});
 
   @override
-  State<EmailVerification> createState() =>
-      _EmailVerificationState(email: email);
+  State<EmailVerification> createState() => _EmailVerificationState();
 }
 
 class _EmailVerificationState extends State<EmailVerification> {
   final List<TextEditingController> _otpControllers =
       List.generate(6, (_) => TextEditingController());
   bool _isVerifyingOTP = false;
-  String? _errorMessage;
-  final String email;
-  _EmailVerificationState({required this.email});
+  String? _errorMessage = "";
+  String? email = "";
 
-  ///
   Future<void> _verifyOTPAndLogin() async {
     setState(() {
       _isVerifyingOTP = true;
-      _errorMessage = null;
+      _errorMessage = "";
     });
     String enteredOTP =
         _otpControllers.map((controller) => controller.text).join();
-    var result = await VerifyOtpService.verifyOTPAndLogin(
-      email: widget.email,
-      otp: enteredOTP,
-    );
-    if (result["success"]) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(),
-        ),
-      );
+    ApiData result = await AuthManager.verifyOTPAndLogin(
+        email: email!, otp: enteredOTP, context: context);
+    if (result.success) {
+      Navigator.pushNamed(context, HomeScreen.routeName);
     } else {
       setState(() {
-        _errorMessage = result["message"];
+        _errorMessage = result.message;
       });
     }
     setState(() {
@@ -62,6 +56,9 @@ class _EmailVerificationState extends State<EmailVerification> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    email = args.title!;
+
     return ResponsiveScreen(
         mobile: MobileConst(
           containerHeight: MediaQuery.of(context).size.height /
@@ -199,7 +196,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                     _verifyOTPAndLogin();
                   },
                 ),
-                if (_errorMessage != null)
+                if (_errorMessage!.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
@@ -239,7 +236,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                       AppString.enter6digitcode,
                       style: CustomTextStylesCommon.commonStyle(
                           color: ColorManager.darkgrey,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold),
                     ),
 
@@ -249,11 +246,12 @@ class _EmailVerificationState extends State<EmailVerification> {
                       children: List.generate(
                         6,
                         (index) => Container(
-                         // width: MediaQuery.of(context).size.width /45,
-                          width: MediaQuery.of(context).size.width /45,
+                          // width: MediaQuery.of(context).size.width /45,
+                          width: MediaQuery.of(context).size.width / 45,
                           height: MediaQuery.of(context).size.height / 19,
                           margin: EdgeInsets.symmetric(
-                              horizontal: MediaQuery.of(context).size.width /150),
+                              horizontal:
+                                  MediaQuery.of(context).size.width / 150),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2.26),
                             border: Border.all(
@@ -311,7 +309,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                           child: Text(AppString.resend,
                               style: CustomTextStylesCommon.commonStyle(
                                 color: ColorManager.blueprime,
-                                fontSize: FontSize.s10,
+                                fontSize: FontSize.s14,
                                 fontWeight: FontWeightManager.semiBold,
                               )),
                         )
@@ -330,14 +328,14 @@ class _EmailVerificationState extends State<EmailVerification> {
                         _verifyOTPAndLogin();
                       },
                     ),
-                    if (_errorMessage != null)
+                    if (_errorMessage!.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.all(AppPadding.p8),
                         child: Text(
                           _errorMessage!,
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.red,
-                            fontSize: FontSize.s10,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -349,7 +347,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                         AppString.donthaveauth,
                         style: CustomTextStylesCommon.commonStyle(
                           color: ColorManager.blueprime,
-                          fontSize: FontSize.s10,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.medium,
                         ),
                       ),
@@ -361,7 +359,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                 const Duration(milliseconds: 500),
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    LoginWithPassword(email: email),
+                                    LoginWithPassword(email: email!),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               const begin = Offset(1.0, 0.0);
@@ -420,8 +418,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                         (index) => Container(
                           width: MediaQuery.of(context).size.width / 30,
                           height: MediaQuery.of(context).size.height / 22,
-                          margin: EdgeInsets.only(
-                              left: AppPadding.p12),
+                          margin: EdgeInsets.only(left: AppPadding.p12),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2.26),
                             border: Border.all(
@@ -530,7 +527,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                 const Duration(milliseconds: 500),
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    LoginWithPassword(email: email),
+                                    LoginWithPassword(email: email!),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               const begin = Offset(1.0, 0.0);

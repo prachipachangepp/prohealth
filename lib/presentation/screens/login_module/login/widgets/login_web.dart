@@ -1,13 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
-import '../../../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
+import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../desktop_module/widgets/login_screen/verify_screen.dart';
 import '../../../desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 
 class LoginWeb extends StatefulWidget {
@@ -27,6 +31,7 @@ class _LoginWebState extends State<LoginWeb> {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
   String? otpFromRunTab;
+  String? _errorMessage;
   //final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   @override
@@ -39,6 +44,30 @@ class _LoginWebState extends State<LoginWeb> {
     emailFocusNode.dispose();
     passwordFocusNode.dispose();
     super.dispose();
+  }
+
+  Future<void> _getOtpByEmail() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      setState(() {
+        _isSendingEmail = true;
+      });
+      try {
+        ApiData response =
+            await AuthManager.getOTP(_emailController.text, context);
+        if (response.success) {
+          Navigator.pushNamed(context, EmailVerification.routeName,
+              arguments: ScreenArguments(title: _emailController.text));
+        } else {
+          setState(() {
+            _errorMessage = response.message;
+          });
+        }
+      } finally {
+        setState(() {
+          _isSendingEmail = false;
+        });
+      }
+    }
   }
 
   @override
@@ -101,30 +130,8 @@ class _LoginWebState extends State<LoginWeb> {
                               // }
                               return null;
                             },
-                            onFieldSubmitted: (_) async {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                setState(() {
-                                  _isSendingEmail = true;
-                                });
-                                try {
-                                  await GetOTPService.getOTP(
-                                      _emailController.text);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EmailVerification(
-                                          email: _emailController.text),
-                                    ),
-                                  );
-                                } catch (e) {
-                                  // Handle error
-                                  print('Error occurred: $e');
-                                } finally {
-                                  setState(() {
-                                    _isSendingEmail = false;
-                                  });
-                                }
-                              }
+                            onFieldSubmitted: (_) {
+                              _getOtpByEmail();
                             },
                           ),
                         ),
@@ -139,56 +146,22 @@ class _LoginWebState extends State<LoginWeb> {
                                   width: 100,
                                   text: AppString.next,
                                   onPressed: () async {
-                                    if (_formKey.currentState?.validate() ??
-                                        false) {
-                                      setState(() {
-                                        _isSendingEmail = true;
-                                      });
-                                      try {
-                                        await GetOTPService.getOTP(
-                                            _emailController.text);
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            transitionDuration:
-                                                Duration(milliseconds: 500),
-                                            pageBuilder: (context, animation,
-                                                    secondaryAnimation) =>
-                                                EmailVerification(
-                                                    email:
-                                                        _emailController.text),
-                                            transitionsBuilder: (context,
-                                                animation,
-                                                secondaryAnimation,
-                                                child) {
-                                              const begin = Offset(1.0, 0.0);
-                                              const end = Offset.zero;
-                                              const curve = Curves.ease;
-
-                                              var tween = Tween(
-                                                      begin: begin, end: end)
-                                                  .chain(
-                                                      CurveTween(curve: curve));
-                                              return SlideTransition(
-                                                position:
-                                                    animation.drive(tween),
-                                                child: child,
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      } catch (e) {
-                                        // Handle error
-                                        print('Error occurred: $e');
-                                      } finally {
-                                        setState(() {
-                                          _isSendingEmail = false;
-                                        });
-                                      }
-                                    }
+                                    _getOtpByEmail();
                                   },
                                 ),
                         ),
+                        if (_errorMessage != null)
+                          Padding(
+                            padding: const EdgeInsets.all(AppPadding.p8),
+                            child: Text(
+                              _errorMessage!,
+                              style: CustomTextStylesCommon.commonStyle(
+                                color: ColorManager.red,
+                                fontSize: FontSize.s14,
+                                fontWeight: FontWeightManager.bold,
+                              ),
+                            ),
+                          ),
                       ])),
             ),
           )),

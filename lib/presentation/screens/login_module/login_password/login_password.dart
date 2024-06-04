@@ -1,12 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
+import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 import 'package:prohealth/presentation/screens/login_module/forget_password/forget_password_screen.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../../../app/services/login_flow_api/log_in/log_in_manager.dart';
 import '../../../widgets/responsive_screen.dart';
 import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
@@ -14,6 +19,7 @@ import '../../mobile_module/mobile_const.dart';
 import '../../tablet_module/tab_const.dart';
 
 class LoginWithPassword extends StatefulWidget {
+  static const String label = "/logInWithPassword";
   final String email;
   const LoginWithPassword({super.key, required this.email});
 
@@ -29,33 +35,25 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
   _LoginWithPasswordState({required this.email});
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]\.com$');
   bool _obscureText = true;
 
-  void _login() {
+  Future<void> _login() async {
     if (_formKey.currentState?.validate() ?? false) {
       setState(() {
         _isLoading = true;
         _errorMessage = null;
       });
-
-      AuthService.loginWithEmail(
-        context,
-        widget.email,
-        _passwordController,
-        true,
-        (isLoading) {
-          setState(() {
-            _isLoading = isLoading;
-          });
-        },
-        (errorMessage) {
-          setState(() {
-            _errorMessage = errorMessage;
-            _isLoading = false;
-          });
-        },
-      );
+      ApiData apiData = await AuthManager.signInWithEmail(
+          email, _passwordController.text, context);
+      if (apiData.success) {
+        Navigator.pushNamed(context, HomeScreen.routeName);
+      } else {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = apiData.message;
+        });
+      }
     }
   }
 
@@ -153,8 +151,8 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
                         )
                       : CustomButton(
                           borderRadius: 23.82,
-                    height: MediaQuery.of(context).size.height / 24,
-                    width: MediaQuery.of(context).size.width / 3,
+                          height: MediaQuery.of(context).size.height / 24,
+                          width: MediaQuery.of(context).size.width / 3,
                           paddingVertical: AppPadding.p5,
                           text: AppString.loginbtn,
                           style: CustomTextStylesCommon.commonStyle(

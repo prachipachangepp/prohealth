@@ -219,70 +219,114 @@ class CustomButton extends StatelessWidget {
 }
 
 ///CustomTitleButton
-///sm desktop
 class CustomTitleButton extends StatelessWidget {
-  final String? text;
-  final VoidCallback onPressed;
-  // final Color color;
-  final Color textColor;
-  final double borderRadius;
-  final double paddingVertical;
-  final double paddingHorizontal;
-  final double width;
   final double height;
-  final TextStyle style;
-  final Widget? child;
+  final double width;
+  final VoidCallback onPressed;
+  final String text;
   final bool isSelected;
 
-  const CustomTitleButton({
-    Key? key,
-    this.text,
+  CustomTitleButton({
+    required this.height,
+    required this.width,
     required this.onPressed,
-    // this.color = Colors.blue,
-    this.textColor = Colors.white,
-    this.borderRadius = 8.0,
-    this.paddingVertical = 10.0,
-    this.paddingHorizontal = 16.0,
-    this.width = 50,
-    //this.width = double.infinity,
-    this.height = 50.0,
-    this.style = const TextStyle(color: Colors.white),
-    this.child,
+    required this.text,
     required this.isSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: isSelected ? Color(0xFF50B5E5) : Colors.white,
-          foregroundColor: textColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
-          padding: EdgeInsets.symmetric(
-            vertical: paddingVertical,
-            horizontal: paddingHorizontal,
+    return Material(
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          height: height,
+          width: width,
+          alignment: Alignment.center,
+          decoration: isSelected
+              ? BoxDecoration(
+            color: ColorManager.blueprime,
+            borderRadius: BorderRadius.circular(8),
+          )
+              : null,
+          child: Text(
+            text,
+            style: GoogleFonts.firaSans(
+              fontSize: MediaQuery.of(context).size.width / 120,
+              fontWeight: FontWeight.w700,
+              color: isSelected ? Colors.white : Colors.black,
+            ),
           ),
         ),
-        child: text != null
-            ? Text(
-                text!,
-                style: GoogleFonts.firaSans(
-                  fontSize: MediaQuery.of(context).size.width / 120,
-                  fontWeight: FontWeight.w700,
-                  color: isSelected ? Colors.white : Colors.black,
-                ),
-              )
-            : child,
       ),
     );
   }
 }
+
+///sm desktop
+// class CustomTitleButton extends StatelessWidget {
+//   final String? text;
+//   final VoidCallback onPressed;
+//   // final Color color;
+//   final Color textColor;
+//   final double borderRadius;
+//   final double paddingVertical;
+//   final double paddingHorizontal;
+//   final double width;
+//   final double height;
+//   final TextStyle style;
+//   final Widget? child;
+//   final bool isSelected;
+//
+//   const CustomTitleButton({
+//     Key? key,
+//     this.text,
+//     required this.onPressed,
+//     // this.color = Colors.blue,
+//     this.textColor = Colors.white,
+//     this.borderRadius = 8.0,
+//     this.paddingVertical = 10.0,
+//     this.paddingHorizontal = 16.0,
+//     this.width = 50,
+//     //this.width = double.infinity,
+//     this.height = 50.0,
+//     this.style = const TextStyle(color: Colors.white),
+//     this.child,
+//     required this.isSelected,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       width: width,
+//       height: height,
+//       child: ElevatedButton(
+//         onPressed: onPressed,
+//         style: ElevatedButton.styleFrom(
+//           backgroundColor: isSelected ? Color(0xFF50B5E5) : Colors.white,
+//           foregroundColor: textColor,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(borderRadius),
+//           ),
+//           padding: EdgeInsets.symmetric(
+//             vertical: paddingVertical,
+//             horizontal: paddingHorizontal,
+//           ),
+//         ),
+//         child: text != null
+//             ? Text(
+//                 text!,
+//                 style: GoogleFonts.firaSans(
+//                   fontSize: MediaQuery.of(context).size.width / 120,
+//                   fontWeight: FontWeight.w700,
+//                   color: isSelected ? Colors.white : Colors.black,
+//                 ),
+//               )
+//             : child,
+//       ),
+//     );
+//   }
+// }
 
 ///CustomDropdownButton
 /// sm desktop

@@ -1,12 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
+import 'package:prohealth/data/navigator_arguments/screen_arguments.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
-import '../../../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
 import '../../../desktop_module/hr_module/manage/controller/controller.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../tablet_module/tab_const.dart';
@@ -97,14 +100,12 @@ class _LoginTabletState extends State<LoginTablet> {
                               _isSendingEmail = true;
                             });
                             try {
-                              await GetOTPService.getOTP(_emailController.text);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EmailVerification(
-                                      email: _emailController.text),
-                                ),
-                              );
+                              await AuthManager.getOTP(
+                                  _emailController.text, context);
+                              Navigator.pushNamed(
+                                  context, EmailVerification.routeName,
+                                  arguments: ScreenArguments(
+                                      title: _emailController.text));
                             } catch (e) {
                               // Handle error
                               print('Error occurred: $e');
@@ -134,33 +135,12 @@ class _LoginTabletState extends State<LoginTablet> {
                                     _isSendingEmail = true;
                                   });
                                   try {
-                                    await GetOTPService.getOTP(
-                                        _emailController.text);
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        transitionDuration:
-                                            Duration(milliseconds: 500),
-                                        pageBuilder: (context, animation,
-                                                secondaryAnimation) =>
-                                            EmailVerification(
-                                                email: _emailController.text),
-                                        transitionsBuilder: (context, animation,
-                                            secondaryAnimation, child) {
-                                          const begin = Offset(1.0, 0.0);
-                                          const end = Offset.zero;
-                                          const curve = Curves.ease;
-
-                                          var tween = Tween(
-                                                  begin: begin, end: end)
-                                              .chain(CurveTween(curve: curve));
-                                          return SlideTransition(
-                                            position: animation.drive(tween),
-                                            child: child,
-                                          );
-                                        },
-                                      ),
-                                    );
+                                    await AuthManager.getOTP(
+                                        _emailController.text, context);
+                                    Navigator.pushNamed(
+                                        context, EmailVerification.routeName,
+                                        arguments: ScreenArguments(
+                                            title: _emailController.text));
                                   } catch (e) {
                                     // Handle error
                                     print('Error occurred: $e');
