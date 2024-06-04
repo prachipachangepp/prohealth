@@ -119,12 +119,20 @@ class ManageWidget extends StatelessWidget {
               child: PageView(
                 controller: managePageController,
                 physics: NeverScrollableScrollPhysics(),
-                children: List.generate(
-                  _categories.length,
-                      (index) => Container(
-                    color: index % 2 == 0 ? Colors.green : Colors.yellow,
-                  ),
-                ),
+                children: [
+                  Container(color: Colors.yellow,),
+                  Container(color: Colors.green,),
+                  Container(color: Colors.yellow,),
+                  Container(color: Colors.green,),
+                  Container(color: Colors.yellow,),
+                  Container(color: Colors.green,),
+                ]
+                // List.generate(
+                //   _categories.length,
+                //       (index) => Container(
+                //     color: index % 2 == 0 ? Colors.green : Colors.yellow,
+                //   ),
+                // ),
               ),
             ),
           ),
