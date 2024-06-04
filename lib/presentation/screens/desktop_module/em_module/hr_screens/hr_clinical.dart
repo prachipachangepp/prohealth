@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/presentation/screens/desktop_module/sm_module/hr_screens/widgets/add_emp_popup_const.dart';
-import 'package:prohealth/presentation/screens/desktop_module/sm_module/hr_screens/widgets/edit_emp_popup_const.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/hr_screens/widgets/add_emp_popup_const.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/hr_screens/widgets/edit_emp_popup_const.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/const_appbar/controller.dart';
 import '../../widgets/custom_icon_button_constant.dart';
