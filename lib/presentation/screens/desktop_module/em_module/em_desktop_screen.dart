@@ -4,16 +4,17 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/presentation/screens/desktop_module/em_module/widgets/company_identity/widgets/finance_screen.dart';
-import 'package:prohealth/presentation/screens/desktop_module/em_module/widgets/company_identity/widgets/hr_screen.dart';
-import 'package:prohealth/presentation/screens/desktop_module/em_module/widgets/company_identity/widgets/manage_screen.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/company_identity/company_identity_screen.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/company_identity/widgets/finance_screen.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/company_identity/widgets/hr_screen.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/company_identity/widgets/manage_screen.dart';
+
 
 import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../hr_module/manage/widgets/bottom_row.dart';
 import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../widgets/const_appbar/controller.dart';
-import 'widgets/company_identity/company_identity_screen.dart';
 
 class SMDesktop extends StatelessWidget {
   final PageController _pageController = PageController();
