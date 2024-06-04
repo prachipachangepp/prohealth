@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/routes_manager.dart';
+import 'package:prohealth/presentation/screens/desktop_module/hr_module/manage/web_manage/manage_screen.dart';
+import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/manage_screen.dart';
 
 class App extends StatelessWidget {
   final bool signedIn;
@@ -10,8 +12,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
-      routes: RoutesManager().getRoutes(token: signedIn),
+      home:  ManagePopUpScreen(),
+      // initialRoute: "/",
+      // routes: RoutesManager().getRoutes(token: signedIn),
     );
   }
 }

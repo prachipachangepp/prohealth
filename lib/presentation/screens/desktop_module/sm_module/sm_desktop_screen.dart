@@ -52,14 +52,8 @@ class SMDesktop extends StatelessWidget {
             Expanded(
                 flex: 2,
                 child: Container(
-                  //  color: Colors.grey,
-                  child:
-                  // SvgPicture.asset(
-                  //   'images/pro_logo.svg',
-                  //   fit: BoxFit.fill,
-                  // ),
 
-                  Image.asset(
+                  child: Image.asset(
                     'images/logo_login.png',
                     fit: BoxFit.fill,
                   ),
@@ -80,15 +74,6 @@ class SMDesktop extends StatelessWidget {
                       topLeft: Radius.circular(12),
                       bottomLeft: Radius.circular(12),
                     ),
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //     color: Color(0x40000000),
-                    //
-                    //     /// #000000 with 25% opacity
-                    //     blurRadius: 4,
-                    //     offset: Offset(0, 4),
-                    //   ),
-                    // ],
                     gradient: LinearGradient(
                       colors: [
                         Color(0xff51B5E6),
@@ -143,7 +128,7 @@ class SMDesktop extends StatelessWidget {
                               ],
                             ),
                           ],
-                        ), // Add child widgets here if needed
+                        ),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 12,
@@ -152,8 +137,7 @@ class SMDesktop extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            // width: 210,
-                            // height: MediaQuery.of(context).size.height / 19,
+
                             padding: EdgeInsets.symmetric(
                               vertical: 10,
                               horizontal: 10,
@@ -231,11 +215,7 @@ class SMDesktop extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
                       ///plus
-
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 20,
                       ),
@@ -261,45 +241,17 @@ class SMDesktop extends StatelessWidget {
                                 children: [
                                   SvgPicture.asset(
                                     'images/phone_app_bar.svg',
-                                   // fit: BoxFit.fill,
-                                   //  height: 15,
-                                   //  width: 16,
+
                                   ),
-                                  // Icon(
-                                  //   Icons.phone_outlined,
-                                  //   color: Color(0xff2B647F),
-                                  //   size: MediaQuery.of(context)
-                                  //           .size
-                                  //           .width /
-                                  //       70,
-                                  // ),
+
                                   SvgPicture.asset(
                                     'images/message_app_bar.svg',
-                                     // height: 15,
-                                     // width: 16,
-                                    //fit: BoxFit.fill,
+
                                   ),
-                                  // Icon(
-                                  //   Icons.mode_comment_outlined,
-                                  //   color: Color(0xff2B647F),
-                                  //   size: MediaQuery.of(context)
-                                  //           .size
-                                  //           .width /
-                                  //       70,
-                                  // ),
-                                  // Icon(
-                                  //   Icons.mail_outline_outlined,
-                                  //   color: Color(0xff2B647F),
-                                  //   size: MediaQuery.of(context)
-                                  //           .size
-                                  //           .width /
-                                  //       70,
-                                  //  )
+
                                   SvgPicture.asset(
                                     'images/email_app_bar.svg',
-                                    //fit: BoxFit.fill,
-                                    // height: 15,
-                                    // width: 16,
+
                                   ),
                                 ])),
                       ),
@@ -400,61 +352,6 @@ class SMDesktop extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Container(
-                      //   height: 23,
-                      //   width: 90,
-                      //   // padding: EdgeInsets.all(5),
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(20),
-                      //     border: Border.all(color: Colors.white),
-                      //     color: Colors.transparent,
-                      //   ),
-                      //   child: Obx(
-                      //     () => Center(
-                      //       child: DropdownButton<String>(
-                      //         icon: Icon(Icons.arrow_drop_down,
-                      //             size: MediaQuery.of(context)
-                      //                     .size
-                      //                     .width /
-                      //                 89,
-                      //             color: Colors.white),
-                      //         dropdownColor: Colors.grey,
-                      //         style: TextStyle(
-                      //           fontSize:
-                      //               MediaQuery.of(context).size.width /
-                      //                   92,
-                      //           color: Colors.white,
-                      //         ),
-                      //         underline: Container(),
-                      //         value: hrController.selectedItem.value,
-                      //         onChanged: (String? newValue) {
-                      //           if (newValue != null) {
-                      //             hrController
-                      //                 .changeSelectedItem(newValue);
-                      //           }
-                      //         },
-                      //         items: ['Admin', 'Staff', 'Patient']
-                      //             .map<DropdownMenuItem<String>>(
-                      //               (String value) =>
-                      //                   DropdownMenuItem<String>(
-                      //                 value: value,
-                      //                 child: Text(
-                      //                   value,
-                      //                   textAlign: TextAlign.center,
-                      //                   style: TextStyle(
-                      //                     color: Colors.white,
-                      //                     fontFamily: 'FiraSans',
-                      //                     fontSize: 11,
-                      //                     fontWeight: FontWeight.w200,
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             )
-                      //             .toList(),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
 
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 50,
@@ -546,81 +443,6 @@ class SMDesktop extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      // Obx(() => CustomTitleButton(
-                      //       height: 30,
-                      //       width: 100,
-                      //       onPressed: () {
-                      //         myController.selectButton(0);
-                      //         _pageController.animateToPage(0,
-                      //             duration: Duration(milliseconds: 500),
-                      //             curve: Curves.ease);
-                      //       },
-                      //       text: 'Dashboard',
-                      //       isSelected:
-                      //           myController.selectedIndex.value == 0,
-                      //     )),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                      // Obx(() => CustomTitleButton(
-                      //       height: 30,
-                      //       width: 140,
-                      //       onPressed: () {
-                      //         myController.selectButton(1);
-                      //         _pageController.animateToPage(1,
-                      //             duration: Duration(milliseconds: 500),
-                      //             curve: Curves.ease);
-                      //       },
-                      //       text: 'Company Identity',
-                      //       isSelected:
-                      //           myController.selectedIndex.value == 1,
-                      //     )),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                      ///
-                      // Obx(
-                      //   () => DropdownButton<String>(
-                      //     icon: Icon(Icons.arrow_drop_down),
-                      //     style: TextStyle(color: Colors.white),
-                      //     dropdownColor: Colors.blue,
-                      //     elevation: 2,
-                      //     underline: Container(
-                      //       height: 2,
-                      //       color: Colors.blue,
-                      //     ),
-                      //     value: myController.selectedIndex.value == 2
-                      //         ? 'HR'
-                      //         : 'Finance',
-                      //     onChanged: (String? newValue) {
-                      //       // Accepts a nullable String argument
-                      //       if (newValue == 'HR') {
-                      //         myController.selectButton(2);
-                      //         _pageController.animateToPage(
-                      //           2,
-                      //           duration: Duration(milliseconds: 500),
-                      //           curve: Curves.ease,
-                      //         );
-                      //       } else if (newValue == 'Finance') {
-                      //         myController.selectButton(3);
-                      //         _pageController.animateToPage(
-                      //           3,
-                      //           duration: Duration(milliseconds: 500),
-                      //           curve: Curves.ease,
-                      //         );
-                      //       }
-                      //     },
-                      //     items: ['HR', 'Finance']
-                      //         .map<DropdownMenuItem<String>>(
-                      //       (String value) {
-                      //         return DropdownMenuItem<String>(
-                      //           value: value,
-                      //           child: Text(value),
-                      //         );
-                      //       },
-                      //     ).toList(),
-                      //   ),
-                      // )
                       ///main
                       Obx(() => CustomDropdownButton(
                             height: 34,
@@ -652,33 +474,6 @@ class SMDesktop extends StatelessWidget {
                             },
                           )
                       )
-
-                      // Obx(() => CustomDropdownButton(
-                      //       height: 34,
-                      //       width: 130,
-                      //       items: ['HR', 'Finance'],
-                      //       selectedItem:
-                      //           myController.selectedIndex.value == 2
-                      //               ? 'HR'
-                      //               : 'Finance',
-                      //       onChanged: (newValue) {
-                      //         if (newValue == 'HR') {
-                      //           myController.selectButton(2);
-                      //           _pageController.animateToPage(
-                      //             2,
-                      //             duration: Duration(milliseconds: 500),
-                      //             curve: Curves.ease,
-                      //           );
-                      //         } else if (newValue == 'Finance') {
-                      //           myController.selectButton(3);
-                      //           _pageController.animateToPage(
-                      //             3,
-                      //             duration: Duration(milliseconds: 500),
-                      //             curve: Curves.ease,
-                      //           );
-                      //         }
-                      //       },
-                      //     ))
                     ],
                   ),
                 ),
@@ -720,160 +515,3 @@ class ButtonSelectionController extends GetxController {
     selectedIndex.value = index;
   }
 }
-
-///
-// Expanded(
-//   child: PageView(
-//     controller: _pageController,
-//     physics: NeverScrollableScrollPhysics(),
-//     children: [
-//       Container(color: Colors.blue),
-//       Container(color: Colors.green),
-//       Container(color: Colors.orange),
-//       Container(color: Colors.red),
-//       Container(
-//         color: Colors.teal,
-//       )
-//     ],
-//   ),
-// ),
-///
-//         Row(
-//           children: [
-//             Expanded(
-//               child: Container(
-//                 // color: Colors.yellow,
-//                 height: 40,
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.start,
-//                   children: [
-//                     CustomTitleButton(
-//                       height: 30,
-//                       width: 100,
-//                       onPressed: () {
-//                         if (_pageController.page != 0) {
-//                           _pageController.animateToPage(0,
-//                               duration: Duration(milliseconds: 500),
-//                               curve: Curves.ease);
-//                         }
-//                       },
-//                       text: 'Dashboard',
-//                     ),
-//                     SizedBox(
-//                       width: 10,
-//                     ),
-//                     CustomTitleButton(
-//                       height: 30,
-//                       width: 130,
-//                       onPressed: () {
-//                         if (_pageController.page != 1) {
-//                           _pageController.animateToPage(1,
-//                               duration: Duration(milliseconds: 500),
-//                               curve: Curves.ease);
-//                         }
-//                       },
-//                       text: 'Company Identity',
-//                     ),
-//                     SizedBox(
-//                       width: 10,
-//                     ),
-//                     CustomDropdownButton(
-//                       height: 30,
-//                       width: 130,
-//                       items: ['Finance', 'HR'],
-//                     )
-//                     // CustomButton(
-//                     //   height: 30,
-//                     //   width: 100,
-//                     //   onPressed: () {
-//                     //     if (_pageController.page != 2) {
-//                     //       _pageController.animateToPage(2,
-//                     //           duration: Duration(milliseconds: 500),
-//                     //           curve: Curves.ease);
-//                     //     }
-//                     //   },
-//                     //   text: 'Button 3',
-//                     // ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ],
-//     ),
-//   ),
-// ),
-// Expanded(
-//   child: PageView(
-//     controller: _pageController,
-//     physics: NeverScrollableScrollPhysics(),
-//     children: [
-//       Container(color: Colors.blue),
-//       Container(color: Colors.green),
-//       Container(color: Colors.orange),
-//     ],
-//   ),
-///
-// Obx(() => CustomDropdownButton(
-//       height: 35,
-//       width: 130,
-//       items: ['Finance', 'HR'],
-//       selectedItem:
-//           myController.selectedIndex.value == 2
-//               ? 'Finance'
-//               : 'HR',
-//       onChanged: (newValue) {
-//         if (newValue == 'Finance') {
-//           myController.selectButton(2);
-//         } else if (newValue == 'HR') {
-//           myController.selectButton(3);
-//         }
-//       },
-//     )),
-///
-// Obx(
-//   () => CustomDropdownButton(
-//     height: 35,
-//     width: 130,
-//     items: ['Finance', 'HR'],
-//     selectedItem:
-//         myController.selectedIndex.value == 2
-//             ? 'Finance'
-//             : 'HR',
-//     onChanged: (newValue) {
-//       if (newValue == 'Finance') {
-//         myController.selectButton(2);
-//       } else if (newValue == 'HR') {
-//         myController.selectButton(3);
-//       }
-//     },
-//   ),
-// ),
-// Obx(
-//   () => CustomDropdownButton(
-//     height: 35,
-//     width: 130,
-//     items: ['Finance', 'HR'],
-//     selectedItem:
-//         myController.selectedIndex.value == 2
-//             ? 'Finance'
-//             : 'HR',
-//     onChanged: (newValue) {
-//       if (newValue == 'Finance') {
-//         myController.selectButton(2);
-//       } else if (newValue == 'HR') {
-//         myController.selectButton(3);
-//       }
-//       // Check if the selected value is 'HR'
-//       if (newValue == 'HR') {
-//         myController.selectButton(2);
-//         _pageController.animateToPage(
-//           1,
-//           duration: Duration(milliseconds: 500),
-//           curve: Curves.ease,
-//         );
-//       }
-//     },
-//   ),
-// ),

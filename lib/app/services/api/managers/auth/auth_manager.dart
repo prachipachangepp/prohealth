@@ -174,4 +174,5 @@ class AuthManager {
           message: AppString.somethingWentWrong);
     }
   }
+
 }

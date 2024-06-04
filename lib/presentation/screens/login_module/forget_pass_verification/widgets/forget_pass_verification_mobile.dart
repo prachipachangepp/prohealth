@@ -1,75 +1,90 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prohealth/presentation/screens/mobile_module/mobile_const.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../login/login_screen.dart';
 import '../../update_password/update_password.dart';
 
-class MobileVerifyForgotPass extends StatefulWidget {
-  final String email;
-  const MobileVerifyForgotPass({Key? key, required this.email})
+class VerifyForgotPassMobile extends StatefulWidget {
+  static const String routeName = "/ForgetPasswordVerification";
+  const VerifyForgotPassMobile({Key? key})
       : super(key: key);
 
   @override
-  State<MobileVerifyForgotPass> createState() => _MobileVerifyForgotPassState();
+  State<VerifyForgotPassMobile> createState() => _VerifyForgotPassMobileState();
 }
 
-class _MobileVerifyForgotPassState extends State<MobileVerifyForgotPass> {
+class _VerifyForgotPassMobileState extends State<VerifyForgotPassMobile> {
   final List<TextEditingController> _otpControllers =
   List.generate(6, (_) => TextEditingController());
-  final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
-  //final _formKey = GlobalKey<FormState>();
+  List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
+  final _formKey = GlobalKey<FormState>();
   String? _errorMessage;
-  // late Timer _timer;
-  // int _timerCount = 30;
+  late Timer _timer;
+  int _timerCount = 30;
   bool isOtpFieldEmpty = true;
+  String email = "";
   final List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   startTimer();
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   _timer.cancel();
-  //   super.dispose();
-  // }
-  //
-  // void startTimer() {
-  //   const oneSec = Duration(seconds: 1);
-  //   _timer = Timer.periodic(oneSec, (timer) {
-  //     if (_timerCount == 0) {
-  //       timer.cancel();
-  //     } else {
-  //       setState(() {
-  //         _timerCount--;
-  //       });
-  //     }
-  //   });
-  // }
-
-  // String getTimerString() {
-  //   int minutes = _timerCount ~/ 60;
-  //   int seconds = _timerCount % 60;
-  //   return '$minutes:${seconds.toString().padLeft(2, '0')}';
-  // }
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSec, (timer) {
+      if (_timerCount == 0) {
+        timer.cancel();
+      } else {
+        setState(() {
+          _timerCount--;
+        });
+      }
+    });
+  }
+  String getTimerString() {
+    int minutes = _timerCount ~/ 60;
+    int seconds = _timerCount % 60;
+    return '$minutes:${seconds.toString().padLeft(2, '0')}';
+  }
+  void navigateToNextScreen() {
+    bool allFieldsFilled = _otpFieldFilledStatus.every((filled) => filled);
+    if (allFieldsFilled) {
+      String otp = _otpControllers.map((controller) => controller.text).join();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => UpdatePassword(email: email, otp: otp)),
+      );
+    } else {
+      setState(() {
+        _errorMessage = AppString.enterotp;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    email = args.title!;
     return MobileConst(
       titleText: AppString.verification,
       textAction: AppString.backtologin,
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => LoginScreen()));
       },
       containerHeight:
       MediaQuery.of(context).size.height / 2, // specify desired height
@@ -96,7 +111,8 @@ class _MobileVerifyForgotPassState extends State<MobileVerifyForgotPass> {
                     (index) => Container(
                   width: MediaQuery.of(context).size.width / 12,
                   height: MediaQuery.of(context).size.height / 25,
-                  margin: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                  margin:
+                  const EdgeInsets.symmetric(horizontal: AppPadding.p6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2.26),
                     border: Border.all(
@@ -193,8 +209,8 @@ class _MobileVerifyForgotPassState extends State<MobileVerifyForgotPass> {
             Center(
               child: CustomButton(
                 borderRadius: 23.82,
-                height: MediaQuery.of(context).size.height / 22,
-                width: MediaQuery.of(context).size.width / 3.8,
+                height: MediaQuery.of(context).size.height / 24,
+                width: MediaQuery.of(context).size.width / 3,
                 paddingVertical: AppPadding.p5,
                 text: AppString.continuet,
                 style: CustomTextStylesCommon.commonStyle(
@@ -223,22 +239,5 @@ class _MobileVerifyForgotPassState extends State<MobileVerifyForgotPass> {
         ),
       ),
     );
-  }
-
-  void navigateToNextScreen() {
-    bool allFieldsFilled = _otpFieldFilledStatus.every((filled) => filled);
-    if (allFieldsFilled) {
-      String email = widget.email;
-      String otp = _otpControllers.map((controller) => controller.text).join();
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => UpdatePassword(email: email, otp: otp)),
-      );
-    } else {
-      setState(() {
-        _errorMessage = AppString.enterotp;
-      });
-    }
   }
 }
