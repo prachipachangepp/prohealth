@@ -7,7 +7,6 @@ import 'package:prohealth/presentation/screens/login_module/login/login_screen.d
 
 class RoutesManager {
   Map<String, Widget Function(BuildContext)> getRoutes({required bool token}) {
-    print("Token Status $token");
     return {
       ///Home
       '/': (context) => token ? const HomeScreen() : const LoginScreen(),

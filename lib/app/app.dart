@@ -8,10 +8,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(signedIn);
-    print("Signed in");
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       initialRoute: "/",
       routes: RoutesManager().getRoutes(token: signedIn),
     );

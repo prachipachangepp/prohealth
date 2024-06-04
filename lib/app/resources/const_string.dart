@@ -32,6 +32,7 @@ class AppString {
   static const String workno = "Work No.";
   static const String personalEmail = "Personal Email";
   static const String workemail = "Work Email";
+  static const String somethingWentWrong = "Something went wrong !";
   // static const String four = "4";
   // static const String four = "4";
   // static const String four = "4";

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/navigator_arguments/screen_arguments.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/widgets/responsive_screen.dart';
@@ -9,7 +10,6 @@ import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../../../app/services/login_flow_api/forgot_pass/forgot_pass_manager.dart';
 import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
 import '../../mobile_module/mobile_const.dart';
@@ -29,13 +29,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   final TextEditingController emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   FocusNode emailFocusNode = FocusNode();
-  ForgotPassManager forgotPassManager = ForgotPassManager();
+
   // final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   void submitForm() {
     if (formKey.currentState!.validate()) {
       setState(() {});
-      forgotPassManager.forgotPassword(emailController.text);
+      AuthManager().forgotPassword(emailController.text, context);
       Navigator.pushNamed(context, VerifyPassword.routeName,
           arguments: ScreenArguments(title: emailController.text));
     }

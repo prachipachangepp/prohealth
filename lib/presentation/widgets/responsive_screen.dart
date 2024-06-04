@@ -18,16 +18,13 @@ class ResponsiveScreen extends StatelessWidget {
         double screenWidth = constraints.maxWidth;
         controller.checkScreenType(screenWidth);
         if (controller.isTabletScreen.value) {
-          print(controller.isTabletScreen.value);
           return tablet;
         } else if (controller.isMobileScreen.value) {
-          print(controller.isMobileScreen.value);
           return mobile;
         } else if (controller.isDesktopScreen.value) {
-          print(controller.isDesktopScreen.value);
           return web;
         } else {
-          return Scaffold();
+          return const Scaffold();
           // return SingleChildScrollView(
           // scrollDirection: Axis.vertical, child: HomeScreen());
         }

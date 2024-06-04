@@ -5,7 +5,7 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
-import '../../../../../app/services/login_flow_api/forgot_pass/forgot_pass_manager.dart';
+import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
@@ -24,8 +24,8 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
   final TextEditingController _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   FocusNode emailFocusNode = FocusNode();
-  ForgotPassManager _forgotPassManager = ForgotPassManager();
-  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
+
+  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]\.com$');
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,7 @@ class _ForgetPasswordTabletState extends State<ForgetPasswordTablet> {
     if (_formKey.currentState!.validate()) {
       setState(() {});
       String email = _emailController.text;
-      _forgotPassManager.forgotPassword(email);
+      AuthManager().forgotPassword(email, context);
       Navigator.pushNamed(context, VerifyPassword.routeName,
           arguments: ScreenArguments(title: _emailController.text));
       print(AppString.forgotbtnpress);
