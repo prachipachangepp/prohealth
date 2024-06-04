@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 
 import '../../../../../../app/constants/app_config.dart';
@@ -11,7 +12,6 @@ import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
-import '../../../../../../app/services/login_flow_api/confirm_pass/confirm_pass_manager.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
 import '../../login/login_screen.dart';
@@ -293,11 +293,11 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                                   _isUpdatingPassword = true;
                                 });
                                 try {
-                                  await ConfirmPassManager().confirmPassword(
-                                    widget.email,
-                                    widget.otp,
-                                    controllerNew.text,
-                                  );
+                                  await AuthManager().confirmPassword(
+                                      widget.email,
+                                      widget.otp,
+                                      controllerNew.text,
+                                      context);
                                   print('${widget.email}');
                                   print('${controllerNew.text}');
                                   showDialog(

@@ -1,13 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
-import '../../../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../mobile_module/mobile_const.dart';
@@ -93,9 +93,8 @@ class _LoginMobileState extends State<LoginMobile> {
                         _isSendingEmail = true;
                       });
                       try {
-                        await GetOTPService.getOTP(
-                          _emailController.text,
-                        );
+                        await AuthManager.getOTP(
+                            _emailController.text, context);
                         Navigator.pushNamed(
                             context, EmailVerification.routeName,
                             arguments:
@@ -137,7 +136,8 @@ class _LoginMobileState extends State<LoginMobile> {
                               _isSendingEmail = true;
                             });
                             try {
-                              await GetOTPService.getOTP(_emailController.text);
+                              await AuthManager.getOTP(
+                                  _emailController.text, context);
                               Navigator.pushNamed(
                                   context, EmailVerification.routeName,
                                   arguments: ScreenArguments(

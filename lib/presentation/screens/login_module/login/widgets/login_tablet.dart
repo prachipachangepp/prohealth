@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/navigator_arguments/screen_arguments.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
 
@@ -9,7 +10,6 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
-import '../../../../../app/services/login_flow_api/get_otp/getotp_manager.dart';
 import '../../../desktop_module/hr_module/manage/controller/controller.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../tablet_module/tab_const.dart';
@@ -100,7 +100,8 @@ class _LoginTabletState extends State<LoginTablet> {
                               _isSendingEmail = true;
                             });
                             try {
-                              await GetOTPService.getOTP(_emailController.text);
+                              await AuthManager.getOTP(
+                                  _emailController.text, context);
                               Navigator.pushNamed(
                                   context, EmailVerification.routeName,
                                   arguments: ScreenArguments(
@@ -134,8 +135,8 @@ class _LoginTabletState extends State<LoginTablet> {
                                     _isSendingEmail = true;
                                   });
                                   try {
-                                    await GetOTPService.getOTP(
-                                        _emailController.text);
+                                    await AuthManager.getOTP(
+                                        _emailController.text, context);
                                     Navigator.pushNamed(
                                         context, EmailVerification.routeName,
                                         arguments: ScreenArguments(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import 'package:prohealth/presentation/screens/login_module/login_password/login_password.dart';
 import 'package:prohealth/presentation/widgets/responsive_screen.dart';
@@ -9,7 +11,6 @@ import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../../../app/services/login_flow_api/verify_otp/verify_otp_manager.dart';
 import '../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../home_module/home_screen.dart';
@@ -29,25 +30,23 @@ class _EmailVerificationState extends State<EmailVerification> {
   final List<TextEditingController> _otpControllers =
       List.generate(6, (_) => TextEditingController());
   bool _isVerifyingOTP = false;
-  String? _errorMessage;
+  String? _errorMessage = "";
   String? email = "";
 
   Future<void> _verifyOTPAndLogin() async {
     setState(() {
       _isVerifyingOTP = true;
-      _errorMessage = null;
+      _errorMessage = "";
     });
     String enteredOTP =
         _otpControllers.map((controller) => controller.text).join();
-    var result = await VerifyOtpService.verifyOTPAndLogin(
-      email: email!,
-      otp: enteredOTP,
-    );
-    if (result["success"]) {
+    ApiData result = await AuthManager.verifyOTPAndLogin(
+        email: email!, otp: enteredOTP, context: context);
+    if (result.success) {
       Navigator.pushNamed(context, HomeScreen.routeName);
     } else {
       setState(() {
-        _errorMessage = result["message"];
+        _errorMessage = result.message;
       });
     }
     setState(() {
@@ -197,7 +196,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                     _verifyOTPAndLogin();
                   },
                 ),
-                if (_errorMessage != null)
+                if (_errorMessage!.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
@@ -237,7 +236,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                       AppString.enter6digitcode,
                       style: CustomTextStylesCommon.commonStyle(
                           color: ColorManager.darkgrey,
-                          fontSize: FontSize.s12,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.bold),
                     ),
 
@@ -310,7 +309,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                           child: Text(AppString.resend,
                               style: CustomTextStylesCommon.commonStyle(
                                 color: ColorManager.blueprime,
-                                fontSize: FontSize.s10,
+                                fontSize: FontSize.s14,
                                 fontWeight: FontWeightManager.semiBold,
                               )),
                         )
@@ -329,14 +328,14 @@ class _EmailVerificationState extends State<EmailVerification> {
                         _verifyOTPAndLogin();
                       },
                     ),
-                    if (_errorMessage != null)
+                    if (_errorMessage!.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.all(AppPadding.p8),
                         child: Text(
                           _errorMessage!,
                           style: CustomTextStylesCommon.commonStyle(
                             color: ColorManager.red,
-                            fontSize: FontSize.s10,
+                            fontSize: FontSize.s14,
                             fontWeight: FontWeightManager.bold,
                           ),
                         ),
@@ -348,7 +347,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                         AppString.donthaveauth,
                         style: CustomTextStylesCommon.commonStyle(
                           color: ColorManager.blueprime,
-                          fontSize: FontSize.s10,
+                          fontSize: FontSize.s14,
                           fontWeight: FontWeightManager.medium,
                         ),
                       ),

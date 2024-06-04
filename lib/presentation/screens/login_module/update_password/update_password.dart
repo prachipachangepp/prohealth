@@ -1,14 +1,16 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
+
 import '../../../../app/constants/app_config.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../../../app/services/login_flow_api/confirm_pass/confirm_pass_manager.dart';
 import '../../../widgets/responsive_screen.dart';
 import '../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
@@ -50,7 +52,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
 
       var response = await Dio().post(
         '${AppConfig.endpoint}/auth/ResetPassword',
-       // http://54.245.136.133:3000/auth/ResetPassword
+        // http://54.245.136.133:3000/auth/ResetPassword
         data: data,
         options: Options(headers: headers),
       );
@@ -79,8 +81,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
           },
           textAction: AppString.backtologin,
           titleText: AppString.newPass,
-          containerHeight:
-          MediaQuery.of(context).size.height / 1.6, // specify desired height
+          containerHeight: MediaQuery.of(context).size.height /
+              1.6, // specify desired height
           containerWidth: MediaQuery.of(context).size.width / 1.1,
           mobileChild: Form(
             key: _formKey,
@@ -106,7 +108,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                     ),
                     focusNode: newPasswordFocusNode,
                     onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
+                      FocusScope.of(context)
+                          .requestFocus(confirmPasswordFocusNode);
                     },
                     cursorHeight: 22,
                     obscuringCharacter: '*',
@@ -138,7 +141,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: ColorManager.black.withOpacity(0.5), width: 0.5),
+                            color: ColorManager.black.withOpacity(0.5),
+                            width: 0.5),
                       ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: ColorManager.grey),
@@ -196,7 +200,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                            color: ColorManager.black.withOpacity(0.5), width: 0.5),
+                            color: ColorManager.black.withOpacity(0.5),
+                            width: 0.5),
                       ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: ColorManager.grey),
@@ -218,174 +223,179 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                   ///button
                   Center(
                     child: _isUpdatingPassword
-                        ? CircularProgressIndicator(color: ColorManager.blueprime)
+                        ? CircularProgressIndicator(
+                            color: ColorManager.blueprime)
                         : CustomButton(
-                      borderRadius: 23.82,
-                      height: MediaQuery.of(context).size.height / 24,
-                      width: MediaQuery.of(context).size.width / 2.6,
-                      paddingVertical: AppPadding.p5,
-                      text: AppString.updatepass,
-                      style: CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.white,
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.bold,
-                      ),
-                      backgroundColor: ColorManager.blueprime,
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          if (controllerNew.text != controllerConfirm.text) {
-                            setState(() {
-                              _errorMessage = AppString.passdontmatch;
-                            });
-                            return;
-                          }
-                          setState(() {
-                            _isUpdatingPassword = true;
-                          });
-                          try {
-                            await ConfirmPassManager().confirmPassword(
-                              widget.email,
-                              widget.otp,
-                              controllerNew.text,
-                            );
-                            print('${widget.email}');
-                            print('${controllerNew.text}');
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  backgroundColor: ColorManager.white,
-                                  content: Container(
-                                    padding:
-                                    EdgeInsets.only(top: AppPadding.p25),
-                                    height: AppSize.s300,
-                                    width: AppSize.s400,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          'images/upload.png',
-                                          width: AppSize.s88,
-                                          height: AppSize.s88,
-                                        ),
-                                        Text(
-                                          AppString.successfully,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            color: ColorManager.mediumgrey,
-                                            fontSize: FontSize.s18,
-                                            fontWeight:
-                                            FontWeightManager.bold,
+                            borderRadius: 23.82,
+                            height: MediaQuery.of(context).size.height / 24,
+                            width: MediaQuery.of(context).size.width / 2.6,
+                            paddingVertical: AppPadding.p5,
+                            text: AppString.updatepass,
+                            style: CustomTextStylesCommon.commonStyle(
+                              color: ColorManager.white,
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeightManager.bold,
+                            ),
+                            backgroundColor: ColorManager.blueprime,
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                if (controllerNew.text !=
+                                    controllerConfirm.text) {
+                                  setState(() {
+                                    _errorMessage = AppString.passdontmatch;
+                                  });
+                                  return;
+                                }
+                                setState(() {
+                                  _isUpdatingPassword = true;
+                                });
+                                try {
+                                  await AuthManager().confirmPassword(
+                                      widget.email,
+                                      widget.otp,
+                                      controllerNew.text,
+                                      context);
+                                  print('${widget.email}');
+                                  print('${controllerNew.text}');
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        backgroundColor: ColorManager.white,
+                                        content: Container(
+                                          padding: EdgeInsets.only(
+                                              top: AppPadding.p25),
+                                          height: AppSize.s300,
+                                          width: AppSize.s400,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                'images/upload.png',
+                                                width: AppSize.s88,
+                                                height: AppSize.s88,
+                                              ),
+                                              Text(
+                                                AppString.successfully,
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                  color:
+                                                      ColorManager.mediumgrey,
+                                                  fontSize: FontSize.s18,
+                                                  fontWeight:
+                                                      FontWeightManager.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                AppString.resetsuccessfully,
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                  color:
+                                                      ColorManager.mediumgrey,
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight:
+                                                      FontWeightManager.medium,
+                                                ),
+                                              ),
+                                              CustomButton(
+                                                width: AppSize.s181,
+                                                height: AppSize.s35,
+                                                text: AppString.continuebutton,
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                  color: ColorManager.white,
+                                                  fontSize: FontSize.s10,
+                                                  fontWeight: FontWeightManager
+                                                      .semiBold,
+                                                ),
+                                                borderRadius: 19.37,
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoginScreen()),
+                                                  );
+                                                },
+                                              )
+                                            ],
                                           ),
                                         ),
-                                        Text(
-                                          AppString.resetsuccessfully,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            color: ColorManager.mediumgrey,
-                                            fontSize: FontSize.s10,
-                                            fontWeight:
-                                            FontWeightManager.medium,
-                                          ),
-                                        ),
-                                        CustomButton(
-                                          width: AppSize.s181,
-                                          height: AppSize.s35,
-                                          text: AppString.continuebutton,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            color: ColorManager.white,
-                                            fontSize: FontSize.s10,
-                                            fontWeight: FontWeightManager.semiBold,
-                                          ),
-                                          borderRadius: 19.37,
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LoginScreen()),
-                                            );
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          } catch (e) {
-                            // AlertDialog(
-                            //   backgroundColor:
-                            //   ColorManager.white,
-                            //   content:
-                            //   Container(
-                            //     padding: EdgeInsets.only(top: AppPadding.p10),
-                            //     height: AppSize.s300,
-                            //     width: AppSize.s400,
-                            //     child:
-                            //     Column(
-                            //       mainAxisAlignment:
-                            //       MainAxisAlignment
-                            //           .spaceEvenly,
-                            //       crossAxisAlignment:
-                            //       CrossAxisAlignment
-                            //           .center,
-                            //       children: [
-                            //         Text(
-                            //           AppString
-                            //               .threetimepasscanchange,
-                            //           style:
-                            //           GoogleFonts.firaSans(
-                            //             fontSize:
-                            //             FontSize.s30,
-                            //             color:
-                            //             Color(0xff686464),
-                            //             fontWeight:
-                            //             FontWeightManager.bold,
-                            //           ),
-                            //         ),
-                            //         Text(
-                            //           AppString
-                            //               .cannotchangepass,
-                            //           style: CustomTextStylesCommon.commonStyle(
-                            //             color:ColorManager.darkgrey,
-                            //             fontSize: FontSize.s12,
-                            //             fontWeight: FontWeightManager.medium,
-                            //           ),
-                            //         ),
-                            //         CustomButton(
-                            //           width: AppSize.s181,
-                            //           height: AppSize.s45,
-                            //           text: AppString.continuebutton,
-                            //           borderRadius:
-                            //           24,
-                            //           onPressed:
-                            //               () {
-                            //             Navigator.push(
-                            //               context,
-                            //               MaterialPageRoute(builder: (context) => MobileLogIn()),
-                            //             );
-                            //           },
-                            //         )
-                            //       ],
-                            //     ),
-                            //   ),
-                            // );
-                            print(
-                                'Error occurred while confirming password: $e');
-                            // Handle error
-                          } finally {
-                            setState(() {
-                              _isUpdatingPassword = false;
-                            });
-                          }
-                        }
-                      },
-                    ),
+                                      );
+                                    },
+                                  );
+                                } catch (e) {
+                                  // AlertDialog(
+                                  //   backgroundColor:
+                                  //   ColorManager.white,
+                                  //   content:
+                                  //   Container(
+                                  //     padding: EdgeInsets.only(top: AppPadding.p10),
+                                  //     height: AppSize.s300,
+                                  //     width: AppSize.s400,
+                                  //     child:
+                                  //     Column(
+                                  //       mainAxisAlignment:
+                                  //       MainAxisAlignment
+                                  //           .spaceEvenly,
+                                  //       crossAxisAlignment:
+                                  //       CrossAxisAlignment
+                                  //           .center,
+                                  //       children: [
+                                  //         Text(
+                                  //           AppString
+                                  //               .threetimepasscanchange,
+                                  //           style:
+                                  //           GoogleFonts.firaSans(
+                                  //             fontSize:
+                                  //             FontSize.s30,
+                                  //             color:
+                                  //             Color(0xff686464),
+                                  //             fontWeight:
+                                  //             FontWeightManager.bold,
+                                  //           ),
+                                  //         ),
+                                  //         Text(
+                                  //           AppString
+                                  //               .cannotchangepass,
+                                  //           style: CustomTextStylesCommon.commonStyle(
+                                  //             color:ColorManager.darkgrey,
+                                  //             fontSize: FontSize.s12,
+                                  //             fontWeight: FontWeightManager.medium,
+                                  //           ),
+                                  //         ),
+                                  //         CustomButton(
+                                  //           width: AppSize.s181,
+                                  //           height: AppSize.s45,
+                                  //           text: AppString.continuebutton,
+                                  //           borderRadius:
+                                  //           24,
+                                  //           onPressed:
+                                  //               () {
+                                  //             Navigator.push(
+                                  //               context,
+                                  //               MaterialPageRoute(builder: (context) => MobileLogIn()),
+                                  //             );
+                                  //           },
+                                  //         )
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // );
+                                  print(
+                                      'Error occurred while confirming password: $e');
+                                  // Handle error
+                                } finally {
+                                  setState(() {
+                                    _isUpdatingPassword = false;
+                                  });
+                                }
+                              }
+                            },
+                          ),
                   ),
                   if (_errorMessage != null)
                     Padding(
@@ -460,7 +470,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                         cursorColor: Colors.black,
                         obscureText: _obscureText,
                         decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(top: AppPadding.p2),
+                          contentPadding:
+                              const EdgeInsets.only(top: AppPadding.p2),
                           suffixIcon: IconButton(
                             icon: Icon(
                               _obscureText
@@ -557,155 +568,164 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                       Center(
                         child: _isUpdatingPassword
                             ? CircularProgressIndicator(
-                            color: ColorManager.blueprime)
+                                color: ColorManager.blueprime)
                             : CustomButton(
-                          width: MediaQuery.of(context).size.width / 7,
-                          height: MediaQuery.of(context).size.height / 22,
-                          text: AppString.updatepass,
-                          backgroundColor: ColorManager.blueprime,
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              if (controllerNew.text !=
-                                  controllerConfirm.text) {
-                                setState(() {
-                                  _errorMessage = AppString.passdontmatch;
-                                });
-                                return;
-                              }
-                              setState(() {
-                                _isUpdatingPassword = true;
-                              });
-                              try {
-                                await ConfirmPassManager().confirmPassword(
-                                  widget.email,
-                                  widget.otp,
-                                  controllerNew.text,
-                                );
-                                print('${widget.email}');
-                                print('${controllerNew.text}');
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      backgroundColor: ColorManager.white,
-                                      content: Container(
-                                        padding: EdgeInsets.only(
-                                            top: AppPadding.p25),
-                                        height: AppSize.s300,
-                                        width: AppSize.s400,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              'images/upload.png',
-                                              width: AppSize.s120,
-                                              height: AppSize.s120,
-                                            ),
-                                            Text(
-                                              AppString.successfully,
-                                              style: CustomTextStylesCommon
-                                                  .commonStyle(
-                                                color: ColorManager.darkgrey,
-                                                fontSize: FontSize.s30,
-                                                fontWeight: FontWeightManager
-                                                    .extrabold,
+                                width: MediaQuery.of(context).size.width / 7,
+                                height: MediaQuery.of(context).size.height / 22,
+                                text: AppString.updatepass,
+                                backgroundColor: ColorManager.blueprime,
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    if (controllerNew.text !=
+                                        controllerConfirm.text) {
+                                      setState(() {
+                                        _errorMessage = AppString.passdontmatch;
+                                      });
+                                      return;
+                                    }
+                                    setState(() {
+                                      _isUpdatingPassword = true;
+                                    });
+                                    try {
+                                      await AuthManager().confirmPassword(
+                                          widget.email,
+                                          widget.otp,
+                                          controllerNew.text,
+                                          context);
+                                      print('${widget.email}');
+                                      print('${controllerNew.text}');
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: ColorManager.white,
+                                            content: Container(
+                                              padding: EdgeInsets.only(
+                                                  top: AppPadding.p25),
+                                              height: AppSize.s300,
+                                              width: AppSize.s400,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Image.asset(
+                                                    'images/upload.png',
+                                                    width: AppSize.s120,
+                                                    height: AppSize.s120,
+                                                  ),
+                                                  Text(
+                                                    AppString.successfully,
+                                                    style:
+                                                        CustomTextStylesCommon
+                                                            .commonStyle(
+                                                      color:
+                                                          ColorManager.darkgrey,
+                                                      fontSize: FontSize.s30,
+                                                      fontWeight:
+                                                          FontWeightManager
+                                                              .extrabold,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    AppString.resetsuccessfully,
+                                                    style:
+                                                        CustomTextStylesCommon
+                                                            .commonStyle(
+                                                      color:
+                                                          ColorManager.darkgrey,
+                                                      fontSize: FontSize.s12,
+                                                      fontWeight:
+                                                          FontWeightManager
+                                                              .medium,
+                                                    ),
+                                                  ),
+                                                  CustomButton(
+                                                    width: AppSize.s181,
+                                                    height: AppSize.s45,
+                                                    text: AppString
+                                                        .continuebutton,
+                                                    borderRadius: 24,
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                LoginScreen()),
+                                                      );
+                                                    },
+                                                  )
+                                                ],
                                               ),
                                             ),
-                                            Text(
-                                              AppString.resetsuccessfully,
-                                              style: CustomTextStylesCommon
-                                                  .commonStyle(
-                                                color: ColorManager.darkgrey,
-                                                fontSize: FontSize.s12,
-                                                fontWeight:
-                                                FontWeightManager.medium,
+                                          );
+                                        },
+                                      );
+                                    } catch (e) {
+                                      AlertDialog(
+                                        backgroundColor: ColorManager.white,
+                                        content: Container(
+                                          padding: EdgeInsets.only(
+                                              top: AppPadding.p10),
+                                          height: AppSize.s300,
+                                          width: AppSize.s400,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                AppString
+                                                    .threetimepasscanchange,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: FontSize.s30,
+                                                  color: Color(0xff686464),
+                                                  fontWeight:
+                                                      FontWeightManager.bold,
+                                                ),
                                               ),
-                                            ),
-                                            CustomButton(
-                                              width: AppSize.s181,
-                                              height: AppSize.s45,
-                                              text: AppString.continuebutton,
-                                              borderRadius: 24,
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          LoginScreen()),
-                                                );
-                                              },
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              } catch (e) {
-                                AlertDialog(
-                                  backgroundColor: ColorManager.white,
-                                  content: Container(
-                                    padding:
-                                    EdgeInsets.only(top: AppPadding.p10),
-                                    height: AppSize.s300,
-                                    width: AppSize.s400,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          AppString.threetimepasscanchange,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: FontSize.s30,
-                                            color: Color(0xff686464),
-                                            fontWeight:
-                                            FontWeightManager.bold,
+                                              Text(
+                                                AppString.cannotchangepass,
+                                                style: CustomTextStylesCommon
+                                                    .commonStyle(
+                                                  color: ColorManager.darkgrey,
+                                                  fontSize: FontSize.s12,
+                                                  fontWeight:
+                                                      FontWeightManager.medium,
+                                                ),
+                                              ),
+                                              CustomButton(
+                                                width: AppSize.s181,
+                                                height: AppSize.s45,
+                                                text: AppString.continuebutton,
+                                                borderRadius: 24,
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoginScreen()),
+                                                  );
+                                                },
+                                              )
+                                            ],
                                           ),
                                         ),
-                                        Text(
-                                          AppString.cannotchangepass,
-                                          style: CustomTextStylesCommon
-                                              .commonStyle(
-                                            color: ColorManager.darkgrey,
-                                            fontSize: FontSize.s12,
-                                            fontWeight:
-                                            FontWeightManager.medium,
-                                          ),
-                                        ),
-                                        CustomButton(
-                                          width: AppSize.s181,
-                                          height: AppSize.s45,
-                                          text: AppString.continuebutton,
-                                          borderRadius: 24,
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LoginScreen()),
-                                            );
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                                print(
-                                    'Error occurred while confirming password: $e');
-                                // Handle error
-                              } finally {
-                                setState(() {
-                                  _isUpdatingPassword = false;
-                                });
-                              }
-                            }
-                          },
-                        ),
+                                      );
+                                      print(
+                                          'Error occurred while confirming password: $e');
+                                      // Handle error
+                                    } finally {
+                                      setState(() {
+                                        _isUpdatingPassword = false;
+                                      });
+                                    }
+                                  }
+                                },
+                              ),
                       ),
                       if (_errorMessage != null)
                         Padding(
@@ -722,7 +742,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
             ),
           ),
         ),
-        tablet:  LoginBaseConstTab(
+        tablet: LoginBaseConstTab(
             titleText: AppString.login,
             onTap: () {},
             textAction: '',
@@ -773,7 +793,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                               obscureText: _obscureText,
                               decoration: InputDecoration(
                                 contentPadding:
-                                const EdgeInsets.only(top: AppPadding.p2),
+                                    const EdgeInsets.only(top: AppPadding.p2),
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     _obscureText
@@ -793,15 +813,18 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                 hintText: AppString.enternewpass,
                                 hintStyle: EmailTextStyle.enterEmail(context),
                                 border: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.black),
+                                  borderSide:
+                                      BorderSide(color: ColorManager.black),
                                 ),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: ColorManager.black.withOpacity(0.5),
+                                      color:
+                                          ColorManager.black.withOpacity(0.5),
                                       width: 0.5),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.grey),
+                                  borderSide:
+                                      BorderSide(color: ColorManager.grey),
                                 ),
                               ),
                               validator: (value) {
@@ -838,7 +861,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      _obscureTextconfirm = !_obscureTextconfirm;
+                                      _obscureTextconfirm =
+                                          !_obscureTextconfirm;
                                     });
                                   },
                                 ),
@@ -847,15 +871,18 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                 hintText: AppString.enterconfmpass,
                                 hintStyle: EmailTextStyle.enterEmail(context),
                                 border: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.black),
+                                  borderSide:
+                                      BorderSide(color: ColorManager.black),
                                 ),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: ColorManager.black.withOpacity(0.5),
+                                      color:
+                                          ColorManager.black.withOpacity(0.5),
                                       width: 0.5),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.grey),
+                                  borderSide:
+                                      BorderSide(color: ColorManager.grey),
                                 ),
                               ),
                               validator: (value) {
@@ -870,176 +897,190 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             Center(
                               child: _isUpdatingPassword
                                   ? CircularProgressIndicator(
-                                  color: ColorManager.blueprime)
+                                      color: ColorManager.blueprime)
                                   : CustomButton(
-                                width: MediaQuery.of(context).size.width / 7,
-                                height:
-                                MediaQuery.of(context).size.height / 25,
-                                text: AppString.updatepass,
-                                backgroundColor: ColorManager.blueprime,
-                                onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    if (controllerNew.text !=
-                                        controllerConfirm.text) {
-                                      setState(() {
-                                        _errorMessage =
-                                            AppString.passdontmatch;
-                                      });
-                                      return;
-                                    }
-                                    setState(() {
-                                      _isUpdatingPassword = true;
-                                    });
-                                    try {
-                                      await ConfirmPassManager()
-                                          .confirmPassword(
-                                        widget.email,
-                                        widget.otp,
-                                        controllerNew.text,
-                                      );
-                                      print('${widget.email}');
-                                      print('${controllerNew.text}');
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            backgroundColor:
-                                            ColorManager.white,
-                                            content: Container(
-                                              padding: EdgeInsets.only(
-                                                  top: AppPadding.p25),
-                                              height: AppSize.s300,
-                                              width: AppSize.s400,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: [
-                                                  Image.asset(
-                                                    'images/upload.png',
-                                                    width: AppSize.s120,
-                                                    height: AppSize.s120,
-                                                  ),
-                                                  Text(
-                                                    AppString.successfully,
-                                                    style:
-                                                    CustomTextStylesCommon
-                                                        .commonStyle(
-                                                      color: ColorManager
-                                                          .darkgrey,
-                                                      fontSize: FontSize.s30,
-                                                      fontWeight:
-                                                      FontWeightManager
-                                                          .extrabold,
+                                      width:
+                                          MediaQuery.of(context).size.width / 7,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              25,
+                                      text: AppString.updatepass,
+                                      backgroundColor: ColorManager.blueprime,
+                                      onPressed: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          if (controllerNew.text !=
+                                              controllerConfirm.text) {
+                                            setState(() {
+                                              _errorMessage =
+                                                  AppString.passdontmatch;
+                                            });
+                                            return;
+                                          }
+                                          setState(() {
+                                            _isUpdatingPassword = true;
+                                          });
+                                          try {
+                                            await AuthManager().confirmPassword(
+                                                widget.email,
+                                                widget.otp,
+                                                controllerNew.text,
+                                                context);
+                                            print('${widget.email}');
+                                            print('${controllerNew.text}');
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  backgroundColor:
+                                                      ColorManager.white,
+                                                  content: Container(
+                                                    padding: EdgeInsets.only(
+                                                        top: AppPadding.p25),
+                                                    height: AppSize.s300,
+                                                    width: AppSize.s400,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Image.asset(
+                                                          'images/upload.png',
+                                                          width: AppSize.s120,
+                                                          height: AppSize.s120,
+                                                        ),
+                                                        Text(
+                                                          AppString
+                                                              .successfully,
+                                                          style:
+                                                              CustomTextStylesCommon
+                                                                  .commonStyle(
+                                                            color: ColorManager
+                                                                .darkgrey,
+                                                            fontSize:
+                                                                FontSize.s30,
+                                                            fontWeight:
+                                                                FontWeightManager
+                                                                    .extrabold,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          AppString
+                                                              .resetsuccessfully,
+                                                          style:
+                                                              CustomTextStylesCommon
+                                                                  .commonStyle(
+                                                            color: ColorManager
+                                                                .darkgrey,
+                                                            fontSize:
+                                                                FontSize.s12,
+                                                            fontWeight:
+                                                                FontWeightManager
+                                                                    .medium,
+                                                          ),
+                                                        ),
+                                                        CustomButton(
+                                                          width: AppSize.s181,
+                                                          height: AppSize.s45,
+                                                          text: AppString
+                                                              .continuebutton,
+                                                          borderRadius: 24,
+                                                          onPressed: () {
+                                                            Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          LoginScreen()),
+                                                            );
+                                                          },
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  Text(
-                                                    AppString
-                                                        .resetsuccessfully,
-                                                    style:
-                                                    CustomTextStylesCommon
-                                                        .commonStyle(
-                                                      color: ColorManager
-                                                          .darkgrey,
-                                                      fontSize: FontSize.s12,
-                                                      fontWeight:
-                                                      FontWeightManager
-                                                          .medium,
+                                                );
+                                              },
+                                            );
+                                          } catch (e) {
+                                            AlertDialog(
+                                              backgroundColor:
+                                                  ColorManager.white,
+                                              content: Container(
+                                                padding: EdgeInsets.only(
+                                                    top: AppPadding.p10),
+                                                height: AppSize.s300,
+                                                width: AppSize.s400,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      AppString
+                                                          .threetimepasscanchange,
+                                                      style:
+                                                          GoogleFonts.firaSans(
+                                                        fontSize: FontSize.s30,
+                                                        color:
+                                                            Color(0xff686464),
+                                                        fontWeight:
+                                                            FontWeightManager
+                                                                .bold,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  CustomButton(
-                                                    width: AppSize.s181,
-                                                    height: AppSize.s45,
-                                                    text: AppString
-                                                        .continuebutton,
-                                                    borderRadius: 24,
-                                                    onPressed: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                LoginScreen()),
-                                                      );
-                                                    },
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    } catch (e) {
-                                      AlertDialog(
-                                        backgroundColor: ColorManager.white,
-                                        content: Container(
-                                          padding: EdgeInsets.only(
-                                              top: AppPadding.p10),
-                                          height: AppSize.s300,
-                                          width: AppSize.s400,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                AppString
-                                                    .threetimepasscanchange,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: FontSize.s30,
-                                                  color: Color(0xff686464),
-                                                  fontWeight:
-                                                  FontWeightManager.bold,
+                                                    Text(
+                                                      AppString
+                                                          .cannotchangepass,
+                                                      style:
+                                                          CustomTextStylesCommon
+                                                              .commonStyle(
+                                                        color: ColorManager
+                                                            .darkgrey,
+                                                        fontSize: FontSize.s12,
+                                                        fontWeight:
+                                                            FontWeightManager
+                                                                .medium,
+                                                      ),
+                                                    ),
+                                                    CustomButton(
+                                                      width: AppSize.s181,
+                                                      height: AppSize.s45,
+                                                      text: AppString
+                                                          .continuebutton,
+                                                      borderRadius: 24,
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  LoginScreen()),
+                                                        );
+                                                      },
+                                                    )
+                                                  ],
                                                 ),
                                               ),
-                                              Text(
-                                                AppString.cannotchangepass,
-                                                style: CustomTextStylesCommon
-                                                    .commonStyle(
-                                                  color:
-                                                  ColorManager.darkgrey,
-                                                  fontSize: FontSize.s12,
-                                                  fontWeight:
-                                                  FontWeightManager
-                                                      .medium,
-                                                ),
-                                              ),
-                                              CustomButton(
-                                                width: AppSize.s181,
-                                                height: AppSize.s45,
-                                                text:
-                                                AppString.continuebutton,
-                                                borderRadius: 24,
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            LoginScreen()),
-                                                  );
-                                                },
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                      print(
-                                          'Error occurred while confirming password: $e');
-                                      // Handle error
-                                    } finally {
-                                      setState(() {
-                                        _isUpdatingPassword = false;
-                                      });
-                                    }
-                                  }
-                                },
-                              ),
+                                            );
+                                            print(
+                                                'Error occurred while confirming password: $e');
+                                            // Handle error
+                                          } finally {
+                                            setState(() {
+                                              _isUpdatingPassword = false;
+                                            });
+                                          }
+                                        }
+                                      },
+                                    ),
                             ),
                             if (_errorMessage != null)
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Text(
                                   _errorMessage!,
                                   style: TextStyle(color: Colors.red),
