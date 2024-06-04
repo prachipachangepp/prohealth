@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/hr_screens/hr_administrative.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/hr_screens/hr_clinical.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/hr_screens/hr_sales.dart';
 
-import '../../../hr_screens/hr_administrative.dart';
-import '../../../hr_screens/hr_clinical.dart';
-import '../../../hr_screens/hr_sales.dart';
 
 class HrScreen extends StatefulWidget {
   @override
