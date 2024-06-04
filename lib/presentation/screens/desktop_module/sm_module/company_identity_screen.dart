@@ -38,7 +38,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
     currentPage = 1;
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-   _companyManager = CompanyIdentityManager();
+    _companyManager = CompanyIdentityManager();
     companyAllApi(context);
   }
   //
@@ -53,7 +53,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: Container(
       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 6),
@@ -66,10 +65,9 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
               borderRadius: 12,
               text: 'Whitelabelling',
               style: CustomTextStylesCommon.commonStyle(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeightManager.bold,
-                color: ColorManager.white
-              ),
+                  fontSize: FontSize.s12,
+                  fontWeight: FontWeightManager.bold,
+                  color: ColorManager.white),
               width: 120,
               height: 30,
               onPressed: () {
@@ -77,33 +75,36 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                   context: context,
                   isScrollControlled: true,
                   builder: (BuildContext context) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12.0),
-                          topRight: Radius.circular(12.0),
-                        ),
-                      ),
-//  padding: EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(Icons.close),
-                              ),
-                            ],
+                    return Material(
+                      color: Colors.transparent,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(12.0),
+                            topRight: Radius.circular(12.0),
                           ),
-// Add your content here
-                        ],
+                        ),
+                        //  padding: EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(Icons.close),
+                                ),
+                              ],
+                            ),
+                            // Add your content here
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -141,7 +142,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                 ],
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SMTextFConst(
                                     controller: nameController,
@@ -156,7 +158,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                     keyboardType: TextInputType.streetAddress,
                                     text: 'Address',
                                   ),
-                                 SizedBox(
+                                  SizedBox(
                                     height: 7,
                                   ),
                                   SMTextFConst(
@@ -198,6 +200,15 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                   height: 31,
                                   text: 'Submit',
                                   onPressed: () {
+                                    addNewOffice(
+                                        context,
+                                        nameController.text,
+                                        addressController.text,
+                                        emailController.text,
+                                        mobNumController.text,
+                                        secNumController.text);
+                                    Navigator.pop(context);
+                                    companyAllApi(context);
 // Navigator.push(
 //     context,
 //     MaterialPageRoute(
@@ -277,15 +288,20 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
           child: FutureBuilder<List<CompanyModel>>(
             future: companyAllApi(context),
             builder: (BuildContext context, snapshot) {
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                );
               }
-              if(snapshot.hasData){
+              if (snapshot.hasData) {
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                      int serialNumber =
+                          index + 1 + (currentPage - 1) * itemsPerPage;
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -305,7 +321,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                               ),
                               height: 50,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   IconButton(
                                       onPressed: () {},
@@ -314,7 +331,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                         color: Color(0xff686464),
                                       )),
                                   Text('  '),
-                                  Text(snapshot.data![index].name.toString(),
+                                  Text(
+                                    snapshot.data![index].companyId.toString(),
                                     // formattedSerialNumber,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
@@ -325,7 +343,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                   ),
                                   Text(''),
                                   Text(
-                                    snapshot.data![index].officeName.toString(),
+                                    snapshot.data![index].name.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
@@ -355,7 +373,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
               }
               return Scaffold();
             },
-
           ),
         ),
 
@@ -405,23 +422,25 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     child: Container(
                       width: 20,
                       height: 20,
-                      margin: EdgeInsets.only(left: 5,right: 5),
+                      margin: EdgeInsets.only(left: 5, right: 5),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                          color: currentPage == i ? ColorManager.blueprime : ColorManager.grey,
+                          color: currentPage == i
+                              ? ColorManager.blueprime
+                              : ColorManager.grey,
                           width: currentPage == i ? 2.0 : 1.0,
                         ),
-                        color:
-                        currentPage == i ? ColorManager.blueprime : Colors.transparent,
+                        color: currentPage == i
+                            ? ColorManager.blueprime
+                            : Colors.transparent,
                         // border: Border.all(
                         //   color: currentPage == i
                         //       ? Colors.blue
                         //       : Colors.transparent,
                         // ),
-
                       ),
                       child: Text(
                         '$i',
@@ -449,7 +468,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(4),
-                  border:Border.all(
+                  border: Border.all(
                     color: Colors.grey,
                     width: 0.79,
                   ),
@@ -460,9 +479,9 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                   onPressed: () {
                     setState(() {
                       currentPage =
-                      currentPage < (items.length / itemsPerPage).ceil()
-                          ? currentPage + 1
-                          : (items.length / itemsPerPage).ceil();
+                          currentPage < (items.length / itemsPerPage).ceil()
+                              ? currentPage + 1
+                              : (items.length / itemsPerPage).ceil();
                     });
                   },
                   color: ColorManager.black,

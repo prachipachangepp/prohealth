@@ -5,16 +5,14 @@ class CompanyModel {
   final String? name;
   final String? address;
   final String? officeName;
-  final int? id;
+  final int? companyId;
 
   CompanyModel({this.officeName,
-    this.id,
+    this.companyId,
     this.name,
     this.address,
   });
 }
-
-
 
 /// Company Logo Model
 class CompanyLogoModel {

@@ -5,6 +5,8 @@ class EstablishmentManagerRepository {
   static String details = "Details";
   static String companyLogo = "/company-logo";
   static String uploadLogo = "uploadLogo";
+  static String companyOffice = "/company-office";
+  static String add = "/add";
 
   static String companyAll(){
     return "$company";
@@ -21,4 +23,14 @@ class EstablishmentManagerRepository {
       {required int companyId, required String type}) {
     return "$companyLogo/$type/$companyId/$uploadLogo";
   }
+
+  static String addNewOffice() {
+    return "$companyOffice/$add";
+  }
+
+  static String companyOfficeGet() {
+    return "$companyOffice";
+  }
+
+
 }
