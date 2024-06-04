@@ -8,12 +8,13 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
-import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/button_constant.dart';
-import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/widgets/text_form_field_const.dart';
+
 import 'package:prohealth/presentation/screens/desktop_module/widgets/const_appbar/dum_hr_aapbar.dart';
-import '../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
-import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../widgets/custom_icon_button_constant.dart';
+import '../../../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../widgets/custom_icon_button_constant.dart';
 
 class CompanyIdentityScreen extends StatefulWidget {
   const CompanyIdentityScreen({super.key});

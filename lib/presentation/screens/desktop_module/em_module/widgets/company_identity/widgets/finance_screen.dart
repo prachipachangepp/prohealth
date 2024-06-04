@@ -1,10 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/table_constant.dart';
-import 'package:prohealth/presentation/screens/desktop_module/sm_module/widgets/text_form_field_const.dart';
-import '../../widgets/custom_icon_button_constant.dart';
-import 'button_constant.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/widgets/table_constant.dart';
+import 'package:prohealth/presentation/screens/desktop_module/em_module/widgets/text_form_field_const.dart';
+
+import '../../../../widgets/custom_icon_button_constant.dart';
+import '../../button_constant.dart';
 
 class FinanceScreen extends StatefulWidget {
   FinanceScreen({super.key});
