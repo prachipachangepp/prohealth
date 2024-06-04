@@ -14,13 +14,14 @@ Future<List<CompanyModel>> companyAllApi(BuildContext context) async {
   List<CompanyModel> itemsList = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.companyAll());
+        .get(path: EstablishmentManagerRepository.companyOfficeGet());
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
       for(var item in response.data){
         itemsList.add(
           CompanyModel(
-            name: item['Name'],
+            companyId: item['company_id'],
+            name: item['name'],
             address: item['address'],
               officeName: item['head_office_id']
           ),
@@ -53,7 +54,7 @@ Future<CompanyModel> companyByIdApi(BuildContext context, int compantId) async {
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Company by id ::: ${response}");
       return CompanyModel(
-          id: response.data['company_id']);
+          companyId: response.data['company_id']);
     } else {
       return CompanyModel();
     }
@@ -71,7 +72,7 @@ Future<CompanyModel> companyDetailsApi(BuildContext context, int id) async {
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Company Details id ::: ${response}");
       return CompanyModel(
-          id: response.data['company_id']);
+          companyId: response.data['company_id']);
     } else {
       return CompanyModel();
     }
@@ -94,6 +95,46 @@ Future<ApiData> uploadCompanyLogoApi(
           'company_id': id,
           'type': type,
         });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Saved request");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+/// Post add new office
+
+Future<ApiData> addNewOffice(BuildContext context,String name,address,email,primaryPhone,secondaryPhone) async {
+  try {
+    var response = await Api(context).post(
+        path: EstablishmentManagerRepository.addNewOffice(),
+        data: {
+          'name': name,
+          'address': address,
+          'email':email,
+          'primary_phone':primaryPhone,
+          'secondary_phone':secondaryPhone,
+          'company_id':12,
+          'primary_fax':"",
+          'secondary_fax':"",
+          'office_id':""
+        });
+    print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Saved request");
       return ApiData(
