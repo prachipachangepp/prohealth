@@ -55,7 +55,7 @@ class CiPageview extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 10,
-                            fontWeight: FontWeightManager.medium,
+                            fontWeight: FontWeightManager.bold,
                             color:selectedIndex == entry.key
                                 ? ColorManager.blueprime
                                 : ColorManager.mediumgrey,
@@ -63,7 +63,7 @@ class CiPageview extends StatelessWidget {
                           ),
                         ),
                         selectedIndex == entry.key ?
-                        Divider(color:ColorManager.blueprime,):Offstage()
+                        Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
                       ],
                     ),
                   ),

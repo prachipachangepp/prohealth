@@ -1,6 +1,6 @@
+///saloni
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -8,6 +8,7 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
 
+///details screen checkbox constant
 class CheckboxConstant extends StatefulWidget {
   final bool value;
   final ValueChanged<bool?> onChanged;
@@ -39,6 +40,10 @@ class _CheckboxConstantState extends State<CheckboxConstant> {
       children: [
         Checkbox(
           activeColor: ColorManager.blueprime,
+          side: BorderSide(
+            color: ColorManager.blueprime,
+            width: 2.0,
+          ),
           value: _value,
           onChanged: (newValue) {
             setState(() {
@@ -53,7 +58,7 @@ class _CheckboxConstantState extends State<CheckboxConstant> {
   }
 }
 
-///
+///details screen dropdown constant
 class CIDetailsDropdown extends StatefulWidget {
   final List<DropdownMenuItem<String>> items;
   final String? initialValue;
@@ -72,17 +77,47 @@ class CIDetailsDropdown extends StatefulWidget {
 
 class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
   String? _selectedValue;
+  GlobalKey _dropdownKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     _selectedValue = widget.initialValue;
   }
+  void _showCustomDropdown() async {
+    final RenderBox renderBox = _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+
+    final result = await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(offset.dx, offset.dy + size.height, offset.dx + size.width, 0),
+      items: widget.items.map((DropdownMenuItem<String> item) {
+        return PopupMenuItem<String>(
+          value: item.value,
+          child: Container(
+           // color: ColorManager.white,
+            width: size.width - 16, ///minus padding/margin
+            child: Text(item.value ?? ''),
+          ),
+        );
+      }).toList(),
+      color: ColorManager.white,
+    );
+
+    if (result != null) {
+      setState(() {
+        _selectedValue = result;
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 354,
+      key: _dropdownKey,
+      width: 300,
       height: 30,
       decoration: BoxDecoration(
         border: Border.all(color: Color(0xFFB1B1B1), width: 1),
@@ -111,57 +146,17 @@ class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
             padding: EdgeInsets.zero,
             constraints: BoxConstraints(),
           ),
-          DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              style:  GoogleFonts.firaSans(
-                  fontSize: FontSize.s12,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.mediumgrey,
-                  decoration: TextDecoration.none,
-                ),
-              value: _selectedValue,
-              icon: Icon(Icons.arrow_drop_down),
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedValue = newValue;
-                });
-              },
-              items: widget.items,
-              selectedItemBuilder: (BuildContext context) {
-                return widget.items
-                    .map<Widget>((DropdownMenuItem<String> item) {
-                  return Container(); // This makes the dropdown button show empty space for the selected value
-                }).toList();
-              },
-            ),
+          GestureDetector(
+            onTap: _showCustomDropdown,
+            child: Icon(Icons.arrow_drop_down),
           ),
-
-          ///menu icon
-          // PopupMenuButton<String>(
-          //   offset: Offset(0, 30), // Adjust the offset as needed
-          //   itemBuilder: (BuildContext context) {
-          //     return widget.items.map((item) {
-          //       return PopupMenuItem<String>(
-          //         value: item.value,
-          //         child: SizedBox(
-          //           width: 200, // Set your desired width here
-          //           child: Text(item.value ?? ''),
-          //         ),
-          //       );
-          //     }).toList();
-          //   },
-          //   onSelected: (String? value) {
-          //     setState(() {
-          //       _selectedValue = value;
-          //     });
-          //   },
-          // ),
         ],
       ),
     );
   }
 }
 
+///details screen popup constant
 class CIDetailsDropdownPopup extends StatefulWidget {
   final TextEditingController hcoNumController;
   final TextEditingController medicareController;
