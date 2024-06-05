@@ -7,9 +7,9 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../home_module/home_screen.dart';
-import '../../../mobile_module/mobile_const.dart';
+import '../../../../widgets/mobile_constant/mobile_const.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../forget_password/forget_password_screen.dart';
 
 class LoginPasswordMobile extends StatefulWidget {

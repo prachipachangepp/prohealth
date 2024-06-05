@@ -5,11 +5,11 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
+import '../../../../widgets/widgets/login_screen/widgets/login_flow_base_struct.dart';
+import '../../../../widgets/widgets/profile_bar/widget/screen_transition.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../login/login_screen.dart';
 import '../../update_password/update_password.dart';
 

@@ -9,9 +9,9 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
-import '../../../desktop_module/hr_module/manage/controller/controller.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../tablet_module/tab_const.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/tablet_constant/tab_const.dart';
+import '../../../hr_module/manage/controller/controller.dart';
 
 class LoginTablet extends StatefulWidget {
   const LoginTablet({super.key});

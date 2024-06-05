@@ -5,9 +5,11 @@ import 'app/app.dart';
 
 Future<void> main() async {
   bool token = await checkToken();
-  runApp(App(
+  runApp(
+      App(
     signedIn: token,
-  ));
+  )
+  );
 }
 
 Future<bool> checkToken() async {

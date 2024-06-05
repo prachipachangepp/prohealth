@@ -7,9 +7,9 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
-import '../../../tablet_module/tab_const.dart';
+import '../../../../widgets/widgets/profile_bar/widget/screen_transition.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/tablet_constant/tab_const.dart';
 import '../../forget_pass_verification/forget_pass_verification.dart';
 import '../../login/login_screen.dart';
 

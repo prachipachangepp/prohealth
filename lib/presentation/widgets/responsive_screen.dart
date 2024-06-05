@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/presentation/screens/desktop_module/hr_module/manage/controller/controller.dart';
+import '../screens/hr_module/manage/controller/controller.dart';
 
 class ResponsiveScreen extends StatelessWidget {
   ResponsiveScreen(

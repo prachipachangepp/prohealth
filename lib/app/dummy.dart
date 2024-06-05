@@ -41,6 +41,105 @@
 // //     );
 // //   }
 // // }
+//
+//
+//
+// ///
+//
+// // import 'package:flutter/cupertino.dart';
+// // import 'package:flutter/material.dart';
+// // import 'package:flutter/widgets.dart';
+// // import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+// //
+// // class DummyScreen extends StatelessWidget {
+// //   const DummyScreen({super.key});
+// //
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return Container(
+// //       child: Column(
+// //         crossAxisAlignment: CrossAxisAlignment.start,
+// //         mainAxisAlignment: MainAxisAlignment.center,
+// //         children: [
+// //           Expanded(
+// //             flex: 1,
+// //             child: Container(
+// //               color: Colors.greenAccent,
+// //               child: Row(
+// //                 children: [
+// //                   Text('Details',
+// //                   style: CompanyIdentityManageHeadings.customTextStyle(context),),
+// //                 ],
+// //               ),
+// //             ),
+// //           ),
+// //           Expanded(
+// //             flex: 3,
+// //             child: Container(
+// //              // margin: EdgeInsets.only(left: 163),
+// //               decoration: BoxDecoration(
+// //                 borderRadius: BorderRadius.only(
+// //                   topLeft: Radius.circular(16),
+// //                 ),
+// //                 border: Border(
+// //                   top: BorderSide(
+// //                     width: 2,
+// //                     color: Color(0x33000000), // #00000033
+// //                   ),
+// //                 ),
+// //                 boxShadow: [
+// //                   BoxShadow(
+// //                     color: Color(0x40000000), // #00000040
+// //                     offset: Offset(0, 4),
+// //                     blurRadius: 4,
+// //                     spreadRadius: 0,
+// //                   ),
+// //                 ],
+// //                 color: Colors.white
+// //               ),
+// //               child: Opacity(
+// //                 opacity: 0,
+// //                 child: Row(),
+// //               ),
+// //             ),
+// //           ),
+// //           Expanded(
+// //             flex: 1,
+// //             child: Container(
+// //               color: Colors.greenAccent,
+// //               child: Row(
+// //                 children: [
+// //                   Text('Details',
+// //                     style: CompanyIdentityManageHeadings.customTextStyle(context),),
+// //                 ],
+// //               ),
+// //             ),
+// //           ),
+// //           Expanded(
+// //               flex: 2,
+// //               child: Container(color: Colors.pink,)),
+// //           Expanded(
+// //             flex: 1,
+// //             child: Container(
+// //               color: Colors.purple,
+// //               child: Text('Details',
+// //                 style: CompanyIdentityManageHeadings.customTextStyle(context),),
+// //             ),
+// //           ),
+// //           Expanded(
+// //             flex: 1,
+// //             child: Container(
+// //               color: Colors.purple,
+// //               child: Text('Details',
+// //                 style: CompanyIdentityManageHeadings.customTextStyle(context),),
+// //             ),
+// //           ),
+// //
+// //         ],
+// //       ),
+// //     );
+// //   }
+// // }
 // ///
 // import 'dart:async';
 // import 'dart:convert';
@@ -55,8 +154,6 @@
 // import 'package:prohealth/app/resources/const_string.dart';
 // import 'package:prohealth/app/resources/font_manager.dart';
 // import 'package:prohealth/app/resources/value_manager.dart';
-// import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
-// import 'package:prohealth/app/services/login_flow_api/confirm_pass/confirm_pass_manager.dart';
 //
 // import '../../../../app/resources/theme_manager.dart';
 // import '../presentation/screens/desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
@@ -745,7 +842,7 @@
 //                                                                     true;
 //                                                               });
 //                                                               try {
-//                                                                 await AuthManager()
+//                                                                 await ConfirmPassManager()
 //                                                                     .confirmPassword(
 //                                                                   widget.email,
 //                                                                   _otpControllers
@@ -754,7 +851,7 @@
 //                                                                               .text)
 //                                                                       .join(),
 //                                                                   controllerNew
-//                                                                       .text,context
+//                                                                       .text,
 //                                                                 );
 //                                                                 print(
 //                                                                     '${widget.email}');

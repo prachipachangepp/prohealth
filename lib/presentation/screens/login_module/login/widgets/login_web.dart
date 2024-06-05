@@ -10,8 +10,8 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
+import '../../../../widgets/widgets/login_screen/widgets/login_flow_base_struct.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 class LoginWeb extends StatefulWidget {
   const LoginWeb({super.key});
