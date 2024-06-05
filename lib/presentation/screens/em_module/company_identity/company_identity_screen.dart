@@ -14,7 +14,8 @@ import '../widgets/text_form_field_const.dart';
 
 
 class CompanyIdentityScreen extends StatefulWidget {
-  const CompanyIdentityScreen({super.key});
+  final VoidCallback? onWhitelabellingPressed;
+  const CompanyIdentityScreen({super.key, this.onWhitelabellingPressed});
 
   @override
   State<CompanyIdentityScreen> createState() => _CompanyIdentityScreenState();
@@ -27,6 +28,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
   TextEditingController mobNumController = TextEditingController();
   TextEditingController secNumController = TextEditingController();
   TextEditingController OptionalController = TextEditingController();
+
   // final PageController _pageController = PageController();
   late CompanyIdentityManager _companyManager;
   // final ButtonSelectionController myController =
@@ -45,15 +47,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
     _companyManager = CompanyIdentityManager();
     companyAllApi(context);
   }
-  //
-  // void fetchData() async {
-  //   try {
-  //     var companyData = await getCompany(1);
-  //     print(companyData);
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,50 +69,143 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
               width: 120,
               height: 30,
               onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return Material(
-                      color: Colors.transparent,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.7,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12.0),
-                            topRight: Radius.circular(12.0),
-                          ),
-                        ),
-                        //  padding: EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: Icon(Icons.close),
-                                ),
-                              ],
-                            ),
-                            // Add your content here
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
+                if (widget.onWhitelabellingPressed != null) {
+                  widget.onWhitelabellingPressed!();
+                }
+
               },
             ),
             SizedBox(
               width: AppSize.s30,
             ),
+            ///add new office
+            CustomIconButtonConst(
+              text: 'Add New Office',
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        backgroundColor: Colors.white,
+                        content: Container(
+                          height: 450,
+                          width: 300,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: Icon(Icons.close))
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SMTextFConst(
+                                    controller: nameController,
+                                    keyboardType: TextInputType.text,
+                                    text: 'Name',
+                                  ),
+                                  SizedBox(
+                                    height: 7,
+                                  ),
+                                  SMTextFConst(
+                                    controller: addressController,
+                                    keyboardType: TextInputType.streetAddress,
+                                    text: 'Address',
+                                  ),
+                                  SizedBox(
+                                    height: 7,
+                                  ),
+                                  SMTextFConst(
+                                    controller: emailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    text: 'Email',
+                                  ),
+                                  SizedBox(
+                                    height: 7,
+                                  ),
+                                  SMTextFConst(
+                                    controller: mobNumController,
+                                    keyboardType: TextInputType.number,
+                                    text: 'Primary Phone',
+                                  ),
+                                  SizedBox(
+                                    height: 7,
+                                  ),
+                                  SMTextFConst(
+                                    controller: secNumController,
+                                    keyboardType: TextInputType.number,
+                                    text: 'Secondary Phone',
+                                  ),
+                                  SizedBox(
+                                    height: 7,
+                                  ),
+                                  SMTextFConst(
+                                    controller: OptionalController,
+                                    keyboardType: TextInputType.number,
+                                    text: 'Alternative Phone',
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              CustomElevatedButton(
+                                  width: 105,
+                                  height: 31,
+                                  text: 'Submit',
+                                  onPressed: () {
+                                    addNewOffice(
+                                        context,
+                                        nameController.text,
+                                        addressController.text,
+                                        emailController.text,
+                                        mobNumController.text,
+                                        secNumController.text);
+                                    Navigator.pop(context);
+                                    companyAllApi(context);
+                                  })
+                            ],
+                          ),
+                        ));
+                  },
+                );
+              },
+              icon: Icons.add,
+            )
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ///whitelabbeling
+            CustomButton(
+              borderRadius: 12,
+              text: 'Whitelabelling',
+              style: CustomTextStylesCommon.commonStyle(
+                  fontSize: FontSize.s12,
+                  fontWeight: FontWeightManager.bold,
+                  color: ColorManager.white),
+              width: 120,
+              height: 30,
+              onPressed: () {
+                if (widget.onWhitelabellingPressed != null) {
+                  widget.onWhitelabellingPressed!();
+                }
 
+              },
+            ),
+            SizedBox(
+              width: AppSize.s30,
+            ),
             ///add new office
             CustomIconButtonConst(
               text: 'Add New Office',
@@ -502,3 +589,40 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
     ));
   }
 }
+// showModalBottomSheet(
+//   context: context,
+//   isScrollControlled: true,
+//   builder: (BuildContext context) {
+//     return Stack(
+//       children:[Container(
+//         height: 500,
+//         width: 1000,
+//         decoration: BoxDecoration(
+//           color: Colors.red,
+//           borderRadius: BorderRadius.only(
+//             topLeft: Radius.circular(12.0),
+//             topRight: Radius.circular(12.0),
+//           ),
+//         ),
+//         //  padding: EdgeInsets.all(20.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.stretch,
+//           children: [
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.end,
+//               children: [
+//                 IconButton(
+//                   onPressed: () {
+//                     Navigator.pop(context);
+//                   },
+//                   icon: Icon(Icons.close),
+//                 ),
+//               ],
+//             ),
+//             // Add your content here
+//           ],
+//         ),
+//       ),
+//     ]);
+//   },
+// );
