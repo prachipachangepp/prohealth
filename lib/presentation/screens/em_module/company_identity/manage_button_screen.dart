@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class ManagePopUpScreen extends StatefulWidget {
   const ManagePopUpScreen({Key? key}) : super(key: key);
 
