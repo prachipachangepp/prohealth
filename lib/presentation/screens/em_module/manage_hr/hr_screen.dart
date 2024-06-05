@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 
-import 'hr_administrative.dart';
-import 'hr_clinical.dart';
-import 'hr_sales.dart';
+import 'all_hr_screens/hr_administrative.dart';
+import 'all_hr_screens/hr_clinical.dart';
+import 'all_hr_screens/hr_sales.dart';
 
 
 class HrScreen extends StatefulWidget {

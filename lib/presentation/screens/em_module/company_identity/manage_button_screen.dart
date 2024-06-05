@@ -1,4 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
+
+import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 class ManagePopUpScreen extends StatefulWidget {
   const ManagePopUpScreen({Key? key}) : super(key: key);
 
@@ -60,51 +67,60 @@ class ManageWidget extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: 28,
-                width: MediaQuery.of(context).size.width / 1.3,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Color(0xff50B5E5),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: _categories
-                      .asMap()
-                      .entries
-                      .map(
-                        (entry) => InkWell(
-                      child: Container(
-                        height: 30,
-                        width: MediaQuery.of(context).size.width / 10,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p150,vertical: AppPadding.p16),
+            child: Expanded(
+              flex: 1,
+              child: Row(
+                children: [
+                  Text('ProHealth San Jose',
+                    style: CompanyIdentityManageHeadings.customTextStyle(context),),
+                ],
+              ),
+            ),
+          ),
+          Material(
+            elevation: 4,
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              height: 28,
+              width: MediaQuery.of(context).size.width / 1.24,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color(0xff50B5E5),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: _categories
+                    .asMap()
+                    .entries
+                    .map(
+                      (entry) => InkWell(
+                    child: Container(
+                      height: 30,
+                      width: MediaQuery.of(context).size.width / 8.7,
+                      padding: EdgeInsets.all(7),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: selectedIndex == entry.key
+                            ? Colors.white
+                            : null,
+                      ),
+                      child: Text(
+                        entry.value,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeightManager.semiBold,
                           color: selectedIndex == entry.key
-                              ? Colors.white
-                              : null,
-                        ),
-                        child: Text(
-                          entry.value,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 8,
-                            fontWeight: FontWeight.bold,
-                            color: selectedIndex == entry.key
-                                ? Colors.black
-                                : Colors.white,
-                          ),
+                              ? Color(0xff686464)
+                              : Colors.white,
                         ),
                       ),
-                      onTap: () => selectButton(entry.key),
                     ),
-                  )
-                      .toList(),
-                ),
+                    onTap: () => selectButton(entry.key),
+                  ),
+                )
+                    .toList(),
               ),
             ),
           ),
@@ -112,12 +128,12 @@ class ManageWidget extends StatelessWidget {
             flex: 10,
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 60),
+                  horizontal: MediaQuery.of(context).size.width / 11,vertical: AppPadding.p8),
               child: PageView(
                 controller: managePageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  Container(color: Colors.yellow,),
+                  CIDetailsScreen(),
                   Container(color: Colors.green,),
                   Container(color: Colors.yellow,),
                   Container(color: Colors.green,),

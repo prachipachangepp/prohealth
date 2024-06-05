@@ -12,7 +12,7 @@ import '../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'company_identity/company_identity_screen.dart';
 import 'company_identity/manage_button_screen.dart';
 import 'manage_hr/hr_screen.dart';
-import 'manage_pay_rates/finance_screen.dart';
+import 'manage_hr/manage_pay_rates/finance_screen.dart';
 
 class SMDesktop extends StatelessWidget {
   final PageController _pageController = PageController();

@@ -7,10 +7,10 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../widgets/widgets/const_appbar/controller.dart';
-import '../../../widgets/widgets/custom_icon_button_constant.dart';
-import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../widgets/table_constant.dart';
+import '../../../../widgets/widgets/const_appbar/controller.dart';
+import '../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../widgets/table_constant.dart';
 
 class HrClinicalScreen extends StatefulWidget {
   HrClinicalScreen({super.key});

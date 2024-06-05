@@ -1,33 +1,36 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/admin_emp_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../widgets/widgets/custom_icon_button_constant.dart';
-import '../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../widgets/table_constant.dart';
+import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/value_manager.dart';
+import '../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../widgets/table_constant.dart';
 
-class HrSalesScreen extends StatefulWidget {
-  HrSalesScreen({super.key});
+class HrAdministrativeScreen extends StatefulWidget {
+  const HrAdministrativeScreen({super.key});
 
   @override
-  State<HrSalesScreen> createState() => _HrSalesScreenState();
+  State<HrAdministrativeScreen> createState() => _HrAdministrativeScreenState();
 }
 
-class _HrSalesScreenState extends State<HrSalesScreen> {
+class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
+  AdministrativeData administrativeData = AdministrativeData();
+
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
-  Color containerColor = Color(0xffF69DF6);
   late List<Color> containerColors;
   @override
   void initState() {
@@ -35,11 +38,11 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
+    administrativeData.loadEmployeeData();
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    _loadColors(); // Load saved colors
+    _loadColors();
   }
 
-  /// Load saved colors from SharedPreferences
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -52,7 +55,6 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     });
   }
 
-  /// Save color to SharedPreferences
   void _saveColor(int index, Color color) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('containerColor$index', color.value);
@@ -60,12 +62,6 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // void updateContainerColor(Color color) {
-    //   setState(() {
-    //     containerColor = color;
-    //   });
-    // }
-
     List<String> currentPageItems = items.sublist(
       (currentPage - 1) * itemsPerPage,
       min(currentPage * itemsPerPage, items.length),
@@ -74,7 +70,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomIconButtonConst(
-            text: 'Add Employee Type',
+            text: AppString.addemployeetype,
             icon: Icons.add,
             onPressed: () {
               showDialog(
@@ -85,7 +81,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                     addressController: addressController,
                     emailController: emailController,
                     onAddPressed: () {},
-                    containerColor: Color(0xffF69DF6),
+                    containerColor: Color(0xffE8A87D),
                   );
                 },
               );
@@ -94,8 +90,9 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
           height: 20,
         ),
         TableHeadConstant(items: [
-          TableHeadItem(text: AppString.srno, textAlign: TextAlign.start),
-          TableHeadItem(text: AppString.employeetype, textAlign: TextAlign.start),
+          TableHeadItem(text: AppString.srNo, textAlign: TextAlign.start),
+          TableHeadItem(
+              text: AppString.employeetype, textAlign: TextAlign.start),
           TableHeadItem(
               text: AppString.abbrevation, textAlign: TextAlign.start),
           TableHeadItem(text: AppString.color, textAlign: TextAlign.start),
@@ -107,8 +104,9 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
         Expanded(
           child: ListView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: 2,
+              itemCount: administrativeData.employeeList.length,
               itemBuilder: (context, index) {
+                EmployeeData employee = administrativeData.employeeList[index];
                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                 String formattedSerialNumber =
                     serialNumber.toString().padLeft(2, '0');
@@ -116,6 +114,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                     margin: EdgeInsets.all(
                       5,
                     ),
+                    //padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/13),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(4),
@@ -128,97 +127,127 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                         ),
                       ],
                     ),
-                    height: 56,
-                    child: Column(
+                    height: AppSize.s56,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              formattedSerialNumber,
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff686464),
-                                decoration: TextDecoration.none,
-                              ),
+                        Expanded(
+                          child: Text(
+                            formattedSerialNumber,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff686464),
+                              decoration: TextDecoration.none,
                             ),
-                            Text(
-                              'Sales Manager',
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff686464),
-                                decoration: TextDecoration.none,
-                              ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            administrativeData.employeeList[index].employeeType,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff686464),
+                              decoration: TextDecoration.none,
                             ),
-                            Text(
-                              'SM',
-                              textAlign: TextAlign.end,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff686464),
-                                decoration: TextDecoration.none,
-                              ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            administrativeData.employeeList[index].abbreviation,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff686464),
+                              decoration: TextDecoration.none,
                             ),
-
-                            ///also change the color of this container
-                            Container(
-                              width: MediaQuery.of(context).size.width / 20,
-                              height: 22,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: containerColors[index],
-                              ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 20,
+                            height: 22,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: containerColors[index],
                             ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return EditPopupWidget(
-                                          typeController: TextEditingController(),
-                                          shorthandController:
-                                              TextEditingController(),
-                                          emailController:
-                                              TextEditingController(),
-                                          containerColor:
-                                              containerColors[index],
-                                          onSavePressed: () {},
-                                          onColorChanged: (Color color) {
-                                            setState(() {
-                                              containerColors[index] = color;
-                                              _saveColor(index, color);
-                                            });
-                                          },
-                                          // onColorChanged: (Color color) {
-                                          //   setState(() {
-                                          //     containerColors[index] =
-                                          //      color; // Update color for this item
-                                          //   });
-                                          // },
-                                        );
-                                      },
-                                    );
-                                  },
-                                  icon: Icon(Icons.edit_outlined),
-                                  color: ColorManager.mediumgrey,
+                          ),
+                        ),
+                        //SizedBox(width: MediaQuery.of(context).size.width/15,),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return EditPopupWidget(
+                                        typeController: TextEditingController(),
+                                        shorthandController:
+                                            TextEditingController(),
+                                        emailController:
+                                            TextEditingController(),
+                                        containerColor: containerColors[index],
+                                        onSavePressed: () {},
+                                        onColorChanged: (Color color) {
+                                          setState(() {
+                                            containerColors[index] = color;
+                                            _saveColor(index, color);
+                                          });
+                                        },
+                                        // onColorChanged: (Color color) {
+                                        //   setState(() {
+                                        //     containerColors[index] =
+                                        //      color; // Update color for this item
+                                        //   });
+                                        // },
+                                      );
+                                    },
+                                  );
+                                },
+                                icon: Icon(Icons.edit_outlined),
+                                color: ColorManager.mediumgrey,
+                              ),
+                              // IconButton(
+                              //   onPressed: () {
+                              //     showDialog(
+                              //       context: context,
+                              //       builder: (BuildContext context) {
+                              //         return EditPopupWidget(
+                              //           typeController: typeController,
+                              //           shorthandController:
+                              //               shorthandController,
+                              //           emailController: emailController,
+                              //           containerColor: Color(0xffF37F81),
+                              //           onSavePressed: () {},
+                              //           onColorChanged: (Color) {},
+                              //           // onColorChanged: (Color) {},
+                              //         );
+                              //       },
+                              //     );
+                              //   },
+                              //   icon: Icon(
+                              //     Icons.edit_outlined,
+                              //     color: ColorManager.mediumgrey,
+                              //   ),
+                              // ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.delete_outline,
+                                  color: ColorManager.faintOrange,
                                 ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.delete_outline,
-                                    color: ColorManager.faintOrange,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ));
@@ -368,6 +397,3 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     );
   }
 }
-
-///Abbrevation
-///Type of employee
