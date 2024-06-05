@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 
 import '../../../../../app/resources/font_manager.dart';
 
@@ -40,17 +42,20 @@ class SMTextFConst extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
+            autofocus: true,
             controller: controller,
             keyboardType: keyboardType,
+            cursorHeight: 17,
             cursorColor: Colors.black,
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom: 15,left: 15),
+              contentPadding: EdgeInsets.only(bottom: 18,left: 15),
             ),
-            style: TextStyle(
-              height: 1,
-              fontSize: 14,
-            ),
+            style: CustomTextStylesCommon.commonStyle(
+              fontWeight: FontWeightManager.medium,
+              fontSize: FontSize.s12,
+              color: ColorManager.mediumgrey
+            )
           ),
         ),
       ],

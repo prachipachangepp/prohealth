@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 
-import '../../../widgets/widgets/custom_icon_button_constant.dart';
-import '../widgets/button_constant.dart';
-import '../widgets/table_constant.dart';
-import '../widgets/text_form_field_const.dart';
+import '../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../widgets/button_constant.dart';
+import '../../widgets/table_constant.dart';
+import '../../widgets/text_form_field_const.dart';
+
 
 
 class FinanceScreen extends StatefulWidget {
