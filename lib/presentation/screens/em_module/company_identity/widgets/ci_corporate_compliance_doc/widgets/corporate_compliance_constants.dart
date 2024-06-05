@@ -84,6 +84,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                     SizedBox(height: 5,),
                     widget.child
                   ],),
+
                   SizedBox(height: AppSize.s12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
