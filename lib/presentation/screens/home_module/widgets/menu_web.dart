@@ -3,15 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/desktop_module/em_module/responsive_screen_sm.dart';
-import 'package:prohealth/presentation/screens/desktop_module/widgets/login_screen/desk_dashboard_hrm.dart';
-
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-
-import '../../desktop_module/widgets/login_screen/widgets/child_container_constant_login.dart';
+import '../../../widgets/widgets/login_screen/desk_dashboard_hrm.dart';
+import '../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
+import '../../em_module/responsive_screen_sm.dart';
 
 class HomeScreenWeb extends StatelessWidget {
   const HomeScreenWeb({super.key});

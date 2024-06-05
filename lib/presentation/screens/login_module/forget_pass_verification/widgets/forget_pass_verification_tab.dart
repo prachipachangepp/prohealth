@@ -7,8 +7,8 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../tablet_module/tab_const.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/tablet_constant/tab_const.dart';
 import '../../update_password/update_password.dart';
 
 class VerifyForgotPassTab extends StatefulWidget {

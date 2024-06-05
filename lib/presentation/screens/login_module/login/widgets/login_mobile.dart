@@ -8,8 +8,8 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../mobile_module/mobile_const.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/mobile_constant/mobile_const.dart';
 import '../../email_verification/email_verification.dart';
 
 class LoginMobile extends StatefulWidget {

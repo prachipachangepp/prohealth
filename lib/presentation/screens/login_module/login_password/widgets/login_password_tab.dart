@@ -7,10 +7,11 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../desktop_module/widgets/profile_bar/widget/screen_transition.dart';
+import '../../../../widgets/widgets/profile_bar/widget/screen_transition.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+
 import '../../../home_module/home_screen.dart';
-import '../../../tablet_module/tab_const.dart';
+import '../../../../widgets/tablet_constant/tab_const.dart';
 import '../../forget_password/forget_password_screen.dart';
 
 class LoginPassswordTab extends StatefulWidget {
