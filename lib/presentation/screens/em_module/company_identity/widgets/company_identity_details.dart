@@ -118,6 +118,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
               ],
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: AppPadding.p14),
             child: Row(
