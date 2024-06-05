@@ -26,6 +26,25 @@ class CompanyIdentityManager {
     }
   }
 
+  ///get shows response in terminal
+   Future<void> getCompanyById() async {
+     var dio = Dio();
+     var response = await dio.request(
+       '${AppConfig.endpoint}/establishment/company/1',
+      // 'https://wwx3rebc2b.execute-api.us-west-1.amazonaws.com/dev/serverlessSetup/establishment/company/1',
+       options: Options(
+         method: 'GET',
+       ),
+     );
+
+     if (response.statusCode == 200) {
+       print(json.encode(response.data));
+     }
+     else {
+       print(response.statusMessage);
+     }
+   }
+
   ///post
   Future outAddCompany() async {
     var headers = {'Content-Type': 'application/json'};

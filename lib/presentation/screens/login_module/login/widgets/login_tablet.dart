@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/navigator_arguments/screen_arguments.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -60,11 +59,9 @@ class _LoginTabletState extends State<LoginTablet> {
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 23,
                       ),
-
-                      ///todo saloni change every hardcoded colors
                       child: TextFormField(
                         style: CustomTextStylesCommon.commonStyle(
-                          color: Color(0xff000000).withOpacity(0.5),
+                          color: ColorManager.black.withOpacity(0.5),
                           fontWeight: FontWeightManager.medium,
                           fontSize: FontSize.s14,
                         ),
@@ -76,7 +73,7 @@ class _LoginTabletState extends State<LoginTablet> {
                           contentPadding: const EdgeInsets.only(top: 1),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xff000000).withOpacity(0.5),
+                              color: ColorManager.black.withOpacity(0.5),
                               width: 0.5,
                             ),
                           ),
