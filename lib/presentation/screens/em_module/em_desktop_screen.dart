@@ -158,21 +158,25 @@ class SMDesktop extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    'Ask',
-                                    style: GoogleFonts.jost(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        decoration: TextDecoration.none,
-                                        fontWeight: FontWeight.w200),
-                                  ),
-                                  Text("KLIP",
+                                  Expanded(
+                                    child: Text(
+                                      'Ask',
                                       style: GoogleFonts.jost(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        decoration: TextDecoration.none,
-                                      )),
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          decoration: TextDecoration.none,
+                                          fontWeight: FontWeight.w200),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text("KLIP",
+                                        style: GoogleFonts.jost(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          decoration: TextDecoration.none,
+                                        )),
+                                  ),
                                 ],
                               ),
                             ],
@@ -306,7 +310,6 @@ class SMDesktop extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 20,
                         ),
-
                         ///dropdown
                         Row(
                           children: [
@@ -400,20 +403,21 @@ class SMDesktop extends StatelessWidget {
                             ),
                           ],
                         ),
-
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 50,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CircleAvatar(
-                              radius: 12,
-                              backgroundColor: Colors.white,
-                              child: Image.asset("images/profile.png"),
+                            Expanded(
+                              child: CircleAvatar(
+                                radius: 12,
+                                backgroundColor: Colors.white,
+                                child: Image.asset("images/profile.png"),
+                              ),
                             ),
                             SizedBox(height: 2),
-                            Flexible(
+                            Expanded(
                               child: Text(
                                 "William Christiana ",
                                 style: TextStyle(
@@ -607,11 +611,7 @@ class SMDesktop extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               children: [
                 Container(color: Colors.white),
-                CompanyIdentityScreen(
-                     onWhitelabellingPressed: () {
-                       _showBottomSheet(context);
-                     },
-               ),
+                CompanyIdentityScreen(),
                 HrScreen(),
                 Container(color: Colors.pink,),
                 Container(color: Colors.green,),
