@@ -14,7 +14,7 @@ class CustomTextField extends StatelessWidget {
   final double labelFontSize;
   final Icon? suffixIcon;
   final IconData? prefixIcon;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
   CustomTextField({
     this.width,
@@ -25,7 +25,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     required this.controller,
-    required this.focusNode,
+    this.focusNode,
     required this.labelFontSize,
   });
 

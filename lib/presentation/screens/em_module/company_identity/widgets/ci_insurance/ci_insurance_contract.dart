@@ -4,6 +4,8 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 
+import 'contract_add_dialog.dart';
+
 class CiInsuranceContract extends StatefulWidget {
   const CiInsuranceContract({super.key});
 
@@ -12,6 +14,8 @@ class CiInsuranceContract extends StatefulWidget {
 }
 
 class _CiInsuranceContractState extends State<CiInsuranceContract> {
+  TextEditingController contractNameController = TextEditingController();
+  TextEditingController contractIdController = TextEditingController();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -99,7 +103,11 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                     IconButton(onPressed: (){}, icon: Icon(Icons.access_time_sharp,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.print,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){
+                                      showDialog(context: context, builder: (BuildContext context){
+                                        return ContractAddDialog(contractNmaeController: contractNameController, onPressed: () {  }, contractIdController: contractIdController,);
+                                      });
+                                    }, icon: Icon(Icons.edit,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                   ],
                                 )

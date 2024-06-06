@@ -5,6 +5,8 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/custome_dialog.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 class CiInsuranceVendor extends StatefulWidget {
   const CiInsuranceVendor({super.key});
@@ -14,6 +16,7 @@ class CiInsuranceVendor extends StatefulWidget {
 }
 
 class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
+  TextEditingController vendorName = TextEditingController();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -140,7 +143,11 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                       //  Text(''),
                                         Row(
                                           children: [
-                                            IconButton(onPressed: (){}, icon: Icon(Icons.edit)),
+                                            IconButton(onPressed: (){
+                                             showDialog(context: context, builder: (BuildContext context){
+                                               return  CustomPopup(controller: vendorName, onPressed: () {  },);
+                                             });
+                                            }, icon: Icon(Icons.edit)),
                                             IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                           ],
                                         )

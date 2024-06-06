@@ -30,7 +30,7 @@ class CiPageview extends StatelessWidget {
     return Material(
       child: Column(children: [
         Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
           child: Container(
             height: 28,
             width: MediaQuery.of(context).size.width / mediaQueryWidth,
