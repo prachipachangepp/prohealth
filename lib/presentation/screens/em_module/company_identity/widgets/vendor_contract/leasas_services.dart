@@ -3,7 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/vendor_add_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+
+import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
 class CiLeasesAndServices extends StatefulWidget {
   const CiLeasesAndServices({super.key});
@@ -13,6 +17,10 @@ class CiLeasesAndServices extends StatefulWidget {
 }
 
 class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
+  TextEditingController nameOfDocController = TextEditingController();
+  TextEditingController idOfDocController = TextEditingController();
+  TextEditingController editnameOfDocController = TextEditingController();
+  TextEditingController editidOfDocController = TextEditingController();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -32,11 +40,27 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-        CustomIconButtonConst(
-            icon: Icons.add,
-            text: "Add Doctype", onPressed: (){
-
-        }),
+          CustomIconButtonConst(
+              icon: Icons.add,
+              text: "Add Doctype", onPressed: (){
+            showDialog(context: context, builder: (context){
+              return CiVendorAddPopup(nameOfDocController: nameOfDocController, idOfDocController: idOfDocController, onSavePressed: (){}, child: CICCDropdown(
+                initialValue: 'Vendor Contract',
+                items: [
+                  DropdownMenuItem(value: 'Vendor Contract', child: Text('Vendor Contract')),
+                  DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                  DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                  DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                ],), child1:  CICCDropdown(
+                initialValue: 'Leases & Services',
+                items: [
+                  DropdownMenuItem(value: 'Leases & Services', child: Text('Leases & Services')),
+                  DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                  DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                  DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                ],),);
+            });
+          }),
         Expanded(
           child:
           ListView.builder(
@@ -107,7 +131,29 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                     IconButton(onPressed: (){}, icon: Icon(Icons.access_time_sharp,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.print,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){
+                                      showDialog(context: context, builder: (BuildContext context){
+                                        return CiVendorContractEditPopup(idDocController: editidOfDocController,
+                                          nameDocController: editnameOfDocController, onSavePressed: () {  },
+                                          child:  CICCDropdown(
+                                            initialValue: 'Vendor Contract',
+                                            items: [
+                                              DropdownMenuItem(value: 'Vendor Contract', child: Text('Vendor Contract')),
+                                              DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                              DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                              DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                            ],),
+                                          child1: CICCDropdown(
+                                            initialValue: 'Leasas & Services',
+                                            items: [
+                                              DropdownMenuItem(value: 'Leasas & Services', child: Text('Leasas & Services')),
+                                              DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                              DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                              DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                            ],),
+                                        );
+                                      });
+                                    }, icon: Icon(Icons.edit,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                   ],
                                 )

@@ -13,6 +13,8 @@ class AppStringEM{
   static const String primarymail = "Primary Email";
   static const String services = "Services";
   static const String save = "Save";
+  static const String add = "Add";
+  static const String submit = "Submit";
 
   ///
 }
