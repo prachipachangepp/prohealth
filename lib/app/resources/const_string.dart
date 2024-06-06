@@ -202,9 +202,22 @@ class AppString {
   static const String licensevocnurse = 'license Vocational Nurse';
   static const String nc = 'NC';
 
-  /// sm hr administration
+  /// em hr administration
   static const String addemployeetype = 'Add Employee Type';
   static const String employeetype = 'Employee Type';
+  static const String addnewvisit = "Add New Visit";
+  static const String visit = "Visit";
+  static const String actions = "Actions";
+  static const String eligibleClinician = "Eligible Clinicians";
+  static const String notapplicable = "Not Applicable";
+  static const String expiry = "Expiry";
+  static const String clinician = "Clinician";
+  static const String sales = "Sales";
+  static const String roles= "Roles";
+  static const String ruleroles= "Rule Roles";
+  static const String administration = "SAdministration";
+  static const String reminderthershold= "Reminder Threshold";
+
 }
 
 ///mobile screen constant
@@ -212,4 +225,6 @@ class AppString {
 class AppStringMobile {
   ///login screen
   static const String poweredBy = 'Powered by';
+  ///
+
 }

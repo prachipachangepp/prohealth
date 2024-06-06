@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
 
@@ -30,9 +31,9 @@ class CiPageview extends StatelessWidget {
     return Material(
       child: Column(children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+          padding: const EdgeInsets.all(8),
           child: Container(
-            height: 28,
+            height: 30,
             width: MediaQuery.of(context).size.width / mediaQueryWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -47,29 +48,22 @@ class CiPageview extends StatelessWidget {
                   child: Container(
                     height: 30,
                     width: MediaQuery.of(context).size.width / 10,
-                    // padding: EdgeInsets.all(10),
-                    // decoration: BoxDecoration(
-                    //   borderRadius: BorderRadius.circular(20),
-                    //   color: selectedIndex == entry.key
-                    //       ? Colors.white
-                    //       : null,
-                    // ),
                     child: Column(
                       children: [
                         Text(
                           entry.value,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 8,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            fontWeight: FontWeightManager.bold,
                             color:selectedIndex == entry.key
                                 ? ColorManager.blueprime
-                                : Colors.black54,
+                                : ColorManager.mediumgrey,
 
                           ),
                         ),
                         selectedIndex == entry.key ?
-                        Divider(color:ColorManager.blueprime,):Offstage()
+                        Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
                       ],
                     ),
                   ),

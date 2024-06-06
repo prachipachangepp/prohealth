@@ -95,61 +95,6 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
       });
     }
   }
-  // void _openColorPicker(int index) async {
-  //   Color? pickedColor = await showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Pick a color'),
-  //         content: SingleChildScrollView(
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.stretch,
-  //             children: [
-  //               ColorPicker(
-  //                 borderColor: _selectedColors[index],
-  //                 onColorChanged: (Color color) {
-  //                   setState(() {
-  //                     _selectedColors[0] = color;
-  //                   });
-  //                   // setState(() {
-  //                   //   _selectedColors[index] = color;
-  //                   //   _selectedColorCodes[index] =
-  //                   //       color.value.toRadixString(16).toUpperCase();
-  //                   // });
-  //                 },
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: Text('OK'),
-  //             onPressed: () {
-  //               // Navigator.of(context).pop(_selectedColors[index]);
-  //               Navigator.of(context).pop(_selectedColors[0]);
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  //
-  //   if (pickedColor != null) {
-  //     setState(() {
-  //       _selectedColors[0] = pickedColor;
-  //       // Update container color by calling the function passed from HrSalesScreen
-  //       widget.onColorChanged(pickedColor);
-  //     });
-  //     // setState(() {
-  //     //   _selectedColors[index] = pickedColor;
-  //     //   _selectedColorCodes[index] =
-  //     //       pickedColor.value.toRadixString(16).toUpperCase();
-  //     //   // Update container color by calling the function passed from HrSalesScreen
-  //     //   widget.onColorChanged(pickedColor);
-  //     // });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
