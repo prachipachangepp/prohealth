@@ -5,7 +5,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/custome_dialog.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/custome_dialog.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 class CiInsuranceVendor extends StatefulWidget {
@@ -34,7 +34,16 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          CustomIconButtonConst(
+              icon: Icons.add,
+              text: "Add", onPressed: (){
+            showDialog(context: context, builder: (BuildContext context){
+              return  CustomPopup(controller: vendorName, onPressed: () {  },);
+            });
+
+          }),
           Container(
             height: 30,
             decoration: BoxDecoration(

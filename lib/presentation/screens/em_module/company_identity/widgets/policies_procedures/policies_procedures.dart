@@ -5,6 +5,8 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
+import 'widgets/add_policies_popup.dart';
+
 class CiPoliciesAndProcedures extends StatefulWidget {
   const CiPoliciesAndProcedures({super.key});
 
@@ -33,7 +35,11 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-          CustomIconButtonConst(text: 'Add Doctype', onPressed: (){},icon: Icons.add,)
+          CustomIconButtonConst(text: 'Add Doctype', onPressed: (){
+            showDialog(context: context, builder: (BuildContext context){
+              return AddPoliciesPopup();
+            });
+          },icon: Icons.add,)
           ],
         ),
         Expanded(

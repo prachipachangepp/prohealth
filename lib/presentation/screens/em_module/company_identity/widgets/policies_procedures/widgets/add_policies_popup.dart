@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 class AddPoliciesPopup extends StatelessWidget {
@@ -112,6 +113,14 @@ class AddPoliciesPopup extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5,),
+                    CICCDropdown(
+                      initialValue: 'Policies & Procedures',
+                      items: [
+                        DropdownMenuItem(value: 'Policies & Procedures', child: Text('Policies & Procedures')),
+                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                      ],),
                   // DropdownButtonFormField(items: ["Policies & Procedures"], onChanged: (val){})
 
                   ],

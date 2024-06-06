@@ -3,8 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
-import 'contract_add_dialog.dart';
+import 'widgets/contract_add_dialog.dart';
 
 class CiInsuranceContract extends StatefulWidget {
   const CiInsuranceContract({super.key});
@@ -33,6 +34,60 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
   Widget build(BuildContext context) {
     return Material(
       child: Column(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 30,
+              width: 354,
+              // margin: EdgeInsets.symmetric(horizontal: 20),
+              padding:
+              EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                    color: Color(0xff686464).withOpacity(0.5),
+                    width: 1), // Black border
+                borderRadius:
+                BorderRadius.circular(8), // Rounded corners
+              ),
+              child: DropdownButtonFormField<String>(
+                focusColor: Colors.transparent,
+                icon: Icon(
+                  Icons.arrow_drop_down_sharp,
+                  color: Color(0xff686464),
+                ),
+                decoration: InputDecoration.collapsed(hintText: ''),
+                items: <String>[
+                  'Sample Vendor',
+                  'Option 1',
+                  'Option 2',
+                  'Option 3',
+                  'Option 4'
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {},
+                value: 'Sample Vendor',
+                style: GoogleFonts.firaSans(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff686464),
+                  decoration: TextDecoration.none,
+                ),
+              ),
+            ),
+            CustomIconButtonConst(
+                icon: Icons.add,
+                text: "Add Doctype", onPressed: (){
+              showDialog(context: context, builder: (BuildContext context){
+                return ContractAddDialog(contractNmaeController: contractNameController, onPressed: () {  }, contractIdController: contractIdController,);
+              });
+
+            }),
+          ],),
         Expanded(
           child:
           ListView.builder(

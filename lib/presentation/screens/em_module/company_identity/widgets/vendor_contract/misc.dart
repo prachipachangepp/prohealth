@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../../app/resources/font_manager.dart';
 
@@ -29,7 +30,14 @@ class _CiMiscState extends State<CiMisc> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Column(children: [
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+        CustomIconButtonConst(
+            icon: Icons.add,
+            text: "Add Doctype", onPressed: (){
+
+        }),
         Expanded(
           child:
           ListView.builder(
