@@ -7,23 +7,16 @@ import '../../../widgets/responsive_screen.dart';
 
 class VerifyPassword extends StatelessWidget {
   static const String routeName = "/ForgetPasswordVerification";
-  final String email;
+
   const VerifyPassword({
     super.key,
-    required this.email,
   });
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveScreen(
-        mobile: VerifyForgotPassMobile(
-          email: email,
-        ),
-        web: VerifyForgotPassWeb(
-          email: email,
-        ),
-        tablet: VerifyForgotPassTab(
-          email: email,
-        ));
+        mobile: const VerifyForgotPassMobile(),
+        web: const VerifyForgotPassWeb(),
+        tablet: const VerifyForgotPassTab());
   }
 }

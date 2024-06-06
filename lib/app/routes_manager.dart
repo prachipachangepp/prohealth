@@ -5,18 +5,7 @@ import 'package:prohealth/presentation/screens/login_module/forget_pass_verifica
 import 'package:prohealth/presentation/screens/login_module/forget_password/forget_password_screen.dart';
 import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
 
-import '../data/navigator_arguments/screen_arguments.dart';
-
 class RoutesManager {
-  String fetchEmailFromArgs(BuildContext context) {
-    String email = "";
-    var v = ModalRoute.of(context)!.settings.arguments ??
-        ScreenArguments(title: "");
-    final args = v as ScreenArguments;
-    email = args.title!;
-    return email;
-  }
-
   Map<String, Widget Function(BuildContext)> getRoutes({required bool token}) {
     return {
       ///Home
@@ -25,12 +14,8 @@ class RoutesManager {
       ///Auth
       LoginScreen.routeName: (context) => const LoginScreen(),
       ForgetPassword.routeName: (context) => const ForgetPassword(),
-      VerifyPassword.routeName: (context) => VerifyPassword(
-            email: fetchEmailFromArgs(context),
-          ),
-      EmailVerification.routeName: (context) => EmailVerification(
-            email: fetchEmailFromArgs(context),
-          ),
+      VerifyPassword.routeName: (context) => const VerifyPassword(),
+      EmailVerification.routeName: (context) => const EmailVerification(),
 
       ///Menu Screen.
       HomeScreen.routeName: (context) => const HomeScreen(),
