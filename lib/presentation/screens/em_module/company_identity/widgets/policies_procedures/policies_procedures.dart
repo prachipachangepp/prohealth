@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import 'widgets/add_policies_popup.dart';
@@ -15,6 +16,8 @@ class CiPoliciesAndProcedures extends StatefulWidget {
 }
 
 class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
+  TextEditingController nameOfDocController = TextEditingController();
+  TextEditingController idOfDocController = TextEditingController();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -37,7 +40,15 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
           children: [
           CustomIconButtonConst(text: 'Add Doctype', onPressed: (){
             showDialog(context: context, builder: (BuildContext context){
-              return AddPoliciesPopup();
+              return AddPoliciesPopup(nameOfDocumentController: nameOfDocController, idOfDocumentController: idOfDocController, onSavePressed: () {  },
+              child:  CICCDropdown(
+                initialValue: 'Policies & Procedures',
+                items: [
+                  DropdownMenuItem(value: 'Policies & Procedures', child: Text('Policies & Procedures')),
+                  DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                  DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                  DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                ],),);
             });
           },icon: Icons.add,)
           ],

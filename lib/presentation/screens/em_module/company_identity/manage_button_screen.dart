@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_medical_cost_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_quaterly_bal_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_templates/ci_tempalets.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_country.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_zone.dart';
@@ -224,9 +225,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                       screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
                     ),
                     CiPoliciesAndProcedures(),
-                    Container(
-                      color: Colors.green,
-                    ),
+                    CiTempalets()
                   ]),
             ),
           ),

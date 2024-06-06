@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -10,21 +7,21 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
-class ContractAddDialog extends StatefulWidget {
-  final TextEditingController contractNmaeController;
-  final TextEditingController contractIdController;
-  final VoidCallback onSubmitPressed;
+class CiVendorAddPopup extends StatefulWidget {
+  final TextEditingController nameOfDocController;
+  final TextEditingController idOfDocController;
+  final VoidCallback onSavePressed;
   final Widget child;
-  const ContractAddDialog({Key? key,required this.contractNmaeController, required this.onSubmitPressed, required this.contractIdController, required this.child}) : super(key: key);
+  final Widget child1;
+  const CiVendorAddPopup({super.key, required this.nameOfDocController, required this.idOfDocController, required this.onSavePressed, required this.child, required this.child1});
 
   @override
-  State<ContractAddDialog> createState() => _ContractAddDialogState();
+  State<CiVendorAddPopup> createState() => _CiVendorAddPopupState();
 }
 
-class _ContractAddDialogState extends State<ContractAddDialog> {
+class _CiVendorAddPopupState extends State<CiVendorAddPopup> {
   @override
   Widget build(BuildContext context) {
-    String selectedOption = '';
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -57,21 +54,21 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
-                    controller: widget.contractNmaeController,
+                    controller: widget.nameOfDocController,
                     keyboardType: TextInputType.text,
-                    text: 'Contract Name',
+                    text: 'Name of the Document',
                   ),
                   SizedBox(height: AppSize.s8),
                   SMTextFConst(
-                    controller: widget.contractIdController,
+                    controller: widget.idOfDocController,
                     keyboardType: TextInputType.text,
-                    text: 'Contract ID',
+                    text: 'ID of the Document',
                   ),
                   SizedBox(height: AppSize.s8),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Expiry Type',
+                      Text('Type of the Document',
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
                           fontWeight: FontWeight.w700,
@@ -83,7 +80,21 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                       widget.child
                     ],),
 
-
+                  SizedBox(height: AppSize.s12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Sub Type of the Document',
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      SizedBox(height: 5,),
+                      widget.child1
+                    ],),
                 ],
               ),
             ),
@@ -94,9 +105,9 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                 child: CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.submit,
+                  text: AppStringEM.add,
                   onPressed: () {
-                    widget.onSubmitPressed();
+                    widget.onSavePressed();
                     Navigator.pop(context);
                   },
                 ),
