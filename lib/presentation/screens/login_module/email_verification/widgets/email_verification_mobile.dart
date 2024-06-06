@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -7,26 +8,23 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
-import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../home_module/home_screen.dart';
 import '../../../mobile_module/mobile_const.dart';
 import '../../login_password/login_password.dart';
 
 class EmailVerifyMobile extends StatefulWidget {
-  static const String routeName = "/emailVerification";
-  const EmailVerifyMobile({super.key});
-
+  const EmailVerifyMobile({super.key, required this.email});
+  final String email;
   @override
   State<EmailVerifyMobile> createState() => _EmailVerifyMobileState();
 }
 
 class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
   final List<TextEditingController> _otpControllers =
-  List.generate(6, (_) => TextEditingController());
+      List.generate(6, (_) => TextEditingController());
   bool _isVerifyingOTP = false;
   String? _errorMessage = "";
-  String? email = "";
 
   ///
   Future<void> _verifyOTPAndLogin() async {
@@ -35,9 +33,9 @@ class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
       _errorMessage = "";
     });
     String enteredOTP =
-    _otpControllers.map((controller) => controller.text).join();
+        _otpControllers.map((controller) => controller.text).join();
     ApiData result = await AuthManager.verifyOTPAndLogin(
-        email: email!, otp: enteredOTP, context: context);
+        email: widget.email, otp: enteredOTP, context: context);
     if (result.success) {
       Navigator.pushNamed(context, HomeScreen.routeName);
     } else {
@@ -52,11 +50,9 @@ class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    email = args.title!;
     return MobileConst(
-      containerHeight: MediaQuery.of(context).size.height /
-          1.9, // specify desired height
+      containerHeight:
+          MediaQuery.of(context).size.height / 1.9, // specify desired height
       containerWidth: MediaQuery.of(context).size.width / 1.1,
       onTap: () {
         Navigator.push(
@@ -64,14 +60,14 @@ class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
           PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 500),
             pageBuilder: (context, animation, secondaryAnimation) =>
-            const LoginWithPassword(email: AppString.email),
+                const LoginWithPassword(email: AppString.email),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               const begin = Offset(1.0, 0.0);
               const end = Offset.zero;
               const curve = Curves.ease;
-              var tween = Tween(begin: begin, end: end)
-                  .chain(CurveTween(curve: curve));
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
               return SlideTransition(
                 position: animation.drive(tween),
                 child: child,
@@ -102,11 +98,10 @@ class _EmailVerifyMobileState extends State<EmailVerifyMobile> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 6,
-                    (index) => Container(
+                (index) => Container(
                   width: MediaQuery.of(context).size.width / 13,
                   height: MediaQuery.of(context).size.height / 23,
-                  margin:
-                  const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                  margin: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2.26),
                     border: Border.all(

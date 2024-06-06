@@ -14,8 +14,9 @@ import '../../forget_pass_verification/forget_pass_verification.dart';
 import '../../login/login_screen.dart';
 
 class ForgetPasswordWeb extends StatefulWidget {
-  static const String routeName = "/forgetPassword";
-  const ForgetPasswordWeb({super.key});
+  const ForgetPasswordWeb({
+    super.key,
+  });
 
   @override
   State<ForgetPasswordWeb> createState() => _ForgetPasswordWebState();
@@ -49,7 +50,7 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
         titleText: AppString.forgotpassword,
         textAction: AppString.backtologin,
         textActionPadding:
-        EdgeInsets.only(left: MediaQuery.of(context).size.width / 2),
+            EdgeInsets.only(left: MediaQuery.of(context).size.width / 2),
         child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(24),
@@ -95,8 +96,7 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                           labelText: AppString.email,
                           labelStyle: EmailTextStyle.enterEmail(context),
                           border: UnderlineInputBorder(
-                            borderSide:
-                            BorderSide(color: ColorManager.black),
+                            borderSide: BorderSide(color: ColorManager.black),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(

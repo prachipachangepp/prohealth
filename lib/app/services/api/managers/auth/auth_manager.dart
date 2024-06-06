@@ -93,10 +93,10 @@ class AuthManager {
   ///Get OTP for mail login
   static Future<ApiData> getOTP(String email, BuildContext context) async {
     try {
-      var response = await Api(context).post(
+      Response response = await Api(context).post(
           path: AuthenticationRepository.getOtpMail, data: {"email": email});
-
       if (response.statusCode == 201 || response.statusCode == 200) {
+        print(response.data);
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
@@ -108,6 +108,7 @@ class AuthManager {
             message: response.data["message"]!);
       }
     } catch (e) {
+      print(e);
       return ApiData(
           statusCode: 404,
           success: false,
@@ -121,9 +122,11 @@ class AuthManager {
       required String otp,
       required BuildContext context}) async {
     try {
-      var response = await Api(context).post(
+      Response response = await Api(context).post(
           path: AuthenticationRepository.verifyOtpMail,
           data: {"email": email, "otp": int.parse(otp)});
+      print(response.data["accessToken"]);
+      print(response.statusCode);
       if (response.statusCode == 201 || response.statusCode == 200) {
         String accessToken = response.data["accessToken"];
         TokenManager.setAccessToken(token: accessToken);
@@ -138,10 +141,7 @@ class AuthManager {
             message: response.data['message']);
       }
     } catch (e) {
-      return ApiData(
-          statusCode: 404,
-          success: false,
-          message: AppString.somethingWentWrong);
+      return ApiData(statusCode: 404, success: false, message: e.toString());
     }
   }
 
@@ -174,5 +174,4 @@ class AuthManager {
           message: AppString.somethingWentWrong);
     }
   }
-
 }

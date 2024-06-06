@@ -1,19 +1,20 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
-import '../../../../../data/navigator_arguments/screen_arguments.dart';
 import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../tablet_module/tab_const.dart';
 import '../../update_password/update_password.dart';
 
 class VerifyForgotPassTab extends StatefulWidget {
-  static const String routeName = "/ForgetPasswordVerification";
-  const VerifyForgotPassTab({super.key});
+  final String email;
+  const VerifyForgotPassTab({super.key, required this.email});
 
   @override
   State<VerifyForgotPassTab> createState() => _VerifyForgotPassTabState();
@@ -21,25 +22,27 @@ class VerifyForgotPassTab extends StatefulWidget {
 
 class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
   final List<TextEditingController> _otpControllers =
-  List.generate(6, (_) => TextEditingController());
+      List.generate(6, (_) => TextEditingController());
   List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
   final _formKey = GlobalKey<FormState>();
   String? _errorMessage;
   late Timer _timer;
   int _timerCount = 30;
   bool isOtpFieldEmpty = true;
-  String email = "";
+
   final List<bool> _otpFieldFilledStatus = List.generate(6, (_) => false);
   @override
   void initState() {
     super.initState();
     startTimer();
   }
+
   @override
   void dispose() {
     _timer.cancel();
     super.dispose();
   }
+
   void startTimer() {
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(oneSec, (timer) {
@@ -52,11 +55,13 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
       }
     });
   }
+
   String getTimerString() {
     int minutes = _timerCount ~/ 60;
     int seconds = _timerCount % 60;
     return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
+
   void navigateToNextScreen() {
     bool allFieldsFilled = _otpFieldFilledStatus.every((filled) => filled);
     if (allFieldsFilled) {
@@ -64,7 +69,8 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => UpdatePassword(email: email, otp: otp)),
+            builder: (context) =>
+                UpdatePassword(email: widget.email, otp: otp)),
       );
     } else {
       setState(() {
@@ -75,8 +81,6 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    email = args.title!;
     return LoginBaseConstTab(
         titleText: AppString.login,
         onTap: () {},
@@ -92,8 +96,8 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(25)),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppPadding.p14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p14),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,13 +114,12 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
                           6,
-                              (index) => Container(
+                          (index) => Container(
                             width: MediaQuery.of(context).size.width / 40,
                             height: MediaQuery.of(context).size.height / 20,
                             margin: EdgeInsets.symmetric(
                                 horizontal:
-                                MediaQuery.of(context).size.width /
-                                    200),
+                                    MediaQuery.of(context).size.width / 200),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(2.26),
                               border: Border.all(
@@ -142,7 +145,7 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                               focusNode: _focusNodes[index],
                               decoration: const InputDecoration(
                                 contentPadding:
-                                EdgeInsets.only(bottom: AppPadding.p11),
+                                    EdgeInsets.only(bottom: AppPadding.p11),
                                 counterText: '',
                                 border: InputBorder.none,
                               ),
@@ -154,8 +157,7 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
 
                               ///
                               onChanged: (value) {
-                                _otpFieldFilledStatus[index] =
-                                    value.isNotEmpty;
+                                _otpFieldFilledStatus[index] = value.isNotEmpty;
                                 bool allFieldsFilled = _otpFieldFilledStatus
                                     .every((filled) => filled);
                                 setState(() {
@@ -213,8 +215,7 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(AppString.didntrecieveCode,
-                              style:
-                              CodeVerficationText.VerifyCode(context)),
+                              style: CodeVerficationText.VerifyCode(context)),
                           TextButton(
                             onPressed: () {
                               print("Resend tapped!");
