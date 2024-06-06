@@ -193,7 +193,7 @@ class HomeScreenTab extends StatelessWidget {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            ResponsiveScreenSM()));
+                                                            ResponsiveScreenEM()));
                                               },
                                               child: TabMenuConst(
                                                 text: 'Establishment Manager',

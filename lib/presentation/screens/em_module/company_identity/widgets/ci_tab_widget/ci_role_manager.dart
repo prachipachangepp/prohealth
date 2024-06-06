@@ -35,13 +35,12 @@ class _CiRoleManagerState extends State<CiRoleManager> {
         SizedBox(
           height: 20,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Material(
-              elevation: 4,
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              child: Container(
+        Material(
+          elevation: 4,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
                 width: 280,
                 height: 30,
                 decoration: BoxDecoration(
@@ -103,11 +102,12 @@ class _CiRoleManagerState extends State<CiRoleManager> {
 
                   ],
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
         Expanded(
+          flex: 12,
           child: NonScrollablePageView(
             controller: _tabPageController,
             onPageChanged: (index) {

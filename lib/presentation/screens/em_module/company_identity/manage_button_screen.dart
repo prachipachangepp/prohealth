@@ -18,6 +18,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/md.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/misc.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/snf.dart';
+import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
 
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
@@ -121,7 +122,7 @@ class _ManageWidgetState extends State<ManageWidget> {
               children: [
                 Row(children: [
                   IconButton(icon: Icon(Icons.arrow_back_outlined,size: 15),color: ColorManager.mediumgrey, onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> CompanyIdentityScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> SMDesktop()));
                   }, ),
                   Text(
                     'Go Back',

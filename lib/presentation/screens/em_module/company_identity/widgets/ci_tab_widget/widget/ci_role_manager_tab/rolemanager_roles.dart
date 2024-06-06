@@ -39,84 +39,82 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
         SizedBox(
           height: 20,
         ),
-        Material(
-          elevation: 4,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 400,
-                height: 30,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      onTap: () => _selectButton(0),
-                      child: Column(
-                        children: [
-                          Text(
-                            AppString.clinician,
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
-                            ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 400,
+              height: 30,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  InkWell(
+                    onTap: () => _selectButton(0),
+                    child: Column(
+                      children: [
+                        Text(
+                          AppString.clinician,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
                           ),
-                          Container(
-                            height: 2,
-                            width: 40,
-                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.transparent,
-                          ),
-                        ],
-                      ),
+                        ),
+                        Container(
+                          height: 2,
+                          width: 40,
+                          color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.transparent,
+                        ),
+                      ],
                     ),
-                    InkWell(
-                      onTap: () => _selectButton(1),
-                      child: Column(
-                        children: [
-                          Text(
-                           AppString.sales,
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
-                            ),
+                  ),
+                  InkWell(
+                    onTap: () => _selectButton(1),
+                    child: Column(
+                      children: [
+                        Text(
+                         AppString.sales,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
                           ),
-                          Container(
-                            height: 2,
-                            width: 60,
-                            color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.transparent,
-                          ),
-                        ],
-                      ),
+                        ),
+                        Container(
+                          height: 2,
+                          width: 60,
+                          color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.transparent,
+                        ),
+                      ],
                     ),
-                    InkWell(
-                      onTap: () => _selectButton(2),
-                      child: Column(
-                        children: [
-                          Text(
-                            AppString.administration,
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: _selectedIndex == 2 ? ColorManager.blueprime : Colors.grey,
-                            ),
+                  ),
+                  InkWell(
+                    onTap: () => _selectButton(2),
+                    child: Column(
+                      children: [
+                        Text(
+                          AppString.administration,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: _selectedIndex == 2 ? ColorManager.blueprime : Colors.grey,
                           ),
-                          Container(
-                            height: 2,
-                            width: 60,
-                            color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
-                          ),
-                        ],
-                      ),
+                        ),
+                        Container(
+                          height: 2,
+                          width: 60,
+                          color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
         Expanded(
+          flex: 12,
           child: NonScrollablePageView(
             controller: _tabPageController,
             onPageChanged: (index) {

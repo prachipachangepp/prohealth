@@ -215,7 +215,7 @@ class AppString {
   static const String sales = "Sales";
   static const String roles= "Roles";
   static const String ruleroles= "Rule Roles";
-  static const String administration = "SAdministration";
+  static const String administration = "Administration";
   static const String reminderthershold= "Reminder Threshold";
 
 }
