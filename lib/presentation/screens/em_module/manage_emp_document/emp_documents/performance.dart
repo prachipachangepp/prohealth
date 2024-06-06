@@ -3,15 +3,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
 
-class ClinicalVerificationEmpDoc extends StatefulWidget {
-  const ClinicalVerificationEmpDoc({super.key});
+class PerformanceEmpDoc extends StatefulWidget {
+  const PerformanceEmpDoc({super.key});
 
   @override
-  State<ClinicalVerificationEmpDoc> createState() => _ClinicalVerificationEmpDocState();
+  State<PerformanceEmpDoc> createState() => _PerformanceEmpDocState();
 }
 
-class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc> {
+class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
+  TextEditingController nameDocController = TextEditingController();
+  TextEditingController idDocController = TextEditingController();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -96,7 +100,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Expanded(
@@ -119,10 +123,10 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                               borderRadius: BorderRadius.circular(4),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Color(0xff000000).withOpacity(0.25),
+                                  color: const Color(0xff000000).withOpacity(0.25),
                                   spreadRadius: 0,
                                   blurRadius: 4,
-                                  offset: Offset(0, 2),
+                                  offset: const Offset(0, 2),
                                 ),
                               ],
                             ),
@@ -139,17 +143,17 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xff686464),
+                                      color: const Color(0xff686464),
                                       decoration: TextDecoration.none,
                                     ),
                                   ),
                                   // Text(''),
                                   Text(
-                                    "Driver’s License",textAlign:TextAlign.center,
+                                    "Personnel Counselling/ Disciplinary Docs",textAlign:TextAlign.center,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xff686464),
+                                      color: const Color(0xff686464),
                                       decoration: TextDecoration.none,
                                     ),
                                   ),
@@ -158,7 +162,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xff686464),
+                                      color: const Color(0xff686464),
                                       decoration: TextDecoration.none,
                                     ),
                                   ),
@@ -167,7 +171,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xff686464),
+                                      color: const Color(0xff686464),
                                       decoration: TextDecoration.none,
                                     ),
                                   ),
@@ -175,8 +179,18 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                                   Row(
                                     children: [
                                       IconButton(onPressed: (){
-
-                                      }, icon: Icon(Icons.edit)),
+                                        showDialog(context: context, builder: (BuildContext context){
+                                          return EmpDocEditPopup(idDocController: idDocController, nameDocController: nameDocController, onSavePressed: () {  },
+                                            child:  CICCDropdown(
+                                              initialValue: 'Performance',
+                                              items: [
+                                                DropdownMenuItem(value: 'Performance', child: Text('Performance')),
+                                                DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                              ],),);
+                                        });
+                                      }, icon: const Icon(Icons.edit)),
                                       IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                     ],
                                   )
@@ -188,7 +202,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                   );
                 }),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
@@ -209,8 +223,8 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                     ),
                   ),
                   child: IconButton(
-                    padding: EdgeInsets.only(bottom: 1.5),
-                    icon: Icon(Icons.chevron_left),
+                    padding: const EdgeInsets.only(bottom: 1.5),
+                    icon: const Icon(Icons.chevron_left),
                     onPressed: () {
                       setState(() {
                         currentPage = currentPage > 1 ? currentPage - 1 : 1;
@@ -220,7 +234,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                     iconSize: 20,
                   ),
                 ),
-                SizedBox(width: 3),
+                const SizedBox(width: 3),
                 for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
                   if (i == 1 ||
                       i == currentPage ||
@@ -234,7 +248,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                       child: Container(
                         width: 20,
                         height: 20,
-                        margin: EdgeInsets.only(left: 5, right: 5),
+                        margin: const EdgeInsets.only(left: 5, right: 5),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
@@ -286,8 +300,8 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                     ),
                   ),
                   child: IconButton(
-                    padding: EdgeInsets.only(bottom: 2),
-                    icon: Icon(Icons.chevron_right),
+                    padding: const EdgeInsets.only(bottom: 2),
+                    icon: const Icon(Icons.chevron_right),
                     onPressed: () {
                       setState(() {
                         currentPage =

@@ -3,15 +3,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
 
-class AcknowledgementEmpDoc extends StatefulWidget {
-  const AcknowledgementEmpDoc({super.key});
+class ClinicalVerificationEmpDoc extends StatefulWidget {
+  const ClinicalVerificationEmpDoc({super.key});
 
   @override
-  State<AcknowledgementEmpDoc> createState() => _AcknowledgementEmpDocState();
+  State<ClinicalVerificationEmpDoc> createState() => _ClinicalVerificationEmpDocState();
 }
 
-class _AcknowledgementEmpDocState extends State<AcknowledgementEmpDoc> {
+class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc> {
+  TextEditingController nameDocController = TextEditingController();
+  TextEditingController idDocController = TextEditingController();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -145,7 +149,7 @@ class _AcknowledgementEmpDocState extends State<AcknowledgementEmpDoc> {
                                   ),
                                   // Text(''),
                                   Text(
-                                    "Laptop Agreement",textAlign:TextAlign.center,
+                                    "Driver’s License",textAlign:TextAlign.center,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
@@ -175,7 +179,17 @@ class _AcknowledgementEmpDocState extends State<AcknowledgementEmpDoc> {
                                   Row(
                                     children: [
                                       IconButton(onPressed: (){
-
+                                        showDialog(context: context, builder: (BuildContext context){
+                                          return EmpDocEditPopup(idDocController: idDocController, nameDocController: nameDocController, onSavePressed: () {  },
+                                            child:  CICCDropdown(
+                                              initialValue: 'Clinical Verification',
+                                              items: [
+                                                DropdownMenuItem(value: 'Clinical Verification', child: Text('Clinical Verification')),
+                                                DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                              ],),);
+                                        });
                                       }, icon: Icon(Icons.edit)),
                                       IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                     ],
