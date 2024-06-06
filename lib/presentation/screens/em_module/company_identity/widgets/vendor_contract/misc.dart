@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 
 import '../../../../../../app/resources/font_manager.dart';
 import '../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
 class CiMisc extends StatefulWidget {
   const CiMisc({super.key});
@@ -18,6 +19,8 @@ class CiMisc extends StatefulWidget {
 class _CiMiscState extends State<CiMisc> {
   TextEditingController nameOfDocController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
+  TextEditingController editnameOfDocController = TextEditingController();
+  TextEditingController editidOfDocController = TextEditingController();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -128,7 +131,29 @@ class _CiMiscState extends State<CiMisc> {
                                     IconButton(onPressed: (){}, icon: Icon(Icons.access_time_sharp,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.print,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){
+                                      showDialog(context: context, builder: (BuildContext context){
+                                        return CiVendorContractEditPopup(idDocController: editidOfDocController,
+                                          nameDocController: editnameOfDocController, onSavePressed: () {  },
+                                          child:  CICCDropdown(
+                                            initialValue: 'Vendor Contract',
+                                            items: [
+                                              DropdownMenuItem(value: 'Vendor Contract', child: Text('Vendor Contract')),
+                                              DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                              DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                              DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                            ],),
+                                          child1: CICCDropdown(
+                                            initialValue: 'MISC',
+                                            items: [
+                                              DropdownMenuItem(value: 'MISC', child: Text('MISC')),
+                                              DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                              DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                              DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                            ],),
+                                        );
+                                      });
+                                    }, icon: Icon(Icons.edit,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                   ],
                                 )

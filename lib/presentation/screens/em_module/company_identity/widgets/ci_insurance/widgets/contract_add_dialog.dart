@@ -14,14 +14,16 @@ class ContractAddDialog extends StatefulWidget {
   final TextEditingController contractNmaeController;
   final TextEditingController contractIdController;
   final VoidCallback onSubmitPressed;
-  final Widget child;
-  const ContractAddDialog({Key? key,required this.contractNmaeController, required this.onSubmitPressed, required this.contractIdController, required this.child}) : super(key: key);
+
+  const ContractAddDialog({Key? key,required this.contractNmaeController, required this.onSubmitPressed, required this.contractIdController,}) : super(key: key);
 
   @override
   State<ContractAddDialog> createState() => _ContractAddDialogState();
 }
 
 class _ContractAddDialogState extends State<ContractAddDialog> {
+  String? _expiryType;
+  TextEditingController birthdayController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     String selectedOption = '';
@@ -80,7 +82,60 @@ class _ContractAddDialogState extends State<ContractAddDialog> {
                         ),
                       ),
                       SizedBox(height: 5,),
-                      widget.child
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RadioListTile<String>(
+                            title: Text('Not Applicable',
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.mediumgrey,
+                                decoration: TextDecoration.none,
+                              ),),
+                            value: 'type1',
+                            groupValue: _expiryType,
+                            onChanged: (value) {
+                              setState(() {
+                                _expiryType = value;
+                              });
+                            },
+                          ),
+                          RadioListTile<String>(
+                            title: Text('Scheduled',
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.mediumgrey,
+                                decoration: TextDecoration.none,
+                              ),),
+                            value: 'type2',
+                            groupValue: _expiryType,
+                            onChanged: (value) {
+                              setState(() {
+                                _expiryType = value;
+                              });
+                            },
+                          ),
+                          RadioListTile<String>(
+                            title:  Text('Issuer Expiry',
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.mediumgrey,
+                                decoration: TextDecoration.none,
+                              ),),
+                            value: 'type3',
+                            groupValue: _expiryType,
+                            onChanged: (value) {
+                              setState(() {
+                                _expiryType = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ],),
 
 

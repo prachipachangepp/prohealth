@@ -91,7 +91,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                             contractNmaeController: contractNameController,
                             onSubmitPressed: () {},
                             contractIdController: contractIdController,
-                            child: Text('Radio Buttom Pending'),
+
                           );
                         });
                   }),

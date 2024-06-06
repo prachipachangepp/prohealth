@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../widgets/widgets/const_appbar/controller.dart';
@@ -614,7 +615,7 @@ class SMDesktop extends StatelessWidget {
                 CompanyIdentityScreen(),
                 HrScreen(),
                 Container(color: Colors.pink,),
-                Container(color: Colors.green,),
+                ManageEmployDocument(),
                 FinanceScreen(),
                 ManagePopUpScreen(),
               ],
