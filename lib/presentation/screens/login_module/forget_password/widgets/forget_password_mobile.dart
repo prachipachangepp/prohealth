@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -13,7 +14,6 @@ import '../../forget_pass_verification/forget_pass_verification.dart';
 import '../../login/login_screen.dart';
 
 class ForgetPasswordMobile extends StatefulWidget {
-  static const String routeName = "/forgetPassword";
   const ForgetPasswordMobile({super.key});
 
   @override
@@ -44,7 +44,7 @@ class _ForgetPasswordMobileState extends State<ForgetPasswordMobile> {
             MaterialPageRoute(builder: (context) => const LoginScreen()));
       },
       containerHeight:
-      MediaQuery.of(context).size.height / 2, // specify desired height
+          MediaQuery.of(context).size.height / 2, // specify desired height
       containerWidth: MediaQuery.of(context).size.width / 1.1,
       mobileChild: Form(
         key: formKey,
@@ -91,8 +91,7 @@ class _ForgetPasswordMobileState extends State<ForgetPasswordMobile> {
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                        color: ColorManager.black.withOpacity(0.5),
-                        width: 0.5),
+                        color: ColorManager.black.withOpacity(0.5), width: 0.5),
                   ),
                 ),
                 validator: (value) {

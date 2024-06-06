@@ -14,7 +14,6 @@ import '../../forget_pass_verification/forget_pass_verification.dart';
 import '../../login/login_screen.dart';
 
 class ForgetPasswordTablet extends StatefulWidget {
-  static const String routeName = "/forgetPassword";
   const ForgetPasswordTablet({super.key});
 
   @override
