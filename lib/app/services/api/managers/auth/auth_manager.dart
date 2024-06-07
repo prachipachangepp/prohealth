@@ -4,6 +4,7 @@ import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/auth/auth_repository.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 
 import '../../../../resources/const_string.dart';
 
@@ -124,7 +125,7 @@ class AuthManager {
       required String otp,
       required BuildContext context}) async {
     try {
-      Response response = await Api(context).post(
+      var response = await Api(context).post(
           path: AuthenticationRepository.verifyOtpMail,
           data: {"email": email, "otp": int.parse(otp)});
       print(response.data["accessToken"]);
@@ -132,6 +133,8 @@ class AuthManager {
       if (response.statusCode == 201 || response.statusCode == 200) {
         String accessToken = response.data["accessToken"];
         TokenManager.setAccessToken(token: accessToken);
+        // Navigator.pushNamed(context, HomeScreen.routeName);
+
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
