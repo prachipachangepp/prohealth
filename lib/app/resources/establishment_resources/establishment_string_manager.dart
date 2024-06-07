@@ -18,6 +18,17 @@ class AppStringEM{
   static const String roleManager =  "Role Manager";
   static const String orgdoc =   "Org Document";
 
+  ///CI Zone
+  static const String countyName = "County Name";
+  static const String zipCode = "Zip Code";
+  static const String map = "Map";
+  static const String landmark = "Landmark";
+  static const String zones = "Zones";
+  static const String name = "Name";
+  // static const String landmark = "Landmark";
+  // static const String landmark = "Landmark";
+  // static const String landmark = "Landmark";
+  // static const String landmark = "Landmark";
   ///all hr screen
   ///hr screen
   static const String srno = 'Sr No.';
