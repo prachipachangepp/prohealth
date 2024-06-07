@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/routes_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
 
 class App extends StatelessWidget {
   final bool signedIn;
@@ -12,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
     //  home:  SMDesktop(),
-      initialRoute: "/home",
+      initialRoute: "/",
       routes: RoutesManager().getRoutes(token: signedIn),
     );
   }
