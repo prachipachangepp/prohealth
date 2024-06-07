@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_emp_document/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
 import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
@@ -553,33 +554,6 @@ class SMDesktop extends StatelessWidget {
                             },
                           ),
                         ),
-
-
-
-                        ///main
-                        // Obx(() => CustomDropdownButton(
-                        //       height: 34,
-                        //       width: 140,
-                        //       items: ['Select a module', 'HR', 'Finance'],
-                        //       selectedItem: myController.selectedIndex.value == 2
-                        //           ? 'HR'
-                        //           : myController.selectedIndex.value == 3
-                        //               ? 'Finance'
-                        //               : 'Select a module',
-                        //       onChanged: (newValue) {
-                        //         if (newValue == 'HR') {
-                        //           myController.selectButton(2);
-                        //           _pageController.animateToPage(2, duration: Duration(milliseconds: 500),
-                        //             curve: Curves.ease,
-                        //           );
-                        //         } else if (newValue == 'Finance') {
-                        //           myController.selectButton(3);
-                        //           _pageController.animateToPage(3, duration: Duration(milliseconds: 500),
-                        //             curve: Curves.ease,
-                        //           );
-                        //         }
-                        //       },
-                        //     ),),
                           SizedBox(
                             width: 10,
                           ),
@@ -589,16 +563,32 @@ class SMDesktop extends StatelessWidget {
                               width: 100,
                               onPressed: () {
                                 //companyAll(context);
-                                myController.selectButton(7);
-                                _pageController.animateToPage(7,
+                                myController.selectButton(6);
+                                _pageController.animateToPage(6,
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease);
                               },
                               text: 'Manage',
                               isSelected:
-                              myController.selectedIndex.value == 7,
+                              myController.selectedIndex.value == 6,
                             ),
                           ),
+                        Obx(
+                              () => CustomTitleButton(
+                            height: 30,
+                            width: 100,
+                            onPressed: () {
+                              //companyAll(context);
+                              myController.selectButton(8);
+                              _pageController.animateToPage(8,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            },
+                            text: 'Whitelabelling',
+                            isSelected:
+                            myController.selectedIndex.value == 8,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -624,6 +614,7 @@ class SMDesktop extends StatelessWidget {
                 // Finance screens
                 FinanceScreen(),
                 ManagePopUpScreen(),
+                WhitelabellingScreen()
               ],
             ),
           ),
