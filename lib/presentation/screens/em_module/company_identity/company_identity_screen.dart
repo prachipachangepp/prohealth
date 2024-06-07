@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/model/company_data_model.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_visit.dart';
-
-import 'package:prohealth/presentation/screens/em_module/manage_hr/hr_screen.dart';
-import '../../../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
-
 
 class CompanyIdentityScreen extends StatefulWidget {
   final VoidCallback? onWhitelabellingPressed;
@@ -29,7 +22,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
   TextEditingController mobNumController = TextEditingController();
   TextEditingController secNumController = TextEditingController();
   TextEditingController OptionalController = TextEditingController();
-  late CompanyIdentityManager _companyManager;
   final PageController _tabPageController = PageController();
 
   late int currentPage;
@@ -42,7 +34,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
     currentPage = 1;
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    _companyManager = CompanyIdentityManager();
     companyAllApi(context);
   }
 
@@ -68,7 +59,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
          child: SingleChildScrollView(
            scrollDirection: Axis.vertical,
            child: Container(
-             height: 500,
+             height: AppSize.s500,
              // color: Colors.green,
              child: Column(
                    children: [
@@ -77,8 +68,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
                    Container(
-                     width: 400,
-                     height: 30,
+                     height: AppSize.s400,
+                     width: AppSize.s30,
                      child: Row(
                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                        children: [
@@ -87,7 +78,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                            child: Column(
                              children: [
                                Text(
-                           "Visit",
+                          AppStringEM.visit,
                            style: TextStyle(
                              fontSize: 10,
                              fontWeight: FontWeight.w600,
@@ -95,8 +86,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                            ),
                          ),
                          Container(
-                           height: 2,
-                           width: 40,
+                           height: AppSize.s2,
+                           width: AppSize.s60,
                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.transparent,
                          ),
                        ],
@@ -107,7 +98,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                      child: Column(
                        children: [
                          Text(
-                           "Org Document",
+                          AppStringEM.orgdoc,
                            style: TextStyle(
                              fontSize: 10,
                              fontWeight: FontWeight.w600,
@@ -115,8 +106,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                            ),
                          ),
                          Container(
-                           height: 2,
-                           width: 60,
+                           height: AppSize.s2,
+                           width: AppSize.s60,
                            color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.transparent,
                          ),
                        ],
@@ -127,7 +118,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                      child: Column(
                        children: [
                          Text(
-                           "Role Manager",
+                          AppStringEM.roleManager,
                            style: TextStyle(
                              fontSize: 10,
                              fontWeight: FontWeight.w600,
@@ -135,8 +126,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                            ),
                          ),
                          Container(
-                           height: 2,
-                           width: 60,
+                           height: AppSize.s2,
+                           width: AppSize.s60,
                            color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
                          ),
                        ],
