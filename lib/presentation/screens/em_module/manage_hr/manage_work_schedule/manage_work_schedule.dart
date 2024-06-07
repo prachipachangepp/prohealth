@@ -3,6 +3,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
 import 'work_schedule/define_holidays.dart';
+import 'work_schedule/define_work_weeks.dart';
 
 class ManageWorkSchedule extends StatefulWidget {
   const ManageWorkSchedule({super.key});
@@ -142,9 +143,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   controller: widget.managePageController,
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    Container(
-                      color: Colors.lightBlue,
-                    ),
+                    DefineWorkWeek(),
                     DefineHolidays(),
                   ]),
             ),

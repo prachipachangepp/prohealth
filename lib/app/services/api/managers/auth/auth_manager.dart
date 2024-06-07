@@ -93,8 +93,10 @@ class AuthManager {
   ///Get OTP for mail login
   static Future<ApiData> getOTP(String email, BuildContext context) async {
     try {
-      Response response = await Api(context).post(
+      print("$email");
+      var response = await Api(context).post(
           path: AuthenticationRepository.getOtpMail, data: {"email": email});
+      print("<<<>>>${response.statusCode}");
       if (response.statusCode == 201 || response.statusCode == 200) {
         print(response.data);
         return ApiData(
