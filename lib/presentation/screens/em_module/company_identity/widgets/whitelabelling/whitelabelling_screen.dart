@@ -406,7 +406,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                         margin: const EdgeInsets.all(15.0),
                         padding: const EdgeInsets.all(3.0),
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blueAccent),
+                            border: Border.all(color: ColorManager.blueprime),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
                         height: 260,
@@ -451,7 +451,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                         margin: const EdgeInsets.all(15.0),
                         padding: const EdgeInsets.all(3.0),
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blueAccent),
+                            border: Border.all(color: ColorManager.blueprime),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
                         height: 260,

@@ -132,6 +132,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                     child: Column(
                       children: [
                         Row(
+                          //crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
@@ -153,7 +154,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                             ///also change the color of this container
                             Container(
                               width: MediaQuery.of(context).size.width / 20,
-                              height: AppSize.s56,
+                              height: AppSize.s22,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 color: containerColors[index],
