@@ -11,6 +11,10 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_visit.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/hr_screen.dart';
 import '../../../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import '../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../widgets/button_constant.dart';
+import '../widgets/text_form_field_const.dart';
 
 class CompanyIdentityScreen extends StatefulWidget {
   final VoidCallback? onWhitelabellingPressed;
