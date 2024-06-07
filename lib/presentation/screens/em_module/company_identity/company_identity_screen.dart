@@ -83,10 +83,11 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                   children: [
                                     Text(
                                       "Visit",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
                                         color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
+                                        // color: isSelected ? Colors.white : Colors.black,
                                       ),
                                     ),
                                     Container(
@@ -103,9 +104,9 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                   children: [
                                     Text(
                                       "Org Document",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
                                         color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
                                       ),
                                     ),
@@ -123,9 +124,9 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                   children: [
                                     Text(
                                       "Role Manager",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
                                         color: _selectedIndex == 2 ? ColorManager.blueprime : Colors.grey,
                                       ),
                                     ),
