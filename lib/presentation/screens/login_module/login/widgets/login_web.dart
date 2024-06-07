@@ -31,8 +31,6 @@ class _LoginWebState extends State<LoginWeb> {
   FocusNode passwordFocusNode = FocusNode();
   String? otpFromRunTab;
   String? _errorMessage;
-  //final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
-
   @override
   void initState() {
     super.initState();
@@ -124,9 +122,6 @@ class _LoginWebState extends State<LoginWeb> {
                               if (value == null || value.isEmpty) {
                                 return AppString.enteremail;
                               }
-                              // if (!emailRegex.hasMatch(value)) {
-                              //   return AppString.entervalidemail;
-                              // }
                               return null;
                             },
                             onFieldSubmitted: (_) {

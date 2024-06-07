@@ -25,7 +25,6 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
   final TextEditingController emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   FocusNode emailFocusNode = FocusNode();
-
   // final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
 
   void submitForm() {
