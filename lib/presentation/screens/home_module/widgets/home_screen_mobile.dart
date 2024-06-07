@@ -7,7 +7,7 @@ import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../mobile_module/widgets/mobile_menu_const.dart';
+import '../../../widgets/mobile_constant/mobile_menu_const.dart';
 
 class HomeScreenMobile extends StatelessWidget {
   const HomeScreenMobile({super.key});

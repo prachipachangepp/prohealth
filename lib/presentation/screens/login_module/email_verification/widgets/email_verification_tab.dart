@@ -8,9 +8,9 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../home_module/home_screen.dart';
-import '../../../tablet_module/tab_const.dart';
+import '../../../../widgets/tablet_constant/tab_const.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../login_password/login_password.dart';
 
 class EmailVerifyTab extends StatefulWidget {

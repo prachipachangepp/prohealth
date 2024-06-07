@@ -1,18 +1,16 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
-import 'package:prohealth/presentation/screens/desktop_module/widgets/profile_bar/widget/screen_transition.dart';
-import 'package:prohealth/presentation/screens/mobile_module/mobile_const.dart';
-
+import 'package:prohealth/presentation/widgets/mobile_constant/mobile_const.dart';
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/widgets/profile_bar/widget/screen_transition.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../login/login_screen.dart';
 
 class MobileUpdatePass extends StatefulWidget {

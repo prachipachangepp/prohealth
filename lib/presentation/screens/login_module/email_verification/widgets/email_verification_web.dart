@@ -8,9 +8,10 @@ import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
+
+import '../../../../widgets/widgets/login_screen/widgets/login_flow_base_struct.dart';
 import '../../../home_module/home_screen.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../login_password/login_password.dart';
 
 class EmailVerifyWeb extends StatefulWidget {
@@ -37,6 +38,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
     _otpControllers.map((controller) => controller.text).join();
     ApiData result = await AuthManager.verifyOTPAndLogin(
         email: email!, otp: enteredOTP, context: context);
+    print('::::::${result.data}+${result.statusCode}');
     if (result.success) {
       Navigator.pushNamed(context, HomeScreen.routeName);
     } else {

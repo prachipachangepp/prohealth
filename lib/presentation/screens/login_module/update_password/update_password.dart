@@ -7,6 +7,7 @@ import '../../../widgets/responsive_screen.dart';
 class UpdatePassword extends StatelessWidget {
   final String email;
   final String otp;
+
   const UpdatePassword({super.key, required this.email, required this.otp});
   @override
   Widget build(BuildContext context) {

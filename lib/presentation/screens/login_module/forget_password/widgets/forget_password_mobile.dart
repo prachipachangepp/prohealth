@@ -7,13 +7,12 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../mobile_module/mobile_const.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/mobile_constant/mobile_const.dart';
 import '../../forget_pass_verification/forget_pass_verification.dart';
 import '../../login/login_screen.dart';
 
 class ForgetPasswordMobile extends StatefulWidget {
-  static const String routeName = "/forgetPassword";
   const ForgetPasswordMobile({super.key});
 
   @override
@@ -44,7 +43,7 @@ class _ForgetPasswordMobileState extends State<ForgetPasswordMobile> {
             MaterialPageRoute(builder: (context) => const LoginScreen()));
       },
       containerHeight:
-      MediaQuery.of(context).size.height / 2, // specify desired height
+          MediaQuery.of(context).size.height / 2, // specify desired height
       containerWidth: MediaQuery.of(context).size.width / 1.1,
       mobileChild: Form(
         key: formKey,
@@ -91,8 +90,7 @@ class _ForgetPasswordMobileState extends State<ForgetPasswordMobile> {
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                        color: ColorManager.black.withOpacity(0.5),
-                        width: 0.5),
+                        color: ColorManager.black.withOpacity(0.5), width: 0.5),
                   ),
                 ),
                 validator: (value) {

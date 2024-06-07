@@ -2,14 +2,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/tablet_module/tab_menu_const.dart';
+import 'package:prohealth/presentation/widgets/tablet_constant/tab_menu_const.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import '../../desktop_module/sm_module/responsive_screen_sm.dart';
-import '../../desktop_module/widgets/login_screen/desk_dashboard_hrm.dart';
+import '../../../widgets/widgets/login_screen/desk_dashboard_hrm.dart';
+import '../../em_module/responsive_screen_sm.dart';
 
 class HomeScreenTab extends StatelessWidget {
   const HomeScreenTab({super.key});
@@ -193,7 +193,7 @@ class HomeScreenTab extends StatelessWidget {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            ResponsiveScreenSM()));
+                                                            ResponsiveScreenEM()));
                                               },
                                               child: TabMenuConst(
                                                 text: 'Establishment Manager',

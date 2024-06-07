@@ -10,8 +10,8 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../desktop_module/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../../../desktop_module/widgets/login_screen/widgets/login_flow_base_struct.dart';
+import '../../../../widgets/widgets/login_screen/widgets/login_flow_base_struct.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 class LoginWeb extends StatefulWidget {
   const LoginWeb({super.key});
@@ -31,8 +31,6 @@ class _LoginWebState extends State<LoginWeb> {
   FocusNode passwordFocusNode = FocusNode();
   String? otpFromRunTab;
   String? _errorMessage;
-  //final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
-
   @override
   void initState() {
     super.initState();
@@ -124,9 +122,6 @@ class _LoginWebState extends State<LoginWeb> {
                               if (value == null || value.isEmpty) {
                                 return AppString.enteremail;
                               }
-                              // if (!emailRegex.hasMatch(value)) {
-                              //   return AppString.entervalidemail;
-                              // }
                               return null;
                             },
                             onFieldSubmitted: (_) {
