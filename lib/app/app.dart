@@ -11,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
     //  home:  SMDesktop(),
-      initialRoute: "/",
+      initialRoute: "/Home",
       routes: RoutesManager().getRoutes(token: signedIn),
     );
   }
