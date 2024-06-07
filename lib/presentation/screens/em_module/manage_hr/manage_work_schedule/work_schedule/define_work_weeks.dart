@@ -45,7 +45,7 @@ TextEditingController endTimeController = TextEditingController();
                             color: ColorManager.white,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
-                              BoxShadow(
+                              const BoxShadow(
                                   blurRadius: 2, color: Colors.grey, spreadRadius: 1)
                             ]),
                         child: Row(
@@ -55,7 +55,7 @@ TextEditingController endTimeController = TextEditingController();
                               width: mediaQuery.width / 40,
                               decoration: BoxDecoration(
                                   color: ColorManager.faintOrange,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(10),
                                       bottomLeft: Radius.circular(10))),
                               child: Center(
@@ -75,26 +75,25 @@ TextEditingController endTimeController = TextEditingController();
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: mediaQuery.height / 23.5,
+                                  height: mediaQuery.height / 22.5,
                                   width: mediaQuery.width / 3.6,
-                                  // width: double.infinity,
                                   decoration: BoxDecoration(
-                                      color: ColorManager.grey,
-                                      borderRadius: BorderRadius.only(
+                                      color: ColorManager.faintGrey,
+                                      borderRadius: const BorderRadius.only(
                                         topRight: Radius.circular(10),
                                       )),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 5),
+                                        horizontal: 20, vertical: 2),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Text('Office Start Time',style: TextStyle(
-
+                                            fontSize: mediaQuery.width/100,
                                             color: ColorManager.white,
                                             fontWeight: FontWeight.w700),),
                                         Text('Office End Time',style: TextStyle(
-
+                                            fontSize: mediaQuery.width/100,
                                             color: ColorManager.white,
                                             fontWeight: FontWeight.w700),),
                                       ],
@@ -105,7 +104,7 @@ TextEditingController endTimeController = TextEditingController();
                                   height: mediaQuery.height / 3.7,
                                   width:mediaQuery.width / 3.6,
                                   // width: double.infinity,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.only(
                                         bottomRight: Radius.circular(10),
@@ -134,11 +133,11 @@ TextEditingController endTimeController = TextEditingController();
                                                 color: ColorManager.mediumgrey,
                                                 decoration: TextDecoration.none,
                                               )),
-                                                  Icon(Icons.timer_outlined,size: AppSize.s20,)
+                                                  const Icon(Icons.timer_outlined,size: AppSize.s20,)
                                                 ],
                                               ),),
                                             ),
-                                            Spacer(),
+                                            const Spacer(),
                                             Container(
                                               height:
                                               mediaQuery.height /
@@ -158,92 +157,116 @@ TextEditingController endTimeController = TextEditingController();
                                                     color: ColorManager.mediumgrey,
                                                     decoration: TextDecoration.none,
                                                   )),
-                                                  Icon(Icons.timer_outlined,size: AppSize.s20)
+                                                  const Icon(Icons.timer_outlined,size: AppSize.s20)
                                                 ],
                                               ),),
                                             ),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Icon(
-                                                  Icons.delete_outline,
-                                                  color: ColorManager.blueprime,
-                                                ))
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 15),
+                                              child: Container(
+                                                  height: mediaQuery.height/23,
+                                                  width:mediaQuery.width/50,
+                                                  decoration: BoxDecoration(color: ColorManager.blueprime,borderRadius: BorderRadius.circular(5)),
+                                                  child:  InkWell(
+                                                    onTap:(){
+                                                      // showDialog(context: context, builder: (BuildContext context){
+                                                      //   return AddBatchPopup(controller1: startTimeController, controller2: endTimeController, onPressed: () {  },);
+                                                      // });
+                                                    },
+                                                    child: Icon(
+                                                      Icons.delete_outline,
+                                                      color: ColorManager.white,
+                                                      size: mediaQuery.width/70,
+                                                    )
+                                                  )
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
                                       Divider(
-                                        color: ColorManager.faintgrey,
+                                        color: ColorManager.dividerColor,
                                         thickness: 1,
                                       ),
                                       Container(
-                                        height: 70,
+                                        height: mediaQuery.height/9,
                                         child: ListView.builder(
                                           itemCount: 2,
                                           itemBuilder: (context,index) {
                                             return Column(
                                               children: [
-                                                Row(
-                                                  //alignment: WrapAlignment.spaceBetween,
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    Text('Shift 1',style: GoogleFonts.firaSans(
-                                                      fontSize: mediaQuery.width/100,
-                                                      fontWeight: FontWeightManager.bold,
-                                                      color: ColorManager.mediumgrey,
-                                                      decoration: TextDecoration.none,
-                                                    ),),
-                                                    Container(
-                                                      height: mediaQuery.height / 30,
-                                                      width: mediaQuery.width / 11,
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                              color: Colors.grey, width: 1),
-                                                          borderRadius:
-                                                          BorderRadius.circular(10)),
-                                                      child: Center(child: Text("11 PM - 12 PM",style: GoogleFonts.firaSans(
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 5),
+                                                  child: Row(
+                                                    //alignment: WrapAlignment.spaceBetween,
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.spaceAround,
+                                                    children: [
+                                                      Text('Shift 1',style: GoogleFonts.firaSans(
                                                         fontSize: mediaQuery.width/100,
-                                                        fontWeight: FontWeightManager.semiBold,
+                                                        fontWeight: FontWeightManager.bold,
                                                         color: ColorManager.mediumgrey,
                                                         decoration: TextDecoration.none,
-                                                      ),)),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: (){
-                                                        showDialog(context: context, builder: (BuildContext context){
-                                                          return ViewBatchesPopup();
-                                                        });
-                                                      },
-                                                      child: Text('10+ Batches more',style: GoogleFonts.firaSans(
-                                                        fontSize: mediaQuery.width/100,
-                                                        fontWeight: FontWeightManager.light,
-                                                        color: ColorManager.faintgrey,
-                                                        decoration: TextDecoration.none,
                                                       ),),
-                                                    ),
-                                                    IconButton(
-                                                        onPressed: () {
+                                                      Container(
+                                                        height: mediaQuery.height / 30,
+                                                        width: mediaQuery.width / 11,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                color: Colors.grey, width: 1),
+                                                            borderRadius:
+                                                            BorderRadius.circular(10)),
+                                                        child: Center(child: Text("11 PM - 12 PM",style: GoogleFonts.firaSans(
+                                                          fontSize: mediaQuery.width/100,
+                                                          fontWeight: FontWeightManager.semiBold,
+                                                          color: ColorManager.mediumgrey,
+                                                          decoration: TextDecoration.none,
+                                                        ),)),
+                                                      ),
+                                                      InkWell(
+                                                        onTap: (){
                                                           showDialog(context: context, builder: (BuildContext context){
-                                                            return AddBatchPopup(controller1: startTimeController, controller2: endTimeController, onPressed: () {  },);
+                                                            return const ViewBatchesPopup();
                                                           });
                                                         },
-                                                        icon: Icon(
-                                                          Icons.add,
-                                                          color: ColorManager.red,
-                                                        ))
-                                                  ],
+                                                        child: Text('10+ Batches more',style: GoogleFonts.firaSans(
+                                                          fontSize: mediaQuery.width/100,
+                                                          fontWeight: FontWeightManager.light,
+                                                          color: ColorManager.faintgrey,
+                                                          decoration: TextDecoration.none,
+                                                        ),),
+                                                      ),
+                                                      Container(
+                                                          height: mediaQuery.height/23,
+                                                          width:mediaQuery.width/50,
+                                                        decoration: BoxDecoration(border: Border.all(color: ColorManager.faintOrange),borderRadius: BorderRadius.circular(5)),
+                                                        child:  InkWell(
+                                                          onTap:(){
+                                                            showDialog(context: context, builder: (BuildContext context){
+                                                              return AddBatchPopup(controller1: startTimeController, controller2: endTimeController, onPressed: () {  },);
+                                                            });
+                                                          },
+                                                          child: Icon(
+                                                            Icons.add,
+                                                            color: ColorManager.red,
+                                                            size: mediaQuery.width/70,
+                                                          ),
+                                                        )
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             );
                                           }
                                         ),
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
                                         child: Align(
                                           alignment: Alignment.bottomRight,
-                                          child: CustomIconButton(text: "Add Shift",onPressed: (){},icon: Icons.add,)
+                                          child: CustomeTransparentAddShift(text: 'Add Shift', onPressed: () {  },icon: Icons.add,)
                                         ),
                                       )
                                     ],
@@ -258,7 +281,7 @@ TextEditingController endTimeController = TextEditingController();
                   }),
             
                 ),
-                SizedBox(height: AppSize.s40,),
+                const SizedBox(height: AppSize.s40,),
                 Center(
                   child: CustomElevatedButton(
                     width: AppSize.s105,

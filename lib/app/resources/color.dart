@@ -12,6 +12,7 @@ class ColorManager {
   ///static Color grey = Color(0xff8B8781);
   static Color grey = Color(0xff8B8781);
   static Color mediumgrey = Color(0xFF686464);
+  static Color faintGrey = Color(0xFFC1C1C1);
   static Color darkgrey = Color(0xFF565656);
   static Color faintOrange = Color(0xffF6928A);
   static Color greenF = Color(0xff52A889);
@@ -27,6 +28,7 @@ class ColorManager {
   static Color rednew = Color(0xffEB3223);
   static Color buttoncolor = Color(0xfc79AEF5);
   static Color lightgreyheading = Color(0xff575757);
+  static Color dividerColor = Color(0xffD4D4D4);
 
   static Color transparentColor = Color(0x808B8781);
   static Color navyblue = HexColor.fromHex('#004181');

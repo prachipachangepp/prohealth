@@ -33,21 +33,28 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
     setState(() {
       _isVerifyingOTP = true;
       _errorMessage = "";
+
     });
     String enteredOTP =
     _otpControllers.map((controller) => controller.text).join();
-    ApiData result = await AuthManager.verifyOTPAndLogin(
-        email: email!, otp: enteredOTP, context: context);
-    if (result.success) {
-      Navigator.pushNamed(context, HomeScreen.routeName);
-    } else {
+    try{
+      ApiData result = await AuthManager.verifyOTPAndLogin(
+          email: email!, otp: enteredOTP, context: context);
+      print("::::>>>>${result.success}+${result.statusCode}+${result.message}");
+      if (result.success) {
+        Navigator.pushNamed(context, HomeScreen.routeName);
+      } else {
+        setState(() {
+          _errorMessage = result.message;
+        });
+      }
       setState(() {
-        _errorMessage = result.message;
+        _isVerifyingOTP = false;
       });
+    }catch(e){
+      print(e);
     }
-    setState(() {
-      _isVerifyingOTP = false;
-    });
+
   }
 
   @override
