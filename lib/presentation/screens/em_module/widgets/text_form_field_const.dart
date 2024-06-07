@@ -12,6 +12,7 @@ class SMTextFConst extends StatelessWidget {
   final String text;
   final Color textColor;
 
+
    SMTextFConst({
      Key? key,
     required this.controller,

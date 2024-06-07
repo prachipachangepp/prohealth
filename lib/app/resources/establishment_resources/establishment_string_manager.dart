@@ -48,4 +48,15 @@ class AppStringEM{
   static const String actions = "Actions";
   static const String salesManager = "Sales Manager";
   static const String sm = "SM";
+  ///whitelabelling
+  static const String companyName = "Company Name";
+  static const String primaryNo = "Primary No.";
+  static const String secondaryNo = "Secondary No.";
+  static const String alternativeNo = "Alternative No.";
+  static const String fax = "Fax";
+  static const String street = "Street";
+  static const String primaryEmail = "Primary Email";
+
+
+
 }
