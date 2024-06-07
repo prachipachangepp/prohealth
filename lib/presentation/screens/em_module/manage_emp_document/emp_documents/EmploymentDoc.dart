@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
 
 class EmplomentDoc extends StatefulWidget {
   const EmplomentDoc({super.key});
@@ -12,6 +14,8 @@ class EmplomentDoc extends StatefulWidget {
 }
 
 class _EmplomentDocState extends State<EmplomentDoc> {
+  TextEditingController nameDocController = TextEditingController();
+  TextEditingController idDocController = TextEditingController();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -175,7 +179,17 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                   Row(
                                     children: [
                                       IconButton(onPressed: (){
-
+                                        showDialog(context: context, builder: (BuildContext context){
+                                          return EmpDocEditPopup(idDocController: idDocController, nameDocController: nameDocController, onSavePressed: () {  },
+                                            child:  CICCDropdown(
+                                              initialValue: 'Employment',
+                                              items: [
+                                                DropdownMenuItem(value: 'Employment', child: Text('Employment')),
+                                                DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                              ],),);
+                                        });
                                       }, icon: Icon(Icons.edit)),
                                       IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                     ],

@@ -3,13 +3,17 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_pageview.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/EmploymentDoc.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/acknowledgement.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/certifications.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/clinical_verification.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/health.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/clinical_verification.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/EmploymentDoc.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/acknowledgement.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/certifications.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/compansation.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/health.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/performance.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 class ManageEmployDocument extends StatefulWidget {
@@ -29,7 +33,7 @@ class _ManageEmployDocumentState extends State<ManageEmployDocument> {
     });
     _managePageController.animateToPage(
       index,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.ease,
     );
   }
@@ -60,6 +64,8 @@ class ManageEmpDocWidget extends StatefulWidget {
 }
 
 class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
+  TextEditingController nameDocController = TextEditingController();
+  TextEditingController idDocController = TextEditingController();
   final List<String> _categories = [
     'Health',
     'Certifications',
@@ -81,7 +87,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
 
     _managePageController.animateToPage(
       index,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.ease,
     );
   }
@@ -96,7 +102,17 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CustomIconButtonConst(text: 'Add Document', onPressed: (){
-
+                  // showDialog(context: context, builder: (BuildContext context){
+                  //   return EmpDocEditPopup(idDocController: idDocController, nameDocController: nameDocController, onSavePressed: () {  },
+                  //     child:  CICCDropdown(
+                  //       initialValue: 'Health',
+                  //       items: [
+                  //         DropdownMenuItem(value: 'Health', child: Text('Health')),
+                  //         DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                  //         DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                  //         DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                  //       ],),);
+                  // });
                 },icon: Icons.add,)
               ],
             ),
@@ -126,7 +142,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                           child: Container(
                             height: 30,
                             width: MediaQuery.of(context).size.width / 8.42,
-                            padding: EdgeInsets.symmetric(vertical: 6),
+                            padding: const EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: widget.selectedIndex == entry.key
@@ -155,7 +171,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Expanded(
             flex: 10,
             child: Padding(
@@ -163,20 +179,15 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                   horizontal: MediaQuery.of(context).size.width / 45),
               child: PageView(
                   controller: widget.managePageController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: const [
                     HealthEmpDoc(),
                     CertificationEmpDoc(),
                     EmplomentDoc(),
                     ClinicalVerificationEmpDoc(),
                     AcknowledgementEmpDoc(),
-                    Container(
-                      color: Colors.amberAccent,
-                    ),
-                    Container(
-                      color: Colors.lightBlue,
-                    ),
-
+                    CompansationEmpDoc(),
+                    PerformanceEmpDoc(),
                   ]),
             ),
           ),
