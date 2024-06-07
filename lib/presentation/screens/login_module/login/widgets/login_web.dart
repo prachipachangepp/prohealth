@@ -21,7 +21,7 @@ class LoginWeb extends StatefulWidget {
 }
 
 class _LoginWebState extends State<LoginWeb> {
-  final TextEditingController _emailController = TextEditingController();
+   TextEditingController _emailController = TextEditingController();
   FocusNode fieldOne = FocusNode();
   FocusNode fieldTow = FocusNode();
   final _formKey = GlobalKey<FormState>();
@@ -53,6 +53,7 @@ class _LoginWebState extends State<LoginWeb> {
       try {
         ApiData response =
             await AuthManager.getOTP(_emailController.text, context);
+        print("Response::::::::${response.data}+${response.statusCode}+${response.message}");
         if (response.success) {
           Navigator.pushNamed(context, EmailVerification.routeName,
               arguments: ScreenArguments(title: _emailController.text));
