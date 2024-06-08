@@ -406,29 +406,32 @@ class SMDesktop extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 50,
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: CircleAvatar(
-                                radius: 12,
-                                backgroundColor: Colors.white,
-                                child: Image.asset("images/profile.png"),
-                              ),
-                            ),
-                            SizedBox(height: 2),
-                            Expanded(
-                              child: Text(
-                                "William Christiana ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 8,
-                                  fontFamily: 'FiraSans',
-                                  fontWeight: FontWeight.w400,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  backgroundColor: Colors.white,
+                                  child: Image.asset("images/profile.png"),
                                 ),
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 2),
+                              Expanded(
+                                child: Text(
+                                  "William Christiana",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: MediaQuery.of(context).size.width/130,
+                                    fontFamily: 'FiraSans',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -839,9 +842,9 @@ class CustomDropdownButton extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     item.value ?? '',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
+                     style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                       fontWeight: FontWeight.w700,
                       color: item.value == 'Select a module'
                           ? Colors.black
                           : (selectedItem == item.value ? Colors.white : Colors.black),
@@ -851,11 +854,11 @@ class CustomDropdownButton extends StatelessWidget {
               }).toList();
             },
             dropdownColor: Colors.white, // Set the dropdown menu background color
-            style: TextStyle(
-              color: Colors.black, // Set the default text color for dropdown items
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-            ),
+            // style: GoogleFonts.firaSans(
+            //   fontSize: 12,
+            //   fontWeight: FontWeight.w700,
+            //   color: Colors.black
+            // ),
           ),
         ),
       );
