@@ -161,7 +161,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                         ],
                       ),
                     ),
-
                     ///Company Identity screen data code
                     ///API integarted code do not delete
                     //           Row(
@@ -281,11 +280,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     //                                         secNumController.text);
                     //                                     Navigator.pop(context);
                     //                                     companyAllApi(context);
-                    // // Navigator.push(
-                    // //     context,
-                    // //     MaterialPageRoute(
-                    // //         builder: (context) =>
-                    // //             LoginScreen()));
                     //                                   })
                     //                             ],
                     //                           ),
@@ -300,15 +294,16 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     //           SizedBox(height: 20),
                     //          ///heading row
                     //           Container(
-                    //           height: 30,
-                    //           decoration: BoxDecoration(
+                    //             height: 30,
+                    //            margin: EdgeInsets.symmetric(horizontal: 30),
+                    //            decoration: BoxDecoration(
                     //             color: Colors.grey,
                     //             borderRadius: BorderRadius.circular(12),
                     //           ),
                     //           child: Row(
                     //             mainAxisAlignment: MainAxisAlignment.spaceAround,
                     //             children: [
-                    //               Text(''),
+                    //               Text('  '),
                     //               Text(
                     //                 'Sr No',
                     //                 style: GoogleFonts.firaSans(
@@ -318,7 +313,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     //                   decoration: TextDecoration.none,
                     //                 ),
                     //               ),
-                    // // SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                    //
                     //               Text('Office Name',
                     //                   style: GoogleFonts.firaSans(
                     //                     fontSize: 12,
@@ -326,8 +321,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     //                     color: Colors.white,
                     //                     decoration: TextDecoration.none,
                     //                   )),
-                    //
-                    // //SizedBox(width: MediaQuery.of(context).size.width/5.5,),
                     //               Text('Address  ',
                     //                   textAlign: TextAlign.start,
                     //                   style: GoogleFonts.firaSans(
@@ -336,8 +329,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     //                     color: Colors.white,
                     //                     decoration: TextDecoration.none,
                     //                   )),
-                    // // SizedBox(height: 1,),
-                    // //SizedBox(width: MediaQuery.of(context).size.width/150,),
                     //               Text('Actions',
                     //                   textAlign: TextAlign.start,
                     //                   style: GoogleFonts.firaSans(
@@ -376,6 +367,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                     //                         children: [
                     //                           SizedBox(height: 5),
                     //                           Container(
+                    //                               margin: EdgeInsets.symmetric(horizontal: 30),
                     //                               decoration: BoxDecoration(
                     //                                 color: Colors.white,
                     //                                 borderRadius: BorderRadius.circular(4),
