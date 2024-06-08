@@ -43,6 +43,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
     );
 
     return Material(
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 12),
         child: Column(

@@ -104,6 +104,7 @@ class _ManageWidgetState extends State<ManageWidget> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: Column(
         children: [
         widget.selectedIndex !=0

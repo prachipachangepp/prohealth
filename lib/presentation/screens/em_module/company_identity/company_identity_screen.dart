@@ -60,6 +60,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+          color: Colors.white,
           // padding: EdgeInsets.symmetric(horizontal: 40, vertical: 6),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,

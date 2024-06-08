@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -27,6 +28,7 @@ class CCScreensAddPopup extends StatefulWidget {
 }
 
 class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -241,6 +243,7 @@ class CCScreenEditPopup extends StatefulWidget {
 class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
   String? _expiryType;
   TextEditingController birthdayController = TextEditingController();
+  final DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -720,8 +723,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                               lastDate: DateTime.now(),
                             );
                             if (date != null) {
-                              birthdayController.text =
-                              date.toLocal().toString().split(' ')[0];
+                              birthdayController.text = date.toLocal().toString().split('')[0];
+                                  // DateFormat('dd-mm-yyyy').format(_selectedDate);
                               field.didChange(date.toLocal().toString().split(' ')[0]);
                             }
                           },
