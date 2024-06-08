@@ -157,7 +157,8 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
           ],
         ),
         Expanded(
-          child: NonScrollablePageView(
+          child:
+          NonScrollablePageView(
             controller: _tabPageController,
             onPageChanged: (index) {
               setState(() {

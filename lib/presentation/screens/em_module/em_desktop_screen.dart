@@ -532,9 +532,10 @@ class SMDesktop extends StatelessWidget {
                                   value: 'All from HR',
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 20),
-                                    child: Text('All from HR',style: GoogleFonts.firaSans(
-                                      fontSize: MediaQuery.of(context).size.width / 120,
-                                      fontWeight: FontWeight.w500,
+                                    child: Text('All from HR',
+                                      style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
                                       // color: isSelected ? Colors.white : Colors.black,
                                     ),),
                                   ),
@@ -555,8 +556,8 @@ class SMDesktop extends StatelessWidget {
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('Work Schedule',
                                       style: GoogleFonts.firaSans(
-                                        fontSize: MediaQuery.of(context).size.width / 120,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
                                         // color: isSelected ? Colors.white : Colors.black,
                                       ),
                                     ),
@@ -578,8 +579,8 @@ class SMDesktop extends StatelessWidget {
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('Employee Documents',
                                       style: GoogleFonts.firaSans(
-                                        fontSize: MediaQuery.of(context).size.width / 120,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
                                         // color: isSelected ? Colors.white : Colors.black,
                                       ),
                                     ),
@@ -620,8 +621,8 @@ class SMDesktop extends StatelessWidget {
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('Pay Rates',
                                       style: GoogleFonts.firaSans(
-                                        fontSize: MediaQuery.of(context).size.width / 120,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
                                         // color: isSelected ? Colors.white : Colors.black,
                                       ),
                                     ),
@@ -824,6 +825,11 @@ class CustomDropdownButton extends StatelessWidget {
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
+            icon: Icon(Icons.arrow_drop_down,
+              color: selectedItem == 'Select a module'
+                  ? Colors.black
+                  : Colors.white,
+              ),
             value: selectedItem,
             onChanged: onChanged,
             items: items,

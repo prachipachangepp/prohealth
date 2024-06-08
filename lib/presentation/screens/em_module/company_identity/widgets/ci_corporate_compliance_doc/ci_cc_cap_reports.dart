@@ -6,6 +6,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
 class CICCCAPReports extends StatefulWidget {
   const CICCCAPReports({super.key});
@@ -104,8 +105,15 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                               children: [
                                 Row(
                                   children: [
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,size:20,color: ColorManager.blueprime,)),
-                                    SizedBox(width: 10,),
+                                    InkWell(
+                                      onTap: () {
+                                      },
+                                      child: Image.asset(
+                                        'images/eye.png',
+                                        height: 15,
+                                        width: 22,
+                                      ),
+                                    ),                                    SizedBox(width: 10,),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -134,9 +142,9 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                 ),
                                 Row(
                                   children: [
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.av_timer,color: ColorManager.bluebottom,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,color: ColorManager.bluebottom,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,color: ColorManager.bluebottom,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.bluebottom,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.bluebottom,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.bluebottom,)),
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (context){
                                         return CCScreenEditPopup(
@@ -160,7 +168,8 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                               DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                             ],),);
                                       });
-                                    }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),                                    IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
+                                    }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                   ],
                                 )
                               ],
@@ -174,118 +183,31 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
         SizedBox(
           height: 10,
         ),
-        Container(
-          height: 30,
-          // color: Colors.black12,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(6.39),
-                  border: Border.all(
-                    color: ColorManager.grey,
-                    width: 0.79,
-                  ),
-                ),
-                child: IconButton(
-                  padding: EdgeInsets.only(bottom: 1.5),
-                  icon: Icon(Icons.chevron_left),
-                  onPressed: () {
-                    setState(() {
-                      currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                    });
-                  },
-                  color: ColorManager.black,
-                  iconSize: 20,
-                ),
-              ),
-              SizedBox(width: 3),
-              for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
-                if (i == 1 ||
-                    i == currentPage ||
-                    i == (items.length / itemsPerPage).ceil())
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        currentPage = i;
-                      });
-                    },
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                          color: currentPage == i
-                              ? ColorManager.blueprime
-                              : ColorManager.grey,
-                          width: currentPage == i ? 2.0 : 1.0,
-                        ),
-                        color: currentPage == i
-                            ? ColorManager.blueprime
-                            : Colors.transparent,
-                        // border: Border.all(
-                        //   color: currentPage == i
-                        //       ? Colors.blue
-                        //       : Colors.transparent,
-                        // ),
-                      ),
-                      child: Text(
-                        '$i',
-                        style: TextStyle(
-                          color: currentPage == i ? Colors.white : Colors.grey,
-                          fontWeight: FontWeightManager.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  )
-                else if (i == currentPage - 1 || i == currentPage + 1)
-                  Text(
-                    '...',
-                    style: TextStyle(
-                      color: ColorManager.black,
-                      fontWeight: FontWeightManager.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-              Container(
-                width: 20,
-                height: 20,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 0.79,
-                  ),
-                ),
-                child: IconButton(
-                  padding: EdgeInsets.only(bottom: 2),
-                  icon: Icon(Icons.chevron_right),
-                  onPressed: () {
-                    setState(() {
-                      currentPage =
-                      currentPage < (items.length / itemsPerPage).ceil()
-                          ? currentPage + 1
-                          : (items.length / itemsPerPage).ceil();
-                    });
-                  },
-                  color: ColorManager.black,
-                  iconSize: 20,
-                ),
-              ),
-            ],
+          PaginationControlsWidget(
+            currentPage: currentPage,
+            items: items,
+            itemsPerPage: itemsPerPage,
+            onPreviousPagePressed: () {
+              /// Handle previous page button press
+              setState(() {
+                currentPage = currentPage > 1 ? currentPage - 1 : 1;
+              });
+            },
+            onPageNumberPressed: (pageNumber) {
+              /// Handle page number tap
+              setState(() {
+                currentPage = pageNumber;
+              });
+            },
+            onNextPagePressed: () {
+              /// Handle next page button press
+              setState(() {
+                currentPage = currentPage < (items.length / itemsPerPage).ceil()
+                    ? currentPage + 1
+                    : (items.length / itemsPerPage).ceil();
+              });
+            },
           ),
-        )
       ],),
     );
   }
