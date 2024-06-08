@@ -67,7 +67,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                         children: [
                           // Text(''),
                           Text(
-                            'Sr No',
+                            'Sr No.',
                             style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,

@@ -47,7 +47,7 @@ class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
                 children: [
                   // Text(''),
                   Text(
-                    'Sr No',
+                    'Sr No.',
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,

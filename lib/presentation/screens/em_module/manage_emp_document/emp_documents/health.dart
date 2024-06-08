@@ -47,7 +47,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                 children: [
                   // Text(''),
                   Text(
-                    'Sr No',
+                    'Sr No.',
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,

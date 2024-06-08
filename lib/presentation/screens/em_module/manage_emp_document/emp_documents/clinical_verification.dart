@@ -47,7 +47,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                 children: [
                   // Text(''),
                   Text(
-                    'Sr No',
+                    'Sr No.',
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,

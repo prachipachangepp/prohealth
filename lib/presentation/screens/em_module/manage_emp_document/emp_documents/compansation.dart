@@ -47,7 +47,7 @@ class _CompansationEmpDocState extends State<CompansationEmpDoc> {
                 children: [
                   // Text(''),
                   Text(
-                    'Sr No',
+                    'Sr No.',
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
