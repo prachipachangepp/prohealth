@@ -10,13 +10,15 @@ class SMTextFConst extends StatelessWidget {
   final TextInputType keyboardType;
   final String text;
   final Color textColor;
+  final Icon? icon;
+  final VoidCallback? onChange;
 
    SMTextFConst({
      Key? key,
     required this.controller,
     required this.keyboardType,
      required this.text,
-     this.textColor = const Color(0xff686464),
+     this.textColor = const Color(0xff686464), this.icon,  this.onChange,
   }) : super(key: key);
 
   @override
@@ -42,12 +44,14 @@ class SMTextFConst extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
+
             autofocus: true,
             controller: controller,
             keyboardType: keyboardType,
             cursorHeight: 17,
             cursorColor: Colors.black,
             decoration: InputDecoration(
+              suffixIcon: icon,
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: 18,left: 15),
             ),
@@ -55,7 +59,8 @@ class SMTextFConst extends StatelessWidget {
               fontWeight: FontWeightManager.medium,
               fontSize: FontSize.s12,
               color: ColorManager.mediumgrey
-            )
+            ),
+            onTap: onChange,
           ),
         ),
       ],
