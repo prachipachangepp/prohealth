@@ -191,8 +191,8 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
                                                 DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                               ],),);
                                         });
-                                      }, icon: Icon(Icons.edit_outlined)),
-                                      IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
+                                      }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.mediumgrey,)),
+                                      IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                     ],
                                   )
                                 ],

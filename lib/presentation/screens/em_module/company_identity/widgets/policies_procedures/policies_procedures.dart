@@ -128,9 +128,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                 //  Text(''),
                                 Row(
                                   children: [
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.history,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (context){
                                         return CCScreenEditPopup(
@@ -154,8 +154,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                               DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                             ],),);
                                       });
-                                    }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
+                                    }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                   ],
                                 )
                               ],

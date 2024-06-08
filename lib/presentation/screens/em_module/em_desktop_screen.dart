@@ -52,7 +52,7 @@ class SMDesktop extends StatelessWidget {
                 height: 460,
                 width: 500,
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                 // color: Colors.green,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12.0),
                     topRight: Radius.circular(12.0),
