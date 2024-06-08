@@ -63,28 +63,31 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ///whitelabbeling
-            CustomButton(
-              borderRadius: 12,
-              text: 'Whitelabelling',
-              style: CustomTextStylesCommon.commonStyle(
-                  fontSize: FontSize.s12,
-                  fontWeight: FontWeightManager.bold,
-                  color: ColorManager.white),
-              width: 120,
-              height: 30,
-              onPressed: () {
-                // if (widget.onWhitelabellingPressed != null) {
-                //   widget.onWhitelabellingPressed!();
-                // }
-
-              },
-            ),
-            SizedBox(
-              width: AppSize.s30,
-            ),
-            ///add new office
             Padding(
               padding: const EdgeInsets.all(8.0),
+              child: CustomButton(
+                borderRadius: 12,
+                text: 'Whitelabelling',
+                style: CustomTextStylesCommon.commonStyle(
+                    fontSize: FontSize.s12,
+                    fontWeight: FontWeightManager.bold,
+                    color: ColorManager.white),
+                width: 120,
+                height: 30,
+                onPressed: () {
+                  // if (widget.onWhitelabellingPressed != null) {
+                  //   widget.onWhitelabellingPressed!();
+                  // }
+
+                },
+              ),
+            ),
+            // SizedBox(
+            //   width: AppSize.s30,
+            // ),
+            ///add new office
+            Padding(
+              padding: const EdgeInsets.only(right: 50),
               child: CustomIconButtonConst(
                 text: 'Add New Office',
                 onPressed: () {
@@ -212,7 +215,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               Padding(
                 padding:  EdgeInsets.only(left: 85),
                 child: Text(
-                  AppString.srNo,
+                 "Sr No.",
                   // style: egisterTableHead.customTextStyle(context),
                   style: GoogleFonts.firaSans(
                       fontSize: 12,
@@ -403,6 +406,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                           ),
                                         ),
                                 CustomButtonTransparentSM(
+
                                             text: 'Manage', onPressed: () {
 
                                         }),

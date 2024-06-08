@@ -7,7 +7,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_pageview.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/clinical_verification.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/EmploymentDoc.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/employmentDoc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/acknowledgement.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/certifications.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_emp_document/emp_documents/compansation.dart';
@@ -94,6 +94,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: Column(
         children: [
           Padding(

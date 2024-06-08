@@ -77,6 +77,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: Column(
         children: [
           Padding(

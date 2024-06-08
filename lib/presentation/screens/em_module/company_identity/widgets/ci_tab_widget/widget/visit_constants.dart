@@ -27,14 +27,16 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s330,
+        height: AppSize.s300,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
+
           children: [
             Row(
+
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
@@ -50,32 +52,34 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
                 vertical: AppPadding.p3,
                 horizontal: AppPadding.p20,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SMTextFConst(
-                    controller: widget.nameOfDocumentController,
-                    keyboardType: TextInputType.text,
-                    text: 'Type of Visit',
-                  ),
-                  SizedBox(height: AppSize.s20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Eligible Clinician',
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          //decoration: TextDecoration.none,
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SMTextFConst(
+                      controller: widget.nameOfDocumentController,
+                      keyboardType: TextInputType.text,
+                      text: 'Type of Visit',
+                    ),
+                    SizedBox(height: AppSize.s20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Eligible Clinician',
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.mediumgrey,
+                            //decoration: TextDecoration.none,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 5,),
-                      widget.child
-                    ],),
+                        SizedBox(height: 5,),
+                        widget.child
+                      ],),
 
-                ],
+                  ],
+                ),
               ),
             ),
             Spacer(),

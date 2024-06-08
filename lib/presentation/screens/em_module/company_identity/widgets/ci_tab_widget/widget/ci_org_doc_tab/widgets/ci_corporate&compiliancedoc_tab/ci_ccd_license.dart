@@ -162,23 +162,43 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                         Center(
                             child: Text(
                               formattedSerialNumber,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
                               textAlign: TextAlign.start,
                             )),
                         Center(
                             child: Text(
                               AppString.name,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
                             )),
                         Center(
                             child: Text(
                               AppString.expiry,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
                             )),
                         Center(
                             child: Text(
                               AppString.reminderthershold,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
                             )),
                         Center(
                           child: Row(

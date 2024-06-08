@@ -60,6 +60,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+          color: Colors.white,
           // padding: EdgeInsets.symmetric(horizontal: 40, vertical: 6),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -69,7 +70,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
               child: Column(
                   children: [
                     /// visit , org , Document tab bar
-                    SizedBox(height: 20,),
+                    SizedBox(height: 40,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -88,7 +89,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                       style: GoogleFonts.firaSans(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w700,
-                                        color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
+                                        color: _selectedIndex == 0 ?  ColorManager.blueprime : Color(0xff686464),
                                         // color: isSelected ? Colors.white : Colors.black,
                                       ),
                                     ),
@@ -105,11 +106,11 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      "Visit",
+                                      "Visits",
                                       style: GoogleFonts.firaSans(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w700,
-                                        color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
+                                        color: _selectedIndex == 1 ?  ColorManager.blueprime : Color(0xff686464),
                                         // color: isSelected ? Colors.white : Colors.black,
                                       ),
                                     ),
@@ -126,11 +127,11 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      "Org Document",
+                                      "Org Documents",
                                       style: GoogleFonts.firaSans(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w700,
-                                        color: _selectedIndex == 2 ?  ColorManager.blueprime : Colors.grey,
+                                        color: _selectedIndex == 2 ?  ColorManager.blueprime :Color(0xff686464),
                                       ),
                                     ),
                                     Container(
@@ -150,7 +151,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                                       style: GoogleFonts.firaSans(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w700,
-                                        color: _selectedIndex == 3 ? ColorManager.blueprime : Colors.grey,
+                                        color: _selectedIndex == 3 ? ColorManager.blueprime : Color(0xff686464)
                                       ),
                                     ),
                                     Container(
