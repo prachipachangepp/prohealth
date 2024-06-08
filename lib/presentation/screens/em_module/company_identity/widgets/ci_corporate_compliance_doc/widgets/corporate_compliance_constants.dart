@@ -738,7 +738,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
-            Spacer(),
+             Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Center(
