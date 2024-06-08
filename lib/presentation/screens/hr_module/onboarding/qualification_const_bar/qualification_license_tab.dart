@@ -16,9 +16,6 @@ class QualificationLicense extends StatelessWidget {
                   return Column(
                     children: [
                       OnboardingEmployement(),
-                      // SizedBox(
-                      //   height: 8,
-                      // )
                     ],
                   );
                 }))

@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../../app/resources/color.dart';
+import '../../../app/resources/font_manager.dart';
+
+class TabMenuConst extends StatelessWidget {
+  final String text;
+  final ImageProvider imageProvider;
+
+  const TabMenuConst({required this.text, required this.imageProvider});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.all(Radius.circular(24)),
+      child: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height / 6.5,
+          width: MediaQuery.of(context).size.width / 5,
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width / 100,
+            vertical: MediaQuery.of(context).size.height / 100,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                image: imageProvider,
+                width: 20,
+                height: 20,
+              ),
+              SizedBox(height: 8),
+              Flexible(
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.firaSans(
+                    color: ColorManager.mediumgrey,
+                    fontSize: 10,
+                    fontWeight: FontWeightManager.extrabold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

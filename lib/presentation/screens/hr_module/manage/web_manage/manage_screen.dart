@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/add_vaccination_child_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/compensation_child_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/other_child_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_screen/banking_head_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_screen/health_records_head_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_screen/inventory_head_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_screen/pay_rates_head_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_screen/termination_head_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/head_tabbar_screen/time_off_head_tabbar.dart';
-import 'package:prohealth/presentation/widgets/custom_icon_button_constant.dart';
-import 'package:prohealth/presentation/widgets/profile_bar/profile_bar.dart';
+import '../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../widgets/widgets/profile_bar/profile_bar.dart';
 import '../controller/controller.dart';
+import '../widgets/bottom_row.dart';
+import '../widgets/child_tabbar_constant.dart';
 import '../widgets/child_tabbar_screen/documents_child/acknowledgements_child_tabbar.dart';
+import '../widgets/child_tabbar_screen/documents_child/add_vaccination_child_tabbar.dart';
+import '../widgets/child_tabbar_screen/documents_child/compensation_child_tabbar.dart';
+import '../widgets/child_tabbar_screen/documents_child/other_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/education_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/employment_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/licenses_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/references_child_tabbar.dart';
+import '../widgets/head_tabbar_constant.dart';
+import '../widgets/head_tabbar_screen/banking_head_tabbar.dart';
+import '../widgets/head_tabbar_screen/health_records_head_tabbar.dart';
+import '../widgets/head_tabbar_screen/inventory_head_tabbar.dart';
+import '../widgets/head_tabbar_screen/pay_rates_head_tabbar.dart';
+import '../widgets/head_tabbar_screen/termination_head_tabbar.dart';
+import '../widgets/head_tabbar_screen/time_off_head_tabbar.dart';
 ///done by saloni
 class ManageScreen extends StatefulWidget {
   @override
@@ -49,7 +49,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 Container(
                   width: 100,
                   margin: EdgeInsets.only(right: 40),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
@@ -66,7 +66,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 Container(
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
@@ -83,7 +83,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 Container(
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
@@ -127,7 +127,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 Container(
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add', icon: Icons.add, onPressed: () {}),
                 ),
               ],
@@ -153,7 +153,7 @@ class _ManageScreenState extends State<ManageScreen> {
             Container(
              // width: 100,
               margin: EdgeInsets.only(right: 20),
-              child: CustomIconButton(
+              child: CustomIconButtonConst(
                   text: 'Add New', icon: Icons.add, onPressed: () {}),
             ),
           ],
@@ -171,7 +171,7 @@ class _ManageScreenState extends State<ManageScreen> {
               Container(
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
-                child: CustomIconButton(
+                child: CustomIconButtonConst(
                     text: 'Add New', icon: Icons.add, onPressed: () {}),
               ),
             ],
@@ -188,7 +188,7 @@ class _ManageScreenState extends State<ManageScreen> {
               Container(
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
-                child: CustomIconButton(
+                child: CustomIconButtonConst(
                     text: 'Add New', icon: Icons.add, onPressed: () {}),
               ),
             ],
@@ -205,7 +205,7 @@ class _ManageScreenState extends State<ManageScreen> {
               Container(
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
-                child: CustomIconButton(
+                child: CustomIconButtonConst(
                     text: 'Add New', icon: Icons.add, onPressed: () {}),
               ),
             ],
@@ -250,7 +250,7 @@ class _ManageScreenState extends State<ManageScreen> {
                     ],
                   ),
                   margin: EdgeInsets.only(right: 10),
-                  child: CustomIconButton(
+                  child: CustomIconButtonConst(
                       text: 'Add New', icon: Icons.add, onPressed: () {}),
                 ),
               ],

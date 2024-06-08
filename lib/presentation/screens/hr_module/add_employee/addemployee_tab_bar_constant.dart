@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
+import '../manage/controller/controller.dart';
 ///prachi
 class AddEmployeeTabBar extends StatelessWidget {
   final AddEmployeeController controller;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/hr_module/add_employee/addemployee_tab_bar_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/administration.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/clinical.dart';
 import 'package:prohealth/presentation/screens/hr_module/add_employee/widget/sales.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
+import '../manage/controller/controller.dart';
+import 'addemployee_tab_bar_constant.dart';
 
 ///prachi
 class AddEmployeeHomeScreen extends StatefulWidget {

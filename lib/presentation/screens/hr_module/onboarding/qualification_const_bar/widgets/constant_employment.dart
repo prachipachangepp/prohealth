@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/theme_manager.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/row_container_widget_const.dart';
+
+import '../../../../../../../app/resources/color.dart';
+import '../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/value_manager.dart';
+import '../../../manage/widgets/custom_icon_button_constant.dart';
+import '../../../manage/widgets/row_container_widget_const.dart';
+
 
 class OnboardingEmployement extends StatelessWidget {
   const OnboardingEmployement({Key? key}) : super(key: key);
@@ -16,16 +22,15 @@ class OnboardingEmployement extends StatelessWidget {
           child1: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Row(
+               Row(
                 children: [
                   Text(
-                    'Employment #1',
-                    style: TextStyle(
-                      fontFamily: 'FiraSans',
-                      fontSize: 13,
-                      color: Color(0xFF333333),
-                      fontWeight: FontWeight.w500,
-                    ),
+                    AppString.emp1,
+                    style: CustomTextStylesCommon.commonStyle(
+                        color: ColorManager.blackfaint,
+                        fontSize: FontSize.s13,
+                        fontWeight: FontWeightManager.medium
+                    )
                   ),
                 ],
               ),
@@ -35,91 +40,27 @@ class OnboardingEmployement extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Final Position Title',
+                      Text(AppString.finalposition,
                           style: ThemeManager.customTextStyle(context)),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
-                      Text('Start Date',
+                      Text(AppString.startdate,
                           style: ThemeManager.customTextStyle(context)),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
-                      Text('End Date',
+                      Text(AppString.enddate,
                           style: ThemeManager.customTextStyle(context)),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
-                      Text('Employer',
+                      Text(AppString.employer,
                           style: ThemeManager.customTextStyle(context)),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
-                      Text('Emergency Contact',
-                          style: ThemeManager.customTextStyle(context)),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Developer',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        '01-03-24',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        '22-03-24',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'John Smith',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        '9845632156',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Reason of Leaving',
-                          style: ThemeManager.customTextStyle(context)),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('Last Supervisor’s Name',
-                          style: ThemeManager.customTextStyle(context)),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('SuperVisor\'s Phone No.',
-                          style: ThemeManager.customTextStyle(context)),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('City',
-                          style: ThemeManager.customTextStyle(context)),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('Country',
+                      Text(AppString.emergencycont,
                           style: ThemeManager.customTextStyle(context)),
                     ],
                   ),
@@ -127,35 +68,99 @@ class OnboardingEmployement extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Personal',
+                       AppString.developer,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
                       Text(
-                        'Jerry Christ',
+                        AppString.dateone,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
                       Text(
-                        'T4541564214',
+                        AppString.detetwo,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
                       Text(
-                        'Hamburg',
+                        AppString.johnSmith,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
                       Text(
-                        'Germany',
+                        AppString.mobilenum,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppString.reasonleaving,
+                          style: ThemeManager.customTextStyle(context)),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(AppString.lastSupName,
+                          style: ThemeManager.customTextStyle(context)),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(AppString.supPhone,
+                          style: ThemeManager.customTextStyle(context)),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(AppString.city,
+                          style: ThemeManager.customTextStyle(context)),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(AppString.country,
+                          style: ThemeManager.customTextStyle(context)),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppString.personal,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(
+                        AppString.jerrychrist,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(
+                        AppString.tnum,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(
+                        AppString.hamburg,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(
+                        AppString.germany,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                     ],
@@ -163,18 +168,18 @@ class OnboardingEmployement extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(AppPadding.p8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButtonTransparent(
                       onPressed: () {},
-                      text: 'Reject',
+                      text: AppString.reject,
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 99,
                     ),
-                    CustomIconButton(text: 'Approve', onPressed: () {}),
+                    CustomIconButton(text: AppString.approve, onPressed: () {}),
                   ],
                 ),
               )
@@ -183,16 +188,15 @@ class OnboardingEmployement extends StatelessWidget {
           child2: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 children: [
                   Text(
-                    'Employment #2',
-                    style: TextStyle(
-                      fontFamily: 'FiraSans',
-                      fontSize: 13,
-                      color: Color(0xFF333333),
-                      fontWeight: FontWeight.w500,
-                    ),
+                      AppString.emp2,
+                      style: CustomTextStylesCommon.commonStyle(
+                          color: ColorManager.blackfaint,
+                          fontSize: FontSize.s13,
+                          fontWeight: FontWeightManager.medium
+                      )
                   ),
                 ],
               ),
@@ -202,91 +206,27 @@ class OnboardingEmployement extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Final Position Title',
+                      Text(AppString.finalposition,
                           style: ThemeManager.customTextStyle(context)),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
-                      Text('Start Date',
+                      Text(AppString.startdate,
                           style: ThemeManager.customTextStyle(context)),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
-                      Text('End Date',
+                      Text(AppString.enddate,
                           style: ThemeManager.customTextStyle(context)),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
-                      Text('Employer',
+                      Text(AppString.employer,
                           style: ThemeManager.customTextStyle(context)),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
-                      Text('Emergency Contact',
-                          style: ThemeManager.customTextStyle(context)),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Developer',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        '01-03-24',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        '22-03-24',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'John Smith',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        '9845632156',
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Reason of Leaving',
-                          style: ThemeManager.customTextStyle(context)),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('Last Supervisor’s Name',
-                          style: ThemeManager.customTextStyle(context)),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('SuperVisor\'s Phone No.',
-                          style: ThemeManager.customTextStyle(context)),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('City',
-                          style: ThemeManager.customTextStyle(context)),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('Country',
+                      Text(AppString.emergencycont,
                           style: ThemeManager.customTextStyle(context)),
                     ],
                   ),
@@ -294,35 +234,99 @@ class OnboardingEmployement extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Personal',
+                        AppString.developer,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
                       Text(
-                        'Jerry Christ',
+                        AppString.dateone,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
                       Text(
-                        'T4541564214',
+                        AppString.detetwo,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
                       Text(
-                        'Hamburg',
+                        AppString.johnSmith,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: AppSize.s10,
                       ),
                       Text(
-                        'Germany',
+                        AppString.mobilenum,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppString.reasonleaving,
+                          style: ThemeManager.customTextStyle(context)),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(AppString.lastSupName,
+                          style: ThemeManager.customTextStyle(context)),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(AppString.supPhone,
+                          style: ThemeManager.customTextStyle(context)),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(AppString.city,
+                          style: ThemeManager.customTextStyle(context)),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(AppString.country,
+                          style: ThemeManager.customTextStyle(context)),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppString.personal,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(
+                        AppString.jerrychrist,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(
+                        AppString.tnum,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(
+                        AppString.hamburg,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                      const SizedBox(
+                        height: AppSize.s10,
+                      ),
+                      Text(
+                        AppString.germany,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                     ],
@@ -330,18 +334,18 @@ class OnboardingEmployement extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(AppPadding.p8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButtonTransparent(
                       onPressed: () {},
-                      text: 'Reject',
+                      text: AppString.reject,
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 99,
                     ),
-                    CustomIconButton(text: 'Approve', onPressed: () {}),
+                    CustomIconButton(text: AppString.approve, onPressed: () {}),
                   ],
                 ),
               )

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
+
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
+import '../manage/controller/controller.dart';
 
 ///prachi
 class OnboardingTabBar extends StatelessWidget {
@@ -17,10 +22,9 @@ class OnboardingTabBar extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              color: Color(0xFF50B5E5),
+              color:ColorManager.blueprime,
               boxShadow: [
                 BoxShadow(
-                  // color: Colors.black.withOpacity(0.2),
                   color: Colors.black.withOpacity(0.25),
                   spreadRadius: 1,
                   blurRadius: 4,
@@ -28,27 +32,26 @@ class OnboardingTabBar extends StatelessWidget {
                 ),
               ],
             ),
-            height: 30,
+            height: AppSize.s30,
             width: controller.tabBarViewWidth,
             child: TabBar(
               tabs: controller.tabs,
               dividerColor: Colors.transparent,
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(50), // Creates border
-                  color: Colors.white),
+                  color: ColorManager.white),
               indicatorSize: TabBarIndicatorSize.tab,
-              indicatorColor: Colors.white,
-              labelColor: Color(0xFF686464),
-              labelStyle: TextStyle(
-                fontFamily: 'FiraSans',
-                fontSize: 12,
-                color: Color(0xFF686464),
-                fontWeight: FontWeight.w600,
-              ),
-              unselectedLabelColor: Colors.white,
+              indicatorColor: ColorManager.white,
+              labelColor: ColorManager.mediumgrey,
+              labelStyle: CustomTextStylesCommon.commonStyle(
+    fontSize: FontSize.s12,
+    color:  ColorManager.mediumgrey,
+    fontWeight: FontWeightManager.semiBold,
+    ),
+              unselectedLabelColor: ColorManager.white,
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: AppSize.s10),
           Container(
             height: controller.tabBarViewHeight,
             child: TabBarView(

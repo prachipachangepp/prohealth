@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/app/theme_manager.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
+import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 
 ///done by saloni

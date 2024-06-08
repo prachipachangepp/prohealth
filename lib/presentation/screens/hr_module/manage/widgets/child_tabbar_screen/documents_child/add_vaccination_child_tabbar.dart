@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../app/theme_manager.dart';
-
+import '../../../../../../../../app/resources/theme_manager.dart';
 class AdditionalVaccinationsChildBar extends StatelessWidget {
   const AdditionalVaccinationsChildBar({super.key});
 

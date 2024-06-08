@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
+
+import '../controller/controller.dart';
 
 ///getx
 class AppBarTabBarConstant extends StatelessWidget {

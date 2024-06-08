@@ -16,29 +16,26 @@ class BottomBarRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ///text
-              Text(
-                '#2031ABC01BA',
-                style: GoogleFonts.firaSans(
+              Text('#2031ABC01BA',
+                  style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black
-                )
-                // TextStyle(
-                //     fontFamily: 'FiraSans',
-                //     fontSize: 12,
-                //     fontWeight: FontWeight.w400,
-                //     color: Colors.black),
-              ),
+                    color: Colors.black,
+                    decoration: TextDecoration.none,
+                  )),
+
               ///text + address
               Row(
                 children: [
                   Text(
                     'Washington DC',
                     style: TextStyle(
-                        fontFamily: 'FiraSans',
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
+                      fontFamily: 'FiraSans',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                   SizedBox(
                     width: 10,
@@ -46,28 +43,33 @@ class BottomBarRow extends StatelessWidget {
                   Text(
                     '198.168.1.231',
                     style: TextStyle(
-                        fontFamily: 'FiraSans',
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                      fontFamily: 'FiraSans',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                 ],
               ),
+
               ///logo
               Column(
                 children: [
                   Image.asset(
                     'images/powered_logo.png',
-                    height: 20,
+                    height: MediaQuery.of(context).size.height / 40,
                     width: 27,
                   ),
                   Text(
                     'Powered by',
                     style: TextStyle(
-                        fontFamily: 'FiraSans',
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                      fontFamily: 'FiraSans',
+                      fontSize: MediaQuery.of(context).size.height / 90,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                 ],
               ),

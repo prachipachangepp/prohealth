@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/controller/controller.dart';
-import 'package:prohealth/presentation/screens/sm_module/responsive_screen_sm.dart';
-import 'package:prohealth/presentation/widgets/responsive_screens.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 
-void main() {
-  runApp(MyApp());
+import 'app/app.dart';
+
+Future<void> main() async {
+  bool token = await checkToken();
+  runApp(
+      App(
+    signedIn: token,
+  )
+  );
 }
 
-class MyApp extends StatelessWidget {
-  final MyController myController = Get.put(MyController());
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: "/",
-      home: ResponsiveScreenSM()
-      // ResponsivePage(
-      //   controller: myController,
-      // ),
-    );
+Future<bool> checkToken() async {
+  String token = await TokenManager.getAccessToken();
+  if (token.isEmpty) {
+    return false;
+  } else {
+    return true;
   }
 }

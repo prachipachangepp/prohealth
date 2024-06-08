@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
-import '../../../widgets/custom_icon_button_constant.dart';
-import '../../../widgets/mcq_const_widget/mcq_const_widget.dart';
+import '../../../../../app/resources/color.dart';
+import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/resources/value_manager.dart';
+import '../../../widgets/widgets/custom_icon_button_constant.dart';
+import 'widgets/mcq_widget_register.dart';
 ///saloni
 
 class RegisterEnrollAlertDialog {
   final TextEditingController controller = TextEditingController();
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+  final TextEditingController email = TextEditingController();
   FocusNode _focusNode = FocusNode();
   int? _selectedItemIndex;
   void show(BuildContext context) {
@@ -22,12 +31,12 @@ class RegisterEnrollAlertDialog {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Enroll',style: TextStyle(
-                        fontFamily: 'FiraSans',
-                        fontSize: 14,
-                        color: Color(0xff4B89BA),
-                        fontWeight: FontWeight.w700,
-                      ),),
+                      Text(AppString.enroll,
+                        style: CustomTextStylesCommon.commonStyle(
+                          fontSize: FontSize.s14,
+                          color: ColorManager.primary,
+                          fontWeight: FontWeightManager.bold,
+                        ),),
                       IconButton(onPressed: (){
                         Navigator.pop(context);
                       }, icon:Icon(Icons.close))
@@ -37,75 +46,71 @@ class RegisterEnrollAlertDialog {
                     children: [
                       Column(children: [
                         CustomTextFieldRegister(
-                          height: 26,
+                          height: AppSize.s26,
                           width: MediaQuery.of(context).size.width/7,
-                          controller: controller,
-                          //  cursorHeight: 15,
-                          labelText: 'First Name',
+                          controller: firstName,
+                          labelText: AppString.fname,
                           keyboardType: TextInputType.text,
-                          padding: EdgeInsets.only(bottom:5,left: 20),
-                          onChanged: (value) {
-                            // Handle text change
-                          },
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                          onChanged: (value) {},
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: AppSize.s10,),
                         CustomTextFieldRegister(
-                          height: 25,
+                          height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
                           controller: controller,
-                          labelText: 'Speciality',
+                          labelText: AppString.speciality,
                           keyboardType: TextInputType.text,
-                          suffixIcon: Icon(Icons.arrow_drop_down,color: Colors.blue,),
-                          padding: EdgeInsets.only(bottom:5, left: 20),
+                          suffixIcon: Icon(Icons.arrow_drop_down,
+                            color: ColorManager.blueprime,),
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                           onChanged: (value) {
-                            // Handle text change
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: AppSize.s10,),
                         CustomTextFieldRegister(
-                          height: 25,
+                          height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
-                          controller: controller,
-                          labelText: 'Email',
+                          controller: email,
+                          labelText: AppString.email,
                           keyboardType: TextInputType.text,
-                          padding: EdgeInsets.only(bottom:5, left: 20),
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                           onChanged: (value) {
-                            // Handle text change
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: AppPadding.p10,),
                         CustomTextFieldRegister(
-                          height: 25,
+                          height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
                           controller: controller,
-                          labelText: 'Zone',
+                          labelText: AppString.zone,
                           keyboardType: TextInputType.text,
-                          suffixIcon: Icon(Icons.arrow_drop_down,color: Colors.blue,),
-                          padding: EdgeInsets.only(bottom:5, left: 20),
+                          suffixIcon: Icon(Icons.arrow_drop_down,color: ColorManager.blueprime,),
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                           onChanged: (value) {
-                            // Handle text change
+
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
@@ -114,155 +119,151 @@ class RegisterEnrollAlertDialog {
                       ],),
                       Column(children: [
                         CustomTextFieldRegister(
-                          height: 25,
+                          height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
-                          controller: controller,
-                          labelText: 'Last Name',
+                          controller: lastName,
+                          labelText: AppString.lname,
                           keyboardType: TextInputType.text,
-                          padding: EdgeInsets.only(bottom:5, left: 20),
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                           onChanged: (value) {
-                            // Handle text change
+
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: AppSize.s10,),
                         CustomTextFieldRegister(
-                          height: 25,
+                          height: AppSize.s25,
                           //cursorHeight: 15,
                           width: MediaQuery.of(context).size.width/7,
                           controller: controller,
-                          labelText: 'Type of Clinician',
+                          labelText: AppString.typeClinician,
                           keyboardType: TextInputType.text,
-                          suffixIcon: Icon(Icons.arrow_drop_down,color: Colors.blue,),
-                          padding: EdgeInsets.only(bottom:5, left: 20),
+                          suffixIcon: Icon(Icons.arrow_drop_down,color: ColorManager.blueprime,),
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                           onChanged: (value) {
-                            // Handle text change
+
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: AppSize.s10,),
                         CustomTextFieldRegister(
-                          height: 25,
+                          height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
                           controller: controller,
-                          labelText: 'City',
+                          labelText: AppString.city,
                           keyboardType: TextInputType.text,
-                          suffixIcon: Icon(Icons.arrow_drop_down,color: Colors.blue,),
-                          padding: EdgeInsets.only(bottom:5, left: 20),
-                          onChanged: (value) {
-                            // Handle text change
-                          },
+                          suffixIcon: Icon(Icons.arrow_drop_down,color: ColorManager.blueprime,),
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                          onChanged: (value) {                          },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 35,),
+                        SizedBox(height: AppSize.s35,),
                       ],),
                       Column(children: [
                         CustomTextFieldRegister(
-                          height: 25,
+                          height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
-                          controller: controller,
-                          labelText: 'Phone Number',
+                          controller: phone,
+                          labelText: AppString.phoneNumber,
                           keyboardType: TextInputType.text,
-                          padding: EdgeInsets.only(bottom:5, left: 20),
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                           onChanged: (value) {
-                            // Handle text change
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: AppSize.s10,),
                         CustomTextFieldRegister(
-                          height: 25,
+                          height: AppSize.s25,
                           width: MediaQuery.of(context).size.width/7,
                           controller: controller,
-                          labelText: 'Reporting Office',
+                          labelText: AppString.reportingOffice,
                           keyboardType: TextInputType.text,
-                          suffixIcon: Icon(Icons.arrow_drop_down,color: Colors.blue,),
-                          padding: EdgeInsets.only(bottom:5, left: 20),
+                          suffixIcon: Icon(Icons.arrow_drop_down,color: ColorManager.blueprime,),
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                           onChanged: (value) {
-                            // Handle text change
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: AppSize.s10,),
                         CustomTextFieldRegister(
-                          height: 27,
+                          height: AppSize.s27,
                           width: MediaQuery.of(context).size.width/7,
                           controller: controller,
-                          labelText: 'Country',
+                          labelText: AppString.country,
                           keyboardType: TextInputType.text,
-                          suffixIcon: Icon(Icons.arrow_drop_down,color: Colors.blue,),
-                          padding: EdgeInsets.only(bottom:5, left: 20),
+                          suffixIcon: Icon(Icons.arrow_drop_down,color: ColorManager.blueprime,),
+                          padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                           onChanged: (value) {
                             // Handle text change
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return AppString.enterText;
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 35,),
+                        SizedBox(height: AppSize.s35,),
                       ],),
                     ],),
-                  SizedBox(height: 5,),
-                  Divider(color: Color(0xffD9D9D9),thickness: 4,),
+                  SizedBox(height: AppSize.s5,),
+                  Divider(color: ColorManager.cream,thickness: 4,),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                       RegisterPopupMcq(
-                        title: 'Employment',
+                        title: AppString.employment,
                         items: [
-                          'Full Time',
-                          'Part Time',
-                          'Per Diem'
+                          AppString.fullTime,
+                          AppString.partTime,
+                          AppString.perDiem
                         ],
                         onChanged: (selectedIndex) {
-                          print('Selected index: $selectedIndex');
+                          print(AppString.selectIndex+'$selectedIndex');
                           _selectedItemIndex = selectedIndex;
                         },
                       ),
-                      RegisterPopupMcq(title: 'Service',
+                      RegisterPopupMcq(title: AppString.service,
                         items: [
-                          'Home Health',
-                          'Hospice',
-                          'Home Care',
-                          'Palliative Care'
+                          AppString.homeHealth,
+                          AppString.hospice,
+                          AppString.homeCare,
+                          AppString.palliative
                         ],)
                     ],),
                   ),
-                  SizedBox(height: 6,),
+                  SizedBox(height: AppSize.s6,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomIconButton(
-                          text: 'Next', onPressed: (){}),
+                      CustomIconButtonConst(
+                          text: AppString.next, onPressed: (){}),
                     ],),
                 ],
               )
