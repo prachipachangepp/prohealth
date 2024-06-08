@@ -56,7 +56,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                   ),
 
                   SMTextFConst(
-                    controller: widget.controller1,
+                    controller: widget.controller2,
                     keyboardType: TextInputType.text,
                     text: 'End Time',
                   ),
