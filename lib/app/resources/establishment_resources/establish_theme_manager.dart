@@ -14,6 +14,7 @@ class AllHRTableData {
     );
   }
 }
+
 ///listview table heading
 class AllHRTableHeading {
   static TextStyle customTextStyle(BuildContext context) {

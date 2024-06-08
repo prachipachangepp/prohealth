@@ -498,7 +498,7 @@ class SMDesktop extends StatelessWidget {
                              borderRadius: BorderRadius.all(Radius.circular(10)),
                             child: CustomDropdownButton(
                               height: 30,
-                              width: 170,
+                              width: 180,
                               items: [
                                 DropdownMenuItem<String>(
                                   value: 'Select a module',
@@ -813,7 +813,7 @@ class CustomDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(2),
+      padding: EdgeInsets.only(left: 8),
       height: height,
       width: width,
       decoration: BoxDecoration(
