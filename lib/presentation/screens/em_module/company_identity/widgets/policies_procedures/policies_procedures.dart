@@ -38,24 +38,27 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
     return Material(
       color: Colors.transparent,
       child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-          CustomIconButtonConst(text: 'Add Doctype',
-            onPressed: (){
-            showDialog(context: context, builder: (BuildContext context){
-              return AddPoliciesPopup(nameOfDocumentController: nameOfDocController, idOfDocumentController: idOfDocController, onSavePressed: () {  },
-              child:  CICCDropdown(
-                initialValue: 'Policies & Procedures',
-                items: [
-                  DropdownMenuItem(value: 'Policies & Procedures', child: Text('Policies & Procedures')),
-                  DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                  DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                  DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                ],),);
-            });
-          },icon: Icons.add,)
-          ],
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+            CustomIconButtonConst(text: 'Add Doctype',
+              onPressed: (){
+              showDialog(context: context, builder: (BuildContext context){
+                return AddPoliciesPopup(nameOfDocumentController: nameOfDocController, idOfDocumentController: idOfDocController, onSavePressed: () {  },
+                child:  CICCDropdown(
+                  initialValue: 'Policies & Procedures',
+                  items: [
+                    DropdownMenuItem(value: 'Policies & Procedures', child: Text('Policies & Procedures')),
+                    DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                    DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                    DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                  ],),);
+              });
+            },icon: Icons.add,)
+            ],
+          ),
         ),
         Expanded(
           child:
@@ -124,8 +127,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                 //  Text(''),
                                 Row(
                                   children: [
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.access_time_sharp,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.print,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.history,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (context){

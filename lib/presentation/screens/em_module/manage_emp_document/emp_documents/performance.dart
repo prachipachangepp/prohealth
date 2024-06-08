@@ -190,7 +190,7 @@ class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
                                                 DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                               ],),);
                                         });
-                                      }, icon: const Icon(Icons.edit)),
+                                      }, icon: const Icon(Icons.edit_outlined)),
                                       IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                     ],
                                   )

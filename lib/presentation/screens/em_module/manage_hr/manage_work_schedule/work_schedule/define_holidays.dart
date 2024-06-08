@@ -173,7 +173,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                         showDialog(context: context, builder: (BuildContext context){
                                           return AddHolidayPopup(controller: holidayNameController, onPressed: () {  },);
                                         });
-                                      }, icon: Icon(Icons.edit)),
+                                      }, icon: Icon(Icons.edit_outlined)),
                                       IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                     ],
                                   )

@@ -49,7 +49,7 @@ class CustomPopup extends StatelessWidget {
                   SMTextFConst(
                     controller: controller,
                     keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
+                    text: 'Vendor Name',
                   ),
                 ],
               ),
@@ -61,7 +61,7 @@ class CustomPopup extends StatelessWidget {
                 child: CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.add,
+                  text: AppStringEM.save,
                   onPressed: () {
                     onPressed();
                     Navigator.pop(context);

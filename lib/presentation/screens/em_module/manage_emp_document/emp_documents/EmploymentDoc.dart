@@ -180,7 +180,7 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                     children: [
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (BuildContext context){
-                                          return EmpDocEditPopup(idDocController: idDocController, nameDocController: nameDocController, onSavePressed: () {  },
+                                          return EmpDocEditPopupDatePicker(idDocController: idDocController, nameDocController: nameDocController, onSavePressed: () {  },
                                             child:  CICCDropdown(
                                               initialValue: 'Employment',
                                               items: [
@@ -190,7 +190,7 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                                 DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                               ],),);
                                         });
-                                      }, icon: Icon(Icons.edit)),
+                                      }, icon: Icon(Icons.edit_outlined)),
                                       IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                     ],
                                   )
