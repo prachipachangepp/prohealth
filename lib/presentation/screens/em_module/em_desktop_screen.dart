@@ -842,9 +842,9 @@ class CustomDropdownButton extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     item.value ?? '',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
+                     style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                       fontWeight: FontWeight.w700,
                       color: item.value == 'Select a module'
                           ? Colors.black
                           : (selectedItem == item.value ? Colors.white : Colors.black),
@@ -854,11 +854,11 @@ class CustomDropdownButton extends StatelessWidget {
               }).toList();
             },
             dropdownColor: Colors.white, // Set the dropdown menu background color
-            style: TextStyle(
-              color: Colors.black, // Set the default text color for dropdown items
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-            ),
+            // style: GoogleFonts.firaSans(
+            //   fontSize: 12,
+            //   fontWeight: FontWeight.w700,
+            //   color: Colors.black
+            // ),
           ),
         ),
       );
