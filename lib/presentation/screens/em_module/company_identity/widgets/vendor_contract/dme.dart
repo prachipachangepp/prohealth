@@ -6,6 +6,7 @@ import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_m
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/vendor_add_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
 import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
@@ -169,118 +170,31 @@ class _CiDmeState extends State<CiDme> {
         SizedBox(
           height: 10,
         ),
-        Container(
-          height: 30,
-          // color: Colors.black12,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(6.39),
-                  border: Border.all(
-                    color: ColorManager.grey,
-                    width: 0.79,
-                  ),
-                ),
-                child: IconButton(
-                  padding: EdgeInsets.only(bottom: 1.5),
-                  icon: Icon(Icons.chevron_left),
-                  onPressed: () {
-                    setState(() {
-                      currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                    });
-                  },
-                  color: ColorManager.black,
-                  iconSize: 20,
-                ),
-              ),
-              SizedBox(width: 3),
-              for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
-                if (i == 1 ||
-                    i == currentPage ||
-                    i == (items.length / itemsPerPage).ceil())
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        currentPage = i;
-                      });
-                    },
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                          color: currentPage == i
-                              ? ColorManager.blueprime
-                              : ColorManager.grey,
-                          width: currentPage == i ? 2.0 : 1.0,
-                        ),
-                        color: currentPage == i
-                            ? ColorManager.blueprime
-                            : Colors.transparent,
-                        // border: Border.all(
-                        //   color: currentPage == i
-                        //       ? Colors.blue
-                        //       : Colors.transparent,
-                        // ),
-                      ),
-                      child: Text(
-                        '$i',
-                        style: TextStyle(
-                          color: currentPage == i ? Colors.white : Colors.grey,
-                          fontWeight: FontWeightManager.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  )
-                else if (i == currentPage - 1 || i == currentPage + 1)
-                  Text(
-                    '..',
-                    style: TextStyle(
-                      color: ColorManager.black,
-                      fontWeight: FontWeightManager.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-              Container(
-                width: 20,
-                height: 20,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 0.79,
-                  ),
-                ),
-                child: IconButton(
-                  padding: EdgeInsets.only(bottom: 2),
-                  icon: Icon(Icons.chevron_right),
-                  onPressed: () {
-                    setState(() {
-                      currentPage =
-                      currentPage < (items.length / itemsPerPage).ceil()
-                          ? currentPage + 1
-                          : (items.length / itemsPerPage).ceil();
-                    });
-                  },
-                  color: ColorManager.black,
-                  iconSize: 20,
-                ),
-              ),
-            ],
+          PaginationControlsWidget(
+            currentPage: currentPage,
+            items: items,
+            itemsPerPage: itemsPerPage,
+            onPreviousPagePressed: () {
+              /// Handle previous page button press
+              setState(() {
+                currentPage = currentPage > 1 ? currentPage - 1 : 1;
+              });
+            },
+            onPageNumberPressed: (pageNumber) {
+              /// Handle page number tap
+              setState(() {
+                currentPage = pageNumber;
+              });
+            },
+            onNextPagePressed: () {
+              /// Handle next page button press
+              setState(() {
+                currentPage = currentPage < (items.length / itemsPerPage).ceil()
+                    ? currentPage + 1
+                    : (items.length / itemsPerPage).ceil();
+              });
+            },
           ),
-        )
       ],),
     );
   }

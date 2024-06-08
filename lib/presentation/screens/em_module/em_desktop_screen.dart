@@ -165,7 +165,7 @@ class SMDesktop extends StatelessWidget {
                                         color: Colors.white,
                                         fontSize: 10,
                                         decoration: TextDecoration.none,
-                                        fontWeight: FontWeight.w200),
+                                        fontWeight: FontWeight.w300),
                                   ),
                                   Text("KLIP",
                                       style: GoogleFonts.jost(
