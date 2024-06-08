@@ -5,12 +5,10 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
-import '../../../em_desktop_screen.dart';
 import '../../../widgets/button_constant.dart';
 import '../../../widgets/text_form_field_const.dart';
 
@@ -451,7 +449,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                         margin: const EdgeInsets.all(15.0),
                         padding: const EdgeInsets.all(3.0),
                         decoration: BoxDecoration(
-                            border: Border.all(color: ColorManager.blueprime),
+                            border: Border.all(color: ColorManager.blueprime,),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
                         height: 260,
