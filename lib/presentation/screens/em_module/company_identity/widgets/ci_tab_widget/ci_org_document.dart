@@ -53,7 +53,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                     color: ColorManager.blueprime
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
                       onTap: () => _selectButton(0),
