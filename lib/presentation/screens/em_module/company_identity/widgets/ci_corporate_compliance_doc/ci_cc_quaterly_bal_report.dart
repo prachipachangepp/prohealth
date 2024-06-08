@@ -35,6 +35,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
       min(currentPage * itemsPerPage, items.length),
     );
     return Material(
+      color: Colors.transparent,
       child: Column(
         crossAxisAlignment:CrossAxisAlignment.end,
         children: [

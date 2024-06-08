@@ -44,9 +44,9 @@ class CiPageview extends StatelessWidget {
                   .entries
                   .map(
                     (entry) => InkWell(
-                      splashColor: Colors.white,
-                  highlightColor: Colors.white,
-                  hoverColor: Colors.white,
+                      //splashColor: Colors.white,
+                  highlightColor: Color(0xFFF2F9FC),
+                  hoverColor: Color(0xFFF2F9FC),
                   child: Container(
                     height: 30,
                     width: MediaQuery.of(context).size.width / 10,
