@@ -8,8 +8,8 @@ import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/mobile_constant/mobile_const.dart';
+import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../email_verification/email_verification.dart';
 
 class LoginMobile extends StatefulWidget {
@@ -97,7 +97,7 @@ class _LoginMobileState extends State<LoginMobile> {
                         Navigator.pushNamed(
                             context, EmailVerification.routeName,
                             arguments:
-                                ScreenArguments(title: _emailController.text));
+                            ScreenArguments(title: _emailController.text));
                       } catch (e) {
                         // Handle error
                         print('Error occurred: $e');
@@ -116,42 +116,42 @@ class _LoginMobileState extends State<LoginMobile> {
               Center(
                 child: _isSendingEmail
                     ? CircularProgressIndicator(
-                        color: ColorManager.blueprime,
-                      )
+                  color: ColorManager.blueprime,
+                )
                     : CustomButton(
-                        borderRadius: 23.82,
-                        height: MediaQuery.of(context).size.height / 24,
-                        width: MediaQuery.of(context).size.width / 3,
-                        paddingVertical: AppPadding.p5,
-                        text: AppString.next,
-                        style: CustomTextStylesCommon.commonStyle(
-                          color: ColorManager.white,
-                          fontSize: FontSize.s14,
-                          fontWeight: FontWeightManager.bold,
-                        ),
-                        onPressed: () async {
-                          if (_formKey.currentState?.validate() ?? false) {
-                            setState(() {
-                              _isSendingEmail = true;
-                            });
-                            try {
-                              await AuthManager.getOTP(
-                                  _emailController.text, context);
-                              Navigator.pushNamed(
-                                  context, EmailVerification.routeName,
-                                  arguments: ScreenArguments(
-                                      title: _emailController.text));
-                            } catch (e) {
-                              // Handle error
-                              print('Error occurred: $e');
-                            } finally {
-                              setState(() {
-                                _isSendingEmail = false;
-                              });
-                            }
-                          }
-                        },
-                      ),
+                  borderRadius: 23.82,
+                  height: MediaQuery.of(context).size.height / 24,
+                  width: MediaQuery.of(context).size.width / 3,
+                  paddingVertical: AppPadding.p5,
+                  text: AppString.next,
+                  style: CustomTextStylesCommon.commonStyle(
+                    color: ColorManager.white,
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeightManager.bold,
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      setState(() {
+                        _isSendingEmail = true;
+                      });
+                      try {
+                        await AuthManager.getOTP(
+                            _emailController.text, context);
+                        Navigator.pushNamed(
+                            context, EmailVerification.routeName,
+                            arguments: ScreenArguments(
+                                title: _emailController.text));
+                      } catch (e) {
+                        // Handle error
+                        print('Error occurred: $e');
+                      } finally {
+                        setState(() {
+                          _isSendingEmail = false;
+                        });
+                      }
+                    }
+                  },
+                ),
               ),
             ],
           ),

@@ -153,7 +153,7 @@ class _CiMdState extends State<CiMd> {
                                             ],),
                                         );
                                       });
-                                    }, icon: Icon(Icons.edit,color: ColorManager.blueprime,)),
+                                    }, icon: Icon(Icons.edit_outlined,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                   ],
                                 )

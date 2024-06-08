@@ -8,13 +8,17 @@ class ColorManager {
   static Color bluebottom = Color(0xFF1696C8);
   static Color bluecontainer = Color(0xff9BADCA);
   static Color cream = Color(0xffD9D9D9);
+  static Color pinkfaint =  Color(0xffF69DF6);
 
   ///static Color grey = Color(0xff8B8781);
   static Color grey = Color(0xff8B8781);
+  static Color fmediumgrey = Color(0xFF686464).withOpacity(0.46);
   static Color mediumgrey = Color(0xFF686464);
   static Color faintGrey = Color(0xFFC1C1C1);
   static Color darkgrey = Color(0xFF565656);
   static Color faintOrange = Color(0xffF6928A);
+  static Color sfaintOrange = Color(0xffE8A87D);
+  static Color greenDark = Color(0xff008000);
   static Color greenF = Color(0xff52A889);
   static Color green = Color(0xffB4DB4C);
   static Color orange = Color(0xffF2451C);

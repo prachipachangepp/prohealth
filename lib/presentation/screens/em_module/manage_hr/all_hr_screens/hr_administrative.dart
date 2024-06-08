@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/admin_emp_data.dart';
@@ -8,6 +7,8 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../widgets/table_constant.dart';
@@ -81,7 +82,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     addressController: addressController,
                     emailController: emailController,
                     onAddPressed: () {},
-                    containerColor: Color(0xffE8A87D),
+                    containerColor: ColorManager.sfaintOrange,
                   );
                 },
               );
@@ -90,13 +91,13 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
           height: 20,
         ),
         TableHeadConstant(items: [
-          TableHeadItem(text: AppString.srNo, textAlign: TextAlign.start),
+          TableHeadItem(text: AppStringEM.srno, textAlign: TextAlign.start),
           TableHeadItem(
-              text: AppString.employeetype, textAlign: TextAlign.start),
+              text: AppStringEM.employeetype, textAlign: TextAlign.start),
           TableHeadItem(
-              text: AppString.abbrevation, textAlign: TextAlign.start),
-          TableHeadItem(text: AppString.color, textAlign: TextAlign.start),
-          TableHeadItem(text: AppString.action, textAlign: TextAlign.center),
+              text: AppStringEM.abbrevation, textAlign: TextAlign.start),
+          TableHeadItem(text: AppStringEM.color, textAlign: TextAlign.start),
+          TableHeadItem(text: AppStringEM.action, textAlign: TextAlign.center),
         ]),
         SizedBox(
           height: 5,
@@ -120,7 +121,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                       borderRadius: BorderRadius.circular(4),
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0xff000000).withOpacity(0.25),
+                          color: ColorManager.black.withOpacity(0.25),
                           spreadRadius: 0,
                           blurRadius: 4,
                           offset: Offset(0, 2),
@@ -137,42 +138,27 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                           child: Text(
                             formattedSerialNumber,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff686464),
-                              decoration: TextDecoration.none,
-                            ),
+                            style: AllHRTableData.customTextStyle(context)
                           ),
                         ),
                         Expanded(
                           child: Text(
                             administrativeData.employeeList[index].employeeType,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff686464),
-                              decoration: TextDecoration.none,
-                            ),
+                            style: AllHRTableData.customTextStyle(context)
                           ),
                         ),
                         Expanded(
                           child: Text(
                             administrativeData.employeeList[index].abbreviation,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff686464),
-                              decoration: TextDecoration.none,
-                            ),
+                            style: AllHRTableData.customTextStyle(context)
                           ),
                         ),
                         Expanded(
                           child: Container(
                             width: MediaQuery.of(context).size.width / 20,
-                            height: 22,
+                            height: AppSize.s22,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: containerColors[index],
@@ -216,29 +202,6 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                 icon: Icon(Icons.edit_outlined),
                                 color: ColorManager.mediumgrey,
                               ),
-                              // IconButton(
-                              //   onPressed: () {
-                              //     showDialog(
-                              //       context: context,
-                              //       builder: (BuildContext context) {
-                              //         return EditPopupWidget(
-                              //           typeController: typeController,
-                              //           shorthandController:
-                              //               shorthandController,
-                              //           emailController: emailController,
-                              //           containerColor: Color(0xffF37F81),
-                              //           onSavePressed: () {},
-                              //           onColorChanged: (Color) {},
-                              //           // onColorChanged: (Color) {},
-                              //         );
-                              //       },
-                              //     );
-                              //   },
-                              //   icon: Icon(
-                              //     Icons.edit_outlined,
-                              //     color: ColorManager.mediumgrey,
-                              //   ),
-                              // ),
                               IconButton(
                                 onPressed: () {},
                                 icon: Icon(
@@ -254,7 +217,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
               }),
         ),
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ),
         PaginationControlsWidget(
           currentPage: currentPage,
@@ -281,118 +244,6 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
             });
           },
         ),
-        // Container(
-        //   height: 30,
-        //   // color: Colors.black12,
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: <Widget>[
-        //       Container(
-        //         width: 20,
-        //         height: 20,
-        //         decoration: BoxDecoration(
-        //           shape: BoxShape.rectangle,
-        //           borderRadius: BorderRadius.circular(6.39),
-        //           border: Border.all(
-        //             color: ColorManager.grey,
-        //             width: 0.79,
-        //           ),
-        //         ),
-        //         child: IconButton(
-        //           padding: EdgeInsets.only(bottom: 1.5),
-        //           icon: Icon(Icons.chevron_left),
-        //           onPressed: () {
-        //             setState(() {
-        //               currentPage = currentPage > 1 ? currentPage - 1 : 1;
-        //             });
-        //           },
-        //           color: ColorManager.black,
-        //           iconSize: 20,
-        //         ),
-        //       ),
-        //       SizedBox(width: 3),
-        //       for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
-        //         if (i == 1 ||
-        //             i == currentPage ||
-        //             i == (items.length / itemsPerPage).ceil())
-        //           InkWell(
-        //             onTap: () {
-        //               setState(() {
-        //                 currentPage = i;
-        //               });
-        //             },
-        //             child: Container(
-        //               width: 20,
-        //               height: 20,
-        //               margin: EdgeInsets.only(left: 5, right: 5),
-        //               alignment: Alignment.center,
-        //               decoration: BoxDecoration(
-        //                 shape: BoxShape.rectangle,
-        //                 borderRadius: BorderRadius.circular(4),
-        //                 border: Border.all(
-        //                   color: currentPage == i
-        //                       ? ColorManager.blueprime
-        //                       : ColorManager.grey,
-        //                   width: currentPage == i ? 2.0 : 1.0,
-        //                 ),
-        //                 color: currentPage == i
-        //                     ? ColorManager.blueprime
-        //                     : Colors.transparent,
-        //                 // border: Border.all(
-        //                 //   color: currentPage == i
-        //                 //       ? Colors.blue
-        //                 //       : Colors.transparent,
-        //                 // ),
-        //               ),
-        //               child: Text(
-        //                 '$i',
-        //                 style: TextStyle(
-        //                   color: currentPage == i ? Colors.white : Colors.grey,
-        //                   fontWeight: FontWeightManager.bold,
-        //                   fontSize: 12,
-        //                 ),
-        //               ),
-        //             ),
-        //           )
-        //         else if (i == currentPage - 1 || i == currentPage + 1)
-        //           Text(
-        //             '..',
-        //             style: TextStyle(
-        //               color: ColorManager.black,
-        //               fontWeight: FontWeightManager.bold,
-        //               fontSize: 12,
-        //             ),
-        //           ),
-        //       Container(
-        //         width: 20,
-        //         height: 20,
-        //         alignment: Alignment.center,
-        //         decoration: BoxDecoration(
-        //           shape: BoxShape.rectangle,
-        //           borderRadius: BorderRadius.circular(4),
-        //           border: Border.all(
-        //             color: Colors.grey,
-        //             width: 0.79,
-        //           ),
-        //         ),
-        //         child: IconButton(
-        //           padding: EdgeInsets.only(bottom: 2),
-        //           icon: Icon(Icons.chevron_right),
-        //           onPressed: () {
-        //             setState(() {
-        //               currentPage =
-        //                   currentPage < (items.length / itemsPerPage).ceil()
-        //                       ? currentPage + 1
-        //                       : (items.length / itemsPerPage).ceil();
-        //             });
-        //           },
-        //           color: ColorManager.black,
-        //           iconSize: 20,
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // )
       ],
     );
   }

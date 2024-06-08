@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
-
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import 'checkbox_constant.dart';
 
@@ -68,7 +64,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     spreadRadius: 0,
                   ),
                 ],
-                color: Colors.white,
+                color: ColorManager.white,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -148,7 +144,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     spreadRadius: 0,
                   ),
                 ],
-                color: Colors.white,
+                color: ColorManager.white,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -183,18 +179,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                     hcoNumController: hcoNumController,
                                     medicareController: medicareController,
                                     npiNumController: npiNumController);
-                                //   AlertDialog(
-                                //   title: Text('Edit Item'),
-                                //   content: Text('Edit item functionality here'),
-                                //   actions: [
-                                //     TextButton(
-                                //       onPressed: () {
-                                //         Navigator.of(context).pop();
-                                //       },
-                                //       child: Text('Close'),
-                                //     ),
-                                //   ],
-                                // );
                               },
                             );
                           })
@@ -276,18 +260,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                     hcoNumController: hcoNumController,
                                     medicareController: medicareController,
                                     npiNumController: npiNumController);
-                                //   AlertDialog(
-                                //   title: Text('Edit Item'),
-                                //   content: Text('Edit item functionality here'),
-                                //   actions: [
-                                //     TextButton(
-                                //       onPressed: () {
-                                //         Navigator.of(context).pop();
-                                //       },
-                                //       child: Text('Close'),
-                                //     ),
-                                //   ],
-                                // );
                               },
                             );
                           })
@@ -320,18 +292,6 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                     hcoNumController: hcoNumController,
                                     medicareController: medicareController,
                                     npiNumController: npiNumController);
-                                //   AlertDialog(
-                                //   title: Text('Edit Item'),
-                                //   content: Text('Edit item functionality here'),
-                                //   actions: [
-                                //     TextButton(
-                                //       onPressed: () {
-                                //         Navigator.of(context).pop();
-                                //       },
-                                //       child: Text('Close'),
-                                //     ),
-                                //   ],
-                                // );
                               },
                             );
                           })

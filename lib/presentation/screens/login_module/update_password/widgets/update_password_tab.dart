@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
-
 import '../../../../../app/constants/app_config.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';

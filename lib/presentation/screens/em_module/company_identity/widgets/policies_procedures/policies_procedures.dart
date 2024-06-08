@@ -18,6 +18,8 @@ class CiPoliciesAndProcedures extends StatefulWidget {
 class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   TextEditingController nameOfDocController = TextEditingController();
   TextEditingController idOfDocController = TextEditingController();
+  TextEditingController docNamecontroller = TextEditingController();
+  TextEditingController docIdController = TextEditingController();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -38,7 +40,8 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-          CustomIconButtonConst(text: 'Add Doctype', onPressed: (){
+          CustomIconButtonConst(text: 'Add Doctype',
+            onPressed: (){
             showDialog(context: context, builder: (BuildContext context){
               return AddPoliciesPopup(nameOfDocumentController: nameOfDocController, idOfDocumentController: idOfDocController, onSavePressed: () {  },
               child:  CICCDropdown(
@@ -123,7 +126,30 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                     IconButton(onPressed: (){}, icon: Icon(Icons.access_time_sharp,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.print,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){
+                                      showDialog(context: context, builder: (context){
+                                        return CCScreenEditPopup(
+                                          idDocController: docIdController,
+                                          nameDocController: docNamecontroller,
+                                          onSavePressed: (){},
+                                          child:  CICCDropdown(
+                                            initialValue: 'Corporate & Compliance Documents',
+                                            items: [
+                                              DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                              DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                              DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                              DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                            ],),
+                                          child1:   CICCDropdown(
+                                            initialValue: 'Policies and Procedures',
+                                            items: [
+                                              DropdownMenuItem(value: 'Policies and Procedures', child: Text('Licenses')),
+                                              DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                              DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                              DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                            ],),);
+                                      });
+                                    }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                   ],
                                 )

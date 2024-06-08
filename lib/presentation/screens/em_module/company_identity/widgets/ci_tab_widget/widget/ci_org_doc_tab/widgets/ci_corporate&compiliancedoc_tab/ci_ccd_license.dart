@@ -1,28 +1,32 @@
-
-
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../../../../app/resources/color.dart';
-import '../../../../../../../../app/resources/const_string.dart';
-import '../../../../../../../../app/resources/theme_manager.dart';
-import '../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
-class CiCcdMedicalCostReport extends StatefulWidget {
+class CICcdLicense extends StatefulWidget {
+  const CICcdLicense({super.key});
 
-  const CiCcdMedicalCostReport({super.key});
 
   @override
-  State<CiCcdMedicalCostReport> createState() => _CiCcdMedicalCostReportState();
+  State<CICcdLicense> createState() => _CICcdLicenseState();
 }
 
-class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
+class _CICcdLicenseState extends State<CICcdLicense> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
+  TextEditingController docNamecontroller = TextEditingController();
+  TextEditingController docIdController = TextEditingController();
+
   String? selectedValue;
   late List<Color> hrcontainerColors;
   @override
@@ -153,7 +157,30 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                         Center(
                           child: Row(
                             children: [
-                              Icon(Icons.mode_edit_outlined, size: 20,color: Color(0xff898989),),
+                              IconButton(onPressed: (){
+                                showDialog(context: context, builder: (context){
+                                  return CCScreenEditPopup(
+                                    idDocController: docIdController,
+                                    nameDocController: docNamecontroller,
+                                    onSavePressed: (){},
+                                    child:  CICCDropdown(
+                                      initialValue: 'Corporate & Compliance Documents',
+                                      items: [
+                                        DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                      ],),
+                                    child1:   CICCDropdown(
+                                      initialValue: 'Licenses',
+                                      items: [
+                                        DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
+                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                      ],),);
+                                });
+                              }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
                               SizedBox(width: 3,),
                               Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
                             ],

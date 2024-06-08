@@ -156,7 +156,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                              showDialog(context: context, builder: (BuildContext context){
                                                return  CustomPopup(controller: vendorName, onPressed: () {  },);
                                              });
-                                            }, icon: Icon(Icons.edit)),
+                                            }, icon: Icon(Icons.edit_outlined)),
                                             IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                           ],
                                         )

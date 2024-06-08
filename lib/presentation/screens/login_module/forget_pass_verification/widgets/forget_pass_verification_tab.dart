@@ -81,7 +81,6 @@ class _VerifyForgotPassTabState extends State<VerifyForgotPassTab> {
         titleText: AppString.login,
         onTap: () {},
         textAction: '',
-        //textActionPadding: EdgeInsets.only(right: 10),
         childTab: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(25),

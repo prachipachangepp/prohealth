@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../app/resources/font_manager.dart';
 
@@ -12,6 +13,7 @@ class SMTextFConst extends StatelessWidget {
   final Color textColor;
   final Icon? icon;
   final VoidCallback? onChange;
+
 
    SMTextFConst({
      Key? key,
@@ -53,7 +55,7 @@ class SMTextFConst extends StatelessWidget {
             decoration: InputDecoration(
               suffixIcon: icon,
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom: 18,left: 15),
+              contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
             ),
             style: CustomTextStylesCommon.commonStyle(
               fontWeight: FontWeightManager.medium,

@@ -394,4 +394,5 @@ class _NewPasswordScreenWebState extends State<NewPasswordScreenWeb> {
       ),
     );
   }
+
 }

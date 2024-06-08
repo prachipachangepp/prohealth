@@ -102,7 +102,6 @@ class _VerifyForgotPassMobileState extends State<VerifyForgotPassMobile> {
                   //fontSize: MediaQuery.of(context).size.width/32,
                   fontWeight: FontWeightManager.medium,
                 )),
-
             ///txtfield
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

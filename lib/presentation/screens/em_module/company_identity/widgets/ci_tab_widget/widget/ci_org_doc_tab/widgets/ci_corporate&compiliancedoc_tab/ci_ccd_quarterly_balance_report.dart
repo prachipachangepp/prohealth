@@ -2,27 +2,28 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../../../../app/resources/color.dart';
-import '../../../../../../../../app/resources/const_string.dart';
-import '../../../../../../../../app/resources/theme_manager.dart';
-import '../../../../../../../../app/resources/value_manager.dart';
-import '../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../../../../hr_module/manage/controller/controller.dart';
+import '../../../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
-class CICcdLicense extends StatefulWidget {
-  const CICcdLicense({super.key});
+class CICcdQuarteryBalanceReport extends StatefulWidget {
+  const CICcdQuarteryBalanceReport({super.key});
 
   @override
-  State<CICcdLicense> createState() => _CICcdLicenseState();
+  State<CICcdQuarteryBalanceReport> createState() => _CICcdQuarteryBalanceReportState();
 }
 
-class _CICcdLicenseState extends State<CICcdLicense> {
+class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
+  TextEditingController docNamecontroller = TextEditingController();
+  TextEditingController docIdController = TextEditingController();
   String? selectedValue;
   late List<Color> hrcontainerColors;
   @override
@@ -153,7 +154,30 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                         Center(
                           child: Row(
                             children: [
-                              Icon(Icons.mode_edit_outlined, size: 20,color: Color(0xff898989),),
+                              IconButton(onPressed: (){
+                                showDialog(context: context, builder: (context){
+                                  return CCScreenEditPopup(
+                                    idDocController: docIdController,
+                                    nameDocController: docNamecontroller,
+                                    onSavePressed: (){},
+                                    child:  CICCDropdown(
+                                      initialValue: 'Corporate & Compliance Documents',
+                                      items: [
+                                        DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                      ],),
+                                    child1:   CICCDropdown(
+                                      initialValue: 'Quaterly Balance Report',
+                                      items: [
+                                        DropdownMenuItem(value: 'Quaterly Balance Report', child: Text('Licenses')),
+                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                      ],),);
+                                });
+                              }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
                               SizedBox(width: 3,),
                               Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
                             ],

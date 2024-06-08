@@ -132,7 +132,7 @@ class HomeScreenWeb extends StatelessWidget {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          ResponsiveScreenSM()));
+                                                          ResponsiveScreenEM()));
                                             },
                                             child: const ResponsiveContainer(
                                               'Establishment Manager',

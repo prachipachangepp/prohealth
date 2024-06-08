@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'em_desktop_screen.dart';
 
-class ResponsiveScreenSM extends StatelessWidget {
+class ResponsiveScreenEM extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

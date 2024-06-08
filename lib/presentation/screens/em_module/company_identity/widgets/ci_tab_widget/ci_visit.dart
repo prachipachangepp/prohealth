@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/visit_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -13,6 +14,8 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../hr_module/manage/controller/controller.dart';
+import '../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../policies_procedures/widgets/add_policies_popup.dart';
 
 class CiVisitScreen extends StatefulWidget {
   const CiVisitScreen({super.key});
@@ -26,6 +29,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   late int itemsPerPage;
   late List<String> items;
   String? selectedValue;
+  TextEditingController docNamecontroller = TextEditingController();
+  TextEditingController docIdController = TextEditingController();
   late List<Color> hrcontainerColors;
   @override
   void initState() {
@@ -66,9 +71,20 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 // heightContainer: 30,
                 //   widthContainer: 120,
                   text: AppString.addnewvisit,
-                  icon: CupertinoIcons.plus,
-                  onPressed: () {
-                    // _controller.openDialog(context);
+                  icon: Icons.add,
+                  onPressed: (){
+                    showDialog(context: context, builder: (BuildContext context){
+                      return AddVisitPopup(
+                        nameOfDocumentController: docNamecontroller, idOfDocumentController: docIdController, onSavePressed: () {  },
+                        child:  CICCDropdown(
+                          initialValue: 'Select',
+                          items: [
+                            DropdownMenuItem(value: 'Select', child: Text('Policies & Procedures')),
+                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                          ],),);
+                    });
                   }),
             ),
           ],
@@ -175,8 +191,20 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                         Center(
                           child: Row(
                             children: [
-                              Icon(Icons.mode_edit_outlined, size: 20,color: Color(0xff898989),),
-                              SizedBox(width: 3,),
+                              IconButton(onPressed: (){
+                                showDialog(context: context, builder: (BuildContext context){
+                                  return AddVisitPopup(
+                                    nameOfDocumentController: docNamecontroller, idOfDocumentController: docIdController, onSavePressed: () {  },
+                                    child:  CICCDropdown(
+                                      initialValue: 'Select',
+                                      items: [
+                                        DropdownMenuItem(value: 'Select', child: Text('Policies & Procedures')),
+                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                      ],),);
+                                });
+                              }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),                              SizedBox(width: 3,),
                               Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
                             ],
                           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -9,7 +8,6 @@ import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../widgets/widgets/profile_bar/widget/screen_transition.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
-
 import '../../../home_module/home_screen.dart';
 import '../../../../widgets/tablet_constant/tab_const.dart';
 import '../../forget_password/forget_password_screen.dart';
