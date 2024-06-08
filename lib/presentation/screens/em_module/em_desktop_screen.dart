@@ -503,9 +503,10 @@ class SMDesktop extends StatelessWidget {
                                 DropdownMenuItem<String>(
                                   value: 'Select a module',
                                   child: Text('Select a module',style: GoogleFonts.firaSans(
-                                    fontSize: MediaQuery.of(context).size.width / 120,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w700,
-                                    // color: isSelected ? Colors.white : Colors.black,
+                                     // color: ColorManager.white
+                                     // color: isSelected ? Colors.white : Colors.black,
                                   ),),
                                 ),
                                 DropdownMenuItem<String>(
@@ -812,22 +813,66 @@ class CustomDropdownButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(2),
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: selectedItem == 'Select a module' ? Colors.white : ColorManager.blueprime,
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: selectedItem,
-          onChanged: onChanged,
-          items: items,
+    return
+      Container(
+        padding: EdgeInsets.only(left:8),
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: selectedItem == 'Select a module' ? Colors.white : ColorManager.blueprime,
         ),
-      ),
-    );
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            value: selectedItem,
+            onChanged: onChanged,
+            items: items,
+            selectedItemBuilder: (BuildContext context) {
+              return items.map<Widget>((DropdownMenuItem<String> item) {
+                return Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    item.value ?? '',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: item.value == 'Select a module'
+                          ? Colors.black
+                          : (selectedItem == item.value ? Colors.white : Colors.black),
+                    ),
+                  ),
+                );
+              }).toList();
+            },
+            dropdownColor: Colors.white, // Set the dropdown menu background color
+            style: TextStyle(
+              color: Colors.black, // Set the default text color for dropdown items
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
+
+
+
+    //   Container(
+    //   padding: EdgeInsets.all(2),
+    //   height: height,
+    //   width: width,
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.all(Radius.circular(10)),
+    //     color: selectedItem == 'Select a module' ? Colors.white : ColorManager.blueprime,
+    //   ),
+    //   child: DropdownButtonHideUnderline(
+    //     child: DropdownButton<String>(
+    //       value: selectedItem,
+    //       onChanged: onChanged,
+    //       items: items,
+    //     ),
+    //   ),
+    // );
+
   }
 }
 
