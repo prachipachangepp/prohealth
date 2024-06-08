@@ -94,6 +94,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: Column(
         children: [
           Padding(

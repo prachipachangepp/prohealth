@@ -121,7 +121,8 @@ class _CiRoleManagerState extends State<CiRoleManager> {
           flex: 12,
           child: Stack(
             children: [
-           _selectedIndex != 0 ?Offstage(): Container(
+           _selectedIndex != 0 ?Offstage():
+           Container(
              height: MediaQuery.of(context).size.height/3.5,
                 decoration: BoxDecoration(color: Color(0xFFF2F9FC),
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),

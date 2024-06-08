@@ -498,14 +498,15 @@ class SMDesktop extends StatelessWidget {
                              borderRadius: BorderRadius.all(Radius.circular(10)),
                             child: CustomDropdownButton(
                               height: 30,
-                              width: 180,
+                              width: 170,
                               items: [
                                 DropdownMenuItem<String>(
                                   value: 'Select a module',
                                   child: Text('Select a module',style: GoogleFonts.firaSans(
-                                    fontSize: MediaQuery.of(context).size.width / 120,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w700,
-                                    // color: isSelected ? Colors.white : Colors.black,
+                                     // color: ColorManager.white
+                                     // color: isSelected ? Colors.white : Colors.black,
                                   ),),
                                 ),
                                 DropdownMenuItem<String>(
@@ -531,9 +532,10 @@ class SMDesktop extends StatelessWidget {
                                   value: 'All from HR',
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 20),
-                                    child: Text('All from HR',style: GoogleFonts.firaSans(
-                                      fontSize: MediaQuery.of(context).size.width / 120,
-                                      fontWeight: FontWeight.w500,
+                                    child: Text('All from HR',
+                                      style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
                                       // color: isSelected ? Colors.white : Colors.black,
                                     ),),
                                   ),
@@ -554,8 +556,8 @@ class SMDesktop extends StatelessWidget {
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('Work Schedule',
                                       style: GoogleFonts.firaSans(
-                                        fontSize: MediaQuery.of(context).size.width / 120,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
                                         // color: isSelected ? Colors.white : Colors.black,
                                       ),
                                     ),
@@ -577,8 +579,8 @@ class SMDesktop extends StatelessWidget {
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('Employee Documents',
                                       style: GoogleFonts.firaSans(
-                                        fontSize: MediaQuery.of(context).size.width / 120,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
                                         // color: isSelected ? Colors.white : Colors.black,
                                       ),
                                     ),
@@ -619,8 +621,8 @@ class SMDesktop extends StatelessWidget {
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('Pay Rates',
                                       style: GoogleFonts.firaSans(
-                                        fontSize: MediaQuery.of(context).size.width / 120,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
                                         // color: isSelected ? Colors.white : Colors.black,
                                       ),
                                     ),
@@ -754,7 +756,7 @@ class SMDesktop extends StatelessWidget {
               controller: _pageController,
               physics: NeverScrollableScrollPhysics(),
               children: [
-                Container(color: Colors.white),
+                Container(color: ColorManager.white),
 
                 CompanyIdentityScreen(),
 
@@ -812,22 +814,71 @@ class CustomDropdownButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 8),
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: selectedItem == 'Select a module' ? Colors.white : ColorManager.blueprime,
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: selectedItem,
-          onChanged: onChanged,
-          items: items,
+    return
+      Container(
+        padding: EdgeInsets.only(left:8),
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: selectedItem == 'Select a module' ? Colors.white : ColorManager.blueprime,
         ),
-      ),
-    );
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            icon: Icon(Icons.arrow_drop_down,
+              color: selectedItem == 'Select a module'
+                  ? Colors.black
+                  : Colors.white,
+              ),
+            value: selectedItem,
+            onChanged: onChanged,
+            items: items,
+            selectedItemBuilder: (BuildContext context) {
+              return items.map<Widget>((DropdownMenuItem<String> item) {
+                return Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    item.value ?? '',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: item.value == 'Select a module'
+                          ? Colors.black
+                          : (selectedItem == item.value ? Colors.white : Colors.black),
+                    ),
+                  ),
+                );
+              }).toList();
+            },
+            dropdownColor: Colors.white, // Set the dropdown menu background color
+            style: TextStyle(
+              color: Colors.black, // Set the default text color for dropdown items
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
+
+
+
+    //   Container(
+    //   padding: EdgeInsets.all(2),
+    //   height: height,
+    //   width: width,
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.all(Radius.circular(10)),
+    //     color: selectedItem == 'Select a module' ? Colors.white : ColorManager.blueprime,
+    //   ),
+    //   child: DropdownButtonHideUnderline(
+    //     child: DropdownButton<String>(
+    //       value: selectedItem,
+    //       onChanged: onChanged,
+    //       items: items,
+    //     ),
+    //   ),
+    // );
+
   }
 }
 
