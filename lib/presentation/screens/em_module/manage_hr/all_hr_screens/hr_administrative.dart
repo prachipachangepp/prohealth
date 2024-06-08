@@ -1,5 +1,7 @@
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/admin_emp_data.dart';
@@ -82,7 +84,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     addressController: addressController,
                     emailController: emailController,
                     onAddPressed: () {},
-                    containerColor: ColorManager.sfaintOrange,
+                    containerColor: ColorManager.sfaintOrange, onColorChanged: (Color ) {  },
                   );
                 },
               );
@@ -90,15 +92,53 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
         SizedBox(
           height: 20,
         ),
-        TableHeadConstant(items: [
-          TableHeadItem(text: AppStringEM.srno, textAlign: TextAlign.start),
-          TableHeadItem(
-              text: AppStringEM.employeetype, textAlign: TextAlign.start),
-          TableHeadItem(
-              text: AppStringEM.abbrevation, textAlign: TextAlign.start),
-          TableHeadItem(text: AppStringEM.color, textAlign: TextAlign.start),
-          TableHeadItem(text: AppStringEM.action, textAlign: TextAlign.center),
-        ]),
+        Container(
+          height: 30,
+          decoration: BoxDecoration(
+            color: ColorManager.fmediumgrey,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                // Text(''),
+                Text(
+                  AppStringEM.srno,
+                  style:  AllHRTableHeading.customTextStyle(context)
+                ),
+//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                Text(AppStringEM.employee,textAlign: TextAlign.start,
+                    style:  AllHRTableHeading.customTextStyle(context)),
+                Text(
+                  AppStringEM.abbrevation,
+                  style:  AllHRTableHeading.customTextStyle(context)
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 60.0),
+                  child: Text(
+                    AppStringEM.color,
+                    style:  AllHRTableHeading.customTextStyle(context)
+                  ),
+                ),
+
+                Text(AppStringEM.action,
+                    textAlign: TextAlign.start,
+                    style: AllHRTableHeading.customTextStyle(context)),
+              ],
+            ),
+          ),
+        ),
+        // TableHeadConstant(items: [
+        //   TableHeadItem(text: AppStringEM.srno, textAlign: TextAlign.start),
+        //   TableHeadItem(
+        //       text: AppStringEM.employeetype, textAlign: TextAlign.start),
+        //   TableHeadItem(
+        //       text: AppStringEM.abbrevation, textAlign: TextAlign.start),
+        //   TableHeadItem(text: AppStringEM.color, textAlign: TextAlign.start),
+        //   TableHeadItem(text: AppStringEM.action, textAlign: TextAlign.center),
+        // ]),
         SizedBox(
           height: 5,
         ),
@@ -131,86 +171,74 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     height: AppSize.s56,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Expanded(
-                          child: Text(
-                            formattedSerialNumber,
-                            textAlign: TextAlign.center,
-                            style: AllHRTableData.customTextStyle(context)
-                          ),
+                        Text(
+                          formattedSerialNumber,
+                          textAlign: TextAlign.center,
+                          style: AllHRTableData.customTextStyle(context)
                         ),
-                        Expanded(
-                          child: Text(
-                            administrativeData.employeeList[index].employeeType,
-                            textAlign: TextAlign.center,
-                            style: AllHRTableData.customTextStyle(context)
-                          ),
+                        Text(
+                          administrativeData.employeeList[index].employeeType,
+                          textAlign: TextAlign.center,
+                          style: AllHRTableData.customTextStyle(context)
                         ),
-                        Expanded(
-                          child: Text(
-                            administrativeData.employeeList[index].abbreviation,
-                            textAlign: TextAlign.center,
-                            style: AllHRTableData.customTextStyle(context)
-                          ),
+                        Text(
+                          administrativeData.employeeList[index].abbreviation,
+                          textAlign: TextAlign.center,
+                          style: AllHRTableData.customTextStyle(context)
                         ),
-                        Expanded(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 20,
-                            height: AppSize.s22,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: containerColors[index],
-                            ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 20,
+                          height: AppSize.s22,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: containerColors[index],
                           ),
                         ),
                         //SizedBox(width: MediaQuery.of(context).size.width/15,),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return EditPopupWidget(
-                                        typeController: TextEditingController(),
-                                        shorthandController:
-                                            TextEditingController(),
-                                        emailController:
-                                            TextEditingController(),
-                                        containerColor: containerColors[index],
-                                        onSavePressed: () {},
-                                        onColorChanged: (Color color) {
-                                          setState(() {
-                                            containerColors[index] = color;
-                                            _saveColor(index, color);
-                                          });
-                                        },
-                                        // onColorChanged: (Color color) {
-                                        //   setState(() {
-                                        //     containerColors[index] =
-                                        //      color; // Update color for this item
-                                        //   });
-                                        // },
-                                      );
-                                    },
-                                  );
-                                },
-                                icon: Icon(Icons.edit_outlined),
-                                color: ColorManager.mediumgrey,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return EditPopupWidget(
+                                      typeController: TextEditingController(),
+                                      shorthandController:
+                                          TextEditingController(),
+                                      emailController:
+                                          TextEditingController(),
+                                      containerColor: containerColors[index],
+                                      onSavePressed: () {},
+                                      onColorChanged: (Color color) {
+                                        setState(() {
+                                          containerColors[index] = color;
+                                          _saveColor(index, color);
+                                        });
+                                      },
+                                      // onColorChanged: (Color color) {
+                                      //   setState(() {
+                                      //     containerColors[index] =
+                                      //      color; // Update color for this item
+                                      //   });
+                                      // },
+                                    );
+                                  },
+                                );
+                              },
+                              icon: Icon(Icons.edit_outlined),
+                              color: ColorManager.mediumgrey,
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.delete_outline,
+                                color: ColorManager.faintOrange,
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.delete_outline,
-                                  color: ColorManager.faintOrange,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ));
