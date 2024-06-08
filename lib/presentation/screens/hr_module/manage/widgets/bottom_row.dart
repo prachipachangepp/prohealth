@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 class BottomBarRow extends StatelessWidget {
   const BottomBarRow({super.key});
@@ -33,7 +34,7 @@ class BottomBarRow extends StatelessWidget {
                       fontFamily: 'FiraSans',
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
-                      color: Colors.black,
+                      color: ColorManager.darkgrey,
                       decoration: TextDecoration.none,
                     ),
                   ),
@@ -44,7 +45,7 @@ class BottomBarRow extends StatelessWidget {
                     '198.168.1.231',
                     style: TextStyle(
                       fontFamily: 'FiraSans',
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                       decoration: TextDecoration.none,
@@ -58,14 +59,14 @@ class BottomBarRow extends StatelessWidget {
                 children: [
                   Image.asset(
                     'images/powered_logo.png',
-                    height: MediaQuery.of(context).size.height / 40,
+                  //  height: 27,
                     width: 27,
                   ),
                   Text(
                     'Powered by',
                     style: TextStyle(
                       fontFamily: 'FiraSans',
-                      fontSize: MediaQuery.of(context).size.height / 90,
+                      fontSize: 13,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                       decoration: TextDecoration.none,
