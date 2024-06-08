@@ -26,62 +26,62 @@ class RoleManagerSales extends StatelessWidget {
             padding: const EdgeInsets.only(left: AppPadding.p220),
             child: Row(
               children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Pick Employee',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),),
-                  SizedBox(height: AppSize.s4,),
-                  Container(
-                    height: 30,
-                    width: 354,
-                    // margin: EdgeInsets.symmetric(horizontal: 20),
-                    padding:
-                    EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          color: Color(0xff686464).withOpacity(0.5),
-                          width: 1), // Black border
-                      borderRadius:
-                      BorderRadius.circular(8), // Rounded corners
-                    ),
-                    child: DropdownButtonFormField<String>(
-                      focusColor: Colors.transparent,
-                      icon: Icon(
-                        Icons.arrow_drop_down_sharp,
-                        color: Color(0xff686464),
-                      ),
-                      decoration: InputDecoration.collapsed(hintText: ''),
-                      items: <String>[
-                        'Sales Development Representative',
-                        'Option 2',
-                        'Option 3',
-                        'Option 4'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {},
-                      value: 'Sales Development Representative',
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Pick Employee',
                       style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff686464),
+                        fontSize: FontSize.s10,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.fmediumgrey,
                         decoration: TextDecoration.none,
+                      ),),
+                    SizedBox(height: AppSize.s4,),
+                    Container(
+                      height: 30,
+                      width: 354,
+                      // margin: EdgeInsets.symmetric(horizontal: 20),
+                      padding:
+                      EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                            color: Color(0xff686464).withOpacity(0.5),
+                            width: 1), // Black border
+                        borderRadius:
+                        BorderRadius.circular(8), // Rounded corners
+                      ),
+                      child: DropdownButtonFormField<String>(
+                        focusColor: Colors.transparent,
+                        icon: Icon(
+                          Icons.arrow_drop_down_sharp,
+                          color: Color(0xff686464),
+                        ),
+                        decoration: InputDecoration.collapsed(hintText: ''),
+                        items: <String>[
+                          'ST',
+                          'Option 2',
+                          'Option 3',
+                          'Option 4'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {},
+                        value: 'ST',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: ColorManager.fmediumgrey,
+                          decoration: TextDecoration.none,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
             ],),
           ),
           SizedBox(height: 20,),

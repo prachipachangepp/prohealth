@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_role_rules.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_roles.dart';
 
@@ -43,7 +44,15 @@ class _CiRoleManagerState extends State<CiRoleManager> {
               height: 30,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: ColorManager.blueprime),
+                  color: ColorManager.blueprime,
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorManager.black.withOpacity(0.25),
+                    spreadRadius: 0,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -62,10 +71,12 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                         child: Text(
                           "Role",
                           style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                            fontWeight: _selectedIndex == 0?
+                            FontWeightManager.bold
+                            :FontWeightManager.semiBold,
                             color: _selectedIndex == 0
-                                ? ColorManager.blueprime
+                                ? ColorManager.mediumgrey
                                 : ColorManager.white,
                           ),
                         ),
@@ -87,10 +98,12 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                         child: Text(
                           "Role Rules",
                           style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                            fontWeight: _selectedIndex == 1?
+                            FontWeightManager.bold
+                                :FontWeightManager.semiBold,
                             color: _selectedIndex == 1
-                                ? ColorManager.blueprime
+                                ? ColorManager.mediumgrey
                                 : ColorManager.white,
                           ),
                         ),
@@ -108,7 +121,8 @@ class _CiRoleManagerState extends State<CiRoleManager> {
           flex: 12,
           child: Stack(
             children: [
-           _selectedIndex != 0 ?Offstage(): Container(height: MediaQuery.of(context).size.height/3,
+           _selectedIndex != 0 ?Offstage(): Container(
+             height: MediaQuery.of(context).size.height/3.5,
                 decoration: BoxDecoration(color: Color(0xFFF2F9FC),
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
                     boxShadow: [ BoxShadow(
