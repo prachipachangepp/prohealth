@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -133,23 +134,43 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                         Center(
                             child: Text(
                               formattedSerialNumber,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
                               textAlign: TextAlign.start,
                             )),
                         Center(
                             child: Text(
                               AppString.name,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
                             )),
                         Center(
                             child: Text(
                               AppString.expiry,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
                             )),
                         Center(
                             child: Text(
                               AppString.reminderthershold,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
                             )),
                         Center(
                           child: Row(
@@ -169,9 +190,9 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                         DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                       ],),
                                     child1:   CICCDropdown(
-                                      initialValue: 'Quaterly Balance Report',
+                                      initialValue: 'Licenses',
                                       items: [
-                                        DropdownMenuItem(value: 'Quaterly Balance Report', child: Text('Licenses')),
+                                        DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
                                         DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
                                         DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
                                         DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
