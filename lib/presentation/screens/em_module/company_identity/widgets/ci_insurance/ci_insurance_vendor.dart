@@ -44,6 +44,9 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
             });
 
           }),
+          SizedBox(
+            height: 15,
+          ),
           Container(
             height: 30,
             decoration: BoxDecoration(
