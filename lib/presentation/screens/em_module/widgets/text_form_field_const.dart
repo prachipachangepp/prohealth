@@ -38,6 +38,7 @@ class SMTextFConst extends StatelessWidget {
             decoration: TextDecoration.none,
           ),
         ),
+        SizedBox(height: 1,),
         Container(
           width: 354,
           height: 30,

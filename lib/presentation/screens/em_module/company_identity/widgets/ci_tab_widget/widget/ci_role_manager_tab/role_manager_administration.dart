@@ -33,7 +33,7 @@ class RoleManagerAdministration extends StatelessWidget {
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.bold,
-                            color: ColorManager.mediumgrey,
+                            color: ColorManager.fmediumgrey,
                             decoration: TextDecoration.none,
                           ),),
                         SizedBox(height: AppSize.s4,),
@@ -74,7 +74,7 @@ class RoleManagerAdministration extends StatelessWidget {
                             style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xff686464),
+                              color: ColorManager.fmediumgrey,
                               decoration: TextDecoration.none,
                             ),
                           ),

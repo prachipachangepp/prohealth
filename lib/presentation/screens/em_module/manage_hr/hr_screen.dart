@@ -89,6 +89,7 @@ class HrWidget extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 9,
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
+
                               borderRadius: BorderRadius.circular(20),
                               color: selectedIndex == entry.key
                                   ? Colors.white

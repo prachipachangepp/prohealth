@@ -32,7 +32,8 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric( horizontal: MediaQuery.of(context).size.width / 15),
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width / 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
