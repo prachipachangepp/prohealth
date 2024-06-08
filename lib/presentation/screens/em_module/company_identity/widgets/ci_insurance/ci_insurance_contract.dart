@@ -34,6 +34,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Column(
         children: [
           Row(

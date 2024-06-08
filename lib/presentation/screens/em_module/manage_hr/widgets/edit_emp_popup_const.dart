@@ -141,10 +141,42 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                   SizedBox(
                     height: AppSize.s16,
                   ),
-                  SMTextFConst(
-                    controller: widget.emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    text: 'Type of Employee',
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Type of Employee',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xff686464),
+                          decoration: TextDecoration.none,
+                        ),),
+                      SizedBox(height: 2),
+                      Container(
+                        height: 30,
+                        padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(color: Color(0xffB1B1B1)), // Black border
+                          borderRadius: BorderRadius.circular(8), // Rounded corners
+                        ),
+                        child: DropdownButtonFormField<String>(
+                          focusColor: Colors.transparent,
+                          icon: Icon(Icons.arrow_drop_down_sharp,color: ColorManager.black,),
+                          decoration: InputDecoration.collapsed(hintText: ''),
+                          items: <String>['Clinical', 'A', 'B', 'C']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value,style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                          },
+                          value: 'Clinical',style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: AppSize.s16,
@@ -159,29 +191,39 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                         decoration: TextDecoration.none,
                       ),),
                       SizedBox(width: 10),
-                      GestureDetector(
-                        onTap:
-                        _openColorPicker, // Call _openColorPicker directly
-                        child: Container(
-                          width: 60,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            color: _selectedColors[0],
-                            border: Border.all(
-                              width: 1,
+                      Container(
+                        padding: EdgeInsets.all(2),
+                        width: 62,
+                        height: 22,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          border: Border.all(width: 1, color: Color(0xffE9E9E9),
+                          ),
+                        ),
+                        child: GestureDetector(
+                          onTap:
+                          _openColorPicker, // Call _openColorPicker directly
+                          child: Container(
+                            width: 60,
+                            height: 20,
+                            decoration: BoxDecoration(
                               color: _selectedColors[0],
+                              border: Border.all(
+                                width: 1,
+                                color: _selectedColors[0],
+                              ),
+                              // GestureDetector(
+                              //   onTap: () => _openColorPicker(index),
+                              //   child: Container(
+                              //     width: 60,
+                              //     height: 20,
+                              //     decoration: BoxDecoration(
+                              //       color: _selectedColors[index],
+                              //       border: Border.all(
+                              //         width: 1,
+                              //         color: _selectedColors[index],
+                              //       ),
                             ),
-                            // GestureDetector(
-                            //   onTap: () => _openColorPicker(index),
-                            //   child: Container(
-                            //     width: 60,
-                            //     height: 20,
-                            //     decoration: BoxDecoration(
-                            //       color: _selectedColors[index],
-                            //       border: Border.all(
-                            //         width: 1,
-                            //         color: _selectedColors[index],
-                            //       ),
                           ),
                         ),
                       ),

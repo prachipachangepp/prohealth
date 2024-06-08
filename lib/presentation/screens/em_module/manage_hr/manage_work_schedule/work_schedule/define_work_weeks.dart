@@ -25,6 +25,7 @@ TextEditingController endTimeController = TextEditingController();
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     return Material(
+      color: Colors.transparent,
       child: GetBuilder<Controller>(
         init: Controller(),
         builder: (controller) {

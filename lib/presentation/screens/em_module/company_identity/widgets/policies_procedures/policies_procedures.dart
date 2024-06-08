@@ -36,6 +36,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

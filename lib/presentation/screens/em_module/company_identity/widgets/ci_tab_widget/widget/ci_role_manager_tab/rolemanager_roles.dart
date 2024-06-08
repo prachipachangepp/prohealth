@@ -8,6 +8,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_role_rules.dart';
 
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../company_identity_screen.dart';
 
 class RoleManagerRoles extends StatefulWidget {
@@ -55,14 +56,19 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                         Text(
                           AppString.clinician,
                           style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
+                            fontSize: 12,
+                            fontWeight: _selectedIndex == 0?
+                            FontWeightManager.bold
+                                :FontWeightManager.semiBold,
+                            color: _selectedIndex == 0
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
                           ),
                         ),
+                        SizedBox(height: 2,),
                         Container(
                           height: 2,
-                          width: 40,
+                          width: MediaQuery.of(context).size.width / 14,
                           color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.transparent,
                         ),
                       ],
@@ -75,14 +81,19 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                         Text(
                          AppString.sales,
                           style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
+                            fontSize: 12,
+                            fontWeight: _selectedIndex == 1?
+                            FontWeightManager.bold
+                                :FontWeightManager.semiBold,
+                            color: _selectedIndex == 1
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
                           ),
                         ),
+                        SizedBox(height: 2,),
                         Container(
                           height: 2,
-                          width: 60,
+                          width: MediaQuery.of(context).size.width / 13,
                           color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.transparent,
                         ),
                       ],
@@ -94,15 +105,20 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                           AppString.administration,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 2 ? ColorManager.blueprime : Colors.grey,
+                          style:TextStyle(
+                            fontSize: 12,
+                            fontWeight: _selectedIndex == 2?
+                            FontWeightManager.bold
+                                :FontWeightManager.semiBold,
+                            color: _selectedIndex == 2
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
                           ),
                         ),
+                        SizedBox(height: 2,),
                         Container(
                           height: 2,
-                          width: 60,
+                          width: MediaQuery.of(context).size.width / 13,
                           color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
                         ),
                       ],

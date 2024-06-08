@@ -47,6 +47,10 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
         _selectedTime = picked;
         widget.controller2.text = _selectedTime.format(context);
       });
+    }else{
+      setState(() {
+        widget.controller2.text = _selectedTime.format(context);
+      });
     }
   }
   @override

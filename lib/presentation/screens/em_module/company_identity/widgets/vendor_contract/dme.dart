@@ -37,6 +37,7 @@ class _CiDmeState extends State<CiDme> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [

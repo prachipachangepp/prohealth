@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_policies&procedure.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_vendor_contract.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 
 import '../../company_identity_screen.dart';
 
@@ -18,6 +20,8 @@ class CiOrgDocument extends StatefulWidget {
 
 class _CiOrgDocumentState extends State<CiOrgDocument> {
   final PageController _tabPageController = PageController();
+  TextEditingController docNamecontroller = TextEditingController();
+  TextEditingController docIdController = TextEditingController();
 
   int _selectedIndex = 0;
 
@@ -40,8 +44,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
           height: 20,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            SizedBox(height: 20,width: 150,),
             Material(
               elevation: 4,
               borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -133,7 +138,42 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   ],
                 ),
               ),
-            )
+            ),
+            ///button
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  height: 30,
+                  width: 150,
+
+                  child: CustomIconButton(
+
+                      icon: CupertinoIcons.plus,
+                      text: "Add Document", onPressed: (){
+                    showDialog(context: context, builder: (context){
+                      return AddOrgDocButton(
+                        idDocController: docIdController,
+                        nameDocController: docNamecontroller,
+                        onSavePressed: (){},
+                        child:  CICCDropdown(
+                          initialValue: 'Corporate & Compliance Documents',
+                          items: [
+                            DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                          ],),
+                        child1:   CICCDropdown(
+                          initialValue: 'Licenses',
+                          items: [
+                            DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
+                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                          ],),);
+                    });
+                  }),
+                )),
           ],
         ),
         Expanded(

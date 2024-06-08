@@ -37,6 +37,7 @@ class _CiMiscState extends State<CiMisc> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [

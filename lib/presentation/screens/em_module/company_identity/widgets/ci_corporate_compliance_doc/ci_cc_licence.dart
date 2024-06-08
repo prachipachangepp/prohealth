@@ -37,6 +37,7 @@ class _CICCLicenseState extends State<CICCLicense> {
       min(currentPage * itemsPerPage, items.length),
     );
     return Material(
+      color: Colors.transparent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [

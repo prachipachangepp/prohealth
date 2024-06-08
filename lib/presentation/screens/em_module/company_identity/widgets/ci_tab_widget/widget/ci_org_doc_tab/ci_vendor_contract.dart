@@ -58,13 +58,12 @@ class _CIVendorContractState extends State<CIVendorContract> {
                           "License",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
-                          ),
+                            fontWeight: _selectedIndex == 0 ? FontWeight.w700 : FontWeight.normal,
+                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Color(0xff686464),),
                         ),
                         Container(
                           height: 2,
-                          width: 40,
+                          width: 45,
                           color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.transparent,
                         ),
                       ],
@@ -78,8 +77,8 @@ class _CIVendorContractState extends State<CIVendorContract> {
                           "ADR",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
+                              fontWeight: _selectedIndex == 1 ? FontWeight.w700 : FontWeight.normal,
+                              color: _selectedIndex == 1 ?  ColorManager.blueprime :Color(0xff686464)
                           ),
                         ),
                         Container(
@@ -98,13 +97,13 @@ class _CIVendorContractState extends State<CIVendorContract> {
                           "Medical Cost Reporter",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 2 ? ColorManager.blueprime : Colors.grey,
+                              fontWeight: _selectedIndex == 2 ? FontWeight.w700 : FontWeight.normal,
+                              color: _selectedIndex == 2 ? ColorManager.blueprime :Color(0xff686464)
                           ),
                         ),
                         Container(
                           height: 2,
-                          width: 60,
+                          width: 130,
                           color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
                         ),
                       ],
@@ -118,13 +117,13 @@ class _CIVendorContractState extends State<CIVendorContract> {
                           "Cap Report",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 3 ?  ColorManager.blueprime : Colors.grey,
+                            fontWeight: _selectedIndex == 3 ? FontWeight.w700 : FontWeight.normal,
+                            color: _selectedIndex == 3 ? ColorManager.blueprime : Color(0xff686464),
                           ),
                         ),
                         Container(
                           height: 2,
-                          width: 40,
+                          width: 70,
                           color: _selectedIndex == 3 ?  ColorManager.blueprime : Colors.transparent,
                         ),
                       ],
@@ -138,13 +137,13 @@ class _CIVendorContractState extends State<CIVendorContract> {
                           "Quarterly Balance Report",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 4 ?  ColorManager.blueprime : Colors.grey,
+                              fontWeight: _selectedIndex == 4 ? FontWeight.w700 : FontWeight.normal,
+                              color: _selectedIndex == 4 ?  ColorManager.blueprime :Color(0xff686464)
                           ),
                         ),
                         Container(
                           height: 2,
-                          width: 60,
+                          width: 150,
                           color: _selectedIndex == 4 ?  ColorManager.blueprime: Colors.transparent,
                         ),
                       ],
