@@ -180,6 +180,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                       index + 1 + (currentPage - 1) * itemsPerPage;
                   String formattedSerialNumber =
                       serialNumber.toString().padLeft(2, '0');
+
                   return Container(
                       margin: EdgeInsets.all(5,),
                       decoration: BoxDecoration(

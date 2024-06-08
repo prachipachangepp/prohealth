@@ -187,47 +187,60 @@ class _ManageWidgetState extends State<ManageWidget> {
           SizedBox(height: 10,),
           Expanded(
             flex: 10,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 45),
-              child: PageView(
-                  controller: widget.managePageController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    CIDetailsScreen(),
-                    CiPageview(
+            child: Stack(
+              children:[
+                Container(height: MediaQuery.of(context).size.height/3,
+                decoration: BoxDecoration(color: Color(0xFFF2F9FC),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                    boxShadow: [ BoxShadow(
+                  color: ColorManager.faintGrey,
+                  blurRadius: 2,
+                  spreadRadius: -2,
+                  offset: Offset(0, -4),
+                ),]
+                ),),
+                Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 45),
+                child: PageView(
+                    controller: widget.managePageController,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      CIDetailsScreen(),
+                      CiPageview(
+                          managePageController: _managePageController,
+                          selectedIndex: _selectedIndex,
+                          selectButton: _selectButton,
+                          nameList: ['County', 'Zone'],
+                          screenList: [CIZoneCountry(), CIZoneZone()],
+                          mediaQueryWidth: 3.5),
+                     CiPageview(
+                         managePageController: _managePageController,
+                         selectedIndex: _selectedIndex,
+                         selectButton: _selectButton,
+                         nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
+                         screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
+                         mediaQueryWidth: 2),
+                      CiPageview(
                         managePageController: _managePageController,
                         selectedIndex: _selectedIndex,
                         selectButton: _selectButton,
-                        nameList: ['County', 'Zone'],
-                        screenList: [CIZoneCountry(), CIZoneZone()],
-                        mediaQueryWidth: 3.5),
-                   CiPageview(
-                       managePageController: _managePageController,
-                       selectedIndex: _selectedIndex,
-                       selectButton: _selectButton,
-                       nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
-                       screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
-                       mediaQueryWidth: 2),
-                    CiPageview(
-                      managePageController: _managePageController,
-                      selectedIndex: _selectedIndex,
-                      selectButton: _selectButton,
-                      mediaQueryWidth: 3,
-                      nameList: ['Vendor', 'Contract'],
-                      screenList: [CiInsuranceVendor(), CiInsuranceContract()],
-                    ),
-                    CiPageview(
-                      managePageController: _managePageController,
-                      selectedIndex: _selectedIndex,
-                      selectButton: _selectButton,
-                      mediaQueryWidth: 2,
-                      nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
-                      screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
-                    ),
-                    CiPoliciesAndProcedures(),
-                    CiTempalets()
-                  ]),
+                        mediaQueryWidth: 3,
+                        nameList: ['Vendor', 'Contract'],
+                        screenList: [CiInsuranceVendor(), CiInsuranceContract()],
+                      ),
+                      CiPageview(
+                        managePageController: _managePageController,
+                        selectedIndex: _selectedIndex,
+                        selectButton: _selectButton,
+                        mediaQueryWidth: 2,
+                        nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
+                        screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
+                      ),
+                      CiPoliciesAndProcedures(),
+                      CiTempalets()
+                    ]),
+              ),]
             ),
           ),
         ],
