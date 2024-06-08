@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_adr.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_cap_report.dart';
@@ -44,7 +45,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 450,
+              width: 530,
               height: 30,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -55,9 +56,9 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                       children: [
                         Text(
                           "License",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
                             color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
                           ),
                         ),
@@ -75,9 +76,9 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                       children: [
                         Text(
                           "ADR",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
                             color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
                           ),
                         ),
@@ -95,9 +96,9 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                       children: [
                         Text(
                           "Medical Cost Reporter",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
                             color: _selectedIndex == 2 ? ColorManager.blueprime : Colors.grey,
                           ),
                         ),
@@ -115,9 +116,9 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                       children: [
                         Text(
                           "Cap Report",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
                             color: _selectedIndex == 3 ?  ColorManager.blueprime : Colors.grey,
                           ),
                         ),
@@ -135,9 +136,9 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                       children: [
                         Text(
                           "Quarterly Balance Report",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
                             color: _selectedIndex == 4 ?  ColorManager.blueprime : Colors.grey,
                           ),
                         ),
