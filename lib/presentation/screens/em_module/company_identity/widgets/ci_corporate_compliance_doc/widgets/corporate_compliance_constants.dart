@@ -112,7 +112,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                 child: CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.save,
+                  text: AppStringEM.add,
                   onPressed: () {
                     widget.onSavePressed();
                     Navigator.pop(context);

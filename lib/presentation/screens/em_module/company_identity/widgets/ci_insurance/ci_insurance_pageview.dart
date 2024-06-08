@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_contract.dart';
@@ -32,9 +33,9 @@ class CiPageview extends StatelessWidget {
       color: Colors.transparent,
       child: Column(children: [
         Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8),
           child: Container(
-            height: 30,
+            height: 40,
             width: MediaQuery.of(context).size.width / mediaQueryWidth,
             color: Colors.transparent,
             child: Row(
@@ -48,16 +49,18 @@ class CiPageview extends StatelessWidget {
                   highlightColor: Color(0xFFF2F9FC),
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
-                    height: 30,
+                    height: 40,
                     width: MediaQuery.of(context).size.width / 10,
                     child: Column(
                       children: [
                         Text(
                           entry.value,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeightManager.bold,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: selectedIndex == entry.key
+                                ? FontWeightManager.bold
+                            : FontWeightManager.regular,
                             color:selectedIndex == entry.key
                                 ? ColorManager.blueprime
                                 : ColorManager.mediumgrey,
