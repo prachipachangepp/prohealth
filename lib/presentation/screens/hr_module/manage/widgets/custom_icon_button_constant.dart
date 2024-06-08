@@ -83,6 +83,63 @@ class CustomButtonTransparent extends StatelessWidget {
   }
 }
 
+class CustomeTransparentAddShift extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final IconData? icon;
+  const CustomeTransparentAddShift({super.key, required this.text, required this.onPressed, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        height: MediaQuery.of(context).size.height/25,
+        width: MediaQuery.of(context).size.width/15,
+        decoration: BoxDecoration(border: Border.all(color: ColorManager.blueprime),borderRadius: BorderRadius.circular(30)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Icon(Icons.add,color: ColorManager.blueprime, size: MediaQuery.of(context).size.width/100),
+            Text(
+              text,
+              style: TextStyle(
+                fontFamily: 'FiraSans',
+                fontSize: MediaQuery.of(context).size.width/100,
+                fontWeight: FontWeight.w700,
+                color: ColorManager.blueprime,
+              ),
+            ),
+          ],
+        )
+      ),
+    );
+  }
+}
+// ElevatedButton.icon(
+// icon:icon != null
+// ? Icon(icon!, color: ColorManager.blueprime, size: MediaQuery.of(context).size.width/100,)
+//     : Offstage(),
+// onPressed: onPressed,
+// label: Text(
+// text,
+// style: TextStyle(
+// fontFamily: 'FiraSans',
+// fontSize: 12,
+// fontWeight: FontWeight.w700,
+// color: ColorManager.blueprime,
+// ),
+// ),
+// style: ElevatedButton.styleFrom(
+// // padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+// backgroundColor: Colors.white,
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(30),
+// side: BorderSide(color: Color(0xFF50B5E5)),
+// ),
+// ),
+// ),
+
 ///custombutton size managebleimport 'package:flutter/material.dart';
 
 // class CustomButton extends StatelessWidget {

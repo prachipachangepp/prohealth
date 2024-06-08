@@ -109,7 +109,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                     height: 10,
                   ),
                   Container(
-                    height: AppSize.s500,
+                    height: MediaQuery.of(context).size.height/1.5,
                     child:
                     ListView.builder(
                         scrollDirection: Axis.vertical,

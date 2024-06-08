@@ -86,7 +86,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                     addressController: addressController,
                     emailController: emailController,
                     onAddPressed: () {},
-                    containerColor: ColorManager.pinkfaint,
+                    containerColor: ColorManager.pinkfaint, onColorChanged: (Color ) {  },
                   );
                 },
               );
@@ -94,14 +94,61 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
         SizedBox(
           height: AppSize.s20,
         ),
-        TableHeadConstant(items: [
-          TableHeadItem(text: AppStringEM.srno, textAlign: TextAlign.start),
-          TableHeadItem(text: AppStringEM.employeetype, textAlign: TextAlign.start),
-          TableHeadItem(
-              text: AppStringEM.abbrevation, textAlign: TextAlign.start),
-          TableHeadItem(text: AppStringEM.color, textAlign: TextAlign.start),
-          TableHeadItem(text: AppStringEM.action, textAlign: TextAlign.center),
-        ]),
+        Container(
+          height: 30,
+          decoration: BoxDecoration(
+            color: ColorManager.fmediumgrey,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                // Text(''),
+                Padding(
+                  padding: const EdgeInsets.only(right: 25.0),
+                  child: Text(
+                    AppStringEM.srno,
+                    style:  AllHRTableHeading.customTextStyle(context)
+                  ),
+                ),
+//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                Text(AppStringEM.employee,textAlign: TextAlign.start,
+                    style:  AllHRTableHeading.customTextStyle(context)),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: Text(
+                    AppStringEM.abbrevation,
+                    style:  AllHRTableHeading.customTextStyle(context)
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 70.0),
+                  child: Text(
+                    AppStringEM.color,
+                    style:  AllHRTableHeading.customTextStyle(context)
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(right: 35.0),
+                  child: Text(AppStringEM.action,
+                      textAlign: TextAlign.start,
+                      style:  AllHRTableHeading.customTextStyle(context)),
+                ),
+              ],
+            ),
+          ),
+        ),
+        // TableHeadConstant(items: [
+        //   TableHeadItem(text: AppStringEM.srno, textAlign: TextAlign.start),
+        //   TableHeadItem(text: AppStringEM.employeetype, textAlign: TextAlign.start),
+        //   TableHeadItem(
+        //       text: AppStringEM.abbrevation, textAlign: TextAlign.start),
+        //   TableHeadItem(text: AppStringEM.color, textAlign: TextAlign.start),
+        //   TableHeadItem(text: AppStringEM.action, textAlign: TextAlign.center),
+        // ]),
         SizedBox(
           height: AppSize.s5,
         ),
@@ -129,80 +176,76 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                       ],
                     ),
                     height: AppSize.s56,
-                    child: Column(
+                    child: Row(
+                      //crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Row(
-                          //crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              formattedSerialNumber,
-                              textAlign: TextAlign.end,
-                              style:AllHRTableData.customTextStyle(context)
-                            ),
-                            Text(
-                              AppStringEM.salesManager,
-                              textAlign: TextAlign.end,
-                              style: AllHRTableData.customTextStyle(context)
-                            ),
-                            Text(
-                              AppStringEM.sm,
-                              textAlign: TextAlign.end,
-                              style: AllHRTableData.customTextStyle(context)
-                            ),
+                        Text(
+                          formattedSerialNumber,
+                          textAlign: TextAlign.center,
+                          style:AllHRTableData.customTextStyle(context)
+                        ),
+                        Text(
+                          AppStringEM.salesManager,
+                          textAlign: TextAlign.center,
+                          style: AllHRTableData.customTextStyle(context)
+                        ),
+                        Text(
+                          AppStringEM.sm,
+                          textAlign: TextAlign.center,
+                          style: AllHRTableData.customTextStyle(context)
+                        ),
 
-                            ///also change the color of this container
-                            Container(
-                              width: MediaQuery.of(context).size.width / 20,
-                              height: AppSize.s22,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: containerColors[index],
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return EditPopupWidget(
-                                          typeController: TextEditingController(),
-                                          shorthandController:
-                                              TextEditingController(),
-                                          emailController:
-                                              TextEditingController(),
-                                          containerColor:
-                                              containerColors[index],
-                                          onSavePressed: () {},
-                                          onColorChanged: (Color color) {
-                                            setState(() {
-                                              containerColors[index] = color;
-                                              _saveColor(index, color);
-                                            });
-                                          },
-                                          // onColorChanged: (Color color) {
-                                          //   setState(() {
-                                          //     containerColors[index] =
-                                          //      color; // Update color for this item
-                                          //   });
-                                          // },
-                                        );
+                        ///also change the color of this container
+                        Container(
+                          width: MediaQuery.of(context).size.width / 20,
+                          height: AppSize.s22,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: containerColors[index],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return EditPopupWidget(
+                                      typeController: TextEditingController(),
+                                      shorthandController:
+                                          TextEditingController(),
+                                      emailController:
+                                          TextEditingController(),
+                                      containerColor:
+                                          containerColors[index],
+                                      onSavePressed: () {},
+                                      onColorChanged: (Color color) {
+                                        setState(() {
+                                          containerColors[index] = color;
+                                          _saveColor(index, color);
+                                        });
                                       },
+                                      // onColorChanged: (Color color) {
+                                      //   setState(() {
+                                      //     containerColors[index] =
+                                      //      color; // Update color for this item
+                                      //   });
+                                      // },
                                     );
                                   },
-                                  icon: Icon(Icons.edit_outlined),
-                                  color: ColorManager.mediumgrey,
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.delete_outline,
-                                    color: ColorManager.faintOrange,
-                                  ),
-                                ),
-                              ],
+                                );
+                              },
+                              icon: Icon(Icons.edit_outlined),
+                              color: ColorManager.mediumgrey,
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.delete_outline,
+                                color: ColorManager.faintOrange,
+                              ),
                             ),
                           ],
                         ),

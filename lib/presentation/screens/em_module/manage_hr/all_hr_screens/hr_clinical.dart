@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
@@ -114,14 +115,13 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                             child: Text(
                               value,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: GoogleFonts.firaSans(
                                 color:
                                     hrClinController.selectedItem.value == value
                                         ? Colors.white
                                         : Colors.black,
-                                fontFamily: 'FiraSans',
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.light,
+                                fontSize: FontSize.s12,
+                                fontWeight: FontWeightManager.bold,
                               ),
                             ),
                           ),
@@ -146,7 +146,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                           addressController: addressController,
                           emailController: emailController,
                           onAddPressed: () {},
-                          containerColor: ColorManager.sfaintOrange,
+                          containerColor: ColorManager.sfaintOrange, onColorChanged: (Color ) {  },
                         );
                       },
                     );
@@ -157,14 +157,55 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
         SizedBox(
           height: AppSize.s20,
         ),
-        TableHeadConstant(items: [
-          TableHeadItem(text: AppStringEM.srno, textAlign: TextAlign.start),
-          TableHeadItem(text: AppStringEM.employee, textAlign: TextAlign.start),
-          TableHeadItem(
-              text: AppStringEM.abbrevation, textAlign: TextAlign.start),
-          TableHeadItem(text: AppStringEM.color, textAlign: TextAlign.start),
-          TableHeadItem(text: AppStringEM.action, textAlign: TextAlign.center),
-        ]),
+        Container(
+          height: 30,
+          decoration: BoxDecoration(
+            color: ColorManager.fmediumgrey,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                // Text(''),
+                Text(
+                  AppStringEM.srno,
+                  style: AllHRTableHeading.customTextStyle(context)
+                ),
+//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                Text(AppStringEM.employee,textAlign: TextAlign.start,
+                    style: AllHRTableHeading.customTextStyle(context)),
+                Text(
+                  AppStringEM.abbrevation,
+                  style:  AllHRTableHeading.customTextStyle(context)
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 60.0),
+                  child: Text(
+                    AppStringEM.color,
+                    style:  AllHRTableHeading.customTextStyle(context)
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: Text(AppStringEM.action,
+                      textAlign: TextAlign.start,
+                      style:  AllHRTableHeading.customTextStyle(context)),
+                ),
+              ],
+            ),
+          ),
+        ),
+        // TableHeadConstant(items: [
+        //   TableHeadItem(text: AppStringEM.srno, textAlign: TextAlign.start),
+        //   TableHeadItem(text: AppStringEM.employee, textAlign: TextAlign.start),
+        //   TableHeadItem(
+        //       text: AppStringEM.abbrevation, textAlign: TextAlign.start),
+        //   TableHeadItem(text: AppStringEM.color, textAlign: TextAlign.start),
+        //   TableHeadItem(text: AppStringEM.action, textAlign: TextAlign.center),
+        // ]),
         SizedBox(
           height: AppSize.s5,
         ),
@@ -180,6 +221,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                       index + 1 + (currentPage - 1) * itemsPerPage;
                   String formattedSerialNumber =
                       serialNumber.toString().padLeft(2, '0');
+
                   return Container(
                       margin: EdgeInsets.all(5,),
                       decoration: BoxDecoration(
@@ -215,17 +257,17 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                             children: [
                               Text(
                                 formattedSerialNumber,
-                                textAlign: TextAlign.end,
+                                textAlign: TextAlign.center,
                                 style: AllHRTableData.customTextStyle(context)
                               ),
                               Text(
                                 AppStringEM.licensevocnurse,
-                                textAlign: TextAlign.end,
+                                textAlign: TextAlign.center,
                                 style: AllHRTableData.customTextStyle(context)
                               ),
                               Text(
                                 AppStringEM.nc,
-                                textAlign: TextAlign.end,
+                                textAlign: TextAlign.center,
                                 style: AllHRTableData.customTextStyle(context)
                               ),
                               Container(
