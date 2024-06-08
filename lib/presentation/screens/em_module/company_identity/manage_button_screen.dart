@@ -106,9 +106,11 @@ class _ManageWidgetState extends State<ManageWidget> {
     return Material(
       child: Column(
         children: [
-        widget.selectedIndex !=0 ? SizedBox(height: 57) :Padding(
+        widget.selectedIndex !=0
+            ? Container(height: 57) :
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p150,vertical: AppPadding.p20),
-            child: Row(
+            child:  Row(
               children: [
                 Text('ProHealth San Jose',
                   style: CompanyIdentityManageHeadings.customTextStyle(context),),

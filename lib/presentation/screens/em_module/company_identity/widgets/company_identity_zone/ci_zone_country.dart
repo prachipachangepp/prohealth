@@ -76,22 +76,37 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   AppStringEM.zones,
                   style: AllHRTableHeading.customTextStyle(context)
                 ),
-                Text(AppStringEM.name,textAlign: TextAlign.start,
-                    style: AllHRTableHeading.customTextStyle(context)),
-                Text(AppStringEM.zipCode,
-                    textAlign: TextAlign.start,
-                    style:AllHRTableHeading.customTextStyle(context)),
-                Text(
-                  AppStringEM.map,
-                  style: AllHRTableHeading.customTextStyle(context)
+                Padding(
+                  padding: const EdgeInsets.only(right: 50.0),
+                  child: Text(AppStringEM.name,textAlign: TextAlign.start,
+                      style: AllHRTableHeading.customTextStyle(context)),
                 ),
-                Text(
-                  AppStringEM.landmark,
-                  style: AllHRTableHeading.customTextStyle(context)
+                Padding(
+                  padding: const EdgeInsets.only(right: 30.0),
+                  child: Text(AppStringEM.zipCode,
+                      textAlign: TextAlign.start,
+                      style:AllHRTableHeading.customTextStyle(context)),
                 ),
-                Text(
-                  AppStringEM.actions,
-                  style: AllHRTableHeading.customTextStyle(context)
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: Text(
+                    AppStringEM.map,
+                    style: AllHRTableHeading.customTextStyle(context)
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 50.0),
+                  child: Text(
+                    AppStringEM.landmark,
+                    style: AllHRTableHeading.customTextStyle(context)
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: Text(
+                    AppStringEM.actions,
+                    style: AllHRTableHeading.customTextStyle(context)
+                  ),
                 ),
               ],
             ),

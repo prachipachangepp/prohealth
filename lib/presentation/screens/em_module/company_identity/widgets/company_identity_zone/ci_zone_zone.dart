@@ -133,14 +133,17 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                       decoration: TextDecoration.none,
                     )),
 
-                Text('Cities',
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    )),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30.0),
+                  child: Text('Cities',
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      )),
+                ),
                 Text(
                   'Actions',
                   style: GoogleFonts.firaSans(
