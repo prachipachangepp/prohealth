@@ -189,7 +189,7 @@ class _ManageWidgetState extends State<ManageWidget> {
             flex: 10,
             child: Stack(
               children:[
-                Container(height: MediaQuery.of(context).size.height/3,
+              widget.selectedIndex == 0 ? Offstage():  Container(height: MediaQuery.of(context).size.height/3,
                 decoration: BoxDecoration(color: Color(0xFFF2F9FC),
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
                     boxShadow: [ BoxShadow(
