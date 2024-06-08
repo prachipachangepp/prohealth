@@ -58,13 +58,13 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                           "License",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
+                            fontWeight: _selectedIndex == 0 ? FontWeight.w700 : FontWeight.normal,
+                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Color(0xff686464),
                           ),
                         ),
                         Container(
                           height: 2,
-                          width: 40,
+                          width: 45,
                           color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.transparent,
                         ),
                       ],
@@ -78,8 +78,8 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                           "ADR",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
+                              fontWeight: _selectedIndex == 1 ? FontWeight.w700 : FontWeight.normal,
+                            color: _selectedIndex == 1 ?  ColorManager.blueprime :Color(0xff686464)
                           ),
                         ),
                         Container(
@@ -98,13 +98,13 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                           "Medical Cost Reporter",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 2 ? ColorManager.blueprime : Colors.grey,
+                              fontWeight: _selectedIndex == 2 ? FontWeight.w700 : FontWeight.normal,
+                            color: _selectedIndex == 2 ? ColorManager.blueprime :Color(0xff686464)
                           ),
                         ),
                         Container(
                           height: 2,
-                          width: 60,
+                          width: 130,
                           color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
                         ),
                       ],
@@ -118,18 +118,19 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                           "Cap Report",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 3 ?  ColorManager.blueprime : Colors.grey,
+                            fontWeight: _selectedIndex == 3 ? FontWeight.w700 : FontWeight.normal,
+                            color: _selectedIndex == 3 ? ColorManager.blueprime : Color(0xff686464),
                           ),
                         ),
                         Container(
                           height: 2,
-                          width: 40,
-                          color: _selectedIndex == 3 ?  ColorManager.blueprime : Colors.transparent,
+                          width: 70,
+                          color: _selectedIndex == 3 ? ColorManager.blueprime : Colors.transparent,
                         ),
                       ],
                     ),
                   ),
+
                   InkWell(
                     onTap: () => _selectButton(4),
                     child: Column(
@@ -138,13 +139,13 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                           "Quarterly Balance Report",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: _selectedIndex == 4 ?  ColorManager.blueprime : Colors.grey,
+                              fontWeight: _selectedIndex == 4 ? FontWeight.w700 : FontWeight.normal,
+                            color: _selectedIndex == 4 ?  ColorManager.blueprime :Color(0xff686464)
                           ),
                         ),
                         Container(
                           height: 2,
-                          width: 60,
+                          width: 150,
                           color: _selectedIndex == 4 ?  ColorManager.blueprime: Colors.transparent,
                         ),
                       ],
@@ -156,7 +157,8 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
           ],
         ),
         Expanded(
-          child: NonScrollablePageView(
+          child:
+          NonScrollablePageView(
             controller: _tabPageController,
             onPageChanged: (index) {
               setState(() {
