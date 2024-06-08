@@ -490,7 +490,7 @@ class SMDesktop extends StatelessWidget {
                         ),
 
                         SizedBox(
-                          width: 10,
+                          width: 15,
                         ),
                         Obx(
                           () => Material(

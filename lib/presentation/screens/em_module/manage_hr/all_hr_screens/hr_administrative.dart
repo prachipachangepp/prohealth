@@ -228,13 +228,14 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                   },
                                 );
                               },
-                              icon: Icon(Icons.edit_outlined),
+                              icon: Icon(Icons.edit_outlined,size: 18,),
                               color: ColorManager.mediumgrey,
                             ),
                             IconButton(
                               onPressed: () {},
                               icon: Icon(
                                 Icons.delete_outline,
+                                size: 18,
                                 color: ColorManager.faintOrange,
                               ),
                             ),

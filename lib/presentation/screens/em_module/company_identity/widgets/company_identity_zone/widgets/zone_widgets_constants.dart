@@ -75,27 +75,29 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                     keyboardType: TextInputType.text,
                     text: widget.title1,
                   ),
-                  SizedBox(height: AppSize.s8),
+                  SizedBox(height: AppSize.s10),
                   SMTextFConst(
                     controller: widget.zipcodeController,
                     keyboardType: TextInputType.text,
                     text: widget.title2,
                   ),
-                  SizedBox(height: AppSize.s8),
+                  SizedBox(height: AppSize.s10),
                   SMTextFConst(
                     controller: widget.mapController,
                     keyboardType: TextInputType.text,
                     text: widget.title3,
                   ),
-                  if (widget.isLandmarkEnabled)
-                    Padding(
-                      padding: const EdgeInsets.only(top: AppSize.s8),
-                      child: SMTextFConst(
+                  SizedBox(height: AppSize.s10),
+                  // if (widget.isLandmarkEnabled)
+                  //   Padding(
+                  //     padding: const EdgeInsets.only(top: AppSize.s8),
+                  //     child:
+                      SMTextFConst(
                         controller: widget.landmarkController,
                         keyboardType: TextInputType.text,
                         text: widget.title4,
                       ),
-                    ),
+                    //),
                 ],
               ),
             ),
