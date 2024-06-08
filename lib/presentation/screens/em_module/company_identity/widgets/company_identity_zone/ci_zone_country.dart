@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/color.dart';
@@ -40,28 +43,27 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
       children: [
         CustomIconButtonConst(
           icon: Icons.add,
-            text: "Add", onPressed: (){
+            text: AppStringEM.add, onPressed: (){
             showDialog(context: context, builder: (context){
               return CIZoneAddPopup(
-
                   onSavePressed: (){},
-                title1: 'County Name',
+                title1: AppStringEM.countyName,
                 countynameController: countynameController,
-                title2: 'Zip Code',
+                title2: AppStringEM.zipCode,
                 zipcodeController: zipcodeController,
-                title3: 'Map',
+                title3: AppStringEM.map,
                 mapController: mapController,
-               title4: 'Landmark',
+               title4:AppStringEM.landmark,
                 landmarkController: landmarkController, );
             });
         }),
         SizedBox(
-          height: 5,
+          height: AppSize.s5,
         ),
         Container(
-          height: 30,
+          height: AppSize.s30,
           decoration: BoxDecoration(
-            color: Colors.grey,
+            color: ColorManager.fmediumgrey,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Padding(
@@ -69,66 +71,33 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                // Text(''),
                 Text(
-                  'Zones',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
+                  AppStringEM.zones,
+                  style: AllHRTableHeading.customTextStyle(context)
                 ),
-//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                Text('Name',textAlign: TextAlign.start,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    )),
-
-                Text('Zip Code',
+                Text(AppStringEM.name,textAlign: TextAlign.start,
+                    style: AllHRTableHeading.customTextStyle(context)),
+                Text(AppStringEM.zipCode,
                     textAlign: TextAlign.start,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    )),
+                    style:AllHRTableHeading.customTextStyle(context)),
                 Text(
-                  'Map',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
+                  AppStringEM.map,
+                  style: AllHRTableHeading.customTextStyle(context)
                 ),
                 Text(
-                  'Landmark',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
+                  AppStringEM.landmark,
+                  style: AllHRTableHeading.customTextStyle(context)
                 ),
                 Text(
-                  'Actions',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
+                  AppStringEM.actions,
+                  style: AllHRTableHeading.customTextStyle(context)
                 ),
               ],
             ),
           ),
         ),
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ),
         Expanded(
           child:
@@ -145,21 +114,21 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   children: [
                     // SizedBox(height: 5),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(AppPadding.p8),
                       child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: ColorManager.white,
                             borderRadius: BorderRadius.circular(4),
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xff000000).withOpacity(0.25),
+                                color: ColorManager.black.withOpacity(0.25),
                                 spreadRadius: 0,
                                 blurRadius: 4,
                                 offset: Offset(0, 2),
                               ),
                             ],
                           ),
-                          height: 55,
+                          height: AppSize.s56,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Row(
@@ -168,49 +137,29 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                               children: [
                                 Text(
                                    formattedSerialNumber,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.mediumgrey,
-                                    decoration: TextDecoration.none,
-                                  ),
+                                  style: AllHRTableData.customTextStyle(context)
                                 ),
                                 // Text(''),
                                 Text(
                                   "Santa Clara",textAlign:TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.mediumgrey,
-                                    decoration: TextDecoration.none,
-                                  ),
+                                  style: AllHRTableData.customTextStyle(context)
                                 ),
                                 Text(
                                   '94022,94023,94024,94025',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.mediumgrey,
-                                    decoration: TextDecoration.none,
-                                  ),
+                                  style: AllHRTableData.customTextStyle(context)
                                 ),
                                 Text(
                                   'View map',
                                   style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.medium,
                                     color: ColorManager.mediumgrey,
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
                                 Text(
                                   'Statue of Liberty',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
-                                    color: ColorManager.mediumgrey,
-                                    decoration: TextDecoration.none,
-                                  ),
+                                  style:AllHRTableData.customTextStyle(context)
                                 ),
                                 //  Text(''),
                                 Row(
@@ -220,13 +169,13 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                         return CIZoneAddPopup(
 
                                           onSavePressed: (){},
-                                          title1: 'County Name',
+                                          title1: AppStringEM.countyName,
                                           countynameController: countynameController,
-                                          title2: 'Zip Code',
+                                          title2: AppStringEM.zipCode,
                                           zipcodeController: zipcodeController,
-                                          title3: 'Map',
+                                          title3: AppStringEM.map,
                                           mapController: mapController,
-                                          title4: 'Landmark',
+                                          title4:AppStringEM.landmark,
                                           landmarkController: landmarkController, );
                                       });
                                     }, icon: Icon(Icons.edit_outlined,color: ColorManager.mediumgrey,)),
@@ -242,16 +191,16 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
               }),
         ),
         SizedBox(
-          height: 10,
+          height: AppSize.s10,
         ),
         Container(
-          height: 30,
+          height: AppPadding.p30,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: 20,
-                height: 20,
+                width: AppSize.s20,
+                height: AppSize.s20,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(6.39),
@@ -272,7 +221,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   iconSize: 20,
                 ),
               ),
-              SizedBox(width: 3),
+              SizedBox(width: AppSize.s3),
               for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
                 if (i == 1 ||
                     i == currentPage ||
@@ -284,9 +233,9 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                       });
                     },
                     child: Container(
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(left: 5, right: 5),
+                      width: AppSize.s20,
+                      height: AppSize.s20,
+                      margin: EdgeInsets.symmetric(horizontal: AppMargin.m5,),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,

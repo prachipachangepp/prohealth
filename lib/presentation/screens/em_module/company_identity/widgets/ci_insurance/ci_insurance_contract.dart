@@ -198,7 +198,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                             // });
                                           },
                                           icon: Icon(
-                                            Icons.edit,
+                                            Icons.edit_outlined,
                                             color: ColorManager.blueprime,
                                           )),
                                       IconButton(

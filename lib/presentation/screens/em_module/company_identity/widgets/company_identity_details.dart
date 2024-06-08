@@ -144,7 +144,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                     spreadRadius: 0,
                   ),
                 ],
-                color: Colors.white,
+                color: ColorManager.white,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

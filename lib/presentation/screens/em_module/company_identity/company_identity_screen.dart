@@ -156,26 +156,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
                         ],
                       ),
                     ),
-                    // Expanded(
-                    //   child: PageView(
-                    //     controller: _tabPageController,
-                    //     onPageChanged: (index) {
-                    //       setState(() {
-                    //         _selectedIndex = index;
-                    //       });
-                    //     },
-                    //     children: [
-                    //       // Page 1
-                    //       CiVisitScreen(),
-                    //       // Page 2
-                    //       CiOrgDocument(),
-                    //       // Page 3
-                    //       Container(
-                    //         color: Colors.pinkAccent,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+
                     ///Company Identity screen data code
                     ///API integarted code do not delete
                     //           Row(

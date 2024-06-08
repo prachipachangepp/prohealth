@@ -12,12 +12,14 @@ class Api {
     dio = Dio(BaseOptions(baseUrl: AppConfig.endpoint))
       ..interceptors.add(InterceptorsWrapper(onError: (error, handler) {
         if (error.response!.data["message"] == "Unauthorized") {
+
           print(error.response!.data);
           TokenManager.removeAccessToken();
           Navigator.pushNamedAndRemoveUntil(
               buildContext, LoginScreen.routeName, (route) => false);
         }
         if (error.response!.statusCode == 404) {
+          print(":::::");
           print(error.response!.data);
         }
         if (error.response!.statusCode == 401) {

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/policies_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../../../../app/resources/color.dart';
@@ -9,6 +10,7 @@ import '../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class CIPoliciesProcedure extends StatefulWidget {
   const CIPoliciesProcedure({super.key});
@@ -23,6 +25,8 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   late List<String> items;
   String? selectedValue;
   late List<Color> hrcontainerColors;
+  TextEditingController docNamecontroller = TextEditingController();
+  TextEditingController docIdController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -152,8 +156,23 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                         Center(
                           child: Row(
                             children: [
-                              Icon(Icons.mode_edit_outlined, size: 20,color: Color(0xff898989),),
-                              SizedBox(width: 3,),
+                              IconButton(onPressed: (){
+                                showDialog(context: context, builder: (context){
+                                  return ORGPoliciesEditPopup(
+                                    idDocController: docIdController,
+                                    nameDocController: docNamecontroller,
+                                    onSavePressed: (){},
+                                    child:  CICCDropdown(
+                                      initialValue: 'Corporate & Compliance Documents',
+                                      items: [
+                                        DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                      ],),);
+                                });
+                              },
+                                  icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)), SizedBox(width: 3,),
                               Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
                             ],
                           ),
