@@ -171,24 +171,38 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
               ],
             ),
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(height: 20,),
           Expanded(
             flex: 10,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 45),
-              child: PageView(
-                  controller: widget.managePageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    HealthEmpDoc(),
-                    CertificationEmpDoc(),
-                    EmplomentDoc(),
-                    ClinicalVerificationEmpDoc(),
-                    AcknowledgementEmpDoc(),
-                    CompansationEmpDoc(),
-                    PerformanceEmpDoc(),
-                  ]),
+            child: Stack(
+
+              children: [
+                Container(height: MediaQuery.of(context).size.height/3,
+                  decoration: BoxDecoration(color: Color(0xFFF2F9FC),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                      boxShadow: [ BoxShadow(
+                        color: ColorManager.faintGrey,
+                        blurRadius: 2,
+                        spreadRadius: -2,
+                        offset: Offset(0, -4),
+                      ),]
+                  ),),
+                Padding(
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 45,right: MediaQuery.of(context).size.width / 45,
+                    top: MediaQuery.of(context).size.width / 45),
+                child: PageView(
+                    controller: widget.managePageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: const [
+                      HealthEmpDoc(),
+                      CertificationEmpDoc(),
+                      EmplomentDoc(),
+                      ClinicalVerificationEmpDoc(),
+                      AcknowledgementEmpDoc(),
+                      CompansationEmpDoc(),
+                      PerformanceEmpDoc(),
+                    ]),
+              ),]
             ),
           ),
         ],
