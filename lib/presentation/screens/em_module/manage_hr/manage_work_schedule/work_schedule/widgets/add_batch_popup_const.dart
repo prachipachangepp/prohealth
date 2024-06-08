@@ -30,6 +30,10 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
         _selectedTime = picked;
         widget.controller1.text = _selectedTime.format(context);
       });
+    }else{
+      setState(() {
+        widget.controller1.text = _selectedTime.format(context);
+      });
     }
   }
   Future<void> _selectEndTime(BuildContext context) async {
@@ -41,7 +45,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
     if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;
-        widget.controller1.text = _selectedTime.format(context);
+        widget.controller2.text = _selectedTime.format(context);
       });
     }
   }
