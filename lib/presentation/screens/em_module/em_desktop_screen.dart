@@ -52,7 +52,7 @@ class SMDesktop extends StatelessWidget {
                 height: 460,
                 width: 500,
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                 // color: Colors.green,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12.0),
                     topRight: Radius.circular(12.0),
@@ -406,29 +406,32 @@ class SMDesktop extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 50,
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: CircleAvatar(
-                                radius: 12,
-                                backgroundColor: Colors.white,
-                                child: Image.asset("images/profile.png"),
-                              ),
-                            ),
-                            SizedBox(height: 2),
-                            Expanded(
-                              child: Text(
-                                "William Christiana ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 8,
-                                  fontFamily: 'FiraSans',
-                                  fontWeight: FontWeight.w400,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  backgroundColor: Colors.white,
+                                  child: Image.asset("images/profile.png"),
                                 ),
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 2),
+                              Expanded(
+                                child: Text(
+                                  "William Christiana",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: MediaQuery.of(context).size.width/130,
+                                    fontFamily: 'FiraSans',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

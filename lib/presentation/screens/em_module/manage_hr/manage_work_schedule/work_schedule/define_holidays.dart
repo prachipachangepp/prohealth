@@ -57,7 +57,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                 children: [
                   // Text(''),
                   Text(
-                    'Sr No',
+                    'Sr No.',
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -174,8 +174,8 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                         showDialog(context: context, builder: (BuildContext context){
                                           return AddHolidayPopup(controller: holidayNameController, onPressed: () {  },);
                                         });
-                                      }, icon: Icon(Icons.edit_outlined)),
-                                      IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
+                                      }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.mediumgrey,)),
+                                      IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                     ],
                                   )
                                 ],

@@ -135,13 +135,16 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                 children: [
                                   Row(
                                     children: [
-                                      InkWell(
-                                        onTap: () {
-                                        },
-                                        child: Image.asset(
-                                          'images/eye.png',
-                                          height: 15,
-                                          width: 22,
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        child: InkWell(
+                                          onTap: () {
+                                          },
+                                          child: Image.asset(
+                                            'images/eye.png',
+                                            height: 15,
+                                            width: 22,
+                                          ),
                                         ),
                                       ),
                                       Column(

@@ -130,9 +130,9 @@ class _CiMiscState extends State<CiMisc> {
                                 //  Text(''),
                                 Row(
                                   children: [
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.history,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (BuildContext context){
                                         return CCScreenEditPopup(idDocController: editidOfDocController,
@@ -155,8 +155,8 @@ class _CiMiscState extends State<CiMisc> {
                                             ],),
                                         );
                                       });
-                                    }, icon: Icon(Icons.edit_outlined,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
+                                    }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                   ],
                                 )
                               ],
