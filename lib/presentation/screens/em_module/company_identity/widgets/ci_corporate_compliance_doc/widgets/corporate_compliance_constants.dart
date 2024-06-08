@@ -65,13 +65,13 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                     keyboardType: TextInputType.text,
                     text: 'Name of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
+                  SizedBox(height: AppSize.s15),
                   SMTextFConst(
                     controller: widget.zipcodeController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
+                  SizedBox(height: AppSize.s15),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -87,7 +87,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                     widget.child
                   ],),
 
-                  SizedBox(height: AppSize.s12),
+                  SizedBox(height: AppSize.s15),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -107,7 +107,7 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p50),
               child: Center(
                 child: CustomElevatedButton(
                   width: AppSize.s105,
