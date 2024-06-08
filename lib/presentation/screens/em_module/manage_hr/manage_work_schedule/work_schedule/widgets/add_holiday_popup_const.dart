@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -19,6 +20,7 @@ class AddHolidayPopup extends StatefulWidget {
 class _AddHolidayPopupState extends State<AddHolidayPopup> {
   String? _expiryType;
   TextEditingController birthdayController = TextEditingController();
+  final DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +87,18 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                         height: 30,
                         child: TextFormField(
                           controller: birthdayController,
+                          style: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey),
                           decoration: InputDecoration(
                             hintText: 'dd-mm-yyyy',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,
+                              //decoration: TextDecoration.none,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(width: 1),
@@ -99,13 +111,12 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                           onTap: () async {
                             DateTime? date = await showDatePicker(
                               context: context,
-                              initialDate: DateTime.now(),
+                              initialDate:_selectedDate,
                               firstDate: DateTime(1100),
                               lastDate: DateTime.now(),
                             );
                             if (date != null) {
-                              birthdayController.text =
-                              date.toLocal().toString().split(' ')[0];
+                              birthdayController.text = DateFormat('dd-mm-yyyy').format(_selectedDate);
                               field.didChange(date.toLocal().toString().split(' ')[0]);
                             }
                           },

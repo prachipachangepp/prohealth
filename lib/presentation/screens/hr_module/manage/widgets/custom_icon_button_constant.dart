@@ -294,6 +294,7 @@ class CustomTitleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: GestureDetector(
         onTap: onPressed,
         child: Container(

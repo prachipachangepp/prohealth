@@ -15,13 +15,14 @@ class BottomBarRow extends StatelessWidget {
               horizontal: MediaQuery.of(context).size.width / 120),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ///text
               Text('#2031ABC01BA',
                   style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black,
+                    color: ColorManager.grey,
                     decoration: TextDecoration.none,
                   )),
 
@@ -45,9 +46,9 @@ class BottomBarRow extends StatelessWidget {
                     '198.168.1.231',
                     style: TextStyle(
                       fontFamily: 'FiraSans',
-                      fontSize: 13,
+                      fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black,
+                      color: ColorManager.grey,
                       decoration: TextDecoration.none,
                     ),
                   ),
@@ -56,6 +57,7 @@ class BottomBarRow extends StatelessWidget {
 
               ///logo
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
                     'images/powered_logo.png',
@@ -66,9 +68,9 @@ class BottomBarRow extends StatelessWidget {
                     'Powered by',
                     style: TextStyle(
                       fontFamily: 'FiraSans',
-                      fontSize: 13,
+                      fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black,
+                      color: ColorManager.grey,
                       decoration: TextDecoration.none,
                     ),
                   ),

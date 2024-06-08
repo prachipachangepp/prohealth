@@ -205,41 +205,80 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
           height: 30,
         ),
         Expanded(
-            child: Stack(
-             children: [
-               _selectedIndex != 0 ?Offstage():
-              Container(
-              height: MediaQuery.of(context).size.height / 3.5,
-              decoration: BoxDecoration(
-                  color: Color(0xFFF2F9FC),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: ColorManager.faintGrey,
-                      blurRadius: 2,
-                      spreadRadius: -2,
-                      offset: Offset(0, -4),
-                    ),
-                  ]),
-            ),
-            NonScrollablePageView(
-              controller: _tabPageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              children: [
-                // Page 1
-                CICorporateCompilianceDocument(),
-                CIVendorContract(),
-                CIPoliciesProcedure()
-              ],
-            ),
-          ],
-        )),
+          child: Stack(
+            children: [
+              _selectedIndex != 2
+                  ? Container(
+                height: MediaQuery.of(context).size.height / 3.5,
+                decoration: BoxDecoration(
+                    color: Color(0xFFF2F9FC),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorManager.faintGrey,
+                        blurRadius: 2,
+                        spreadRadius: -2,
+                        offset: Offset(0, -4),
+                      ),
+                    ]),
+              )
+                  : Offstage(),
+              NonScrollablePageView(
+                controller: _tabPageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                children: [
+                  // Page 1
+                  CICorporateCompilianceDocument(),
+                  CIVendorContract(),
+                  CIPoliciesProcedure()
+                ],
+              ),
+            ],
+          ),
+        )
+
+        // Expanded(
+        //     child: Stack(
+        //      children: [
+        //        _selectedIndex != 2 ? Offstage():
+        //       Container(
+        //       height: MediaQuery.of(context).size.height / 3.5,
+        //       decoration: BoxDecoration(
+        //           color: Color(0xFFF2F9FC),
+        //           borderRadius: BorderRadius.only(
+        //               topLeft: Radius.circular(20),
+        //               topRight: Radius.circular(20)),
+        //           boxShadow: [
+        //             BoxShadow(
+        //               color: ColorManager.faintGrey,
+        //               blurRadius: 2,
+        //               spreadRadius: -2,
+        //               offset: Offset(0, -4),
+        //             ),
+        //           ]),
+        //     ),
+        //     NonScrollablePageView(
+        //       controller: _tabPageController,
+        //       onPageChanged: (index) {
+        //         setState(() {
+        //           _selectedIndex = index;
+        //         });
+        //       },
+        //       children: [
+        //         // Page 1
+        //         CICorporateCompilianceDocument(),
+        //         CIVendorContract(),
+        //         CIPoliciesProcedure()
+        //       ],
+        //     ),
+        //   ],
+        // )),
       ],
     );
   }

@@ -59,6 +59,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: SingleChildScrollView(
         child: Column(
           children: [
