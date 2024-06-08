@@ -129,12 +129,12 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                 //  Text(''),
                                 Row(
                                   children: [
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.access_time_sharp,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.print,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.history,color: ColorManager.blueprime,)),
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (BuildContext context){
-                                        return CiVendorContractEditPopup(idDocController: editidOfDocController,
+                                        return CCScreenEditPopup(idDocController: editidOfDocController,
                                           nameDocController: editnameOfDocController, onSavePressed: () {  },
                                           child:  CICCDropdown(
                                             initialValue: 'Vendor Contract',

@@ -190,7 +190,7 @@ class _CompansationEmpDocState extends State<CompansationEmpDoc> {
                                                 DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                               ],),);
                                         });
-                                      }, icon: Icon(Icons.edit)),
+                                      }, icon: Icon(Icons.edit_outlined)),
                                       IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,)),
                                     ],
                                   )

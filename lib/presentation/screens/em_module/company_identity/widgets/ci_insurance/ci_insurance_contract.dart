@@ -177,13 +177,13 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                       IconButton(
                                           onPressed: () {},
                                           icon: Icon(
-                                            Icons.access_time_sharp,
+                                            Icons.history,
                                             color: ColorManager.blueprime,
                                           )),
                                       IconButton(
                                           onPressed: () {},
                                           icon: Icon(
-                                            Icons.print,
+                                            Icons.print_outlined,
                                             color: ColorManager.blueprime,
                                           )),
                                       IconButton(

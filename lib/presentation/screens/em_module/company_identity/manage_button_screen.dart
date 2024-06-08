@@ -106,7 +106,7 @@ class _ManageWidgetState extends State<ManageWidget> {
     return Material(
       child: Column(
         children: [
-          Padding(
+        widget.selectedIndex !=0 ? SizedBox(height: 57) :Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p150,vertical: AppPadding.p20),
             child: Row(
               children: [

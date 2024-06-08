@@ -87,6 +87,12 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                           controller: birthdayController,
                           decoration: InputDecoration(
                             hintText: 'dd-mm-yyyy',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,
+                              //decoration: TextDecoration.none,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(width: 1),
