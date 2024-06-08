@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/visit_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -94,7 +95,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
           height: AppSize.s30,
           margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
           decoration: BoxDecoration(
-            color: ColorManager.grey,
+            color: ColorManager.fmediumgrey,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -103,7 +104,13 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               Center(
                   child: Text(
                     AppString.srNo,
-                    style: RegisterTableHead.customTextStyle(context),
+                    // style: RegisterTableHead.customTextStyle(context),
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.white
+                      // color: isSelected ? Colors.white : Colors.black,
+                    ),
                   )),
               // Expanded(
               //     child: SizedBox(width: AppSize.s16,
@@ -111,15 +118,35 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               Center(
                   child: Text(
                     AppString.visit,
-                    style: RegisterTableHead.customTextStyle(context),
+                    style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.white
+                      // color: isSelected ? Colors.white : Colors.black,
+                    ),
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
               Center(child:
-                Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
+                Text(AppString.eligibleClinician,
+    style: GoogleFonts.firaSans(
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+    color: ColorManager.white
+    // color: isSelected ? Colors.white : Colors.black,
+    ),),),
+                  // style: RegisterTableHead.customTextStyle(context),),),
               Center(
                   child: Text(
                     AppString.actions,
-                    style: RegisterTableHead.customTextStyle(context),
-                  )),
+                    style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.white
+                      // color: isSelected ? Colors.white : Colors.black,
+                    ),
+                    // style: RegisterTableHead.customTextStyle(context),
+                  )
+              ),
             ],
           ),
         ),
@@ -159,14 +186,26 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                         Center(
                             child: Text(
                                formattedSerialNumber,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
+                              // style: ThemeManagerDark.customTextStyle(context),
                               textAlign: TextAlign.start,
                             )),
 
                         Center(
                             child: Text(
                               AppString.pincode,
-                              style: ThemeManagerDark.customTextStyle(context),
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff686464)
+                                // color: isSelected ? Colors.white : Colors.black,
+                              ),
+                              // style: ThemeManagerDark.customTextStyle(context),
                             )),
                         Center(
                           child: Row(
@@ -175,14 +214,31 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 height:30,
                                 width: 30,
                                 color: Color(0xffF37F81),
-                                child: Center(child: Text("PT",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),)),),
+                                child: Center(child: Text(
+                                  "PT",
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xff686464)
+                                    // color: isSelected ? Colors.white : Colors.black,
+                                  ),
+                                )),),
                               SizedBox(width: 3,),
                               Container(
                                 height:30,
                                 width: 30,
                                 color: Color(0xfFE7E8E6),
                                 child: Center(
-                                    child: Text("PTO",style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xff686464),)))
+                                    child: Text(
+                                        "PTO",
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xff686464)
+                                        // color: isSelected ? Colors.white : Colors.black,
+                                      ),
+                                    )
+                                )
                                 ,
                               )],
                           ),

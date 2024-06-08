@@ -60,7 +60,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
           height: AppSize.s30,
           margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
           decoration: BoxDecoration(
-            color: ColorManager.grey,
+            color: ColorManager.fmediumgrey,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(

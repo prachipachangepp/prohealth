@@ -13,8 +13,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/home",
-      routes: RoutesManager().getRoutes(token: signedIn),
+      home:  SMDesktop(),
+      // initialRoute: "/home",
+      // routes: RoutesManager().getRoutes(token: signedIn),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -59,9 +60,9 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       children: [
         Container(
           height: AppSize.s30,
-          margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
+          margin: EdgeInsets.symmetric(horizontal: 40),
           decoration: BoxDecoration(
-            color: ColorManager.grey,
+              color: ColorManager.fmediumgrey,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -70,17 +71,32 @@ class _CICcdLicenseState extends State<CICcdLicense> {
               Center(
                   child: Text(
                     AppString.srNo,
-                    style: RegisterTableHead.customTextStyle(context),
+                   style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                   color: ColorManager.white
+                   )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
               Center(
                   child: Text(
                     AppString.name,
-                    style: RegisterTableHead.customTextStyle(context),
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
               Center(
                   child: Text(
                     AppString.expiry,
-                    style: RegisterTableHead.customTextStyle(context),
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
               // Expanded(
               //     child: SizedBox(width: AppSize.s16,
@@ -88,14 +104,24 @@ class _CICcdLicenseState extends State<CICcdLicense> {
               Center(
                   child: Text(
                     AppString.reminderthershold,
-                    style: RegisterTableHead.customTextStyle(context),
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
               // Center(child:
               // Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
               Center(
                   child: Text(
                     AppString.actions,
-                    style: RegisterTableHead.customTextStyle(context),
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
             ],
           ),

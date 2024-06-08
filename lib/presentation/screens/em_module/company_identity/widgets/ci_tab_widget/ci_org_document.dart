@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_policies&procedure.dart';
@@ -45,11 +46,12 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
               elevation: 4,
               borderRadius: BorderRadius.all(Radius.circular(20)),
               child: Container(
-                width: 600,
+                width: 670,
                 height: 30,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: ColorManager.blueprime),
+                    color: ColorManager.blueprime
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -57,7 +59,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                       onTap: () => _selectButton(0),
                       child: Container(
                         height: 30,
-                        width: 180,
+                        width: 210,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           color: _selectedIndex == 0
@@ -67,9 +69,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                         child: Center(
                           child: Text(
                             "Corporate & Compilance Document",
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
                               color: _selectedIndex == 0
                                   ? ColorManager.blueprime
                                   : ColorManager.white,
@@ -92,9 +94,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                         child: Center(
                           child: Text(
                             "Vendor Contract",
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
                               color: _selectedIndex == 1
                                   ? ColorManager.blueprime
                                   : ColorManager.white,
@@ -117,9 +119,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                         child: Center(
                           child: Text(
                             "Policies & Procedure",
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
                               color: _selectedIndex == 2
                                   ? ColorManager.blueprime
                                   : ColorManager.white,

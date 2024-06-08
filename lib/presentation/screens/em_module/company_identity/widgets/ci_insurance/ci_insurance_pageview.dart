@@ -29,12 +29,14 @@ class CiPageview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Column(children: [
         Padding(
           padding: const EdgeInsets.all(8),
           child: Container(
             height: 30,
             width: MediaQuery.of(context).size.width / mediaQueryWidth,
+            color: Colors.transparent,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: nameList

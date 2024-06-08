@@ -18,11 +18,11 @@ class ThemeManager {
 
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 150;
+    double fontSize = 10;
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xFF2A2827),
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w700,
     );
   }
 }
@@ -95,7 +95,7 @@ class ThemeManageWhitebold {
 
 class RegisterTableHead {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 100;
+    double fontSize = 12;
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Colors.white,

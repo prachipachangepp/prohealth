@@ -16,6 +16,39 @@ class AddBatchPopup extends StatefulWidget {
 }
 
 class _AddBatchPopupState extends State<AddBatchPopup> {
+  TimeOfDay _selectedTime = TimeOfDay.now();
+
+ // TextEditingController _timeController = TextEditingController();
+  Future<void> _selectStartTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      initialEntryMode: TimePickerEntryMode.input,
+      context: context,
+      initialTime: _selectedTime,
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+        widget.controller1.text = _selectedTime.format(context);
+      });
+    }else{
+      setState(() {
+        widget.controller1.text = _selectedTime.format(context);
+      });
+    }
+  }
+  Future<void> _selectEndTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      initialEntryMode: TimePickerEntryMode.input,
+      context: context,
+      initialTime: _selectedTime,
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+        widget.controller2.text = _selectedTime.format(context);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -50,15 +83,20 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
+                    onChange:  ()=>_selectStartTime(context),
                     controller: widget.controller1,
                     keyboardType: TextInputType.text,
                     text: 'Start Time',
+                    icon: Icon(Icons.timer_outlined,color: ColorManager.blueprime,),
+
                   ),
 
                   SMTextFConst(
+                    onChange: ()=>_selectEndTime(context),
                     controller: widget.controller2,
                     keyboardType: TextInputType.text,
                     text: 'End Time',
+                    icon: Icon(Icons.timer_outlined,color: ColorManager.blueprime,),
                   ),
                 ],
               ),
