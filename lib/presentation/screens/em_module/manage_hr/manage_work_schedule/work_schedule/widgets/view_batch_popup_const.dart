@@ -65,9 +65,8 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          // Text(''),
                           Text(
-                            'Sr No',
+                            'Sr No.',
                             style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,

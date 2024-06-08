@@ -16,11 +16,14 @@ class _CiTempaletsState extends State<CiTempalets> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          CustomIconButtonConst(
-              icon: Icons.add,
-              text: "Add Doctype", onPressed: (){
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: CustomIconButtonConst(
+                icon: Icons.add,
+                text: "Add Doctype", onPressed: (){
 
-          }),
+            }),
+          ),
         ],),
     );
   }

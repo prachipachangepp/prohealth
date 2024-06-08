@@ -155,7 +155,8 @@ class _CIVendorContractState extends State<CIVendorContract> {
           ],
         ),
         Expanded(
-          child: NonScrollablePageView(
+          child:
+          NonScrollablePageView(
             controller: _tabPageController,
             onPageChanged: (index) {
               setState(() {
@@ -170,6 +171,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
               CICcdQuarteryBalanceReport()
             ],
           ),
+
         ),
       ],
     );

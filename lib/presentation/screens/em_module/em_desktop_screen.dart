@@ -157,27 +157,23 @@ class SMDesktop extends StatelessWidget {
                               Image.asset("images/mike.png"),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      'Ask',
+                                  Text(
+                                    'Ask',
+                                    style: GoogleFonts.jost(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        decoration: TextDecoration.none,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  Text("KLIP",
                                       style: GoogleFonts.jost(
-                                          color: Colors.white,
-                                          fontSize: 10,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.w200),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text("KLIP",
-                                        style: GoogleFonts.jost(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          decoration: TextDecoration.none,
-                                        )),
-                                  ),
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        decoration: TextDecoration.none,
+                                      )),
                                 ],
                               ),
                             ],
@@ -328,11 +324,14 @@ class SMDesktop extends StatelessWidget {
                               child: Obx(
                                 () => Center(
                                   child: DropdownButton<String>(
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      size: MediaQuery.of(context).size.width /
-                                          89,
-                                      color: Colors.white,
+                                    icon: Padding(
+                                      padding: const EdgeInsets.only(left: 15),
+                                      child: Icon(
+                                        Icons.arrow_drop_down,
+                                        size: MediaQuery.of(context).size.width /
+                                            89,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                     dropdownColor: ColorManager.white,
                                     style: TextStyle(
@@ -375,6 +374,7 @@ class SMDesktop extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            SizedBox(width: MediaQuery.of(context).size.width/70,),
                             InkWell(
                               splashColor: Colors.white, // Splash color
                               onTap: () {},
