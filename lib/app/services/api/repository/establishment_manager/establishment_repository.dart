@@ -7,6 +7,7 @@ class EstablishmentManagerRepository {
   static String uploadLogo = "uploadLogo";
   static String companyOffice = "/company-office";
   static String add = "/add";
+  static String document = "/document";
 
   static String companyAll(){
     return "$company";
@@ -32,5 +33,8 @@ class EstablishmentManagerRepository {
     return "$companyOffice";
   }
 
+  static String orgDocumentGet(){
+    return "$document";
+  }
 
 }

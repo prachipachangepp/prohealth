@@ -13,11 +13,17 @@ import '../../../../../../../widgets/widgets/login_screen/widgets/child_containe
 import '../../../../../responsive_screen_sm.dart';
 import '../../../../../widgets/button_constant.dart';
 
-class RoleManagerClinician extends StatelessWidget {
+class RoleManagerClinician extends StatefulWidget {
   const RoleManagerClinician({super.key});
 
   @override
+  State<RoleManagerClinician> createState() => _RoleManagerClinicianState();
+}
+
+class _RoleManagerClinicianState extends State<RoleManagerClinician> {
+  @override
   Widget build(BuildContext context) {
+    int selectedContainerIndex = 0;
     return Container(
      // color: Colors.pink,
       child: SingleChildScrollView(
@@ -154,9 +160,11 @@ class RoleManagerClinician extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CIRoleContainerConstant(
-                  'Referral Resource Manager',
-                  AssetImage("images/r_r_m.png"),
+                 CIRoleContainerConstant(
+                    'Referral Resource Manager',
+                    AssetImage("images/r_r_m.png"),
+
+
                 ),
                 SizedBox(
                   width: MediaQuery.of(context)
@@ -166,16 +174,14 @@ class RoleManagerClinician extends StatelessWidget {
                 ),
                 InkWell(
                     onTap: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) =>
-                      //         const HomeScreenHRM()));
+                      setState(() {
+                        selectedContainerIndex = 0;
+                      });
                     },
-                    child: const CIRoleContainerConstant(
-                      'Business Intelligence & Reports',
-                      AssetImage("images/b_i_r.png"),
-                    )),
+                    child:  CIRoleContainerConstant(
+                     'Business Intelligence & Reports',
+                        AssetImage("images/b_i_r.png"),
+                      )),
                 SizedBox(
                   width: MediaQuery.of(context)
                       .size
@@ -183,8 +189,8 @@ class RoleManagerClinician extends StatelessWidget {
                       20,
                 ),
                 CIRoleContainerConstant(
-                  'Intake & Scheduler',
-                  AssetImage("images/i_s.png"),
+
+                   'Intake & Scheduler',   AssetImage("images/i_s.png"),
                 ),
                 SizedBox(
                   width: MediaQuery.of(context)
@@ -193,8 +199,8 @@ class RoleManagerClinician extends StatelessWidget {
                       20,
                 ),
                 CIRoleContainerConstant(
-                  'Rehab',
-                  AssetImage("images/rehab.png"),
+
+                     'Rehab', AssetImage("images/rehab.png"),
                 ),
               ],
             ),
@@ -203,10 +209,14 @@ class RoleManagerClinician extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CIRoleContainerConstant(
-                  'Home Care',
-                  AssetImage("images/h_c.png"),
-                ),
+                 InkWell(
+                   onTap: (){
+
+                   },
+                   child: CIRoleContainerConstant(
+                      'Home Care',  AssetImage("images/h_c.png"),
+                                   ),
+                 ),
                 SizedBox(
                   width: MediaQuery.of(context)
                       .size
@@ -221,9 +231,8 @@ class RoleManagerClinician extends StatelessWidget {
                               builder: (context) =>
                                   ResponsiveScreenEM()));
                     },
-                    child: const CIRoleContainerConstant(
-                      'Establishment Manager',
-                      AssetImage("images/e_m.png"),
+                    child:  CIRoleContainerConstant(
+                       'Establishment Manager',  AssetImage("images/e_m.png"),
                     )),
                 SizedBox(
                   width: MediaQuery.of(context)
@@ -233,15 +242,12 @@ class RoleManagerClinician extends StatelessWidget {
                 ),
                 InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                              const HomeScreenHRM()));
+                      setState(() {
+
+                      });
                     },
-                    child: const CIRoleContainerConstant(
-                      'Human Resource Manager',
-                      AssetImage("images/h_r_m.png"),
+                    child:  CIRoleContainerConstant(
+                        'Human Resource Manager',  AssetImage("images/h_r_m.png"),
                     )),
                 SizedBox(
                   width: MediaQuery.of(context)
@@ -250,8 +256,7 @@ class RoleManagerClinician extends StatelessWidget {
                       20,
                 ),
                 CIRoleContainerConstant(
-                  'Home Health EMR',
-                  AssetImage("images/h_h_emr.png"),
+                    'Home Health EMR',  AssetImage("images/h_h_emr.png"),
                 ),
               ],
             ),
@@ -260,9 +265,8 @@ class RoleManagerClinician extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CIRoleContainerConstant(
-                  'Hospice EMR',
-                  AssetImage("images/h_emr.png"),
+                 CIRoleContainerConstant(
+                  'Hospice EMR',  AssetImage("images/h_emr.png"),
                 ),
                 SizedBox(
                   width: MediaQuery.of(context)
@@ -271,8 +275,8 @@ class RoleManagerClinician extends StatelessWidget {
                       20,
                 ),
                 CIRoleContainerConstant(
-                  'Finance',
-                  AssetImage("images/finance.png"),
+
+                    'Finance',  AssetImage("images/finance.png"),
                 ),
                 SizedBox(
                   width: MediaQuery.of(context)
@@ -288,9 +292,8 @@ class RoleManagerClinician extends StatelessWidget {
                       //         builder: (context) =>
                       //         const HomeScreenHRM()));
                     },
-                    child: const CIRoleContainerConstant(
-                      'Other',
-                      AssetImage("images/other.png"),
+                    child:  CIRoleContainerConstant(
+                       'Other',  AssetImage("images/other.png"),
                     )),
                 SizedBox(width:  MediaQuery.of(context)
                     .size

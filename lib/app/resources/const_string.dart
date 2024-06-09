@@ -208,6 +208,9 @@ class AppString {
   static const String administration = "Administration";
   static const String reminderthershold= "Reminder Threshold";
 
+  /// Api 404 Error
+ static const String dataNotFound= "Data Not Found!";
+
 }
 
 ///mobile screen constant
