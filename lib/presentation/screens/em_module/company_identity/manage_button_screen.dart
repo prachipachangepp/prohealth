@@ -110,7 +110,7 @@ class _ManageWidgetState extends State<ManageWidget> {
         widget.selectedIndex !=0
             ? Container(height: 57) :
         Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p150,vertical: AppPadding.p20),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p160,vertical: AppPadding.p20),
             child:  Row(
               children: [
                 Text('ProHealth San Jose',
@@ -119,14 +119,19 @@ class _ManageWidgetState extends State<ManageWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 35),
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(children: [
-                  IconButton(icon: Icon(Icons.arrow_back_outlined,size: 15),color: ColorManager.mediumgrey, onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> SMDesktop()));
-                  }, ),
+                  InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> SMDesktop()));
+                      },
+                      child: Icon(Icons.arrow_back,size: 15,color: ColorManager.mediumgrey,)),
+                  // IconButton(icon: Icon(Icons.arrow_back_outlined,size: 15),color: ColorManager.mediumgrey, onPressed: () {
+                  //   Navigator.push(context, MaterialPageRoute(builder: (context)=> SMDesktop()));
+                  // }, ),
                   Text(
                     'Go Back',
                     style: GoogleFonts.firaSans(
@@ -137,13 +142,13 @@ class _ManageWidgetState extends State<ManageWidget> {
                     ),
                   ),
                 ],),
-                SizedBox(width: MediaQuery.of(context).size.width/30,),
+                SizedBox(width: MediaQuery.of(context).size.width/24,),
                 Material(
                   elevation: 4,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     height: 28,
-                    width: MediaQuery.of(context).size.width / 1.2,
+                    width: MediaQuery.of(context).size.width / 1.23,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: ColorManager.blueprime,
@@ -157,7 +162,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                             (entry) => InkWell(
                               child: Container(
                                 height: 30,
-                                width: MediaQuery.of(context).size.width / 8.42,
+                                width: MediaQuery.of(context).size.width / 8.62,
                                 padding: EdgeInsets.symmetric(vertical: 6),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
@@ -168,7 +173,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                                 child: Text(
                                   entry.value,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: GoogleFonts.firaSans(
                                     fontSize: 12,
                                     fontWeight: FontWeightManager.semiBold,
                                     color: widget.selectedIndex == entry.key
@@ -187,7 +192,7 @@ class _ManageWidgetState extends State<ManageWidget> {
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 30,),
           Expanded(
             flex: 10,
             child: Stack(
@@ -196,15 +201,15 @@ class _ManageWidgetState extends State<ManageWidget> {
                 decoration: BoxDecoration(color: Color(0xFFF2F9FC),
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
                     boxShadow: [ BoxShadow(
-                  color: ColorManager.faintGrey,
+                  color: ColorManager.mediumgrey.withOpacity(0.5),
                   blurRadius: 2,
-                  spreadRadius: -2,
-                  offset: Offset(0, -4),
+                  spreadRadius: -3,
+                  offset: Offset(0, -6),
                 ),]
                 ),),
                 Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 45),
+                    horizontal: MediaQuery.of(context).size.width / 45,vertical: 5),
                 child: PageView(
                     controller: widget.managePageController,
                     physics: NeverScrollableScrollPhysics(),

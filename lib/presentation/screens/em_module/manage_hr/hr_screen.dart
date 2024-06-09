@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -90,7 +91,6 @@ class HrWidget extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 9,
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-
                               borderRadius: BorderRadius.circular(20),
                               color: selectedIndex == entry.key
                                   ? Colors.white
@@ -99,7 +99,7 @@ class HrWidget extends StatelessWidget {
                             child: Text(
                               entry.value,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: GoogleFonts.firaSans(
                                 fontSize: 12,
                                 fontWeight: selectedIndex == entry.key
                                 ? FontWeightManager.bold

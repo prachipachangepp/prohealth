@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_administration.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_clinician.dart';
@@ -44,7 +45,7 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 400,
+              width: 410,
               height: 30,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -55,7 +56,7 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                           AppString.clinician,
-                          style: TextStyle(
+                          style:  GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 0?
                             FontWeightManager.bold
@@ -80,7 +81,7 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                          AppString.sales,
-                          style: TextStyle(
+                          style:  GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 1?
                             FontWeightManager.bold
@@ -105,7 +106,7 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                           AppString.administration,
-                          style:TextStyle(
+                          style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 2?
                             FontWeightManager.bold

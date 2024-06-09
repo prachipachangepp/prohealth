@@ -82,7 +82,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                       style: AllHRTableHeading.customTextStyle(context)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
+                  padding: const EdgeInsets.only(right: 45.0),
                   child: Text(AppStringEM.zipCode,
                       textAlign: TextAlign.start,
                       style:AllHRTableHeading.customTextStyle(context)),
@@ -95,7 +95,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 50.0),
+                  padding: const EdgeInsets.only(right: 30.0),
                   child: Text(
                     AppStringEM.landmark,
                     style: AllHRTableHeading.customTextStyle(context)
