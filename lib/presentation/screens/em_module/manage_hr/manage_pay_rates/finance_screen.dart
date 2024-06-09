@@ -231,6 +231,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               fontWeight: FontWeightManager.bold,
                                               color: ColorManager.mediumgrey
                                             ),),
+                                            SizedBox(height: 2,),
                                             Container(
                                               height: 30,
                                               width: 354,
@@ -275,7 +276,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 15,
+                                              height: 17,
                                             ),
                                             Text('Zone',
                                               style: GoogleFonts.firaSans(
@@ -283,6 +284,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                   fontWeight: FontWeightManager.bold,
                                                   color: ColorManager.mediumgrey
                                               ),),
+                                            SizedBox(height: 2,),
                                             Container(
                                               height: 30,
                                               width: 354,
@@ -327,7 +329,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 15,
+                                              height: 17,
                                             ),
                                             SMTextFConst(
                                               controller: emailController,
@@ -499,6 +501,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                           fontWeight: FontWeightManager.bold,
                                                           color: ColorManager.fmediumgrey
                                                       ),),
+                                                    SizedBox(height: 2,),
                                                     Container(
                                                       height: 30,
                                                       width: 354,
@@ -543,7 +546,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                      height: 15,
+                                                      height: 17,
                                                     ),
                                                     Text('Zone',
                                                       style: GoogleFonts.firaSans(
@@ -551,6 +554,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                           fontWeight: FontWeightManager.bold,
                                                           color: ColorManager.mediumgrey
                                                       ),),
+                                                    SizedBox(height: 2,),
                                                     Container(
                                                       height: 30,
                                                       width: 354,

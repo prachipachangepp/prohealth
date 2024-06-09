@@ -431,6 +431,8 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     ),
                     controller: birthdayController,
                     decoration: InputDecoration(
+                      focusColor: ColorManager.mediumgrey,
+                      hoverColor: ColorManager.mediumgrey,
                       hintText: 'dd-mm-yyyy',
                       hintStyle: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
@@ -476,12 +478,12 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
       ),
       Spacer(),
       Padding(
-        padding: const EdgeInsets.only(bottom: AppPadding.p24),
+        padding: const EdgeInsets.only(bottom: AppPadding.p10),
         child: Center(
           child: CustomElevatedButton(
             width: AppSize.s105,
             height: AppSize.s30,
-            text: AppStringEM.save,
+            text: AppStringEM.submit,
             onPressed: () {
               widget.onSavePressed();
               Navigator.pop(context);

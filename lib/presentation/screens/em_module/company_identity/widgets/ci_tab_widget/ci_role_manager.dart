@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_role_rules.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_roles.dart';
@@ -70,7 +71,7 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                       child: Center(
                         child: Text(
                           "Role",
-                          style: TextStyle(
+                          style:  GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 0?
                             FontWeightManager.bold
@@ -97,7 +98,7 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                       child: Center(
                         child: Text(
                           "Role Rules",
-                          style: TextStyle(
+                          style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 1?
                             FontWeightManager.bold

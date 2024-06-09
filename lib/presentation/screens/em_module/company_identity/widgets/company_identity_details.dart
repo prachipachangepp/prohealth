@@ -32,14 +32,15 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width / 15),
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width / 12.4,
+        right: MediaQuery.of(context).size.width / 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppPadding.p14),
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
               child: Row(
                 children: [
                   Text(
@@ -78,13 +79,13 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         keyboardType: TextInputType.text,
                         text: AppStringEM.officename,
                       ),
-                      SizedBox(height: AppSize.s4),
+                      SizedBox(height: AppSize.s10),
                       SMTextFConst(
                         controller: secNumberController,
                         keyboardType: TextInputType.number,
                         text: AppStringEM.secNum,
                       ),
-                      SizedBox(height: AppSize.s4),
+                      SizedBox(height: AppSize.s10),
                       SMTextFConst(
                         controller: addressController,
                         keyboardType: TextInputType.text,
@@ -100,13 +101,13 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                         keyboardType: TextInputType.number,
                         text: AppStringEM.primNum,
                       ),
-                      SizedBox(height: AppSize.s4),
+                      SizedBox(height: AppSize.s10),
                       SMTextFConst(
                         controller: altNumController,
                         keyboardType: TextInputType.number,
                         text: AppStringEM.alternatephone,
                       ),
-                      SizedBox(height: AppSize.s4),
+                      SizedBox(height: AppSize.s10),
                       SMTextFConst(
                         controller: emailController,
                         keyboardType: TextInputType.text,
@@ -119,7 +120,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
             ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppPadding.p14),
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
               child: Row(
                 children: [
                   Text(
@@ -197,9 +198,9 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             text: '',
                           ),
                           CIDetailsDropdown(
-                            initialValue: 'Home Health',
+                            initialValue: 'Home Care',
                               items: [
-                            DropdownMenuItem(value: 'Home Health', child: Text('Home Health')),
+                            DropdownMenuItem(value: 'Home Care', child: Text('Home Care')),
                             DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
                             DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
                             DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),

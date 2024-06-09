@@ -312,12 +312,13 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                         },
                                       );
                                     },
-                                    icon: Icon(Icons.edit_outlined),
+                                    icon: Icon(Icons.edit_outlined,size: 18,),
                                     color: ColorManager.mediumgrey,
                                   ),
                                   IconButton(
                                     onPressed: () {},
                                     icon: Icon(
+                                      size: 18,
                                       Icons.delete_outline,
                                       color: Color(0xffF6928A),
                                     ),
