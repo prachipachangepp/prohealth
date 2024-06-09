@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
@@ -17,23 +18,22 @@ Future<List<CompanyModel>> companyAllApi(BuildContext context) async {
         .get(path: EstablishmentManagerRepository.companyOfficeGet());
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
-      for(var item in response.data){
+      for (var item in response.data) {
         itemsList.add(
           CompanyModel(
-            companyId: item['company_id'],
-            name: item['name'],
-            address: item['address'],
-              officeName: item['head_office_id']
-          ),
+              companyId: item['company_id'],
+              name: item['name'],
+              address: item['address'],
+              officeName: item['head_office_id']),
         );
 
         //itemsList.add(companyModel);
       }
       print("ResponseList:::::${itemsList}");
-        // CompanyModel(
-        //   name: response.data['Name'],
-        //   address: response.data['address'],
-        //   );
+      // CompanyModel(
+      //   name: response.data['Name'],
+      //   address: response.data['address'],
+      //   );
     } else {
       print('Api Error');
       //return itemsList;
@@ -53,8 +53,7 @@ Future<CompanyModel> companyByIdApi(BuildContext context, int compantId) async {
         path: EstablishmentManagerRepository.companyById(companyId: compantId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Company by id ::: ${response}");
-      return CompanyModel(
-          companyId: response.data['company_id']);
+      return CompanyModel(companyId: response.data['company_id']);
     } else {
       return CompanyModel();
     }
@@ -71,8 +70,7 @@ Future<CompanyModel> companyDetailsApi(BuildContext context, int id) async {
         path: EstablishmentManagerRepository.companyDetails(companyId: id));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Company Details id ::: ${response}");
-      return CompanyModel(
-          companyId: response.data['company_id']);
+      return CompanyModel(companyId: response.data['company_id']);
     } else {
       return CompanyModel();
     }
@@ -81,8 +79,6 @@ Future<CompanyModel> companyDetailsApi(BuildContext context, int id) async {
     return CompanyModel();
   }
 }
-
-
 
 /// Get upload company logo
 Future<ApiData> uploadCompanyLogoApi(
@@ -116,24 +112,23 @@ Future<ApiData> uploadCompanyLogoApi(
   }
 }
 
-
 /// Post add new office
 
-Future<ApiData> addNewOffice(BuildContext context,String name,address,email,primaryPhone,secondaryPhone) async {
+Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
+    primaryPhone, secondaryPhone) async {
   try {
-    var response = await Api(context).post(
-        path: EstablishmentManagerRepository.addNewOffice(),
-        data: {
-          'name': name,
-          'address': address,
-          'email':email,
-          'primary_phone':primaryPhone,
-          'secondary_phone':secondaryPhone,
-          'company_id':12,
-          'primary_fax':"",
-          'secondary_fax':"",
-          'office_id':""
-        });
+    var response = await Api(context)
+        .post(path: EstablishmentManagerRepository.addNewOffice(), data: {
+      'name': name,
+      'address': address,
+      'email': email,
+      'primary_phone': primaryPhone,
+      'secondary_phone': secondaryPhone,
+      'company_id': 12,
+      'primary_fax': "",
+      'secondary_fax': "",
+      'office_id': ""
+    });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Saved request");
@@ -153,5 +148,33 @@ Future<ApiData> addNewOffice(BuildContext context,String name,address,email,prim
     print("Error 2");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Company vendor
+
+Future<List<ManageInsuranceVendorData>> companyVendorGet(
+    BuildContext context) async {
+  List<ManageInsuranceVendorData> itemsList = [];
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.companyOfficeServiceGet());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Companyy vendor:::::${itemsList}");
+      for (var item in response.data) {
+        itemsList.add(ManageInsuranceVendorData(
+            sucess: true,
+            message: response.statusMessage!,
+            vendorName: item['medicare_provider_id']));
+      }
+      print("Companyy vendor data:::::${itemsList}");
+    } else {
+      print('Api Error');
+      //return itemsList;
+    }
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
   }
 }
