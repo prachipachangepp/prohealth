@@ -7,7 +7,8 @@ class EstablishmentManagerRepository {
   static String uploadLogo = "uploadLogo";
   static String companyOffice = "/company-office";
   static String add = "/add";
-  static String document = "/document/addDocument";
+  static String document = "/document";
+  static String addDocument = "/document/addDocument";
 
   static String companyAll(){
     return "$company";
@@ -37,7 +38,7 @@ class EstablishmentManagerRepository {
     return "$document";
   }
   static String addOrgDocumentPost(){
-    return "$document";
+    return "$addDocument";
   }
 
 }
