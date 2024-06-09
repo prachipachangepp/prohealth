@@ -45,7 +45,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 530,
+              width: 570,
               height: 30,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -130,7 +130,6 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                       ],
                     ),
                   ),
-
                   InkWell(
                     onTap: () => _selectButton(4),
                     child: Column(
