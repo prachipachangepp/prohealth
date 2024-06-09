@@ -724,7 +724,7 @@ class SMDesktop extends StatelessWidget {
                         //   ),
                         // ),
                         SizedBox(
-                          width: 10,
+                          width: 15,
                         ),
                         Obx(
                           () => CustomTitleButton(
@@ -740,6 +740,9 @@ class SMDesktop extends StatelessWidget {
                             text: 'Manage',
                             isSelected: myController.selectedIndex.value == 6,
                           ),
+                        ),
+                        SizedBox(
+                          width: 15,
                         ),
                         Obx(
                           () => CustomTitleButton(
