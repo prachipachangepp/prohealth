@@ -417,6 +417,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                 decoration: TextDecoration.none,
               ),
             ),
+            SizedBox(height: 4,),
             FormField<String>(
               builder: (FormFieldState<String> field) {
                 return SizedBox(

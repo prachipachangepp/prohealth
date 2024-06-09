@@ -165,6 +165,20 @@ class _ManageWidgetState extends State<ManageWidget> {
                                 width: MediaQuery.of(context).size.width / 8.62,
                                 padding: EdgeInsets.symmetric(vertical: 6),
                                 decoration: BoxDecoration(
+                                     boxShadow:[ widget.selectedIndex == entry.key ?
+                                    BoxShadow(
+                                      color: Color(0xff000000).withOpacity(0.1),
+                                      spreadRadius: 2,
+                                      blurRadius: 6,
+                                      offset: Offset(0, 4),
+                                    )
+                                         :  BoxShadow(
+                                       color: Colors.transparent,
+                                       spreadRadius: 0,
+                                       blurRadius: 0,
+                                       offset: Offset(0, 0),
+                                     ) ,
+                                  ],
                                   borderRadius: BorderRadius.circular(20),
                                   color: widget.selectedIndex == entry.key
                                       ? Colors.white
@@ -221,19 +235,19 @@ class _ManageWidgetState extends State<ManageWidget> {
                           selectButton: _selectButton,
                           nameList: ['County', 'Zone'],
                           screenList: [CIZoneCountry(), CIZoneZone()],
-                          mediaQueryWidth: 3.5),
+                          mediaQueryWidth: 1),
                      CiPageview(
                          managePageController: _managePageController,
                          selectedIndex: _selectedIndex,
                          selectButton: _selectButton,
                          nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
                          screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
-                         mediaQueryWidth: 2),
+                         mediaQueryWidth: 1),
                       CiPageview(
                         managePageController: _managePageController,
                         selectedIndex: _selectedIndex,
                         selectButton: _selectButton,
-                        mediaQueryWidth: 3,
+                        mediaQueryWidth: 1,
                         nameList: ['Vendor', 'Contract'],
                         screenList: [CiInsuranceVendor(), CiInsuranceContract()],
                       ),
@@ -241,7 +255,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                         managePageController: _managePageController,
                         selectedIndex: _selectedIndex,
                         selectButton: _selectButton,
-                        mediaQueryWidth: 2,
+                        mediaQueryWidth: 1,
                         nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
                         screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
                       ),

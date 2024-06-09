@@ -31,51 +31,107 @@ class CiPageview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: Column(children: [
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8),
+          padding:  EdgeInsets.only(top: 12,bottom:12,
+              right: MediaQuery.of(context).size.width / 85,
+          left: MediaQuery.of(context).size.width / 8),
           child: Container(
             height: 45,
             width: MediaQuery.of(context).size.width / mediaQueryWidth,
-            color: Colors.transparent,
+            color: Colors.black,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: nameList
-                  .asMap()
-                  .entries
-                  .map(
-                    (entry) => InkWell(
-                      //splashColor: Colors.white,
-                  highlightColor: Color(0xFFF2F9FC),
-                  hoverColor: Color(0xFFF2F9FC),
-                  child: Container(
-                    height: 45,
-                    width: MediaQuery.of(context).size.width / 10,
-                    child: Column(
-                      children: [
-                        Text(
-                          entry.value,
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s12,
-                            fontWeight: selectedIndex == entry.key
-                                ? FontWeightManager.bold
-                            : FontWeightManager.regular,
-                            color:selectedIndex == entry.key
-                                ? ColorManager.blueprime
-                                : ColorManager.mediumgrey,
+              children: [
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ...nameList.asMap().entries.map(
+                          (entry) => InkWell(
+                        highlightColor: Color(0xFFF2F9FC),
+                        hoverColor: Color(0xFFF2F9FC),
+                        child: Container(
+                          color: Colors.red,
+                          height: 45,
+                          width: MediaQuery.of(context).size.width / 10,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                entry.value,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: selectedIndex == entry.key
+                                      ? FontWeightManager.bold
+                                      : FontWeightManager.regular,
+                                  color: selectedIndex == entry.key
+                                      ? ColorManager.blueprime
+                                      : ColorManager.mediumgrey,
+                                ),
+                              ),
+                              selectedIndex == entry.key
+                                  ? Divider(color: ColorManager.blueprime, thickness: 2)
+                                  : Offstage(),
+                            ],
                           ),
                         ),
-                        selectedIndex == entry.key ?
-                        Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
-                      ],
-                    ),
-                  ),
-                  onTap: () => selectButton(entry.key),
+                        onTap: () => selectButton(entry.key),
+                      ),
+                    ).toList(),
+                  ],
                 ),
-              )
-                  .toList(),
+                SizedBox(width: MediaQuery.of(context).size.width / 4),
+                Container(
+                  color: Colors.pink,
+                  height: 40,
+                  width: 100,
+                ),
+
+              ],
             ),
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: nameList
+            //       .asMap()
+            //       .entries
+            //       .map(
+            //         (entry) => InkWell(
+            //           //splashColor: Colors.white,
+            //       highlightColor: Color(0xFFF2F9FC),
+            //       hoverColor: Color(0xFFF2F9FC),
+            //       child: Container(
+            //         color: Colors.red,
+            //         height: 45,
+            //         width: MediaQuery.of(context).size.width / 10,
+            //         child: Column(
+            //           children: [
+            //             Text(
+            //               entry.value,
+            //               textAlign: TextAlign.center,
+            //               style: GoogleFonts.firaSans(
+            //                 fontSize: FontSize.s12,
+            //                 fontWeight: selectedIndex == entry.key
+            //                     ? FontWeightManager.bold
+            //                 : FontWeightManager.regular,
+            //                 color:selectedIndex == entry.key
+            //                     ? ColorManager.blueprime
+            //                     : ColorManager.mediumgrey,
+            //               ),
+            //             ),
+            //             selectedIndex == entry.key ?
+            //             Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+            //           ],
+            //         ),
+            //       ),
+            //       onTap: () => selectButton(entry.key),
+            //     ),
+            //   )
+            //       .toList(),
+            // ),
           ),
         ),
         Expanded(
