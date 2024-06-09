@@ -30,6 +30,8 @@ class AppStringEM{
   // static const String landmark = "Landmark";
   // static const String landmark = "Landmark";
   ///all hr screen
+  static const String cancel = 'Cancel';
+  static const String delete = 'Delete';
   ///hr screen
   static const String srno = 'Sr No.';
   static const String employee = 'Employee Type';
