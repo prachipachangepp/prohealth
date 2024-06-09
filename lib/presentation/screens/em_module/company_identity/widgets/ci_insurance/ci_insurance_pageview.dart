@@ -64,7 +64,6 @@ class CiPageview extends StatelessWidget {
                             color:selectedIndex == entry.key
                                 ? ColorManager.blueprime
                                 : ColorManager.mediumgrey,
-
                           ),
                         ),
                         selectedIndex == entry.key ?
