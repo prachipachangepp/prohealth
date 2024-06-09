@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -108,102 +109,117 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
           ),
           Expanded(
             child:
-            ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  // int serialNumber =
-                  //     index + 1 + (currentPage - 1) * itemsPerPage;
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xff000000).withOpacity(0.25),
-                                  spreadRadius: 0,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            height: 50,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    "01",
-                                    // formattedSerialNumber,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                  // Text(''),
-                                  Text(
-                                    "Covid Test",textAlign:TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Not Applicable",textAlign:TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Not Applicable",textAlign:TextAlign.center,
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                  //  Text(''),
-                                  Row(
-                                    children: [
-                                      IconButton(onPressed: (){
-                                           showDialog(context: context, builder: (BuildContext context){
-                                             return EmpDocEditPopupDatePicker(idDocController: idDocController, nameDocController: nameDocController, onSavePressed: () {  },
-                                               child:  CICCDropdown(
-                                                 initialValue: 'Health',
-                                                 items: [
-                                                   DropdownMenuItem(value: 'Health', child: Text('Health')),
-                                                   DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                                   DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                                   DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                 ],),);
-                                           });
-                                      }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.mediumgrey,)),
-                                      IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            )),
-                      ),
-                    ],
+            FutureBuilder<List<CiOrgDocumentCC>>(
+              future: orgDocumentGet(context),
+              builder: (context,snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
                   );
-                }),
+                }
+                if(snapshot.hasData){
+                  return ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        // int serialNumber =
+                        //     index + 1 + (currentPage - 1) * itemsPerPage;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // SizedBox(height: 5),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(4),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0xff000000).withOpacity(0.25),
+                                        spreadRadius: 0,
+                                        blurRadius: 4,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  height: 50,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          "01",
+                                          // formattedSerialNumber,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        // Text(''),
+                                        Text(
+                                          snapshot.data![index].name.toString(),textAlign:TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        Text(
+                                          snapshot.data![index].expiry.toString(),textAlign:TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        Text(
+                                          snapshot.data![index].reminderThreshold.toString(),textAlign:TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        //  Text(''),
+                                        Row(
+                                          children: [
+                                            IconButton(onPressed: (){
+                                              showDialog(context: context, builder: (BuildContext context){
+                                                return EmpDocEditPopupDatePicker(idDocController: idDocController, nameDocController: nameDocController, onSavePressed: () {  },
+                                                  child:  CICCDropdown(
+                                                    initialValue: 'Health',
+                                                    items: [
+                                                      DropdownMenuItem(value: 'Health', child: Text('Health')),
+                                                      DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                      DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                      DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                                    ],),);
+                                              });
+                                            }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.mediumgrey,)),
+                                            IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        );
+                      });
+                }
+                return Offstage();
+              }
+            ),
           ),
           SizedBox(
             height: 10,
