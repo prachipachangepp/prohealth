@@ -242,7 +242,7 @@ class CCScreenEditPopup extends StatefulWidget {
 
 class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
   String? _expiryType;
-  TextEditingController birthdayController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
   final DateTime _selectedDate = DateTime.now();
 
   @override
@@ -429,7 +429,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                       color: ColorManager.mediumgrey,
                       //decoration: TextDecoration.none,
                     ),
-                    controller: birthdayController,
+                    controller: calenderController,
                     decoration: InputDecoration(
                       focusColor: ColorManager.mediumgrey,
                       hoverColor: ColorManager.mediumgrey,
@@ -443,7 +443,15 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
 
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(width: 1),
+                        borderSide: BorderSide(width: 1,color: ColorManager.mediumgrey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(width: 1, color:ColorManager.mediumgrey), // Set focused border color to red
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(width: 1, color: ColorManager.mediumgrey), // Set enabled border color to red
                       ),
                       contentPadding: EdgeInsets.symmetric(horizontal: 16),
                       suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime),
@@ -458,9 +466,12 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                         lastDate: DateTime.now(),
                       );
                       if (date != null) {
-                        birthdayController.text =
-                        date.toLocal().toString().split(' ')[0];
-                        field.didChange(date.toLocal().toString().split(' ')[0]);
+                        String formattedDate = DateFormat('dd-MM-yyyy').format(date);
+                        calenderController.text = formattedDate;
+                        field.didChange(formattedDate);
+                        // birthdayController.text =
+                        // date.toLocal().toString().split(' ')[0];
+                        // field.didChange(date.toLocal().toString().split(' ')[0]);
                       }
                     },
                     validator: (value) {

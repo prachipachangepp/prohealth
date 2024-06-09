@@ -35,7 +35,7 @@ class CiPageview extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8),
           child: Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / mediaQueryWidth,
             color: Colors.transparent,
             child: Row(
@@ -49,7 +49,7 @@ class CiPageview extends StatelessWidget {
                   highlightColor: Color(0xFFF2F9FC),
                   hoverColor: Color(0xFFF2F9FC),
                   child: Container(
-                    height: 40,
+                    height: 45,
                     width: MediaQuery.of(context).size.width / 10,
                     child: Column(
                       children: [
