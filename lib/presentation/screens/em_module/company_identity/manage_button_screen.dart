@@ -107,9 +107,9 @@ class _ManageWidgetState extends State<ManageWidget> {
       color: Colors.white,
       child: Column(
         children: [
-        widget.selectedIndex !=0
-            ? Container(height: 57) :
-        Padding(
+          widget.selectedIndex !=0
+              ? Container(height: 57) :
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p160,vertical: AppPadding.p20),
             child:  Row(
               children: [
@@ -160,45 +160,31 @@ class _ManageWidgetState extends State<ManageWidget> {
                           .entries
                           .map(
                             (entry) => InkWell(
-                              child: Container(
-                                height: 30,
-                                width: MediaQuery.of(context).size.width / 8.62,
-                                padding: EdgeInsets.symmetric(vertical: 6),
-                                decoration: BoxDecoration(
-                                     boxShadow:[ widget.selectedIndex == entry.key ?
-                                    BoxShadow(
-                                      color: Color(0xff000000).withOpacity(0.1),
-                                      spreadRadius: 2,
-                                      blurRadius: 6,
-                                      offset: Offset(0, 4),
-                                    )
-                                         :  BoxShadow(
-                                       color: Colors.transparent,
-                                       spreadRadius: 0,
-                                       blurRadius: 0,
-                                       offset: Offset(0, 0),
-                                     ) ,
-                                  ],
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: widget.selectedIndex == entry.key
-                                      ? Colors.white
-                                      : null,
-                                ),
-                                child: Text(
-                                  entry.value,
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeightManager.semiBold,
-                                    color: widget.selectedIndex == entry.key
-                                        ? ColorManager.mediumgrey
-                                        : Colors.white,
-                                  ),
-                                ),
-                              ),
-                              onTap: () => widget.selectButton(entry.key),
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: widget.selectedIndex == entry.key
+                                  ? Colors.white
+                                  : null,
                             ),
-                          )
+                            child: Text(
+                              entry.value,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: widget.selectedIndex == entry.key
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => widget.selectButton(entry.key),
+                        ),
+                      )
                           .toList(),
                     ),
                   ),
@@ -210,59 +196,59 @@ class _ManageWidgetState extends State<ManageWidget> {
           Expanded(
             flex: 10,
             child: Stack(
-              children:[
-              widget.selectedIndex == 0 ? Offstage():  Container(height: MediaQuery.of(context).size.height/3,
-                decoration: BoxDecoration(color: Color(0xFFF2F9FC),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
-                    boxShadow: [ BoxShadow(
-                  color: ColorManager.mediumgrey.withOpacity(0.5),
-                  blurRadius: 2,
-                  spreadRadius: -3,
-                  offset: Offset(0, -6),
-                ),]
-                ),),
-                Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 45,vertical: 5),
-                child: PageView(
-                    controller: widget.managePageController,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      CIDetailsScreen(),
-                      CiPageview(
-                          managePageController: _managePageController,
-                          selectedIndex: _selectedIndex,
-                          selectButton: _selectButton,
-                          nameList: ['County', 'Zone'],
-                          screenList: [CIZoneCountry(), CIZoneZone()],
-                          mediaQueryWidth: 1),
-                     CiPageview(
-                         managePageController: _managePageController,
-                         selectedIndex: _selectedIndex,
-                         selectButton: _selectButton,
-                         nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
-                         screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
-                         mediaQueryWidth: 1),
-                      CiPageview(
-                        managePageController: _managePageController,
-                        selectedIndex: _selectedIndex,
-                        selectButton: _selectButton,
-                        mediaQueryWidth: 1,
-                        nameList: ['Vendor', 'Contract'],
-                        screenList: [CiInsuranceVendor(), CiInsuranceContract()],
-                      ),
-                      CiPageview(
-                        managePageController: _managePageController,
-                        selectedIndex: _selectedIndex,
-                        selectButton: _selectButton,
-                        mediaQueryWidth: 1,
-                        nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
-                        screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
-                      ),
-                      CiPoliciesAndProcedures(),
-                      CiTempalets()
-                    ]),
-              ),]
+                children:[
+                  widget.selectedIndex == 0 ? Offstage():  Container(height: MediaQuery.of(context).size.height/3,
+                    decoration: BoxDecoration(color: Color(0xFFF2F9FC),
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                        boxShadow: [ BoxShadow(
+                          color: ColorManager.mediumgrey.withOpacity(0.5),
+                          blurRadius: 2,
+                          spreadRadius: -3,
+                          offset: Offset(0, -6),
+                        ),]
+                    ),),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width / 45,vertical: 5),
+                    child: PageView(
+                        controller: widget.managePageController,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          CIDetailsScreen(),
+                          CiPageview(
+                              managePageController: _managePageController,
+                              selectedIndex: _selectedIndex,
+                              selectButton: _selectButton,
+                              nameList: ['County', 'Zone'],
+                              screenList: [CIZoneCountry(), CIZoneZone()],
+                              mediaQueryWidth: 3.5),
+                          CiPageview(
+                              managePageController: _managePageController,
+                              selectedIndex: _selectedIndex,
+                              selectButton: _selectButton,
+                              nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
+                              screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
+                              mediaQueryWidth: 2),
+                          CiPageview(
+                            managePageController: _managePageController,
+                            selectedIndex: _selectedIndex,
+                            selectButton: _selectButton,
+                            mediaQueryWidth: 3,
+                            nameList: ['Vendor', 'Contract'],
+                            screenList: [CiInsuranceVendor(), CiInsuranceContract()],
+                          ),
+                          CiPageview(
+                            managePageController: _managePageController,
+                            selectedIndex: _selectedIndex,
+                            selectButton: _selectButton,
+                            mediaQueryWidth: 2,
+                            nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
+                            screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
+                          ),
+                          CiPoliciesAndProcedures(),
+                          CiTempalets()
+                        ]),
+                  ),]
             ),
           ),
         ],
