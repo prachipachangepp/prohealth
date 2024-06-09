@@ -140,64 +140,67 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 ),
               ),
             ),
-
             ///button
             Align(
                 alignment: Alignment.bottomRight,
-                child: Container(
-                  height: 30,
-                  width: 150,
-                  child: CustomIconButton(
-                      icon: CupertinoIcons.plus,
-                      text: "Add Document",
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AddOrgDocButton(
-                                idDocController: docIdController,
-                                nameDocController: docNamecontroller,
-                                onSavePressed: () {},
-                                child: CICCDropdown(
-                                  initialValue:
-                                      'Corporate & Compliance Documents',
-                                  items: [
-                                    DropdownMenuItem(
-                                        value:
-                                            'Corporate & Compliance Documents',
-                                        child: Text(
-                                            'Corporate & Compliance Documents')),
-                                    DropdownMenuItem(
-                                        value: 'HCO Number      254612',
-                                        child: Text('HCO Number  254612')),
-                                    DropdownMenuItem(
-                                        value: 'Medicare ID      MPID123',
-                                        child: Text('Medicare ID  MPID123')),
-                                    DropdownMenuItem(
-                                        value: 'NPI Number     1234567890',
-                                        child: Text('NPI Number 1234567890')),
-                                  ],
-                                ),
-                                child1: CICCDropdown(
-                                  initialValue: 'Licenses',
-                                  items: [
-                                    DropdownMenuItem(
-                                        value: 'Licenses',
-                                        child: Text('Licenses')),
-                                    DropdownMenuItem(
-                                        value: 'HCO Number      254612',
-                                        child: Text('HCO Number  254612')),
-                                    DropdownMenuItem(
-                                        value: 'Medicare ID      MPID123',
-                                        child: Text('Medicare ID  MPID123')),
-                                    DropdownMenuItem(
-                                        value: 'NPI Number     1234567890',
-                                        child: Text('NPI Number 1234567890')),
-                                  ],
-                                ),
-                              );
-                            });
-                      }),
+                child: Material(
+                  elevation: 3,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    height: 30,
+                    width: 150,
+                    child: CustomIconButton(
+                        icon: CupertinoIcons.plus,
+                        text: "Add Document",
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AddOrgDocButton(
+                                  idDocController: docIdController,
+                                  nameDocController: docNamecontroller,
+                                  onSavePressed: () {},
+                                  child: CICCDropdown(
+                                    initialValue:
+                                        'Corporate & Compliance Documents',
+                                    items: [
+                                      DropdownMenuItem(
+                                          value:
+                                              'Corporate & Compliance Documents',
+                                          child: Text(
+                                              'Corporate & Compliance Documents')),
+                                      DropdownMenuItem(
+                                          value: 'HCO Number      254612',
+                                          child: Text('HCO Number  254612')),
+                                      DropdownMenuItem(
+                                          value: 'Medicare ID      MPID123',
+                                          child: Text('Medicare ID  MPID123')),
+                                      DropdownMenuItem(
+                                          value: 'NPI Number     1234567890',
+                                          child: Text('NPI Number 1234567890')),
+                                    ],
+                                  ),
+                                  child1: CICCDropdown(
+                                    initialValue: 'Licenses',
+                                    items: [
+                                      DropdownMenuItem(
+                                          value: 'Licenses',
+                                          child: Text('Licenses')),
+                                      DropdownMenuItem(
+                                          value: 'HCO Number      254612',
+                                          child: Text('HCO Number  254612')),
+                                      DropdownMenuItem(
+                                          value: 'Medicare ID      MPID123',
+                                          child: Text('Medicare ID  MPID123')),
+                                      DropdownMenuItem(
+                                          value: 'NPI Number     1234567890',
+                                          child: Text('NPI Number 1234567890')),
+                                    ],
+                                  ),
+                                );
+                              });
+                        }),
+                  ),
                 )),
           ],
         ),
@@ -242,7 +245,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
             ],
           ),
         )
-
         // Expanded(
         //     child: Stack(
         //      children: [

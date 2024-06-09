@@ -18,7 +18,8 @@ class RoleManagerSales extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
     child: SingleChildScrollView(
-      child: Column(
+      child:
+      Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -229,6 +230,7 @@ class RoleManagerSales extends StatelessWidget {
           ),
         ],
       ),
-    ),);
+    ),
+    );
   }
 }

@@ -7,7 +7,7 @@ import '../../../../../../../../../app/resources/font_manager.dart';
 class CIRoleContainerConstant extends StatelessWidget {
   final String text;
   final ImageProvider imageProvider;
-  const CIRoleContainerConstant(this.text, this.imageProvider);
+  const CIRoleContainerConstant(this.text, this.imageProvider,);
 
   @override
   Widget build(BuildContext context) {
