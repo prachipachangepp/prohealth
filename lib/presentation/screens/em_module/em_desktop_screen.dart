@@ -505,7 +505,9 @@ class SMDesktop extends StatelessWidget {
                               items: [
                                 DropdownMenuItem<String>(
                                   value: 'Select a module',
-                                  child: Text('Select a module',style: GoogleFonts.firaSans(
+                                  child: Text('Select a module',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.firaSans(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,
                                      // color: ColorManager.white
@@ -515,8 +517,10 @@ class SMDesktop extends StatelessWidget {
                                 DropdownMenuItem<String>(
                                   value: 'HR',
                                   child: Text('HR',
+                                    textAlign: TextAlign.center,
                                     style: GoogleFonts.firaSans(
-                                      fontSize: MediaQuery.of(context).size.width / 120,
+
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w700,
                                       // color: isSelected ? Colors.white : Colors.black,
                                     ),),
@@ -536,6 +540,7 @@ class SMDesktop extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('All from HR',
+                                      textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
@@ -558,6 +563,7 @@ class SMDesktop extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('Work Schedule',
+                                      textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -581,6 +587,7 @@ class SMDesktop extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('Employee Documents',
+                                      textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -602,6 +609,7 @@ class SMDesktop extends StatelessWidget {
                                 DropdownMenuItem<String>(
                                   value: 'Finance',
                                   child: Text('Finance',
+                                    textAlign: TextAlign.center,
                                     style: GoogleFonts.firaSans(
                                       fontSize: MediaQuery.of(context).size.width / 120,
                                       fontWeight: FontWeight.w700,
@@ -620,9 +628,11 @@ class SMDesktop extends StatelessWidget {
                                 ),
                                 DropdownMenuItem<String>(
                                   value: 'Pay Rates',
+
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 20),
                                     child: Text('Pay Rates',
+                                      textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -819,7 +829,7 @@ class CustomDropdownButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return
       Container(
-        padding: EdgeInsets.only(left:8),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         height: height,
         width: width,
         decoration: BoxDecoration(
@@ -842,6 +852,7 @@ class CustomDropdownButton extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     item.value ?? '',
+                    textAlign: TextAlign.center,
                      style: GoogleFonts.firaSans(
                     fontSize: 12,
                        fontWeight: FontWeight.w700,
@@ -853,7 +864,7 @@ class CustomDropdownButton extends StatelessWidget {
                 );
               }).toList();
             },
-            dropdownColor: Colors.white, // Set the dropdown menu background color
+            dropdownColor: Colors.white,
             // style: GoogleFonts.firaSans(
             //   fontSize: 12,
             //   fontWeight: FontWeight.w700,

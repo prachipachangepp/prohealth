@@ -3,32 +3,31 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
-import '../../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import '../../../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
-class CiCcdCapReports extends StatefulWidget {
-  const CiCcdCapReports({super.key});
+class VendorContractLicense extends StatefulWidget {
+  const VendorContractLicense({super.key});
 
   @override
-  State<CiCcdCapReports> createState() => _CiCcdCapReportsState();
+  State<VendorContractLicense> createState() => _VendorContractLicenseState();
 }
 
-class _CiCcdCapReportsState extends State<CiCcdCapReports> {
+class _VendorContractLicenseState extends State<VendorContractLicense> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
-  String? selectedValue;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
 
+  String? selectedValue;
   late List<Color> hrcontainerColors;
   @override
   void initState() {
@@ -61,7 +60,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
       children: [
         Container(
           height: AppSize.s30,
-          margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
+          margin: EdgeInsets.symmetric(horizontal: 40),
           decoration: BoxDecoration(
             color: ColorManager.fmediumgrey,
             borderRadius: BorderRadius.circular(12),
@@ -71,33 +70,58 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
             children: [
               Center(
                   child: Text(
-                    AppString.srNo,
-                    style: RegisterTableHead.customTextStyle(context),
+                      AppString.srNo,
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
               Center(
                   child: Text(
-                    AppString.name,
-                    style: RegisterTableHead.customTextStyle(context),
+                      AppString.name,
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
               Center(
                   child: Text(
-                    AppString.expiry,
-                    style: RegisterTableHead.customTextStyle(context),
+                      AppString.expiry,
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
               // Expanded(
               //     child: SizedBox(width: AppSize.s16,
               //     )),
               Center(
                   child: Text(
-                    AppString.reminderthershold,
-                    style: RegisterTableHead.customTextStyle(context),
+                      AppString.reminderthershold,
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
               // Center(child:
               // Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
               Center(
                   child: Text(
-                    AppString.actions,
-                    style: RegisterTableHead.customTextStyle(context),
+                      AppString.actions,
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      )
+                    // style: RegisterTableHead.customTextStyle(context),
                   )),
             ],
           ),
