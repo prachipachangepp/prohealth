@@ -453,13 +453,12 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     onTap: () async {
                       DateTime? date = await showDatePicker(
                         context: context,
-                        initialDate: DateTime.now(),
+                        initialDate: _selectedDate,
                         firstDate: DateTime(1100),
                         lastDate: DateTime.now(),
                       );
                       if (date != null) {
-                        birthdayController.text =
-                        date.toLocal().toString().split(' ')[0];
+                        birthdayController.text = DateFormat('dd-mm-yyyy').format(_selectedDate);
                         field.didChange(date.toLocal().toString().split(' ')[0]);
                       }
                     },
