@@ -6,8 +6,10 @@ class CompanyModel {
   final String? address;
   final String? officeName;
   final int? companyId;
+  final bool? sucess;
+  final String? message;
 
-  CompanyModel({this.officeName,
+  CompanyModel({ this.sucess,  this.message, this.officeName,
     this.companyId,
     this.name,
     this.address,

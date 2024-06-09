@@ -9,6 +9,8 @@ import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
+import '../../../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
+import '../../../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
@@ -34,6 +36,7 @@ class _CICcdADRState extends State<CICcdADR> {
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
+    orgDocumentGet(context);
     _loadColors();
   }
   void _loadColors() async {
@@ -59,7 +62,7 @@ class _CICcdADRState extends State<CICcdADR> {
           height: AppSize.s30,
           margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
           decoration: BoxDecoration(
-            color: ColorManager.grey,
+            color: ColorManager.fmediumgrey,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -100,116 +103,131 @@ class _CICcdADRState extends State<CICcdADR> {
         ),
         SizedBox(height: AppSize.s10,),
         Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: currentPageItems.length,
-            itemBuilder: (context, index) {
-              int serialNumber =
-                  index + 1 + (currentPage - 1) * itemsPerPage;
-              String formattedSerialNumber =
-              serialNumber.toString().padLeft(2, '0');
-              return Column(
-                children: [
-                  SizedBox(height: AppSize.s5),
-                  Container(
-                    padding: EdgeInsets.only(bottom: AppPadding.p5),
-                    margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
-                    decoration: BoxDecoration(
-                      color:ColorManager.white,
-                      borderRadius: BorderRadius.circular(4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: ColorManager.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
+          child: FutureBuilder<List<CiOrgDocumentCC>>(
+              future: orgDocumentGet(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
                     ),
-                    height: AppSize.s56,
+                  );
+                }
+                if(snapshot.hasData){
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      int serialNumber =
+                          index + 1 + (currentPage - 1) * itemsPerPage;
+                      String formattedSerialNumber =
+                      serialNumber.toString().padLeft(2, '0');
+                      return Column(
+                        children: [
+                          SizedBox(height: AppSize.s5),
+                          Container(
+                            padding: EdgeInsets.only(bottom: AppPadding.p5),
+                            margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
+                            decoration: BoxDecoration(
+                              color:ColorManager.white,
+                              borderRadius: BorderRadius.circular(4),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: ColorManager.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            height: AppSize.s56,
 
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Center(
-                            child: Text(
-                              formattedSerialNumber,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xff686464)
-                                // color: isSelected ? Colors.white : Colors.black,
-                              ),
-                              textAlign: TextAlign.start,
-                            )),
-                        Center(
-                            child: Text(
-                              AppString.name,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xff686464)
-                                // color: isSelected ? Colors.white : Colors.black,
-                              ),
-                            )),
-                        Center(
-                            child: Text(
-                              AppString.expiry,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xff686464)
-                                // color: isSelected ? Colors.white : Colors.black,
-                              ),
-                            )),
-                        Center(
-                            child: Text(
-                              AppString.reminderthershold,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xff686464)
-                                // color: isSelected ? Colors.white : Colors.black,
-                              ),
-                            )),
-                        Center(
-                          child: Row(
-                            children: [
-                              IconButton(onPressed: (){
-                                showDialog(context: context, builder: (context){
-                                  return CCScreenEditPopup(
-                                    idDocController: docIdController,
-                                    nameDocController: docNamecontroller,
-                                    onSavePressed: (){},
-                                    child:  CICCDropdown(
-                                      initialValue: 'Corporate & Compliance Documents',
-                                      items: [
-                                        DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                      ],),
-                                    child1:   CICCDropdown(
-                                      initialValue: 'Licenses',
-                                      items: [
-                                        DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
-                                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                      ],),);
-                                });
-                              }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
-                              SizedBox(width: 3,),
-                              Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
-                            ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Center(
+                                    child: Text(
+                                      formattedSerialNumber,
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xff686464)
+                                        // color: isSelected ? Colors.white : Colors.black,
+                                      ),
+                                      textAlign: TextAlign.start,
+                                    )),
+                                Center(
+                                    child: Text(
+                                      snapshot.data![index].name.toString(),
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xff686464)
+                                        // color: isSelected ? Colors.white : Colors.black,
+                                      ),
+                                    )),
+                                Center(
+                                    child: Text(
+                                      snapshot.data![index].expiry.toString(),
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xff686464)
+                                        // color: isSelected ? Colors.white : Colors.black,
+                                      ),
+                                    )),
+                                Center(
+                                    child: Text(
+                                      snapshot.data![index].reminderThreshold.toString(),
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xff686464)
+                                        // color: isSelected ? Colors.white : Colors.black,
+                                      ),
+                                    )),
+                                Center(
+                                  child: Row(
+                                    children: [
+                                      IconButton(onPressed: (){
+                                        showDialog(context: context, builder: (context){
+                                          return CCScreenEditPopup(
+                                            idDocController: docIdController,
+                                            nameDocController: docNamecontroller,
+                                            onSavePressed: (){},
+                                            child:  CICCDropdown(
+                                              initialValue: 'Corporate & Compliance Documents',
+                                              items: [
+                                                DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                                DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                              ],),
+                                            child1:   CICCDropdown(
+                                              initialValue: 'Licenses',
+                                              items: [
+                                                DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
+                                                DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                              ],),);
+                                        });
+                                      }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
+                                      SizedBox(width: 3,),
+                                      Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
+                        ],
+                      );
+                    },
+                  );
+                }
+                return Offstage();
+              }
           ),
         ),
         PaginationControlsWidget(

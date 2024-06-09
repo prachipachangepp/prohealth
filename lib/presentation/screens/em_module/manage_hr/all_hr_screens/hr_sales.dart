@@ -238,7 +238,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                 );
                               },
                               icon: Icon(Icons.edit_outlined,size: 18,),
-                              color: ColorManager.mediumgrey,
+                              color: ColorManager.blueprime,
                             ),
                             IconButton(
                               onPressed: () {},

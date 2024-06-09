@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../../../../../../app/resources/color.dart';
@@ -12,16 +11,17 @@ import '../../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import '../../../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
-class CiCcdCapReports extends StatefulWidget {
-  const CiCcdCapReports({super.key});
+class VendorContractCapReport extends StatefulWidget {
+  const VendorContractCapReport({super.key});
 
   @override
-  State<CiCcdCapReports> createState() => _CiCcdCapReportsState();
+  State<VendorContractCapReport> createState() => _VendorContractCapReportState();
 }
 
-class _CiCcdCapReportsState extends State<CiCcdCapReports> {
+class _VendorContractCapReportState extends State<VendorContractCapReport> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;

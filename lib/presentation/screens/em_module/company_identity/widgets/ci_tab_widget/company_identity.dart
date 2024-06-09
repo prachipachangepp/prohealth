@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 
-import '../../../../../../app/model/company_data_model.dart';
+import '../../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
