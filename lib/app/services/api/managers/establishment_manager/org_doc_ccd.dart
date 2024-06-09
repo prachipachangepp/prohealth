@@ -15,6 +15,7 @@ Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
       for(var item in response.data){
         itemsList.add(
           CiOrgDocumentCC(
+            createdAt: item['doc_created_at'],
               name: item["doc_name"],
               expiry: item["expiry_date"],
               reminderThreshold: item["expiry_reminder"],
