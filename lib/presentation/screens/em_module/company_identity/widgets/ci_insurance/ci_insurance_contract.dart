@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -22,6 +24,8 @@ class CiInsuranceContract extends StatefulWidget {
 class _CiInsuranceContractState extends State<CiInsuranceContract> {
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -32,7 +36,11 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
     currentPage = 1;
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    orgDocumentGet(context);
+    orgDocumentGet(context).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
@@ -105,8 +113,8 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
             ],
           ),
           Expanded(
-            child: FutureBuilder<List<CiOrgDocumentCC>>(
-              future: orgDocumentGet(context),
+            child: StreamBuilder<List<CiOrgDocumentCC>>(
+              stream: _controller.stream,
               builder: (context,snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -242,7 +250,18 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                   color: ColorManager.blueprime,
                                                 )),
                                             IconButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  setState(() async{
+                                                    await deleteDocument(
+                                                        context,
+                                                        snapshot.data![index].docId!);
+                                                    orgDocumentGet(context).then((data) {
+                                                      _controller.add(data);
+                                                    }).catchError((error) {
+                                                      // Handle error
+                                                    });
+                                                  });
+                                                },
                                                 icon: Icon(
                                                   Icons.delete_outline,
                                                   size:18,

@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -23,6 +26,7 @@ class CiInsuranceVendor extends StatefulWidget {
 
 class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
   TextEditingController vendorName = TextEditingController();
+  final StreamController<List<ManageInsuranceVendorData>> _companyVendor = StreamController<List<ManageInsuranceVendorData>>();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -34,7 +38,11 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    companyVendorGet(context);
+    companyVendorGet(context).then((data) {
+      _companyVendor.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
     // companyAllApi(context);
   }
   @override
@@ -107,8 +115,8 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
           ),
           Expanded(
             child:
-                   FutureBuilder<List<ManageInsuranceVendorData>>(
-                     future: companyVendorGet(context),
+                   StreamBuilder<List<ManageInsuranceVendorData>>(
+                     stream: _companyVendor.stream,
                      builder: (context,snapshot) {
                        if (snapshot.connectionState == ConnectionState.waiting) {
                          return Center(
@@ -161,7 +169,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                              MainAxisAlignment.spaceAround,
                                              children: [
                                                Text(
-                                                 formattedSerialNumber,
+                                                 "01",
                                                  style: GoogleFonts.firaSans(
                                                    fontSize: 10,
                                                    fontWeight: FontWeight.w500,

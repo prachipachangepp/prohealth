@@ -830,7 +830,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         _expiryType.toString(),
                         _expiryType.toString());
                     setState(() async{
-                     await orgDocumentGet(context);
+                      await orgDocumentGet(context);
                       Navigator.pop(context);
                     });
                   },
