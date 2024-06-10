@@ -150,7 +150,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                           IconButton(onPressed: (){
                                             showDialog(context: context, builder: (BuildContext context){
                                               return CCScreenEditPopup(idDocController: editidOfDocController,
-                                                nameDocController: editnameOfDocController, onSavePressed: () {  },
+                                                nameDocController: editnameOfDocController,
                                                 child:  CICCDropdown(
                                                   initialValue: 'Vendor Contract',
                                                   items: [

@@ -211,7 +211,6 @@ class _CiDmeState extends State<CiDme> {
                                                           editidOfDocController,
                                                           nameDocController:
                                                           editnameOfDocController,
-                                                          onSavePressed: () {},
                                                           child: CICCDropdown(
                                                             initialValue:
                                                             'Vendor Contract',

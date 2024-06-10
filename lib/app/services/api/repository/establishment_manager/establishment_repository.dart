@@ -41,8 +41,12 @@ class EstablishmentManagerRepository {
   static String addOrgDocumentPost(){
     return "$addDocument";
   }
+  static String updateOrgCocument({required int docId}){
+    return "$document/$docId";
+  }
   static String companyOfficeServiceGet(){
     return "$companyOfficeService";
   }
+
 
 }

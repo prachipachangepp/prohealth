@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
@@ -141,6 +142,15 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                   ),
                 );
               }
+              if(snapshot.data!.isEmpty){
+                return Center(
+                    child: Text(AppString.dataNotFound,style:CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey
+                    ),)
+                );
+              }
               if(snapshot.hasData){
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -220,6 +230,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (context){
                                         return CCScreenEditPopup(
+                                          id: snapshot.data![index].docId,
                                           idDocController: docIdController,
                                           nameDocController: docNamecontroller,
                                           onSavePressed: (){},
@@ -242,7 +253,14 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                       });
                                     }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
                                     SizedBox(width: 3,),
-                                    Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
+                                    InkWell(
+                                      onTap:(){
+                                        setState(() {
+                                          deleteDocument(context, snapshot.data![index].docId!);
+                                          orgDocumentGet(context);
+                                        });
+                                      },
+                                        child: Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),)),
                                   ],
                                 ),
                               ),
