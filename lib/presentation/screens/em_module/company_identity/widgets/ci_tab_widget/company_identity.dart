@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,6 +31,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   TextEditingController mobNumController = TextEditingController();
   TextEditingController secNumController = TextEditingController();
   TextEditingController OptionalController = TextEditingController();
+  final StreamController<List<CompanyModel>> _controller = StreamController<List<CompanyModel>>();
   late CompanyIdentityManager _companyManager;
   final PageController _tabPageController = PageController();
   late int currentPage;
@@ -41,7 +44,11 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    companyAllApi(context);
+    companyAllApi(context).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
   // int _selectedIndex = 0;
   //
@@ -171,16 +178,20 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                     width: 105,
                                     height: 31,
                                     text: 'Submit',
-                                    onPressed: () {
-                                      addNewOffice(
+                                    onPressed: () async{
+                                      await addNewOffice(
                                           context,
                                           nameController.text,
                                           addressController.text,
                                           emailController.text,
                                           mobNumController.text,
                                           secNumController.text);
+                                      companyAllApi(context).then((data) {
+                                        _controller.add(data);
+                                      }).catchError((error) {
+                                        // Handle error
+                                      });
                                       Navigator.pop(context);
-                                      companyAllApi(context);
                                     })
                               ],
                             ),
@@ -327,13 +338,25 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         ),
         ///list
         Expanded(
-          child: FutureBuilder<List<CompanyModel>>(
-            future: companyAllApi(context),
+          child: StreamBuilder<List<CompanyModel>>(
+            stream: _controller.stream,
             builder: (BuildContext context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(
                     color: ColorManager.blueprime,
+                  ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
+                    ),
                   ),
                 );
               }
@@ -413,70 +436,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               ],
                             ),
                           ),
-                          // Container(
-                          //     margin: EdgeInsets.symmetric(horizontal: 30),
-                          //     decoration: BoxDecoration(
-                          //       color: Colors.white,
-                          //       borderRadius: BorderRadius.circular(4),
-                          //       boxShadow: [
-                          //         BoxShadow(
-                          //           color: Color(0xff000000).withOpacity(0.25),
-                          //           spreadRadius: 0,
-                          //           blurRadius: 4,
-                          //           offset: Offset(0, 2),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     height: 50,
-                          //     child: Row(
-                          //       mainAxisAlignment:
-                          //       MainAxisAlignment.spaceEvenly,
-                          //       children: [
-                          //         IconButton(
-                          //             onPressed: () {},
-                          //             icon: Icon(
-                          //               Icons.menu_sharp,
-                          //               color: Color(0xff686464),
-                          //             )),
-                          //
-                          //         Text(
-                          //           snapshot.data![index].companyId.toString(),
-                          //           // formattedSerialNumber,
-                          //           style: GoogleFonts.firaSans(
-                          //             fontSize: 10,
-                          //             fontWeight: FontWeight.w500,
-                          //             color: Color(0xff686464),
-                          //             decoration: TextDecoration.none,
-                          //           ),
-                          //         ),
-                          //         Text(
-                          //           snapshot.data![index].name.toString(),
-                          //           style: GoogleFonts.firaSans(
-                          //             fontSize: 10,
-                          //             fontWeight: FontWeight.w500,
-                          //             color: Color(0xff686464),
-                          //             decoration: TextDecoration.none,
-                          //           ),
-                          //         ),
-                          //
-                          //         Text(
-                          //           snapshot.data![index].address.toString(),
-                          //           textAlign: TextAlign.end,
-                          //           style: GoogleFonts.firaSans(
-                          //             fontSize: 10,
-                          //             fontWeight: FontWeight.w500,
-                          //             color: Color(0xff686464),
-                          //             decoration: TextDecoration.none,
-                          //           ),
-                          //         ),
-                          //
-                          //
-                          //         CustomButtonTransparentSM(
-                          //             text: 'Manage', onPressed: () {
-                          //
-                          //         })
-                          //       ],
-                          //     )),
                         ],
                       );
                     });

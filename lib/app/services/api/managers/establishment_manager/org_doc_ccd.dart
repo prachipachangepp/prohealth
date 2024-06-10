@@ -13,7 +13,8 @@ Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.orgDocumentGet());
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Org Document response:::::${itemsList}");
+     // print("Org Document response:::::${itemsList}");
+      print("1");
       for(var item in response.data){
         itemsList.add(
           CiOrgDocumentCC(
@@ -24,15 +25,14 @@ Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
               reminderThreshold: item["expiry_reminder"],
               sucess: true, message: response.statusMessage!
           ),
-
         );
       }
-      print("Org Document response:::::${itemsList}");
+      // print("Org Document response:::::${itemsList}");
     } else {
       print('Org Api Error');
       return itemsList;
     }
-    print("Org response:::::${response}");
+    // print("Org response:::::${response}");
     return itemsList;
   } catch (e) {
     print("Error $e");
