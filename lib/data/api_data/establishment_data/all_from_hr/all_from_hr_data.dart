@@ -2,14 +2,14 @@ import 'dart:ui';
 
 ///hr clinical
 class HRClinical {
-  final bool success;
-  final String message;
-  final String empType;
-  final String abbrivation;
-  final String color;
+  final bool? success;
+  final String? message;
+  final String? empType;
+  final String? abbrivation;
+  final String? color;
 
-  HRClinical(
-      this.success, this.message, this.empType, this.abbrivation, this.color);
+  HRClinical({
+      this.success, this.message, this.empType, this.abbrivation, this.color});
 }
 
 ///hr sales
