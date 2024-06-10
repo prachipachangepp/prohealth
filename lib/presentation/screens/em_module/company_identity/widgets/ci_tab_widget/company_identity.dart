@@ -13,6 +13,7 @@ import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
+import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../widgets/button_constant.dart';
 import '../../../widgets/text_form_field_const.dart';
@@ -50,18 +51,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
       // Handle error
     });
   }
-  // int _selectedIndex = 0;
-  //
-  // void _selectButton(int index) {
-  //   setState(() {
-  //     _selectedIndex = index;
-  //   });
-  //   _tabPageController.animateToPage(
-  //     index,
-  //     duration: Duration(milliseconds: 500),
-  //     curve: Curves.ease,
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -277,62 +266,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
             ],
           ),
         ),
-        // Container(
-        //   height: 30,
-        //   margin: EdgeInsets.symmetric(horizontal: 30),
-        //   decoration: BoxDecoration(
-        //     color: Colors.grey,
-        //     borderRadius: BorderRadius.circular(12),
-        //   ),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //     children: [
-        //       // Text('  '),
-        //       Center(
-        //         child: Text(
-        //           '       Sr No',
-        //           style: GoogleFonts.firaSans(
-        //             fontSize: 12,
-        //             fontWeight: FontWeight.w700,
-        //             color: Colors.white,
-        //             decoration: TextDecoration.none,
-        //           ),
-        //         ),
-        //       ),
-        //
-        //       Center(
-        //         child: Text('Office Name',
-        //             style: GoogleFonts.firaSans(
-        //               fontSize: 12,
-        //               fontWeight: FontWeight.w700,
-        //               color: Colors.white,
-        //               decoration: TextDecoration.none,
-        //             )),
-        //       ),
-        //       Center(
-        //         child: Text('Address  ',
-        //             textAlign: TextAlign.start,
-        //             style: GoogleFonts.firaSans(
-        //               fontSize: 12,
-        //               fontWeight: FontWeight.w700,
-        //               color: Colors.white,
-        //               decoration: TextDecoration.none,
-        //             )),
-        //       ),
-        //       // SizedBox(width: 10,),
-        //       Center(
-        //         child: Text('Actions',
-        //             textAlign: TextAlign.start,
-        //             style: GoogleFonts.firaSans(
-        //               fontSize: 12,
-        //               fontWeight: FontWeight.w700,
-        //               color: Colors.white,
-        //               decoration: TextDecoration.none,
-        //             )),
-        //       ),
-        //     ],
-        //   ),
-        // ),
+
         SizedBox(
           height: 10,
         ),
@@ -447,118 +381,27 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         SizedBox(
           height: 10,
         ),
-        Container(
-          height: 30,
-          // color: Colors.black12,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(6.39),
-                  border: Border.all(
-                    color: ColorManager.grey,
-                    width: 0.79,
-                  ),
-                ),
-                child: IconButton(
-                  padding: EdgeInsets.only(bottom: 1.5),
-                  icon: Icon(Icons.chevron_left),
-                  onPressed: () {
-                    setState(() {
-                      currentPage = currentPage > 1 ? currentPage - 1 : 1;
-                    });
-                  },
-                  color: ColorManager.black,
-                  iconSize: 20,
-                ),
-              ),
-              SizedBox(width: 3),
-              for (var i = 1; i <= (items.length / itemsPerPage).ceil(); i++)
-                if (i == 1 ||
-                    i == currentPage ||
-                    i == (items.length / itemsPerPage).ceil())
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        currentPage = i;
-                      });
-                    },
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(left: 5, right: 5),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                          color: currentPage == i
-                              ? ColorManager.blueprime
-                              : ColorManager.grey,
-                          width: currentPage == i ? 2.0 : 1.0,
-                        ),
-                        color: currentPage == i
-                            ? ColorManager.blueprime
-                            : Colors.transparent,
-                        // border: Border.all(
-                        //   color: currentPage == i
-                        //       ? Colors.blue
-                        //       : Colors.transparent,
-                        // ),
-                      ),
-                      child: Text(
-                        '$i',
-                        style: TextStyle(
-                          color: currentPage == i ? Colors.white : Colors.grey,
-                          fontWeight: FontWeightManager.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  )
-                else if (i == currentPage - 1 || i == currentPage + 1)
-                  Text(
-                    '..',
-                    style: TextStyle(
-                      color: ColorManager.black,
-                      fontWeight: FontWeightManager.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-              Container(
-                width: 20,
-                height: 20,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 0.79,
-                  ),
-                ),
-                child: IconButton(
-                  padding: EdgeInsets.only(bottom: 2),
-                  icon: Icon(Icons.chevron_right),
-                  onPressed: () {
-                    setState(() {
-                      currentPage =
-                      currentPage < (items.length / itemsPerPage).ceil()
-                          ? currentPage + 1
-                          : (items.length / itemsPerPage).ceil();
-                    });
-                  },
-                  color: ColorManager.black,
-                  iconSize: 20,
-                ),
-              ),
-            ],
-          ),
-        )
+        PaginationControlsWidget(
+          currentPage: currentPage,
+          items: items,
+          itemsPerPage: itemsPerPage,
+          onPreviousPagePressed: () {
+            setState(() {
+              currentPage = currentPage > 1 ? currentPage - 1 : 1;
+            });
+          },
+          onPageNumberPressed: (pageNumber) {
+            setState(() {
+              currentPage = pageNumber;
+            });
+          },
+          onNextPagePressed: () {
+            setState(() {
+              int totalPages = (items.length / itemsPerPage).ceil();
+              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+            });
+          },
+        ),
       ],
     );
   }
