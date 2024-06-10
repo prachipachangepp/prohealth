@@ -32,15 +32,15 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
   TextEditingController OptionalController = TextEditingController();
   late CompanyIdentityManager _companyManager;
   final PageController _tabPageController = PageController();
-  late int currentPage;
-  late int itemsPerPage;
+  // late int currentPage;
+  // late int itemsPerPage;
   late List<String> items;
   @override
   void initState() {
     super.initState();
-    currentPage = 1;
-    itemsPerPage = 5;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
+    // currentPage = 1;
+    // itemsPerPage = 5;
+    // items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
     companyAllApi(context);
   }

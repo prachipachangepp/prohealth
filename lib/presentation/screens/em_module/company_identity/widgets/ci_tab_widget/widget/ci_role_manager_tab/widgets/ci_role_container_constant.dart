@@ -7,7 +7,9 @@ import '../../../../../../../../../app/resources/font_manager.dart';
 class CIRoleContainerConstant extends StatelessWidget {
   final String text;
   final ImageProvider imageProvider;
-  const CIRoleContainerConstant(this.text, this.imageProvider,);
+  final Color borderColor;
+  const CIRoleContainerConstant(this.text, this.imageProvider,
+  { this.borderColor = Colors.transparent,});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class CIRoleContainerConstant extends StatelessWidget {
               ),
             ],
             color: Colors.white,
+            border: Border.all(color: borderColor, width: 2),
             borderRadius: BorderRadius.all(Radius.circular(24)),
           ),
           child: Column(

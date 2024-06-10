@@ -43,18 +43,18 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
     _companyManager = CompanyIdentityManager();
     companyAllApi(context);
   }
-  int _selectedIndex = 0;
-
-  void _selectButton(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    _tabPageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
+  // int _selectedIndex = 0;
+  //
+  // void _selectButton(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  //   _tabPageController.animateToPage(
+  //     index,
+  //     duration: Duration(milliseconds: 500),
+  //     curve: Curves.ease,
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
     return Column(

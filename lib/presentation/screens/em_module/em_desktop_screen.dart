@@ -117,7 +117,7 @@ class SMDesktop extends StatelessWidget {
                     bottomLeft: Radius.circular(12),
                   ),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                   // padding: EdgeInsets.only(left: 10),
                     height: MediaQuery.of(context).size.height / 13,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -131,8 +131,6 @@ class SMDesktop extends StatelessWidget {
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        // begin: Alignment.centerLeft,
-                        // end: Alignment.centerRight,
                       ),
                     ),
                     child: Row(
@@ -140,297 +138,309 @@ class SMDesktop extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ///ask klip
-                        Container(
-                          width: 96,
-                          height: MediaQuery.of(context).size.height / 17,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 1,
-                              ),
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(20)),
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset("images/mike.png"),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Ask',
-                                    style: GoogleFonts.jost(
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            // color: Colors.greenAccent,
+                            padding: EdgeInsets.only(left: 5),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 90,
+                                  height: MediaQuery.of(context).size.height / 17,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
                                         color: Colors.white,
-                                        fontSize: 10,
-                                        decoration: TextDecoration.none,
-                                        fontWeight: FontWeight.w300),
+                                        width: 1,
+                                      ),
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Image.asset("images/mike.png"),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Ask',
+                                            style: GoogleFonts.jost(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                                decoration: TextDecoration.none,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          Text("KLIP",
+                                              style: GoogleFonts.jost(
+                                                color: Colors.white,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                                decoration: TextDecoration.none,
+                                              )),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                  Text("KLIP",
-                                      style: GoogleFonts.jost(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        decoration: TextDecoration.none,
-                                      )),
-                                ],
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 12,
-                        ),
-
                         ///em text
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 10,
-                                horizontal: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(18),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x40000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Establishment Manager',
-                                    style: TextStyle(
-                                      fontFamily: 'Fira Sans',
-                                      fontSize: FontSize.s14,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff2B647F),
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  HomeScreen()));
-                                    },
-                                    child: Icon(
-                                      Icons.close,
-                                      color: Color(0xff434343),
-                                      size: MediaQuery.of(context).size.width /
-                                          100,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              width: 33,
-                              height: 33,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x40000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
-                                color: Colors.white,
-                              ),
-                              child: Center(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                HomeScreen()));
-                                  },
-                                  child: Icon(
-                                    Icons.add,
-                                    color: Color(0xff2B647F), // Icon color
-                                    size: 20, // Icon size
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        ///plus
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 20,
-                        ),
-                        Material(
-                          elevation: 4,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        Expanded(
+                          flex: 3,
                           child: Container(
-                              height: MediaQuery.of(context).size.height / 19,
-                              width: MediaQuery.of(context).size.width / 10,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18)),
-                                color: Colors.white,
-                              ),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                            //color: Colors.red,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
                                   children: [
-                                    SvgPicture.asset(
-                                      'images/phone_app_bar.svg',
-                                    ),
-                                    SvgPicture.asset(
-                                      'images/message_app_bar.svg',
-                                    ),
-                                    SvgPicture.asset(
-                                      'images/email_app_bar.svg',
-                                    ),
-                                  ])),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 20,
-                        ),
-
-                        ///dropdown
-                        Row(
-                          children: [
-                            Container(
-                              height: 25,
-                              width: 90,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border:
-                                    Border.all(color: Colors.white, width: 2),
-                                color: Colors.transparent,
-                              ),
-                              child: Obx(
-                                () => Center(
-                                  child: DropdownButton<String>(
-                                    icon: Padding(
-                                      padding: const EdgeInsets.only(left: 15),
-                                      child: Icon(
-                                        Icons.arrow_drop_down,
-                                        size: MediaQuery.of(context).size.width /
-                                            89,
-                                        color: Colors.white,
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 5,
+                                        horizontal: 10,
                                       ),
-                                    ),
-                                    dropdownColor: ColorManager.white,
-                                    style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width /
-                                              92,
-                                      color: Colors.white,
-                                    ),
-                                    underline: Container(),
-                                    value: hrController.selectedItem.value,
-                                    onChanged: (String? newValue) {
-                                      if (newValue != null) {
-                                        hrController
-                                            .changeSelectedItem(newValue);
-                                      }
-                                    },
-                                    items: ['Admin', 'Staff', 'Patient']
-                                        .map<DropdownMenuItem<String>>(
-                                          (String value) =>
-                                              DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: hrController.selectedItem
-                                                            .value ==
-                                                        value
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontFamily: 'FiraSans',
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.w200,
-                                              ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0x40000000),
+                                            blurRadius: 4,
+                                            offset: Offset(0, 4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Establishment Manager',
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s13,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff2B647F),
+                                              decoration: TextDecoration.none,
                                             ),
                                           ),
-                                        )
-                                        .toList(),
+                                          SizedBox(
+                                            width: 10,),
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomeScreen()));
+                                            },
+                                            child: Icon(
+                                              Icons.close,
+                                              color: Color(0xff434343),
+                                              size: MediaQuery.of(context).size.width /
+                                                  100,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    ///add button
+                                    Container(
+                                      width: 33,
+                                      height: 33,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0x40000000),
+                                            blurRadius: 4,
+                                            offset: Offset(0, 4),
+                                          ),
+                                        ],
+                                        color: Colors.white,
+                                      ),
+                                      child: Center(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HomeScreen()));
+                                          },
+                                          child: Icon(
+                                            Icons.add,
+                                            color: Color(0xff2B647F), // Icon color
+                                            size: 20, // Icon size
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                //Container()
+                                Material(
+                                  elevation: 4,
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  child: Container(
+                                      height: MediaQuery.of(context).size.height / 23,
+                                      width: MediaQuery.of(context).size.width / 10,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(18)),
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'images/phone_app_bar.svg',
+                                            ),
+                                            SvgPicture.asset(
+                                              'images/message_app_bar.svg',
+                                            ),
+                                            SvgPicture.asset(
+                                              'images/email_app_bar.svg',
+                                            ),
+                                          ])),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        ///dropdown
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            //color: Colors.pink,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  height: 25,
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border:
+                                        Border.all(color: Colors.white, width: 2),
+                                    color: Colors.transparent,
+                                  ),
+                                  child: Obx(
+                                    () => Center(
+                                      child: DropdownButton<String>(
+                                        icon: Padding(
+                                          padding: const EdgeInsets.only(left: 15),
+                                          child: Icon(
+                                            Icons.arrow_drop_down,
+                                            size: MediaQuery.of(context).size.width /
+                                                89,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        dropdownColor: ColorManager.white,
+                                        style: TextStyle(
+                                          fontSize:
+                                              MediaQuery.of(context).size.width /
+                                                  92,
+                                          color: Colors.white,
+                                        ),
+                                        underline: Container(),
+                                        value: hrController.selectedItem.value,
+                                        onChanged: (String? newValue) {
+                                          if (newValue != null) {
+                                            hrController
+                                                .changeSelectedItem(newValue);
+                                          }
+                                        },
+                                        items: ['Admin', 'Staff', 'Patient']
+                                            .map<DropdownMenuItem<String>>(
+                                              (String value) =>
+                                                  DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: hrController.selectedItem
+                                                                .value ==
+                                                            value
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    fontFamily: 'FiraSans',
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w200,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            SizedBox(width: MediaQuery.of(context).size.width/70,),
-                            InkWell(
-                              splashColor: Colors.white, // Splash color
-                              onTap: () {},
-                              child: SizedBox(
-                                  width: MediaQuery.of(context).size.width / 37,
-                                  height: 25,
-                                  child: Icon(
-                                    Icons.notifications_none_outlined,
-                                    color: Colors.white,
-                                    size:
-                                        MediaQuery.of(context).size.width / 68,
-                                  )),
-                            ),
-                            InkWell(
-                              splashColor: Colors.white,
-                              onTap: () {},
-                              child: SizedBox(
-                                  width: MediaQuery.of(context).size.width / 37,
-                                  height: 25,
-                                  child: Icon(
-                                    Icons.settings_outlined,
-                                    color: Colors.white,
-                                    size:
-                                        MediaQuery.of(context).size.width / 68,
-                                  )),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 50,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: CircleAvatar(
-                                  radius: 12,
-                                  backgroundColor: Colors.white,
-                                  child: Image.asset("images/profile.png"),
+                                Row(
+                                  children: [
+                                    InkWell(
+                                      splashColor: Colors.white, // Splash color
+                                      onTap: () {},
+                                      child: SizedBox(
+                                          width: MediaQuery.of(context).size.width / 37,
+                                          height: 25,
+                                          child: Icon(
+                                            Icons.notifications_none_outlined,
+                                            color: Colors.white,
+                                            size:
+                                                MediaQuery.of(context).size.width / 68,
+                                          )),
+                                    ),
+                                    InkWell(
+                                      splashColor: Colors.white,
+                                      onTap: () {},
+                                      child: SizedBox(
+                                          width: MediaQuery.of(context).size.width / 37,
+                                          height: 25,
+                                          child: Icon(
+                                            Icons.settings_outlined,
+                                            color: Colors.white,
+                                            size:
+                                            MediaQuery.of(context).size.width / 68,
+                                          )),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(height: 2),
-                              Expanded(
-                                child: Text(
-                                  "William Christiana",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: MediaQuery.of(context).size.width/130,
-                                    fontFamily: 'FiraSans',
-                                    fontWeight: FontWeight.w400,
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 6,right: MediaQuery.of(context).size.width/90),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 12,
+                                        backgroundColor: Colors.white,
+                                        child: Image.asset("images/profile.png",),
+                                      ),
+                                      SizedBox(height: 2),
+                                      Text(
+                                        "William Christiana",
+                                        style: GoogleFonts.firaSans(
+                                          color: Colors.white,
+                                          fontSize: FontSize.s9,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],

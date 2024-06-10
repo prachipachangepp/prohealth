@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/widgets/ci_role_container_constant.dart';
-
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
-import '../../../../../../../../app/resources/theme_manager.dart';
-import '../../../../../../../widgets/widgets/login_screen/desk_dashboard_hrm.dart';
-import '../../../../../../../widgets/widgets/login_screen/widgets/child_container_constant_login.dart';
-import '../../../../../responsive_screen_sm.dart';
 import '../../../../../widgets/button_constant.dart';
+
 
 class RoleManagerClinician extends StatefulWidget {
   const RoleManagerClinician({super.key});
@@ -21,11 +17,17 @@ class RoleManagerClinician extends StatefulWidget {
 }
 
 class _RoleManagerClinicianState extends State<RoleManagerClinician> {
+  List<bool> selectedContainers = List.generate(15, (_) => false);
+
+  void toggleSelection(int index) {
+    setState(() {
+      selectedContainers[index] = !selectedContainers[index];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    int selectedContainerIndex = 0;
     return Container(
-     // color: Colors.pink,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -38,27 +40,27 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Pick Office',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),),
-                    SizedBox(height: AppSize.s4,),
+                    Text(
+                      'Pick Office',
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s10,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    SizedBox(height: AppSize.s4),
                     Container(
                       height: 30,
                       width: 354,
-                      // margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding:
-                      EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
-                            color: Color(0xff686464).withOpacity(0.5),
-                            width: 1), // Black border
-                        borderRadius:
-                        BorderRadius.circular(8), // Rounded corners
+                          color: Color(0xff686464).withOpacity(0.5),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: DropdownButtonFormField<String>(
                         focusColor: Colors.transparent,
@@ -96,32 +98,32 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                     ),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width/20,),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Pick Employee',
+                    Text(
+                      'Pick Employee',
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s10,
                         fontWeight: FontWeightManager.bold,
                         color: ColorManager.fmediumgrey,
                         decoration: TextDecoration.none,
-                      ),),
-                    SizedBox(height: AppSize.s4,),
+                      ),
+                    ),
+                    SizedBox(height: AppSize.s4),
                     Container(
                       height: 30,
                       width: 354,
-                      // margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding:
-                      EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
-                            color: Color(0xff686464).withOpacity(0.5),
-                            width: 1), // Black border
-                        borderRadius:
-                        BorderRadius.circular(8), // Rounded corners
+                          color: Color(0xff686464).withOpacity(0.5),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: DropdownButtonFormField<String>(
                         focusColor: Colors.transparent,
@@ -155,154 +157,148 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                 ),
               ],
             ),
-            SizedBox(height: 20,),
-            ///row 1
+            SizedBox(height: 20),
+            /// row 1
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 CIRoleContainerConstant(
+                InkWell(
+                  onTap: () {
+                    toggleSelection(0);
+                  },
+                  child: CIRoleContainerConstant(
                     'Referral Resource Manager',
                     AssetImage("images/r_r_m.png"),
-
-
+                    borderColor: selectedContainers[0] ? ColorManager.blueprime : Colors.white,
+                  ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      20,
-                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
                 InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedContainerIndex = 0;
-                      });
-                    },
-                    child:  CIRoleContainerConstant(
-                     'Business Intelligence & Reports',
-                        AssetImage("images/b_i_r.png"),
-                      )),
-                SizedBox(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      20,
+                  onTap: () {
+                    toggleSelection(1);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Business Intelligence & Reports',
+                    AssetImage("images/b_i_r.png"),
+                    borderColor: selectedContainers[1] ? ColorManager.blueprime : Colors.transparent,
+                  ),
                 ),
-                CIRoleContainerConstant(
-
-                   'Intake & Scheduler',   AssetImage("images/i_s.png"),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
+                InkWell(
+                  onTap: () {
+                    toggleSelection(2);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Intake & Scheduler',
+                    AssetImage("images/i_s.png"),
+                    borderColor: selectedContainers[2] ? ColorManager.blueprime : Colors.transparent,
+                  ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      20,
-                ),
-                CIRoleContainerConstant(
-
-                     'Rehab', AssetImage("images/rehab.png"),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
+                InkWell(
+                  onTap: () {
+                    toggleSelection(3);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Rehab',
+                    AssetImage("images/rehab.png"),
+                    borderColor: selectedContainers[3] ? ColorManager.blueprime : Colors.transparent,
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: 20,),
-            ///row 2
+            SizedBox(height: 20),
+            /// row 2
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 InkWell(
-                   onTap: (){
-
-                   },
-                   child: CIRoleContainerConstant(
-                      'Home Care',  AssetImage("images/h_c.png"),
-                                   ),
-                 ),
-                SizedBox(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      20,
-                ),
                 InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ResponsiveScreenEM()));
-                    },
-                    child:  CIRoleContainerConstant(
-                       'Establishment Manager',  AssetImage("images/e_m.png"),
-                    )),
-                SizedBox(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      20,
+                  onTap: () {
+                    toggleSelection(4);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Home Care',
+                    AssetImage("images/h_c.png"),
+                    borderColor: selectedContainers[4] ? ColorManager.blueprime : Colors.transparent,
+                  ),
                 ),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
                 InkWell(
-                    onTap: () {
-                      setState(() {
-
-                      });
-                    },
-                    child:  CIRoleContainerConstant(
-                        'Human Resource Manager',  AssetImage("images/h_r_m.png"),
-                    )),
-                SizedBox(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      20,
+                  onTap: () {
+                    toggleSelection(5);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Establishment Manager',
+                    AssetImage("images/e_m.png"),
+                    borderColor: selectedContainers[5] ? ColorManager.blueprime : Colors.transparent,
+                  ),
                 ),
-                CIRoleContainerConstant(
-                    'Home Health EMR',  AssetImage("images/h_h_emr.png"),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
+                InkWell(
+                  onTap: () {
+                    toggleSelection(6);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Human Resource Manager',
+                    AssetImage("images/h_r_m.png"),
+                    borderColor: selectedContainers[6] ? ColorManager.blueprime : Colors.transparent,
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
+                InkWell(
+                  onTap: () {
+                    toggleSelection(7);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Home Health EMR',
+                    AssetImage("images/h_h_emr.png"),
+                    borderColor: selectedContainers[7] ? ColorManager.blueprime : Colors.transparent,
+                  ),
                 ),
               ],
             ),
-            SizedBox(height: 20,),
-            ///row 3
+            SizedBox(height: 20),
+            /// row 3
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 CIRoleContainerConstant(
-                  'Hospice EMR',  AssetImage("images/h_emr.png"),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      20,
-                ),
-                CIRoleContainerConstant(
-
-                    'Finance',  AssetImage("images/finance.png"),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      20,
-                ),
                 InkWell(
-                    onTap: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) =>
-                      //         const HomeScreenHRM()));
-                    },
-                    child:  CIRoleContainerConstant(
-                       'Other',  AssetImage("images/other.png"),
-                    )),
-                SizedBox(width:  MediaQuery.of(context)
-                    .size
-                    .width /
-                    5,)
+                  onTap: () {
+                    toggleSelection(8);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Hospice EMR',
+                    AssetImage("images/h_emr.png"),
+                    borderColor: selectedContainers[8] ? ColorManager.blueprime : Colors.transparent,
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
+                InkWell(
+                  onTap: () {
+                    toggleSelection(9);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Finance',
+                    AssetImage("images/finance.png"),
+                    borderColor: selectedContainers[9] ? ColorManager.blueprime : Colors.transparent,
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
+                InkWell(
+                  onTap: () {
+                    toggleSelection(10);
+                  },
+                  child: CIRoleContainerConstant(
+                    'Other',
+                    AssetImage("images/other.png"),
+                    borderColor: selectedContainers[10] ? ColorManager.blueprime : Colors.transparent,
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 5),
               ],
             ),
-            SizedBox(height: 40,),
-            ///button
+            SizedBox(height: 40),
+            /// button
             Center(
               child: CustomElevatedButton(
                 width: AppSize.s105,
