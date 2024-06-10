@@ -15,22 +15,20 @@ class AuthManager {
       Response response = await Api(context).post(
           path: AuthenticationRepository.signInWithPassword,
           data: {"email": email, "password": password});
-      print(response);
       if (response.statusCode == 201) {
         String? access = response.data['accessToken'];
         TokenManager.setAccessToken(token: access ?? "");
         return ApiData(
             success: true,
-            message: response.statusMessage!,
+            message: response.statusMessage ?? "",
             statusCode: response.statusCode!);
       } else {
         return ApiData(
             success: false,
-            message: response.data["message"]!,
+            message: response.data["message"] ?? "",
             statusCode: response.statusCode!);
       }
     } catch (e) {
-      print("got error:${e.toString()}");
       return ApiData(
           success: false,
           message: AppString.somethingWentWrong,
@@ -50,15 +48,14 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data["message"]!);
+            message: response.data["message"] ?? "");
       }
     } catch (e) {
-      print('Error occurred: $e');
       return ApiData(
           statusCode: 404,
           success: false,
@@ -77,12 +74,12 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data["message"]!);
+            message: response.data["message"] ?? "");
       }
     } catch (e) {
       return ApiData(
@@ -104,12 +101,12 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data["message"]!);
+            message: response.data["message"] ?? "");
       }
     } catch (e) {
       print(e);
@@ -129,22 +126,21 @@ class AuthManager {
       var response = await Api(context).post(
           path: AuthenticationRepository.verifyOtpMail,
           data: {"email": email, "otp": int.parse(otp)});
-      print(response.data["accessToken"]);
-      print(response.statusCode);
+      print(response);
       if (response.statusCode == 201 || response.statusCode == 200) {
-        String accessToken = response.data["accessToken"];
+        String accessToken = response.data["accessToken"] ?? "";
         TokenManager.setAccessToken(token: accessToken);
         // Navigator.pushNamed(context, HomeScreen.routeName);
 
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.data['message']);
+            message: response.data['message'] ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data['message']);
+            message: response.data['message'] ?? "");
       }
     } catch (e) {
       return ApiData(statusCode: 404, success: false, message: e.toString());
@@ -166,12 +162,12 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       }
     } catch (e) {
       return ApiData(

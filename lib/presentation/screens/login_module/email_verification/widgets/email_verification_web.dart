@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -37,7 +39,6 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
     try {
       ApiData result = await AuthManager.verifyOTPAndLogin(
           email: widget.email, otp: enteredOTP, context: context);
-      print("::::>>>>${result.success}+${result.statusCode}+${result.message}");
       if (result.success) {
         Navigator.pushNamed(context, HomeScreen.routeName);
       } else {
