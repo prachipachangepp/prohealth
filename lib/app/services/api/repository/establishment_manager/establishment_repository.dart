@@ -9,6 +9,7 @@ class EstablishmentManagerRepository {
   static String add = "/add";
   static String document = "/document";
   static String addDocument = "/document/addDocument";
+  static String companyOfficeService = "/company-office-service";
 
   static String companyAll(){
     return "$company";
@@ -40,5 +41,12 @@ class EstablishmentManagerRepository {
   static String addOrgDocumentPost(){
     return "$addDocument";
   }
+  static String updateOrgCocument({required int docId}){
+    return "$document/$docId";
+  }
+  static String companyOfficeServiceGet(){
+    return "$companyOfficeService";
+  }
+
 
 }

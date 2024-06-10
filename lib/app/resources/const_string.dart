@@ -209,7 +209,7 @@ class AppString {
   static const String reminderthershold= "Reminder Threshold";
 
   /// Api 404 Error
- static const String dataNotFound= "Data Not Found!";
+ static const String dataNotFound= "No Data!";
 
 }
 

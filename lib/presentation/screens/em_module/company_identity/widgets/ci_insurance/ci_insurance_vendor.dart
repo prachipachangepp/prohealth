@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -30,6 +34,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
+    companyVendorGet(context);
     // companyAllApi(context);
   }
   @override
@@ -62,7 +67,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                 children: [
                  // Text(''),
                   Text(
-                    'Sr No.',
+                    AppString.srNo,
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -84,7 +89,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
 
                   Padding(
                     padding: const EdgeInsets.only(right: 10),
-                    child: Text('Actions',
+                    child: Text(AppString.actions,
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
@@ -102,76 +107,100 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
           ),
           Expanded(
             child:
-                   ListView.builder(
-                      scrollDirection: Axis.vertical,
-                       itemCount: 6,
-                      itemBuilder: (context, index) {
-                        // int serialNumber =
-                        //     index + 1 + (currentPage - 1) * itemsPerPage;
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                           // SizedBox(height: 5),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(4),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0xff000000).withOpacity(0.25),
-                                        spreadRadius: 0,
-                                        blurRadius: 4,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  height: 50,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                         "0",
-                                          // formattedSerialNumber,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                        // Text(''),
-                                        Text(
-                                          "Sample Vendor",textAlign:TextAlign.center,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      //  Text(''),
-                                        Row(
-                                          children: [
-                                            IconButton(onPressed: (){
-                                             showDialog(context: context, builder: (BuildContext context){
-                                               return  CustomPopup(controller: vendorName, onPressed: () {  },);
-                                             });
-                                            }, icon: Icon(Icons.edit_outlined,color: ColorManager.blueprime,size:18,)),
-                                            IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,size:18,)),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        );
-                      }),
+                   FutureBuilder<List<ManageInsuranceVendorData>>(
+                     future: companyVendorGet(context),
+                     builder: (context,snapshot) {
+                       if (snapshot.connectionState == ConnectionState.waiting) {
+                         return Center(
+                           child: CircularProgressIndicator(
+                             color: ColorManager.blueprime,
+                           ),
+                         );
+                       }
+                       if(snapshot.data!.isEmpty){
+                         return Center(
+                             child: Text(AppString.dataNotFound,style:CustomTextStylesCommon.commonStyle(
+                                 fontWeight: FontWeightManager.medium,
+                                 fontSize: FontSize.s12,
+                                 color: ColorManager.mediumgrey
+                             ),)
+                         );
+                       }
+                       if(snapshot.hasData){
+                         return ListView.builder(
+                             scrollDirection: Axis.vertical,
+                             itemCount: snapshot.data!.length,
+                             itemBuilder: (context, index) {
+                               int serialNumber =
+                                   index + 1 + (currentPage - 1) * itemsPerPage;
+                               String formattedSerialNumber =
+                               serialNumber.toString().padLeft(2, '0');
+                               return Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   Padding(
+                                     padding: const EdgeInsets.all(8.0),
+                                     child: Container(
+                                         decoration: BoxDecoration(
+                                           color: Colors.white,
+                                           borderRadius: BorderRadius.circular(4),
+                                           boxShadow: [
+                                             BoxShadow(
+                                               color: Color(0xff000000).withOpacity(0.25),
+                                               spreadRadius: 0,
+                                               blurRadius: 4,
+                                               offset: Offset(0, 2),
+                                             ),
+                                           ],
+                                         ),
+                                         height: 50,
+                                         child: Padding(
+                                           padding: const EdgeInsets.symmetric(horizontal: 15),
+                                           child: Row(
+                                             mainAxisAlignment:
+                                             MainAxisAlignment.spaceAround,
+                                             children: [
+                                               Text(
+                                                 formattedSerialNumber,
+                                                 style: GoogleFonts.firaSans(
+                                                   fontSize: 10,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: Color(0xff686464),
+                                                   decoration: TextDecoration.none,
+                                                 ),
+                                               ),
+                                               // Text(''),
+                                               Text(
+                                                 snapshot.data![index].vendorName.toString(),textAlign:TextAlign.center,
+                                                 style: GoogleFonts.firaSans(
+                                                   fontSize: 10,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: Color(0xff686464),
+                                                   decoration: TextDecoration.none,
+                                                 ),
+                                               ),
+                                               //  Text(''),
+                                               Row(
+                                                 children: [
+                                                   IconButton(onPressed: (){
+                                                     showDialog(context: context, builder: (BuildContext context){
+                                                       return  CustomPopup(controller: vendorName, onPressed: () {  },);
+                                                     });
+                                                   }, icon: Icon(Icons.edit_outlined,color: ColorManager.blueprime,size:18,)),
+                                                   IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,size:18,)),
+                                                 ],
+                                               )
+                                             ],
+                                           ),
+                                         )),
+                                   ),
+                                 ],
+                               );
+                             });
+                       }
+                       return Offstage();
+                     }
+                   ),
           ),
           SizedBox(
             height: 10,
