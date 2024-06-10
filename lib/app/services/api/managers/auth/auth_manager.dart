@@ -4,7 +4,6 @@ import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/auth/auth_repository.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
-import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 
 import '../../../../resources/const_string.dart';
 
@@ -16,6 +15,7 @@ class AuthManager {
       Response response = await Api(context).post(
           path: AuthenticationRepository.signInWithPassword,
           data: {"email": email, "password": password});
+      print(response);
       if (response.statusCode == 201) {
         String? access = response.data['accessToken'];
         TokenManager.setAccessToken(token: access ?? "");
@@ -30,6 +30,7 @@ class AuthManager {
             statusCode: response.statusCode!);
       }
     } catch (e) {
+      print("got error:${e.toString()}");
       return ApiData(
           success: false,
           message: AppString.somethingWentWrong,
