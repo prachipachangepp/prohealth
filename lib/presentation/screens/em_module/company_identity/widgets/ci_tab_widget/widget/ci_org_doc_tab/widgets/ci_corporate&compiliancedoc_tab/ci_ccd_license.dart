@@ -363,8 +363,6 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     );
   }
 }
-
-
 // ///
 // class CICcdLicense extends StatefulWidget {
 //   const CICcdLicense({super.key});

@@ -42,10 +42,16 @@ Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
 
 
 Future<ApiData> addOrgDocumentPost(
-    BuildContext context, String expiryDate,String docName,String expiryType,String expiryReminder) async {
+    BuildContext context,
+    String expiryDate,
+    String docName,
+    String expiryType,
+    String expiryReminder
+    ) async {
   try {
     var response = await Api(context).post(
-        path: EstablishmentManagerRepository.addOrgDocumentPost(), data: {
+        path: EstablishmentManagerRepository.
+        addOrgDocumentPost(), data: {
           'doc_name':docName,
           'expiry_type':expiryType,
           'expiry_date':expiryDate,
@@ -75,7 +81,10 @@ Future<ApiData> addOrgDocumentPost(
 
 Future<ApiData> updateOrgDocument(BuildContext context, int docId,String docName,String docDate, String expiryType,String expiryReminder) async{
   try {
-    var response = await Api(context).patch(path: EstablishmentManagerRepository.updateOrgCocument(docId: docId), data: {
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.
+        updateOrgCocument(docId: docId),
+        data: {
       'document_id':docId,
       "doc_name": docName,
       "expiry_type": expiryType,

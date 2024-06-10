@@ -47,6 +47,9 @@ class EstablishmentManagerRepository {
   static String companyOfficeServiceGet(){
     return "$companyOfficeService";
   }
+  static String postCompanyOffice(){
+    return "$companyOffice/$add";
+  }
 
 
 }
