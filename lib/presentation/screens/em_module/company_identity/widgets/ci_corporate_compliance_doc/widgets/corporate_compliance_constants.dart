@@ -829,8 +829,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         widget.nameDocController.text,
                         _expiryType.toString(),
                         _expiryType.toString());
-                    setState(() {
-                      orgDocumentGet(context);
+                    setState(() async{
+                     await orgDocumentGet(context);
                       Navigator.pop(context);
                     });
                   },

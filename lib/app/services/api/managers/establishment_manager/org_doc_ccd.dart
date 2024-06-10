@@ -8,6 +8,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 
 Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
   List<CiOrgDocumentCC> itemsList = [];
+
   try {
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.orgDocumentGet());
@@ -23,6 +24,7 @@ Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
               reminderThreshold: item["expiry_reminder"],
               sucess: true, message: response.statusMessage!
           ),
+
         );
       }
       print("Org Document response:::::${itemsList}");
@@ -51,6 +53,7 @@ Future<ApiData> addOrgDocumentPost(
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Added request");
+      orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

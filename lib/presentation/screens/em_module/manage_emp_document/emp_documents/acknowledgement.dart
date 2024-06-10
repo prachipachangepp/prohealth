@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -132,6 +133,18 @@ class _AcknowledgementEmpDocState extends State<AcknowledgementEmpDoc> {
                     return Center(
                       child: CircularProgressIndicator(
                         color: ColorManager.blueprime,
+                      ),
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppString.dataNotFound,
+                        style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey,
+                        ),
                       ),
                     );
                   }
