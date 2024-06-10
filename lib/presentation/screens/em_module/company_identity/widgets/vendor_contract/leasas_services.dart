@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -26,6 +28,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
   TextEditingController idOfDocController = TextEditingController();
   TextEditingController editnameOfDocController = TextEditingController();
   TextEditingController editidOfDocController = TextEditingController();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -37,7 +40,11 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    orgDocumentGet(context);
+    orgDocumentGet(context).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
     // companyAllApi(context);
   }
   @override
@@ -70,8 +77,8 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
           }),
         Expanded(
           child:
-          FutureBuilder<List<CiOrgDocumentCC>>(
-            future: orgDocumentGet(context),
+          StreamBuilder<List<CiOrgDocumentCC>>(
+            stream: _controller.stream,
             builder: (context,snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -184,7 +191,18 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                               );
                                             });
                                           }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                          IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                          IconButton(onPressed: (){
+                                            setState(() async{
+                                              await deleteDocument(
+                                                  context,
+                                                  snapshot.data![index].docId!);
+                                              orgDocumentGet(context).then((data) {
+                                                _controller.add(data);
+                                              }).catchError((error) {
+                                                // Handle error
+                                              });
+                                            });
+                                          }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                         ],
                                       )
                                     ],

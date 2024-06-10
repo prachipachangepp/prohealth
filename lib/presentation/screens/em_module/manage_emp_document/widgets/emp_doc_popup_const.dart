@@ -565,6 +565,10 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                     setState(() {
                       orgDocumentGet(context);
                       Navigator.pop(context);
+                      widget.nameDocController.clear();
+                      widget.calenderController.clear();
+                      widget.idDocController.clear();
+
                     });
                     // Navigator.pop(context);
                   },
