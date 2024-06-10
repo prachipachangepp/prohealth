@@ -159,7 +159,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                 return AddOrgDocButton(
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
-                                  onSavePressed: () {},
+
                                   child: CICCDropdown(
                                     initialValue:
                                         'Corporate & Compliance Documents',

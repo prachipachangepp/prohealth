@@ -221,7 +221,6 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                           return CCScreenEditPopup(
                                             idDocController: docIdController,
                                             nameDocController: docNamecontroller,
-                                            onSavePressed: (){},
                                             child:  CICCDropdown(
                                               initialValue: 'Corporate & Compliance Documents',
                                               items: [
