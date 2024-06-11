@@ -350,6 +350,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     'Expiry Type',
@@ -364,59 +365,77 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      RadioListTile<String>(
-                        title: Text(
-                          'Not Applicable',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
+                      Transform.scale(
+                        scale: 0.8,
+                        child: Container(
+                          height: 20,
+                          child: RadioListTile<String>(
+                            title: Text(
+                              'Not Applicable',
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.mediumgrey,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            value: 'Not Applicable',
+                            groupValue: _expiryType,
+                            onChanged: (value) {
+                              setState(() {
+                                _expiryType = value;
+                              });
+                            },
                           ),
                         ),
-                        value: 'Not Applicable',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
                       ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Scheduled',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
+                      Transform.scale(
+                        scale: 0.8,
+                        child: Container(
+                          height: 20,
+                          child: RadioListTile<String>(
+                            title: Text(
+                              'Scheduled',
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.mediumgrey,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            value: 'Scheduled',
+                            groupValue: _expiryType,
+                            onChanged: (value) {
+                              setState(() {
+                                _expiryType = value;
+                              });
+                            },
                           ),
                         ),
-                        value: 'Scheduled',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
                       ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Issuer Expiry',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
+                      Transform.scale(
+                        scale: 0.8,
+                        child: Container(
+                          height: 20,
+                          child: RadioListTile<String>(
+                            title: Text(
+                              'Issuer Expiry',
+                              style: GoogleFonts.firaSans(
+                                fontSize: FontSize.s10,
+                                fontWeight: FontWeightManager.medium,
+                                color: ColorManager.mediumgrey,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            value: 'Issuer Expiry',
+                            groupValue: _expiryType,
+                            onChanged: (value) {
+                              setState(() {
+                                _expiryType = value;
+                              });
+                            },
                           ),
                         ),
-                        value: 'Issuer Expiry',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
                       ),
                     ],
                   ),
@@ -425,7 +444,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p8,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
@@ -511,7 +530,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'please select birth date';
+                              return 'please select date';
                             }
                             return null;
                           },
@@ -549,6 +568,8 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
     );
   }
 }
+
+
 
 ///
 class AddOrgDocButton extends StatefulWidget {

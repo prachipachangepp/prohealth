@@ -105,7 +105,7 @@ class HrWidget extends StatelessWidget {
                                 ? FontWeightManager.bold
                                 :FontWeightManager.semiBold,
                                 color: selectedIndex == entry.key
-                                    ? ColorManager.black
+                                    ? ColorManager.mediumgrey
                                     : ColorManager.white,
                               ),
                             ),
