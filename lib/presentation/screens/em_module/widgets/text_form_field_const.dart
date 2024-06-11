@@ -106,7 +106,7 @@ class EditTextField extends StatelessWidget {
         ),
         SizedBox(height: 1,),
         Container(
-          width: 354,
+          width: MediaQuery.of(context).size.width/5,
           height: 30,
           decoration: BoxDecoration(
             border: Border.all(color: Color(0xFFB1B1B1), width: 1),

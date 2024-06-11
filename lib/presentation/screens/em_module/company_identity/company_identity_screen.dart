@@ -57,8 +57,9 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
         backgroundColor: Colors.white,
         body: Column(children: [
           /// visit , org , Document tab bar
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          Container(
+            height: 30,
+            width: 500,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
