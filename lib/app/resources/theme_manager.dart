@@ -46,7 +46,7 @@ class TableListTextStyle{
 ///done by saloni and prachi
 class ThemeManager {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 150;
+    double fontSize = MediaQuery.of(context).size.width / 140;
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xFF686464),
@@ -57,11 +57,11 @@ class ThemeManager {
 
 class ThemeManagerDark {
   static TextStyle customTextStyle(BuildContext context) {
-    double fontSize = 10;
+    double fontSize = MediaQuery.of(context).size.width/140;
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xFF2A2827),
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     );
   }
 }

@@ -16,7 +16,6 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class CiInsuranceVendor extends StatefulWidget {
   const CiInsuranceVendor({super.key});
@@ -27,7 +26,8 @@ class CiInsuranceVendor extends StatefulWidget {
 
 class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
   TextEditingController vendorName = TextEditingController();
-  final StreamController<List<ManageInsuranceVendorData>> _companyVendor = StreamController<List<ManageInsuranceVendorData>>();
+  final StreamController<List<ManageInsuranceVendorData>> _companyVendor =
+      StreamController<List<ManageInsuranceVendorData>>();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -46,6 +46,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
     });
     // companyAllApi(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,12 +55,17 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
         children: [
           CustomIconButtonConst(
               icon: Icons.add,
-              text: "Add", onPressed: (){
-            showDialog(context: context, builder: (BuildContext context){
-              return  CustomPopup(controller: vendorName, onPressed: () {  },);
-            });
-
-          }),
+              text: "Add",
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CustomPopup(
+                        controller: vendorName,
+                        onPressed: () {},
+                      );
+                    });
+              }),
           SizedBox(
             height: 15,
           ),
@@ -74,7 +80,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                 // Text(''),
+                  // Text(''),
                   Text(
                     AppString.srNo,
                     style: GoogleFonts.firaSans(
@@ -87,7 +93,8 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
 //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                   Padding(
                     padding: const EdgeInsets.only(right: 25),
-                    child: Text('Name    ',textAlign: TextAlign.start,
+                    child: Text('Name    ',
+                        textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -115,105 +122,124 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
             height: 10,
           ),
           Expanded(
-            child:
-                   StreamBuilder<List<ManageInsuranceVendorData>>(
-                     stream: _companyVendor.stream,
-                     builder: (context,snapshot) {
-                       if (snapshot.connectionState == ConnectionState.waiting) {
-                         return Center(
-                           child: CircularProgressIndicator(
-                             color: ColorManager.blueprime,
-                           ),
-                         );
-                       }
-                       if(snapshot.data!.isEmpty){
-                         return Center(
-                             child: Text(AppString.dataNotFound,style:CustomTextStylesCommon.commonStyle(
-                                 fontWeight: FontWeightManager.medium,
-                                 fontSize: FontSize.s12,
-                                 color: ColorManager.mediumgrey
-                             ),)
-                         );
-                       }
-                       if(snapshot.hasData){
-                         return ListView.builder(
-                             scrollDirection: Axis.vertical,
-                             itemCount: snapshot.data!.length,
-                             itemBuilder: (context, index) {
-                               int serialNumber =
-                                   index + 1 + (currentPage - 1) * itemsPerPage;
-                               String formattedSerialNumber =
-                               serialNumber.toString().padLeft(2, '0');
-                               return Column(
-                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                 children: [
-                                   Padding(
-                                     padding: const EdgeInsets.all(8.0),
-                                     child: Container(
-                                         decoration: BoxDecoration(
-                                           color: Colors.white,
-                                           borderRadius: BorderRadius.circular(4),
-                                           boxShadow: [
-                                             BoxShadow(
-                                               color: Color(0xff000000).withOpacity(0.25),
-                                               spreadRadius: 0,
-                                               blurRadius: 4,
-                                               offset: Offset(0, 2),
-                                             ),
-                                           ],
-                                         ),
-                                         height: 50,
-                                         child: Padding(
-                                           padding: const EdgeInsets.symmetric(horizontal: 15),
-                                           child: Row(
-                                             mainAxisAlignment:
-                                             MainAxisAlignment.spaceAround,
-                                             children: [
-                                               Text(
-                                                 "01",
-                                                 style: GoogleFonts.firaSans(
-                                                   fontSize: 10,
-                                                   fontWeight: FontWeight.w500,
-                                                   color: Color(0xff686464),
-                                                   decoration: TextDecoration.none,
-                                                 ),
-                                               ),
-                                               // Text(''),
-                                               Text(
-                                                 snapshot.data![index].vendorName.toString(),textAlign:TextAlign.center,
-                                                 style: GoogleFonts.firaSans(
-                                                   fontSize: 10,
-                                                   fontWeight: FontWeight.w500,
-                                                   color: Color(0xff686464),
-                                                   decoration: TextDecoration.none,
-                                                 ),
-                                               ),
-                                               //  Text(''),
-                                               Row(
-                                                 children: [
-                                                   IconButton(onPressed: (){
-                                                     showDialog(context: context, builder: (BuildContext context){
-                                                       return  CustomPopup(controller: vendorName, onPressed: () {  },);
-                                                     });
-                                                   }, icon: Icon(Icons.edit_outlined,color: ColorManager.blueprime,size:18,)),
-                                                   IconButton(onPressed: (){
-                                                     showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
-                                                       Navigator.pop(context);
-                                                     }, onDelete: (){}));
-                                                   }, icon: Icon(Icons.delete_outline,color: ColorManager.red,size:18,)),
-                                                 ],
-                                               )
-                                             ],
-                                           ),
-                                         )),
-                                   ),
-                                 ],
-                               );
-                             });
-                       }
-                       return Offstage();
-                     }
-                   ),
+            child: StreamBuilder<List<ManageInsuranceVendorData>>(
+                stream: _companyVendor.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                        child: Text(
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey),
+                    ));
+                  }
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          int serialNumber =
+                              index + 1 + (currentPage - 1) * itemsPerPage;
+                          String formattedSerialNumber =
+                              serialNumber.toString().padLeft(2, '0');
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(4),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xff000000)
+                                              .withOpacity(0.25),
+                                          spreadRadius: 0,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    height: 50,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            "01",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                          // Text(''),
+                                          Text(
+                                            snapshot.data![index].vendorName
+                                                .toString(),
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                          //  Text(''),
+                                          Row(
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return CustomPopup(
+                                                            controller:
+                                                                vendorName,
+                                                            onPressed: () {},
+                                                          );
+                                                        });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.edit_outlined,
+                                                    color:
+                                                        ColorManager.blueprime,
+                                                    size: 18,
+                                                  )),
+                                              IconButton(
+                                                  onPressed: () {},
+                                                  icon: Icon(
+                                                    Icons.delete_outline,
+                                                    color: ColorManager.red,
+                                                    size: 18,
+                                                  )),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          );
+                        });
+                  }
+                  return Offstage();
+                }),
           ),
           SizedBox(
             height: 10,
@@ -243,7 +269,6 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
               });
             },
           ),
-
         ],
       ),
     );

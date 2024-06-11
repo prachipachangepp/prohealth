@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 import '../../../../../../../app/resources/theme_manager.dart';
 
 class BankingHeadTabbar extends StatefulWidget {
@@ -19,11 +20,11 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
         padding: const EdgeInsets.all(3.0),
         child: Column(
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Checkbox(
-                  activeColor: Color(0xff50B5E5),
+                  activeColor: const Color(0xff50B5E5),
                   hoverColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   value: checkBox1,
@@ -33,138 +34,11 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                     });
                   },
                 ),
-                SizedBox(width: 8),
-                BankingContainerConst(
-                    child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Bank #1',
-                          style: TextStyle(
-                            fontFamily: 'FiraSans',
-                            fontSize: 13,
-                            color: Color(0xFF333333),
-                            fontWeight: FontWeight.w500,
-                          ),),
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x40000040),
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          height: MediaQuery.of(context).size.height / 35,
-                          width: MediaQuery.of(context).size.width / 20,
-                          child: ElevatedButton(
-                            onPressed:
-                                () {},
-                            child: Text(
-                              'Edit',
-                              style: TextStyle(
-                                  fontFamily: 'FiraSans',
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15,),
-                              backgroundColor: Color(0xFF50B5E5),
-                              shadowColor: Colors.grey,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    Padding(
-                      padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/15,
-                      top: MediaQuery.of(context).size.height/55),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text('Type',
-                                  style: ThemeManager.customTextStyle(context)),
-                              Text(
-                                'Checking',
-                                style: ThemeManagerDark.customTextStyle(context),
-                              ),
-                              Text('Account No.',
-                                  style: ThemeManager.customTextStyle(context)),
-                              Text(
-                                '1234567797',
-                                style: ThemeManagerDark.customTextStyle(context),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text('Effective Date',
-                                  style: ThemeManager.customTextStyle(context)),
-                              Text(
-                                '24-03-23',
-                                style: ThemeManagerDark.customTextStyle(context),
-                              ),
-                              Text('Requested Percentage',
-                                  style: ThemeManager.customTextStyle(context)),
-                              Text(
-                                '30%',
-                                style: ThemeManagerDark.customTextStyle(context),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 8,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Bank Name',
-                                  style: ThemeManager.customTextStyle(context)),
-                              Text(
-                                'Bank Of America',
-                                style: ThemeManagerDark.customTextStyle(context),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 8,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Routing/Transit No.',
-                                  style: ThemeManager.customTextStyle(context)),
-                              Text(
-                                '123456789',
-                                style: ThemeManagerDark.customTextStyle(context),
-                              ),
-                            ],
-                          ),
-
-                        ],
-                      ),
-                    ),
-                    Row(
-
-                    )
-                  ],
-                )),
-                SizedBox(width: 16),
+                const SizedBox(width: 8),
+                const BankingContainerConst(),
+                const SizedBox(width: 16),
                 Checkbox(
-                  activeColor: Color(0xff50B5E5),
+                  activeColor: const Color(0xff50B5E5),
                   hoverColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   value: checkBox2,
@@ -174,15 +48,15 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                     });
                   },
                 ),
-                SizedBox(width: 8),
-                BankingContainerConst(child: Column()),
+                const SizedBox(width: 8),
+                const BankingContainerConst(),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               children: [
                 Checkbox(
-                  activeColor: Color(0xff50B5E5),
+                  activeColor: const Color(0xff50B5E5),
                   hoverColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   value: checkBox3,
@@ -192,11 +66,11 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                     });
                   },
                 ),
-                SizedBox(width: 8),
-                BankingContainerConst(child: Column()),
-                SizedBox(width: 16),
+                const SizedBox(width: 8),
+                const BankingContainerConst(),
+                const SizedBox(width: 16),
                 Checkbox(
-                  activeColor: Color(0xff50B5E5),
+                  activeColor: const Color(0xff50B5E5),
                   hoverColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   value: checkBox4,
@@ -206,8 +80,8 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                     });
                   },
                 ),
-                SizedBox(width: 8),
-                BankingContainerConst(child: Column()),
+                const SizedBox(width: 8),
+                const BankingContainerConst(),
               ],
             ),
           ],
@@ -219,28 +93,184 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
 
 ///Container Constant
 class BankingContainerConst extends StatelessWidget {
-  final Widget child;
 
-  const BankingContainerConst({Key? key, required this.child}) : super(key: key);
+  const BankingContainerConst({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context).size;
     return Expanded(
       child: Container(
-        padding: EdgeInsets.all(8),
-        height: 179,
+        padding: const EdgeInsets.all(8),
+        height: 187,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
               color: Color(0x40000000),
               blurRadius: 4,
               offset: Offset(0, 4),
             ),
           ],
         ),
-        child: child,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Bank #1',
+                    style: TextStyle(
+                      fontFamily: 'FiraSans',
+                      fontSize: 13,
+                      color: Color(0xFF333333),
+                      fontWeight: FontWeight.w500,
+                    ),),
+                  Container(
+                    decoration: const BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x40000040),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    height: MediaQuery.of(context).size.height / 35,
+                    width: MediaQuery.of(context).size.width / 20,
+                    child: ElevatedButton(
+                      onPressed:
+                          () {},
+                      child: const Text(
+                        'Edit',
+                        style: TextStyle(
+                          fontFamily: 'FiraSans',
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,),
+                        backgroundColor: const Color(0xFF50B5E5),
+                        shadowColor: Colors.grey,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: Row(
+                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Type: ',
+                                style: ThemeManager.customTextStyle(context)),
+                            Text(
+                              'Checking',
+                              style: ThemeManagerDark.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Effective Date: ',
+                                style: ThemeManager.customTextStyle(context)),
+                            Text(
+                              '24-03-23',
+                              style: ThemeManagerDark.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Bank Name: ',
+                                style: ThemeManager.customTextStyle(context)),
+                            Text(
+                              'Bank Of America',
+                              style: ThemeManagerDark.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Effective Date: ',
+                                style: ThemeManager.customTextStyle(context)),
+                            Text(
+                              '24-03-23',
+                              style: ThemeManagerDark.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: mediaQuery.width/8,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Account No.: ',
+                                style: ThemeManager.customTextStyle(context)),
+                            Text(
+                              '1234567797',
+                              style: ThemeManagerDark.customTextStyle(context),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Requested Percentage: ',
+                                style: ThemeManager.customTextStyle(context)),
+                            Text(
+                              '30%',
+                              style: ThemeManagerDark.customTextStyle(context),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10,),
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                     IconButtonWidget(iconData: Icons.remove_red_eye_outlined, buttonText: 'Void Check', onPressed:(){},),
+                  const SizedBox(width: 10,),
+                  IconButtonWidget(iconData1: Icons.print_outlined, buttonText: 'Print', onPressed:(){},),
+                  const SizedBox(width: 10,),
+                  IconButtonWidget(iconData1: Icons.file_download_outlined, buttonText: 'Download', onPressed:(){},)
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
