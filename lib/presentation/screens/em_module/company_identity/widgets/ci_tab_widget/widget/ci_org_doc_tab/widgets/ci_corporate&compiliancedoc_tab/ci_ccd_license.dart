@@ -338,27 +338,27 @@ class _CICcdLicenseState extends State<CICcdLicense> {
             },
           ),
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            setState(() {
-              int totalPages = (items.length / itemsPerPage).ceil();
-              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     setState(() {
+        //       int totalPages = (items.length / itemsPerPage).ceil();
+        //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+        //     });
+        //   },
+        // ),
       ],
     );
   }

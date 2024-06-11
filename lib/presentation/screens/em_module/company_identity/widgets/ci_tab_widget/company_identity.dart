@@ -204,33 +204,55 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 padding:  EdgeInsets.only(left: 85),
                 child: Text(
                  "Sr No.",
-                  style:TableHeadingStyle.firaSansWhite12Bold,
+                  style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.white
+                  ),
                 ),
               ),
               Padding(
                 padding:  EdgeInsets.only(left: 35),
                 child: Text(
                 "Office Name",
-                    style: TableHeadingStyle.firaSansWhite12Bold,
+                  style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.white
+                    // color: isSelected ? Colors.white : Colors.black,
+                  ),
+                  // style: RegisterTableHead.customTextStyle(context),
                 ),
               ),
               Padding(
                 padding:  EdgeInsets.only(right: 70),
                 child: Text(
                   "Address",
-                  style: TableHeadingStyle.firaSansWhite12Bold,
+                  style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.white
+                    // color: isSelected ? Colors.white : Colors.black,
+                  ),
                 ),
               ),
               Padding(
                 padding:  EdgeInsets.only(right: 40),
                 child: Text(
                   AppString.actions,
-                  style: TableHeadingStyle.firaSansWhite12Bold,
+                  style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.white
+                    // color: isSelected ? Colors.white : Colors.black,
+                  ),
+                  // style: RegisterTableHead.customTextStyle(context),
                 ),
               ),
             ],
           ),
         ),
+
         SizedBox(
           height: 10,
         ),
@@ -296,25 +318,47 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.menu_sharp,
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.menu_sharp,
                                               color: Color(0xff686464),
                                             )),
                                 Text(
                                   formattedSerialNumber,
-                                  style: TableListTextStyle.firaSansGray10Bold,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xff686464)
+                                    // color: isSelected ? Colors.white : Colors.black,
+                                  ),
+                                  // style: ThemeManagerDark.customTextStyle(context),
                                   textAlign: TextAlign.start,
                                 ),
-                                Text(snapshot.data![index].companyId.toString(),
+                                Text(
+                                      snapshot.data![index].companyId.toString(),
                                       // formattedSerialNumber,
-                                  style: TableListTextStyle.firaSansGray10Bold,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xff686464),
+                                        decoration: TextDecoration.none,
+                                      ),
                                     ),
-                                Text(snapshot.data![index].address.toString(),
+                                Text(
+                                          snapshot.data![index].address.toString(),
                                           textAlign: TextAlign.end,
-                                  style: TableListTextStyle.firaSansGray10Bold,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
                                         ),
                                 CustomButtonTransparentSM(
-                                            text: 'Manage', onPressed: () {}),
+
+                                            text: 'Manage', onPressed: () {
+
+                                        }),
                               ],
                             ),
                           ),
@@ -329,27 +373,27 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         SizedBox(
           height: 10,
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            setState(() {
-              int totalPages = (items.length / itemsPerPage).ceil();
-              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     setState(() {
+        //       int totalPages = (items.length / itemsPerPage).ceil();
+        //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+        //     });
+        //   },
+        // ),
       ],
     );
   }
