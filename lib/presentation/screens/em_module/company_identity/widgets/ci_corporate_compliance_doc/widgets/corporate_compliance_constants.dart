@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -21,14 +22,15 @@ class CCScreensAddPopup extends StatefulWidget {
       {super.key,
       required this.countynameController,
       required this.zipcodeController,
-      required this.onSavePressed, required this.child, required this.child1});
+      required this.onSavePressed,
+      required this.child,
+      required this.child1});
 
   @override
   State<CCScreensAddPopup> createState() => _CCScreensAddPopusState();
 }
 
 class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -77,33 +79,40 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Text('Type of the Document',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      //decoration: TextDecoration.none,
-                    ),
-                    ),
-                    SizedBox(height: 5,),
-                    widget.child
-                  ],),
-
+                      Text(
+                        'Type of the Document',
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey,
+                          //decoration: TextDecoration.none,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      widget.child
+                    ],
+                  ),
                   SizedBox(height: AppSize.s15),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Text('Sub Type of the Document',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
+                      Text(
+                        'Sub Type of the Document',
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey,
+                          decoration: TextDecoration.none,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 5,),
-                    widget.child1
-                  ],),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      widget.child1
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -153,19 +162,24 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
     super.initState();
     _selectedValue = widget.initialValue;
   }
+
   void _showCustomDropdown() async {
-    final RenderBox renderBox = _dropdownKey.currentContext!.findRenderObject() as RenderBox;
+    final RenderBox renderBox =
+        _dropdownKey.currentContext!.findRenderObject() as RenderBox;
     final offset = renderBox.localToGlobal(Offset.zero);
     final size = renderBox.size;
 
     final result = await showMenu<String>(
       context: context,
-      position: RelativeRect.fromLTRB(offset.dx, offset.dy + size.height, offset.dx + size.width, 0),
+      position: RelativeRect.fromLTRB(
+          offset.dx, offset.dy + size.height, offset.dx + size.width, 0),
       items: widget.items.map((DropdownMenuItem<String> item) {
         return PopupMenuItem<String>(
           value: item.value,
           child: Container(
-            width: size.width - 16, ///minus padding/margin
+            width: size.width - 16,
+
+            ///minus padding/margin
             child: Text(item.value ?? ''),
           ),
         );
@@ -179,7 +193,6 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -221,9 +234,10 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
 
 ///edit popup
 class CCScreenEditPopup extends StatefulWidget {
+  final int? id;
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
-  final VoidCallback onSavePressed;
+  final VoidCallback? onSavePressed;
   final Widget child;
   final Widget child1;
 
@@ -231,9 +245,10 @@ class CCScreenEditPopup extends StatefulWidget {
     super.key,
     required this.idDocController,
     required this.nameDocController,
-    required this.onSavePressed,
+    this.onSavePressed,
     required this.child,
     required this.child1,
+    this.id,
   });
 
   @override
@@ -252,287 +267,6 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
       child: Container(
         width: AppSize.s400,
         height: AppSize.s550,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: ListView(
-      children: [
-      Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.close),
-          ),
-        ],
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: AppPadding.p3,
-          horizontal: AppPadding.p20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SMTextFConst(
-              controller: widget.idDocController,
-              keyboardType: TextInputType.text,
-              text: 'ID of the Document',
-            ), SizedBox(height: AppSize.s8),
-            SMTextFConst(
-              controller: widget.nameDocController,
-              keyboardType: TextInputType.text,
-              text: 'Name of the Document',
-            ),
-            SizedBox(height: AppSize.s8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Type of the Document',
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                    //decoration: TextDecoration.none,
-                  ),
-                ),
-                SizedBox(height: 5),
-                widget.child,
-              ],
-            ),
-            SizedBox(height: AppSize.s12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Sub Type of the Document',
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                SizedBox(height: 5),
-                widget.child1,
-              ],
-            ),
-          ],
-        ),
-      ),
-      ///radio
-      Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: AppPadding.p3,
-          horizontal: AppPadding.p20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Expiry Type',
-              style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.mediumgrey,
-                decoration: TextDecoration.none,
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RadioListTile<String>(
-                  title: Text('Not Applicable',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.medium,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),),
-                  value: 'type1',
-                  groupValue: _expiryType,
-                  onChanged: (value) {
-                    setState(() {
-                      _expiryType = value;
-                    });
-                  },
-                ),
-                RadioListTile<String>(
-                  title: Text('Scheduled',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.medium,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),),
-                  value: 'type2',
-                  groupValue: _expiryType,
-                  onChanged: (value) {
-                    setState(() {
-                      _expiryType = value;
-                    });
-                  },
-                ),
-                RadioListTile<String>(
-                  title:  Text('Issuer Expiry',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s10,
-                      fontWeight: FontWeightManager.medium,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),),
-                  value: 'type3',
-                  groupValue: _expiryType,
-                  onChanged: (value) {
-                    setState(() {
-                      _expiryType = value;
-                    });
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: AppPadding.p3,
-          horizontal: AppPadding.p20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Expiry Date',
-              style: GoogleFonts.firaSans(
-                fontSize: FontSize.s12,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.mediumgrey,
-                decoration: TextDecoration.none,
-              ),
-            ),
-            SizedBox(height: 4,),
-            FormField<String>(
-              builder: (FormFieldState<String> field) {
-                return SizedBox(
-                  width: 354,
-                  height: 30,
-                  child: TextFormField(
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      //decoration: TextDecoration.none,
-                    ),
-                    controller: calenderController,
-                    decoration: InputDecoration(
-                      focusColor: ColorManager.mediumgrey,
-                      hoverColor: ColorManager.mediumgrey,
-                      hintText: 'dd-mm-yyyy',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        //decoration: TextDecoration.none,
-                      ),
-
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(width: 1,color: ColorManager.mediumgrey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(width: 1, color:ColorManager.mediumgrey), // Set focused border color to red
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(width: 1, color: ColorManager.mediumgrey), // Set enabled border color to red
-                      ),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                      suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime),
-                      errorText: field.errorText,
-                    ),
-                    readOnly: true,
-                    onTap: () async {
-                      DateTime? date = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1100),
-                        lastDate: DateTime.now(),
-                      );
-                      if (date != null) {
-                        String formattedDate = DateFormat('dd-MM-yyyy').format(date);
-                        calenderController.text = formattedDate;
-                        field.didChange(formattedDate);
-                        // birthdayController.text =
-                        // date.toLocal().toString().split(' ')[0];
-                        // field.didChange(date.toLocal().toString().split(' ')[0]);
-                      }
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'please select birth date';
-                      }
-                      return null;
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      Spacer(),
-      Padding(
-        padding: const EdgeInsets.only(bottom: AppPadding.p10),
-        child: Center(
-          child: CustomElevatedButton(
-            width: AppSize.s105,
-            height: AppSize.s30,
-            text: AppStringEM.submit,
-            onPressed: () {
-              widget.onSavePressed();
-              Navigator.pop(context);
-            },
-          ),
-        ),
-      ),
-      ],
-
-    ),
-      ),
-    );
-  }
-}
-///
-class AddOrgDocButton extends StatefulWidget {
-  final TextEditingController idDocController;
-  final TextEditingController nameDocController;
-  final VoidCallback onSavePressed;
-  final Widget child;
-  final Widget child1;
-  const AddOrgDocButton({super.key, required this.idDocController, required this.nameDocController, required this.onSavePressed, required this.child, required this.child1});
-
-  @override
-  State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
-}
-
-class _AddOrgDocButtonState extends State<AddOrgDocButton> {
-  String? _expiryType;
-  TextEditingController birthdayController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        width: AppSize.s400,
-        height: AppSize.s500,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -563,7 +297,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
-                  ), SizedBox(height: AppSize.s8),
+                  ),
+                  SizedBox(height: AppSize.s8),
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
@@ -606,6 +341,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
+
             ///radio
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -629,14 +365,16 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RadioListTile<String>(
-                        title: Text('Not Applicable',
+                        title: Text(
+                          'Not Applicable',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.medium,
                             color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
-                          ),),
-                        value: 'type1',
+                          ),
+                        ),
+                        value: 'Not Applicable',
                         groupValue: _expiryType,
                         onChanged: (value) {
                           setState(() {
@@ -645,14 +383,16 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         },
                       ),
                       RadioListTile<String>(
-                        title: Text('Scheduled',
+                        title: Text(
+                          'Scheduled',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.medium,
                             color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
-                          ),),
-                        value: 'type2',
+                          ),
+                        ),
+                        value: 'Scheduled',
                         groupValue: _expiryType,
                         onChanged: (value) {
                           setState(() {
@@ -661,14 +401,327 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         },
                       ),
                       RadioListTile<String>(
-                        title:  Text('Issuer Expiry',
+                        title: Text(
+                          'Issuer Expiry',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.medium,
                             color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
-                          ),),
-                        value: 'type3',
+                          ),
+                        ),
+                        value: 'Issuer Expiry',
+                        groupValue: _expiryType,
+                        onChanged: (value) {
+                          setState(() {
+                            _expiryType = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppPadding.p3,
+                horizontal: AppPadding.p20,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Expiry Date',
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.mediumgrey,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  FormField<String>(
+                    builder: (FormFieldState<String> field) {
+                      return SizedBox(
+                        width: 354,
+                        height: 30,
+                        child: TextFormField(
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.mediumgrey,
+                            //decoration: TextDecoration.none,
+                          ),
+                          controller: calenderController,
+                          decoration: InputDecoration(
+                            focusColor: ColorManager.mediumgrey,
+                            hoverColor: ColorManager.mediumgrey,
+                            hintText: 'dd-mm-yyyy',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,
+                              //decoration: TextDecoration.none,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1, color: ColorManager.mediumgrey),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: ColorManager
+                                      .mediumgrey), // Set focused border color to red
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: ColorManager
+                                      .mediumgrey), // Set enabled border color to red
+                            ),
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 16),
+                            suffixIcon: Icon(Icons.calendar_month_outlined,
+                                color: ColorManager.blueprime),
+                            errorText: field.errorText,
+                          ),
+                          readOnly: true,
+                          onTap: () async {
+                            DateTime? date = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1100),
+                              lastDate: DateTime(2026),
+                            );
+                            if (date != null) {
+                              String formattedDate =
+                                  DateFormat('dd-MM-yyyy').format(date);
+                              calenderController.text = formattedDate;
+                              field.didChange(formattedDate);
+                              // birthdayController.text =
+                              // date.toLocal().toString().split(' ')[0];
+                              // field.didChange(date.toLocal().toString().split(' ')[0]);
+                            }
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'please select birth date';
+                            }
+                            return null;
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppPadding.p10),
+              child: Center(
+                child: CustomElevatedButton(
+                  width: AppSize.s105,
+                  height: AppSize.s30,
+                  text: AppStringEM.submit,
+                  onPressed: () {
+                    updateOrgDocument(
+                        context,
+                        widget.id!,
+                        widget.nameDocController.text,
+                        calenderController.text,
+                        _expiryType.toString(),
+                        _expiryType.toString());
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+///
+class AddOrgDocButton extends StatefulWidget {
+  final TextEditingController idDocController;
+  final TextEditingController nameDocController;
+  final Widget child;
+  final Widget child1;
+  const AddOrgDocButton(
+      {super.key,
+      required this.idDocController,
+      required this.nameDocController,
+      required this.child,
+      required this.child1});
+
+  @override
+  State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
+}
+
+class _AddOrgDocButtonState extends State<AddOrgDocButton> {
+  String? _expiryType;
+  TextEditingController birthdayController = TextEditingController();
+  var _selectedDate = DateTime.now();
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        width: AppSize.s400,
+        height: AppSize.s500,
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: ListView(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.close),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppPadding.p3,
+                horizontal: AppPadding.p20,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SMTextFConst(
+                    controller: widget.idDocController,
+                    keyboardType: TextInputType.text,
+                    text: 'ID of the Document',
+                  ),
+                  SizedBox(height: AppSize.s8),
+                  SMTextFConst(
+                    controller: widget.nameDocController,
+                    keyboardType: TextInputType.text,
+                    text: 'Name of the Document',
+                  ),
+                  SizedBox(height: AppSize.s8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Type of the Document',
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey,
+                          //decoration: TextDecoration.none,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      widget.child,
+                    ],
+                  ),
+                  SizedBox(height: AppSize.s12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Sub Type of the Document',
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      widget.child1,
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            ///radio
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: AppPadding.p3,
+                horizontal: AppPadding.p20,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Expiry Type',
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.mediumgrey,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RadioListTile<String>(
+                        title: Text(
+                          'Not Applicable',
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeightManager.medium,
+                            color: ColorManager.mediumgrey,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        value: 'Not Applicable',
+                        groupValue: _expiryType,
+                        onChanged: (value) {
+                          setState(() {
+                            _expiryType = value;
+                          });
+                        },
+                      ),
+                      RadioListTile<String>(
+                        title: Text(
+                          'Scheduled',
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeightManager.medium,
+                            color: ColorManager.mediumgrey,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        value: 'Scheduled',
+                        groupValue: _expiryType,
+                        onChanged: (value) {
+                          setState(() {
+                            _expiryType = value;
+                          });
+                        },
+                      ),
+                      RadioListTile<String>(
+                        title: Text(
+                          'Issuer Expiry',
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeightManager.medium,
+                            color: ColorManager.mediumgrey,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        value: 'Issuer Expiry',
                         groupValue: _expiryType,
                         onChanged: (value) {
                           setState(() {
@@ -719,29 +772,35 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                               color: ColorManager.mediumgrey,
                               //decoration: TextDecoration.none,
                             ),
-
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(width: 1),
                             ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime),
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 16),
+                            suffixIcon: Icon(Icons.calendar_month_outlined,
+                                color: ColorManager.blueprime),
                             errorText: field.errorText,
                           ),
-                          readOnly: true,
+                          //readOnly: true,
                           onTap: () async {
                             DateTime? date = await showDatePicker(
                               context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1100),
-                              lastDate: DateTime.now(),
+                              initialDate: _selectedDate,
+                              firstDate: DateTime(2024),
+                              lastDate: DateTime(2025),
                             );
                             if (date != null) {
-                              birthdayController.text = date.toLocal().toString().split('')[0];
-                                  // DateFormat('dd-mm-yyyy').format(_selectedDate);
-                              field.didChange(date.toLocal().toString().split(' ')[0]);
+                              String formattedDate =
+                              DateFormat('dd-MM-yyyy').format(date);
+                              birthdayController.text = formattedDate;
+                              field.didChange(formattedDate);
+                              // birthdayController.text =
+                              // date.toLocal().toString().split(' ')[0];
+                              // field.didChange(date.toLocal().toString().split(' ')[0]);
                             }
                           },
+
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'please select birth date';
@@ -755,7 +814,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
-             Spacer(),
+            Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Center(
@@ -763,15 +822,22 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.save,
-                  onPressed: () {
-                    widget.onSavePressed();
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    await addOrgDocumentPost(
+                        context,
+                        birthdayController.text,
+                        widget.nameDocController.text,
+                        _expiryType.toString(),
+                        _expiryType.toString());
+                    setState(() async{
+                      await orgDocumentGet(context);
+                      Navigator.pop(context);
+                    });
                   },
                 ),
               ),
             ),
           ],
-
         ),
       ),
     );

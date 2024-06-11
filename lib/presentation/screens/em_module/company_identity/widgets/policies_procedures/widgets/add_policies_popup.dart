@@ -59,14 +59,12 @@ class _AddPoliciesPopupState extends State<AddPoliciesPopup> {
                     keyboardType: TextInputType.text,
                     text: 'Name of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
-                  SMTextFConst(
+                  SizedBox(height: AppSize.s15),                  SMTextFConst(
                     controller: widget.idOfDocumentController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
-                  Column(
+                  SizedBox(height: AppSize.s15),                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Type of the Document',
@@ -86,7 +84,7 @@ class _AddPoliciesPopupState extends State<AddPoliciesPopup> {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p30),
               child: Center(
                 child: CustomElevatedButton(
                   width: AppSize.s105,

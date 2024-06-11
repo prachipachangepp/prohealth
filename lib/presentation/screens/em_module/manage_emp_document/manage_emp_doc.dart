@@ -3,6 +3,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_pageview.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
@@ -66,6 +67,7 @@ class ManageEmpDocWidget extends StatefulWidget {
 class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
   TextEditingController nameDocController = TextEditingController();
   TextEditingController idDocController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
   final List<String> _categories = [
     'Health',
     'Certifications',
@@ -97,27 +99,29 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
       color: Colors.white,
       child: Column(
         children: [
+          widget.selectedIndex == 0 ?
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p50,vertical: AppPadding.p20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CustomIconButtonConst(text: 'Add Document', onPressed: (){
-                  // showDialog(context: context, builder: (BuildContext context){
-                  //   return EmpDocEditPopup(idDocController: idDocController, nameDocController: nameDocController, onSavePressed: () {  },
-                  //     child:  CICCDropdown(
-                  //       initialValue: 'Health',
-                  //       items: [
-                  //         DropdownMenuItem(value: 'Health', child: Text('Health')),
-                  //         DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                  //         DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                  //         DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                  //       ],),);
-                  // });
+                  showDialog(context: context, builder: (BuildContext context){
+                    return EmpDocEditPopup(idDocController: idDocController, nameDocController: nameDocController,
+                      calenderController: dateController,
+                      child:  CICCDropdown(
+                        initialValue: 'Health',
+                        items: [
+                          DropdownMenuItem(value: 'Health', child: Text('Health')),
+                          DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                          DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                          DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                        ],),);
+                  });
                 },icon: Icons.add,)
               ],
             ),
-          ),
+          ):SizedBox(height: 73,),
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(

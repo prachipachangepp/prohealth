@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -7,15 +8,14 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/auth/auth_manager.dart';
 import '../../../../../data/api_data/api_data.dart';
-import '../../../../../data/navigator_arguments/screen_arguments.dart';
-import '../../../home_module/home_screen.dart';
 import '../../../../widgets/tablet_constant/tab_const.dart';
+import '../../../home_module/home_screen.dart';
 import '../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../login_password/login_password.dart';
 
 class EmailVerifyTab extends StatefulWidget {
-  static const String routeName = "/emailVerification";
-  const EmailVerifyTab({super.key});
+  final String email;
+  const EmailVerifyTab({super.key, required this.email});
 
   @override
   State<EmailVerifyTab> createState() => _EmailVerifyTabState();
@@ -23,10 +23,9 @@ class EmailVerifyTab extends StatefulWidget {
 
 class _EmailVerifyTabState extends State<EmailVerifyTab> {
   final List<TextEditingController> _otpControllers =
-  List.generate(6, (_) => TextEditingController());
+      List.generate(6, (_) => TextEditingController());
   bool _isVerifyingOTP = false;
   String? _errorMessage = "";
-  String? email = "";
 
   Future<void> _verifyOTPAndLogin() async {
     setState(() {
@@ -34,9 +33,9 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
       _errorMessage = "";
     });
     String enteredOTP =
-    _otpControllers.map((controller) => controller.text).join();
+        _otpControllers.map((controller) => controller.text).join();
     ApiData result = await AuthManager.verifyOTPAndLogin(
-        email: email!, otp: enteredOTP, context: context);
+        email: widget.email, otp: enteredOTP, context: context);
     if (result.success) {
       Navigator.pushNamed(context, HomeScreen.routeName);
     } else {
@@ -51,9 +50,6 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    email = args.title!;
-
     return LoginBaseConstTab(
       titleText: AppString.verification,
       onTap: () {},
@@ -87,7 +83,7 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     6,
-                        (index) => Container(
+                    (index) => Container(
                       width: MediaQuery.of(context).size.width / 30,
                       height: MediaQuery.of(context).size.height / 22,
                       margin: EdgeInsets.only(left: AppPadding.p12),
@@ -114,8 +110,7 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                         textAlignVertical: TextAlignVertical.center,
                         maxLength: 1,
                         decoration: const InputDecoration(
-                          contentPadding:
-                          EdgeInsets.only(bottom: AppSize.s15),
+                          contentPadding: EdgeInsets.only(bottom: AppSize.s15),
                           counterText: '',
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
@@ -161,9 +156,7 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                   paddingVertical: AppPadding.p5,
                   height: MediaQuery.of(context).size.height / 24,
                   width: MediaQuery.of(context).size.width / 3,
-                  text: _isVerifyingOTP
-                      ? AppString.verify
-                      : AppString.loginbtn,
+                  text: _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
                   onPressed: () {
                     _verifyOTPAndLogin();
                   },
@@ -195,13 +188,11 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration:
-                        const Duration(milliseconds: 500),
-                        pageBuilder:
-                            (context, animation, secondaryAnimation) =>
-                            LoginWithPassword(email: email!),
-                        transitionsBuilder: (context, animation,
-                            secondaryAnimation, child) {
+                        transitionDuration: const Duration(milliseconds: 500),
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            LoginWithPassword(email: widget.email!),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
                           const begin = Offset(1.0, 0.0);
                           const end = Offset.zero;
                           const curve = Curves.ease;

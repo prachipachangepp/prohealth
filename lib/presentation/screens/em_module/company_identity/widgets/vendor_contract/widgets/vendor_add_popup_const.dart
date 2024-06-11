@@ -58,14 +58,13 @@ class _CiVendorAddPopupState extends State<CiVendorAddPopup> {
                     keyboardType: TextInputType.text,
                     text: 'Name of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
+                  SizedBox(height: AppSize.s15),
                   SMTextFConst(
                     controller: widget.idOfDocController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
-                  Column(
+                  SizedBox(height: AppSize.s15),                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Type of the Document',
@@ -80,8 +79,7 @@ class _CiVendorAddPopupState extends State<CiVendorAddPopup> {
                       widget.child
                     ],),
 
-                  SizedBox(height: AppSize.s12),
-                  Column(
+                  SizedBox(height: AppSize.s15),                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Sub Type of the Document',
@@ -100,7 +98,7 @@ class _CiVendorAddPopupState extends State<CiVendorAddPopup> {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p50),
               child: Center(
                 child: CustomElevatedButton(
                   width: AppSize.s105,

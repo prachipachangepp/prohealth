@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
@@ -10,6 +13,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
+import '../../../../../../app/resources/const_string.dart';
 import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
 class CiDme extends StatefulWidget {
@@ -24,6 +28,7 @@ class _CiDmeState extends State<CiDme> {
   TextEditingController idOfDocController = TextEditingController();
   TextEditingController editnameOfDocController = TextEditingController();
   TextEditingController editidOfDocController = TextEditingController();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -35,7 +40,11 @@ class _CiDmeState extends State<CiDme> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    orgDocumentGet(context);
+    orgDocumentGet(context).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
     // companyAllApi(context);
   }
 
@@ -93,13 +102,25 @@ class _CiDmeState extends State<CiDme> {
                     });
               }),
           Expanded(
-            child: FutureBuilder<List<CiOrgDocumentCC>>(
-              future: orgDocumentGet(context),
+            child: StreamBuilder<List<CiOrgDocumentCC>>(
+              stream: _controller.stream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(
                       color: ColorManager.blueprime,
+                    ),
+                  );
+                }
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                      ),
                     ),
                   );
                 }
@@ -211,7 +232,6 @@ class _CiDmeState extends State<CiDme> {
                                                           editidOfDocController,
                                                           nameDocController:
                                                           editnameOfDocController,
-                                                          onSavePressed: () {},
                                                           child: CICCDropdown(
                                                             initialValue:
                                                             'Vendor Contract',
@@ -270,7 +290,18 @@ class _CiDmeState extends State<CiDme> {
                                                   color: ColorManager.blueprime,
                                                 )),
                                             IconButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  setState(() async{
+                                                    await deleteDocument(
+                                                        context,
+                                                        snapshot.data![index].docId!);
+                                                    orgDocumentGet(context).then((data) {
+                                                      _controller.add(data);
+                                                    }).catchError((error) {
+                                                      // Handle error
+                                                    });
+                                                  });
+                                                },
                                                 icon: Icon(
                                                   Icons.delete_outline,
                                                   size:18,

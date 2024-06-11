@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
@@ -26,6 +29,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
   late List<String> items;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
 
   String? selectedValue;
   late List<Color> hrcontainerColors;
@@ -36,7 +40,11 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgDocumentGet(context);
+    orgDocumentGet(context).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
     _loadColors();
   }
   void _loadColors() async {
@@ -125,13 +133,25 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
           ),
           SizedBox(height: AppSize.s10,),
           Expanded(
-            child: FutureBuilder<List<CiOrgDocumentCC>>(
-                future: orgDocumentGet(context),
+            child: StreamBuilder<List<CiOrgDocumentCC>>(
+                stream: _controller.stream,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
                         color: ColorManager.blueprime,
+                      ),
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppString.dataNotFound,
+                        style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey,
+                        ),
                       ),
                     );
                   }
@@ -169,7 +189,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                                 children: [
                                   Center(
                                       child: Text(
-                                        formattedSerialNumber,
+                                        snapshot.data![index].docId.toString(),
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -236,7 +256,20 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                                           });
                                         }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
                                         SizedBox(width: 3,),
-                                        Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),),
+                                        InkWell(
+                                            onTap: (){
+                                              setState(() async{
+                                                await deleteDocument(
+                                                    context,
+                                                    snapshot.data![index].docId!);
+                                                orgDocumentGet(context).then((data) {
+                                                  _controller.add(data);
+                                                }).catchError((error) {
+                                                  // Handle error
+                                                });
+                                              });
+                                            },
+                                            child: Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),)),
                                       ],
                                     ),
                                   ),

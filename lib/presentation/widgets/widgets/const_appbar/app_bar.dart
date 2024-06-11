@@ -324,6 +324,7 @@ class MyAppBar extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+
                             CircleAvatar(
                               radius: 10,
                               backgroundColor: Colors.white,

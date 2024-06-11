@@ -21,8 +21,7 @@ class CustomButtonTransparentSM extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(
-            fontFamily: 'FiraSans',
+          style: GoogleFonts.firaSans(
             fontSize: 10,
             fontWeight: FontWeight.w700,
             color: Color(0xFFF6928A),
