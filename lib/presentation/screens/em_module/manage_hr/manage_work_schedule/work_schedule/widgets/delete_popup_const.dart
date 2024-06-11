@@ -53,9 +53,10 @@ class _DeletePopupState extends State<DeletePopup> {
                   Container(
                     height: AppSize.s100,
                     width: AppSize.s150,
-                    child: Text('Do you really want to delete ?',textAlign: TextAlign.center,style:CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
+                    child: Text('Do you really want to delete ?',textAlign: TextAlign.center,
+                      style:CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.regular,
+                        fontSize: FontSize.s16,
                         color: ColorManager.mediumgrey
                     ),),
                   )
