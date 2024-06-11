@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_visit.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/company_identity.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/hr_screen.dart';
+
 import '../../../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
-import '../../../widgets/widgets/custom_icon_button_constant.dart';
-import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
-import '../widgets/button_constant.dart';
-import '../widgets/text_form_field_const.dart';
 
 class CompanyIdentityScreen extends StatefulWidget {
   final VoidCallback? onWhitelabellingPressed;
@@ -23,6 +15,7 @@ class CompanyIdentityScreen extends StatefulWidget {
   @override
   State<CompanyIdentityScreen> createState() => _CompanyIdentityScreenState();
 }
+
 class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -44,6 +37,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
     _companyManager = CompanyIdentityManager();
     companyAllApi(context);
   }
+
   int _selectedIndex = 0;
 
   void _selectButton(int index) {
@@ -52,148 +46,149 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
     });
     _tabPageController.animateToPage(
       index,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.ease,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-          color: Colors.white,
-          // padding: EdgeInsets.symmetric(horizontal: 40, vertical: 6),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              height: 500,
-              // color: Colors.green,
-              child: Column(
-                  children: [
-                    /// visit , org , Document tab bar
-                    SizedBox(height: 40,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 480,
-                          height: 30,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              InkWell(
-                                onTap: () => _selectButton(0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Company Identity",
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                        color: _selectedIndex == 0 ?  ColorManager.blueprime : Color(0xff686464),
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 2,
-                                      width: 120,
-                                      color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.transparent,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () => _selectButton(1),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Visits",
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                        color: _selectedIndex == 1 ?  ColorManager.blueprime : Color(0xff686464),
-                                        // color: isSelected ? Colors.white : Colors.black,
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 2,
-                                      width: 40,
-                                      color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.transparent,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () => _selectButton(2),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Org Documents",
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                        color: _selectedIndex == 2 ?  ColorManager.blueprime :Color(0xff686464),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 2,
-                                      width: 100,
-                                      color: _selectedIndex == 2 ?  ColorManager.blueprime : Colors.transparent,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () => _selectButton(3),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Role Manager",
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                        color: _selectedIndex == 3 ? ColorManager.blueprime : Color(0xff686464)
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 2,
-                                      width: 90,
-                                      color: _selectedIndex == 3 ? ColorManager.blueprime: Colors.transparent,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    Expanded(
-                      child: NonScrollablePageView(
-                        controller: _tabPageController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            _selectedIndex = index;
-                          });
-                        },
-                        children: [
-                          CompanyIdentity(),
-                          // Page 1
-                          CiVisitScreen(),
-                          // Page 2
-                          CiOrgDocument(),
-                          // Page 3
-                          CiRoleManager()
-                        ],
+        backgroundColor: Colors.white,
+        body: Column(children: [
+          /// visit , org , Document tab bar
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                  onTap: () => _selectButton(0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Company Identity",
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: _selectedIndex == 0
+                              ? ColorManager.blueprime
+                              : const Color(0xff686464),
+                          // color: isSelected ? Colors.white : Colors.black,
+                        ),
                       ),
-                    ),
-                    ///Company Identity screen data code
-                    ///API integarted code do not delete
-                  ]),
+                      Container(
+                        height: 2,
+                        width: 120,
+                        color: _selectedIndex == 0
+                            ? ColorManager.blueprime
+                            : Colors.transparent,
+                      ),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () => _selectButton(1),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Visits",
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: _selectedIndex == 1
+                              ? ColorManager.blueprime
+                              : const Color(0xff686464),
+                          // color: isSelected ? Colors.white : Colors.black,
+                        ),
+                      ),
+                      Container(
+                        height: 2,
+                        width: 40,
+                        color: _selectedIndex == 1
+                            ? ColorManager.blueprime
+                            : Colors.transparent,
+                      ),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () => _selectButton(2),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Org Documents",
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: _selectedIndex == 2
+                              ? ColorManager.blueprime
+                              : const Color(0xff686464),
+                        ),
+                      ),
+                      Container(
+                        height: 2,
+                        width: 100,
+                        color: _selectedIndex == 2
+                            ? ColorManager.blueprime
+                            : Colors.transparent,
+                      ),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () => _selectButton(3),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Role Manager",
+                        style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: _selectedIndex == 3
+                                ? ColorManager.blueprime
+                                : const Color(0xff686464)),
+                      ),
+                      Container(
+                        height: 2,
+                        width: 90,
+                        color: _selectedIndex == 3
+                            ? ColorManager.blueprime
+                            : Colors.transparent,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-        ));
+          Expanded(
+            flex: 1,
+            child: NonScrollablePageView(
+              controller: _tabPageController,
+              onPageChanged: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              children: const [
+                CompanyIdentity(),
+                // Page 1
+                CiVisitScreen(),
+                // Page 2
+                CiOrgDocument(),
+                // Page 3
+                CiRoleManager()
+              ],
+            ),
+          ),
+
+          ///Company Identity screen data code
+          ///API integarted code do not delete
+        ]));
   }
 }
+
 ///
 
 class NonScrollablePageView extends StatelessWidget {
@@ -213,7 +208,7 @@ class NonScrollablePageView extends StatelessWidget {
       child: PageView(
         controller: controller,
         onPageChanged: onPageChanged,
-        physics: NeverScrollableScrollPhysics(), // Disables scrolling
+        physics: const NeverScrollableScrollPhysics(), // Disables scrolling
         children: children,
       ),
     );
