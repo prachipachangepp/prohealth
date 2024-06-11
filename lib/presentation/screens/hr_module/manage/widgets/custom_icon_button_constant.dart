@@ -24,11 +24,11 @@ class CustomIconButton extends StatelessWidget {
       onPressed: onPressed,
       icon: icon != null
           ? Icon(icon!, color: Colors.white, size: 20)
-          : SizedBox.shrink(),
+          : const SizedBox.shrink(),
       label: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'FiraSans',
           fontSize: 12,
           fontWeight: FontWeight.w700,
@@ -36,8 +36,8 @@ class CustomIconButton extends StatelessWidget {
         ),
       ),
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        backgroundColor: Color(0xFF50B5E5),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        backgroundColor: const Color(0xFF50B5E5),
         // shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -64,7 +64,7 @@ class CustomButtonTransparent extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'FiraSans',
           fontSize: 12,
           fontWeight: FontWeight.w700,
@@ -72,11 +72,11 @@ class CustomButtonTransparent extends StatelessWidget {
         ),
       ),
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Color(0xFF50B5E5)),
+          side: const BorderSide(color: Color(0xFF50B5E5)),
         ),
       ),
     );
@@ -87,32 +87,36 @@ class CustomeTransparentAddShift extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final IconData? icon;
-  const CustomeTransparentAddShift({super.key, required this.text, required this.onPressed, this.icon});
+  const CustomeTransparentAddShift(
+      {super.key, required this.text, required this.onPressed, this.icon});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: MediaQuery.of(context).size.height/25,
-        width: MediaQuery.of(context).size.width/15,
-        decoration: BoxDecoration(border: Border.all(color: ColorManager.blueprime),borderRadius: BorderRadius.circular(30)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Icon(Icons.add,color: ColorManager.blueprime, size: MediaQuery.of(context).size.width/100),
-            Text(
-              text,
-              style: TextStyle(
-                fontFamily: 'FiraSans',
-                fontSize: MediaQuery.of(context).size.width/100,
-                fontWeight: FontWeight.w700,
-                color: ColorManager.blueprime,
+          height: MediaQuery.of(context).size.height / 25,
+          width: MediaQuery.of(context).size.width / 15,
+          decoration: BoxDecoration(
+              border: Border.all(color: ColorManager.blueprime),
+              borderRadius: BorderRadius.circular(30)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Icon(Icons.add,
+                  color: ColorManager.blueprime,
+                  size: MediaQuery.of(context).size.width / 100),
+              Text(
+                text,
+                style: TextStyle(
+                  fontFamily: 'FiraSans',
+                  fontSize: MediaQuery.of(context).size.width / 100,
+                  fontWeight: FontWeight.w700,
+                  color: ColorManager.blueprime,
+                ),
               ),
-            ),
-          ],
-        )
-      ),
+            ],
+          )),
     );
   }
 }
@@ -226,7 +230,7 @@ class CustomButton extends StatelessWidget {
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
     this.width = 50,
-    this.height = 50.0,
+    this.height = 30.0,
     this.style,
     this.child,
   }) : super(key: key);
@@ -235,7 +239,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final defaultTextStyle = GoogleFonts.firaSans(
       color: textColor,
-      fontSize: MediaQuery.of(context).size.width / 90,
+      fontSize: 12,
       fontWeight: FontWeight.w700,
     );
     final mergedTextStyle = defaultTextStyle.merge(style);
@@ -245,7 +249,7 @@ class CustomButton extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
-          BoxShadow(
+          const BoxShadow(
             color: Color(0x40000000),
             offset: Offset(0, 4),
             blurRadius: 3,
@@ -294,25 +298,35 @@ class CustomTitleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      elevation: isSelected ? 4 : 0,
       color: Colors.white,
-      child: GestureDetector(
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        hoverColor: Colors.white,
+        borderRadius: BorderRadius.circular(12),
         onTap: onPressed,
         child: Container(
-          height: height,
-          width: width,
+          // padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           alignment: Alignment.center,
           decoration: isSelected
               ? BoxDecoration(
-            color: ColorManager.blueprime,
-            borderRadius: BorderRadius.circular(8),
-          )
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xff51B5E6),
+                      Color(0xff008ABD),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                )
               : null,
           child: Text(
             text,
             style: GoogleFonts.firaSans(
-              fontSize: MediaQuery.of(context).size.width / 120,
-              fontWeight: FontWeight.w700,
-              color: isSelected ? Colors.white : Colors.black,
+              fontSize: FontSize.s12,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+              color: isSelected ? Colors.white : const Color(0xff9B9B9B),
             ),
           ),
         ),
@@ -484,7 +498,7 @@ class CustomDropdownButton extends StatelessWidget {
     this.paddingVertical = 11.0,
     this.paddingHorizontal = 16.0,
     this.width = 40,
-    this.height = 40.0,
+    this.height = 30.0,
   }) : super(key: key);
 
   @override
@@ -503,14 +517,14 @@ class CustomDropdownButton extends StatelessWidget {
           child: DropdownButton<String>(
             value: selectedItem,
             onChanged: onChanged,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 13,
               fontWeight: FontWeight.w700,
             ),
             dropdownColor: ColorManager.white,
             borderRadius: BorderRadius.circular(borderRadius),
-            icon: Icon(Icons.arrow_drop_down, color: Colors.white),
+            icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
             iconSize: 20.0,
             isExpanded: true,
             items: items.map((String value) {

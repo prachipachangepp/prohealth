@@ -55,6 +55,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        ///buttons
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -71,16 +72,9 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 width: 120,
                 height: 30,
                 onPressed: () {
-                  // if (widget.onWhitelabellingPressed != null) {
-                  //   widget.onWhitelabellingPressed!();
-                  // }
-
                 },
               ),
             ),
-            // SizedBox(
-            //   width: AppSize.s30,
-            // ),
             ///add new office
             Padding(
               padding: const EdgeInsets.only(right: 50),
@@ -205,68 +199,38 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // IconButton(
-              //     onPressed: () {},
-              //     icon: Icon(
-              //       Icons.menu_sharp,
-              //       color: Color(0xff686464),
-              //     )),
               SizedBox(width: 25,),
               Padding(
                 padding:  EdgeInsets.only(left: 85),
                 child: Text(
                  "Sr No.",
-                  // style: egisterTableHead.customTextStyle(context),
-                  style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                  ),
+                  style:TableHeadingStyle.firaSansWhite12Bold,
                 ),
               ),
               Padding(
                 padding:  EdgeInsets.only(left: 35),
                 child: Text(
                 "Office Name",
-                  style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                  ),
-                  // style: RegisterTableHead.customTextStyle(context),
+                    style: TableHeadingStyle.firaSansWhite12Bold,
                 ),
               ),
               Padding(
                 padding:  EdgeInsets.only(right: 70),
                 child: Text(
                   "Address",
-                  style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                  ),
+                  style: TableHeadingStyle.firaSansWhite12Bold,
                 ),
               ),
               Padding(
                 padding:  EdgeInsets.only(right: 40),
                 child: Text(
                   AppString.actions,
-                  style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                  ),
-                  // style: RegisterTableHead.customTextStyle(context),
+                  style: TableHeadingStyle.firaSansWhite12Bold,
                 ),
               ),
             ],
           ),
         ),
-
         SizedBox(
           height: 10,
         ),
@@ -295,6 +259,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 );
               }
               if (snapshot.hasData) {
+                int totalItems = snapshot.data!.length;
+                  (currentPage - 1) * itemsPerPage;
+                  (currentPage * itemsPerPage) > totalItems
+                      ? totalItems
+                      : (currentPage * itemsPerPage);
+
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
@@ -326,47 +296,25 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.menu_sharp,
+                                    onPressed: () {},
+                                    icon: Icon(Icons.menu_sharp,
                                               color: Color(0xff686464),
                                             )),
                                 Text(
                                   formattedSerialNumber,
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff686464)
-                                    // color: isSelected ? Colors.white : Colors.black,
-                                  ),
-                                  // style: ThemeManagerDark.customTextStyle(context),
+                                  style: TableListTextStyle.firaSansGray10Bold,
                                   textAlign: TextAlign.start,
                                 ),
-                                Text(
-                                      snapshot.data![index].companyId.toString(),
+                                Text(snapshot.data![index].companyId.toString(),
                                       // formattedSerialNumber,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xff686464),
-                                        decoration: TextDecoration.none,
-                                      ),
+                                  style: TableListTextStyle.firaSansGray10Bold,
                                     ),
-                                Text(
-                                          snapshot.data![index].address.toString(),
+                                Text(snapshot.data![index].address.toString(),
                                           textAlign: TextAlign.end,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
+                                  style: TableListTextStyle.firaSansGray10Bold,
                                         ),
                                 CustomButtonTransparentSM(
-
-                                            text: 'Manage', onPressed: () {
-
-                                        }),
+                                            text: 'Manage', onPressed: () {}),
                               ],
                             ),
                           ),
