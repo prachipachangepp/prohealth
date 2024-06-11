@@ -16,6 +16,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class CiInsuranceVendor extends StatefulWidget {
   const CiInsuranceVendor({super.key});
@@ -195,7 +196,11 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                        return  CustomPopup(controller: vendorName, onPressed: () {  },);
                                                      });
                                                    }, icon: Icon(Icons.edit_outlined,color: ColorManager.blueprime,size:18,)),
-                                                   IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,color: ColorManager.red,size:18,)),
+                                                   IconButton(onPressed: (){
+                                                     showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                                       Navigator.pop(context);
+                                                     }, onDelete: (){}));
+                                                   }, icon: Icon(Icons.delete_outline,color: ColorManager.red,size:18,)),
                                                  ],
                                                )
                                              ],

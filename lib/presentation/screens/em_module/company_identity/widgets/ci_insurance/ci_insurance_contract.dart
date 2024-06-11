@@ -12,6 +12,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'widgets/contract_add_dialog.dart';
 
 class CiInsuranceContract extends StatefulWidget {
@@ -251,7 +252,9 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                 )),
                                             IconButton(
                                                 onPressed: () {
-                                                  setState(() async{
+                                                  showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                                    Navigator.pop(context);
+                                                  }, onDelete: (){setState(() async{
                                                     await deleteDocument(
                                                         context,
                                                         snapshot.data![index].docId!);
@@ -260,7 +263,8 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                     }).catchError((error) {
                                                       // Handle error
                                                     });
-                                                  });
+                                                  });}));
+
                                                 },
                                                 icon: Icon(
                                                   Icons.delete_outline,

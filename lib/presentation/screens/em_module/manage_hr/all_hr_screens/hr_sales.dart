@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -6,10 +7,17 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
+import '../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import '../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import '../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../widgets/table_constant.dart';
+import '../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class HrSalesScreen extends StatefulWidget {
   HrSalesScreen({super.key});
@@ -24,6 +32,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  final StreamController<List<HRSales>> _controller = StreamController<List<HRSales>>();
 
   late int currentPage;
   late int itemsPerPage;
@@ -37,7 +46,12 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    _loadColors(); // Load saved colors
+    _loadColors();
+    // orgDocumentGet(context).then((data) {
+    //   _controller.add(data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
   }
 
   /// Load saved colors from SharedPreferences
@@ -153,7 +167,33 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
           height: AppSize.s5,
         ),
         Expanded(
-          child: ListView.builder(
+          child:
+          // StreamBuilder<List<HRSales>>(
+          //   stream: _controller.stream,
+          //   builder: (context, snapshot) {
+          //     print('1111111');
+          //     if (snapshot.connectionState == ConnectionState.waiting) {
+          //       return Center(
+          //         child: CircularProgressIndicator(
+          //           color: ColorManager.blueprime,
+          //         ),
+          //       );
+          //     }
+          //     if (snapshot.data!.isEmpty) {
+          //       return Center(
+          //         child: Text(
+          //           AppString.dataNotFound,
+          //           style: CustomTextStylesCommon.commonStyle(
+          //             fontWeight: FontWeightManager.medium,
+          //             fontSize: FontSize.s12,
+          //             color: ColorManager.mediumgrey,
+          //           ),
+          //         ),
+          //       );
+          //     }
+          //     if (snapshot.hasData) {
+          //       return
+          ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: 2,
               itemBuilder: (context, index) {
@@ -241,7 +281,11 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                               color: ColorManager.blueprime,
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                  Navigator.pop(context);
+                                }, onDelete: (){}));
+                              },
                               icon: Icon(
                                 Icons.delete_outline,
                                 size: 18,
@@ -253,6 +297,11 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                       ],
                     ));
               }),
+          //;
+//   }
+//   return Offstage();
+// },
+//),
         ),
         SizedBox(
           height: AppSize.s10,

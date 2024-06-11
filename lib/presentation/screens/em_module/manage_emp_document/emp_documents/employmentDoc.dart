@@ -15,6 +15,7 @@ import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import '../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import '../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class EmplomentDoc extends StatefulWidget {
   const EmplomentDoc({super.key});
@@ -254,11 +255,13 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                                   DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                                 ],),);
                                           });
-                                        }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
+                                        }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
                                         SizedBox(width: 3,),
                                         InkWell(
                                           onTap: (){
-                                            setState(() async{
+                                            showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                              Navigator.pop(context);
+                                            }, onDelete: (){ setState(() async{
                                               await deleteDocument(
                                                   context,
                                                   snapshot.data![index].docId!);
@@ -267,9 +270,9 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                               }).catchError((error) {
                                                 // Handle error
                                               });
-                                            });
+                                            });}));
                                           },
-                                            child: Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),)),
+                                            child: Icon(Icons.delete_outline_outlined, size:18,color: Color(0xffF6928A),)),
                                       ],
                                     ),
                                   ),
