@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -29,7 +30,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   late List<String> items;
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-
+  final StreamController<List<CiOrgDocumentCC>> _policiesandprocedureController = StreamController<List<CiOrgDocumentCC>>();
   String? selectedValue;
   late List<Color> hrcontainerColors;
 
@@ -125,9 +126,10 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
         ),
         SizedBox(height: AppSize.s10),
         Expanded(
-          child: FutureBuilder<List<CiOrgDocumentCC>>(
-            future: orgDocumentGet(context),
+          child:  StreamBuilder<List<CiOrgDocumentCC>>(
+            stream: _policiesandprocedureController.stream,
             builder: (context, snapshot) {
+              print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(

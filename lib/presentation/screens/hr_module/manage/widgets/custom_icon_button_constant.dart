@@ -230,7 +230,7 @@ class CustomButton extends StatelessWidget {
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 16.0,
     this.width = 50,
-    this.height = 50.0,
+    this.height = 30.0,
     this.style,
     this.child,
   }) : super(key: key);
@@ -239,7 +239,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final defaultTextStyle = GoogleFonts.firaSans(
       color: textColor,
-      fontSize: MediaQuery.of(context).size.width / 90,
+      fontSize: 12,
       fontWeight: FontWeight.w700,
     );
     final mergedTextStyle = defaultTextStyle.merge(style);
@@ -306,7 +306,7 @@ class CustomTitleButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         onTap: onPressed,
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+          // padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           alignment: Alignment.center,
           decoration: isSelected
               ? BoxDecoration(
@@ -498,7 +498,7 @@ class CustomDropdownButton extends StatelessWidget {
     this.paddingVertical = 11.0,
     this.paddingHorizontal = 16.0,
     this.width = 40,
-    this.height = 40.0,
+    this.height = 30.0,
   }) : super(key: key);
 
   @override

@@ -6,6 +6,7 @@ import 'package:prohealth/app/services/api/repository/establishment_manager/esta
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 
+///get api
 Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
   List<CiOrgDocumentCC> itemsList = [];
 
@@ -40,7 +41,7 @@ Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
   }
 }
 
-
+///post api
 Future<ApiData> addOrgDocumentPost(
     BuildContext context,
     String expiryDate,
@@ -79,7 +80,14 @@ Future<ApiData> addOrgDocumentPost(
   }
 }
 
-Future<ApiData> updateOrgDocument(BuildContext context, int docId,String docName,String docDate, String expiryType,String expiryReminder) async{
+///patch
+Future<ApiData> updateOrgDocument(
+    BuildContext context,
+    int docId,
+    String docName,
+    String docDate,
+    String expiryType,
+    String expiryReminder) async{
   try {
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.
@@ -113,7 +121,7 @@ Future<ApiData> updateOrgDocument(BuildContext context, int docId,String docName
 }
 
 
-
+///delete
 Future<ApiData> deleteDocument(
     BuildContext context, int docId) async {
   try {

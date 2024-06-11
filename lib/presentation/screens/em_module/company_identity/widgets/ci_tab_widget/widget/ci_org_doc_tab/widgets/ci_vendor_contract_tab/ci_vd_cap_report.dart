@@ -1,18 +1,19 @@
+import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import '../../../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+
 
 class VendorContractCapReport extends StatefulWidget {
   const VendorContractCapReport({super.key});
@@ -28,6 +29,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
   String? selectedValue;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
 
   late List<Color> hrcontainerColors;
   @override
@@ -37,8 +39,13 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgDocumentGet(context);
+    // orgDocumentGet(context);
     _loadColors();
+    orgDocumentGet(context).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -84,16 +91,12 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                     AppString.expiry,
                     style: RegisterTableHead.customTextStyle(context),
                   )),
-              // Expanded(
-              //     child: SizedBox(width: AppSize.s16,
-              //     )),
               Center(
                   child: Text(
                     AppString.reminderthershold,
                     style: RegisterTableHead.customTextStyle(context),
                   )),
-              // Center(child:
-              // Text(AppString.eligibleClinician,style: RegisterTableHead.customTextStyle(context),),),
+
               Center(
                   child: Text(
                     AppString.actions,
@@ -104,9 +107,10 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
         ),
         SizedBox(height: AppSize.s10,),
         Expanded(
-          child: FutureBuilder<List<CiOrgDocumentCC>>(
-              future: orgDocumentGet(context),
+          child:StreamBuilder<List<CiOrgDocumentCC>>(
+              stream: _controller.stream,
               builder: (context, snapshot) {
+                print('1111111');
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(
@@ -114,7 +118,26 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
                     ),
                   );
                 }
-                if(snapshot.hasData){
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                      ),
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  int totalItems = snapshot.data!.length;
+                  List<CiOrgDocumentCC> currentPageItems = snapshot.data!.sublist(
+                    (currentPage - 1) * itemsPerPage,
+                    (currentPage * itemsPerPage) > totalItems
+                        ? totalItems
+                        : (currentPage * itemsPerPage),
+                  );
                   return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
