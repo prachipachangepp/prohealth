@@ -70,331 +70,34 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(Icons.arrow_back_outlined, size: 15),
-                  color: ColorManager.mediumgrey,
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CompanyIdentityScreen()));
-                  },
-                ),
-                Text(
-                  'Go Back',
-                  style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s12,
-                    fontWeight: FontWeightManager.bold,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration
-                        .underline,
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     IconButton(
+            //       icon: Icon(Icons.arrow_back_outlined, size: 15),
+            //       color: ColorManager.mediumgrey,
+            //       onPressed: () {
+            //         Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //                 builder: (context) => CompanyIdentityScreen()));
+            //       },
+            //     ),
+            //     Text(
+            //       'Go Back',
+            //       style: GoogleFonts.firaSans(
+            //         fontSize: FontSize.s12,
+            //         fontWeight: FontWeightManager.bold,
+            //         color: ColorManager.mediumgrey,
+            //         decoration: TextDecoration
+            //             .underline,
+            //       ),
+            //     ),
+            //   ],
+            // ),
             Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: CustomIconButton(
-                    icon: Icons.edit_outlined,
-                    text: "Edit Details",
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: Colors.white,
-                            content: Container(
-                              height: 300,
-                              width: 950,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                         Column(
-                                           mainAxisAlignment: MainAxisAlignment.start,
-                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                           children: [
-                                             Text("Company App Logo",
-                                                 style: GoogleFonts.firaSans(
-                                                   fontSize: FontSize.s12,
-                                                   fontWeight:
-                                                   FontWeightManager.bold,
-                                                   color: Color(0xff686464),
-                                                 )),
-                                             Container(
-                                               width: 354,
-                                               height: 50,
-                                               decoration: BoxDecoration(
-                                                 border: Border.all(
-                                                     color: Colors.grey),
-                                                 borderRadius: BorderRadius.all(
-                                                     Radius.circular(10)),
-                                               ),
-                                               child: Row(
-                                                 mainAxisAlignment:
-                                                 MainAxisAlignment.spaceAround,
-                                                 children: [
-                                                   Text(
-                                                       "Upload Immunization Records from PDF",
-                                                       style: GoogleFonts.firaSans(
-                                                           fontSize: 10,
-                                                           fontWeight: FontWeight
-                                                               .w500,
-                                                           color: Color(0xff686464))
-                                                   ),
-                                                   Container(
-                                                     width: 130,
-                                                     height: 30,
-                                                     decoration: BoxDecoration(
-                                                       border: Border.all(
-                                                           color: Colors.grey),
-                                                       borderRadius:
-                                                       BorderRadius.all(
-                                                           Radius.circular(
-                                                               10)),
-                                                     ),
-                                                     child: Row(
-                                                       mainAxisAlignment:
-                                                       MainAxisAlignment
-                                                           .spaceAround,
-                                                       children: [
-                                                         InkWell(
-                                                           onTap: pickFile,
-                                                           child: Container(
-                                                             color:
-                                                             Color(0xffD9D9D9),
-                                                             child: Text(
-                                                               "Choose File",
-                                                               style: GoogleFonts
-                                                                   .firaSans(
-                                                                 fontSize: 10,
-                                                                 fontWeight:
-                                                                 FontWeight
-                                                                     .w500,
-                                                                 color:
-                                                                 Colors.grey,
-                                                               ),
-                                                             ),
-                                                           ),
-                                                         ),
-                                                         Container(
-                                                           child: Text(
-                                                             fileName,
-                                                             style: GoogleFonts
-                                                                 .firaSans(
-                                                               fontSize: 10,
-                                                               fontWeight:
-                                                               FontWeight.w500,
-                                                               color: Colors.grey,
-                                                             ),
-                                                           ),
-                                                         ),
-                                                       ],
-                                                     ),
-                                                   ),
-                                                 ],
-                                               ),
-                                             ),
-                                           ],
-                                         ),
-                                          SMTextFConst(
-                                            controller: nameController,
-                                            keyboardType: TextInputType.text,
-                                            text: AppStringEM.companyName,
-                                          ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
-                                            controller: secNumberController,
-                                            keyboardType: TextInputType.number,
-                                            text: AppStringEM.secNum,
-                                          ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
-                                            controller: faxontroller,
-                                            keyboardType: TextInputType.text,
-                                            text: AppStringEM.fax,
-                                          ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
-                                            controller: addressController,
-                                            keyboardType: TextInputType.text,
-                                            text: AppStringEM.address,
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Company App Logo",
-                                                  style: GoogleFonts.firaSans(
-                                                    fontSize: FontSize.s12,
-                                                    fontWeight:
-                                                    FontWeightManager.bold,
-                                                    color: Color(0xff686464),
-                                                  )),
-                                              Container(
-                                                width: 354,
-                                                height: 50,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey),
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(10)),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    Text(
-                                                        "Upload Immunization Records from PDF",
-                                                        style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight
-                                                                .w500,
-                                                            color: Color(0xff686464))
-                                                    ),
-                                                    Container(
-                                                      width: 130,
-                                                      height: 30,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Colors.grey),
-                                                        borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10)),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: pickFile,
-                                                            child: Container(
-                                                              color:
-                                                              Color(0xffD9D9D9),
-                                                              child: Text(
-                                                                "Choose File",
-                                                                style: GoogleFonts
-                                                                    .firaSans(
-                                                                  fontSize: 10,
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  color:
-                                                                  Colors.grey,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            child: Text(
-                                                              fileName,
-                                                              style: GoogleFonts
-                                                                  .firaSans(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                FontWeight.w500,
-                                                                color: Colors.grey,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SMTextFConst(
-                                            controller: primNumController,
-                                            keyboardType: TextInputType.number,
-                                            text: AppStringEM.primNum,
-                                          ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
-                                            controller: altNumController,
-                                            keyboardType: TextInputType.number,
-                                            text: AppStringEM.alternatephone,
-                                          ),
-                                          SizedBox(height: AppSize.s4),
-                                          SMTextFConst(
-                                            controller: emailController,
-                                            keyboardType: TextInputType.text,
-                                            text: AppStringEM.primarymail,
-                                          ),
-                                          SizedBox(
-                                            width: 354,
-                                            height: 30,
-                                          ),
-                                          SizedBox(
-                                            width: 354,
-                                            height: 30,
-                                          )
-
-
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actions: [
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: CustomElevatedButton(
-                                    width: 105,
-                                    height: 31,
-                                    text: 'Submit',
-                                    onPressed: () async {
-                                     await postWhitelabellingAdd(
-                                        context,
-                                        0,
-                                        '',
-                                        primNumController.text,
-                                        secNumberController.text,
-                                        faxontroller.text,
-                                        emailController.text,
-                                        altNumController.text,
-                                        nameController.text,
-                                        addressController.text,
-                                      );
-                                      Navigator.pop(context);
-                                    }),
-                              )
-                            ],
-                          );
-                        },
-                      );
-                    }),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 40),
+              padding:  EdgeInsets.only(left: 20),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text("Logos",
                       style: GoogleFonts.firaSans(
@@ -402,13 +105,312 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                         fontWeight: FontWeightManager.medium,
                         color: ColorManager.mediumgrey,
                       )),
-                  SizedBox(width: MediaQuery.of(context).size.width / 5),
-                  Text("Details",
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.medium,
-                        color: ColorManager.mediumgrey,
-                      ))
+                  // SizedBox(width: MediaQuery.of(context).size.width / 5),
+                  Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/4.3),
+                    child: Text("Details",
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.medium,
+                          color: ColorManager.mediumgrey,
+                        )),
+                  ),
+                  // SizedBox(width: MediaQuery.of(context).size.width / 5),
+                  Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/1.7),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: CustomIconButton(
+                          icon: Icons.edit_outlined,
+                          text: "Edit Details",
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  content: Container(
+                                    height: 300,
+                                    width: 950,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text("Company App Logo",
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: FontSize.s12,
+                                                          fontWeight:
+                                                          FontWeightManager.bold,
+                                                          color: Color(0xff686464),
+                                                        )),
+                                                    Container(
+                                                      width: 354,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Colors.grey),
+                                                        borderRadius: BorderRadius.all(
+                                                            Radius.circular(10)),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.spaceAround,
+                                                        children: [
+                                                          Text(
+                                                              "Upload Immunization Records from PDF",
+                                                              style: GoogleFonts.firaSans(
+                                                                  fontSize: 10,
+                                                                  fontWeight: FontWeight
+                                                                      .w500,
+                                                                  color: Color(0xff686464))
+                                                          ),
+                                                          Container(
+                                                            width: 130,
+                                                            height: 30,
+                                                            decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                  color: Colors.grey),
+                                                              borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10)),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                              children: [
+                                                                InkWell(
+                                                                  onTap: pickFile,
+                                                                  child: Container(
+                                                                    color:
+                                                                    Color(0xffD9D9D9),
+                                                                    child: Text(
+                                                                      "Choose File",
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize: 10,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                        color:
+                                                                        Colors.grey,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  child: Text(
+                                                                    fileName,
+                                                                    style: GoogleFonts
+                                                                        .firaSans(
+                                                                      fontSize: 10,
+                                                                      fontWeight:
+                                                                      FontWeight.w500,
+                                                                      color: Colors.grey,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SMTextFConst(
+                                                  controller: nameController,
+                                                  keyboardType: TextInputType.text,
+                                                  text: AppStringEM.companyName,
+                                                ),
+                                                SizedBox(height: AppSize.s4),
+                                                SMTextFConst(
+                                                  controller: secNumberController,
+                                                  keyboardType: TextInputType.number,
+                                                  text: AppStringEM.secNum,
+                                                ),
+                                                SizedBox(height: AppSize.s4),
+                                                SMTextFConst(
+                                                  controller: faxontroller,
+                                                  keyboardType: TextInputType.text,
+                                                  text: AppStringEM.fax,
+                                                ),
+                                                SizedBox(height: AppSize.s4),
+                                                SMTextFConst(
+                                                  controller: addressController,
+                                                  keyboardType: TextInputType.text,
+                                                  text: AppStringEM.address,
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text("Company App Logo",
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: FontSize.s12,
+                                                          fontWeight:
+                                                          FontWeightManager.bold,
+                                                          color: Color(0xff686464),
+                                                        )),
+                                                    Container(
+                                                      width: 354,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Colors.grey),
+                                                        borderRadius: BorderRadius.all(
+                                                            Radius.circular(10)),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.spaceAround,
+                                                        children: [
+                                                          Text(
+                                                              "Upload Immunization Records from PDF",
+                                                              style: GoogleFonts.firaSans(
+                                                                  fontSize: 10,
+                                                                  fontWeight: FontWeight
+                                                                      .w500,
+                                                                  color: Color(0xff686464))
+                                                          ),
+                                                          Container(
+                                                            width: 130,
+                                                            height: 30,
+                                                            decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                  color: Colors.grey),
+                                                              borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10)),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                              children: [
+                                                                InkWell(
+                                                                  onTap: pickFile,
+                                                                  child: Container(
+                                                                    color:
+                                                                    Color(0xffD9D9D9),
+                                                                    child: Text(
+                                                                      "Choose File",
+                                                                      style: GoogleFonts
+                                                                          .firaSans(
+                                                                        fontSize: 10,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                        color:
+                                                                        Colors.grey,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  child: Text(
+                                                                    fileName,
+                                                                    style: GoogleFonts
+                                                                        .firaSans(
+                                                                      fontSize: 10,
+                                                                      fontWeight:
+                                                                      FontWeight.w500,
+                                                                      color: Colors.grey,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SMTextFConst(
+                                                  controller: primNumController,
+                                                  keyboardType: TextInputType.number,
+                                                  text: AppStringEM.primNum,
+                                                ),
+                                                SizedBox(height: AppSize.s4),
+                                                SMTextFConst(
+                                                  controller: altNumController,
+                                                  keyboardType: TextInputType.number,
+                                                  text: AppStringEM.alternatephone,
+                                                ),
+                                                SizedBox(height: AppSize.s4),
+                                                SMTextFConst(
+                                                  controller: emailController,
+                                                  keyboardType: TextInputType.text,
+                                                  text: AppStringEM.primarymail,
+                                                ),
+                                                SizedBox(
+                                                  width: 354,
+                                                  height: 30,
+                                                ),
+                                                SizedBox(
+                                                  width: 354,
+                                                  height: 30,
+                                                )
+
+
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: CustomElevatedButton(
+                                          width: 105,
+                                          height: 31,
+                                          text: 'Submit',
+                                          onPressed: () async {
+                                            await postWhitelabellingAdd(
+                                              context,
+                                              0,
+                                              '',
+                                              primNumController.text,
+                                              secNumberController.text,
+                                              faxontroller.text,
+                                              emailController.text,
+                                              altNumController.text,
+                                              nameController.text,
+                                              addressController.text,
+                                            );
+                                            Navigator.pop(context);
+                                          }),
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -10,7 +10,11 @@ class EstablishmentManagerRepository {
   static String document = "/document";
   static String addDocument = "/document/addDocument";
   static String companyOfficeService = "/company-office-service";
-  static String identity = "/identity/companyList";
+  static String identity = "/identity";
+  static String companyList = "/companyList";
+  static String officeDetails = "officeDetailWithServiceByCompany";
+  static String getDocType = "/GetDocType";
+  static String getDocListCompany = "/GetDocumentListByCompany";
 
   static String companyAll(){
     return "$company";
@@ -31,17 +35,12 @@ class EstablishmentManagerRepository {
   static String addNewOffice() {
     return "$companyOffice/$add";
   }
-///identity get all
+  ///identity get all
   static String companyOfficeGet({required int pageNo, required int rowsNo }) {
-    return "$identity/$pageNo/$rowsNo";
+    return "$identity/$companyList/$pageNo/$rowsNo";
   }
 
-  static String orgDocumentGet(){
-    return "$document";
-  }
-  static String addOrgDocumentPost(){
-    return "$addDocument";
-  }
+
   static String updateOrgCocument({required int docId}){
     return "$document/$docId";
   }
@@ -51,6 +50,53 @@ class EstablishmentManagerRepository {
   static String postCompanyOffice(){
     return "$companyOffice/$add";
   }
-
+  ///manage details
+  static String getManageDetails({required int companyID, required int officeId}){
+    return "$identity/$officeDetails/$companyID/$officeId";
+  }
+  ///manage details service post
+  static String companyOfficeServicePost(){
+    return "$companyOfficeService/$add";
+  }
+  ///manage corporate and compliance flow
+  static String corporateGetDocType({docTypeId}){
+    return "$identity/$getDocType$docTypeId";
+  }
+  ///
+  static String corporateGetListbyCompany({required int companyId,
+    required String officeId,required int docTypeID,
+    required int docSubTypeID,required int pageNo, required int rowsNo}){
+    return "$identity/$getDocListCompany/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
+  }
+/// org document Cpmpany Identity get
+  static String getOrgDocumentCorporateCompliance(
+      {
+        required int companyId,
+        required int docTypeID,
+        required int docSubTypeID,
+        required int pageNo,
+        required int rowsNo
+      }
+      ){
+    return "/$identity/$getDocListCompany/$companyId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
+  }
+  static String addOrgDocumentPost(){
+    return "$addDocument";
+  }
+  static String getOrgDocument(){
+    return "$addDocument";
+  }
 
 }
+
+///
+// get doc type : /document-type,
+// get document subtype:
+// /identity/GetDocType/{document_type_id}
+// get list by office :/identity/GetDocumentListByCompany/
+// {company_id}/{office_id}/{document_type_id}/{document_sub_type_id}/{pageNbr}/{NbrofRows}
+// ///
+// get doc list by company :
+// /identity/GetDocumentListByCompany/
+// {company_id}/{document_type_id}/
+// {document_sub_type_id}/{pageNbr}/{NbrofRows}

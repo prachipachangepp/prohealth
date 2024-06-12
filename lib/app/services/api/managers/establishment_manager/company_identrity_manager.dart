@@ -26,14 +26,8 @@ Future<List<CompanyModel>> companyAllApi(BuildContext context, int pageNo, int r
               address: item['address'],
               officeName: item['head_office_id']),
         );
-
-        //itemsList.add(companyModel);
       }
       print("ResponseList:::::${itemsList}");
-      // CompanyModel(
-      //   name: response.data['Name'],
-      //   address: response.data['address'],
-      //   );
     } else {
       print('Api Error');
       //return itemsList;

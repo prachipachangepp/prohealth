@@ -742,24 +742,24 @@ class SMDesktop extends StatelessWidget {
                             isSelected: myController.selectedIndex.value == 6,
                           ),
                         ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Obx(
-                              () => CustomTitleButton(
-                            height: 30,
-                            width: 100,
-                            onPressed: () {
-                              //companyAll(context);
-                              myController.selectButton(8);
-                              _pageController.animateToPage(8,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease);
-                            },
-                            text: 'Whitelabelling',
-                            isSelected: myController.selectedIndex.value == 8,
-                          ),
-                        ),
+                        // SizedBox(
+                        //   width: 15,
+                        // ),
+                        // Obx(
+                        //       () => CustomTitleButton(
+                        //     height: 30,
+                        //     width: 100,
+                        //     onPressed: () {
+                        //       //companyAll(context);
+                        //       myController.selectButton(8);
+                        //       _pageController.animateToPage(8,
+                        //           duration: Duration(milliseconds: 500),
+                        //           curve: Curves.ease);
+                        //     },
+                        //     text: 'Whitelabelling',
+                        //     isSelected: myController.selectedIndex.value == 8,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
