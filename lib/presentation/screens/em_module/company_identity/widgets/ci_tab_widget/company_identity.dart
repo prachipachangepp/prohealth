@@ -45,7 +45,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    companyAllApi(context).then((data) {
+    companyAllApi(context,currentPage,itemsPerPage).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -169,7 +169,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                           emailController.text,
                                           mobNumController.text,
                                           secNumController.text);
-                                      companyAllApi(context).then((data) {
+                                      companyAllApi(context,currentPage,itemsPerPage).then((data) {
                                         _controller.add(data);
                                       }).catchError((error) {
                                         // Handle error

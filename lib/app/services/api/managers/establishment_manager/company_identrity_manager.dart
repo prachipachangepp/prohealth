@@ -11,11 +11,11 @@ import 'package:prohealth/data/api_data/api_data.dart';
 /* Establishment manager API */
 
 /// Get Company
-Future<List<CompanyModel>> companyAllApi(BuildContext context) async {
+Future<List<CompanyModel>> companyAllApi(BuildContext context, int pageNo, int rowsNo) async {
   List<CompanyModel> itemsList = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.companyOfficeGet());
+        .get(path: EstablishmentManagerRepository.companyOfficeGet(pageNo: pageNo, rowsNo: rowsNo));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
       for (var item in response.data) {

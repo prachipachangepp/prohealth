@@ -10,6 +10,7 @@ class EstablishmentManagerRepository {
   static String document = "/document";
   static String addDocument = "/document/addDocument";
   static String companyOfficeService = "/company-office-service";
+  static String identity = "/identity/companyList";
 
   static String companyAll(){
     return "$company";
@@ -30,9 +31,9 @@ class EstablishmentManagerRepository {
   static String addNewOffice() {
     return "$companyOffice/$add";
   }
-
-  static String companyOfficeGet() {
-    return "$companyOffice";
+///identity get all
+  static String companyOfficeGet({required int pageNo, required int rowsNo }) {
+    return "$identity/$pageNo/$rowsNo";
   }
 
   static String orgDocumentGet(){
