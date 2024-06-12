@@ -33,10 +33,4 @@ class UploadCompanyLogoModel {
       {
       this.companyId,
       this.type});
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'company_id': companyId,
-  //     'type': type,
-  //   };
-  // }
 }

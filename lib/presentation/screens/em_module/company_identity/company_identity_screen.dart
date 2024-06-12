@@ -34,8 +34,8 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
     // currentPage = 1;
     // itemsPerPage = 5;
     // items = List.generate(20, (index) => 'Item ${index + 1}');
-    _companyManager = CompanyIdentityManager();
-    companyAllApi(context);
+     _companyManager = CompanyIdentityManager();
+    // companyAllApi(context);
   }
 
   int _selectedIndex = 0;

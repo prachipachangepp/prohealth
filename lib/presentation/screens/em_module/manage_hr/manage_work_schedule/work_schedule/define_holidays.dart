@@ -1,11 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
+import '../../../../../../app/resources/const_string.dart';
+import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../data/api_data/establishment_data/work_schedule/work_week_data.dart';
 import 'widgets/add_holiday_popup_const.dart';
 
 class DefineHolidays extends StatefulWidget {
@@ -17,6 +23,8 @@ class DefineHolidays extends StatefulWidget {
 
 class _DefineHolidaysState extends State<DefineHolidays> {
   TextEditingController holidayNameController = TextEditingController();
+  final StreamController<List<DefineHoliday>> _controller = StreamController<List<DefineHoliday>>();
+
   late CompanyIdentityManager _companyManager;
   late int currentPage;
   late int itemsPerPage;
@@ -28,6 +36,11 @@ class _DefineHolidaysState extends State<DefineHolidays> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
+    // orgDocumentGet(context).then((data) {
+    //   _controller.add(data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
     // companyAllApi(context);
   }
   @override
@@ -106,6 +119,31 @@ class _DefineHolidaysState extends State<DefineHolidays> {
           ),
           Expanded(
             child:
+            // StreamBuilder<List<DefineHoliday>>(
+            //   stream: _controller.stream,
+            //   builder: (context, snapshot) {
+            //     print('1111111');
+            //     if (snapshot.connectionState == ConnectionState.waiting) {
+            //       return Center(
+            //         child: CircularProgressIndicator(
+            //           color: ColorManager.blueprime,
+            //         ),
+            //       );
+            //     }
+            //     if (snapshot.data!.isEmpty) {
+            //       return Center(
+            //         child: Text(
+            //           AppString.dataNotFound,
+            //           style: CustomTextStylesCommon.commonStyle(
+            //             fontWeight: FontWeightManager.medium,
+            //             fontSize: FontSize.s12,
+            //             color: ColorManager.mediumgrey,
+            //           ),
+            //         ),
+            //       );
+            //     }
+            //     if (snapshot.hasData) {
+            //       return
             ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: 6,
@@ -174,8 +212,12 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                         showDialog(context: context, builder: (BuildContext context){
                                           return AddHolidayPopup(controller: holidayNameController, onPressed: () {  },);
                                         });
-                                      }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.mediumgrey,)),
-                                      IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                      }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                      IconButton(onPressed: (){
+                                        showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                          Navigator.pop(context);
+                                        }, onDelete: (){}));
+                                      }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                     ],
                                   )
                                 ],
@@ -185,6 +227,11 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                     ],
                   );
                 }),
+            //;
+//   }
+//   return Offstage();
+// },
+//),
           ),
           SizedBox(
             height: 10,

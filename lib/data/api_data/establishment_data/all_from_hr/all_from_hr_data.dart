@@ -14,26 +14,26 @@ class HRClinical {
 
 ///hr sales
 class HRSales {
-  final bool success;
-  final String message;
-  final String empType;
-  final String abbrivation;
-  final String color;
+  final bool? success;
+  final String? message;
+  final String? empType;
+  final String? abbrivation;
+  final String? color;
 
-  HRSales(
-      this.success, this.message, this.empType, this.abbrivation, this.color);
+  HRSales({
+      this.success, this.message, this.empType, this.abbrivation, this.color});
 }
 
 ///hr administration
 class HRAdministration {
-  final bool success;
-  final String message;
-  final String empType;
-  final String abbrivation;
-  final String color;
+  final bool? success;
+  final String? message;
+  final String? empType;
+  final String? abbrivation;
+  final String? color;
 
-  HRAdministration(
-      this.success, this.message, this.empType, this.abbrivation, this.color);
+  HRAdministration({
+      this.success, this.message, this.empType, this.abbrivation, this.color});
 }
 
 ///hr all add/edit

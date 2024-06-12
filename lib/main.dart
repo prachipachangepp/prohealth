@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
-
 import 'app/app.dart';
 
 Future<void> main() async {
