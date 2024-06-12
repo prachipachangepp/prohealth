@@ -116,7 +116,8 @@ class AppString {
   //static const String = "";
 
   ///common
-  static const String srNo = "Sr. No";
+  static const String znNo = "Zn. No.";
+  static const String srNo = "Sr No.";
   static const String name = "Name";
   static const String code = "Code";
   static const String phone = "Phone No.";

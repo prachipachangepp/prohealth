@@ -14,16 +14,15 @@ class EmploymentContainerConstant extends StatelessWidget {
         child: TwoContainersRow(
             child1: Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(children: [
-                  Text('Employment #1',
-                    style: TextStyle(
-                      fontFamily: 'FiraSans',
-                      fontSize: 13,
-                      color: Color(0xFF333333),
-                      fontWeight: FontWeight.w500,
-                    ),),
-                ],),
+                 Text('Employment #1',
+                   style: TextStyle(
+                     fontFamily: 'FiraSans',
+                     fontSize: 13,
+                     color: Color(0xFF333333),
+                     fontWeight: FontWeight.w500,
+                   ),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

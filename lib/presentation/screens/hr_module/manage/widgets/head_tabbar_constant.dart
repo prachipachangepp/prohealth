@@ -8,17 +8,18 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
       child: DefaultTabController(
         length: controller.tabs.length,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              color: Colors.white,
+             // color: Colors.green,
               child: TabBar(
                 controller: controller.tabController,
                 tabs: controller.tabs,
+                isScrollable: false,
                 indicatorWeight: 6,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorColor: Color(0xFF50B5E5),
@@ -33,9 +34,10 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
               ),
             ),
             Container(
-              // color: Colors.purpleAccent,
+            //  color: Colors.purpleAccent,
               height: controller.tabBarViewHeight,
               child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 controller: controller.tabController,
                 children: controller.tabViews,
               ),
