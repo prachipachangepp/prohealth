@@ -67,11 +67,12 @@ TextEditingController endTimeController = TextEditingController();
                                     quarterTurns: 3,
                                     child: Text(
                                       days.toString(),
-                                      style: TextStyle(
+                                      style: GoogleFonts.firaSans(
                                         fontSize: mediaQuery.width/90,
-                                          letterSpacing: 1,
-                                          color: ColorManager.white,
-                                          fontWeight: FontWeight.w700),
+                                        fontWeight: FontWeight.w600,
+                                        color: ColorManager.white,
+                                        decoration: TextDecoration.none,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -209,7 +210,7 @@ TextEditingController endTimeController = TextEditingController();
                                                     Padding(
                                                       padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 3),
                                                       child: Container(
-                                                        decoration: BoxDecoration(color: ColorManager.whiteGrey,borderRadius: BorderRadius.circular(10)),
+                                                        decoration: BoxDecoration(color: Color(0xFFF0F0F0),borderRadius: BorderRadius.circular(10)),
                                                         child: Padding(
                                                           padding: const EdgeInsets.symmetric(vertical: 5),
                                                           child: Row(
@@ -229,7 +230,7 @@ TextEditingController endTimeController = TextEditingController();
                                                                 decoration: BoxDecoration(
                                                                   color: ColorManager.white,
                                                                     border: Border.all(
-                                                                        color: Colors.grey, width: 1),
+                                                                        color: Color(0xFFEEEEEE), width: 1),
                                                                     borderRadius:
                                                                     BorderRadius.circular(20)),
                                                                 child: Center(child: Text("11 PM - 12 PM",style: GoogleFonts.firaSans(
@@ -255,7 +256,7 @@ TextEditingController endTimeController = TextEditingController();
                                                               Container(
                                                                   height: mediaQuery.height/26,
                                                                   width:mediaQuery.width/55,
-                                                                decoration: BoxDecoration(border: Border.all(color: ColorManager.faintOrange),borderRadius: BorderRadius.circular(5)),
+                                                                decoration: BoxDecoration(border: Border.all(color: ColorManager.faintOrange),borderRadius: BorderRadius.circular(5),color: ColorManager.white),
                                                                 child:  InkWell(
                                                                   onTap:(){
                                                                     showDialog(context: context, builder: (BuildContext context){

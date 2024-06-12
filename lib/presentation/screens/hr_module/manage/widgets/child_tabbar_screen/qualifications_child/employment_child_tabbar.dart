@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/add_employee_popup_const.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 
 ///done by saloni
-class EmploymentContainerConstant extends StatelessWidget {
+class EmploymentContainerConstant extends StatefulWidget {
+  @override
+  State<EmploymentContainerConstant> createState() => _EmploymentContainerConstantState();
+}
+
+class _EmploymentContainerConstantState extends State<EmploymentContainerConstant> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -160,7 +166,13 @@ class EmploymentContainerConstant extends StatelessWidget {
                         IconButtonWidget(
                         iconData: Icons.edit_outlined,
                         buttonText: 'Edit',
-                        onPressed: () {}),
+                        onPressed: () {
+                            showDialog(context: context, builder: (context){
+                              return CustomPopupConst();
+
+                          });
+
+                        }),
                       ],
                     )
                   ],

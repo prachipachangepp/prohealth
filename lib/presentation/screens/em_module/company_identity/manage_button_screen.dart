@@ -80,8 +80,8 @@ class _ManageWidgetState extends State<ManageWidget> {
     'Zone',
     'Corporate & Compliance Documents',
     'Insurance',
-    'Vendor Contract',
-    'Policies & Procedure',
+    'Vendor Contracts',
+    'Policies & Procedures',
     'Templates'
   ];
 
@@ -234,7 +234,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                             selectedIndex: _selectedIndex,
                             selectButton: _selectButton,
                             mediaQueryWidth: 3,
-                            nameList: ['Vendor', 'Contract'],
+                            nameList: ['Vendor', 'Contracts'],
                             screenList: [CiInsuranceVendor(), CiInsuranceContract()],
                           ),
                           CiPageview(
