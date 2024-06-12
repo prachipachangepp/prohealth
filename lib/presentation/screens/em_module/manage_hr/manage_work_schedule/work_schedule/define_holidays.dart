@@ -48,15 +48,10 @@ class _DefineHolidaysState extends State<DefineHolidays> {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CustomIconButtonConst(
-              icon: Icons.add,
-              text: "Add New Holiday", onPressed: (){
-                showDialog(context: context, builder: (BuildContext context){
-                  return AddHolidayPopup(controller: holidayNameController, onPressed: () {  },);
-                });
-          }),
-          SizedBox(height: 5,),
+
+          SizedBox(height: 10,),
           Container(
             height: 30,
             decoration: BoxDecoration(

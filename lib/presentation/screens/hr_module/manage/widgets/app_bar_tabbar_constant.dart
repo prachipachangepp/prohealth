@@ -170,6 +170,7 @@ class AppBarTabBarConstant extends StatelessWidget {
               //color: Colors.grey,
               height: controller.tabBarViewHeight,
               child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 children: controller.tabViews,
               ),
             ),

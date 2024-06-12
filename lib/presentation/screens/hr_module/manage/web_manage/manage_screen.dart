@@ -14,12 +14,12 @@ import '../widgets/child_tabbar_screen/qualifications_child/employment_child_tab
 import '../widgets/child_tabbar_screen/qualifications_child/licenses_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/references_child_tabbar.dart';
 import '../widgets/head_tabbar_constant.dart';
-import '../widgets/head_tabbar_screen/banking_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/health_records_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/inventory_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/pay_rates_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/termination_head_tabbar.dart';
-import '../widgets/head_tabbar_screen/time_off_head_tabbar.dart';
+import '../widgets/child_tabbar_screen/bancking_child/banking_head_tabbar.dart';
+import '../widgets/child_tabbar_screen/health_record_child/health_records_head_tabbar.dart';
+import '../widgets/child_tabbar_screen/inventory_child/inventory_head_tabbar.dart';
+import '../widgets/child_tabbar_screen/payrates_child/pay_rates_head_tabbar.dart';
+import '../widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
+import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
 ///done by saloni
 class ManageScreen extends StatefulWidget {
   @override

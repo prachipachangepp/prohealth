@@ -234,7 +234,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                             selectedIndex: _selectedIndex,
                             selectButton: _selectButton,
                             mediaQueryWidth: 3,
-                            nameList: ['Vendor', 'Contract'],
+                            nameList: ['Vendor', 'Contracts'],
                             screenList: [CiInsuranceVendor(), CiInsuranceContract()],
                           ),
                           CiPageview(

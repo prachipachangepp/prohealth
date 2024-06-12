@@ -175,7 +175,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                           Row(
                                             children: [
                                               IconButton(onPressed: (){
-                                              }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.mediumgrey,)),
+                                              }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                               IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                             ],
                                           )
