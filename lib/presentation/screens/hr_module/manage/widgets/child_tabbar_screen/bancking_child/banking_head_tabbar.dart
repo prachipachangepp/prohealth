@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
-import '../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../../app/resources/theme_manager.dart';
 
 class BankingHeadTabbar extends StatefulWidget {
   @override

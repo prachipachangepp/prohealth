@@ -28,7 +28,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s210,
+        height: AppSize.s250,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -63,6 +63,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                 ],
               ),
             ),
+            SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,

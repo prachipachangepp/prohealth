@@ -3,27 +3,27 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../app/resources/const_string.dart';
-import '../../../../../app/resources/value_manager.dart';
-import '../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import '../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 
-class EmplomentDoc extends StatefulWidget {
-  const EmplomentDoc({super.key});
+
+class PerformanceEmpDoc extends StatefulWidget {
+  const PerformanceEmpDoc({super.key});
 
   @override
-  State<EmplomentDoc> createState() => _EmplomentDocState();
+  State<PerformanceEmpDoc> createState() => _PerformanceEmpDocState();
 }
 
-class _EmplomentDocState extends State<EmplomentDoc> {
+class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
@@ -189,7 +189,7 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                 children: [
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].docId.toString(),
+                        snapshot.data![index].docId.toString(),
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,

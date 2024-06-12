@@ -89,8 +89,6 @@ class LicensesChildTabbar extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomButtonTransparent(text: 'Edit', onPressed: (){}),
-                SizedBox(width: 5,),
                 CustomButtonTransparent(text: 'Reject', onPressed: (){}),
                 SizedBox(width: 5,),
                 CustomIconButton(
@@ -175,8 +173,6 @@ class LicensesChildTabbar extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomButtonTransparent(text: 'Edit', onPressed: (){}),
-                SizedBox(width: 5,),
                 CustomButtonTransparent(text: 'Reject', onPressed: (){}),
                 SizedBox(width: 5,),
                 CustomIconButton(

@@ -30,7 +30,7 @@ class TwoContainersRow extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 80,
-                vertical: MediaQuery.of(context).size.width / 120,
+                vertical: MediaQuery.of(context).size.height / 120,
               ),
               child: child1,
             ),
@@ -55,7 +55,7 @@ class TwoContainersRow extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width / 80,
-                vertical: MediaQuery.of(context).size.width / 120,
+                vertical: MediaQuery.of(context).size.height / 120,
               ),
               child: child2,
             ),

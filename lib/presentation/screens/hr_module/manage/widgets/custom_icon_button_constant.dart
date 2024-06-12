@@ -94,8 +94,8 @@ class CustomeTransparentAddShift extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: MediaQuery.of(context).size.height/25,
-        width: MediaQuery.of(context).size.width/15,
+        height: MediaQuery.of(context).size.height/30,
+        width: MediaQuery.of(context).size.width/17,
         decoration: BoxDecoration(border: Border.all(color: ColorManager.blueprime),borderRadius: BorderRadius.circular(30)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -103,13 +103,19 @@ class CustomeTransparentAddShift extends StatelessWidget {
             Icon(Icons.add,color: ColorManager.blueprime, size: MediaQuery.of(context).size.width/100),
             Text(
               text,
-              style: TextStyle(
-                fontFamily: 'FiraSans',
-                fontSize: MediaQuery.of(context).size.width/100,
-                fontWeight: FontWeight.w700,
+              style:GoogleFonts.firaSans(
+                fontSize: MediaQuery.of(context).size.width/120,
+                fontWeight: FontWeightManager.semiBold,
                 color: ColorManager.blueprime,
-              ),
-            ),
+                decoration: TextDecoration.none,
+              ),),
+              // TextStyle(
+              //   fontFamily: 'FiraSans',
+              //   fontSize: width/110,
+              //   fontWeight: FontWeight.w700,
+              //   color: ,
+              // ),
+            // ),
           ],
         )
       ),

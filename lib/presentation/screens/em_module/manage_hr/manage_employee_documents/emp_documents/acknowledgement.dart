@@ -3,27 +3,25 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../app/resources/const_string.dart';
-import '../../../../../app/resources/value_manager.dart';
-import '../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import '../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
-
-class ClinicalVerificationEmpDoc extends StatefulWidget {
-  const ClinicalVerificationEmpDoc({super.key});
+class AcknowledgementEmpDoc extends StatefulWidget {
+  const AcknowledgementEmpDoc({super.key});
 
   @override
-  State<ClinicalVerificationEmpDoc> createState() => _ClinicalVerificationEmpDocState();
+  State<AcknowledgementEmpDoc> createState() => _AcknowledgementEmpDocState();
 }
 
-class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc> {
+class _AcknowledgementEmpDocState extends State<AcknowledgementEmpDoc> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
@@ -257,18 +255,18 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                                         }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
                                         SizedBox(width: 3,),
                                         InkWell(
-                                            onTap: (){
-                                              setState(() async{
-                                                await deleteDocument(
-                                                    context,
-                                                    snapshot.data![index].docId!);
-                                                orgDocumentGet(context).then((data) {
-                                                  _controller.add(data);
-                                                }).catchError((error) {
-                                                  // Handle error
-                                                });
+                                          onTap: (){
+                                            setState(() async{
+                                              await deleteDocument(
+                                                  context,
+                                                  snapshot.data![index].docId!);
+                                              orgDocumentGet(context).then((data) {
+                                                _controller.add(data);
+                                              }).catchError((error) {
+                                                // Handle error
                                               });
-                                            },
+                                            });
+                                          },
                                             child: Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),)),
                                       ],
                                     ),
