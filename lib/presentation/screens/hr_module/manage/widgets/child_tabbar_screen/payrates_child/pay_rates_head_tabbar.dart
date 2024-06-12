@@ -191,22 +191,22 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                   }),
 
             ),
-            RadioListTile<String>(
-              title: Text('Per zone',
-                style: GoogleFonts.firaSans(
-                  fontSize: FontSize.s10,
-                  fontWeight: FontWeightManager.medium,
-                  color: ColorManager.mediumgrey,
-                  decoration: TextDecoration.none,
-                ),),
-              value: 'Per zone',
-              groupValue: _expiryType,
-              onChanged: (value) {
-                setState(() {
-                  _expiryType = value;
-                });
-              },
-            ),
+            // RadioListTile<String>(
+            //   title: Text('Per zone',
+            //     style: GoogleFonts.firaSans(
+            //       fontSize: FontSize.s10,
+            //       fontWeight: FontWeightManager.medium,
+            //       color: ColorManager.mediumgrey,
+            //       decoration: TextDecoration.none,
+            //     ),),
+            //   value: 'Per zone',
+            //   groupValue: _expiryType,
+            //   onChanged: (value) {
+            //     setState(() {
+            //       _expiryType = value;
+            //     });
+            //   },
+            // ),
             // Row(
             //   children: [
             //     RadioListTile<String>(
