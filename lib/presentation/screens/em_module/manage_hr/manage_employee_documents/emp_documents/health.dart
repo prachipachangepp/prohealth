@@ -3,28 +3,26 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../app/resources/const_string.dart';
-import '../../../../../app/resources/value_manager.dart';
-import '../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import '../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
-class AcknowledgementEmpDoc extends StatefulWidget {
-  const AcknowledgementEmpDoc({super.key});
+class HealthEmpDoc extends StatefulWidget {
+  const HealthEmpDoc({super.key});
 
   @override
-  State<AcknowledgementEmpDoc> createState() => _AcknowledgementEmpDocState();
+  State<HealthEmpDoc> createState() => _HealthEmpDocState();
 }
 
-class _AcknowledgementEmpDocState extends State<AcknowledgementEmpDoc> {
+class _HealthEmpDocState extends State<HealthEmpDoc> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
@@ -255,13 +253,11 @@ class _AcknowledgementEmpDocState extends State<AcknowledgementEmpDoc> {
                                                   DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                                 ],),);
                                           });
-                                        }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
+                                        }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
                                         SizedBox(width: 3,),
                                         InkWell(
-                                          onTap: (){
-                                            showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
-                                              Navigator.pop(context);
-                                            }, onDelete: (){  setState(() async{
+                                          onTap:(){
+                                            setState(() async{
                                               await deleteDocument(
                                                   context,
                                                   snapshot.data![index].docId!);
@@ -270,9 +266,9 @@ class _AcknowledgementEmpDocState extends State<AcknowledgementEmpDoc> {
                                               }).catchError((error) {
                                                 // Handle error
                                               });
-                                            });}));
+                                            });
                                           },
-                                            child: Icon(Icons.delete_outline_outlined, size:18,color: Color(0xffF6928A),)),
+                                            child: Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),)),
                                       ],
                                     ),
                                   ),
