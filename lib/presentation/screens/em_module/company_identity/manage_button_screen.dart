@@ -77,11 +77,11 @@ class ManageWidget extends StatefulWidget {
 class _ManageWidgetState extends State<ManageWidget> {
   final List<String> _categories = [
     'Details',
-    'Zone',
+    'Zones',
     'Corporate & Compliance Documents',
     'Insurance',
-    'Vendor Contract',
-    'Policies & Procedure',
+    'Vendor Contracts',
+    'Policies & Procedures',
     'Templates'
   ];
 

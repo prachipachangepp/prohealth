@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_visit.dart';
@@ -59,6 +58,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
           /// visit , org , Document tab bar
           Container(
             height: 30,
+            color: Colors.greenAccent,
             width: 500,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

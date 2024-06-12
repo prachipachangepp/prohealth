@@ -10,7 +10,11 @@ class EstablishmentManagerRepository {
   static String document = "/document";
   static String addDocument = "/document/addDocument";
   static String companyOfficeService = "/company-office-service";
-  static String identity = "/identity/companyList";
+  static String identity = "/identity";
+  static String companyList = "/companyList";
+  static String officeDetails = "officeDetailWithServiceByCompany";
+  static String getDocType = "/GetDocType";
+  static String getDocListCompany = "/GetDocumentListByCompany";
 
   static String companyAll(){
     return "$company";
@@ -33,7 +37,7 @@ class EstablishmentManagerRepository {
   }
 ///identity get all
   static String companyOfficeGet({required int pageNo, required int rowsNo }) {
-    return "$identity/$pageNo/$rowsNo";
+    return "$identity/$companyList/$pageNo/$rowsNo";
   }
 
   static String orgDocumentGet(){
@@ -51,6 +55,20 @@ class EstablishmentManagerRepository {
   static String postCompanyOffice(){
     return "$companyOffice/$add";
   }
-
-
+  ///manage details
+  static String getManageDetails({required int companyID, required int officeId}){
+    return "$identity/$officeDetails/$companyID/$officeId";
+  }
+  ///manage details service post
+  static String companyOfficeServicePost(){
+    return "$companyOfficeService/$add";
+  }
+  ///manage corporate and compliance flow
+  static String corporateGetDocType({required int docTypeId}){
+    return "$identity/$getDocType$docTypeId";
+  }
+  ///
+ static String corporateGetListbyCompany({required int companyId,required String officeId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
+    return "$identity/$getDocListCompany/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
+}
 }

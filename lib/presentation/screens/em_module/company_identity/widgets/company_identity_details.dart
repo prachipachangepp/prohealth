@@ -6,6 +6,9 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import 'checkbox_constant.dart';
 
+//Get Details : /identity/officeDetailWithServiceByCompany/{company_id}/{office_id}
+//
+// Add Service:  /company-office-service/add
 class CIDetailsScreen extends StatefulWidget {
   const CIDetailsScreen({super.key});
 
@@ -165,6 +168,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             },
                             text: '',
                           ),
+                          SizedBox(width: 5,),
                           CIDetailsDropdown(
                             initialValue: 'Home Health',
                               items: [
@@ -197,6 +201,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             },
                             text: '',
                           ),
+                          SizedBox(width: 5,),
                           CIDetailsDropdown(
                             initialValue: 'Home Care',
                               items: [
@@ -246,6 +251,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             },
                             text: '',
                           ),
+                          SizedBox(width: 5,),
                           CIDetailsDropdown(
                             initialValue: 'Hospice',
                               items: [
@@ -278,6 +284,7 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                             },
                             text: '',
                           ),
+                          SizedBox(width: 5,),
                           CIDetailsDropdown(
                             initialValue: 'Palliative Care',
                               items: [
