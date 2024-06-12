@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 
+import '../../../../../../../app/resources/hr_resources/string_manager.dart';
+
 class InventoryHeadTabbar extends StatefulWidget {
   const InventoryHeadTabbar({super.key});
 
@@ -60,7 +62,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                       ),
                     ),
       //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                    Text('Id of the Inventory',
+                    Text(AppStringHr.inventoryid,
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
@@ -68,7 +70,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                           color: Colors.white,
                           decoration: TextDecoration.none,
                         )),
-                    Text('Name of the Document',
+                    Text(AppStringHr.docName,
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
                           fontSize: 12,

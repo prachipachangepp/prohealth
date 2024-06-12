@@ -99,7 +99,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                   child: DropdownButton<String>(
                     icon: Icon(
                       Icons.arrow_drop_down,
-                      size: MediaQuery.of(context).size.width / 89,
+                      size: MediaQuery.of(context).size.width / 80,
                       color: ColorManager.white,
                     ),
                     dropdownColor: ColorManager.white,

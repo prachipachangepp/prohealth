@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/profile_bar.dart';
 import '../controller/controller.dart';
@@ -34,10 +35,10 @@ class _ManageScreenState extends State<ManageScreen> {
   void initState() {
     childController = CenteredTabBarChildController(
       tabs: [
-        Tab(text: 'Employment'),
-        Tab(text: 'Education'),
-        Tab(text: 'References'),
-        Tab(text: 'Licenses'),
+        Tab(text: AppStringHr.employment),
+        Tab(text: AppStringHr.education),
+        Tab(text: AppStringHr.referance),
+        Tab(text: AppStringHr.license),
       ],
       tabViews: [
         ///employment
@@ -50,7 +51,7 @@ class _ManageScreenState extends State<ManageScreen> {
                   width: 100,
                   margin: EdgeInsets.only(right: 40),
                   child: CustomIconButtonConst(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                      text: AppStringHr.add, icon: Icons.add, onPressed: () {}),
                 ),
               ],
             ),
@@ -67,7 +68,7 @@ class _ManageScreenState extends State<ManageScreen> {
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
                   child: CustomIconButtonConst(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                      text: AppStringHr.add, icon: Icons.add, onPressed: () {}),
                 ),
               ],
             ),
@@ -84,7 +85,7 @@ class _ManageScreenState extends State<ManageScreen> {
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
                   child: CustomIconButtonConst(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                      text: AppStringHr.add, icon: Icons.add, onPressed: () {}),
                 ),
               ],
             ),
@@ -128,7 +129,7 @@ class _ManageScreenState extends State<ManageScreen> {
                   width: 100,
                   margin: EdgeInsets.only(right: 20),
                   child: CustomIconButtonConst(
-                      text: 'Add', icon: Icons.add, onPressed: () {}),
+                      text: AppStringHr.add, icon: Icons.add, onPressed: () {}),
                 ),
               ],
             ),
@@ -139,11 +140,12 @@ class _ManageScreenState extends State<ManageScreen> {
       ],
     );
     childControlleOne = CenteredTabBarChildController(tabs: [
-      Tab(text: 'Acknowledgements'),
-      Tab(text: 'Compensation'),
-      Tab(text: 'Additional Vaccination'),
-      Tab(text: 'Others'),
-    ], tabViews: [
+      Tab(text: AppStringHr.acknowledgement),
+      Tab(text: AppStringHr.compensation),
+      Tab(text: AppStringHr.addVaccination),
+      Tab(text: AppStringHr.others),
+    ],
+        tabViews: [
       ///aknowledgment
       Column(
         children: [
@@ -154,7 +156,7 @@ class _ManageScreenState extends State<ManageScreen> {
              // width: 100,
               margin: EdgeInsets.only(right: 20),
               child: CustomIconButtonConst(
-                  text: 'Add New', icon: Icons.add, onPressed: () {}),
+                  text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
             ),
           ],
         ),
@@ -172,7 +174,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: 'Add New', icon: Icons.add, onPressed: () {}),
+                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
               ),
             ],
           ),
@@ -189,7 +191,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: 'Add New', icon: Icons.add, onPressed: () {}),
+                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
               ),
             ],
           ),
@@ -206,7 +208,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: 'Add New', icon: Icons.add, onPressed: () {}),
+                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
               ),
             ],
           ),
@@ -218,14 +220,14 @@ class _ManageScreenState extends State<ManageScreen> {
 
     centeredTabBarController = Get.put(CenteredTabBarController(
       tabs: [
-        Tab(text: 'Qualifications'),
-        Tab(text: 'Documents'),
-        Tab(text: 'Banking'),
-        Tab(text: 'Health Records'),
-        Tab(text: 'Inventory'),
-        Tab(text: 'Pay Rates'),
-        Tab(text: 'Termination'),
-        Tab(text: 'Time Off'),
+        Tab(text: AppStringHr.qualification),
+        Tab(text: AppStringHr.documents),
+        Tab(text: AppStringHr.bankings),
+        Tab(text: AppStringHr.healthRcord),
+        Tab(text: AppStringHr.inventory),
+        Tab(text: AppStringHr.payRate),
+        Tab(text: AppStringHr.termination),
+        Tab(text: AppStringHr.timeOff),
       ],
       tabViews: [
         CenteredTabBarChild(childController),
@@ -251,7 +253,7 @@ class _ManageScreenState extends State<ManageScreen> {
                   ),
                   margin: EdgeInsets.only(right: 10),
                   child: CustomIconButtonConst(
-                      text: 'Add New', icon: Icons.add, onPressed: () {}),
+                      text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
                 ),
               ],
             ),
