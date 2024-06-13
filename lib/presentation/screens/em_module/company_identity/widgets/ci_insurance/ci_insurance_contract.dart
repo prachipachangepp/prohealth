@@ -52,67 +52,67 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
       color: Colors.transparent,
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                height: 30,
-                width: 354,
-                // margin: EdgeInsets.symmetric(horizontal: 20),
-                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                      color: Color(0xff686464).withOpacity(0.5),
-                      width: 1), // Black border
-                  borderRadius: BorderRadius.circular(8), // Rounded corners
-                ),
-                child: DropdownButtonFormField<String>(
-                  focusColor: Colors.transparent,
-                  icon: Icon(
-                    Icons.arrow_drop_down_sharp,
-                    color: Color(0xff686464),
-                  ),
-                  decoration: InputDecoration.collapsed(hintText: ''),
-                  items: <String>[
-                    'Sample Vendor',
-                    'Option 1',
-                    'Option 2',
-                    'Option 3',
-                    'Option 4'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {},
-                  value: 'Sample Vendor',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff686464),
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
-              CustomIconButtonConst(
-                  icon: Icons.add,
-                  text: "Add Doctype",
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ContractAddDialog(
-                            contractNmaeController: contractNameController,
-                            onSubmitPressed: () {},
-                            contractIdController: contractIdController,
-
-                          );
-                        });
-                  }),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Container(
+          //       height: 30,
+          //       width: 354,
+          //       // margin: EdgeInsets.symmetric(horizontal: 20),
+          //       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+          //       decoration: BoxDecoration(
+          //         color: Colors.white,
+          //         border: Border.all(
+          //             color: Color(0xff686464).withOpacity(0.5),
+          //             width: 1), // Black border
+          //         borderRadius: BorderRadius.circular(8), // Rounded corners
+          //       ),
+          //       child: DropdownButtonFormField<String>(
+          //         focusColor: Colors.transparent,
+          //         icon: Icon(
+          //           Icons.arrow_drop_down_sharp,
+          //           color: Color(0xff686464),
+          //         ),
+          //         decoration: InputDecoration.collapsed(hintText: ''),
+          //         items: <String>[
+          //           'Sample Vendor',
+          //           'Option 1',
+          //           'Option 2',
+          //           'Option 3',
+          //           'Option 4'
+          //         ].map<DropdownMenuItem<String>>((String value) {
+          //           return DropdownMenuItem<String>(
+          //             value: value,
+          //             child: Text(value),
+          //           );
+          //         }).toList(),
+          //         onChanged: (String? newValue) {},
+          //         value: 'Sample Vendor',
+          //         style: GoogleFonts.firaSans(
+          //           fontSize: 12,
+          //           fontWeight: FontWeight.w600,
+          //           color: Color(0xff686464),
+          //           decoration: TextDecoration.none,
+          //         ),
+          //       ),
+          //     ),
+          //     CustomIconButtonConst(
+          //         icon: Icons.add,
+          //         text: "Add Doctype",
+          //         onPressed: () {
+          //           showDialog(
+          //               context: context,
+          //               builder: (BuildContext context) {
+          //                 return ContractAddDialog(
+          //                   contractNmaeController: contractNameController,
+          //                   onSubmitPressed: () {},
+          //                   contractIdController: contractIdController,
+          //
+          //                 );
+          //               });
+          //         }),
+          //   ],
+          // ),
           Expanded(
             child: StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,

@@ -770,9 +770,14 @@ class SMDesktop extends StatelessWidget {
                         children: [
                           CustomButton(onPressed: (){},
                           text: 'See all',
+                            style:  GoogleFonts.firaSans(
+                              fontSize: MediaQuery.of(context).size.width / 120,
+                              fontWeight: FontWeight.w700,
+                              color:Colors.white,
+                            ),
                           borderRadius: 12,
-                          height: 33,
-                          width: 101,)
+                            height: 30,
+                            width: 100,)
                         ],)
                       ],
                     ),
