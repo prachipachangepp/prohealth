@@ -14,6 +14,7 @@ class EstablishmentManagerRepository {
   static String companyList = "/companyList";
   static String officeDetails = "officeDetailWithServiceByCompany";
   static String getDocType = "/GetDocType";
+  static String getDocTypeManageCC = "/document-type";
   static String getDocListCompany = "/GetDocumentListByCompany";
 
   static String companyAll(){
@@ -55,8 +56,12 @@ class EstablishmentManagerRepository {
   static String postCompanyOffice(){
     return "$companyOffice/$add";
   }
+  ///manage cc 5 screens
+  static String getManageCorporateComp(){
+    return "$getDocTypeManageCC";
+  }
   ///manage details
-  static String getManageDetails({required int companyID, required int officeId}){
+  static String getManageDetails({required int companyID, required String officeId}){
     return "$identity/$officeDetails/$companyID/$officeId";
   }
   ///manage details service post
