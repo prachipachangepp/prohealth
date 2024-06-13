@@ -71,4 +71,7 @@ class EstablishmentManagerRepository {
  static String corporateGetListbyCompany({required int companyId,required String officeId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
     return "$identity/$getDocListCompany/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
 }
+static String getOrgDocument(){
+    return "/$document";
+}
 }

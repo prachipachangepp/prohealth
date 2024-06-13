@@ -20,7 +20,6 @@ class HrManageScreen extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       /// green blue container
       ProfileBar(),
-
       ///TabBar
       Row(
         children: [

@@ -271,15 +271,18 @@ class _ManageScreenState extends State<ManageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-      /// green blue container
-      ProfileBar(),
-      ///TabBar
-      CenteredTabBar(),
-      /// bottom row
-      BottomBarRow(),
-    ]);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: ListView(
+        scrollDirection: Axis.vertical,
+          children: [
+        /// green blue container
+       ProfileBar(),
+       ///TabBar
+       CenteredTabBar(),
+       /// bottom row
+       BottomBarRow()
+      ]),
+    );
   }
 }

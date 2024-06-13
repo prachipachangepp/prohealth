@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
-
 import '../../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -18,6 +16,7 @@ import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart
 import '../../../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../widgets/button_constant.dart';
 import '../../../widgets/text_form_field_const.dart';
+
 class CompanyIdentity extends StatefulWidget {
   const CompanyIdentity({Key? key}) : super(key: key);
 
@@ -59,7 +58,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   void toggleView(bool showStream) {
     setState(() {
       showStreamBuilder = showStream;
-      showHeadings = showStream; // Hide headings when switching to PageView
+      showHeadings = showStream;
     });
   }
 
@@ -267,8 +266,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
             ],
           ),
         /// List or PageView based on showStreamBuilder
-        Expanded(
-          child: showStreamBuilder
+          Expanded(
+           child: showStreamBuilder
               ? StreamBuilder<List<CompanyModel>>(
             stream: _controller.stream,
             builder: (BuildContext context, snapshot) {
@@ -360,10 +359,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   color: Color(0xff686464),
                                 ),
                               ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                child: Text('Manage'),
-                              ),
+                              CustomButtonTransparentSM(
+                              text: 'Manage', onPressed: () {}),
                             ],
                           ),
                         ),
@@ -375,15 +372,15 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               return Scaffold();
             },
           )
-              : PageView(
+               : PageView(
             controller: _pageController,
             children: [
               Container(
                child: WhitelabellingScreen()
               ),
-              Container(
-                color: Colors.deepPurple,
-              ),
+              // Container(
+              //   color: Colors.deepPurple,
+              // ),
             ],
           ),
         ),
