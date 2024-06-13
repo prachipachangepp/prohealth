@@ -142,12 +142,13 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
 class CICCDropdown extends StatefulWidget {
   final List<DropdownMenuItem<String>> items;
   final String? initialValue;
+  final Function(String)? onChange;
 
 
   const CICCDropdown({
     Key? key,
     required this.items,
-    this.initialValue,
+    this.initialValue, this.onChange,
   }) : super(key: key);
 
   @override
@@ -192,6 +193,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
     if (result != null) {
       setState(() {
         _selectedValue = result;
+        widget.onChange!(result);
       });
     }
   }

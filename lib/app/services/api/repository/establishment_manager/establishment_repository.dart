@@ -15,7 +15,7 @@ class EstablishmentManagerRepository {
   static String officeDetails = "officeDetailWithServiceByCompany";
   static String getDocType = "/GetDocType";
   static String getDocListCompany = "/GetDocumentListByCompany";
-  static String visit = "/visit";
+  static String visit = "/visits";
 
   static String companyAll(){
     return "$company";
