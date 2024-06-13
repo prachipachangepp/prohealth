@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 class CompensationChildTabbar extends StatelessWidget {
@@ -41,13 +42,9 @@ class CompensationChildTabbar extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              border: Border.all(width: 2,color: Color(0xffF6928A)),
+                              border: Border.all(width: 2,color: ColorManager.faintGrey),
                             ),
-                            child: IconButton(
-                              onPressed: () {
-                              },
-                              icon: Icon(Icons.remove_red_eye,color: Color(0xff50B5E5),),
-                              iconSize: 24,) ),
+                            child: Image.asset('images/Vector.png') ),
                         SizedBox(width: 10),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,

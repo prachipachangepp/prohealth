@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../../app/resources/hr_resources/string_manager.dart';
 
 class BankingHeadTabbar extends StatefulWidget {
   @override
@@ -120,9 +122,8 @@ class BankingContainerConst extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Bank #1',
-                    style: TextStyle(
-                      fontFamily: 'FiraSans',
+                   Text(AppStringHr.bankone,
+                    style: GoogleFonts.firaSans(
                       fontSize: 13,
                       color: Color(0xFF333333),
                       fontWeight: FontWeight.w500,
@@ -142,10 +143,9 @@ class BankingContainerConst extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed:
                           () {},
-                      child: const Text(
-                        'Edit',
-                        style: TextStyle(
-                          fontFamily: 'FiraSans',
+                      child:  Text(
+                        AppStringHr.edit,
+                        style: GoogleFonts.firaSans(
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
@@ -178,10 +178,10 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Type: ',
+                            Text(AppStringHr.type,
                                 style: ThemeManager.customTextStyle(context)),
                             Text(
-                              'Checking',
+                              AppStringHr.checking,
                               style: ThemeManagerDark.customTextStyle(context),
                             ),
                           ],
@@ -190,7 +190,7 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Effective Date: ',
+                            Text(AppStringHr.effectiveDate,
                                 style: ThemeManager.customTextStyle(context)),
                             Text(
                               '24-03-23',
@@ -202,7 +202,7 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Bank Name: ',
+                            Text(AppStringHr.bankName,
                                 style: ThemeManager.customTextStyle(context)),
                             Text(
                               'Bank Of America',
@@ -214,7 +214,7 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Effective Date: ',
+                            Text(AppStringHr.effectiveDate,
                                 style: ThemeManager.customTextStyle(context)),
                             Text(
                               '24-03-23',
@@ -232,7 +232,7 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Account No.: ',
+                            Text(AppStringHr.accNo,
                                 style: ThemeManager.customTextStyle(context)),
                             Text(
                               '1234567797',
@@ -244,7 +244,7 @@ class BankingContainerConst extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Requested Percentage: ',
+                            Text(AppStringHr.requestPercent,
                                 style: ThemeManager.customTextStyle(context)),
                             Text(
                               '30%',
@@ -261,11 +261,11 @@ class BankingContainerConst extends StatelessWidget {
                Row(
                  mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                     IconButtonWidget(iconData: Icons.remove_red_eye_outlined, buttonText: 'Void Check', onPressed:(){},),
+                     IconButtonWidget(iconData: Icons.remove_red_eye_outlined, buttonText: AppStringHr.voidcheck, onPressed:(){},),
                   const SizedBox(width: 10,),
-                  IconButtonWidget(iconData1: Icons.print_outlined, buttonText: 'Print', onPressed:(){},),
+                  IconButtonWidget(iconData1: Icons.print_outlined, buttonText: AppStringHr.print, onPressed:(){},),
                   const SizedBox(width: 10,),
-                  IconButtonWidget(iconData1: Icons.file_download_outlined, buttonText: 'Download', onPressed:(){},)
+                  IconButtonWidget(iconData1: Icons.file_download_outlined, buttonText: AppStringHr.download, onPressed:(){},)
                 ],
               )
             ],

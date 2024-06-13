@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 
 class TimeOffHeadTabbar extends StatefulWidget {
   const TimeOffHeadTabbar({super.key});
@@ -197,15 +198,23 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                             ),
                                           ),
                                           // Text(''),
-                                          Text(
-                                            "John Thomas",
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
+                                          Row(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 10,
+                                                backgroundColor: ColorManager.faintGrey,
+                                              ),
+                                              Text(
+                                                "John Thomas",
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Color(0xff686464),
+                                                  decoration: TextDecoration.none,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           Text(
                                             "1 Day",
@@ -267,13 +276,14 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
-                                          Container(
-                                              height: 25,
-                                              width: 100,
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Color(0xFFF6928A)),
-                                              child: ElevatedButton(onPressed: (){},
-                                                  style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFF6928A)),
-                                                  child: Text('Delete',style: TextStyle(color: ColorManager.white),)))//  Text(''),
+                                          Row(
+                                            children: [
+                                              IconButtonWidget(buttonText: "Approve", onPressed: (){}),
+                                              IconButtonWidget(buttonText: "Reject", onPressed: (){}),
+                                              IconButtonWidget(buttonText: "Edit", onPressed: (){})
+                                            ],
+                                          )
+                                         //  Text(''),
                                         ],
                                       ),
                                     ),]

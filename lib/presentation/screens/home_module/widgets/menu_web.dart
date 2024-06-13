@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/hr_home_screen.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -161,7 +162,9 @@ class HomeScreenWeb extends StatelessWidget {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          const HomeScreenHRM()));
+                                                          // HomeScreenHRM()
+                                                          HRHomeScreen()
+                                                  ));
                                             },
                                             child: const ResponsiveContainer(
                                               'Human Resource Manager',
