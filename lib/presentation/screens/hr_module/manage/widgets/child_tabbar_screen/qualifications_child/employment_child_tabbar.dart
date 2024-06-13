@@ -167,10 +167,12 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                         iconData: Icons.edit_outlined,
                         buttonText: 'Edit',
                         onPressed: () {
-                            showDialog(context: context, builder: (context){
+                          setState(() {
+                            showDialog(context: context, builder: (BuildContext context){
                               return CustomPopupConst();
-
+                            });
                           });
+
 
                         }),
                       ],
