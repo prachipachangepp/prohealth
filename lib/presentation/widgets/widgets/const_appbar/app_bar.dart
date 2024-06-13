@@ -9,10 +9,6 @@ import '../../../screens/hr_module/onboarding/onboarding_screen.dart';
 import '../../../screens/hr_module/register/register_screen.dart';
 import 'controller.dart';
 
-
-///tabbar saloni
-///appbar prachi
-
 class MyAppBar extends StatelessWidget {
   final HRController hrController = Get.put(HRController());
   final CustomButtonController customController =
@@ -301,52 +297,48 @@ class MyAppBar extends StatelessWidget {
                             splashColor: Colors.white, // Splash color
                             onTap: () {},
                             child: SizedBox(
-                                width: MediaQuery.of(context).size.width / 37,
-                                height: 25,
+                                width: 15,
+                                height: 15,
                                 child: Icon(
                                   Icons.notifications_none_outlined,
                                   color: Colors.white,
-                                  size: MediaQuery.of(context).size.width / 68,
+                                  size: 15,
                                 )),
                           ),
                           InkWell(
                             splashColor: Colors.white,
                             onTap: () {},
                             child: SizedBox(
-                                width: MediaQuery.of(context).size.width / 37,
-                                height: 25,
+                                width: 15,
+                                height: 15,
                                 child: Icon(
                                   Icons.settings_outlined,
                                   color: Colors.white,
-                                  size: MediaQuery.of(context).size.width / 68,
+                                  size: 15,
                                 )),
                           ),
                           //SizedBox(width: MediaQuery.of(context).size.width/10,),
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-
-                                CircleAvatar(
-                                  radius: 10,
-                                  backgroundColor: Colors.white,
-                                  child: Image.asset("images/profile.png"),
-                                ),
-                                SizedBox(height: 2),
-                                Flexible(
-                                  child: Text(
-                                    "William Christiana ",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 8,
-                                      fontFamily: 'FiraSans',
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: 10,
+                                backgroundColor: Colors.white,
+                                child: Image.asset("images/profile.png"),
+                              ),
+                              SizedBox(height: 2),
+                              Flexible(
+                                child: Text(
+                                  "William Christiana ",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 6,
+                                    fontFamily: 'FiraSans',
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
 
                         ])),

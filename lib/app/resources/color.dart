@@ -9,6 +9,8 @@ class ColorManager {
   static Color bluecontainer = Color(0xff9BADCA);
   static Color cream = Color(0xffD9D9D9);
   static Color pinkfaint =  Color(0xffF69DF6);
+  static Color greylight = Color(0xff575757);
+
 
   ///static Color grey = Color(0xff8B8781);
   static Color grey = Color(0xff8B8781);

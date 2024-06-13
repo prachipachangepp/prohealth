@@ -55,7 +55,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                       // onTap: (_){},
                     ),
                   ),
-                  const SizedBox(width: 30), // Add space between tabs and TextField
+                  const SizedBox(width: 30),
                   Expanded(
                     child: Row(
                       children: [

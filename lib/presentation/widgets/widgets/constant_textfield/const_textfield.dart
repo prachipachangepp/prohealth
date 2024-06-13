@@ -3,7 +3,8 @@ import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../app/resources/value_manager.dart';
 
-///prachi to do textfield constant widget
+///textfield constant widget
+///todo prachi
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final double? width;
@@ -64,8 +65,8 @@ class CustomTextField extends StatelessWidget {
   }
 }
 
-///drop down text field prachi to do
-
+///drop down text field
+///todo prachi
 class CustomDropdownTextField extends StatefulWidget {
   final String? value;
   final List<String> items;
@@ -137,6 +138,67 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
               labelText: widget.labelText,
               labelStyle:
                   widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+///todo prachi
+///Human Resource screen textField
+class HRManageTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final String text;
+  final Color textColor;
+  final Icon? icon;
+  final bool? readOnly;
+  final VoidCallback? onChange;
+  final double? width;
+  final double? height;
+  final double cursorHeight;
+  final String labelText;
+  final TextStyle labelStyle;
+  final double labelFontSize;
+  final Icon? suffixIcon;
+  final IconData? prefixIcon;
+  final FocusNode? focusNode;
+
+
+  HRManageTextField({
+    Key? key,
+    required this.controller,
+    required this.keyboardType,
+    required this.text,
+    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.width, this.height, required this.cursorHeight, required this.labelText, required this.labelStyle, required this.labelFontSize, this.suffixIcon, this.prefixIcon, this.focusNode,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 280,
+      height: 35,
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p5),
+        child: TextFormField(
+          focusNode: focusNode,
+          controller: controller,
+          textAlign: TextAlign.start,
+          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          textAlignVertical: TextAlignVertical.center,
+          cursorHeight: cursorHeight,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
+            border: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.black),
+            ),
+            labelText: labelText,
+            labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(left: AppPadding.p14),
+              child: suffixIcon,
             ),
           ),
         ),
