@@ -14,6 +14,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
 class CiLeasesAndServices extends StatefulWidget {
@@ -192,7 +193,9 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                             });
                                           }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                           IconButton(onPressed: (){
-                                            setState(() async{
+                                            showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                              Navigator.pop(context);
+                                            }, onDelete: (){  setState(() async{
                                               await deleteDocument(
                                                   context,
                                                   snapshot.data![index].docId!);
@@ -201,7 +204,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                               }).catchError((error) {
                                                 // Handle error
                                               });
-                                            });
+                                            });}));
                                           }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                         ],
                                       )

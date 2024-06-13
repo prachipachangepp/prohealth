@@ -1,5 +1,6 @@
 
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -30,6 +31,9 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
   late List<String> items;
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+
+
 
   String? selectedValue;
   late List<Color> hrcontainerColors;
@@ -41,8 +45,13 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
     itemsPerPage = 3;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgDocumentGet(context);
+    // orgDocumentGet(context);
     _loadColors();
+    orgDocumentGet(context).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
 
   void _loadColors() async {
@@ -126,9 +135,10 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
         ),
         SizedBox(height: AppSize.s10),
         Expanded(
-          child: FutureBuilder<List<CiOrgDocumentCC>>(
-            future: orgDocumentGet(context),
+          child: StreamBuilder<List<CiOrgDocumentCC>>(
+            stream: _controller.stream,
             builder: (context, snapshot) {
+              print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(
@@ -157,7 +167,6 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                       ? totalItems
                       : (currentPage * itemsPerPage),
                 );
-
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: currentPageItems.length,
@@ -338,27 +347,27 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
             },
           ),
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            setState(() {
-              int totalPages = (items.length / itemsPerPage).ceil();
-              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     setState(() {
+        //       int totalPages = (items.length / itemsPerPage).ceil();
+        //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+        //     });
+        //   },
+        // ),
       ],
     );
   }

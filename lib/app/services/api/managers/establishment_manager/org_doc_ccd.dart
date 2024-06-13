@@ -6,6 +6,7 @@ import 'package:prohealth/app/services/api/repository/establishment_manager/esta
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 
+///get api
 Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
   List<CiOrgDocumentCC> itemsList = [];
 
@@ -40,12 +41,18 @@ Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context) async {
   }
 }
 
-
+///post api
 Future<ApiData> addOrgDocumentPost(
-    BuildContext context, String expiryDate,String docName,String expiryType,String expiryReminder) async {
+    BuildContext context,
+    String expiryDate,
+    String docName,
+    String expiryType,
+    String expiryReminder
+    ) async {
   try {
     var response = await Api(context).post(
-        path: EstablishmentManagerRepository.addOrgDocumentPost(), data: {
+        path: EstablishmentManagerRepository.
+        addOrgDocumentPost(), data: {
           'doc_name':docName,
           'expiry_type':expiryType,
           'expiry_date':expiryDate,
@@ -73,9 +80,19 @@ Future<ApiData> addOrgDocumentPost(
   }
 }
 
-Future<ApiData> updateOrgDocument(BuildContext context, int docId,String docName,String docDate, String expiryType,String expiryReminder) async{
+///patch
+Future<ApiData> updateOrgDocument(
+    BuildContext context,
+    int docId,
+    String docName,
+    String docDate,
+    String expiryType,
+    String expiryReminder) async{
   try {
-    var response = await Api(context).patch(path: EstablishmentManagerRepository.updateOrgCocument(docId: docId), data: {
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.
+        updateOrgCocument(docId: docId),
+        data: {
       'document_id':docId,
       "doc_name": docName,
       "expiry_type": expiryType,
@@ -104,7 +121,7 @@ Future<ApiData> updateOrgDocument(BuildContext context, int docId,String docName
 }
 
 
-
+///delete
 Future<ApiData> deleteDocument(
     BuildContext context, int docId) async {
   try {

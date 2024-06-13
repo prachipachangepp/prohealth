@@ -61,7 +61,6 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -131,9 +130,9 @@ class _CICcdLicenseState extends State<CICcdLicense> {
         ),
         SizedBox(height: AppSize.s10),
         Expanded(
-          child: StreamBuilder<List<CiOrgDocumentCC>>(
-            stream: _controller.stream,
-            builder: (context, snapshot) {
+             child: StreamBuilder<List<CiOrgDocumentCC>>(
+             stream: _controller.stream,
+             builder: (context, snapshot) {
               print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -155,15 +154,6 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                 );
               }
               if (snapshot.hasData) {
-                // int totalItems = snapshot.data!.length;
-                // // int totalPages = (totalItems / itemsPerPage).ceil();
-                // List<CiOrgDocumentCC> currentPageItems = snapshot.data!.sublist(
-                //   (currentPage - 1) * itemsPerPage,
-                //   (currentPage * itemsPerPage) > totalItems
-                //       ? totalItems
-                //       : (currentPage * itemsPerPage),
-                // );
-
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: snapshot.data!.length,
@@ -348,33 +338,31 @@ class _CICcdLicenseState extends State<CICcdLicense> {
             },
           ),
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            setState(() {
-              int totalPages = (items.length / itemsPerPage).ceil();
-              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     setState(() {
+        //       int totalPages = (items.length / itemsPerPage).ceil();
+        //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+        //     });
+        //   },
+        // ),
       ],
     );
   }
 }
-
-
 // ///
 // class CICcdLicense extends StatefulWidget {
 //   const CICcdLicense({super.key});

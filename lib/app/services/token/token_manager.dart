@@ -9,6 +9,7 @@ class TokenManager {
 
   static void setAccessToken({required String token}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    print("Token to set $token");
     sharedPreferences.setString("accessToken", token);
   }
 

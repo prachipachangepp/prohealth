@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
@@ -85,7 +87,8 @@ class HomeScreenWeb extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Select a Module',
@@ -96,6 +99,13 @@ class HomeScreenWeb extends StatelessWidget {
                                       color: ColorManager.darkgrey,
                                     ),
                                   ),
+                                  IconButton(
+                                      onPressed: () {
+                                        TokenManager.removeAccessToken();
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context, '/', (route) => false);
+                                      },
+                                      icon: const Icon(Icons.logout))
                                 ],
                               ),
                             ),

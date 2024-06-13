@@ -14,6 +14,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
 import '../../../../../../app/resources/const_string.dart';
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
 class CiDme extends StatefulWidget {
@@ -291,7 +292,9 @@ class _CiDmeState extends State<CiDme> {
                                                 )),
                                             IconButton(
                                                 onPressed: () {
-                                                  setState(() async{
+                                                  showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                                    Navigator.pop(context);
+                                                  }, onDelete: (){ setState(() async{
                                                     await deleteDocument(
                                                         context,
                                                         snapshot.data![index].docId!);
@@ -300,7 +303,7 @@ class _CiDmeState extends State<CiDme> {
                                                     }).catchError((error) {
                                                       // Handle error
                                                     });
-                                                  });
+                                                  });}));
                                                 },
                                                 icon: Icon(
                                                   Icons.delete_outline,

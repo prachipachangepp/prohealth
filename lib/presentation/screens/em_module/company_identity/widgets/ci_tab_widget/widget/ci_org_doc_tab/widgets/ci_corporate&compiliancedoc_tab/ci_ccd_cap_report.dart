@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,9 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
   late List<String> items;
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+
+
 
   String? selectedValue;
   late List<Color> hrcontainerColors;
@@ -39,8 +43,13 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
     itemsPerPage = 3;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgDocumentGet(context);
+    // orgDocumentGet(context);
     _loadColors();
+    orgDocumentGet(context).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
 
   void _loadColors() async {
@@ -124,9 +133,10 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
         ),
         SizedBox(height: AppSize.s10),
         Expanded(
-          child: FutureBuilder<List<CiOrgDocumentCC>>(
-            future: orgDocumentGet(context),
+          child: StreamBuilder<List<CiOrgDocumentCC>>(
+            stream: _controller.stream,
             builder: (context, snapshot) {
+              print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(
@@ -155,7 +165,6 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                       ? totalItems
                       : (currentPage * itemsPerPage),
                 );
-
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: currentPageItems.length,
@@ -336,27 +345,27 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
             },
           ),
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            setState(() {
-              int totalPages = (items.length / itemsPerPage).ceil();
-              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     setState(() {
+        //       int totalPages = (items.length / itemsPerPage).ceil();
+        //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+        //     });
+        //   },
+        // ),
       ],
     );
   }

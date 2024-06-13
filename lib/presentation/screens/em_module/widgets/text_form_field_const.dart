@@ -12,6 +12,7 @@ class SMTextFConst extends StatelessWidget {
   final String text;
   final Color textColor;
   final Icon? icon;
+  final bool? readOnly;
   final VoidCallback? onChange;
 
 
@@ -20,7 +21,7 @@ class SMTextFConst extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
      required this.text,
-     this.textColor = const Color(0xff686464), this.icon,  this.onChange,
+     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly,
   }) : super(key: key);
 
   @override
@@ -47,7 +48,6 @@ class SMTextFConst extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextFormField(
-
             autofocus: true,
             controller: controller,
             keyboardType: keyboardType,
@@ -62,6 +62,72 @@ class SMTextFConst extends StatelessWidget {
               fontWeight: FontWeightManager.medium,
               fontSize: FontSize.s12,
               color: ColorManager.mediumgrey
+            ),
+            onTap: onChange,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class EditTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final String text;
+  final Color textColor;
+  final Icon? icon;
+  final bool? readOnly;
+  final VoidCallback? onChange;
+
+
+  EditTextField({
+    Key? key,
+    required this.controller,
+    required this.keyboardType,
+    required this.text,
+    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          text,
+          style: GoogleFonts.firaSans(
+            fontSize: FontSize.s12,
+            fontWeight: FontWeight.w700,
+            color: textColor,
+            decoration: TextDecoration.none,
+          ),
+        ),
+        SizedBox(height: 1,),
+        Container(
+          width: MediaQuery.of(context).size.width/5,
+          height: 30,
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: TextFormField(
+            readOnly: true,
+            autofocus: true,
+            controller: controller,
+            keyboardType: keyboardType,
+            cursorHeight: 17,
+            cursorColor: Colors.black,
+            decoration: InputDecoration(
+              suffixIcon: icon,
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
+            ),
+            style: CustomTextStylesCommon.commonStyle(
+                fontWeight: FontWeightManager.medium,
+                fontSize: FontSize.s12,
+                color: ColorManager.mediumgrey
             ),
             onTap: onChange,
           ),

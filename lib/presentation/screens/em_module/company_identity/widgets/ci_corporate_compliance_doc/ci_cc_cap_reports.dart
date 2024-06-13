@@ -9,6 +9,7 @@ import '../../../../../../app/services/api/managers/establishment_manager/org_do
 import '../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class CICCCAPReports extends StatefulWidget {
   const CICCCAPReports({super.key});
@@ -185,7 +186,11 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                                     ],),);
                                               });
                                             }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
-                                            IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                            IconButton(onPressed: (){
+                                              showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                                Navigator.pop(context);
+                                              }, onDelete: (){}));
+                                            }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                           ],
                                         )
                                       ],

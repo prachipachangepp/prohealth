@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/hr_resources/string_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/row_container_widget_const.dart';
 
 class HealthRecordsHeadTabbar extends StatelessWidget {
   const HealthRecordsHeadTabbar({super.key});
@@ -18,7 +16,9 @@ class HealthRecordsHeadTabbar extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: CustomIconButton(text: 'Edit', onPressed: (){},icon: Icons.edit_outlined,),
+          child: CustomIconButton(text: AppStringHr.edit, onPressed: (){
+
+          },icon: Icons.edit_outlined,),
         ),
         Container(
           height: mediaQuery.height / 3,

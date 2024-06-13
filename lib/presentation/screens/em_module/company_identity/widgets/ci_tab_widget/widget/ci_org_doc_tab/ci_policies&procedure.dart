@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -29,7 +30,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   late List<String> items;
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-
+  final StreamController<List<CiOrgDocumentCC>> _policiesandprocedureController = StreamController<List<CiOrgDocumentCC>>();
   String? selectedValue;
   late List<Color> hrcontainerColors;
 
@@ -40,8 +41,13 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
     itemsPerPage = 3;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgDocumentGet(context);
+    // orgDocumentGet(context);
     _loadColors();
+    orgDocumentGet(context).then((data) {
+      _policiesandprocedureController.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
 
   void _loadColors() async {
@@ -125,9 +131,10 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
         ),
         SizedBox(height: AppSize.s10),
         Expanded(
-          child: FutureBuilder<List<CiOrgDocumentCC>>(
-            future: orgDocumentGet(context),
+          child:  StreamBuilder<List<CiOrgDocumentCC>>(
+            stream: _policiesandprocedureController.stream,
             builder: (context, snapshot) {
+              print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(
@@ -337,27 +344,27 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
             },
           ),
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            setState(() {
-              int totalPages = (items.length / itemsPerPage).ceil();
-              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     setState(() {
+        //       int totalPages = (items.length / itemsPerPage).ceil();
+        //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+        //     });
+        //   },
+        // ),
       ],
     );
   }

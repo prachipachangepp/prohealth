@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
+import '../../../../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
@@ -28,6 +30,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
   late List<String> items;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
   String? selectedValue;
   late List<Color> hrcontainerColors;
   @override
@@ -37,8 +40,13 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgDocumentGet(context);
+    // orgDocumentGet(context);
     _loadColors();
+    orgDocumentGet(context).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -104,9 +112,10 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
         ),
         SizedBox(height: AppSize.s10,),
         Expanded(
-          child: FutureBuilder<List<CiOrgDocumentCC>>(
-              future: orgDocumentGet(context),
+          child: StreamBuilder<List<CiOrgDocumentCC>>(
+              stream: _controller.stream,
               builder: (context, snapshot) {
+                print('1111111');
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(
@@ -114,7 +123,27 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                     ),
                   );
                 }
-                if(snapshot.hasData){
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                      ),
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  int totalItems = snapshot.data!.length;
+                  // int totalPages = (totalItems / itemsPerPage).ceil();
+                  List<CiOrgDocumentCC> currentPageItems = snapshot.data!.sublist(
+                    (currentPage - 1) * itemsPerPage,
+                    (currentPage * itemsPerPage) > totalItems
+                        ? totalItems
+                        : (currentPage * itemsPerPage),
+                  );
                   return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
@@ -231,31 +260,31 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
               }
           ),
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            /// Handle previous page button press
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            /// Handle page number tap
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            /// Handle next page button press
-            setState(() {
-              currentPage = currentPage < (items.length / itemsPerPage).ceil()
-                  ? currentPage + 1
-                  : (items.length / itemsPerPage).ceil();
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     /// Handle previous page button press
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     /// Handle page number tap
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     /// Handle next page button press
+        //     setState(() {
+        //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
+        //           ? currentPage + 1
+        //           : (items.length / itemsPerPage).ceil();
+        //     });
+        //   },
+        // ),
       ],
     );
   }

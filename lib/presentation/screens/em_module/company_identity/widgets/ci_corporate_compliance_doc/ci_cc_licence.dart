@@ -10,6 +10,7 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../checkbox_constant.dart';
 
 class CICCLicense extends StatefulWidget {
@@ -190,7 +191,11 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                   ],),);
                                             });
                                           }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
-                                          IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                          IconButton(onPressed: (){
+                                            showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                              Navigator.pop(context);
+                                            }, onDelete: (){}));
+                                          }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                         ],
                                       )
                                     ],

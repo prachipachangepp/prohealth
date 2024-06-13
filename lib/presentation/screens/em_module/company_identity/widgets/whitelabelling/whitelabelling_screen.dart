@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/color.dart';
@@ -21,24 +22,30 @@ class WhitelabellingScreen extends StatefulWidget {
 
 class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   TextEditingController nameController = TextEditingController();
+  // TextEditingController secfaxController = TextEditingController();
 
   TextEditingController addressController = TextEditingController();
-
   TextEditingController secNumberController = TextEditingController();
-
   TextEditingController primNumController = TextEditingController();
-
   TextEditingController altNumController = TextEditingController();
-
   TextEditingController emailController = TextEditingController();
-
   TextEditingController hcoNumController = TextEditingController();
-
   TextEditingController medicareController = TextEditingController();
-
   TextEditingController npiNumController = TextEditingController();
-
   TextEditingController faxontroller = TextEditingController();
+  ///
+  TextEditingController addressCtlr = TextEditingController();
+  TextEditingController nameCtlr = TextEditingController();
+
+  TextEditingController secNumberCtlr = TextEditingController();
+  TextEditingController primNumCtlr = TextEditingController();
+  TextEditingController altNumCtlr = TextEditingController();
+  TextEditingController emailCtlr = TextEditingController();
+  TextEditingController hcoNumCtlr = TextEditingController();
+  TextEditingController medicareCtlr = TextEditingController();
+  TextEditingController npiNumCtlr = TextEditingController();
+  TextEditingController faxCtlr = TextEditingController();
+
   String fileName = "No Chosen";
 
   void pickFile() async {
@@ -362,7 +369,19 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                     width: 105,
                                     height: 31,
                                     text: 'Submit',
-                                    onPressed: () {
+                                    onPressed: () async {
+                                     await postWhitelabellingAdd(
+                                        context,
+                                        0,
+                                        '',
+                                        primNumController.text,
+                                        secNumberController.text,
+                                        faxontroller.text,
+                                        emailController.text,
+                                        altNumController.text,
+                                        nameController.text,
+                                        addressController.text,
+                                      );
                                       Navigator.pop(context);
                                     }),
                               )
@@ -461,25 +480,25 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SMTextFConst(
+                                EditTextField(
                                   controller: nameController,
                                   keyboardType: TextInputType.text,
                                   text: AppStringEM.companyName,
                                 ),
                                 SizedBox(height: AppSize.s4),
-                                SMTextFConst(
+                                EditTextField(
                                   controller: secNumberController,
                                   keyboardType: TextInputType.number,
                                   text: AppStringEM.secNum,
                                 ),
                                 SizedBox(height: AppSize.s4),
-                                SMTextFConst(
+                                EditTextField(
                                   controller: faxontroller,
                                   keyboardType: TextInputType.text,
                                   text: AppStringEM.fax,
                                 ),
                                 SizedBox(height: AppSize.s4),
-                                SMTextFConst(
+                                EditTextField(
                                   controller: addressController,
                                   keyboardType: TextInputType.text,
                                   text: AppStringEM.address,
@@ -489,19 +508,19 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SMTextFConst(
+                                EditTextField(
                                   controller: primNumController,
                                   keyboardType: TextInputType.number,
                                   text: AppStringEM.primNum,
                                 ),
                                 SizedBox(height: AppSize.s4),
-                                SMTextFConst(
+                                EditTextField(
                                   controller: altNumController,
                                   keyboardType: TextInputType.number,
                                   text: AppStringEM.alternatephone,
                                 ),
                                 SizedBox(height: AppSize.s4),
-                                SMTextFConst(
+                                EditTextField(
                                   controller: emailController,
                                   keyboardType: TextInputType.text,
                                   text: AppStringEM.primarymail,

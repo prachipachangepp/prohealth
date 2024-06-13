@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,8 +8,12 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_zone_data.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class CIZoneCountry extends StatefulWidget {
   const CIZoneCountry({super.key});
@@ -25,12 +30,19 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
   TextEditingController zipcodeController = TextEditingController();
   TextEditingController mapController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
+  final StreamController<List<ManageZoneCounty>> _controller = StreamController<List<ManageZoneCounty>>();
+
   @override
   void initState() {
     super.initState();
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(60, (index) => 'Item ${index + 1}');
+    // orgDocumentGet(context).then((data) {
+    //   _controller.add(data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
   }
 
     @override
@@ -117,6 +129,31 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
         ),
         Expanded(
           child:
+          // StreamBuilder<List<ManageZoneCounty>>(
+          //   stream: _controller.stream,
+          //   builder: (context, snapshot) {
+          //     print('1111111');
+          //     if (snapshot.connectionState == ConnectionState.waiting) {
+          //       return Center(
+          //         child: CircularProgressIndicator(
+          //           color: ColorManager.blueprime,
+          //         ),
+          //       );
+          //     }
+          //     if (snapshot.data!.isEmpty) {
+          //       return Center(
+          //         child: Text(
+          //           AppString.dataNotFound,
+          //           style: CustomTextStylesCommon.commonStyle(
+          //             fontWeight: FontWeightManager.medium,
+          //             fontSize: FontSize.s12,
+          //             color: ColorManager.mediumgrey,
+          //           ),
+          //         ),
+          //       );
+          //     }
+          //     if (snapshot.hasData) {
+          //       return
           ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: currentPageItems.length,
@@ -183,8 +220,8 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (context){
                                         return CIZoneAddPopup(
-
-                                          onSavePressed: (){},
+                                          onSavePressed: (){
+                                          },
                                           title1: AppStringEM.countyName,
                                           countynameController: countynameController,
                                           title2: AppStringEM.zipCode,
@@ -195,7 +232,11 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                           landmarkController: landmarkController, );
                                       });
                                     }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
+                                    IconButton(onPressed: (){
+                                      showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                        Navigator.pop(context);
+                                      }, onDelete: (){}));
+                                    }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                   ],
                                 )
                               ],
@@ -205,6 +246,11 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   ],
                 );
               }),
+          //;
+//     }
+//   return Offstage();
+// },
+// ),
         ),
         SizedBox(
           height: AppSize.s10,

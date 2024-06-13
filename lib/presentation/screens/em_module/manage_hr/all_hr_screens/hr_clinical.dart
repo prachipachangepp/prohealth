@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,11 +7,16 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
+import '../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
+import '../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../widgets/widgets/const_appbar/controller.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
@@ -29,8 +35,8 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  final HRClincicalController hrClinController =
-      Get.put(HRClincicalController());
+  final HRClincicalController hrClinController = Get.put(HRClincicalController());
+  final StreamController<List<HRClinical>> _controller = StreamController<List<HRClinical>>();
 
   late int currentPage;
   late int itemsPerPage;
@@ -45,6 +51,10 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
+    // orgDocumentGet(context).then((data) {
+    //   _controller.add(data);
+    // }).catchError((error) {
+    // });
   }
 
   void _loadColors() async {
@@ -89,7 +99,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                   child: DropdownButton<String>(
                     icon: Icon(
                       Icons.arrow_drop_down,
-                      size: MediaQuery.of(context).size.width / 89,
+                      size: MediaQuery.of(context).size.width / 80,
                       color: ColorManager.white,
                     ),
                     dropdownColor: ColorManager.white,
@@ -213,7 +223,33 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
           child: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: ListView.builder(
+            child:
+    // StreamBuilder<List<HRClinical>>(
+    //           stream: _controller.stream,
+    //           builder: (context, snapshot) {
+    //             print('1111111');
+    //             if (snapshot.connectionState == ConnectionState.waiting) {
+    //               return Center(
+    //                 child: CircularProgressIndicator(
+    //                   color: ColorManager.blueprime,
+    //                 ),
+    //               );
+    //             }
+    //             if (snapshot.data!.isEmpty) {
+    //               return Center(
+    //                 child: Text(
+    //                   AppString.dataNotFound,
+    //                   style: CustomTextStylesCommon.commonStyle(
+    //                     fontWeight: FontWeightManager.medium,
+    //                     fontSize: FontSize.s12,
+    //                     color: ColorManager.mediumgrey,
+    //                   ),
+    //                 ),
+    //               );
+    //             }
+    //             if (snapshot.hasData) {
+    //               return
+            ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: currentPageItems.length,
                 itemBuilder: (context, index) {
@@ -316,7 +352,11 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                     color: ColorManager.blueprime,
                                   ),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                        showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                          Navigator.pop(context);
+                                        }, onDelete: (){}));
+                                    },
                                     icon: Icon(
                                       size: 18,
                                       Icons.delete_outline,
@@ -329,7 +369,12 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                           ),
                         ],
                       ));
-                }),
+                })
+              //;
+//   }
+//   return Offstage();
+// },
+// ),
           ),
         ),
         SizedBox(

@@ -164,7 +164,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                           focusColor: Colors.transparent,
                           icon: Icon(Icons.arrow_drop_down_sharp,color: ColorManager.black,),
                           decoration: InputDecoration.collapsed(hintText: ''),
-                          items: <String>['Clinical', 'A', 'B', 'C']
+                          items: <String>['Clinical', 'Sales', 'Administration']
                               .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,

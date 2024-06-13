@@ -1,9 +1,13 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
+import '../../../../../app/resources/const_string.dart';
+import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/table_constant.dart';
@@ -22,6 +26,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  final StreamController<List<PayRateFinance>> _controller = StreamController<List<PayRateFinance>>();
+
   String _selectedOption = 'Option 1';
   late int currentPage;
   late int itemsPerPage;
@@ -33,6 +39,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
+    // orgDocumentGet(context).then((data) {
+    //   _controller.add(data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
   }
 
   @override
@@ -386,7 +397,33 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
             ///list
             Expanded(
-              child: ListView.builder(
+              child:
+              // StreamBuilder<List<PayRateFinance>>(
+              //   stream: _controller.stream,
+              //   builder: (context, snapshot) {
+              //     print('1111111');
+              //     if (snapshot.connectionState == ConnectionState.waiting) {
+              //       return Center(
+              //         child: CircularProgressIndicator(
+              //           color: ColorManager.blueprime,
+              //         ),
+              //       );
+              //     }
+              //     if (snapshot.data!.isEmpty) {
+              //       return Center(
+              //         child: Text(
+              //           AppString.dataNotFound,
+              //           style: CustomTextStylesCommon.commonStyle(
+              //             fontWeight: FontWeightManager.medium,
+              //             fontSize: FontSize.s12,
+              //             color: ColorManager.mediumgrey,
+              //           ),
+              //         ),
+              //       );
+              //     }
+              //     if (snapshot.hasData) {
+              //       return
+              ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: currentPageItems.length,
                   itemBuilder: (context, index) {
@@ -643,6 +680,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       ],
                     );
                   }),
+              //;
+//   }
+//   return Offstage();
+// },
+// ),
             ),
           ],
         ),

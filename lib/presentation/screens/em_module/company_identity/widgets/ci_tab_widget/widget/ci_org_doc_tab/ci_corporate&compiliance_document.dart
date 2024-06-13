@@ -115,7 +115,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                     child: Column(
                       children: [
                         Text(
-                          "Cap Report",
+                          "CAP Report",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 3 ? FontWeight.w700 : FontWeight.normal,
