@@ -58,7 +58,6 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
           /// visit , org , Document tab bar
           Container(
             height: 30,
-            color: Colors.greenAccent,
             width: 500,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
