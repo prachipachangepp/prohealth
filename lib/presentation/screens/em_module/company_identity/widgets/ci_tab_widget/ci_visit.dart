@@ -6,7 +6,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/visit_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../app/resources/color.dart';
@@ -34,7 +36,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   String? selectedValue;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _visitController = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<CiVisit>> _visitController = StreamController<List<CiVisit>>();
   late List<Color> hrcontainerColors;
   @override
   void initState() {
@@ -44,12 +46,21 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    orgDocumentGet(context).then((data) {
+    getVisit(context).then((data) {
       _visitController.add(data);
+
     }).catchError((error) {
       // Handle error
     });
   }
+//   @override
+//   void dispose() {
+//     docNameController.dispose();
+//     docIdController.dispose();
+//     _visitController.close();
+//     super.dispose();
+//   }
+// }
 
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -89,7 +100,22 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                         return AddVisitPopup(
                           nameOfDocumentController: docNamecontroller,
                           idOfDocumentController: docIdController,
-                          onSavePressed: () {},
+
+                          onSavePressed: () async {
+                           await addVisitPost(context,
+                               docNamecontroller.text,
+                                docIdController.text
+
+                            );
+                           setState(() async {
+                           await  getVisit(context).then((data) {
+                               _visitController.add(data);
+                             }).catchError((error) {
+                               // Handle error
+                             });
+                           Navigator.pop(context);
+                           });
+                          },
                           child: CICCDropdown(
                             initialValue: 'Select',
                             items: [
@@ -137,7 +163,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   // color: isSelected ? Colors.white : Colors.black,
                   ),
             )),
-
+           ///visit
             Center(
                 child: Text(
               AppString.visit,
@@ -149,6 +175,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                   ),
               // style: RegisterTableHead.customTextStyle(context),
             )),
+            ///EL clinician
             Center(
               child: Text(
                 AppString.eligibleClinician,
@@ -179,7 +206,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
         height: AppSize.s10,
       ),
       Expanded(
-          child: StreamBuilder<List<CiOrgDocumentCC>>(
+          child: StreamBuilder<List<CiVisit>>(
               stream:  _visitController.stream,
               builder: (context, snapshot) {
                 print('1111111');
@@ -205,7 +232,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 if (snapshot.hasData) {
                   int totalItems = snapshot.data!.length;
                   // int totalPages = (totalItems / itemsPerPage).ceil();
-                  List<CiOrgDocumentCC> currentPageItems =
+                  List<CiVisit> currentPageItems =
                       snapshot.data!.sublist(
                     (currentPage - 1) * itemsPerPage,
                     (currentPage * itemsPerPage) > totalItems
@@ -257,7 +284,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   )),
                                   Center(
                                       child: Text(
-                                    AppString.pincode,
+                                        snapshot.data![index].typeofVisit.toString(),
                                     style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
@@ -275,7 +302,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           color: Color(0xffF37F81),
                                           child: Center(
                                               child: Text(
-                                            "PT",
+                                                snapshot.data![index].eligibleClinician.toString(),
                                             style: GoogleFonts.firaSans(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w700,
@@ -293,7 +320,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           color: Color(0xfFE7E8E6),
                                           child: Center(
                                               child: Text(
-                                            "PTO",
+                                                snapshot.data![index].eligibleClinician.toString(),
                                             style: GoogleFonts.firaSans(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w700,
