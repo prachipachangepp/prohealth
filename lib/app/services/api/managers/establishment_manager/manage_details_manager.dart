@@ -79,7 +79,9 @@ Future<List<ManageCorporateConplianceData>> corporateCompGetAllApi(BuildContext 
   List<ManageCorporateConplianceData> itemsList = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.corporateGetDocType(docTypeId: docTypeId,));
+        .get(path: EstablishmentManagerRepository.corporateGetDocType(
+      // docTypeId: docTypeId,
+    ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
       for (var item in response.data) {

@@ -65,13 +65,16 @@ class EstablishmentManagerRepository {
     return "$companyOfficeService/$add";
   }
   ///manage corporate and compliance flow
-  static String corporateGetDocType({required int docTypeId}){
-    return "$identity/$getDocType$docTypeId";
+  static String corporateGetDocType(){
+    return "$identity/$getDocType";
   }
   ///
  static String corporateGetListbyCompany({required int companyId,required String officeId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
     return "$identity/$getDocListCompany/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
 }
+  static String getCiOrgDLicense({required int companyId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
+    return "$identity/$getDocListCompany/$companyId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
+  }
 static String getOrgDocument(){
     return "/$document";
 }
