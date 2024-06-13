@@ -34,22 +34,25 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(widget.labelName,style:GoogleFonts.firaSans(
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.blueprime,
-                  //decoration: TextDecoration.none,
-                ),),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(widget.labelName,style:GoogleFonts.firaSans(
+                    fontSize: FontSize.s14,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.blueprime,
+                    //decoration: TextDecoration.none,
+                  ),),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

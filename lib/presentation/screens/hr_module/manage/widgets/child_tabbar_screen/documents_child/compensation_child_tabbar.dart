@@ -94,7 +94,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                       IconButton(
                         onPressed: () {
                           showDialog(context: context, builder: (BuildContext context){
-                            return CompensationAddEditPopup(idController: editCompensationIdController, nameController: editCompensationNameController);
+                            return CompensationAddEditPopup(idController: editCompensationIdController, nameController: editCompensationNameController, labelName: 'Edit Compensation',);
                           });
                         },
                         icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),

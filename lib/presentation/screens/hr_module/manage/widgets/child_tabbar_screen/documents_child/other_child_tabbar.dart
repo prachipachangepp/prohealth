@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
-class OtherChildTabbar extends StatelessWidget {
+class OtherChildTabbar extends StatefulWidget {
   const OtherChildTabbar({super.key});
 
+  @override
+  State<OtherChildTabbar> createState() => _OtherChildTabbarState();
+}
+
+class _OtherChildTabbarState extends State<OtherChildTabbar> {
+  TextEditingController otherEditIdController = TextEditingController();
+  TextEditingController otherEditNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -84,6 +92,9 @@ class OtherChildTabbar extends StatelessWidget {
                           iconSize: 20,),
                         IconButton(
                           onPressed: () {
+                            showDialog(context: context, builder: (BuildContext context){
+                              return OtherEditAddPopup(idController: otherEditIdController, nameController: otherEditNameController, labelName: 'Edit Others');
+                            });
                           },
                           icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
                           iconSize: 20,),

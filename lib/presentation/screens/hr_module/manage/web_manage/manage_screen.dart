@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -53,6 +56,16 @@ class _ManageScreenState extends State<ManageScreen> {
   ///
   TextEditingController addressCtlr = TextEditingController();
   TextEditingController nameCtlr = TextEditingController();
+
+
+  TextEditingController compensitionAddIdController = TextEditingController();
+  TextEditingController compensitionAddNameController = TextEditingController();
+
+  TextEditingController healthRecordAddIdController = TextEditingController();
+  TextEditingController healthRecordAddNameController = TextEditingController();
+
+  TextEditingController otherAddIdController = TextEditingController();
+  TextEditingController otherAddNameController = TextEditingController();
 
   @override
   void initState() {
@@ -461,7 +474,11 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
+                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
+                      showDialog(context: context, builder: (BuildContext context){
+                        return CompensationAddEditPopup(idController: compensitionAddIdController, nameController: compensitionAddNameController, labelName: 'Add Compensation',);
+                      });
+                }),
               ),
             ],
           ),
@@ -478,7 +495,12 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
+                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
+                  showDialog(context: context, builder: (BuildContext context){
+                    return HealthRecordEditAddPopup(idController: healthRecordAddIdController, nameController: healthRecordAddNameController, labelName: 'Add Additional Vaccination',);
+                  });
+
+                }),
               ),
             ],
           ),
@@ -495,7 +517,11 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
+                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
+                      showDialog(context: context, builder: (BuildContext context){
+                        return OtherEditAddPopup(idController: otherAddIdController, nameController: otherAddNameController, labelName: 'Add');
+                      });
+                }),
               ),
             ],
           ),
