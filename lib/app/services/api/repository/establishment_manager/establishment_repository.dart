@@ -16,6 +16,7 @@ class EstablishmentManagerRepository {
   static String getDocType = "/GetDocType";
   static String getDocTypeManageCC = "/document-type";
   static String getDocListCompany = "/GetDocumentListByCompany";
+  static String visit = "/visits";
 
   static String companyAll(){
     return "$company";
@@ -78,5 +79,11 @@ class EstablishmentManagerRepository {
 }
 static String getOrgDocument(){
     return "/$document";
+}
+static String getCiVisit(){
+    return "/$visit";
+}
+static String postCiVisit(){
+    return "/$visit/$add";
 }
 }
