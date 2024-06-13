@@ -8,17 +8,17 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
-class CompensationAddEditPopup extends StatefulWidget {
+class OtherEditAddPopup extends StatefulWidget {
   final TextEditingController idController;
   final TextEditingController nameController;
   final String labelName;
-  const CompensationAddEditPopup({super.key, required this.idController, required this.nameController, required this.labelName});
+  const OtherEditAddPopup({super.key, required this.idController, required this.nameController, required this.labelName});
 
   @override
-  State<CompensationAddEditPopup> createState() => _CompensationAddEditPopupState();
+  State<OtherEditAddPopup> createState() => _OtherEditAddPopupState();
 }
 
-class _CompensationAddEditPopupState extends State<CompensationAddEditPopup> {
+class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
   String? _expiryType;
   @override
   Widget build(BuildContext context) {
