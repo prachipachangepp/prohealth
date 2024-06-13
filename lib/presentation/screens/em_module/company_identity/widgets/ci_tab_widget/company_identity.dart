@@ -53,6 +53,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
     }).catchError((error) {
       // Handle error
     });
+
   }
 
   void toggleView(bool showStream) {

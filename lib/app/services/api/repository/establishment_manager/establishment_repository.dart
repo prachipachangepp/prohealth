@@ -16,6 +16,8 @@ class EstablishmentManagerRepository {
   static String getDocType = "/GetDocType";
   static String getDocListCompany = "/GetDocumentListByCompany";
   static String visit = "/visits";
+  static String documentType = "/document-type";
+  static String identityDocumentType = "/identity/GetDocType";
 
   static String companyAll(){
     return "$company";
@@ -84,4 +86,10 @@ static String getCiVisit(){
 static String postCiVisit(){
     return "/$visit/$add";
 }
+  static String documentTypeGet(){
+    return "/$documentType";
+  }
+  static String identityDocumentTypeGet({required int docId}){
+    return "/$identityDocumentType/$docId";
+  }
 }
