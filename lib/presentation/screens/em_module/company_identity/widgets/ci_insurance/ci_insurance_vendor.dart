@@ -53,19 +53,19 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          CustomIconButtonConst(
-              icon: Icons.add,
-              text: "Add",
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CustomPopup(
-                        controller: vendorName,
-                        onPressed: () {},
-                      );
-                    });
-              }),
+          // CustomIconButtonConst(
+          //     icon: Icons.add,
+          //     text: "Add",
+          //     onPressed: () {
+          //       showDialog(
+          //           context: context,
+          //           builder: (BuildContext context) {
+          //             return CustomPopup(
+          //               controller: vendorName,
+          //               onPressed: () {},
+          //             );
+          //           });
+          //     }),
           SizedBox(
             height: 15,
           ),

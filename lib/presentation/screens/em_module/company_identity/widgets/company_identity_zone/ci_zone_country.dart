@@ -54,22 +54,22 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        CustomIconButtonConst(
-          icon: Icons.add,
-            text: AppStringEM.add, onPressed: (){
-            showDialog(context: context, builder: (context){
-              return CIZoneAddPopup(
-                  onSavePressed: (){},
-                title1: AppStringEM.countyName,
-                countynameController: countynameController,
-                title2: AppStringEM.zipCode,
-                zipcodeController: zipcodeController,
-                title3: AppStringEM.map,
-                mapController: mapController,
-               title4:AppStringEM.landmark,
-                landmarkController: landmarkController, );
-            });
-        }),
+        // CustomIconButtonConst(
+        //   icon: Icons.add,
+        //     text: AppStringEM.add, onPressed: (){
+        //     showDialog(context: context, builder: (context){
+        //       return CIZoneAddPopup(
+        //           onSavePressed: (){},
+        //         title1: AppStringEM.countyName,
+        //         countynameController: countynameController,
+        //         title2: AppStringEM.zipCode,
+        //         zipcodeController: zipcodeController,
+        //         title3: AppStringEM.map,
+        //         mapController: mapController,
+        //        title4:AppStringEM.landmark,
+        //         landmarkController: landmarkController, );
+        //     });
+        // }),
         SizedBox(
           height: AppSize.s5,
         ),

@@ -9,10 +9,12 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_medical_cost_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_quaterly_bal_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/ci_insurance.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_templates/ci_tempalets.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_country.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_zone.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/zone.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/dme.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/leasas_services.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/md.dart';
@@ -209,19 +211,22 @@ class _ManageWidgetState extends State<ManageWidget> {
                     ),),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width / 45,vertical: 5),
+                        //horizontal: MediaQuery.of(context).size.width / 45,
+                        vertical: 5),
                     child: PageView(
                         controller: widget.managePageController,
                         physics: NeverScrollableScrollPhysics(),
                         children: [
                           CIDetailsScreen(),
-                          CiPageview(
-                              managePageController: _managePageController,
-                              selectedIndex: _selectedIndex,
-                              selectButton: _selectButton,
-                              nameList: ['County', 'Zone'],
-                              screenList: [CIZoneCountry(), CIZoneZone()],
-                              mediaQueryWidth: 3.5),
+                           CiZone(),
+                          // CiPageview(
+                          //     managePageController: _managePageController,
+                          //     selectedIndex: _selectedIndex,
+                          //     selectButton: _selectButton,
+                          //     //child1: Container(color: Colors.grey,width: 200,height: 40,),
+                          //     nameList: ['County', 'Zone'],
+                          //     screenList: [CIZoneCountry(), CIZoneZone()],
+                          //     mediaQueryWidth: 3.5),
                           CiPageview(
                               managePageController: _managePageController,
                               selectedIndex: _selectedIndex,
@@ -229,14 +234,15 @@ class _ManageWidgetState extends State<ManageWidget> {
                               nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
                               screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
                               mediaQueryWidth: 2),
-                          CiPageview(
-                            managePageController: _managePageController,
-                            selectedIndex: _selectedIndex,
-                            selectButton: _selectButton,
-                            mediaQueryWidth: 3,
-                            nameList: ['Vendor', 'Contracts'],
-                            screenList: [CiInsuranceVendor(), CiInsuranceContract()],
-                          ),
+                          CIInsurance(),
+                          // CiPageview(
+                          //   managePageController: _managePageController,
+                          //   selectedIndex: _selectedIndex,
+                          //   selectButton: _selectButton,
+                          //   mediaQueryWidth: 3,
+                          //   nameList: ['Vendor', 'Contracts'],
+                          //   screenList: [CiInsuranceVendor(), CiInsuranceContract()],
+                          // ),
                           CiPageview(
                             managePageController: _managePageController,
                             selectedIndex: _selectedIndex,
