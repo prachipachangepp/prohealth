@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/widgets/add_new_popup.dart';
 import '../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/profile_bar.dart';
@@ -17,7 +21,6 @@ import '../widgets/child_tabbar_screen/qualifications_child/references_child_tab
 import '../widgets/head_tabbar_constant.dart';
 import '../widgets/child_tabbar_screen/bancking_child/banking_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/health_record_child/health_records_head_tabbar.dart';
-import '../widgets/child_tabbar_screen/inventory_child/inventory_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/payrates_child/pay_rates_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
@@ -30,6 +33,12 @@ class _ManageScreenState extends State<ManageScreen> {
   late CenteredTabBarChildController childController;
   late CenteredTabBarChildController childControlleOne;
   late CenteredTabBarController centeredTabBarController;
+   TextEditingController idController = TextEditingController();
+   TextEditingController nameController = TextEditingController();
+  TextEditingController compensationidController = TextEditingController();
+  TextEditingController compensationnameController = TextEditingController();
+  TextEditingController healthRecordIdController = TextEditingController();
+  TextEditingController healthRecordNameController = TextEditingController();
 
   @override
   void initState() {
@@ -174,7 +183,11 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
+                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
+                      showDialog(context: context, builder: (BuildContext context){
+                        return CompensationAddEditPopup(idController: compensationidController, nameController: compensationnameController,);
+                      });
+                }),
               ),
             ],
           ),
@@ -191,7 +204,11 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
+                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
+                      showDialog(context: context, builder: (BuildContext context){
+                        return HealthRecordEditAddPopup(idController: healthRecordIdController, nameController: healthRecordNameController, labelName: 'Add Additional Vaccination',);
+                      });
+                }),
               ),
             ],
           ),
@@ -253,7 +270,11 @@ class _ManageScreenState extends State<ManageScreen> {
                   ),
                   margin: EdgeInsets.only(right: 10),
                   child: CustomIconButtonConst(
-                      text: AppStringHr.addNew, icon: Icons.add, onPressed: () {}),
+                      text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
+                        showDialog(context: context, builder: (BuildContext context){
+                          return AddNewEquipmentPopup(idController: idController, nameController: nameController,);
+                        });
+                  }),
                 ),
               ],
             ),

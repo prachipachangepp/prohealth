@@ -6,7 +6,7 @@ class AppStringHr{
   static String license = "Licenses";
   static String acknowledgement = "Acknowledgements";
   static String compensation = "Compensation";
-  static String addVaccination = "Additional Vaccination";
+  static String addVaccination = "Health Record";
   static String others = "Others";
   static String qualification = "Qualifications";
   static String documents = "Documents";

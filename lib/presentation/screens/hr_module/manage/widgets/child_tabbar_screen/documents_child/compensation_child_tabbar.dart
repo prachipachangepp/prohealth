@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
-class CompensationChildTabbar extends StatelessWidget {
+class CompensationChildTabbar extends StatefulWidget {
   const CompensationChildTabbar({super.key});
 
+  @override
+  State<CompensationChildTabbar> createState() => _CompensationChildTabbarState();
+}
+
+class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
+  TextEditingController editCompensationIdController = TextEditingController();
+  TextEditingController editCompensationNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return  Expanded(
@@ -85,6 +93,9 @@ class CompensationChildTabbar extends StatelessWidget {
                         iconSize: 20,),
                       IconButton(
                         onPressed: () {
+                          showDialog(context: context, builder: (BuildContext context){
+                            return CompensationAddEditPopup(idController: editCompensationIdController, nameController: editCompensationNameController);
+                          });
                         },
                         icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
                         iconSize: 20,),
