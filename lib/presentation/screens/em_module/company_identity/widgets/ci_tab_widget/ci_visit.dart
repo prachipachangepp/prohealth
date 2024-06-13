@@ -73,6 +73,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       }
     });
   }
+  String _selectedItem = 'Option 1';
+  void _onDropdownItemSelected(String newValue) {
+    setState(() {
+      _selectedItem = newValue;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +108,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                           idOfDocumentController: docIdController,
 
                           onSavePressed: () async {
+                            print(":::::${_selectedItem}");
                            await addVisitPost(context,
                                docNamecontroller.text,
-                                docIdController.text
-
+                               _selectedItem
                             );
                            setState(() async {
                            await  getVisit(context).then((data) {
@@ -117,19 +123,20 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                            });
                           },
                           child: CICCDropdown(
-                            initialValue: 'Select',
+                            initialValue: _selectedItem,
+                            onChange: _onDropdownItemSelected,
                             items: [
                               DropdownMenuItem(
                                   value: 'Select',
                                   child: Text('Policies & Procedures')),
                               DropdownMenuItem(
-                                  value: 'HCO Number      254612',
-                                  child: Text('HCO Number  254612')),
+                                  value: 'HCO Number 254612',
+                                  child: Text('HCO Number 254612')),
                               DropdownMenuItem(
-                                  value: 'Medicare ID      MPID123',
-                                  child: Text('Medicare ID  MPID123')),
+                                  value: 'Medicare ID MPID123',
+                                  child: Text('Medicare ID MPID123')),
                               DropdownMenuItem(
-                                  value: 'NPI Number     1234567890',
+                                  value: 'NPI Number 1234567890',
                                   child: Text('NPI Number 1234567890')),
                             ],
                           ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -25,7 +26,6 @@ import '../widgets/child_tabbar_screen/qualifications_child/references_child_tab
 import '../widgets/head_tabbar_constant.dart';
 import '../widgets/child_tabbar_screen/bancking_child/banking_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/health_record_child/health_records_head_tabbar.dart';
-import '../widgets/child_tabbar_screen/inventory_child/inventory_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/payrates_child/pay_rates_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';

@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
-class AdditionalVaccinationsChildBar extends StatelessWidget {
+class AdditionalVaccinationsChildBar extends StatefulWidget {
   const AdditionalVaccinationsChildBar({super.key});
 
+  @override
+  State<AdditionalVaccinationsChildBar> createState() => _AdditionalVaccinationsChildBarState();
+}
+
+class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsChildBar> {
+  TextEditingController editIdController = TextEditingController();
+  TextEditingController nameIdController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -41,13 +50,9 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              border: Border.all(width: 2,color: Color(0xffF6928A)),
+                              border: Border.all(width: 2,color:ColorManager.faintGrey),
                             ),
-                            child: IconButton(
-                              onPressed: () {
-                              },
-                              icon: Icon(Icons.remove_red_eye,color: Color(0xff50B5E5),),
-                              iconSize: 24,) ),
+                            child: Image.asset('images/Vector.png') ),
                         SizedBox(width: 10),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -87,6 +92,9 @@ class AdditionalVaccinationsChildBar extends StatelessWidget {
                           iconSize: 20,),
                         IconButton(
                           onPressed: () {
+                            showDialog(context: context, builder: (BuildContext context){
+                              return HealthRecordEditAddPopup(idController: editIdController, nameController: nameIdController, labelName: 'Edit Additional Vaccination',);
+                            });
                           },
                           icon: Icon(Icons.edit_outlined,color: Color(0xff1696C8),),
                           iconSize: 20,),
