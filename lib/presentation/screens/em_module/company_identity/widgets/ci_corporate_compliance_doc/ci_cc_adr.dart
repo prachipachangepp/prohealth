@@ -32,7 +32,7 @@ class _CICCADRState extends State<CICCADR> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    orgDocumentGet(context);
+    orgDocumentGet(context, 1, 1, 1, 2, 3);
   }
 
   @override
@@ -76,7 +76,7 @@ class _CICCADRState extends State<CICCADR> {
         Expanded(
           child:
           FutureBuilder<List<CiOrgDocumentCC>>(
-              future: orgDocumentGet(context),
+              future: orgDocumentGet(context, 1, 1, 1, 2, 3),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(

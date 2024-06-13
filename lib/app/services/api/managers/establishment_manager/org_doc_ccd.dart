@@ -53,11 +53,22 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 //   }
 // }
 ///old
-Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context,) async {
+Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context,
+    int companyId,
+    int docTypeId,
+    int docSubTypeID,
+    int pageNo,
+    int rowsNo
+    ) async {
   List<CiOrgDocumentCC> itemsList = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.getOrgDocument(
+        .get(path: EstablishmentManagerRepository.getCiOrgDLicense(
+      companyId: companyId,
+        docTypeID: docTypeId,
+        docSubTypeID: docSubTypeID,
+        pageNo: pageNo,
+        rowsNo: rowsNo
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");

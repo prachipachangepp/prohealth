@@ -444,7 +444,7 @@ class _ManageScreenState extends State<ManageScreen> {
               margin: EdgeInsets.only(right: 20),
               child: CustomIconButtonConst(
                   text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
-                    showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+                    // showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
               }),
             ),
           ],
