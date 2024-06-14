@@ -579,6 +579,8 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
 class AddOrgDocButton extends StatefulWidget {
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
+  final TextEditingController calenderController;
+  final VoidCallback onPressed;
   final Widget child;
   final Widget child1;
   const AddOrgDocButton(
@@ -586,7 +588,7 @@ class AddOrgDocButton extends StatefulWidget {
       required this.idDocController,
       required this.nameDocController,
       required this.child,
-      required this.child1});
+      required this.child1, required this.onPressed, required this.calenderController});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
@@ -594,7 +596,7 @@ class AddOrgDocButton extends StatefulWidget {
 
 class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   String? _expiryType;
-  TextEditingController birthdayController = TextEditingController();
+
   var _selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
@@ -788,7 +790,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
-                          controller: birthdayController,
+                          controller: widget.calenderController,
                           decoration: InputDecoration(
                             hintText: 'dd-mm-yyyy',
                             hintStyle: GoogleFonts.firaSans(
@@ -818,7 +820,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                             if (date != null) {
                               String formattedDate =
                               DateFormat('dd-MM-yyyy').format(date);
-                              birthdayController.text = formattedDate;
+                              widget.calenderController.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
                               // date.toLocal().toString().split(' ')[0];
@@ -847,17 +849,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.save,
-                  onPressed: () async {
-                    await addOrgDocumentPost(
-                        context,
-                        birthdayController.text,
-                        widget.nameDocController.text,
-                        _expiryType.toString(),
-                        _expiryType.toString());
-                    setState(() async{
-                      await orgSubDocumentGet(context, 1, 1, 1, 2, 3);
-                      Navigator.pop(context);
-                    });
+                  onPressed: (){
+                    widget.onPressed();
                   },
                 ),
               ),

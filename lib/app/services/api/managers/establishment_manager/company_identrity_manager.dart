@@ -15,8 +15,10 @@ Future<List<CompanyModel>> companyAllApi(BuildContext context, int pageNo, int r
   List<CompanyModel> itemsList = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.companyOfficeGet(pageNo: pageNo, rowsNo: rowsNo));
-    if (response.statusCode == 200 || response.statusCode == 201) {
+        .get(path: EstablishmentManagerRepository.companyOfficeGet(
+         pageNo: pageNo, rowsNo: rowsNo)
+       );
+     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
       for (var item in response.data) {
         itemsList.add(
@@ -118,10 +120,11 @@ Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
       'email': email,
       'primary_phone': primaryPhone,
       'secondary_phone': secondaryPhone,
-      'company_id': 12,
-      'primary_fax': "",
-      'secondary_fax': "",
-      'office_id': ""
+      'company_id': 0,
+      'primary_fax': name,
+      'secondary_fax': secondaryPhone,
+      'office_id': "1",
+      'alternative_phone':primaryPhone
     });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -173,3 +176,38 @@ Future<List<ManageInsuranceVendorData>> companyVendorGet(
   }
 }
 
+///Get Company by office list by company
+Future<List<CompanyIdentityModel>> companyOfficeListGet(BuildContext context,int companyId, int pageNo, int rowsNo) async {
+  List<CompanyIdentityModel> itemsList = [];
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.companyOfficeListGet(
+        pageNo: pageNo, rowsNo: rowsNo, companyId: companyId)
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("ResponseList:::::${itemsList}");
+      for (var item in response.data["OfficeList"]) {
+        itemsList.add(
+            CompanyIdentityModel(
+                pageNo: pageNo,
+                rowsNo: rowsNo,
+                sucess: true,
+                message: response.statusMessage!,
+                officeName: item['name'],
+                companyId: companyId,
+                address: item['address'],
+                )
+        );
+      }
+      // print("ResponseList:::::${itemsList}");
+    } else {
+      print('Api Error');
+      //return itemsList;
+    }
+    // print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
