@@ -229,6 +229,42 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                   ),
                                 ),
                               ),
+                              // Row(
+                              //   children: [
+                              //     IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.bluebottom,)),
+                              //     IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.bluebottom,)),
+                              //     IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.bluebottom,)),
+                              //     IconButton(onPressed: (){
+                              //       showDialog(context: context, builder: (context){
+                              //         return CCScreenEditPopup(
+                              //           idDocController: docIdController,
+                              //           nameDocController: docNamecontroller,
+                              //           onSavePressed: (){},
+                              //           child:  CICCDropdown(
+                              //             initialValue: 'Corporate & Compliance Documents',
+                              //             items: [
+                              //               DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                              //               DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                              //               DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                              //               DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                              //             ],),
+                              //           child1:   CICCDropdown(
+                              //             initialValue: 'Licenses',
+                              //             items: [
+                              //               DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
+                              //               DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                              //               DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                              //               DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                              //             ],),);
+                              //       });
+                              //     }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
+                              //     IconButton(onPressed: (){
+                              //       showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                              //         Navigator.pop(context);
+                              //       }, onDelete: (){}));
+                              //     }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                              //   ],
+                              // ),
                               Center(
                                 child: Row(
                                   children: [
