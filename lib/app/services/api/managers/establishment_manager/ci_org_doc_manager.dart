@@ -1,8 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:prohealth/app/services/api/api.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 
 import '../../repository/establishment_manager/establishment_repository.dart';
+
+/// add corporate document POST
+// Future<ApiData> addCorporateDocumentPost(BuildContext context,) async{
+//   try{
+//     final reponse = Api(context).post(path: EstablishmentManagerRepository.addOrgDocumentPost(), data: {
+//       "doc_name": "string",
+//       "document_type_id": 0,
+//       "document_subtype_id": 0,
+//       "doc_created_at": "string",
+//       "url": "string",
+//       "expiry_type": "string",
+//       "expiry_date": "string",
+//       "expiry_reminder": "string",
+//       "company_id": 0,
+//       "office_id": "string"
+//     });
+//   }catch(e){
+//
+//   }
+// }
+
 
 /// get
 Future<List<IdentityData>> getOrgDocfetch(BuildContext context, int companyId,

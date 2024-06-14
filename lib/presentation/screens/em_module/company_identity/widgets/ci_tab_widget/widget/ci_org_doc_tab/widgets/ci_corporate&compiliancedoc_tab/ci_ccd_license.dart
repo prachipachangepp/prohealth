@@ -45,7 +45,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
    // orgDocumentGet(context);
     _loadColors();
-    orgSubDocumentGet(context, 0, widget.docID, widget.subDocID, 1, 6).then((data) {
+    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -285,26 +285,21 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                 items: [
                                                   DropdownMenuItem(
                                                     value:
-                                                    'Corporate & Compliance Documents',
+                                                    '1',
                                                     child: Text(
                                                         'Corporate & Compliance Documents'),
                                                   ),
                                                   DropdownMenuItem(
-                                                    value: 'HCO Number 254612',
+                                                    value: '2',
                                                     child:
-                                                    Text('HCO Number 254612'),
+                                                    Text('Vendor Contract'),
                                                   ),
                                                   DropdownMenuItem(
-                                                    value: 'Medicare ID MPID123',
+                                                    value: '3',
                                                     child:
-                                                    Text('Medicare ID MPID123'),
+                                                    Text('Policies & Procedures'),
                                                   ),
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'NPI Number 1234567890',
-                                                    child: Text(
-                                                        'NPI Number 1234567890'),
-                                                  ),
+
                                                 ],
                                               ),
                                               child1: CICCDropdown(
@@ -315,20 +310,20 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                     child: Text('Licenses'),
                                                   ),
                                                   DropdownMenuItem(
-                                                    value: 'HCO Number 254612',
+                                                    value: 'ADR',
                                                     child:
-                                                    Text('HCO Number 254612'),
+                                                    Text('ADR'),
                                                   ),
                                                   DropdownMenuItem(
-                                                    value: 'Medicare ID MPID123',
+                                                    value: 'Medical Cost Report',
                                                     child:
-                                                    Text('Medicare ID MPID123'),
+                                                    Text('Medical Cost Report'),
                                                   ),
                                                   DropdownMenuItem(
                                                     value:
-                                                    'NPI Number 1234567890',
+                                                    'Quarterly Balance Reports',
                                                     child: Text(
-                                                        'NPI Number 1234567890'),
+                                                        'Quarterly Balance Reports'),
                                                   ),
                                                 ],
                                               ),
@@ -348,7 +343,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                          await deleteDocument(
                                               context,
                                               snapshot.data![index].docId!);
-                                          orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+                                          orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
                                             _controller.add(data);
                                           }).catchError((error) {
                                             // Handle error
