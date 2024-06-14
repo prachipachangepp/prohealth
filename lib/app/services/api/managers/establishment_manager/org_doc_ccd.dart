@@ -73,7 +73,7 @@ Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       print("1");
-      for(var item in response.data){
+      for(var item in response.data["DocumentList"]){
         itemsList.add(
           CiOrgDocumentCC(
               docId: item['document_id'],

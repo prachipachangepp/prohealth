@@ -289,6 +289,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 children: [
                   // Page 1
                   CICorporateCompilianceDocument(docID: docID,),
+                  CICorporateCompilianceDocument(docID: docID,),
+                  CICorporateCompilianceDocument(docID: docID,),
                   // CIVendorContract(),
                   // CIPoliciesProcedure()
                 ],
