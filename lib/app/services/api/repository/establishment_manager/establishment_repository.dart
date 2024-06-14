@@ -72,7 +72,7 @@ class EstablishmentManagerRepository {
     return "$companyOfficeService/$add";
   }
   ///manage corporate and compliance flow
-  static String corporateGetDocType(){
+  static String corporateGetDocType({required int docTypeId}){
     return "$identity/$getDocType";
   }
   ///
