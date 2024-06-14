@@ -119,7 +119,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                   fontWeight: FontWeight.w700,
                                   color: _selectedIndex ==
                                       snapshot.data![index].docID
-                                      ? ColorManager.blueprime
+                                      ? ColorManager.mediumgrey
                                       : ColorManager.white,
                                 ),
                               ),
