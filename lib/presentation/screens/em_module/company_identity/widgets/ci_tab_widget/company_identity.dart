@@ -33,7 +33,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   TextEditingController mobNumController = TextEditingController();
   TextEditingController secNumController = TextEditingController();
   TextEditingController OptionalController = TextEditingController();
-//   final StreamController<List<CompanyModel>> _controller = StreamController<List<CompanyModel>>();
+  final StreamController<List<CompanyIdentityModel>> _companyIdentityController = StreamController<List<CompanyIdentityModel>>();
   final PageController _pageController = PageController();
   late int currentPage;
   late int itemsPerPage;
@@ -48,8 +48,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    companyAllApi(context,currentPage,itemsPerPage).then((data) {
-      _controller.add(data);
+    companyOfficeListGet(context,0,1,6 ).then((data) {
+      _companyIdentityController.add(data);
     }).catchError((error) {
       // Handle error
     });
@@ -181,11 +181,11 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                           addressController.text,
                                           emailController.text,
                                           mobNumController.text,
-                                          secNumController.text);
-                                      companyAllApi(context,currentPage,itemsPerPage).then((data) {
-                                        _controller.add(data);
+                                          secNumController.text
+                                      );
+                                      companyOfficeListGet(context,0,1,6 ).then((data) {
+                                        _companyIdentityController.add(data);
                                       }).catchError((error) {
-                                        // Handle error
                                       });
                                       Navigator.pop(context);
                                     })
@@ -269,13 +269,13 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
         /// List or PageView based on showStreamBuilder
           Expanded(
            child: showStreamBuilder
-              ? StreamBuilder<List<CompanyModel>>(
-            stream: _controller.stream,
+              ? StreamBuilder<List<CompanyIdentityModel>>(
+            stream:_companyIdentityController.stream,
             builder: (BuildContext context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(
-                    color: Colors.blue, // Change according to your theme
+                    color: Colors.blue,
                   ),
                 );
               }
@@ -344,7 +344,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                 textAlign: TextAlign.start,
                               ),
                               Text(
-                                snapshot.data![index].companyId.toString(),
+                                snapshot.data![index].officeName.toString(),
                                 style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w500,

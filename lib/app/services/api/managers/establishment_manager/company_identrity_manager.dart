@@ -15,8 +15,10 @@ Future<List<CompanyModel>> companyAllApi(BuildContext context, int pageNo, int r
   List<CompanyModel> itemsList = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.companyOfficeGet(pageNo: pageNo, rowsNo: rowsNo));
-    if (response.statusCode == 200 || response.statusCode == 201) {
+        .get(path: EstablishmentManagerRepository.companyOfficeGet(
+         pageNo: pageNo, rowsNo: rowsNo)
+       );
+     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
       for (var item in response.data) {
         itemsList.add(
@@ -173,3 +175,37 @@ Future<List<ManageInsuranceVendorData>> companyVendorGet(
   }
 }
 
+///Get Company by office list by company
+Future<List<CompanyIdentityModel>> companyOfficeListGet(BuildContext context,int companyId, int pageNo, int rowsNo) async {
+  List<CompanyIdentityModel> itemsList = [];
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.companyOfficeListGet(
+        pageNo: pageNo, rowsNo: rowsNo, companyId: companyId)
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("ResponseList:::::${itemsList}");
+      for (var item in response.data) {
+        itemsList.add(
+            CompanyIdentityModel(
+                pageNo: pageNo,
+                rowsNo: rowsNo,
+                sucess: true,
+                message: response.statusMessage!,
+                officeName: item['name'],
+                companyId: companyId,
+                address: item['address'])
+        );
+      }
+      print("ResponseList:::::${itemsList}");
+    } else {
+      print('Api Error');
+      //return itemsList;
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
