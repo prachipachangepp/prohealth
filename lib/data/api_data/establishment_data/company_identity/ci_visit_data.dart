@@ -1,7 +1,10 @@
 class CiVisit{
-  final String? visit;
+  final String? typeofVisit;
   final String? eligibleClinician;
-  CiVisit({this.visit, this.eligibleClinician});
+  final int? visitId;
+  final bool sucess;
+  final String message;
+  CiVisit(  {this.visitId,required this.sucess, required this.message,this.typeofVisit, this.eligibleClinician});
 }
 
 class CiVisitAdd{

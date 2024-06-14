@@ -53,6 +53,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
     }).catchError((error) {
       // Handle error
     });
+
   }
 
   void toggleView(bool showStream) {
@@ -281,7 +282,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               if (snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
-                    "Data not found",
+                    "No Data!",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,

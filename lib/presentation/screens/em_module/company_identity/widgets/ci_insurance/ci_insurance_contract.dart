@@ -37,7 +37,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
     currentPage = 1;
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    orgDocumentGet(context).then((data) {
+    orgDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -258,7 +258,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                     await deleteDocument(
                                                         context,
                                                         snapshot.data![index].docId!);
-                                                    orgDocumentGet(context).then((data) {
+                                                    orgDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
                                                       _controller.add(data);
                                                     }).catchError((error) {
                                                       // Handle error

@@ -142,11 +142,13 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
 class CICCDropdown extends StatefulWidget {
   final List<DropdownMenuItem<String>> items;
   final String? initialValue;
+  final Function(String)? onChange;
+
 
   const CICCDropdown({
     Key? key,
     required this.items,
-    this.initialValue,
+    this.initialValue, this.onChange,
   }) : super(key: key);
 
   @override
@@ -154,6 +156,7 @@ class CICCDropdown extends StatefulWidget {
 }
 
 class _CIDetailsDropdownState extends State<CICCDropdown> {
+
   String? _selectedValue;
   GlobalKey _dropdownKey = GlobalKey();
 
@@ -190,6 +193,7 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
     if (result != null) {
       setState(() {
         _selectedValue = result;
+        widget.onChange!(result);
       });
     }
   }
@@ -851,7 +855,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         _expiryType.toString(),
                         _expiryType.toString());
                     setState(() async{
-                      await orgDocumentGet(context);
+                      await orgDocumentGet(context, 1, 1, 1, 2, 3);
                       Navigator.pop(context);
                     });
                   },
