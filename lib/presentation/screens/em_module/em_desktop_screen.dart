@@ -118,7 +118,7 @@ class SMDesktop extends StatelessWidget {
                     bottomLeft: Radius.circular(12),
                   ),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 5),
                     height: MediaQuery.of(context).size.height / 13,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -143,7 +143,7 @@ class SMDesktop extends StatelessWidget {
                         ///ask klip
                         Container(
                           width: 96,
-                          height: MediaQuery.of(context).size.height / 17,
+                          height: 40,
                           decoration: BoxDecoration(
                               border: Border.all(
                                 color: Colors.white,
@@ -181,9 +181,9 @@ class SMDesktop extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 12,
+                          width: 10
+                          // MediaQuery.of(context).size.width / 20,
                         ),
-
                         ///em text
                         Row(
                           children: [
@@ -274,11 +274,11 @@ class SMDesktop extends StatelessWidget {
                             ),
                           ],
                         ),
-
                         ///plus
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 20,
-                        ),
+                        // SizedBox(
+                        //   width: 5,
+                        // ),
+                        ///call
                         Material(
                           elevation: 4,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -306,10 +306,9 @@ class SMDesktop extends StatelessWidget {
                                     ),
                                   ])),
                         ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 20,
-                        ),
-
+                        // SizedBox(
+                        //   width: 5,
+                        // ),
                         ///dropdown
                         Row(
                           children: [
@@ -336,9 +335,7 @@ class SMDesktop extends StatelessWidget {
                                     ),
                                     dropdownColor: ColorManager.white,
                                     style: TextStyle(
-                                      fontSize:
-                                      MediaQuery.of(context).size.width /
-                                          92,
+                                      fontSize: 10,
                                       color: Colors.white,
                                     ),
                                     underline: Container(),
@@ -375,76 +372,64 @@ class SMDesktop extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(width: MediaQuery.of(context).size.width/70,),
+                            SizedBox(width: MediaQuery.of(context).size.width / 20,),
                             InkWell(
                               splashColor: Colors.white, // Splash color
                               onTap: () {},
                               child: SizedBox(
-                                  width: MediaQuery.of(context).size.width / 37,
-                                  height: 25,
+                                  width: 20,
+                                  height: 20,
                                   child: Icon(
                                     Icons.notifications_none_outlined,
                                     color: Colors.white,
-                                    size:
-                                    MediaQuery.of(context).size.width / 68,
+                                    size: 20
                                   )),
                             ),
+                            SizedBox(width: 2),
                             InkWell(
                               splashColor: Colors.white,
                               onTap: () {},
                               child: SizedBox(
-                                  width: MediaQuery.of(context).size.width / 37,
-                                  height: 25,
+                                  width: 20,
+                                  height: 20,
                                   child: Icon(
                                     Icons.settings_outlined,
                                     color: Colors.white,
-                                    size:
-                                    MediaQuery.of(context).size.width / 68,
+                                    size: 20,
                                   )),
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 50,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: CircleAvatar(
-                                  radius: 12,
-                                  backgroundColor: Colors.white,
-                                  child: Image.asset("images/profile.png"),
-                                ),
-                              ),
-                              SizedBox(height: 2),
-                              Expanded(
-                                child: Text(
-                                  "William Christiana",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: MediaQuery.of(context).size.width/130,
-                                    fontFamily: 'FiraSans',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          ]),
+                        /// profile name
+                        Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: CircleAvatar(
+                              radius: 12,
+                              backgroundColor: Colors.white,
+                              child: Image.asset("images/profile.png"),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(height: 2),
+                          Expanded(
+                            child: Text(
+                              "William Christiana",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: MediaQuery.of(context).size.width/130,
+                                fontFamily: 'FiraSans',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),]),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ),]),
           SizedBox(
             height: 20,
           ),
-
           ///2nd  buttons
           Row(
             children: [

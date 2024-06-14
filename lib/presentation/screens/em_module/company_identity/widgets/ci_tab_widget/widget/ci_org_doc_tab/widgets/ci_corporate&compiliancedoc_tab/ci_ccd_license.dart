@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -229,100 +230,151 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                   ),
                                 ),
                               ),
-                              Center(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return CCScreenEditPopup(
-                                              id: snapshot.data![index].docId,
-                                              idDocController: docIdController,
-                                              nameDocController:
-                                              docNameController,
-                                              onSavePressed: () {},
-                                              child: CICCDropdown(
-                                                initialValue:
-                                                'Corporate & Compliance Documents',
-                                                items: [
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    '1',
-                                                    child: Text(
-                                                        'Corporate & Compliance Documents'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: '2',
-                                                    child:
-                                                    Text('Vendor Contract'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: '3',
-                                                    child:
-                                                    Text('Policies & Procedures'),
-                                                  ),
-
-                                                ],
-                                              ),
-                                              child1: CICCDropdown(
-                                                initialValue: 'Licenses',
-                                                items: [
-                                                  DropdownMenuItem(
-                                                    value: 'Licenses',
-                                                    child: Text('Licenses'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'ADR',
-                                                    child:
-                                                    Text('ADR'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'Medical Cost Report',
-                                                    child:
-                                                    Text('Medical Cost Report'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'Quarterly Balance Reports',
-                                                    child: Text(
-                                                        'Quarterly Balance Reports'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      icon: Icon(
-                                        Icons.edit_outlined,
-                                        color: ColorManager.bluebottom,
-                                      ),
-                                    ),
-                                    SizedBox(width: 3),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() async{
-                                         await deleteDocument(
-                                              context,
-                                              snapshot.data![index].docId!);
-                                          orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
-                                            _controller.add(data);
-                                          }).catchError((error) {
-                                            // Handle error
+                              Row(
+                                children: [
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){
+                                    showDialog(context: context, builder: (context){
+                                      return CCScreenEditPopup(
+                                        id: snapshot.data![index].docId,
+                                        idDocController: docIdController,
+                                        nameDocController: docNameController,
+                                        onSavePressed: (){},
+                                        child:  CICCDropdown(
+                                          initialValue: 'Corporate & Compliance Documents',
+                                          items: [
+                                            DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                          ],),
+                                        child1:   CICCDropdown(
+                                          initialValue: 'Licenses',
+                                          items: [
+                                            DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
+                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                          ],),);
+                                    });
+                                  }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(
+                                      onPressed: (){
+                                        showDialog(context: context,
+                                        builder: (context) => DeletePopup(
+                                            onCancel: (){
+                                      Navigator.pop(context);
+                                    }, onDelete: (){
+                                          setState(() async{
+                                            await deleteDocument(
+                                                context,
+                                                snapshot.data![index].docId!);
+                                            orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                                              _controller.add(data);
+                                            }).catchError((error) {
+                                              // Handle error
+                                            });
                                           });
-                                        });
-                                      },
-                                      child: Icon(
-                                        Icons.delete_outline_outlined,
-                                        size: 20,
-                                        color: Color(0xffF6928A),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                        }));
+                                  }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                ],
                               ),
+                              // Center(
+                              //   child: Row(
+                              //     children: [
+                              //       IconButton(
+                              //         onPressed: () {
+                              //           showDialog(
+                              //             context: context,
+                              //             builder: (context) {
+                              //               return CCScreenEditPopup(
+                              //                 id: snapshot.data![index].docId,
+                              //                 idDocController: docIdController,
+                              //                 nameDocController:
+                              //                 docNameController,
+                              //                 onSavePressed: () {},
+                              //                 child: CICCDropdown(
+                              //                   initialValue:
+                              //                   'Corporate & Compliance Documents',
+                              //                   items: [
+                              //                     DropdownMenuItem(
+                              //                       value:
+                              //                       '1',
+                              //                       child: Text(
+                              //                           'Corporate & Compliance Documents'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value: '2',
+                              //                       child:
+                              //                       Text('Vendor Contract'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value: '3',
+                              //                       child:
+                              //                       Text('Policies & Procedures'),
+                              //                     ),
+                              //
+                              //                   ],
+                              //                 ),
+                              //                 child1: CICCDropdown(
+                              //                   initialValue: 'Licenses',
+                              //                   items: [
+                              //                     DropdownMenuItem(
+                              //                       value: 'Licenses',
+                              //                       child: Text('Licenses'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value: 'ADR',
+                              //                       child:
+                              //                       Text('ADR'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value: 'Medical Cost Report',
+                              //                       child:
+                              //                       Text('Medical Cost Report'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value:
+                              //                       'Quarterly Balance Reports',
+                              //                       child: Text(
+                              //                           'Quarterly Balance Reports'),
+                              //                     ),
+                              //                   ],
+                              //                 ),
+                              //               );
+                              //             },
+                              //           );
+                              //         },
+                              //         icon: Icon(
+                              //           Icons.edit_outlined,
+                              //           color: ColorManager.bluebottom,
+                              //         ),
+                              //       ),
+                              //       SizedBox(width: 3),
+                              //       InkWell(
+                              //         onTap: () {
+                              //           setState(() async{
+                              //            await deleteDocument(
+                              //                 context,
+                              //                 snapshot.data![index].docId!);
+                              //             orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                              //               _controller.add(data);
+                              //             }).catchError((error) {
+                              //               // Handle error
+                              //             });
+                              //           });
+                              //         },
+                              //         child: Icon(
+                              //           Icons.delete_outline_outlined,
+                              //           size: 20,
+                              //           color: Color(0xffF6928A),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
