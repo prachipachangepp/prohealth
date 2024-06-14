@@ -119,7 +119,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                   fontWeight: FontWeight.w700,
                                   color: _selectedIndex ==
                                       snapshot.data![index].docID
-                                      ? ColorManager.blueprime
+                                      ? ColorManager.mediumgrey
                                       : ColorManager.white,
                                 ),
                               ),
@@ -190,7 +190,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
       } else{
         return SizedBox(height: 1,width: 1,);
       }
-            }),
+    }),
             ///button
             Align(
                 alignment: Alignment.bottomRight,
@@ -288,6 +288,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 },
                 children: [
                   // Page 1
+                  CICorporateCompilianceDocument(docID: docID,),
+                  CICorporateCompilianceDocument(docID: docID,),
                   CICorporateCompilianceDocument(docID: docID,),
                   // CIVendorContract(),
                   // CIPoliciesProcedure()

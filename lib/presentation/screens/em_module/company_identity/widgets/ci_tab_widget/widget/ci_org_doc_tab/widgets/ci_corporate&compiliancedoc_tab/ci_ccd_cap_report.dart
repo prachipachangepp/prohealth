@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -238,100 +239,58 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                   ),
                                 ),
                               ),
-                              Center(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return CCScreenEditPopup(
-                                              id: currentPageItems[index].docId,
-                                              idDocController: docIdController,
-                                              nameDocController:
-                                              docNameController,
-                                              onSavePressed: () {},
-                                              child: CICCDropdown(
-                                                initialValue:
-                                                'Corporate & Compliance Documents',
-                                                items: [
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'Corporate & Compliance Documents',
-                                                    child: Text(
-                                                        'Corporate & Compliance Documents'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'HCO Number 254612',
-                                                    child:
-                                                    Text('HCO Number 254612'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'Medicare ID MPID123',
-                                                    child:
-                                                    Text('Medicare ID MPID123'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'NPI Number 1234567890',
-                                                    child: Text(
-                                                        'NPI Number 1234567890'),
-                                                  ),
-                                                ],
-                                              ),
-                                              child1: CICCDropdown(
-                                                initialValue: 'Licenses',
-                                                items: [
-                                                  DropdownMenuItem(
-                                                    value: 'Licenses',
-                                                    child: Text('Licenses'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'HCO Number 254612',
-                                                    child:
-                                                    Text('HCO Number 254612'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'Medicare ID MPID123',
-                                                    child:
-                                                    Text('Medicare ID MPID123'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'NPI Number 1234567890',
-                                                    child: Text(
-                                                        'NPI Number 1234567890'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      icon: Icon(
-                                        Icons.edit_outlined,
-                                        color: ColorManager.bluebottom,
-                                      ),
-                                    ),
-                                    SizedBox(width: 3),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          deleteDocument(
-                                              context,
-                                              currentPageItems[index].docId!);
-                                          orgSubDocumentGet(context, 1, 1, 1, 2, 3);
-                                        });
-                                      },
-                                      child: Icon(
-                                        Icons.delete_outline_outlined,
-                                        size: 20,
-                                        color: Color(0xffF6928A),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              Row(
+                                children: [
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){
+                                    showDialog(context: context, builder: (context){
+                                      return CCScreenEditPopup(
+                                        id: snapshot.data![index].docId,
+                                        idDocController: docIdController,
+                                        nameDocController: docNameController,
+                                        onSavePressed: (){},
+                                        child:  CICCDropdown(
+                                          initialValue: 'Corporate & Compliance Documents',
+                                          items: [
+                                            DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                          ],),
+                                        child1:   CICCDropdown(
+                                          initialValue: 'Licenses',
+                                          items: [
+                                            DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
+                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                          ],),);
+                                    });
+                                  }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(
+                                      onPressed: (){
+                                        showDialog(context: context,
+                                            builder: (context) => DeletePopup(
+                                                onCancel: (){
+                                                  Navigator.pop(context);
+                                                }, onDelete: (){
+                                              // setState(() async{
+                                              //   await deleteDocument(
+                                              //       context,
+                                              //       snapshot.data![index].docId!);
+                                              //   orgSubDocumentGet(context, 11,
+                                              //       widget.docID,
+                                              //       widget.subDocID, 1, 6).then((data) {
+                                              //     _controller.add(data);
+                                              //   }).catchError((error) {
+                                              //     // Handle error
+                                              //   });
+                                              // });
+                                            }));
+                                      }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                ],
                               ),
                             ],
                           ),

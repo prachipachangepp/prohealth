@@ -19,6 +19,8 @@ class EstablishmentManagerRepository {
   static String visit = "/visits";
   static String documentType = "/document-type";
   static String identityDocumentType = "/identity/GetDocType";
+  static String getlistByCompany = "/officeListByCompany";
+  static String addCorporateDocument = "/corporate-document/addDocument";
 
   static String companyAll(){
     return "$company";
@@ -96,5 +98,12 @@ static String postCiVisit(){
   }
   static String identityDocumentTypeGet({required int docId}){
     return "/$identityDocumentType/$docId";
+  }
+  static String companyOfficeListGet({required int companyId,
+    required int pageNo, required int rowsNo }){
+    return "/$identity$getlistByCompany/$companyId/$pageNo/$rowsNo";
+  }
+  static String addCorporateDocumentPost(){
+    return "$addCorporateDocument";
   }
 }
