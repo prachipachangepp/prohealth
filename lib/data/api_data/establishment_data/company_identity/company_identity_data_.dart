@@ -2,16 +2,18 @@ import 'package:prohealth/app/resources/color.dart';
 
 /// Company Model
 class CompanyModel {
-  final String? name;
+  // final String? name;
   final String? address;
   final String? officeName;
   final int? companyId;
   final bool? sucess;
   final String? message;
 
-  CompanyModel({ this.sucess,  this.message, this.officeName,
+  CompanyModel({
+    this.sucess,
+    this.message, this.officeName,
     this.companyId,
-    this.name,
+    // this.name,
     this.address,
   });
 }

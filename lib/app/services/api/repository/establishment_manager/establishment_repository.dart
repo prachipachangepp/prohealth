@@ -17,6 +17,8 @@ class EstablishmentManagerRepository {
   static String getDocTypeManageCC = "/document-type";
   static String getDocListCompany = "/GetDocumentListByCompany";
   static String visit = "/visits";
+  static String documentType = "/document-type";
+  static String identityDocumentType = "/identity/GetDocType";
 
   static String companyAll(){
     return "$company";
@@ -71,12 +73,15 @@ class EstablishmentManagerRepository {
   }
   ///manage corporate and compliance flow
   static String corporateGetDocType({required int docTypeId}){
-    return "$identity/$getDocType$docTypeId";
+    return "$identity/$getDocType";
   }
   ///
  static String corporateGetListbyCompany({required int companyId,required String officeId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
     return "$identity/$getDocListCompany/$companyId/$officeId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
 }
+  static String getCiOrgDLicense({required int companyId,required int docTypeID,required int docSubTypeID,required int pageNo, required int rowsNo}){
+    return "$identity/$getDocListCompany/$companyId/$docTypeID/$docSubTypeID/$pageNo/$rowsNo";
+  }
 static String getOrgDocument(){
     return "/$document";
 }
@@ -86,4 +91,10 @@ static String getCiVisit(){
 static String postCiVisit(){
     return "/$visit/$add";
 }
+  static String documentTypeGet(){
+    return "/$documentType";
+  }
+  static String identityDocumentTypeGet({required int docId}){
+    return "/$identityDocumentType/$docId";
+  }
 }

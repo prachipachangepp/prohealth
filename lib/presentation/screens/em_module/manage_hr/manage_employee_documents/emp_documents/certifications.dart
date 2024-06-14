@@ -38,7 +38,7 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgDocumentGet(context).then((data) {
+    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -260,7 +260,7 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
                                               await deleteDocument(
                                                   context,
                                                   snapshot.data![index].docId!);
-                                              orgDocumentGet(context).then((data) {
+                                              orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
                                                 _controller.add(data);
                                               }).catchError((error) {
                                                 // Handle error

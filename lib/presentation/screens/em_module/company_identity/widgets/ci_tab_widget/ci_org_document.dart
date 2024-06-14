@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_policies&procedure.dart';
@@ -22,7 +24,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _selectButton(int index) {
     setState(() {
@@ -34,7 +36,17 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
       curve: Curves.ease,
     );
   }
-
+  @override
+  void initState() {
+    super.initState();
+    // currentPage = 1;
+    // itemsPerPage = 5;
+    // items = List.generate(20, (index) => 'Item ${index + 1}');
+   documentTypeGet(context);
+    //_companyManager = CompanyIdentityManager();
+    // companyAllApi(context);
+  }
+  var docID = 1;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,97 +61,136 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
               height: 20,
               width: 150,
             ),
-            Material(
-              elevation: 4,
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              child: Container(
-                width: 670,
-                height: 30,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: ColorManager.blueprime),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => _selectButton(0),
-                      child: Container(
-                        height: 30,
-                        width: 210,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: _selectedIndex == 0
-                              ? Colors.white
-                              : Colors.transparent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Corporate & Compilance Document",
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: _selectedIndex == 0
-                                  ? ColorManager.blueprime
-                                  : ColorManager.white,
+    FutureBuilder<List<DocumentTypeData>>(
+    future: documentTypeGet(context),
+    builder:(context,snapshot){
+      if(snapshot.hasData){
+        return Material(
+          elevation: 4,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          child: Container(
+            width: 670,
+            height: 30,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: ColorManager.blueprime),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        // return
+                        //   Center(
+                        //   child: CircularProgressIndicator(
+                        //     color: Colors.blue, // Change according to your theme
+                        //   ),
+                        // );
+                      }
+                      if (snapshot.hasData) {
+                        return InkWell(
+                          onTap: () {
+                            _selectButton(
+                                snapshot.data![index].docID);
+                            identityDocumentTypeGet(
+                                context, snapshot.data![index].docID);
+                            docID = snapshot.data![index].docID;
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 210,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(20)),
+                              color: _selectedIndex ==
+                                  snapshot.data![index].docID
+                                  ? Colors.white
+                                  : Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Text(
+                                snapshot.data![index].docType,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: _selectedIndex ==
+                                      snapshot.data![index].docID
+                                      ? ColorManager.blueprime
+                                      : ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _selectButton(1),
-                      child: Container(
-                        height: 30,
-                        width: 180,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: _selectedIndex == 1
-                              ? Colors.white
-                              : Colors.transparent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Vendor Contract",
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: _selectedIndex == 1
-                                  ? ColorManager.blueprime
-                                  : ColorManager.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _selectButton(2),
-                      child: Container(
-                        height: 30,
-                        width: 180,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: _selectedIndex == 2
-                              ? Colors.white
-                              : Colors.transparent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Policies & Procedure",
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: _selectedIndex == 2
-                                  ? ColorManager.blueprime
-                                  : ColorManager.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+                        );
+                      }
+                    },
+                  ),
                 ),
-              ),
+                //   }
+                //
+                // ),
+                // InkWell(
+                //   onTap: () => _selectButton(1),
+                //   child: Container(
+                //     height: 30,
+                //     width: 180,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.all(Radius.circular(20)),
+                //       color: _selectedIndex == 1
+                //           ? Colors.white
+                //           : Colors.transparent,
+                //     ),
+                //     child: Center(
+                //       child: Text(
+                //         "Vendor Contract",
+                //         style: GoogleFonts.firaSans(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.w700,
+                //           color: _selectedIndex == 1
+                //               ? ColorManager.blueprime
+                //               : ColorManager.white,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // InkWell(
+                //   onTap: () => _selectButton(2),
+                //   child: Container(
+                //     height: 30,
+                //     width: 180,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.all(Radius.circular(20)),
+                //       color: _selectedIndex == 2
+                //           ? Colors.white
+                //           : Colors.transparent,
+                //     ),
+                //     child: Center(
+                //       child: Text(
+                //         "Policies & Procedure",
+                //         style: GoogleFonts.firaSans(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.w700,
+                //           color: _selectedIndex == 2
+                //               ? ColorManager.blueprime
+                //               : ColorManager.white,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // )
+              ],
             ),
+          ),
+        );
+      } else{
+        return SizedBox(height: 1,width: 1,);
+      }
+            }),
             ///button
             Align(
                 alignment: Alignment.bottomRight,
@@ -210,7 +261,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
         Expanded(
           child: Stack(
             children: [
-              _selectedIndex != 2
+              _selectedIndex != 3
                   ? Container(
                 height: MediaQuery.of(context).size.height / 3.5,
                 decoration: BoxDecoration(
@@ -237,9 +288,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 },
                 children: [
                   // Page 1
-                  CICorporateCompilianceDocument(),
-                  CIVendorContract(),
-                  CIPoliciesProcedure()
+                  CICorporateCompilianceDocument(docID: docID,),
+                  // CIVendorContract(),
+                  // CIPoliciesProcedure()
                 ],
               ),
             ],

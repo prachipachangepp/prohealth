@@ -18,7 +18,9 @@ import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class CICcdLicense extends StatefulWidget {
-  const CICcdLicense({super.key});
+  final int subDocID;
+  final int docID;
+  const CICcdLicense({super.key, required this.subDocID, required this.docID});
 
   @override
   State<CICcdLicense> createState() => _CICcdLicenseState();
@@ -43,7 +45,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
    // orgDocumentGet(context);
     _loadColors();
-    orgDocumentGet(context).then((data) {
+    orgSubDocumentGet(context, 0, widget.docID, widget.subDocID, 1, 6).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -310,7 +312,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                          await deleteDocument(
                                               context,
                                               snapshot.data![index].docId!);
-                                          orgDocumentGet(context).then((data) {
+                                          orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
                                             _controller.add(data);
                                           }).catchError((error) {
                                             // Handle error

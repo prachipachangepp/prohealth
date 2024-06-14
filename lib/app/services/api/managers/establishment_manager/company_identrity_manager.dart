@@ -22,7 +22,7 @@ Future<List<CompanyModel>> companyAllApi(BuildContext context, int pageNo, int r
         itemsList.add(
           CompanyModel(
               companyId: item['company_id'],
-              name: item['name'],
+              // name: item['name'],
               address: item['address'],
               officeName: item['head_office_id']),
         );
@@ -172,3 +172,4 @@ Future<List<ManageInsuranceVendorData>> companyVendorGet(
     return itemsList;
   }
 }
+

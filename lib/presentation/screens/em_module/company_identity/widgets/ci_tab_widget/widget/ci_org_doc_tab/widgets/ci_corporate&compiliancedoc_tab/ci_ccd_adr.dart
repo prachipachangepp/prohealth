@@ -43,7 +43,7 @@ class _CICcdADRState extends State<CICcdADR> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
     _loadColors();
-    orgDocumentGet(context).then((data) {
+    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -319,7 +319,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                           deleteDocument(
                                               context,
                                               currentPageItems[index].docId!);
-                                          orgDocumentGet(context);
+                                          orgSubDocumentGet(context, 1, 1, 1, 2, 3);
                                         });
                                       },
                                       child: Icon(

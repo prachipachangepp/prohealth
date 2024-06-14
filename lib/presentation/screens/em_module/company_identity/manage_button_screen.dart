@@ -211,14 +211,14 @@ class _ManageWidgetState extends State<ManageWidget> {
                     ),),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        //horizontal: MediaQuery.of(context).size.width / 45,
+                      //horizontal: MediaQuery.of(context).size.width / 45,
                         vertical: 5),
                     child: PageView(
                         controller: widget.managePageController,
                         physics: NeverScrollableScrollPhysics(),
                         children: [
                           CIDetailsScreen(),
-                           CiZone(),
+                          CiZone(),
                           // CiPageview(
                           //     managePageController: _managePageController,
                           //     selectedIndex: _selectedIndex,

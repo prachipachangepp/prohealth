@@ -41,7 +41,7 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
     _loadColors();
-    orgDocumentGet(context).then((data) {
+    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
