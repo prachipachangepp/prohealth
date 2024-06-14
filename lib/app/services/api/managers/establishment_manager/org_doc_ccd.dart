@@ -53,7 +53,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 //   }
 // }
 ///old
-Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context,
+Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
     int companyId,
     int docTypeId,
     int docSubTypeID,
@@ -85,7 +85,7 @@ Future<List<CiOrgDocumentCC>> orgDocumentGet(BuildContext context,
           ),
         );
       }
-      // print("Org Document response:::::${itemsList}");
+       print("Org Sub Document response:::::${itemsList}");
     } else {
       print('Org Api Error');
       return itemsList;

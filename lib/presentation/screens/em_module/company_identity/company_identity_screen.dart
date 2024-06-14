@@ -178,7 +178,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
               onPageChanged: (index) {
                 setState(() {
                   _selectedIndex = index;
-                  documentTypeGet(context);
+                 // documentTypeGet(context);
                 });
               },
               children: const [

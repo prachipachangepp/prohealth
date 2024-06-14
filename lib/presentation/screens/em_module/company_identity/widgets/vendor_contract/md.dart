@@ -41,7 +41,7 @@ class _CiMdState extends State<CiMd> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    orgDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -199,7 +199,7 @@ class _CiMdState extends State<CiMd> {
                                               await deleteDocument(
                                                   context,
                                                   snapshot.data![index].docId!);
-                                              orgDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+                                              orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
                                                 _controller.add(data);
                                               }).catchError((error) {
                                                 // Handle error

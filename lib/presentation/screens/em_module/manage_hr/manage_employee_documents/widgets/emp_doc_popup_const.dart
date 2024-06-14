@@ -563,7 +563,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                         _expiryType.toString(),
                         _expiryType.toString());
                     setState(() {
-                      orgDocumentGet(context, 1, 1, 1, 2, 3);
+                      orgSubDocumentGet(context, 1, 1, 1, 2, 3);
                       Navigator.pop(context);
                       widget.nameDocController.clear();
                       widget.calenderController.clear();
