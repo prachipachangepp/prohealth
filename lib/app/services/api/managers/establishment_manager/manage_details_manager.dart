@@ -7,7 +7,7 @@ import '../../api.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
 ///get manage detail
-Future<List<ManageDetails>> companyDetailGetAll(BuildContext context, int companyID, int officeId) async {
+Future<List<ManageDetails>> companyDetailGetAll(BuildContext context, int companyID, String officeId) async {
   List<ManageDetails> itemsList = [];
   try {
     final response = await Api(context)
@@ -75,32 +75,30 @@ Future<ApiData> addNewService(BuildContext context, String hcoNum, medicareId, n
 }
 
 ///manage corporate compliance flow get
-Future<List<ManageCorporateConplianceData>> corporateCompGetAllApi(BuildContext context, int docTypeId,) async {
+Future<List<ManageCorporateConplianceData>> getManageCorporateComp(BuildContext context,) async {
   List<ManageCorporateConplianceData> itemsList = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.corporateGetDocType(
-      // docTypeId: docTypeId,
+        .get(path: EstablishmentManagerRepository.getManageCorporateComp(
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("ResponseList:::::${itemsList}");
-      for (var item in response.data) {
+      // print("Org Document response:::::${itemsList}");
+      print("1");
+      for(var item in response.data){
         itemsList.add(
           ManageCorporateConplianceData(
-              id: item['company_id'],
-              docName: item['name'],),
+              id: item['document_type_id'],
+              docName: item['document_type'],
+              sucess: true, message: response.statusMessage!
+          ),
         );
       }
-      print("ResponseList:::::${itemsList}");
-      // CompanyModel(
-      //   name: response.data['Name'],
-      //   address: response.data['address'],
-      //   );
+      // print("Org Document response:::::${itemsList}");
     } else {
-      print('Api Error');
-      //return itemsList;
+      print('Ci Policies Pr Api Error');
+      return itemsList;
     }
-    print("Response:::::${response}");
+    // print("Org response:::::${response}");
     return itemsList;
   } catch (e) {
     print("Error $e");
