@@ -91,7 +91,6 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
                   height: AppSize.s30,
                   text: AppStringEM.add,
                   onPressed: () {
-
                     widget.onSavePressed();
                     Navigator.pop(context);
                   },
