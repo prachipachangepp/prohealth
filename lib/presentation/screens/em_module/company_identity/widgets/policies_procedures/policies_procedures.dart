@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
@@ -15,7 +17,9 @@ import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_pop
 import 'widgets/add_policies_popup.dart';
 
 class CiPoliciesAndProcedures extends StatefulWidget {
-  const CiPoliciesAndProcedures({super.key});
+  final int docID;
+  final int subDocID;
+  const CiPoliciesAndProcedures({super.key, required this.docID, required this.subDocID});
 
   @override
   State<CiPoliciesAndProcedures> createState() => _CiPoliciesAndProceduresState();
@@ -38,7 +42,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -81,6 +85,18 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                 return Center(
                   child: CircularProgressIndicator(
                     color: ColorManager.blueprime,
+                  ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
+                    ),
                   ),
                 );
               }
@@ -184,7 +200,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                               await deleteDocument(
                                                   context,
                                                   snapshot.data![index].docId!);
-                                              orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+                                              orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
                                                 _controller.add(data);
                                               }).catchError((error) {
                                                 // Handle error
