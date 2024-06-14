@@ -190,7 +190,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
       } else{
         return SizedBox(height: 1,width: 1,);
       }
-            }),
+    }),
             ///button
             Align(
                 alignment: Alignment.bottomRight,
