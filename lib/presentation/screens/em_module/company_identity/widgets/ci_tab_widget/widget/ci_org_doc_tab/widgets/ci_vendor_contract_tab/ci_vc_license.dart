@@ -44,7 +44,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
     _loadColors();
-    orgDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error

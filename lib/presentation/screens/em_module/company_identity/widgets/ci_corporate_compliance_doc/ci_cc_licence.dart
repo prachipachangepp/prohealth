@@ -32,7 +32,7 @@ class _CICCLicenseState extends State<CICCLicense> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    orgDocumentGet(context, 1, 1, 1, 2, 3);
+    orgSubDocumentGet(context, 1, 1, 1, 2, 3);
   }
 
   @override
@@ -79,7 +79,7 @@ class _CICCLicenseState extends State<CICCLicense> {
         Expanded(
           child:
           FutureBuilder<List<CiOrgDocumentCC>>(
-            future: orgDocumentGet(context, 1, 1, 1, 2, 3),
+            future: orgSubDocumentGet(context, 1, 1, 1, 2, 3),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(

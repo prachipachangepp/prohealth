@@ -43,7 +43,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
     _loadColors();
-    orgDocumentGet(context,
+    orgSubDocumentGet(context,
     1,1,1,4,5
     ).then((data) {
       _policiesandprocedureController.add(data);
@@ -322,7 +322,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                           deleteDocument(
                                               context,
                                               currentPageItems[index].docId!);
-                                          orgDocumentGet(context, 1, 1, 1 , 2, 3);
+                                          orgSubDocumentGet(context, 1, 1, 1 , 2, 3);
                                         });
                                       },
                                       child: Icon(
