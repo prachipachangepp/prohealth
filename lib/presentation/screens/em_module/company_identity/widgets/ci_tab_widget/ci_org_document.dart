@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
@@ -23,8 +24,21 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   final PageController _tabPageController = PageController();
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
 
   int _selectedIndex = 1;
+  String _selectedItem = 'Corporate & Compliance Documents';
+  void _onDropdownItemSelected(String newValue) {
+    setState(() {
+      _selectedItem = newValue;
+    });
+  }
+  String _selectedItem1 = 'Licenses';
+  void _onDropdownItemSelected1(String newValue) {
+    setState(() {
+      _selectedItem1 = newValue;
+    });
+  }
 
   void _selectButton(int index) {
     setState(() {
@@ -208,44 +222,68 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               context: context,
                               builder: (context) {
                                 return AddOrgDocButton(
+                                  calenderController: calenderController,
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
+                                  onPressed: () async{
+                                    await addCorporateDocumentPost(context: context,
+                                        name: docNamecontroller.text,
+                                        docTypeID: int.parse(_selectedItem),
+                                        docSubTypeID: int.parse(_selectedItem1)== null ? 0:int.parse(_selectedItem1),
+                                        docCreated: DateTime.now().toString(),
+                                        url: "url",
+                                        expiryType: "Not Applicable",
+                                        expiryDate: calenderController.text,
+                                        expiryReminder: "Schedule",
+                                        companyId: 11,
+                                        officeId: "1");
+                                    setState(() async {
+                                    await  orgSubDocumentGet(context, 11, docID, 1, 1, 6);
+                                    Navigator.pop(context);
+                                    calenderController.clear();
+                                      docIdController.clear();
+                                      docNamecontroller.clear();
+                                    });
+                                  },
+
 
                                   child: CICCDropdown(
                                     initialValue:
-                                        'Corporate & Compliance Documents',
+                                        _selectedItem,
+                                    onChange: _onDropdownItemSelected,
                                     items: [
                                       DropdownMenuItem(
                                           value:
-                                              'Corporate & Compliance Documents',
+                                              '1',
                                           child: Text(
                                               'Corporate & Compliance Documents')),
                                       DropdownMenuItem(
-                                          value: 'HCO Number      254612',
-                                          child: Text('HCO Number  254612')),
+                                          value: '2',
+                                          child: Text('Vendor Contract')),
                                       DropdownMenuItem(
-                                          value: 'Medicare ID      MPID123',
+                                          value: '3',
                                           child: Text('Medicare ID  MPID123')),
-                                      DropdownMenuItem(
-                                          value: 'NPI Number     1234567890',
-                                          child: Text('NPI Number 1234567890')),
                                     ],
                                   ),
                                   child1: CICCDropdown(
-                                    initialValue: 'Licenses',
+                                    initialValue: _selectedItem1,
+                                    onChange: _onDropdownItemSelected1,
                                     items: [
                                       DropdownMenuItem(
-                                          value: 'Licenses',
+                                          value: '1',
                                           child: Text('Licenses')),
                                       DropdownMenuItem(
-                                          value: 'HCO Number      254612',
-                                          child: Text('HCO Number  254612')),
+                                          value: '2',
+                                          child: Text('ADR')),
                                       DropdownMenuItem(
-                                          value: 'Medicare ID      MPID123',
-                                          child: Text('Medicare ID  MPID123')),
+                                          value: '3',
+                                          child: Text('Medical Cost Report')),
                                       DropdownMenuItem(
-                                          value: 'NPI Number     1234567890',
-                                          child: Text('NPI Number 1234567890')),
+                                          value: '4',
+                                          child: Text('Cap Reports')),
+                                      DropdownMenuItem(
+                                          value: '5',
+                                          child: Text('Quarterly Balance Reports')),
                                     ],
                                   ),
                                 );

@@ -336,7 +336,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               ),
                               Text(
                                 formattedSerialNumber,
-                                style: TextStyle(
+                                style: GoogleFonts.firaSans(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w700,
                                   color: Color(0xff686464),
@@ -345,18 +345,18 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               ),
                               Text(
                                 snapshot.data![index].officeName.toString(),
-                                style: TextStyle(
+                                style: GoogleFonts.firaSans(
                                   fontSize: 10,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w700,
                                   color: Color(0xff686464),
                                 ),
                               ),
                               Text(
                                 snapshot.data![index].address.toString(),
                                 textAlign: TextAlign.end,
-                                style: TextStyle(
+                                style: GoogleFonts.firaSans(
                                   fontSize: 10,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w700,
                                   color: Color(0xff686464),
                                 ),
                               ),

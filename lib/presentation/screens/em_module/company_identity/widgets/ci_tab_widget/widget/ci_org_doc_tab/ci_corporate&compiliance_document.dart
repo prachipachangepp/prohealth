@@ -63,7 +63,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
         return  Center(
           child: Container(
             width: 750,
-            height: 45,
+            height: 50,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -82,7 +82,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                       highlightColor: Color(0xFFF2F9FC),
                       hoverColor: Color(0xFFF2F9FC),
                       child: Container(
-                        height: 45,
+                        height: 50,
                          width: MediaQuery.of(context).size.width/10,
                         child: Column(
                           children: [
