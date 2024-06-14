@@ -46,7 +46,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
     // currentPage = 1;
     // itemsPerPage = 5;
     // items = List.generate(20, (index) => 'Item ${index + 1}');
-    getOrgDocfetch(context, 2,1,_selectedIndex,1,15);
+    //getOrgDocfetch(context, 2,1,_selectedIndex,1,15);
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }

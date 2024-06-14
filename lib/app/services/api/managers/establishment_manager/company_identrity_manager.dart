@@ -120,10 +120,11 @@ Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
       'email': email,
       'primary_phone': primaryPhone,
       'secondary_phone': secondaryPhone,
-      'company_id': 12,
-      'primary_fax': "",
-      'secondary_fax': "",
-      'office_id': ""
+      'company_id': 0,
+      'primary_fax': name,
+      'secondary_fax': secondaryPhone,
+      'office_id': "1",
+      'alternative_phone':primaryPhone
     });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -185,7 +186,7 @@ Future<List<CompanyIdentityModel>> companyOfficeListGet(BuildContext context,int
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
-      for (var item in response.data) {
+      for (var item in response.data["OfficeList"]) {
         itemsList.add(
             CompanyIdentityModel(
                 pageNo: pageNo,
@@ -194,15 +195,16 @@ Future<List<CompanyIdentityModel>> companyOfficeListGet(BuildContext context,int
                 message: response.statusMessage!,
                 officeName: item['name'],
                 companyId: companyId,
-                address: item['address'])
+                address: item['address'],
+                )
         );
       }
-      print("ResponseList:::::${itemsList}");
+      // print("ResponseList:::::${itemsList}");
     } else {
       print('Api Error');
       //return itemsList;
     }
-    print("Response:::::${response}");
+    // print("Response:::::${response}");
     return itemsList;
   } catch (e) {
     print("Error $e");
