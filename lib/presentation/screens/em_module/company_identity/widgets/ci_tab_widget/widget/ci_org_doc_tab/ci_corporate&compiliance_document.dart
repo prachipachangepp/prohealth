@@ -16,10 +16,12 @@ class CICorporateCompilianceDocument extends StatefulWidget {
   const CICorporateCompilianceDocument({super.key, required this.docID});
 
   @override
-  State<CICorporateCompilianceDocument> createState() => _CICorporateCompilianceDocumentState();
+  State<CICorporateCompilianceDocument> createState() =>
+      _CICorporateCompilianceDocumentState();
 }
 
-class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceDocument> {
+class _CICorporateCompilianceDocumentState
+    extends State<CICorporateCompilianceDocument> {
   final PageController _tabPageController = PageController();
 
   late int currentPage;
@@ -27,7 +29,6 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
   late List<String> items;
 
   int _selectedIndex = 1;
-
 
   void _selectButton(int index) {
     setState(() {
@@ -39,6 +40,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
       curve: Curves.ease,
     );
   }
+
   @override
   void initState() {
     super.initState();
@@ -49,131 +51,169 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      scrollDirection: Axis.vertical,
       children: [
-        SizedBox(height: 20,),
-        Center(
-          child: Container(
-            width: 670,
-            height: 30,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FutureBuilder<List<IdentityDocumentIdData>>(
-                    future: identityDocumentTypeGet(context, widget.docID),
-                    builder: (context,snapshot) {
-                      return Expanded(
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                           itemCount: snapshot.data!.length,
-                           itemBuilder: (BuildContext context, int index) {
-                             if (snapshot.connectionState == ConnectionState.waiting) {
-                               // return
-                               //   Center(
-                               //   child: CircularProgressIndicator(
-                               //     color: Colors.blue, // Change according to your theme
-                               //   ),
-                               // );
-                             }
-                             if(snapshot.hasData){
-                               return InkWell(
-                                 onTap: () => _selectButton(snapshot.data![index].subDocID),
-                                 child: Column(
-                                   children: [
-                                     Text(
-                                       snapshot.data![index].subDocType,
-                                       style: GoogleFonts.firaSans(
-                                           fontSize: 12,
-                                           fontWeight: _selectedIndex == snapshot.data![index].subDocID ? FontWeight.w700 : FontWeight.normal,
-                                           color: _selectedIndex == snapshot.data![index].subDocID ?  ColorManager.blueprime :Color(0xff686464)
-                                       ),
-                                     ),
-                                     Container(
-                                       height: 2,
-                                       width: 60,
-                                       color: _selectedIndex == snapshot.data![index].subDocID ?  ColorManager.blueprime : Colors.transparent,
-                                     ),
-                                   ],
-                                 ),
-                               );
-                             }
-
-                           },
-                        ),
-                      );
-                    }
-                  ),
-                  // InkWell(
-                  //   onTap: () => _selectButton(2),
-                  //   child: Column(
-                  //     children: [
-                  //       Text(
-                  //         "Medical Cost Reporter",
-                  //         style: GoogleFonts.firaSans(
-                  //           fontSize: 12,
-                  //             fontWeight: _selectedIndex == 2 ? FontWeight.w700 : FontWeight.normal,
-                  //           color: _selectedIndex == 2 ? ColorManager.blueprime :Color(0xff686464)
-                  //         ),
-                  //       ),
-                  //       Container(
-                  //         height: 2,
-                  //         width: 130,
-                  //         color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // InkWell(
-                  //   onTap: () => _selectButton(3),
-                  //   child: Column(
-                  //     children: [
-                  //       Text(
-                  //         "CAP Report",
-                  //         style: GoogleFonts.firaSans(
-                  //           fontSize: 12,
-                  //           fontWeight: _selectedIndex == 3 ? FontWeight.w700 : FontWeight.normal,
-                  //           color: _selectedIndex == 3 ? ColorManager.blueprime : Color(0xff686464),
-                  //         ),
-                  //       ),
-                  //       Container(
-                  //         height: 2,
-                  //         width: 70,
-                  //         color: _selectedIndex == 3 ? ColorManager.blueprime : Colors.transparent,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // InkWell(
-                  //   onTap: () => _selectButton(4),
-                  //   child: Column(
-                  //     children: [
-                  //       Text(
-                  //         "Quarterly Balance Report",
-                  //         style: GoogleFonts.firaSans(
-                  //           fontSize: 12,
-                  //             fontWeight: _selectedIndex == 4 ? FontWeight.w700 : FontWeight.normal,
-                  //           color: _selectedIndex == 4 ?  ColorManager.blueprime :Color(0xff686464)
-                  //         ),
-                  //       ),
-                  //       Container(
-                  //         height: 2,
-                  //         width: 150,
-                  //         color: _selectedIndex == 4 ?  ColorManager.blueprime: Colors.transparent,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-          ),
+        SizedBox(
+          height: 20,
         ),
+        Center(
+            child: FutureBuilder<List<IdentityDocumentIdData>>(
+                future: identityDocumentTypeGet(context, widget.docID),
+                builder: (context, snapshot) {
+                  return Expanded(
+                      flex: 1,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.blue,
+                                ),
+                              );
+                            }
+                            if (snapshot.hasData) {
+                              return Container(
+                                width: 670,
+                                height: 30,
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      InkWell(
+                                        onTap: () =>
+                                             _selectButton(2),
+                                        // _selectButton(snapshot.data![index].subDocID),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "Corporate & Compliance",
+                                              // snapshot.data![index].subDocType,
+                                              style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: _selectedIndex ==
+                                                          snapshot.data![index]
+                                                              .subDocID
+                                                      ? FontWeight.w700
+                                                      : FontWeight.normal,
+                                                  color: _selectedIndex ==
+                                                          snapshot.data![index]
+                                                              .subDocID
+                                                      ? ColorManager.faintGrey
+                                                      : Color(0xff686464)),
+                                            ),
+                                            Container(
+                                              height: 2,
+                                              width: 60,
+                                              color: _selectedIndex ==
+                                                      snapshot
+                                                          .data![index].subDocID
+                                                  ? ColorManager.blueprime
+                                                  : Colors.transparent,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () =>
+                                            // _selectButton(snapshot.data![index].subDocID),
+                                        _selectButton(2),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "Medical Cost Reporter",
+                                              style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight:
+                                                      _selectedIndex == 2
+                                                          ? FontWeight.w700
+                                                          : FontWeight.normal,
+                                                  color: _selectedIndex == 2
+                                                      ? ColorManager.faintGrey
+                                                      : Color(0xff686464)),
+                                            ),
+                                            Container(
+                                              height: 2,
+                                              width: 130,
+                                              color: _selectedIndex == 2
+                                                  ? ColorManager.blueprime
+                                                  : Colors.transparent,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () =>
+                                            _selectButton(3),
+                                        // _selectButton(snapshot.data![index].subDocID),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "CAP Report",
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                fontWeight: _selectedIndex == 3
+                                                    ? FontWeight.w700
+                                                    : FontWeight.normal,
+                                                color: _selectedIndex == 3
+                                                    ? ColorManager.faintGrey
+                                                    : Color(0xff686464),
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 2,
+                                              width: 70,
+                                              color: _selectedIndex == 3
+                                                  ? ColorManager.blueprime
+                                                  : Colors.transparent,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () =>
+                                          _selectButton(4),
+                                         // _selectButton(snapshot.data![index].subDocID),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "Quarterly Balance Report",
+                                              style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight:
+                                                      _selectedIndex == 4
+                                                          ? FontWeight.w700
+                                                          : FontWeight.normal,
+                                                  color: _selectedIndex == 4
+                                                      ? ColorManager.faintGrey
+                                                      : Color(0xff686464)),
+                                            ),
+                                            Container(
+                                              height: 2,
+                                              width: 150,
+                                              color: _selectedIndex == 4
+                                                  ? ColorManager.blueprime
+                                                  : Colors.transparent,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+                          }));
+                })),
         Expanded(
-          child:
-          NonScrollablePageView(
+          child: NonScrollablePageView(
             controller: _tabPageController,
             onPageChanged: (index) {
               setState(() {
@@ -193,3 +233,187 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
     );
   }
 }
+
+///
+// class CICorporateCompilianceDocument extends StatefulWidget {
+//   final int docID;
+//   const CICorporateCompilianceDocument({super.key, required this.docID});
+//
+//   @override
+//   State<CICorporateCompilianceDocument> createState() => _CICorporateCompilianceDocumentState();
+// }
+//
+// class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceDocument> {
+//   final PageController _tabPageController = PageController();
+//
+//   late int currentPage;
+//   late int itemsPerPage;
+//   late List<String> items;
+//
+//   int _selectedIndex = 1;
+//
+//
+//   void _selectButton(int index) {
+//     setState(() {
+//       _selectedIndex = index;
+//     });
+//     _tabPageController.animateToPage(
+//       index,
+//       duration: Duration(milliseconds: 500),
+//       curve: Curves.ease,
+//     );
+//   }
+//   @override
+//   void initState() {
+//     super.initState();
+//     // currentPage = 1;
+//     // itemsPerPage = 5;
+//     // items = List.generate(20, (index) => 'Item ${index + 1}');
+//     //getOrgDocfetch(context, 2,1,_selectedIndex,1,15);
+//     //_companyManager = CompanyIdentityManager();
+//     // companyAllApi(context);
+//   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         SizedBox(height: 20,),
+//         Center(
+//           child: Container(
+//             width: 670,
+//             height: 30,
+//             child: Center(
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   FutureBuilder<List<IdentityDocumentIdData>>(
+//                     future: identityDocumentTypeGet(context, widget.docID),
+//                     builder: (context,snapshot) {
+//                       return Expanded(
+//                         child: ListView.builder(
+//                           scrollDirection: Axis.horizontal,
+//                            itemCount: snapshot.data!.length,
+//                            itemBuilder: (BuildContext context, int index) {
+//                              if (snapshot.connectionState == ConnectionState.waiting) {
+//                                // return
+//                                //   Center(
+//                                //   child: CircularProgressIndicator(
+//                                //     color: Colors.blue, // Change according to your theme
+//                                //   ),
+//                                // );
+//                              }
+//                              if(snapshot.hasData){
+//                                return InkWell(
+//                                  onTap: () => _selectButton(snapshot.data![index].subDocID),
+//                                  child: Column(
+//                                    children: [
+//                                      Text(
+//                                        snapshot.data![index].subDocType,
+//                                        style: GoogleFonts.firaSans(
+//                                            fontSize: 12,
+//                                            fontWeight: _selectedIndex == snapshot.data![index].subDocID ? FontWeight.w700 : FontWeight.normal,
+//                                            color: _selectedIndex == snapshot.data![index].subDocID ?  ColorManager.blueprime :Color(0xff686464)
+//                                        ),
+//                                      ),
+//                                      Container(
+//                                        height: 2,
+//                                        width: 60,
+//                                        color: _selectedIndex == snapshot.data![index].subDocID ?  ColorManager.blueprime : Colors.transparent,
+//                                      ),
+//                                    ],
+//                                  ),
+//                                );
+//                              }
+//
+//                            },
+//                         ),
+//                       );
+//                     }
+//                   ),
+//                   // InkWell(
+//                   //   onTap: () => _selectButton(2),
+//                   //   child: Column(
+//                   //     children: [
+//                   //       Text(
+//                   //         "Medical Cost Reporter",
+//                   //         style: GoogleFonts.firaSans(
+//                   //           fontSize: 12,
+//                   //             fontWeight: _selectedIndex == 2 ? FontWeight.w700 : FontWeight.normal,
+//                   //           color: _selectedIndex == 2 ? ColorManager.blueprime :Color(0xff686464)
+//                   //         ),
+//                   //       ),
+//                   //       Container(
+//                   //         height: 2,
+//                   //         width: 130,
+//                   //         color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
+//                   //       ),
+//                   //     ],
+//                   //   ),
+//                   // ),
+//                   // InkWell(
+//                   //   onTap: () => _selectButton(3),
+//                   //   child: Column(
+//                   //     children: [
+//                   //       Text(
+//                   //         "CAP Report",
+//                   //         style: GoogleFonts.firaSans(
+//                   //           fontSize: 12,
+//                   //           fontWeight: _selectedIndex == 3 ? FontWeight.w700 : FontWeight.normal,
+//                   //           color: _selectedIndex == 3 ? ColorManager.blueprime : Color(0xff686464),
+//                   //         ),
+//                   //       ),
+//                   //       Container(
+//                   //         height: 2,
+//                   //         width: 70,
+//                   //         color: _selectedIndex == 3 ? ColorManager.blueprime : Colors.transparent,
+//                   //       ),
+//                   //     ],
+//                   //   ),
+//                   // ),
+//                   // InkWell(
+//                   //   onTap: () => _selectButton(4),
+//                   //   child: Column(
+//                   //     children: [
+//                   //       Text(
+//                   //         "Quarterly Balance Report",
+//                   //         style: GoogleFonts.firaSans(
+//                   //           fontSize: 12,
+//                   //             fontWeight: _selectedIndex == 4 ? FontWeight.w700 : FontWeight.normal,
+//                   //           color: _selectedIndex == 4 ?  ColorManager.blueprime :Color(0xff686464)
+//                   //         ),
+//                   //       ),
+//                   //       Container(
+//                   //         height: 2,
+//                   //         width: 150,
+//                   //         color: _selectedIndex == 4 ?  ColorManager.blueprime: Colors.transparent,
+//                   //       ),
+//                   //     ],
+//                   //   ),
+//                   // ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ),
+//         Expanded(
+//           child:
+//           NonScrollablePageView(
+//             controller: _tabPageController,
+//             onPageChanged: (index) {
+//               setState(() {
+//                 _selectedIndex = index;
+//               });
+//             },
+//             children: [
+//               CICcdLicense(),
+//               CICcdADR(),
+//               CiCcdMedicalCostReport(),
+//               CiCcdCapReports(),
+//               CICcdQuarteryBalanceReport()
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

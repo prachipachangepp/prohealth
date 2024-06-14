@@ -36,3 +36,23 @@ class UploadCompanyLogoModel {
       this.companyId,
       this.type});
 }
+class CompanyIdentityModel {
+  // final String? name;
+  final String address;
+  final String officeName;
+  final int companyId;
+  final int pageNo;
+  final int rowsNo;
+  final bool sucess;
+  final String message;
+
+  CompanyIdentityModel( {
+   required this.pageNo,
+    required this.rowsNo,
+    required this.sucess,
+    required this.message,
+    required this.officeName,
+    required this.companyId,
+    required this.address,
+  });
+}
