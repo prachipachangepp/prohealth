@@ -226,9 +226,19 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(width: 25),
                     Padding(
-                      padding: EdgeInsets.only(left: 85),
+                      padding: EdgeInsets.only(left: 0),
+                      child: Text(
+                        " ",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
                       child: Text(
                         "Sr No.",
                         style: GoogleFonts.firaSans(
@@ -239,7 +249,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 35),
+                      padding: EdgeInsets.only(right:80),
                       child: Text(
                         "Office Name",
                         style: GoogleFonts.firaSans(
@@ -261,7 +271,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 40),
+                      padding: EdgeInsets.only(right: 20),
                       child: Text(
                         "Actions",
                         style: GoogleFonts.firaSans(
@@ -397,7 +407,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           ),
         if (showManageScreen)
           Expanded(
-            child: ManagePopUpScreen(), // Replace with your actual ManageScreen widget
+            child: ManageWidget(), // Replace with your actual ManageScreen widget
           ),
         if (showWhitelabellingScreen)
           Expanded(
