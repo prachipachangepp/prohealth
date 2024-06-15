@@ -73,7 +73,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       }
     });
   }
-  String _selectedItem = 'Option 1';
+  String _selectedItem = 'Select';
   void _onDropdownItemSelected(String newValue) {
     setState(() {
       _selectedItem = newValue;

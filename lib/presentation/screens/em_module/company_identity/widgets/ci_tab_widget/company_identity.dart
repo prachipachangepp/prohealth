@@ -39,7 +39,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   late int itemsPerPage;
   late List<String> items;
   bool showStreamBuilder = true;
-  bool showManageScreen = false; // New state variable
+  bool showManageScreen = false;
+  bool showWhitelabellingScreen = false; // New state variable for Whitelabelling
 
   @override
   void initState() {
@@ -59,12 +60,21 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
     setState(() {
       showStreamBuilder = showStream;
       showManageScreen = false;
+      showWhitelabellingScreen = false;
     });
   }
 
   void showManageScreenFunction() {
     setState(() {
       showManageScreen = true;
+      showWhitelabellingScreen = false;
+    });
+  }
+
+  void showWhitelabellingScreenFunction() {
+    setState(() {
+      showWhitelabellingScreen = true;
+      showManageScreen = false;
     });
   }
 
@@ -72,7 +82,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (!showManageScreen)
+        if (!showManageScreen && !showWhitelabellingScreen)
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -87,9 +97,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       color: ColorManager.white),
                   width: 120,
                   height: 30,
-                  onPressed: () {
-                    toggleView(false);
-                  },
+                  onPressed: showWhitelabellingScreenFunction,
                 ),
               ),
               Padding(
@@ -203,16 +211,16 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               )
             ],
           ),
-        if (!showManageScreen)
+        if (!showManageScreen && !showWhitelabellingScreen)
           SizedBox(height: 10),
-        if (!showManageScreen)
+        if (!showManageScreen && !showWhitelabellingScreen)
           Column(
             children: [
               Container(
                 height: 30,
                 margin: EdgeInsets.symmetric(horizontal: 50),
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: ColorManager.fmediumgrey,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -223,10 +231,10 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       padding: EdgeInsets.only(left: 85),
                       child: Text(
                         "Sr No.",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                        style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.white
                         ),
                       ),
                     ),
@@ -234,10 +242,10 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       padding: EdgeInsets.only(left: 35),
                       child: Text(
                         "Office Name",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                        style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.white
                         ),
                       ),
                     ),
@@ -245,10 +253,10 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       padding: EdgeInsets.only(right: 70),
                       child: Text(
                         "Address",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                        style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.white
                         ),
                       ),
                     ),
@@ -256,10 +264,10 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       padding: EdgeInsets.only(right: 40),
                       child: Text(
                         "Actions",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                        style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.white
                         ),
                       ),
                     ),
@@ -269,7 +277,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               SizedBox(height: 10),
             ],
           ),
-        if (!showManageScreen)
+        if (!showManageScreen && !showWhitelabellingScreen)
           Expanded(
             child: showStreamBuilder
                 ? StreamBuilder<List<CompanyIdentityModel>>(
@@ -391,10 +399,473 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           Expanded(
             child: ManagePopUpScreen(), // Replace with your actual ManageScreen widget
           ),
+        if (showWhitelabellingScreen)
+          Expanded(
+            child: WhitelabellingScreen(), // Replace with your actual WhitelabellingScreen widget
+          ),
       ],
     );
   }
 }
+
+
+///main
+// class CompanyIdentity extends StatefulWidget {
+//   const CompanyIdentity({Key? key}) : super(key: key);
+//
+//   @override
+//   State<CompanyIdentity> createState() => _CompanyIdentityState();
+// }
+//
+// class _CompanyIdentityState extends State<CompanyIdentity> {
+//   late CompanyIdentityManager _companyManager;
+//   final StreamController<List<CompanyModel>> _controller = StreamController<List<CompanyModel>>();
+//   TextEditingController nameController = TextEditingController();
+//   TextEditingController addressController = TextEditingController();
+//   TextEditingController emailController = TextEditingController();
+//   TextEditingController mobNumController = TextEditingController();
+//   TextEditingController secNumController = TextEditingController();
+//   TextEditingController OptionalController = TextEditingController();
+//   final StreamController<List<CompanyIdentityModel>> _companyIdentityController = StreamController<List<CompanyIdentityModel>>();
+//   final PageController _pageController = PageController();
+//   late int currentPage;
+//   late int itemsPerPage;
+//   late List<String> items;
+//   bool showStreamBuilder = true;
+//   bool showManageScreen = false; // New state variable
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     currentPage = 1;
+//     itemsPerPage = 5;
+//     items = List.generate(20, (index) => 'Item ${index + 1}');
+//     _companyManager = CompanyIdentityManager();
+//     companyOfficeListGet(context, 0, 1, 6).then((data) {
+//       _companyIdentityController.add(data);
+//     }).catchError((error) {
+//       // Handle error
+//     });
+//   }
+//
+//   void toggleView(bool showStream) {
+//     setState(() {
+//       showStreamBuilder = showStream;
+//       showManageScreen = false;
+//     });
+//   }
+//
+//   void showManageScreenFunction() {
+//     setState(() {
+//       showManageScreen = true;
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         if (!showManageScreen)
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.end,
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.all(8.0),
+//                 child: CustomButton(
+//                   borderRadius: 12,
+//                   text: 'Whitelabelling',
+//                   style: CustomTextStylesCommon.commonStyle(
+//                       fontSize: FontSize.s12,
+//                       fontWeight: FontWeightManager.bold,
+//                       color: ColorManager.white),
+//                   width: 120,
+//                   height: 30,
+//                   onPressed: () {
+//                     toggleView(false);
+//                   },
+//                 ),
+//               ),
+//               Padding(
+//                 padding: const EdgeInsets.only(right: 50),
+//                 child: CustomIconButtonConst(
+//                   text: 'Add New Office',
+//                   onPressed: () {
+//                     showDialog(
+//                       context: context,
+//                       builder: (BuildContext context) {
+//                         return AlertDialog(
+//                             backgroundColor: Colors.white,
+//                             content: Container(
+//                               height: 450,
+//                               width: 300,
+//                               child: Column(
+//                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                                 children: [
+//                                   Row(
+//                                     mainAxisAlignment: MainAxisAlignment.end,
+//                                     crossAxisAlignment: CrossAxisAlignment.end,
+//                                     children: [
+//                                       IconButton(
+//                                           onPressed: () {
+//                                             Navigator.pop(context);
+//                                           },
+//                                           icon: Icon(Icons.close))
+//                                     ],
+//                                   ),
+//                                   Column(
+//                                     mainAxisAlignment:
+//                                     MainAxisAlignment.spaceBetween,
+//                                     children: [
+//                                       SMTextFConst(
+//                                         controller: nameController,
+//                                         keyboardType: TextInputType.text,
+//                                         text: 'Name',
+//                                       ),
+//                                       SizedBox(
+//                                         height: 7,
+//                                       ),
+//                                       SMTextFConst(
+//                                         controller: addressController,
+//                                         keyboardType: TextInputType.streetAddress,
+//                                         text: 'Address',
+//                                       ),
+//                                       SizedBox(
+//                                         height: 7,
+//                                       ),
+//                                       SMTextFConst(
+//                                         controller: emailController,
+//                                         keyboardType: TextInputType.emailAddress,
+//                                         text: 'Email',
+//                                       ),
+//                                       SizedBox(
+//                                         height: 7,
+//                                       ),
+//                                       SMTextFConst(
+//                                         controller: mobNumController,
+//                                         keyboardType: TextInputType.number,
+//                                         text: 'Primary Phone',
+//                                       ),
+//                                       SizedBox(
+//                                         height: 7,
+//                                       ),
+//                                       SMTextFConst(
+//                                         controller: secNumController,
+//                                         keyboardType: TextInputType.number,
+//                                         text: 'Secondary Phone',
+//                                       ),
+//                                       SizedBox(
+//                                         height: 7,
+//                                       ),
+//                                       SMTextFConst(
+//                                         controller: OptionalController,
+//                                         keyboardType: TextInputType.number,
+//                                         text: 'Alternative Phone',
+//                                       ),
+//                                     ],
+//                                   ),
+//                                   SizedBox(
+//                                     height: 40,
+//                                   ),
+//                                   CustomElevatedButton(
+//                                       width: 105,
+//                                       height: 31,
+//                                       text: 'Submit',
+//                                       onPressed: () async{
+//                                         await addNewOffice(
+//                                             context,
+//                                             nameController.text,
+//                                             addressController.text,
+//                                             emailController.text,
+//                                             mobNumController.text,
+//                                             secNumController.text
+//                                         );
+//                                         companyOfficeListGet(context,0,1,6).then((data) {
+//                                           _companyIdentityController.add(data);
+//                                         }).catchError((error) {
+//                                         });
+//                                         Navigator.pop(context);
+//                                       })
+//                                 ],
+//                               ),
+//                             ));
+//                       },
+//                     );
+//                   },
+//                   icon: Icons.add,
+//                 ),
+//               )
+//             ],
+//           ),
+//         if (!showManageScreen)
+//           SizedBox(height: 10),
+//         if (!showManageScreen)
+//           Column(
+//             children: [
+//               Container(
+//                 height: 30,
+//                 margin: EdgeInsets.symmetric(horizontal: 50),
+//                 decoration: BoxDecoration(
+//                   color: ColorManager.fmediumgrey,
+//                   borderRadius: BorderRadius.circular(12),
+//                 ),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                   children: [
+//                     SizedBox(width: 25),
+//                     Padding(
+//                       padding: EdgeInsets.only(left: 85),
+//                       child: Text(
+//                         "Sr No.",
+//                         style: GoogleFonts.firaSans(
+//                             fontSize: 12,
+//                             fontWeight: FontWeight.w700,
+//                             color: ColorManager.white
+//                           // color: isSelected ? Colors.white : Colors.black,
+//                         ),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: EdgeInsets.only(left: 35),
+//                       child: Text(
+//                         "Office Name",
+//                         style: GoogleFonts.firaSans(
+//                             fontSize: 12,
+//                             fontWeight: FontWeight.w700,
+//                             color: ColorManager.white
+//                           // color: isSelected ? Colors.white : Colors.black,
+//                         ),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: EdgeInsets.only(right: 70),
+//                       child: Text(
+//                         "Address",
+//                         style: GoogleFonts.firaSans(
+//                             fontSize: 12,
+//                             fontWeight: FontWeight.w700,
+//                             color: ColorManager.white
+//                           // color: isSelected ? Colors.white : Colors.black,
+//                         ),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: EdgeInsets.only(right: 40),
+//                       child: Text(
+//                         "Actions",
+//                         style: GoogleFonts.firaSans(
+//                             fontSize: 12,
+//                             fontWeight: FontWeight.w700,
+//                             color: ColorManager.white
+//                           // color: isSelected ? Colors.white : Colors.black,
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               SizedBox(height: 10),
+//             ],
+//           ),
+//         if (!showManageScreen)
+//           Expanded(
+//             child: showStreamBuilder
+//                 ? StreamBuilder<List<CompanyIdentityModel>>(
+//               stream: _companyIdentityController.stream,
+//               builder: (BuildContext context, snapshot) {
+//                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                   return Center(
+//                     child: CircularProgressIndicator(
+//                       color: Colors.blue,
+//                     ),
+//                   );
+//                 }
+//                 if (snapshot.data!.isEmpty) {
+//                   return Center(
+//                     child: Text(
+//                       "No Data!",
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w500,
+//                         color: Colors.grey,
+//                       ),
+//                     ),
+//                   );
+//                 }
+//                 if (snapshot.hasData) {
+//                   int totalItems = snapshot.data!.length;
+//                   (currentPage - 1) * itemsPerPage;
+//                   (currentPage * itemsPerPage) > totalItems
+//                       ? totalItems
+//                       : (currentPage * itemsPerPage);
+//
+//                   return ListView.builder(
+//                     scrollDirection: Axis.vertical,
+//                     itemCount: snapshot.data!.length,
+//                     itemBuilder: (context, index) {
+//                       int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+//                       String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+//                       return Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           SizedBox(height: 5),
+//                           Container(
+//                             padding: EdgeInsets.only(bottom: 5),
+//                             margin: EdgeInsets.symmetric(horizontal: 50),
+//                             decoration: BoxDecoration(
+//                               color: Colors.white,
+//                               borderRadius: BorderRadius.circular(4),
+//                               boxShadow: [
+//                                 BoxShadow(
+//                                   color: Colors.grey.withOpacity(0.5),
+//                                   spreadRadius: 1,
+//                                   blurRadius: 4,
+//                                   offset: Offset(0, 2),
+//                                 ),
+//                               ],
+//                             ),
+//                             height: 56,
+//                             child: Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                               children: [
+//                                 IconButton(
+//                                   onPressed: () {},
+//                                   icon: Icon(
+//                                     Icons.menu_sharp,
+//                                     color: Color(0xff686464),
+//                                   ),
+//                                 ),
+//                                 Text(
+//                                   formattedSerialNumber,
+//                                   style: GoogleFonts.firaSans(
+//                                     fontSize: 10,
+//                                     fontWeight: FontWeight.w700,
+//                                     color: Color(0xff686464),
+//                                   ),
+//                                   textAlign: TextAlign.start,
+//                                 ),
+//                                 Text(
+//                                   snapshot.data![index].officeName.toString(),
+//                                   style: GoogleFonts.firaSans(
+//                                     fontSize: 10,
+//                                     fontWeight: FontWeight.w700,
+//                                     color: Color(0xff686464),
+//                                   ),
+//                                 ),
+//                                 Text(
+//                                   snapshot.data![index].address.toString(),
+//                                   textAlign: TextAlign.end,
+//                                   style: GoogleFonts.firaSans(
+//                                     fontSize: 10,
+//                                     fontWeight: FontWeight.w700,
+//                                     color: Color(0xff686464),
+//                                   ),
+//                                 ),
+//                                 CustomButtonTransparentSM(
+//                                   text: 'Manage',
+//                                   onPressed: showManageScreenFunction,
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ],
+//                       );
+//                     },
+//                   );
+//                 }
+//                 return Scaffold();
+//               },
+//             )
+//                 : PageView(
+//               controller: _pageController,
+//               children: [
+//                 Container(
+//                   child: WhitelabellingScreen(),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         if (showManageScreen)
+//           Expanded(
+//             child: ManagePopUpScreen(), // Replace with your actual ManageScreen widget
+//           ),
+//       ],
+//     );
+//   }
+// }
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///
 ////
 // class CompanyIdentity extends StatefulWidget {
 //   const CompanyIdentity({Key? key}) : super(key: key);
@@ -779,10 +1250,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
 //     );
 //   }
 // }
-
-
-
-
+///
 //
 // class CompanyIdentity extends StatefulWidget {
 //   const CompanyIdentity({super.key});
