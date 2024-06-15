@@ -9,7 +9,7 @@ class AppStringEM{
   static const String secNum = "Secondary Number";
   static const String address = "Address";
   static const String primNum = "Primary Number";
-  static const String alternatephone = "Alternative Phone";
+  static const String alternatephone = "Alternative Number";
   static const String primarymail = "Primary Email";
   static const String services = "Services";
   static const String save = "Save";

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
 import '../../../../../../app/resources/color.dart';
+import '../../../../../app/resources/theme_manager.dart';
 
 ///done by saloni
 ///button constant for circularborder with text and with/without icon
@@ -28,12 +29,10 @@ class CustomIconButton extends StatelessWidget {
       label: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontFamily: 'FiraSans',
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-          color: Colors.white,
-        ),
+        style: CustomTextStylesCommon.commonStyle(
+            fontSize: FontSize.s12,
+            fontWeight: FontWeightManager.bold,
+            color: ColorManager.white)
       ),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),

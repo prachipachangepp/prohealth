@@ -123,6 +123,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       child: CustomIconButton(
                           icon: Icons.edit_outlined,
                           text: "Edit Details",
+
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -130,16 +131,26 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                 return AlertDialog(
                                   backgroundColor: Colors.white,
                                   content: Container(
-                                    height: 300,
+                                    height: 350,
                                     width: 950,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: IconButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            icon: Icon(Icons.close),
+                                          ),
+                                        ),
                                         Row(
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
+
                                             Column(
                                               mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -503,7 +514,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                 EditTextField(
                                   controller: addressController,
                                   keyboardType: TextInputType.text,
-                                  text: AppStringEM.address,
+                                  text: "Street Address",
                                 ),
                               ],
                             ),
