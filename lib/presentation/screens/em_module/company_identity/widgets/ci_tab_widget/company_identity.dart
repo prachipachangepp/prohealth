@@ -48,7 +48,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    companyOfficeListGet(context, 0, 1, 6).then((data) {
+    companyOfficeListGet(context, 11, 1, 6).then((data) {
       _companyIdentityController.add(data);
     }).catchError((error) {
       // Handle error
@@ -186,7 +186,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                             mobNumController.text,
                                             secNumController.text
                                         );
-                                        companyOfficeListGet(context,0,1,6).then((data) {
+                                        companyOfficeListGet(context,11,1,6).then((data) {
                                           _companyIdentityController.add(data);
                                         }).catchError((error) {
                                         });
@@ -218,9 +218,19 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(width: 25),
                     Padding(
-                      padding: EdgeInsets.only(left: 85),
+                      padding: EdgeInsets.only(left: 0),
+                      child: Text(
+                        " ",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10),
                       child: Text(
                         "Sr No.",
                         style: TextStyle(
@@ -231,7 +241,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 35),
+                      padding: EdgeInsets.only(right:80),
                       child: Text(
                         "Office Name",
                         style: TextStyle(
@@ -253,7 +263,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 40),
+                      padding: EdgeInsets.only(right: 20),
                       child: Text(
                         "Actions",
                         style: TextStyle(
@@ -389,7 +399,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           ),
         if (showManageScreen)
           Expanded(
-            child: ManagePopUpScreen(), // Replace with your actual ManageScreen widget
+            child: ManageWidget(), // Replace with your actual ManageScreen widget
           ),
       ],
     );
