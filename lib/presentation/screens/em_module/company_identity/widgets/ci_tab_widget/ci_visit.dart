@@ -309,10 +309,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           color: Color(0xffF37F81),
                                           child: Center(
                                               child: Text(
-                                                snapshot.data![index].eligibleClinician.toString(),
+                                                'HO',
+                                                // snapshot.data![index].eligibleClinician.toString(),
                                             style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w700,
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w500,
                                                 color: Color(0xff686464)
                                                 // color: isSelected ? Colors.white : Colors.black,
                                                 ),
@@ -327,10 +328,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           color: Color(0xfFE7E8E6),
                                           child: Center(
                                               child: Text(
-                                                snapshot.data![index].eligibleClinician.toString(),
+                                                'PT',
+                                                // snapshot.data![index].eligibleClinician.toString(),
                                             style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w700,
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w500,
                                                 color: Color(0xff686464)
                                                 // color: isSelected ? Colors.white : Colors.black,
                                                 ),
