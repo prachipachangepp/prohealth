@@ -7,42 +7,24 @@ import '../../../../resources/const_string.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
 /// add corporate document POST
-// Future<ApiData> addCorporateDocumentPost(BuildContext context,) async{
-//   try{
-//     final reponse = Api(context).post(path: EstablishmentManagerRepository.addOrgDocumentPost(), data: {
-//       "doc_name": "string",
-//       "document_type_id": 0,
-//       "document_subtype_id": 0,
-//       "doc_created_at": "string",
-//       "url": "string",
-//       "expiry_type": "string",
-//       "expiry_date": "string",
-//       "expiry_reminder": "string",
-//       "company_id": 0,
-//       "office_id": "string"
-//     });
-//   }catch(e){
-//
-//   }
-// }
-Future<ApiData> addCorporateDocumentPost(BuildContext context,
-    String name,
-    int docType,
-    int docSubType,
-    String docCreated,
-    String url,
-    String expiryType,
-    String expiryDate,
-    String expiryReminder,
-    String companyId,
-    String officeId,
-   ) async {
+Future<ApiData> addCorporateDocumentPost({required BuildContext context,
+  required String name,
+  required int docTypeID,
+  required int docSubTypeID,
+  required String docCreated,
+  required String url,
+  required String expiryType,
+  required String expiryDate,
+  required String expiryReminder,
+  required int companyId,
+  required String officeId,
+}) async {
   try {
     var response = await Api(context)
-        .post(path: EstablishmentManagerRepository.addOrgDocumentPost(), data: {
+        .post(path: EstablishmentManagerRepository.addCorporateDocumentPost(), data: {
       "doc_name": name,
-      "document_type_id": 0,
-      "document_subtype_id": 0,
+      "document_type_id": docTypeID,
+      "document_subtype_id": docSubTypeID,
       "doc_created_at": docCreated,
       "url": url,
       "expiry_type": expiryType,
@@ -53,7 +35,7 @@ Future<ApiData> addCorporateDocumentPost(BuildContext context,
     });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Saved request");
+      print("Document addded ");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

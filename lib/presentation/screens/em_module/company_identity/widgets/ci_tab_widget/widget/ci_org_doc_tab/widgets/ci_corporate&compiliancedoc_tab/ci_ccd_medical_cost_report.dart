@@ -19,8 +19,9 @@ import '../../../../../../../manage_hr/manage_work_schedule/work_schedule/widget
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class CiCcdMedicalCostReport extends StatefulWidget {
-
-  const CiCcdMedicalCostReport({super.key});
+  final int subDocID;
+  final int docID;
+  const CiCcdMedicalCostReport({super.key, required this.subDocID, required this.docID});
 
   @override
   State<CiCcdMedicalCostReport> createState() => _CiCcdMedicalCostReportState();
@@ -48,7 +49,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
     _loadColors();
-    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error

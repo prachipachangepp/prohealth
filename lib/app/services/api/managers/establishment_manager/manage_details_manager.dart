@@ -7,25 +7,39 @@ import '../../api.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
 ///get manage detail
-Future<List<ManageDetails>> companyDetailGetAll(BuildContext context, int companyID, String officeId) async {
-  List<ManageDetails> itemsList = [];
+Future<ManageDetails> companyDetailGetAll(BuildContext context, int companyID, String officeId) async {
+  var itemsData;
   try {
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.getManageDetails(companyID: companyID, officeId: officeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("ResponseList:::::${itemsList}");
-      for (var item in response.data) {
-        itemsList.add(
-          ManageDetails(
-              officeName: item['company_id'],
-              priNumber: item['name'],
-              secNumber: item['address'],
-              alternateNumber: item['head_office_id'],
-              address: item['head_office_id'],
-              email: item['head_office_id']),
-        );
-      }
-      print("ResponseList:::::${itemsList}");
+      print("Office details response<<::${itemsData}");
+      // for (var item in response.data['officeDetail']) {
+        itemsData = ManageDetails(
+            officeName: response.data['officeDetail']['name'],
+            priNumber: response.data['officeDetail']['primary_phone'],
+            secNumber: response.data['officeDetail']['secondary_phone'],
+            alternateNumber: response.data['officeDetail']['alternative_phone'],
+            address: response.data['officeDetail']['address'],
+            email: response.data['officeDetail']['email'],
+            officeID: response.data['officeDetail']["office_id"],
+            sucess: true,
+            message: response.statusMessage!);
+      // }
+  // );
+        // itemsList.add(
+        //   ManageDetails(
+        //       officeName: item['name'],
+        //       priNumber: item['primary_phone'],
+        //       secNumber: item['secondary_phone'],
+        //       alternateNumber: item['alternative_phone'],
+        //       address: item['address'],
+        //       email: item['email'],
+        //       officeID: item["office_id"],
+        //       sucess: true,
+        //       message: response.statusMessage!),
+        // );
+      print("Office details response:::::${itemsData}");
       // CompanyModel(
       //   name: response.data['Name'],
       //   address: response.data['address'],
@@ -34,11 +48,10 @@ Future<List<ManageDetails>> companyDetailGetAll(BuildContext context, int compan
       print('Api Error');
       //return itemsList;
     }
-    print("Response:::::${response}");
-    return itemsList;
+    return itemsData;
   } catch (e) {
     print("Error $e");
-    return itemsList;
+    return itemsData;
   }
 }
 

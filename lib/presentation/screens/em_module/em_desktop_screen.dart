@@ -712,42 +712,42 @@ class SMDesktop extends StatelessWidget {
                             //     },
                             //   ),
                             // ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Obx(
-                                  () => CustomTitleButton(
-                                height: 30,
-                                width: 100,
-                                onPressed: () {
-                                  //companyAll(context);
-                                  myController.selectButton(6);
-                                  _pageController.animateToPage(6,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease);
-                                },
-                                text: 'Manage',
-                                isSelected: myController.selectedIndex.value == 6,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Obx(
-                                  () => CustomTitleButton(
-                                height: 30,
-                                width: 100,
-                                onPressed: () {
-                                  //companyAll(context);
-                                  myController.selectButton(8);
-                                  _pageController.animateToPage(8,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease);
-                                },
-                                text: 'Whitelabelling',
-                                isSelected: myController.selectedIndex.value == 8,
-                              ),
-                            ),
+                            // SizedBox(
+                            //   width: 15,
+                            // ),
+                            // Obx(
+                            //       () => CustomTitleButton(
+                            //     height: 30,
+                            //     width: 100,
+                            //     onPressed: () {
+                            //       //companyAll(context);
+                            //       myController.selectButton(6);
+                            //       _pageController.animateToPage(6,
+                            //           duration: Duration(milliseconds: 500),
+                            //           curve: Curves.ease);
+                            //     },
+                            //     text: 'Manage',
+                            //     isSelected: myController.selectedIndex.value == 6,
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   width: 15,
+                            // ),
+                            // Obx(
+                            //       () => CustomTitleButton(
+                            //     height: 30,
+                            //     width: 100,
+                            //     onPressed: () {
+                            //       //companyAll(context);
+                            //       myController.selectButton(8);
+                            //       _pageController.animateToPage(8,
+                            //           duration: Duration(milliseconds: 500),
+                            //           curve: Curves.ease);
+                            //     },
+                            //     text: 'Whitelabelling',
+                            //     isSelected: myController.selectedIndex.value == 8,
+                            //   ),
+                            // ),
                           ],
                         ),
                         Row(mainAxisAlignment: MainAxisAlignment.end,
@@ -789,9 +789,9 @@ class SMDesktop extends StatelessWidget {
 
                 FinanceScreen(),
 
-                ManagePopUpScreen(),
+                // ManagePopUpScreen(),
 
-                WhitelabellingScreen()
+                // WhitelabellingScreen()
               ],
             ),
           ),
@@ -873,109 +873,10 @@ class CustomDropdownButton extends StatelessWidget {
               }).toList();
             },
             dropdownColor: Colors.white,
-            // style: GoogleFonts.firaSans(
-            //   fontSize: 12,
-            //   fontWeight: FontWeight.w700,
-            //   color: Colors.black
-            // ),
           ),
         ),
       );
 
-
-
-    //   Container(
-    //   padding: EdgeInsets.all(2),
-    //   height: height,
-    //   width: width,
-    //   decoration: BoxDecoration(
-    //     borderRadius: BorderRadius.all(Radius.circular(10)),
-    //     color: selectedItem == 'Select a module' ? Colors.white : ColorManager.blueprime,
-    //   ),
-    //   child: DropdownButtonHideUnderline(
-    //     child: DropdownButton<String>(
-    //       value: selectedItem,
-    //       onChanged: onChanged,
-    //       items: items,
-    //     ),
-    //   ),
-    // );
-
   }
 }
 
-    //   Container(
-    //   padding: EdgeInsets.all(2),
-    //   height: height,
-    //   width: width,
-    //   decoration: BoxDecoration(
-    //     borderRadius: BorderRadius.all(Radius.circular(10)),
-    //     color: selectedItem == 'Select a module' ? Colors.white : ColorManager.blueprime,
-    //   ),
-    //   child: DropdownButtonHideUnderline(
-    //     child: DropdownButton<String>(
-    //       value: selectedItem,
-    //       onChanged: onChanged,
-    //       items: items,
-    //     ),
-    //   ),
-    // );
-
-
-
-///
-// Obx(
-//       () => CustomDropdownButton(
-//     height: 34,
-//     width: 140,
-//     items: [
-//       'Select a module',
-//       'HR',
-//       'All from HR',
-//       'Work Schedule',
-//       'Employee Documents',
-//       'Finance',
-//       'Pay Rates',
-//     ],
-//     selectedItem: myController.selectedIndex.value == 2
-//         ? 'HR'
-//         : myController.selectedIndex.value == 3
-//         ? 'Work Schedule'
-//         : myController.selectedIndex.value == 4
-//         ? 'Employee Documents'
-//         : myController.selectedIndex.value == 5
-//         ? 'Finance'
-//         : 'Select a module',
-//     onChanged: (newValue) {
-//       if (newValue == 'HR' || newValue == 'All from HR') {
-//         myController.selectButton(2);
-//         _pageController.animateToPage(
-//           2,
-//           duration: Duration(milliseconds: 500),
-//           curve: Curves.ease,
-//         );
-//       } else if (newValue == 'Work Schedule') {
-//         myController.selectButton(3);
-//         _pageController.animateToPage(
-//           3,
-//           duration: Duration(milliseconds: 500),
-//           curve: Curves.ease,
-//         );
-//       } else if (newValue == 'Employee Documents') {
-//         myController.selectButton(4);
-//         _pageController.animateToPage(
-//           4,
-//           duration: Duration(milliseconds: 500),
-//           curve: Curves.ease,
-//         );
-//       } else if (newValue == 'Finance' || newValue == 'Pay Rates') {
-//         myController.selectButton(5);
-//         _pageController.animateToPage(
-//           5,
-//           duration: Duration(milliseconds: 500),
-//           curve: Curves.ease,
-//         );
-//       }
-//     },
-//   ),
-// ),
