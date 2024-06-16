@@ -571,7 +571,7 @@ class _ManageScreenState extends State<ManageScreen> {
                       text: AppStringHr.addNew,
                       icon: Icons.add,
                       onPressed: () {
-
+                        showDialog(context: context, builder: (_) => EquipmentAddPopup());
                       }),
                 ),
               ],
