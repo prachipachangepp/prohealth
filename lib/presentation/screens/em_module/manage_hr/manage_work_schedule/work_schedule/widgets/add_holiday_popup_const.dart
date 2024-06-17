@@ -21,7 +21,6 @@ class AddHolidayPopup extends StatefulWidget {
 class _AddHolidayPopupState extends State<AddHolidayPopup> {
   String? _expiryType;
   final DateTime _selectedDate = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -114,16 +113,17 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                               context: context,
                               initialDate:_selectedDate,
                               firstDate: DateTime(1100),
-                              lastDate: DateTime.now(),
+                              lastDate: DateTime(2025),
                             );
                             if (date != null) {
-                              widget.calenderDateController.text = DateFormat('dd-mm-yyyy').format(_selectedDate);
+                              widget.calenderDateController.text = DateFormat("yyyy-MM-dd hh:mm:ss").format(_selectedDate);
+                                  // DateFormat('dd-mm-yyyy').format(_selectedDate);
                               field.didChange(date.toLocal().toString().split(' ')[0]);
                             }
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'please select birth date';
+                              return 'please select date';
                             }
                             return null;
                           },
@@ -145,6 +145,8 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                   onPressed: () {
                     widget.onPressed();
                     Navigator.pop(context);
+                    widget.calenderDateController.clear();
+                    widget.controller.clear();
                   },
                 ),
               ),

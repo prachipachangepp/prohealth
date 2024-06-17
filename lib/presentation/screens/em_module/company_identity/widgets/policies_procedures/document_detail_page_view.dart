@@ -192,7 +192,6 @@ class _DocumentPageViewState extends State<DocumentPageView> {
               CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,),
               CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,),
               CiPoliciesAndProcedures(docID: widget.docID, subDocID: subDocId,)
-
             ],
           ),
         ),

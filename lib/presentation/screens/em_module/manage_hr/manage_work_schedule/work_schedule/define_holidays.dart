@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
@@ -46,7 +47,25 @@ class _DefineHolidaysState extends State<DefineHolidays> {
     });
     // companyAllApi(context);
   }
+  String convertDayMonthYearToIso(String dayMonthYear) {
+    // Split the dayMonthYear string into day, month, and year parts
+    List<String> parts = dayMonthYear.split(' ');
+    int day = int.parse(parts[0]);
+    int month = int.parse(parts[1]);
+    int year = int.parse(parts[2]);
 
+    // Create a DateTime object from the parsed parts
+    DateTime dateTime = DateTime(day, month, year);
+
+    // Create a DateFormat object to format the date to ISO 8601 format
+    DateFormat isoFormat = DateFormat('yyyy-MM-ddTHH:mm:ssZ');
+
+    // Format the date into ISO 8601 format
+    String formattedDate = isoFormat.format(dateTime);
+
+    return formattedDate;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -146,8 +165,10 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                       scrollDirection: Axis.vertical,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-                        // int serialNumber =
-                        //     index + 1 + (currentPage - 1) * itemsPerPage;
+                        int serialNumber =
+                            index + 1 + (currentPage - 1) * itemsPerPage;
+                        String formattedSerialNumber =
+                        serialNumber.toString().padLeft(2, '0');
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -177,7 +198,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(
-                                          "0",
+                                          formattedSerialNumber,
                                           // formattedSerialNumber,
                                           style: GoogleFonts.firaSans(
                                             fontSize: 10,
@@ -212,18 +233,38 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                           children: [
                                             IconButton(
                                                 onPressed: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return AddHolidayPopup(
-                                                          controller:
-                                                              holidayNameController,
-                                                          onPressed: () {
 
-                                                          }, calenderDateController: calenderController,
-                                                        );
-                                                      });
+                                                  // showDialog(
+                                                  //     context: context,
+                                                  //     builder: (BuildContext
+                                                  //         context) {
+                                                  //       return AddHolidayPopup(
+                                                  //         controller:
+                                                  //             holidayNameController,
+                                                  //         onPressed: ()  {
+                                                  //           //   String dateData = await convertDayMonthYearToIso(calenderController.text);
+                                                  //           //   await addHolidaysPost(
+                                                  //           //       context,
+                                                  //           //       holidayNameController
+                                                  //           //           .text,
+                                                  //           //       dateData,
+                                                  //           //       2024,
+                                                  //           //       11);
+                                                  //           //   holidaysListGet(
+                                                  //           //           context)
+                                                  //           //       .then((data) {
+                                                  //           //     _controller
+                                                  //           //         .add(data);
+                                                  //           //   }).catchError(
+                                                  //           //           (error) {
+                                                  //           //     // Handle error
+                                                  //           //   });
+                                                  //           // },
+                                                  //         },
+                                                  //         calenderDateController:
+                                                  //             calenderController,
+                                                  //       );
+                                                  //     });
                                                 },
                                                 icon: Icon(
                                                   Icons.edit_outlined,
@@ -237,17 +278,26 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                       builder: (context) =>
                                                           DeletePopup(
                                                               onCancel: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              onDelete: () async{
-                                                                await deleteHolidays(context, snapshot.data![index].holidayId!);
-                                                                holidaysListGet(context).then((data) {
-                                                                  _controller.add(data);
-                                                                }).catchError((error) {
-                                                                  // Handle error
-                                                                });
-                                                              }));
+                                                            Navigator.pop(
+                                                                context);
+                                                          }, onDelete:
+                                                                  () async {
+                                                            await deleteHolidays(
+                                                                context,
+                                                                snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .holidayId!);
+                                                            holidaysListGet(
+                                                                    context)
+                                                                .then((data) {
+                                                              _controller
+                                                                  .add(data);
+                                                            }).catchError(
+                                                                    (error) {
+                                                              // Handle error
+                                                            });
+                                                          }));
                                                 },
                                                 icon: Icon(
                                                   Icons.delete_outline,
