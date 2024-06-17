@@ -87,7 +87,9 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     nameController: nameController,
                     addressController: addressController,
                     emailController: emailController,
-                    onAddPressed: () {},
+                    onAddPressed: () {
+                      // addEmployeeTypePost();
+                    },
                     containerColor: ColorManager.sfaintOrange, onColorChanged: (Color ) {  },
                   );
                 },

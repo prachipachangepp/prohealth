@@ -15,12 +15,12 @@ Future<List<EmployeeDocTabModal>> getEmployeeDocTab(BuildContext context,
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
-      print("1");
+      print("1212");
       for(var item in response.data){
         itemsList.add(
           EmployeeDocTabModal(
-            employeeDocType: item['EmployeeDocumentType'],
-            employeeDocMetaDataId: item['EmployeeDocumentTypeMetaDataId'],
+            employeeDocType: item['EmployeeDocumentType']== null ?"null" :item['EmployeeDocumentType'],
+            employeeDocMetaDataId: item['EmployeeDocumentTypeMetaDataId']== null ? 0 :item['EmployeeDocumentTypeMetaDataId'],
             success: true,
             message: response.statusMessage!,
           ),
@@ -60,19 +60,17 @@ Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
       print("1");
       for(var item in response.data){
         itemsList.add(EmployeeDocumentModal(
-              docName: item["doc_name"],
-              expiry: item["expiry_date"],
-              reminderThreshold: item["expiry_reminder"],
+              docName: item["DocumentName"],
+              expiry: item["Expiry"],
+              reminderThreshold: item["ReminderThreshold"],
               employeeDocTypesetupId: item['EmployeeDocumentTypeSetupId'],
               employeeDocTypeMetaId: item['EmployeeDocumentTypeMetaDataId'],
-              pageNo: item["pageNbr"],
-              rowsNo: item["NbrofRows"],
               sucess: true,
               message: response.statusMessage!
           ),
         );
       }
-      print("Employee Document Response:::::${itemsList}");
+      print("Employee setup Response:::::${response.data}");
     } else {
       print('Employee Document Error');
       return itemsList;
