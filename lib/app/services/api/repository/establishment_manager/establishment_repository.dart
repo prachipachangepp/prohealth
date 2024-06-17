@@ -24,6 +24,8 @@ class EstablishmentManagerRepository {
   static String workWeekSchedule = "/work-week-schedule";
   static String workWeekShiftSchedule = "/work-week-shift-schedule";
   static String holidays = "/holidays";
+  static String employeedocSetup = "/employee-document-type-setup";
+  static String getEmployeedocTab= "/employee-document-type-meta-data";
 
 
   static String companyAll(){
@@ -132,6 +134,15 @@ static String postCiVisit(){
   }
   static String updateHolidaysPatch({required int holidayId}){
     return "$holidays/$holidayId";
+  }
+  static String getEmployeeDocSetUpMetaId({
+    required int pageNo, required int rowsNo,
+    required int employeeDocTypeSetupId
+  }){
+    return "$employeedocSetup/$employeeDocTypeSetupId/$pageNo/$rowsNo";
+  }
+  static String getEmployeeDocSetup(){
+    return "$getEmployeedocTab";
   }
 
 }
