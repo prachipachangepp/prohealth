@@ -3,6 +3,7 @@ class EmpDocHealth {
  final String? expiry;
  final String? reminderThreshold;
 
+
   EmpDocHealth({this.name, this.expiry, this.reminderThreshold});
 }
 
@@ -14,12 +15,20 @@ class EmpDocCertification {
   EmpDocCertification({this.name, this.expiry, this.reminderThreshold});
 }
 
-class EmpDocEmployment {
+class EmployeeDocumentModal {
   final String? name;
   final String? expiry;
   final String? reminderThreshold;
+  final int? pageNo;
+  final int? rowsNo;
+  final int? employeeDocTypesetupId;
+  final bool sucess;
+  final String message;
 
-  EmpDocEmployment({this.name, this.expiry, this.reminderThreshold});
+  EmployeeDocumentModal( {
+    this.pageNo, this.rowsNo, this.employeeDocTypesetupId,
+    this.name, this.expiry,
+    this.reminderThreshold,required this.sucess, required this.message,});
 }
 
 class EmpDocClinicalVerify {
@@ -61,4 +70,18 @@ class EmpDocAddEdit{
   final String docType;
 
   EmpDocAddEdit(this.docId, this.docName, this.docType);
+}
+
+class EmployeeDocTabModal {
+  final String? employeeDocType;
+  final int? employeeDocMetaDataId;
+  final bool success;
+  final String message;
+
+  EmployeeDocTabModal({
+
+    this.employeeDocType,
+    this.employeeDocMetaDataId,
+    required this.success, required this.message,
+  });
 }
