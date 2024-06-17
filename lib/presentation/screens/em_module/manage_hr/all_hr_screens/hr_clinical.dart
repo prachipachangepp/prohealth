@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:math';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
@@ -15,15 +16,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
-import '../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import '../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../widgets/widgets/const_appbar/controller.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
-import '../../widgets/table_constant.dart';
 
 class HrClinicalScreen extends StatefulWidget {
-  HrClinicalScreen({super.key});
+  final int deptId;
+  HrClinicalScreen({super.key, required this.deptId});
 
   @override
   State<HrClinicalScreen> createState() => _HrClinicalScreenState();
@@ -51,10 +50,9 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    // orgDocumentGet(context).then((data) {
-    //   _controller.add(data);
-    // }).catchError((error) {
-    // });
+  companyAllApi(context).then((data){
+    _controller.add(data);
+    }).catchError((error){});
   }
 
   void _loadColors() async {
@@ -76,10 +74,6 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> currentPageItems = items.sublist(
-      (currentPage - 1) * itemsPerPage,
-      min(currentPage * itemsPerPage, items.length),
-    );
     return Column(
       children: [
         Row(
@@ -224,31 +218,40 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child:
-    // StreamBuilder<List<HRClinical>>(
-    //           stream: _controller.stream,
-    //           builder: (context, snapshot) {
-    //             print('1111111');
-    //             if (snapshot.connectionState == ConnectionState.waiting) {
-    //               return Center(
-    //                 child: CircularProgressIndicator(
-    //                   color: ColorManager.blueprime,
-    //                 ),
-    //               );
-    //             }
-    //             if (snapshot.data!.isEmpty) {
-    //               return Center(
-    //                 child: Text(
-    //                   AppString.dataNotFound,
-    //                   style: CustomTextStylesCommon.commonStyle(
-    //                     fontWeight: FontWeightManager.medium,
-    //                     fontSize: FontSize.s12,
-    //                     color: ColorManager.mediumgrey,
-    //                   ),
-    //                 ),
-    //               );
-    //             }
-    //             if (snapshot.hasData) {
-    //               return
+    StreamBuilder<List<HRClinical>>(
+              stream: _controller.stream,
+              builder: (context, snapshot) {
+                print('1111111');
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
+                  );
+                }
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                      ),
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  int totalItems = snapshot.data!.length;
+                  // int totalPages = (totalItems / itemsPerPage).ceil();
+                  List<HRClinical> currentPageItems =
+                  snapshot.data!.sublist(
+                    (currentPage - 1) * itemsPerPage,
+                    (currentPage * itemsPerPage) > totalItems
+                        ? totalItems
+                        : (currentPage * itemsPerPage),
+                  );
+                  return
             ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: currentPageItems.length,
@@ -297,13 +300,13 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                 style: AllHRTableData.customTextStyle(context)
                               ),
                               Text(
-                                AppStringEM.licensevocnurse,
+                                  snapshot.data![index].empType.toString(),
                                 textAlign: TextAlign.center,
                                 style: AllHRTableData.customTextStyle(context)
                               ),
                               Text(
-                                AppStringEM.nc,
-                                textAlign: TextAlign.center,
+                                  snapshot.data![index].abbrivation.toString(),
+                                  textAlign: TextAlign.center,
                                 style: AllHRTableData.customTextStyle(context)
                               ),
                               Container(
@@ -311,7 +314,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                 height: AppSize.s22,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
-                                  color: hrcontainerColors[index],
+                                  color: snapshot.data![index].color?.toColor,
                                 ),
                               ),
                               Row(
@@ -370,11 +373,11 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                         ],
                       ));
                 })
-              //;
-//   }
-//   return Offstage();
-// },
-// ),
+              ;
+  }
+  return Offstage();
+},
+),
           ),
         ),
         SizedBox(
