@@ -73,15 +73,15 @@ Future<ApiData> addWorkWeekSchedule(
 
 /// Work Week Shift GET
 Future<List<WorkWeekShiftScheduleData>> workWeekShiftScheduleGet(
-    BuildContext context) async {
+    BuildContext context,
+     int companyId,  String officeId,  String weekDay) async {
   List<WorkWeekShiftScheduleData> itemsData = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.workWeekShiftScheduleGet());
+        .get(path: EstablishmentManagerRepository.workWeekShiftScheduleGet(companyId: companyId, officeId: officeId, weekDay: weekDay));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(WorkWeekShiftScheduleData(
-          companyId: 11,
           weekDays: item['weekDay'],
           shiftName: item['shiftName'],
           officeStartTime: item['officeStartTime'],
@@ -99,23 +99,75 @@ Future<List<WorkWeekShiftScheduleData>> workWeekShiftScheduleGet(
     return itemsData;
   }
 }
+/// Add work week shift POST
+Future<ApiData> addWorkWeekShiftPost(
+    BuildContext context,
+    String weekDayName,
+    String shiftName,
+    String officeStartTime,
+    String officeEndTime,
+    String officeId,
+    int compantId) async {
+  try {
+    var response = await Api(context).post(path: EstablishmentManagerRepository.addWorkWeekShiftPost(), data: {
+      'weekDay': weekDayName,
+      'shiftName':shiftName,
+      'officeStartTime':officeStartTime,
+      'officeEndTime':officeEndTime,
+      'companyId':compantId,
+      'officeId':officeId
+
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Week Shift Added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
 
 /// Holidays List GET
 Future<List<DefineHolidayData>> holidaysListGet(BuildContext context) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('dd MMM yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
   List<DefineHolidayData> itemsData = [];
   try {
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.holidaysGet());
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
+        String formattedDate = convertIsoToDayMonthYear(item['date']);
         itemsData.add(DefineHolidayData(
             success: true,
             message: response.statusMessage!,
-            date:  DateFormat('dd MMM yyyy').format(item['date']),
+            date:  formattedDate,
             holidayName: item['holidayName'],
             holidayId: item['holidayId'],
             companyId: 11));
       }
+      print("Response::::::${itemsData}");
     } else {
       print("Holidays Api Data Error");
     }
@@ -136,9 +188,9 @@ Future<ApiData> addHolidaysPost(
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.addHolidaysPost(), data: {
           'date':date,
-      'holidayNmae':holidayName,
-      'year':year,
-      'CompanyId':compantId
+          'holidayName':holidayName,
+          'year':year,
+          'CompanyId':compantId
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Holidays Added");

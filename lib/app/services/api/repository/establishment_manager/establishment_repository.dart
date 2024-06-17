@@ -24,6 +24,7 @@ class EstablishmentManagerRepository {
   static String workWeekSchedule = "/work-week-schedule";
   static String workWeekShiftSchedule = "/work-week-shift-schedule";
   static String holidays = "/holidays";
+  static String payRatesSetup = "/payrates-setup";
 
 
   static String companyAll(){
@@ -114,11 +115,14 @@ static String postCiVisit(){
   static String workWeekScheduleGet(){
     return "$workWeekSchedule";
   }
-  static String workWeekShiftScheduleGet(){
-    return "$workWeekShiftSchedule";
+  static String workWeekShiftScheduleGet({required int companyId, required String officeId, required String weekDay}){
+    return "$workWeekShiftSchedule/$weekDay/$companyId/$officeId";
   }
   static String addWorkWeekSchedulePost(){
     return "$workWeekSchedule$add";
+  }
+  static String addWorkWeekShiftPost(){
+    return "$workWeekShiftSchedule$add";
   }
   // Hlidays
   static String holidaysGet(){
@@ -133,5 +137,8 @@ static String postCiVisit(){
   static String updateHolidaysPatch({required int holidayId}){
     return "$holidays/$holidayId";
   }
-
+  /// PAY RATES SETUP
+  static String payRatesSetupGet({required pageNo, required noOfRows}){
+    return "$payRatesSetup/$pageNo/$noOfRows";
+  }
 }

@@ -14,6 +14,7 @@ class AppStringEM{
   static const String services = "Services";
   static const String save = "Save";
   static const String add = "Add";
+  static const String addShift = "Add Shift";
   static const String submit = "Submit";
   static const String roleManager =  "Role Manager";
   static const String orgdoc =   "Org Document";
