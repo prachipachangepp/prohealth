@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -11,6 +12,7 @@ import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import '../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
@@ -20,7 +22,8 @@ import '../../widgets/table_constant.dart';
 import '../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class HrSalesScreen extends StatefulWidget {
-  HrSalesScreen({super.key});
+  final int deptId;
+  HrSalesScreen({super.key, required this.deptId});
 
   @override
   State<HrSalesScreen> createState() => _HrSalesScreenState();
@@ -32,7 +35,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  final StreamController<List<HRSales>> _controller = StreamController<List<HRSales>>();
+  final StreamController<List<HRClinical>> _controller = StreamController<List<HRClinical>>();
 
   late int currentPage;
   late int itemsPerPage;
@@ -47,11 +50,9 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    // orgDocumentGet(context).then((data) {
-    //   _controller.add(data);
-    // }).catchError((error) {
-    //   // Handle error
-    // });
+    companyAllApi(context).then((data){
+      _controller.add(data);
+    }).catchError((error){});
   }
 
   /// Load saved colors from SharedPreferences
@@ -168,34 +169,43 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
         ),
         Expanded(
           child:
-          // StreamBuilder<List<HRSales>>(
-          //   stream: _controller.stream,
-          //   builder: (context, snapshot) {
-          //     print('1111111');
-          //     if (snapshot.connectionState == ConnectionState.waiting) {
-          //       return Center(
-          //         child: CircularProgressIndicator(
-          //           color: ColorManager.blueprime,
-          //         ),
-          //       );
-          //     }
-          //     if (snapshot.data!.isEmpty) {
-          //       return Center(
-          //         child: Text(
-          //           AppString.dataNotFound,
-          //           style: CustomTextStylesCommon.commonStyle(
-          //             fontWeight: FontWeightManager.medium,
-          //             fontSize: FontSize.s12,
-          //             color: ColorManager.mediumgrey,
-          //           ),
-          //         ),
-          //       );
-          //     }
-          //     if (snapshot.hasData) {
-          //       return
+          StreamBuilder<List<HRClinical>>(
+            stream: _controller.stream,
+            builder: (context, snapshot) {
+              print('1111111');
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
+                    ),
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                int totalItems = snapshot.data!.length;
+                // int totalPages = (totalItems / itemsPerPage).ceil();
+                List<HRClinical> currentPageItems =
+                snapshot.data!.sublist(
+                  (currentPage - 1) * itemsPerPage,
+                  (currentPage * itemsPerPage) > totalItems
+                      ? totalItems
+                      : (currentPage * itemsPerPage),
+                );
+                return
           ListView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: 2,
+              itemCount:  currentPageItems.length,
               itemBuilder: (context, index) {
                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                 String formattedSerialNumber =
@@ -226,12 +236,12 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                           style:AllHRTableData.customTextStyle(context)
                         ),
                         Text(
-                          AppStringEM.salesManager,
+                            snapshot.data![index].empType.toString(),
                           textAlign: TextAlign.center,
                           style: AllHRTableData.customTextStyle(context)
                         ),
                         Text(
-                          AppStringEM.sm,
+                            snapshot.data![index].abbrivation.toString(),
                           textAlign: TextAlign.center,
                           style: AllHRTableData.customTextStyle(context)
                         ),
@@ -242,7 +252,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                           height: AppSize.s22,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: containerColors[index],
+                            color: snapshot.data![index].color?.toColor,
                           ),
                         ),
                         Row(
@@ -296,12 +306,12 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                         ),
                       ],
                     ));
-              }),
-          //;
-//   }
-//   return Offstage();
-// },
-//),
+              })
+          ;
+  }
+  return Offstage();
+},
+),
         ),
         SizedBox(
           height: AppSize.s10,
