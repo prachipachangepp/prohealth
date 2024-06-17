@@ -10,8 +10,9 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 
 class AddHolidayPopup extends StatefulWidget {
   final TextEditingController controller;
+  final TextEditingController calenderDateController;
   final VoidCallback onPressed;
-  const AddHolidayPopup({super.key, required this.controller, required this.onPressed});
+  const AddHolidayPopup({super.key, required this.controller, required this.onPressed, required this.calenderDateController});
 
   @override
   State<AddHolidayPopup> createState() => _AddHolidayPopupState();
@@ -19,7 +20,6 @@ class AddHolidayPopup extends StatefulWidget {
 
 class _AddHolidayPopupState extends State<AddHolidayPopup> {
   String? _expiryType;
-  TextEditingController birthdayController = TextEditingController();
   final DateTime _selectedDate = DateTime.now();
 
   @override
@@ -28,7 +28,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s210,
+        height: AppSize.s250,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -63,6 +63,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                 ],
               ),
             ),
+            SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -86,7 +87,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                         width: 354,
                         height: 30,
                         child: TextFormField(
-                          controller: birthdayController,
+                          controller: widget.calenderDateController,
                           style: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w700,
@@ -116,7 +117,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                               lastDate: DateTime.now(),
                             );
                             if (date != null) {
-                              birthdayController.text = DateFormat('dd-mm-yyyy').format(_selectedDate);
+                              widget.calenderDateController.text = DateFormat('dd-mm-yyyy').format(_selectedDate);
                               field.didChange(date.toLocal().toString().split(' ')[0]);
                             }
                           },

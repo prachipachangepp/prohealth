@@ -3,27 +3,26 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_emp_document/widgets/emp_doc_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../app/resources/const_string.dart';
-import '../../../../../app/resources/value_manager.dart';
-import '../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import '../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
 
-class PerformanceEmpDoc extends StatefulWidget {
-  const PerformanceEmpDoc({super.key});
+class HealthEmpDoc extends StatefulWidget {
+  const HealthEmpDoc({super.key});
 
   @override
-  State<PerformanceEmpDoc> createState() => _PerformanceEmpDocState();
+  State<HealthEmpDoc> createState() => _HealthEmpDocState();
 }
 
-class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
+class _HealthEmpDocState extends State<HealthEmpDoc> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
@@ -40,7 +39,7 @@ class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgDocumentGet(context).then((data) {
+    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -189,7 +188,7 @@ class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
                                 children: [
                                   Center(
                                       child: Text(
-                        snapshot.data![index].docId.toString(),
+                                        snapshot.data![index].docId.toString(),
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -257,12 +256,12 @@ class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
                                         }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
                                         SizedBox(width: 3,),
                                         InkWell(
-                                          onTap: (){
+                                          onTap:(){
                                             setState(() async{
                                               await deleteDocument(
                                                   context,
                                                   snapshot.data![index].docId!);
-                                              orgDocumentGet(context).then((data) {
+                                              orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
                                                 _controller.add(data);
                                               }).catchError((error) {
                                                 // Handle error

@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +19,9 @@ import '../../../../../../../../../widgets/widgets/profile_bar/widget/pagination
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class CICcdLicense extends StatefulWidget {
-  const CICcdLicense({super.key});
+  final int subDocID;
+  final int docID;
+  const CICcdLicense({super.key, required this.subDocID, required this.docID});
 
   @override
   State<CICcdLicense> createState() => _CICcdLicenseState();
@@ -43,7 +46,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
    // orgDocumentGet(context);
     _loadColors();
-    orgDocumentGet(context).then((data) {
+    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -61,7 +64,6 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -131,9 +133,9 @@ class _CICcdLicenseState extends State<CICcdLicense> {
         ),
         SizedBox(height: AppSize.s10),
         Expanded(
-          child: StreamBuilder<List<CiOrgDocumentCC>>(
-            stream: _controller.stream,
-            builder: (context, snapshot) {
+             child: StreamBuilder<List<CiOrgDocumentCC>>(
+             stream: _controller.stream,
+             builder: (context, snapshot) {
               print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -155,15 +157,6 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                 );
               }
               if (snapshot.hasData) {
-                // int totalItems = snapshot.data!.length;
-                // // int totalPages = (totalItems / itemsPerPage).ceil();
-                // List<CiOrgDocumentCC> currentPageItems = snapshot.data!.sublist(
-                //   (currentPage - 1) * itemsPerPage,
-                //   (currentPage * itemsPerPage) > totalItems
-                //       ? totalItems
-                //       : (currentPage * itemsPerPage),
-                // );
-
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: snapshot.data!.length,
@@ -237,105 +230,151 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                   ),
                                 ),
                               ),
-                              Center(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return CCScreenEditPopup(
-                                              id: snapshot.data![index].docId,
-                                              idDocController: docIdController,
-                                              nameDocController:
-                                              docNameController,
-                                              onSavePressed: () {},
-                                              child: CICCDropdown(
-                                                initialValue:
-                                                'Corporate & Compliance Documents',
-                                                items: [
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'Corporate & Compliance Documents',
-                                                    child: Text(
-                                                        'Corporate & Compliance Documents'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'HCO Number 254612',
-                                                    child:
-                                                    Text('HCO Number 254612'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'Medicare ID MPID123',
-                                                    child:
-                                                    Text('Medicare ID MPID123'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'NPI Number 1234567890',
-                                                    child: Text(
-                                                        'NPI Number 1234567890'),
-                                                  ),
-                                                ],
-                                              ),
-                                              child1: CICCDropdown(
-                                                initialValue: 'Licenses',
-                                                items: [
-                                                  DropdownMenuItem(
-                                                    value: 'Licenses',
-                                                    child: Text('Licenses'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'HCO Number 254612',
-                                                    child:
-                                                    Text('HCO Number 254612'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'Medicare ID MPID123',
-                                                    child:
-                                                    Text('Medicare ID MPID123'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'NPI Number 1234567890',
-                                                    child: Text(
-                                                        'NPI Number 1234567890'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      icon: Icon(
-                                        Icons.edit_outlined,
-                                        color: ColorManager.bluebottom,
-                                      ),
-                                    ),
-                                    SizedBox(width: 3),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() async{
-                                         await deleteDocument(
-                                              context,
-                                              snapshot.data![index].docId!);
-                                          orgDocumentGet(context).then((data) {
-                                            _controller.add(data);
-                                          }).catchError((error) {
-                                            // Handle error
+                              Row(
+                                children: [
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){
+                                    showDialog(context: context, builder: (context){
+                                      return CCScreenEditPopup(
+                                        id: snapshot.data![index].docId,
+                                        idDocController: docIdController,
+                                        nameDocController: docNameController,
+                                        onSavePressed: (){},
+                                        child:  CICCDropdown(
+                                          initialValue: 'Corporate & Compliance Documents',
+                                          items: [
+                                            DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                          ],),
+                                        child1:   CICCDropdown(
+                                          initialValue: 'Licenses',
+                                          items: [
+                                            DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
+                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                          ],),);
+                                    });
+                                  }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(
+                                      onPressed: (){
+                                        showDialog(context: context,
+                                        builder: (context) => DeletePopup(
+                                            onCancel: (){
+                                      Navigator.pop(context);
+                                    }, onDelete: (){
+                                          setState(() async{
+                                            await deleteDocument(
+                                                context,
+                                                snapshot.data![index].docId!);
+                                            orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                                              _controller.add(data);
+                                            }).catchError((error) {
+                                              // Handle error
+                                            });
                                           });
-                                        });
-                                      },
-                                      child: Icon(
-                                        Icons.delete_outline_outlined,
-                                        size: 20,
-                                        color: Color(0xffF6928A),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                        }));
+                                  }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                ],
                               ),
+                              // Center(
+                              //   child: Row(
+                              //     children: [
+                              //       IconButton(
+                              //         onPressed: () {
+                              //           showDialog(
+                              //             context: context,
+                              //             builder: (context) {
+                              //               return CCScreenEditPopup(
+                              //                 id: snapshot.data![index].docId,
+                              //                 idDocController: docIdController,
+                              //                 nameDocController:
+                              //                 docNameController,
+                              //                 onSavePressed: () {},
+                              //                 child: CICCDropdown(
+                              //                   initialValue:
+                              //                   'Corporate & Compliance Documents',
+                              //                   items: [
+                              //                     DropdownMenuItem(
+                              //                       value:
+                              //                       '1',
+                              //                       child: Text(
+                              //                           'Corporate & Compliance Documents'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value: '2',
+                              //                       child:
+                              //                       Text('Vendor Contract'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value: '3',
+                              //                       child:
+                              //                       Text('Policies & Procedures'),
+                              //                     ),
+                              //
+                              //                   ],
+                              //                 ),
+                              //                 child1: CICCDropdown(
+                              //                   initialValue: 'Licenses',
+                              //                   items: [
+                              //                     DropdownMenuItem(
+                              //                       value: 'Licenses',
+                              //                       child: Text('Licenses'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value: 'ADR',
+                              //                       child:
+                              //                       Text('ADR'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value: 'Medical Cost Report',
+                              //                       child:
+                              //                       Text('Medical Cost Report'),
+                              //                     ),
+                              //                     DropdownMenuItem(
+                              //                       value:
+                              //                       'Quarterly Balance Reports',
+                              //                       child: Text(
+                              //                           'Quarterly Balance Reports'),
+                              //                     ),
+                              //                   ],
+                              //                 ),
+                              //               );
+                              //             },
+                              //           );
+                              //         },
+                              //         icon: Icon(
+                              //           Icons.edit_outlined,
+                              //           color: ColorManager.bluebottom,
+                              //         ),
+                              //       ),
+                              //       SizedBox(width: 3),
+                              //       InkWell(
+                              //         onTap: () {
+                              //           setState(() async{
+                              //            await deleteDocument(
+                              //                 context,
+                              //                 snapshot.data![index].docId!);
+                              //             orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                              //               _controller.add(data);
+                              //             }).catchError((error) {
+                              //               // Handle error
+                              //             });
+                              //           });
+                              //         },
+                              //         child: Icon(
+                              //           Icons.delete_outline_outlined,
+                              //           size: 20,
+                              //           color: Color(0xffF6928A),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -348,27 +387,27 @@ class _CICcdLicenseState extends State<CICcdLicense> {
             },
           ),
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            setState(() {
-              int totalPages = (items.length / itemsPerPage).ceil();
-              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     setState(() {
+        //       int totalPages = (items.length / itemsPerPage).ceil();
+        //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+        //     });
+        //   },
+        // ),
       ],
     );
   }

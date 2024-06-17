@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,7 @@ import '../../../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../../../../app/resources/value_manager.dart';
 import '../../../../../../../../../../app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import '../../../../../../../../../../data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import '../../../../../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../../../../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 
 class CICcdQuarteryBalanceReport extends StatefulWidget {
@@ -28,6 +30,9 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
   late List<String> items;
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+
+
 
   String? selectedValue;
   late List<Color> hrcontainerColors;
@@ -39,8 +44,13 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
     itemsPerPage = 3;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgDocumentGet(context);
+    // orgDocumentGet(context);
     _loadColors();
+    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
 
   void _loadColors() async {
@@ -124,9 +134,10 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
         ),
         SizedBox(height: AppSize.s10),
         Expanded(
-          child: FutureBuilder<List<CiOrgDocumentCC>>(
-            future: orgDocumentGet(context),
+          child: StreamBuilder<List<CiOrgDocumentCC>>(
+            stream: _controller.stream,
             builder: (context, snapshot) {
+              print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(
@@ -155,7 +166,6 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                       ? totalItems
                       : (currentPage * itemsPerPage),
                 );
-
                 return ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: currentPageItems.length,
@@ -229,100 +239,58 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
                                   ),
                                 ),
                               ),
-                              Center(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return CCScreenEditPopup(
-                                              id: currentPageItems[index].docId,
-                                              idDocController: docIdController,
-                                              nameDocController:
-                                              docNameController,
-                                              onSavePressed: () {},
-                                              child: CICCDropdown(
-                                                initialValue:
-                                                'Corporate & Compliance Documents',
-                                                items: [
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'Corporate & Compliance Documents',
-                                                    child: Text(
-                                                        'Corporate & Compliance Documents'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'HCO Number 254612',
-                                                    child:
-                                                    Text('HCO Number 254612'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'Medicare ID MPID123',
-                                                    child:
-                                                    Text('Medicare ID MPID123'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'NPI Number 1234567890',
-                                                    child: Text(
-                                                        'NPI Number 1234567890'),
-                                                  ),
-                                                ],
-                                              ),
-                                              child1: CICCDropdown(
-                                                initialValue: 'Licenses',
-                                                items: [
-                                                  DropdownMenuItem(
-                                                    value: 'Licenses',
-                                                    child: Text('Licenses'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'HCO Number 254612',
-                                                    child:
-                                                    Text('HCO Number 254612'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value: 'Medicare ID MPID123',
-                                                    child:
-                                                    Text('Medicare ID MPID123'),
-                                                  ),
-                                                  DropdownMenuItem(
-                                                    value:
-                                                    'NPI Number 1234567890',
-                                                    child: Text(
-                                                        'NPI Number 1234567890'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      icon: Icon(
-                                        Icons.edit_outlined,
-                                        color: ColorManager.bluebottom,
-                                      ),
-                                    ),
-                                    SizedBox(width: 3),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          deleteDocument(
-                                              context,
-                                              currentPageItems[index].docId!);
-                                          orgDocumentGet(context);
-                                        });
-                                      },
-                                      child: Icon(
-                                        Icons.delete_outline_outlined,
-                                        size: 20,
-                                        color: Color(0xffF6928A),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              Row(
+                                children: [
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(onPressed: (){
+                                    showDialog(context: context, builder: (context){
+                                      return CCScreenEditPopup(
+                                        id: snapshot.data![index].docId,
+                                        idDocController: docIdController,
+                                        nameDocController: docNameController,
+                                        onSavePressed: (){},
+                                        child:  CICCDropdown(
+                                          initialValue: 'Corporate & Compliance Documents',
+                                          items: [
+                                            DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                          ],),
+                                        child1:   CICCDropdown(
+                                          initialValue: 'Licenses',
+                                          items: [
+                                            DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
+                                            DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                            DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                            DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                          ],),);
+                                    });
+                                  }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
+                                  IconButton(
+                                      onPressed: (){
+                                        showDialog(context: context,
+                                            builder: (context) => DeletePopup(
+                                                onCancel: (){
+                                                  Navigator.pop(context);
+                                                }, onDelete: (){
+                                              // setState(() async{
+                                              //   await deleteDocument(
+                                              //       context,
+                                              //       snapshot.data![index].docId!);
+                                              //   orgSubDocumentGet(context, 11,
+                                              //       widget.docID,
+                                              //       widget.subDocID, 1, 6).then((data) {
+                                              //     _controller.add(data);
+                                              //   }).catchError((error) {
+                                              //     // Handle error
+                                              //   });
+                                              // });
+                                            }));
+                                      }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                ],
                               ),
                             ],
                           ),
@@ -336,27 +304,27 @@ class _CICcdQuarteryBalanceReportState extends State<CICcdQuarteryBalanceReport>
             },
           ),
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            setState(() {
-              int totalPages = (items.length / itemsPerPage).ceil();
-              currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     setState(() {
+        //       int totalPages = (items.length / itemsPerPage).ceil();
+        //       currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
+        //     });
+        //   },
+        // ),
       ],
     );
   }

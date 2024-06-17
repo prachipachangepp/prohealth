@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
 ///done by saloni
 class IconButtonWidget extends StatelessWidget {
-  final IconData iconData;
+  final IconData? iconData;
+  final IconData? iconData1;
   final String buttonText;
   final Color iconColor;
   final Color textColor;
@@ -9,11 +11,11 @@ class IconButtonWidget extends StatelessWidget {
 
   const IconButtonWidget({
     Key? key,
-    required this.iconData,
+    this.iconData,
     required this.buttonText,
     required this.onPressed,
     this.iconColor = const Color(0xFF1696C8),
-    this.textColor = const Color(0xFF1696C8),
+    this.textColor = const Color(0xFF1696C8), this.iconData1,
   }) : super(key: key);
 
   @override
@@ -32,6 +34,7 @@ class IconButtonWidget extends StatelessWidget {
         onPressed: () => onPressed(),
         icon: Row(
           children: [
+            iconData == null ? Offstage():
             Icon(
               iconData,
               color: iconColor,
@@ -49,9 +52,37 @@ class IconButtonWidget extends StatelessWidget {
                 color: textColor,
               ),
             ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 200,
+            ),
+            iconData1 == null ? Offstage():
+            Icon(
+              iconData1,
+              color: iconColor,
+              size: MediaQuery.of(context).size.width/100,
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+
+// class BorderIconButton extends StatelessWidget {
+//   final IconData iconData;
+//   const BorderIconButton({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: MediaQuery.of(context).size.width/10,
+//       decoration: BoxDecoration(border: Border.all(color: ColorManager.blueprime)),
+//       child: Row(
+//         children: [
+//
+//       ],),
+//     );
+//   }
+// }
+

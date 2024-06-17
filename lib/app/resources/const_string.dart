@@ -116,7 +116,8 @@ class AppString {
   //static const String = "";
 
   ///common
-  static const String srNo = "Sr. No";
+  static const String znNo = "Zn. No.";
+  static const String srNo = "Sr No.";
   static const String name = "Name";
   static const String code = "Code";
   static const String phone = "Phone No.";
@@ -196,7 +197,7 @@ class AppString {
   static const String addemployeetype = 'Add Employee Type';
   static const String employeetype = 'Employee Type';
   static const String addnewvisit = "Add New Visit";
-  static const String visit = "Visit";
+  static const String visit = "Type of Visit";
   static const String actions = "Actions";
   static const String eligibleClinician = "Eligible Clinicians";
   static const String notapplicable = "Not Applicable";

@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_policies&procedure.dart';
@@ -21,8 +24,21 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   final PageController _tabPageController = PageController();
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
+  String _selectedItem = 'Corporate & Compliance Documents';
+  void _onDropdownItemSelected(String newValue) {
+    setState(() {
+      _selectedItem = newValue;
+    });
+  }
+  String _selectedItem1 = 'Licenses';
+  void _onDropdownItemSelected1(String newValue) {
+    setState(() {
+      _selectedItem1 = newValue;
+    });
+  }
 
   void _selectButton(int index) {
     setState(() {
@@ -34,7 +50,17 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
       curve: Curves.ease,
     );
   }
-
+  @override
+  void initState() {
+    super.initState();
+    // currentPage = 1;
+    // itemsPerPage = 5;
+    // items = List.generate(20, (index) => 'Item ${index + 1}');
+   documentTypeGet(context);
+    //_companyManager = CompanyIdentityManager();
+    // companyAllApi(context);
+  }
+  var docID = 1;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,97 +75,136 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
               height: 20,
               width: 150,
             ),
-            Material(
-              elevation: 4,
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              child: Container(
-                width: 670,
-                height: 30,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: ColorManager.blueprime),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => _selectButton(0),
-                      child: Container(
-                        height: 30,
-                        width: 210,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: _selectedIndex == 0
-                              ? Colors.white
-                              : Colors.transparent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Corporate & Compilance Document",
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: _selectedIndex == 0
-                                  ? ColorManager.blueprime
-                                  : ColorManager.white,
+    FutureBuilder<List<DocumentTypeData>>(
+    future: documentTypeGet(context),
+    builder:(context,snapshot){
+      if(snapshot.hasData){
+        return Material(
+          elevation: 4,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          child: Container(
+            width: 670,
+            height: 30,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: ColorManager.blueprime),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        // return
+                        //   Center(
+                        //   child: CircularProgressIndicator(
+                        //     color: Colors.blue, // Change according to your theme
+                        //   ),
+                        // );
+                      }
+                      if (snapshot.hasData) {
+                        return InkWell(
+                          onTap: () {
+                            _selectButton(
+                                snapshot.data![index].docID);
+                            identityDocumentTypeGet(
+                                context, snapshot.data![index].docID);
+                            docID = snapshot.data![index].docID;
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 210,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(20)),
+                              color: _selectedIndex ==
+                                  snapshot.data![index].docID
+                                  ? Colors.white
+                                  : Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Text(
+                                snapshot.data![index].docType,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: _selectedIndex ==
+                                      snapshot.data![index].docID
+                                      ? ColorManager.mediumgrey
+                                      : ColorManager.white,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _selectButton(1),
-                      child: Container(
-                        height: 30,
-                        width: 180,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: _selectedIndex == 1
-                              ? Colors.white
-                              : Colors.transparent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Vendor Contract",
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: _selectedIndex == 1
-                                  ? ColorManager.blueprime
-                                  : ColorManager.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _selectButton(2),
-                      child: Container(
-                        height: 30,
-                        width: 180,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          color: _selectedIndex == 2
-                              ? Colors.white
-                              : Colors.transparent,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Policies & Procedure",
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: _selectedIndex == 2
-                                  ? ColorManager.blueprime
-                                  : ColorManager.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+                        );
+                      }
+                    },
+                  ),
                 ),
-              ),
+                //   }
+                //
+                // ),
+                // InkWell(
+                //   onTap: () => _selectButton(1),
+                //   child: Container(
+                //     height: 30,
+                //     width: 180,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.all(Radius.circular(20)),
+                //       color: _selectedIndex == 1
+                //           ? Colors.white
+                //           : Colors.transparent,
+                //     ),
+                //     child: Center(
+                //       child: Text(
+                //         "Vendor Contract",
+                //         style: GoogleFonts.firaSans(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.w700,
+                //           color: _selectedIndex == 1
+                //               ? ColorManager.blueprime
+                //               : ColorManager.white,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // InkWell(
+                //   onTap: () => _selectButton(2),
+                //   child: Container(
+                //     height: 30,
+                //     width: 180,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.all(Radius.circular(20)),
+                //       color: _selectedIndex == 2
+                //           ? Colors.white
+                //           : Colors.transparent,
+                //     ),
+                //     child: Center(
+                //       child: Text(
+                //         "Policies & Procedure",
+                //         style: GoogleFonts.firaSans(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.w700,
+                //           color: _selectedIndex == 2
+                //               ? ColorManager.blueprime
+                //               : ColorManager.white,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // )
+              ],
             ),
+          ),
+        );
+      } else{
+        return SizedBox(height: 1,width: 1,);
+      }
+    }),
             ///button
             Align(
                 alignment: Alignment.bottomRight,
@@ -157,44 +222,68 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               context: context,
                               builder: (context) {
                                 return AddOrgDocButton(
+                                  calenderController: calenderController,
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
+                                  onPressed: () async{
+                                    await addCorporateDocumentPost(context: context,
+                                        name: docNamecontroller.text,
+                                        docTypeID: int.parse(_selectedItem),
+                                        docSubTypeID: int.parse(_selectedItem1)== null ? 0:int.parse(_selectedItem1),
+                                        docCreated: DateTime.now().toString(),
+                                        url: "url",
+                                        expiryType: "Not Applicable",
+                                        expiryDate: calenderController.text,
+                                        expiryReminder: "Schedule",
+                                        companyId: 11,
+                                        officeId: "1");
+                                    setState(() async {
+                                    await  orgSubDocumentGet(context, 11, docID, 1, 1, 6);
+                                    Navigator.pop(context);
+                                    calenderController.clear();
+                                      docIdController.clear();
+                                      docNamecontroller.clear();
+                                    });
+                                  },
+
 
                                   child: CICCDropdown(
                                     initialValue:
-                                        'Corporate & Compliance Documents',
+                                        _selectedItem,
+                                    onChange: _onDropdownItemSelected,
                                     items: [
                                       DropdownMenuItem(
                                           value:
-                                              'Corporate & Compliance Documents',
+                                              '1',
                                           child: Text(
                                               'Corporate & Compliance Documents')),
                                       DropdownMenuItem(
-                                          value: 'HCO Number      254612',
-                                          child: Text('HCO Number  254612')),
+                                          value: '2',
+                                          child: Text('Vendor Contract')),
                                       DropdownMenuItem(
-                                          value: 'Medicare ID      MPID123',
+                                          value: '3',
                                           child: Text('Medicare ID  MPID123')),
-                                      DropdownMenuItem(
-                                          value: 'NPI Number     1234567890',
-                                          child: Text('NPI Number 1234567890')),
                                     ],
                                   ),
                                   child1: CICCDropdown(
-                                    initialValue: 'Licenses',
+                                    initialValue: _selectedItem1,
+                                    onChange: _onDropdownItemSelected1,
                                     items: [
                                       DropdownMenuItem(
-                                          value: 'Licenses',
+                                          value: '1',
                                           child: Text('Licenses')),
                                       DropdownMenuItem(
-                                          value: 'HCO Number      254612',
-                                          child: Text('HCO Number  254612')),
+                                          value: '2',
+                                          child: Text('ADR')),
                                       DropdownMenuItem(
-                                          value: 'Medicare ID      MPID123',
-                                          child: Text('Medicare ID  MPID123')),
+                                          value: '3',
+                                          child: Text('Medical Cost Report')),
                                       DropdownMenuItem(
-                                          value: 'NPI Number     1234567890',
-                                          child: Text('NPI Number 1234567890')),
+                                          value: '4',
+                                          child: Text('Cap Reports')),
+                                      DropdownMenuItem(
+                                          value: '5',
+                                          child: Text('Quarterly Balance Reports')),
                                     ],
                                   ),
                                 );
@@ -210,7 +299,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
         Expanded(
           child: Stack(
             children: [
-              _selectedIndex != 2
+              _selectedIndex != 3
                   ? Container(
                 height: MediaQuery.of(context).size.height / 3.5,
                 decoration: BoxDecoration(
@@ -237,9 +326,11 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 },
                 children: [
                   // Page 1
-                  CICorporateCompilianceDocument(),
-                  CIVendorContract(),
-                  CIPoliciesProcedure()
+                  CICorporateCompilianceDocument(docID: docID,),
+                  CICorporateCompilianceDocument(docID: docID,),
+                  CICorporateCompilianceDocument(docID: docID,),
+                  // CIVendorContract(),
+                  // CIPoliciesProcedure()
                 ],
               ),
             ],

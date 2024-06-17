@@ -1,15 +1,17 @@
+import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-
 import '../../../../../../app/resources/color.dart';
+import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../../app/resources/theme_manager.dart';
+import '../../../../../../app/services/api/managers/establishment_manager/manage_details_manager.dart';
+import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_corporate_conpliance_data.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import '../checkbox_constant.dart';
 
 class CICCLicense extends StatefulWidget {
@@ -25,13 +27,20 @@ class _CICCLicenseState extends State<CICCLicense> {
   late List<String> items;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  final StreamController<List<GetManageDetailsHeadData>> _ccLisenceController = StreamController<List<GetManageDetailsHeadData>>();
+
   @override
   void initState() {
     super.initState();
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    orgDocumentGet(context);
+    getManageCorporateComp(context).then((data){
+      _ccLisenceController.add(data);
+    }).catchError((error){
+
+    });
+
   }
 
   @override
@@ -74,12 +83,12 @@ class _CICCLicenseState extends State<CICCLicense> {
         SizedBox(
           height: 5,
         ),
-
         Expanded(
           child:
-          FutureBuilder<List<CiOrgDocumentCC>>(
-            future: orgDocumentGet(context),
+          StreamBuilder<List<GetManageDetailsHeadData>>(
+             stream : _ccLisenceController.stream,
             builder: (context, snapshot) {
+              print('55555555');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(
@@ -87,7 +96,28 @@ class _CICCLicenseState extends State<CICCLicense> {
                   ),
                 );
               }
-              if(snapshot.hasData){
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
+                    ),
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                int totalItems = snapshot.data!.length;
+                // int totalPages = (totalItems / itemsPerPage).ceil();
+                List<GetManageDetailsHeadData> currentPageItems =
+                snapshot.data!.sublist(
+                  (currentPage - 1) * itemsPerPage,
+                  (currentPage * itemsPerPage) > totalItems
+                      ? totalItems
+                      : (currentPage * itemsPerPage),
+                );
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
@@ -140,7 +170,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                snapshot.data![index].createdAt.toString(),textAlign:TextAlign.center,
+                                                snapshot.data![index].id.toString(),textAlign:TextAlign.center,
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w400,
@@ -149,7 +179,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                 ),
                                               ),
                                               Text(
-                                                snapshot.data![index].name.toString(),textAlign:TextAlign.center,
+                                                snapshot.data![index].docName.toString(),textAlign:TextAlign.center,
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.bold,
@@ -190,7 +220,11 @@ class _CICCLicenseState extends State<CICCLicense> {
                                                   ],),);
                                             });
                                           }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.bluebottom,)),
-                                          IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                          IconButton(onPressed: (){
+                                            showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                              Navigator.pop(context);
+                                            }, onDelete: (){}));
+                                          }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                         ],
                                       )
                                     ],

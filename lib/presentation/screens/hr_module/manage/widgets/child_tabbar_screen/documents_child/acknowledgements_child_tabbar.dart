@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 class AcknowledgementsChildBar extends StatelessWidget {
@@ -41,13 +42,9 @@ class AcknowledgementsChildBar extends StatelessWidget {
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(width: 2,color: Color(0xffF6928A)),
+                  border: Border.all(width: 2,color: ColorManager.faintGrey),
                 ),
-                child: IconButton(
-                  onPressed: () {
-                  },
-                  icon: Icon(Icons.remove_red_eye,color: Color(0xff50B5E5),),
-                  iconSize: 24,) ),
+                child: Image.asset('images/Vector.png') ),
               SizedBox(width: 10),
               Text('Candidate Release Authorization Form',
               style: AknowledgementStyleConst.customTextStyle(context))
@@ -61,13 +58,9 @@ class AcknowledgementsChildBar extends StatelessWidget {
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(width: 2,color: Color(0xffF6928A)),
+                  border: Border.all(width: 2,color:ColorManager.faintGrey),
                 ),
-                child: IconButton(
-                  onPressed: () {
-                  },
-                  icon: Icon(Icons.remove_red_eye,color: Color(0xff50B5E5),),
-                  iconSize: 24,) ),
+                child: Image.asset('images/Vector.png') ),
               SizedBox(width: 10),
               Text('Confidentiality Statement',
               style: AknowledgementStyleConst.customTextStyle(context))
@@ -85,13 +78,9 @@ class AcknowledgementsChildBar extends StatelessWidget {
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(width: 2,color: Color(0xffF6928A)),
+                  border: Border.all(width: 2,color: ColorManager.faintGrey),
                 ),
-                child: IconButton(
-                  onPressed: () {
-                  },
-                  icon: Icon(Icons.remove_red_eye,color: Color(0xff50B5E5),),
-                  iconSize: 24,) ),
+                child: Image.asset('images/Vector.png') ),
               SizedBox(width: 10),
               Text('On call',
               style: AknowledgementStyleConst.customTextStyle(context))
@@ -105,13 +94,9 @@ class AcknowledgementsChildBar extends StatelessWidget {
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(width: 2,color: Color(0xffF6928A)),
+                  border: Border.all(width: 2,color: ColorManager.faintGrey),
                 ),
-                child: IconButton(
-                  onPressed: () {
-                  },
-                  icon: Icon(Icons.remove_red_eye,color: Color(0xff50B5E5),),
-                  iconSize: 24,) ),
+                child: Image.asset('images/Vector.png') ),
               SizedBox(width: 10),
               Text('Policy Concerning 3rd Party',
               style:AknowledgementStyleConst.customTextStyle(context))

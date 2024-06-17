@@ -25,6 +25,7 @@ class CIRoleContainerConstant extends StatelessWidget {
             vertical: MediaQuery.of(context).size.height / 90,
           ),
           decoration: BoxDecoration(
+
             boxShadow: [
               BoxShadow(
                 color: ColorManager.black.withOpacity(0.1),

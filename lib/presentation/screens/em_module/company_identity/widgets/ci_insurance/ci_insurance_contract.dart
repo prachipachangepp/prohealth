@@ -12,6 +12,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'widgets/contract_add_dialog.dart';
 
 class CiInsuranceContract extends StatefulWidget {
@@ -36,7 +37,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
     currentPage = 1;
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    orgDocumentGet(context).then((data) {
+    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -51,67 +52,67 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
       color: Colors.transparent,
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                height: 30,
-                width: 354,
-                // margin: EdgeInsets.symmetric(horizontal: 20),
-                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                      color: Color(0xff686464).withOpacity(0.5),
-                      width: 1), // Black border
-                  borderRadius: BorderRadius.circular(8), // Rounded corners
-                ),
-                child: DropdownButtonFormField<String>(
-                  focusColor: Colors.transparent,
-                  icon: Icon(
-                    Icons.arrow_drop_down_sharp,
-                    color: Color(0xff686464),
-                  ),
-                  decoration: InputDecoration.collapsed(hintText: ''),
-                  items: <String>[
-                    'Sample Vendor',
-                    'Option 1',
-                    'Option 2',
-                    'Option 3',
-                    'Option 4'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {},
-                  value: 'Sample Vendor',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff686464),
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
-              CustomIconButtonConst(
-                  icon: Icons.add,
-                  text: "Add Doctype",
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ContractAddDialog(
-                            contractNmaeController: contractNameController,
-                            onSubmitPressed: () {},
-                            contractIdController: contractIdController,
-
-                          );
-                        });
-                  }),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Container(
+          //       height: 30,
+          //       width: 354,
+          //       // margin: EdgeInsets.symmetric(horizontal: 20),
+          //       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+          //       decoration: BoxDecoration(
+          //         color: Colors.white,
+          //         border: Border.all(
+          //             color: Color(0xff686464).withOpacity(0.5),
+          //             width: 1), // Black border
+          //         borderRadius: BorderRadius.circular(8), // Rounded corners
+          //       ),
+          //       child: DropdownButtonFormField<String>(
+          //         focusColor: Colors.transparent,
+          //         icon: Icon(
+          //           Icons.arrow_drop_down_sharp,
+          //           color: Color(0xff686464),
+          //         ),
+          //         decoration: InputDecoration.collapsed(hintText: ''),
+          //         items: <String>[
+          //           'Sample Vendor',
+          //           'Option 1',
+          //           'Option 2',
+          //           'Option 3',
+          //           'Option 4'
+          //         ].map<DropdownMenuItem<String>>((String value) {
+          //           return DropdownMenuItem<String>(
+          //             value: value,
+          //             child: Text(value),
+          //           );
+          //         }).toList(),
+          //         onChanged: (String? newValue) {},
+          //         value: 'Sample Vendor',
+          //         style: GoogleFonts.firaSans(
+          //           fontSize: 12,
+          //           fontWeight: FontWeight.w600,
+          //           color: Color(0xff686464),
+          //           decoration: TextDecoration.none,
+          //         ),
+          //       ),
+          //     ),
+          //     CustomIconButtonConst(
+          //         icon: Icons.add,
+          //         text: "Add Doctype",
+          //         onPressed: () {
+          //           showDialog(
+          //               context: context,
+          //               builder: (BuildContext context) {
+          //                 return ContractAddDialog(
+          //                   contractNmaeController: contractNameController,
+          //                   onSubmitPressed: () {},
+          //                   contractIdController: contractIdController,
+          //
+          //                 );
+          //               });
+          //         }),
+          //   ],
+          // ),
           Expanded(
             child: StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
@@ -251,16 +252,19 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                 )),
                                             IconButton(
                                                 onPressed: () {
-                                                  setState(() async{
+                                                  showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                                    Navigator.pop(context);
+                                                  }, onDelete: (){setState(() async{
                                                     await deleteDocument(
                                                         context,
                                                         snapshot.data![index].docId!);
-                                                    orgDocumentGet(context).then((data) {
+                                                    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
                                                       _controller.add(data);
                                                     }).catchError((error) {
                                                       // Handle error
                                                     });
-                                                  });
+                                                  });}));
+
                                                 },
                                                 icon: Icon(
                                                   Icons.delete_outline,

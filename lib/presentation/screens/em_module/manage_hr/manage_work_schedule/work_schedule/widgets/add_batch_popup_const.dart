@@ -59,7 +59,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s210,
+        height: AppSize.s250,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -91,16 +91,17 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                     controller: widget.controller1,
                     keyboardType: TextInputType.text,
                     text: 'Start Time',
-                    icon: Icon(Icons.timer_outlined,color: ColorManager.blueprime,),
+                    icon: Icon(Icons.timer_outlined,color: ColorManager.blueprime,size: 19,),
 
                   ),
+                  SizedBox(height: 20,),
 
                   SMTextFConst(
                     onChange: ()=>_selectEndTime(context),
                     controller: widget.controller2,
                     keyboardType: TextInputType.text,
                     text: 'End Time',
-                    icon: Icon(Icons.timer_outlined,color: ColorManager.blueprime,),
+                    icon: Icon(Icons.timer_outlined,color: ColorManager.blueprime,size: 19,),
                   ),
                 ],
               ),
