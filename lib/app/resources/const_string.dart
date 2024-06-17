@@ -197,7 +197,7 @@ class AppString {
   static const String addemployeetype = 'Add Employee Type';
   static const String employeetype = 'Employee Type';
   static const String addnewvisit = "Add New Visit";
-  static const String visit = "Visit";
+  static const String visit = "Type of Visit";
   static const String actions = "Actions";
   static const String eligibleClinician = "Eligible Clinicians";
   static const String notapplicable = "Not Applicable";

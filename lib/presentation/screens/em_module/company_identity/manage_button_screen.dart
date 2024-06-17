@@ -31,48 +31,48 @@ import 'widgets/ci_insurance/ci_insurance_pageview.dart';
 import 'widgets/policies_procedures/document_detail_page_view.dart';
 import 'widgets/policies_procedures/policies_procedures.dart';
 
-class ManagePopUpScreen extends StatefulWidget {
-  const ManagePopUpScreen({Key? key}) : super(key: key);
-
-  @override
-  State<ManagePopUpScreen> createState() => _ManagePopUpScreenState();
-}
-
-class _ManagePopUpScreenState extends State<ManagePopUpScreen> {
-  final PageController _managePageController = PageController();
-  int _selectedIndex = 1;
-
-  void _selectButton(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    _managePageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ManageWidget(
-      managePageController: _managePageController,
-      selectedIndex: _selectedIndex,
-      selectButton: _selectButton,
-    );
-  }
-}
+// class ManagePopUpScreen extends StatefulWidget {
+//   const ManagePopUpScreen({Key? key}) : super(key: key);
+//
+//   @override
+//   State<ManagePopUpScreen> createState() => _ManagePopUpScreenState();
+// }
+//
+// class _ManagePopUpScreenState extends State<ManagePopUpScreen> {
+//   final PageController _managePageController = PageController();
+//   int _selectedIndex = 1;
+//
+//   void _selectButton(int index) {
+//     setState(() {
+//       _selectedIndex = index;
+//     });
+//     _managePageController.animateToPage(
+//       index,
+//       duration: Duration(milliseconds: 500),
+//       curve: Curves.ease,
+//     );
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return ManageWidget(
+//       managePageController: _managePageController,
+//       selectedIndex: _selectedIndex,
+//       selectButton: _selectButton,
+//     );
+//   }
+// }
 
 class ManageWidget extends StatefulWidget {
-  final PageController managePageController;
-  final int selectedIndex;
-  final Function(int) selectButton;
+  // final PageController managePageController;
+  // final int selectedIndex;
+  // final Function(int) selectButton;
 
   ManageWidget({
     Key? key,
-    required this.managePageController,
-    required this.selectedIndex,
-    required this.selectButton,
+    // required this.managePageController,
+    // required this.selectedIndex,
+    // required this.selectButton,
   }) : super(key: key);
 
   @override
@@ -96,7 +96,7 @@ class _ManageWidgetState extends State<ManageWidget> {
 
   final PageController _managePageController = PageController();
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
    int listIndex = 0;
 
   void _selectButton(int index) {
@@ -139,7 +139,7 @@ class _ManageWidgetState extends State<ManageWidget> {
       color: Colors.white,
       child: Column(
         children: [
-          widget.selectedIndex !=0
+          _selectedIndex !=0
               ? Container(height: 57) :
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p160,vertical: AppPadding.p20),
@@ -158,7 +158,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                 Row(children: [
                   InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> SMDesktop()));
+                      // Navigator.pop(context);
                       },
                       child: Icon(Icons.arrow_back,size: 15,color: ColorManager.mediumgrey,)),
                   // IconButton(icon: Icon(Icons.arrow_back_outlined,size: 15),color: ColorManager.mediumgrey, onPressed: () {
@@ -180,20 +180,20 @@ class _ManageWidgetState extends State<ManageWidget> {
                   builder: (context,snapshot) {
                     if(snapshot.hasData){
                       List<Widget> docList = [
-                        CustomButtonList(buttonText: 'Details', isSelected: widget.selectedIndex,docID: 4,onTap: () {
-                          widget.selectButton(4);
+                        CustomButtonList(buttonText: 'Details', isSelected: _selectedIndex,docID: 4,onTap: () {
+                          _selectButton(4);
                           docID = 4;
                         },),
-                        CustomButtonList(buttonText: 'Zones', isSelected: widget.selectedIndex,docID: 5,onTap: () {
-                          widget.selectButton(5);
+                        CustomButtonList(buttonText: 'Zones', isSelected: _selectedIndex,docID: 5,onTap: () {
+                          _selectButton(5);
                           docID = 5;
                         },),
-                        CustomButtonList(buttonText: 'Insurance', isSelected: widget.selectedIndex,docID: 6,onTap: () {
-                          widget.selectButton(6);
+                        CustomButtonList(buttonText: 'Insurance', isSelected: _selectedIndex,docID: 6,onTap: () {
+                          _selectButton(6);
                           docID = 6;
                         },),
-                        CustomButtonList(buttonText: 'Templates', isSelected: widget.selectedIndex,docID: 7,onTap: () {
-                          widget.selectButton(7);
+                        CustomButtonList(buttonText: 'Templates', isSelected: _selectedIndex,docID: 7,onTap: () {
+                         _selectButton(7);
                           docID = 7;
                         },)
                       // InkWell(
@@ -226,8 +226,8 @@ class _ManageWidgetState extends State<ManageWidget> {
 
                       for(var a in snapshot.data!){
                     docList.add(
-                        CustomButtonList(buttonText: a.docType, isSelected: widget.selectedIndex,docID: a.docID,onTap: () {
-                          widget.selectButton(a.docID);
+                        CustomButtonList(buttonText: a.docType, isSelected: _selectedIndex,docID: a.docID,onTap: () {
+                         _selectButton(a.docID);
                           docID = a.docID;
                         },)
                     );
@@ -337,7 +337,7 @@ class _ManageWidgetState extends State<ManageWidget> {
             flex: 10,
             child: Stack(
                 children:[
-                  widget.selectedIndex == 0 ? Offstage():  Container(height: MediaQuery.of(context).size.height/3,
+                 _selectedIndex == 1 ? Offstage():  Container(height: MediaQuery.of(context).size.height/3,
                     decoration: BoxDecoration(color: Color(0xFFF2F9FC),
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
                         boxShadow: [ BoxShadow(
@@ -352,16 +352,16 @@ class _ManageWidgetState extends State<ManageWidget> {
                         //horizontal: MediaQuery.of(context).size.width / 45,
                         vertical: 5),
                     child: PageView(
-                        controller: widget.managePageController,
+                        controller: _managePageController,
                         physics: NeverScrollableScrollPhysics(),
                         children: [
                           // docID == 5 ?
                           //  CiZone():Offstage(),
                           // docID == 4 ?
-                          // CIDetailsScreen():Offstage(),
                           DocumentPageView(docID: docID,),
                           DocumentPageView(docID: docID,),
                           DocumentPageView(docID: docID,),
+                          CIDetailsScreen(),
 
                           // // CiPageview(
                           // //     managePageController: _managePageController,

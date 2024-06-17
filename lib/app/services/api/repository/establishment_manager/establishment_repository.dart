@@ -21,6 +21,10 @@ class EstablishmentManagerRepository {
   static String identityDocumentType = "/identity/GetDocType";
   static String getlistByCompany = "/officeListByCompany";
   static String addCorporateDocument = "/corporate-document/addDocument";
+  static String workWeekSchedule = "/work-week-schedule";
+  static String workWeekShiftSchedule = "/work-week-shift-schedule";
+  static String holidays = "/holidays";
+
 
   static String companyAll(){
     return "$company";
@@ -106,4 +110,28 @@ static String postCiVisit(){
   static String addCorporateDocumentPost(){
     return "$addCorporateDocument";
   }
+  /// Work Schedule
+  static String workWeekScheduleGet(){
+    return "$workWeekSchedule";
+  }
+  static String workWeekShiftScheduleGet(){
+    return "$workWeekShiftSchedule";
+  }
+  static String addWorkWeekSchedulePost(){
+    return "$workWeekSchedule$add";
+  }
+  // Hlidays
+  static String holidaysGet(){
+    return "$holidays";
+  }
+  static String addHolidaysPost(){
+    return "$holidays$add";
+  }
+  static String deleteHolidaysDelete({required int holidayId}){
+    return "$holidays/$holidayId";
+  }
+  static String updateHolidaysPatch({required int holidayId}){
+    return "$holidays/$holidayId";
+  }
+
 }

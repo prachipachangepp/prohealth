@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
 import 'work_schedule/define_holidays.dart';
@@ -18,6 +22,7 @@ class ManageWorkSchedule extends StatefulWidget {
 class _ManageWorkScheduleState extends State<ManageWorkSchedule> {
   final PageController _managePageController = PageController();
   int _selectedIndex = 0;
+
 
   void _selectButton(int index) {
     setState(() {
@@ -63,6 +68,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
   ];
 
   final PageController _managePageController = PageController();
+  TextEditingController calenderController = TextEditingController();
 
   int _selectedIndex = 0;
 
@@ -76,6 +82,11 @@ class _WorkScheduleState extends State<WorkSchedule> {
       duration: Duration(milliseconds: 500),
       curve: Curves.ease,
     );
+  }
+  @override
+  void initState() {
+    super.initState();
+    // companyAllApi(context);
   }
   @override
   Widget build(BuildContext context) {
@@ -160,7 +171,10 @@ class _WorkScheduleState extends State<WorkSchedule> {
                       icon: Icons.add,
                       text: "Add New Holiday", onPressed: (){
                     showDialog(context: context, builder: (BuildContext context){
-                      return AddHolidayPopup(controller: holidayNameController, onPressed: () {  },);
+                      return AddHolidayPopup(controller: holidayNameController, onPressed: () async{
+                        await addHolidaysPost(context, holidayNameController.text, calenderController.text, 2024, 11);
+                        holidaysListGet(context);
+                      }, calenderDateController: calenderController,);
                     });
                   }),
                 ),
