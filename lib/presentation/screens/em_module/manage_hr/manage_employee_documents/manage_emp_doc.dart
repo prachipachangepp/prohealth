@@ -3,6 +3,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_pageview.dart';
@@ -15,9 +16,13 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employ
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/emp_documents/health.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/emp_documents/performance.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/emp_doc_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/admin_emp_data.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 
+import '../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+
 class ManageEmployDocument extends StatefulWidget {
+
   const ManageEmployDocument({super.key});
 
   @override
@@ -38,6 +43,7 @@ class _ManageEmployDocumentState extends State<ManageEmployDocument> {
       curve: Curves.ease,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return ManageEmpDocWidget(
@@ -49,6 +55,7 @@ class _ManageEmployDocumentState extends State<ManageEmployDocument> {
 }
 
 class ManageEmpDocWidget extends StatefulWidget {
+
   final PageController managePageController;
   final int selectedIndex;
   final Function(int) selectButton;
@@ -68,19 +75,19 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
   TextEditingController nameDocController = TextEditingController();
   TextEditingController idDocController = TextEditingController();
   TextEditingController dateController = TextEditingController();
-  final List<String> _categories = [
-    'Health',
-    'Certifications',
-    'Employment',
-    'Clinical Verification',
-    'Acknowledgement',
-    'Compensation',
-    'Performance'
-  ];
+  // final List<String> _categories = [
+  //   'Health',
+  //   'Certifications',
+  //   'Employment',
+  //   'Clinical Verification',
+  //   'Acknowledgement',
+  //   'Compensation',
+  //   'Performance'
+  // ];
 
   final PageController _managePageController = PageController();
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _selectButton(int index) {
     setState(() {
@@ -93,6 +100,15 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
       curve: Curves.ease,
     );
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getEmployeeDocTab(context);
+  }
+
+  var metaDocID = 1;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -121,58 +137,86 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                 },icon: Icons.add,)
               ],
             ),
-          ):SizedBox(height: 73,),
+          )
+              :
+          SizedBox(height: 73,),
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(
                mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Material(
-                  elevation: 4,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    height: 28,
-                    width: MediaQuery.of(context).size.width / 1.2,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: ColorManager.blueprime,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: _categories
-                          .asMap()
-                          .entries
-                          .map(
-                            (entry) => InkWell(
-                          child: Container(
-                            height: 30,
-                            width: MediaQuery.of(context).size.width / 8.42,
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: widget.selectedIndex == entry.key
-                                  ? Colors.white
-                                  : null,
-                            ),
-                            child: Text(
-                              entry.value,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeightManager.semiBold,
-                                color: widget.selectedIndex == entry.key
-                                    ? ColorManager.mediumgrey
-                                    : Colors.white,
-                              ),
-                            ),
+                FutureBuilder<List<EmployeeDocTabModal>>(
+                  future: getEmployeeDocTab(context, ),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Material(
+                        elevation: 4,
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          height: 28,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width / 1.2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: ColorManager.blueprime,
+                            // color: Colors.yellow,
                           ),
-                          onTap: () => widget.selectButton(entry.key),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, int index){
+                              if (snapshot.connectionState == ConnectionState.waiting){
+                              }
+                              if (snapshot.hasData){
+                                return  Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                        InkWell(
+                                          child: Container(
+                                            height: 30,
+                                            width: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width / 8.42,
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 6),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(20),
+                                              color: _selectedIndex ==
+                                                  snapshot.data![index].employeeDocMetaDataId
+                                                  ? ColorManager.white
+                                                  : Colors.transparent,
+                                            ),
+                                            child: Text(
+                                              snapshot.data![index].employeeDocType!,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeightManager
+                                                    .semiBold,
+                                                color: _selectedIndex ==
+                                                    snapshot.data![index].employeeDocMetaDataId
+                                                    ? ColorManager.mediumgrey
+                                                    : ColorManager.white,
+                                              ),
+                                            ),
+                                          ),
+                                           onTap: () {
+                                           _selectButton(snapshot.data![index].employeeDocMetaDataId!);
+                                           }
+                                        ),
+                                ]);
+                              }
+                            }
+                          ),
                         ),
-                      )
-                          .toList(),
-                    ),
-                  ),
-                ),
+                      );
+                    } else {
+                      return SizedBox(height: 1,width: 1,);
+                    }
+                  }),
               ],
             ),
           ),
@@ -180,12 +224,14 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
           Expanded(
             flex: 10,
             child: Stack(
-
               children: [
-                Container(height: MediaQuery.of(context).size.height/3,
-                  decoration: BoxDecoration(color: Color(0xFFF2F9FC),
+                Container(
+                  height: MediaQuery.of(context).size.height/3,
+                  decoration: BoxDecoration(
+                     color: Color(0xFFF2F9FC),
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
-                      boxShadow: [ BoxShadow(
+                      boxShadow: [
+                        BoxShadow(
                         color: ColorManager.faintGrey,
                         blurRadius: 2,
                         spreadRadius: -2,
@@ -196,16 +242,27 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                 padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 45,right: MediaQuery.of(context).size.width / 45,
                     top: MediaQuery.of(context).size.width / 45),
                 child: PageView(
-                    controller: widget.managePageController,
+                    controller: _managePageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
                     physics: const NeverScrollableScrollPhysics(),
-                    children: const [
-                      HealthEmpDoc(),
-                      CertificationEmpDoc(),
-                      EmplomentDoc(),
-                      ClinicalVerificationEmpDoc(),
-                      AcknowledgementEmpDoc(),
-                      CompansationEmpDoc(),
-                      PerformanceEmpDoc(),
+                    children: [
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                      // CertificationEmpDoc(metaDocID: metaDocID,),
+                      // EmplomentDoc(metaDocID: metaDocID,),
+                      // ClinicalVerificationEmpDoc(metaDocID: metaDocID,),
+                      // AcknowledgementEmpDoc(metaDocID: metaDocID,),
+                      // CompansationEmpDoc(metaDocID: metaDocID,),
+                      // PerformanceEmpDoc(metaDocID: metaDocID,),
                     ]),
               ),]
             ),

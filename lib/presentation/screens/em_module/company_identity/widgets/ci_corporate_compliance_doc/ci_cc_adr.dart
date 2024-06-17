@@ -31,7 +31,7 @@ class _CICCADRState extends State<CICCADR> {
   late List<String> items;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-  final StreamController<List<ManageCorporateConplianceData>> _ccLisenceController = StreamController<List<ManageCorporateConplianceData>>();
+  final StreamController<List<GetManageDetailsHeadData>> _ccLisenceController = StreamController<List<GetManageDetailsHeadData>>();
 
   @override
   void initState() {
@@ -57,36 +57,36 @@ class _CICCADRState extends State<CICCADR> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-        CustomIconButtonConst(
-            icon: Icons.add,
-            text: "Add Doctype", onPressed: (){
-          showDialog(context: context, builder: (context){
-            return CCScreensAddPopup(
-              countynameController: docNamecontroller,
-              zipcodeController: docIdController,
-              onSavePressed: () {  },
-              child:  CICCDropdown(
-                initialValue: 'Corporate & Compliance Documents',
-                items: [
-                  DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-                  DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                  DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                  DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                ],),
-              child1:  CICCDropdown(
-                initialValue: 'ADR',
-                items: [
-                  DropdownMenuItem(value: 'ADR', child: Text('ADR')),
-                  DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                  DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                  DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                ],),);
-          });
-        }),
-        SizedBox(height: 5,),
+          CustomIconButtonConst(
+              icon: Icons.add,
+              text: "Add Doctype", onPressed: (){
+            showDialog(context: context, builder: (context){
+              return CCScreensAddPopup(
+                countynameController: docNamecontroller,
+                zipcodeController: docIdController,
+                onSavePressed: () {  },
+                child:  CICCDropdown(
+                  initialValue: 'Corporate & Compliance Documents',
+                  items: [
+                    DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                    DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                    DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                    DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                  ],),
+                child1:  CICCDropdown(
+                  initialValue: 'ADR',
+                  items: [
+                    DropdownMenuItem(value: 'ADR', child: Text('ADR')),
+                    DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                    DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                    DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                  ],),);
+            });
+          }),
+          SizedBox(height: 5,),
           Expanded(
             child:
-            StreamBuilder<List<ManageCorporateConplianceData>>(
+            StreamBuilder<List<GetManageDetailsHeadData>>(
                 stream : _ccLisenceController.stream,
                 builder: (context, snapshot) {
                   print('55555555');
@@ -112,7 +112,7 @@ class _CICCADRState extends State<CICCADR> {
                   if (snapshot.hasData) {
                     int totalItems = snapshot.data!.length;
                     // int totalPages = (totalItems / itemsPerPage).ceil();
-                    List<ManageCorporateConplianceData> currentPageItems =
+                    List<GetManageDetailsHeadData> currentPageItems =
                     snapshot.data!.sublist(
                       (currentPage - 1) * itemsPerPage,
                       (currentPage * itemsPerPage) > totalItems
@@ -240,9 +240,9 @@ class _CICCADRState extends State<CICCADR> {
                 }
             ),
           ),
-        SizedBox(
-          height: 10,
-        ),
+          SizedBox(
+            height: 10,
+          ),
           PaginationControlsWidget(
             currentPage: currentPage,
             items: items,
@@ -268,7 +268,7 @@ class _CICCADRState extends State<CICCADR> {
               });
             },
           ),
-      ],),
+        ],),
     );
   }
 }

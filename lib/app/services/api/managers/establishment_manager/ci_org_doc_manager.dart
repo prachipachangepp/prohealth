@@ -56,8 +56,13 @@ Future<ApiData> addCorporateDocumentPost({required BuildContext context,
 }
 
 /// get
-Future<List<IdentityData>> getOrgDocfetch(BuildContext context, int companyId,
-    int docTypeID, int docSubTypeID, int pageNo, int rowsNO) async {
+Future<List<IdentityData>> getOrgDocfetch(BuildContext context,
+    int companyId,
+    int docTypeID,
+    int docSubTypeID,
+    int pageNo,
+    int rowsNO
+    ) async {
   List<IdentityData> itemsList = [];
   try {
     final response = await Api(context).get(
@@ -66,7 +71,8 @@ Future<List<IdentityData>> getOrgDocfetch(BuildContext context, int companyId,
             docTypeID: docSubTypeID,
             docSubTypeID: docSubTypeID,
             pageNo: pageNo,
-            rowsNo: rowsNO));
+            rowsNo: rowsNO
+        ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Org Document Tab bar response:::::${itemsList}");
       print("111");
@@ -141,7 +147,7 @@ Future<List<IdentityDocumentIdData>> identityDocumentTypeGet(
             docType: item["document_type"],
             subDocID: item["document_sub_type_id"],
             subDocType: item["document_sub_type"],
-            message: '',
+            message: response.statusMessage!,
             sucess: true));
       }
     } else {

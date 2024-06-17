@@ -29,7 +29,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
   late List<String> items;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-  final StreamController<List<ManageCorporateConplianceData>> _ccLisenceController = StreamController<List<ManageCorporateConplianceData>>();
+  final StreamController<List<GetManageDetailsHeadData>> _ccLisenceController = StreamController<List<GetManageDetailsHeadData>>();
 
   @override
   void initState() {
@@ -83,7 +83,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
         SizedBox(height: 5,),
         Expanded(
             child:
-            StreamBuilder<List<ManageCorporateConplianceData>>(
+            StreamBuilder<List<GetManageDetailsHeadData>>(
                 stream : _ccLisenceController.stream,
                 builder: (context, snapshot) {
                   print('55555555');
@@ -109,7 +109,7 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
                   if (snapshot.hasData) {
                     int totalItems = snapshot.data!.length;
                     // int totalPages = (totalItems / itemsPerPage).ceil();
-                    List<ManageCorporateConplianceData> currentPageItems =
+                    List<GetManageDetailsHeadData> currentPageItems =
                     snapshot.data!.sublist(
                       (currentPage - 1) * itemsPerPage,
                       (currentPage * itemsPerPage) > totalItems

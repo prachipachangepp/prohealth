@@ -24,7 +24,8 @@ class EstablishmentManagerRepository {
   static String workWeekSchedule = "/work-week-schedule";
   static String workWeekShiftSchedule = "/work-week-shift-schedule";
   static String holidays = "/holidays";
-  static String payRatesSetup = "/payrates-setup";
+  static String employeedocSetup = "/employee-document-type-setup";
+  static String getEmployeedocTab= "/employee-document-type-meta-data";
 
 
   static String companyAll(){
@@ -79,7 +80,7 @@ class EstablishmentManagerRepository {
     return "$companyOfficeService/$add";
   }
   ///manage corporate and compliance flow
-  static String corporateGetDocType(){
+  static String corporateGetDocType({required int docTypeId}){
     return "$identity/$getDocType";
   }
   ///
@@ -115,14 +116,11 @@ static String postCiVisit(){
   static String workWeekScheduleGet(){
     return "$workWeekSchedule";
   }
-  static String workWeekShiftScheduleGet({required int companyId, required String officeId, required String weekDay}){
-    return "$workWeekShiftSchedule/$weekDay/$companyId/$officeId";
+  static String workWeekShiftScheduleGet(){
+    return "$workWeekShiftSchedule";
   }
   static String addWorkWeekSchedulePost(){
     return "$workWeekSchedule$add";
-  }
-  static String addWorkWeekShiftPost(){
-    return "$workWeekShiftSchedule$add";
   }
   // Hlidays
   static String holidaysGet(){
@@ -137,8 +135,18 @@ static String postCiVisit(){
   static String updateHolidaysPatch({required int holidayId}){
     return "$holidays/$holidayId";
   }
-  /// PAY RATES SETUP
-  static String payRatesSetupGet({required pageNo, required noOfRows}){
-    return "$payRatesSetup/$pageNo/$noOfRows";
+  ///employee doc list
+  static String getEmployeeDocSetUpMetaId({
+    // required int metaDocId
+    required int pageNo, required int rowsNo,
+    required int employeeDocTypeMetaDataId
+  }){
+    // return "$employeedocSetup/$metaDocId";
+     return "$employeedocSetup/$employeeDocTypeMetaDataId/$pageNo/$rowsNo";
   }
+  ///employee doc tab bar
+  static String getEmployeeDocSetup(){
+    return "$getEmployeedocTab";
+  }
+
 }

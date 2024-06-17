@@ -88,8 +88,8 @@ Future<ApiData> addNewService(BuildContext context, String hcoNum, medicareId, n
 }
 
 ///manage corporate compliance flow get
-Future<List<ManageCorporateConplianceData>> getManageCorporateComp(BuildContext context,) async {
-  List<ManageCorporateConplianceData> itemsList = [];
+Future<List<GetManageDetailsHeadData>> getManageCorporateComp(BuildContext context,) async {
+  List<GetManageDetailsHeadData> itemsList = [];
   try {
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.getManageCorporateComp(
@@ -99,7 +99,7 @@ Future<List<ManageCorporateConplianceData>> getManageCorporateComp(BuildContext 
       print("1");
       for(var item in response.data){
         itemsList.add(
-          ManageCorporateConplianceData(
+          GetManageDetailsHeadData(
               id: item['document_type_id'],
               docName: item['document_type'],
               sucess: true, message: response.statusMessage!
