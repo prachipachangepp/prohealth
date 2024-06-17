@@ -14,10 +14,14 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../../app/services/api/managers/establishment_manager/employee_doc_manager.dart';
+import '../../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+
 
 
 class EmplomentDoc extends StatefulWidget {
-  const EmplomentDoc({super.key});
+  final metaDocID;
+  const EmplomentDoc({super.key, required this.metaDocID});
 
   @override
   State<EmplomentDoc> createState() => _EmplomentDocState();
@@ -29,7 +33,7 @@ class _EmplomentDocState extends State<EmplomentDoc> {
   late List<String> items;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<EmployeeDocumentModal>> _controller = StreamController<List<EmployeeDocumentModal>>();
 
   String? selectedValue;
   late List<Color> hrcontainerColors;
@@ -40,7 +44,12 @@ class _EmplomentDocState extends State<EmplomentDoc> {
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+    // orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+    //   _controller.add(data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
+    getEmployeeDoc(context, widget.metaDocID,3,10).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -133,7 +142,7 @@ class _EmplomentDocState extends State<EmplomentDoc> {
           ),
           SizedBox(height: AppSize.s10,),
           Expanded(
-            child: StreamBuilder<List<CiOrgDocumentCC>>(
+            child: StreamBuilder<List<EmployeeDocumentModal>>(
                 stream: _controller.stream,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -189,7 +198,7 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                 children: [
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].docId.toString(),
+                                        formattedSerialNumber,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -200,7 +209,7 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                       )),
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].name.toString(),
+                                        snapshot.data![index].docName.toString(),
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -258,16 +267,16 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                         SizedBox(width: 3,),
                                         InkWell(
                                           onTap: (){
-                                            setState(() async{
-                                              await deleteDocument(
-                                                  context,
-                                                  snapshot.data![index].docId!);
-                                              orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
-                                                _controller.add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
-                                            });
+                                            // setState(() async{
+                                            //   await deleteDocument(
+                                            //       context,
+                                            //       snapshot.data![index].docId!);
+                                            //   orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+                                            //     _controller.add(data);
+                                            //   }).catchError((error) {
+                                            //     // Handle error
+                                            //   });
+                                            // });
                                           },
                                             child: Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),)),
                                       ],

@@ -53,10 +53,10 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   @override
   void initState() {
     super.initState();
+    documentTypeGet(context);
     // currentPage = 1;
     // itemsPerPage = 5;
     // items = List.generate(20, (index) => 'Item ${index + 1}');
-   documentTypeGet(context);
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }

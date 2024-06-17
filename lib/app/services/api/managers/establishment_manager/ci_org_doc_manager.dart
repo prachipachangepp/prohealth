@@ -147,7 +147,7 @@ Future<List<IdentityDocumentIdData>> identityDocumentTypeGet(
             docType: item["document_type"],
             subDocID: item["document_sub_type_id"],
             subDocType: item["document_sub_type"],
-            message: '',
+            message: response.statusMessage!,
             sucess: true));
       }
     } else {

@@ -16,18 +16,23 @@ class EmpDocCertification {
 }
 
 class EmployeeDocumentModal {
-  final String? name;
+  final String? docName;
   final String? expiry;
   final String? reminderThreshold;
+  final int? employeeDocTypesetupId;
+  final int? employeeDocTypeMetaId;
   final int? pageNo;
   final int? rowsNo;
-  final int? employeeDocTypesetupId;
   final bool sucess;
   final String message;
 
   EmployeeDocumentModal( {
-    this.pageNo, this.rowsNo, this.employeeDocTypesetupId,
-    this.name, this.expiry,
+    this.employeeDocTypeMetaId,
+    this.pageNo,
+    this.rowsNo,
+    this.employeeDocTypesetupId,
+    this.docName,
+    this.expiry,
     this.reminderThreshold,required this.sucess, required this.message,});
 }
 
@@ -62,7 +67,6 @@ class EmpDocPerformance {
 
   EmpDocPerformance({this.name, this.expiry, this.reminderThreshold});
 }
-
 
 class EmpDocAddEdit{
   final String docId;

@@ -7,16 +7,19 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 class CertificationEmpDoc extends StatefulWidget {
-  const CertificationEmpDoc({super.key});
+  final  metaDocID;
+  const CertificationEmpDoc({super.key, required this.metaDocID});
 
   @override
   State<CertificationEmpDoc> createState() => _CertificationEmpDocState();
@@ -28,7 +31,7 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
   late List<String> items;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<EmployeeDocumentModal>> _controller = StreamController<List<EmployeeDocumentModal>>();
   String? selectedValue;
   late List<Color> hrcontainerColors;
   @override
@@ -38,7 +41,8 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+
+    getEmployeeDoc(context, widget.metaDocID,2,10).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -131,7 +135,7 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
           ),
           SizedBox(height: AppSize.s10,),
           Expanded(
-            child: StreamBuilder<List<CiOrgDocumentCC>>(
+            child: StreamBuilder<List<EmployeeDocumentModal>>(
                 stream: _controller.stream,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -187,7 +191,7 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
                                 children: [
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].docId.toString(),
+                                        formattedSerialNumber,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -198,7 +202,7 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
                                       )),
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].name.toString(),
+                                        snapshot.data![index].docName.toString(),
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -257,10 +261,11 @@ class _CertificationEmpDocState extends State<CertificationEmpDoc> {
                                         InkWell(
                                           onTap: (){
                                             setState(() async{
-                                              await deleteDocument(
-                                                  context,
-                                                  snapshot.data![index].docId!);
-                                              orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+                                              // await deleteDocument(
+                                              //     context,
+                                              //     snapshot.data![index].docId!);
+
+                                              getEmployeeDoc(context, widget.metaDocID,1,10).then((data) {
                                                 _controller.add(data);
                                               }).catchError((error) {
                                                 // Handle error

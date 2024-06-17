@@ -135,12 +135,16 @@ static String postCiVisit(){
   static String updateHolidaysPatch({required int holidayId}){
     return "$holidays/$holidayId";
   }
+  ///employee doc list
   static String getEmployeeDocSetUpMetaId({
+    // required int metaDocId
     required int pageNo, required int rowsNo,
-    required int employeeDocTypeSetupId
+    required int employeeDocTypeMetaDataId
   }){
-    return "$employeedocSetup/$employeeDocTypeSetupId/$pageNo/$rowsNo";
+    // return "$employeedocSetup/$metaDocId";
+     return "$employeedocSetup/$employeeDocTypeMetaDataId/$pageNo/$rowsNo";
   }
+  ///employee doc tab bar
   static String getEmployeeDocSetup(){
     return "$getEmployeedocTab";
   }
