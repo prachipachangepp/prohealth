@@ -29,6 +29,7 @@ class EstablishmentManagerRepository {
   static String payRatesSetup = "/payrates-setup";
   static String employeeType = "/employee-types";
   static String user = "/users";
+  static String zone = "/zone";
 
 
   static String companyAll(){
@@ -96,15 +97,19 @@ class EstablishmentManagerRepository {
 static String getOrgDocument(){
     return "/$document";
 }
-static String getCiVisit(){
-    return "/$visit";
-}
+  static String getCiVisit({required int pageNo, required int noofRows}){
+    return "/$visit/$pageNo/$noofRows";
+  }
 static String postCiVisit(){
     return "/$visit/$add";
 }
   static String documentTypeGet(){
     return "/$documentType";
   }
+  static String updateCiVisit({required String typeVisit}){
+    return "/$visit/$typeVisit";
+  }
+
   static String identityDocumentTypeGet({required int docId}){
     return "/$identityDocumentType/$docId";
   }
@@ -160,6 +165,10 @@ static String postCiVisit(){
   static String payRatesSetupGet({required int pageNo,required int noOfRows}){
     return "$payRatesSetup/$pageNo/$noOfRows";
   }
+  static String payRatesSetupPost(){
+    return "$payRatesSetup$add";
+  }
+
 
   /// Employee type add POST
   static String addEmployeeTypePost(){
@@ -181,5 +190,8 @@ static String postCiVisit(){
   }
   static String userGet(){
     return "$user";
+  }
+  static String zoneGet(){
+    return "$zone";
   }
 }
