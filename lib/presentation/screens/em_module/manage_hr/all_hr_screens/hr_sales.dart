@@ -50,7 +50,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    companyAllApi(context).then((data){
+    companyAllHrClinicApi(context).then((data){
       _controller.add(data);
     }).catchError((error){});
   }
@@ -100,7 +100,13 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                     nameController: nameController,
                     addressController: addressController,
                     emailController: emailController,
-                    onAddPressed: () {},
+                    onAddPressed: () async {
+                      await addEmployeeTypePost(context,1,nameController.text,"#E8A87D",'NC');
+                      companyAllHrClinicApi(context).then((data){
+                        _controller.add(data);
+                      }).catchError((error){});
+                      Navigator.pop(context);
+                    },
                     containerColor: ColorManager.pinkfaint, onColorChanged: (Color ) {  },
                   );
                 },
@@ -316,31 +322,31 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
         SizedBox(
           height: AppSize.s10,
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            /// Handle previous page button press
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            /// Handle page number tap
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            /// Handle next page button press
-            setState(() {
-              currentPage = currentPage < (items.length / itemsPerPage).ceil()
-                  ? currentPage + 1
-                  : (items.length / itemsPerPage).ceil();
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     /// Handle previous page button press
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     /// Handle page number tap
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     /// Handle next page button press
+        //     setState(() {
+        //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
+        //           ? currentPage + 1
+        //           : (items.length / itemsPerPage).ceil();
+        //     });
+        //   },
+        // ),
       ],
     );
   }

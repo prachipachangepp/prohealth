@@ -36,7 +36,7 @@ Future<List<HRHeadBar>> companyHRHeadApi(BuildContext context, int deptId) async
 }
 
 /// Get Company data
-Future<List<HRClinical>> companyAllApi(BuildContext context) async {
+Future<List<HRClinical>> companyAllHrClinicApi(BuildContext context) async {
   List<HRClinical> itemsList = [];
   try {
     final response = await Api(context)
