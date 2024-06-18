@@ -535,7 +535,13 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                 11,
                                                                 'Office 1',
                                                                 data.weekDays);
+                                                            workWeekScheduleGet(context).then((data) {
+                                                              workWeekController.add(data);
+                                                            }).catchError((error) {
+                                                              // Handle error
+                                                            });
                                                           },
+
                                                           shiftNameController:
                                                           shiftnameController,
                                                         );

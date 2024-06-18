@@ -28,6 +28,7 @@ class EstablishmentManagerRepository {
   static String getEmployeedocTab= "/employee-document-type-meta-data";
   static String payRatesSetup = "/payrates-setup";
   static String employeeType = "/employee-types";
+  static String zone = "/zone";
 
 
   static String companyAll(){
@@ -95,12 +96,18 @@ class EstablishmentManagerRepository {
 static String getOrgDocument(){
     return "/$document";
 }
-static String getCiVisit(){
-    return "/$visit";
+static String getCiVisit({required int pageNo, required int noofRows}){
+    return "/$visit/$pageNo/$noofRows";
 }
 static String postCiVisit(){
     return "/$visit/$add";
 }
+  static String deleteCiVisit({required int visitId}){
+    return "/$visit/$visitId";
+  }
+  static String updateCiVisit({required String typeVisit}){
+    return "/$visit/$typeVisit";
+  }
   static String documentTypeGet(){
     return "/$documentType";
   }
@@ -159,9 +166,17 @@ static String postCiVisit(){
   static String payRatesSetupGet({required int pageNo,required int noOfRows}){
     return "$payRatesSetup/$pageNo/$noOfRows";
   }
+  static String payRatesSetupPost(){
+    return "$payRatesSetup$add";
+  }
 
   /// Employee type add POST
   static String addEmployeeTypePost(){
     return "$employeeType$add";
   }
+
+  /// Zone All API
+ static String zoneGet(){
+    return "$zone";
+ }
 }
