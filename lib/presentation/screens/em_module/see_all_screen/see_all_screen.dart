@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
+import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 
 import '../../../../app/resources/color.dart';
@@ -28,7 +30,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   TextEditingController mobNumController = TextEditingController();
   TextEditingController secNumController = TextEditingController();
   TextEditingController OptionalController = TextEditingController();
-  final StreamController<List<CompanyIdentityModel>> _companyIdentityController = StreamController<List<CompanyIdentityModel>>();
+  final StreamController<List<UserModal>> _companyUsersList = StreamController<List<UserModal>>();
   final PageController _pageController = PageController();
   late int currentPage;
   late int itemsPerPage;
@@ -44,8 +46,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    companyOfficeListGet(context, 11, 1, 6).then((data) {
-      _companyIdentityController.add(data);
+    getUser(context).then((data) {
+      _companyUsersList.add(data);
     }).catchError((error) {
       // Handle error
     });
@@ -98,6 +100,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         color: Colors.white,
                       ),
                     ),
+                    SizedBox(width: 5),
                     Text(
                       "User ID",
                       style: GoogleFonts.firaSans(
@@ -106,6 +109,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           color: ColorManager.white
                       ),
                     ),
+                    SizedBox(width: 5),
                     Text(
                       "First Name",
                       style: GoogleFonts.firaSans(
@@ -114,14 +118,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           color: ColorManager.white
                       ),
                     ),
-                    Text(
-                      "Address",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
-                      ),
-                    ),
+                    SizedBox(width: 5),
                     Text(
                       "Last Name",
                       style: GoogleFonts.firaSans(
@@ -130,6 +127,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           color: ColorManager.white
                       ),
                     ),
+                    SizedBox(width: 5),
                     Text(
                       "Role",
                       style: GoogleFonts.firaSans(
@@ -138,8 +136,18 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           color: ColorManager.white
                       ),
                     ),
+                    SizedBox(width: 5),
                     Text(
                       "Email ID",
+                      style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.white
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      "Company ID",
                       style: GoogleFonts.firaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -155,6 +163,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           color: ColorManager.white
                       ),
                     ),
+                    SizedBox(width: 15),
                      // SizedBox(width: 1),
                   ],
                 ),
@@ -163,8 +172,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
             ],
           ),
           Expanded(
-            child: StreamBuilder<List<CompanyIdentityModel>>(
-              stream: _companyIdentityController.stream,
+            child: StreamBuilder<List<UserModal>>(
+              stream: _companyUsersList.stream,
               builder: (BuildContext context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -231,7 +240,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   textAlign: TextAlign.start,
                                 ),
                                 Text(
-                                  'User Id',
+                                  snapshot.data![index].userId.toString(),
                                   style: GoogleFonts.firaSans(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w700,
@@ -239,8 +248,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Text(
-                                 'First Name',
-                                  textAlign: TextAlign.end,
+                                 snapshot.data![index].firstName,
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w700,
@@ -248,8 +257,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Last Name',
-                                  textAlign: TextAlign.end,
+                                  snapshot.data![index].lastName,
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w700,
@@ -257,8 +266,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Role',
-                                  textAlign: TextAlign.end,
+                                  snapshot.data![index].role,
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w700,
@@ -266,8 +275,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Email',
-                                  textAlign: TextAlign.end,
+                                  snapshot.data![index].email,
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w700,
@@ -275,8 +284,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Company ID',
-                                  textAlign: TextAlign.end,
+                                  snapshot.data![index].companyId.toString(),
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w700,
