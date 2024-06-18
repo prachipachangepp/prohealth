@@ -46,7 +46,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    getVisit(context).then((data) {
+    getVisit(context,1,10).then((data) {
       _visitController.add(data);
 
     }).catchError((error) {
@@ -114,7 +114,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                _selectedItem
                             );
                            setState(() async {
-                           await  getVisit(context).then((data) {
+                           await  getVisit(context,1,10).then((data) {
                                _visitController.add(data);
                              }).catchError((error) {
                                // Handle error
@@ -355,7 +355,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                           docNamecontroller,
                                                       idOfDocumentController:
                                                           docIdController,
-                                                      onSavePressed: () {},
+                                                      onSavePressed: () {
+                                                        updateVisitPatch(context, snapshot.data![index].typeofVisit!, docNamecontroller.text, docIdController.text);
+                                                      },
                                                       child: CICCDropdown(
                                                         initialValue: 'Select',
                                                         items: [

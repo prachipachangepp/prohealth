@@ -1,6 +1,6 @@
 class CiVisit{
   final String? typeofVisit;
-  final String? eligibleClinician;
+  final List? eligibleClinician;
   final int? visitId;
   final bool sucess;
   final String message;
@@ -9,6 +9,6 @@ class CiVisit{
 
 class CiVisitAdd{
   final String? visitType;
-  final String? eligibleClinician;
+  final List? eligibleClinician;
   CiVisitAdd({this.visitType, this.eligibleClinician});
 }

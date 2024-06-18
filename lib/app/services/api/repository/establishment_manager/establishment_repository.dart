@@ -96,12 +96,18 @@ class EstablishmentManagerRepository {
 static String getOrgDocument(){
     return "/$document";
 }
-static String getCiVisit(){
-    return "/$visit";
+static String getCiVisit({required int pageNo, required int noofRows}){
+    return "/$visit/$pageNo/$noofRows";
 }
 static String postCiVisit(){
     return "/$visit/$add";
 }
+  static String deleteCiVisit({required int visitId}){
+    return "/$visit/$visitId";
+  }
+  static String updateCiVisit({required String typeVisit}){
+    return "/$visit/$typeVisit";
+  }
   static String documentTypeGet(){
     return "/$documentType";
   }
