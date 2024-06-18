@@ -5,37 +5,29 @@ import '../../api.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
 ///user
-Future<List<UserModal>> getUser(BuildContext context,
-    int userId,
-    String firstName,
-    String lastName,
-    String role,
-    String email,
-    int companyId
-    ) async {
+Future<List<UserModal>> getUser(BuildContext context,) async {
   List<UserModal> itemsList = [];
   try {
     final response = await Api(context).get(
-        path: EstablishmentManagerRepository.userGet(
-
-        ));
+        path: EstablishmentManagerRepository.userGet());
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Org Document Tab bar response:::::${itemsList}");
-      print("111");
+      print("user data");
       for (var item in response.data) {
         itemsList.add(
          UserModal(
-             userId: userId,
-             firstName: firstName,
-             lastName: lastName,
-             role: role,
-             companyId: companyId,
-             email: email)
+             userId: item['userId'],
+             firstName: item['firstName'],
+             lastName: item['lastName'] == null ? "--" : item['lastName'],
+             role: item['role'],
+             companyId: item['company_id'],
+             email: item['email'],
+             sucess: true,
+             message: response.statusMessage!)
         );
       }
       // print("Org Document response:::::${itemsList}");
     } else {
-      print('Org Api Error');
+      print('User Data Error');
       return itemsList;
     }
     // print("Org response:::::${response}");
