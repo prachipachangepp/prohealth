@@ -165,9 +165,14 @@ static String postCiVisit(){
     return "$employeeType$add";
   }
 
-  static String deleteEmployeedoctypesetup({
-    required int employeeDocTypeSetupId
+  static String deleteEmployeeTypes({
+    required int employeeTypeId
    }){
-    return "$employeedocSetup/$employeeDocTypeSetupId";
+    return "$employeeType/$employeeTypeId";
+  }
+  static String deleteEmployeedoctypesetup({
+    required int employeeDoctypeSetupId
+   }){
+    return "$employeedocSetup/$employeeDoctypeSetupId";
   }
 }

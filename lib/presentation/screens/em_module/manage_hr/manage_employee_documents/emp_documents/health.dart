@@ -265,8 +265,10 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                 ],),);
                                           });
                                         },
-                                              icon: Icon(Icons.edit_outlined,
-                                              color: ColorManager.bluebottom,)),
+                                                icon: Icon(
+                                                Icons.edit_outlined,
+                                                size: 18,
+                                                color: ColorManager.bluebottom,)),
                                         SizedBox(width: 3,),
                                         IconButton(
                                           onPressed: () async {

@@ -362,12 +362,19 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                        showDialog(context: context,
-                                            builder: (context) => DeletePopup(onCancel: (){
-                                          Navigator.pop(context);
-                                        }, onDelete: (){
+                                       showDialog(context: context,
+                                          builder: (context) => DeletePopup(
+                                              onCancel: (){
+                                                Navigator.pop(context);
+                                              }, onDelete: () async {
+                                             await  allfromHrDelete(
+                                                  context, snapshot.data![index].employeeTypesId!);
+                                              companyAllHrClinicApi(context).then((data){
+                                                _controller.add(data);
+                                              }).catchError((error){});
+                                               Navigator.pop(context);
+                                          }));
 
-                                            }));
                                     },
                                     icon: Icon(
                                       size: 18,

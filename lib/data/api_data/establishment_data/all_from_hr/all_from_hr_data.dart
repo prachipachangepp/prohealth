@@ -15,8 +15,10 @@ class HRClinical {
   final String? empType;
   final String? abbrivation;
   final String? color;
+  final int? employeeTypesId;
 
-  HRClinical({
+  HRClinical( {
+    this.employeeTypesId,
       this.success, this.message, this.empType, this.abbrivation, this.color});
 }
 

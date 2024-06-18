@@ -93,7 +93,7 @@ Future<ApiData> employeedoctypeSetupIdDelete(
   try {
     var response = await Api(context).delete(path:
     EstablishmentManagerRepository.deleteEmployeedoctypesetup(
-        employeeDocTypeSetupId: employeeDocTypeSetupId
+         employeeDoctypeSetupId: employeeDocTypeSetupId
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employee Document Deleted");
