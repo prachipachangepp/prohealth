@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_country.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_zone.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/ci_zone_zipcode.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -156,6 +156,31 @@ class _CiOrgDocumentState extends State<CiZone> {
                           ),
                         ),
                       ),
+                      InkWell(
+                        onTap: () => _selectButton(2),
+                        child: Container(
+                          height: 40,
+                          width: 80,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Zone",
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: _selectedIndex == 2
+                                      ? FontWeightManager.bold
+                                      : FontWeightManager.regular,
+                                  color: _selectedIndex == 2
+                                      ? ColorManager.blueprime
+                                      : ColorManager.mediumgrey,
+                                ),
+                              ),
+                              _selectedIndex == 2 ?
+                              Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -276,6 +301,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                     // Page 1
                     CIZoneCountry(),
                     CIZoneZone(),
+                    CiZoneZipcode()
                   ],
                 ),
               ),
