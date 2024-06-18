@@ -254,7 +254,8 @@ Future<ApiData> deleteHolidays(
     BuildContext context,
     int holidayId,) async {
   try {
-    var response = await Api(context).delete(path: EstablishmentManagerRepository.deleteHolidaysDelete(holidayId: holidayId));
+    var response = await Api(context).delete(path:
+    EstablishmentManagerRepository.deleteHolidaysDelete(holidayId: holidayId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Holiday Deleted");
       return ApiData(
