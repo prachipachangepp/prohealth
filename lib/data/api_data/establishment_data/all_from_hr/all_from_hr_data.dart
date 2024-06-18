@@ -1,5 +1,13 @@
 import 'dart:ui';
-
+///hr head bar
+class HRHeadBar{
+  final int deptId;
+  final String deptName;
+  final String deptDescp;
+  final bool sucess;
+  final String message;
+   HRHeadBar({required this.deptId,required this.deptName, required this.deptDescp,required this.sucess,required this.message,});
+}
 ///hr clinical
 class HRClinical {
   final bool? success;

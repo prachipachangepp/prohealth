@@ -22,6 +22,7 @@ import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_consta
 import '../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 
 class ManageEmployDocument extends StatefulWidget {
+
   const ManageEmployDocument({super.key});
 
   @override
@@ -30,7 +31,7 @@ class ManageEmployDocument extends StatefulWidget {
 
 class _ManageEmployDocumentState extends State<ManageEmployDocument> {
   final PageController _managePageController = PageController();
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _selectButton(int index) {
     setState(() {
@@ -42,6 +43,7 @@ class _ManageEmployDocumentState extends State<ManageEmployDocument> {
       curve: Curves.ease,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return ManageEmpDocWidget(
@@ -53,6 +55,7 @@ class _ManageEmployDocumentState extends State<ManageEmployDocument> {
 }
 
 class ManageEmpDocWidget extends StatefulWidget {
+
   final PageController managePageController;
   final int selectedIndex;
   final Function(int) selectButton;
@@ -104,7 +107,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
     super.initState();
     getEmployeeDocTab(context);
   }
-  var docID = 1;
+
+  var metaDocID = 1;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -182,11 +186,11 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                               borderRadius: BorderRadius.circular(20),
                                               color: _selectedIndex ==
                                                   snapshot.data![index].employeeDocMetaDataId
-                                                  ? Colors.white
+                                                  ? ColorManager.white
                                                   : Colors.transparent,
                                             ),
                                             child: Text(
-                                              snapshot.data![index].employeeDocType!,
+                                              snapshot.data![index].employeeDocType,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 12,
@@ -200,7 +204,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                             ),
                                           ),
                                            onTap: () {
-                                           _selectButton(snapshot.data![index].employeeDocMetaDataId!);
+                                           _selectButton(snapshot.data![index].employeeDocMetaDataId);
+                                           metaDocID = snapshot.data![index].employeeDocMetaDataId;
                                            }
                                         ),
                                 ]);
@@ -239,15 +244,26 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                     top: MediaQuery.of(context).size.width / 45),
                 child: PageView(
                     controller: _managePageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
                     physics: const NeverScrollableScrollPhysics(),
-                    children: const [
-                      HealthEmpDoc(),
-                      CertificationEmpDoc(),
-                      EmplomentDoc(),
-                      ClinicalVerificationEmpDoc(),
-                      AcknowledgementEmpDoc(),
-                      CompansationEmpDoc(),
-                      PerformanceEmpDoc(),
+                    children: [
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                       HealthEmpDoc(metaDocID: metaDocID),
+                      // CertificationEmpDoc(metaDocID: metaDocID,),
+                      // EmplomentDoc(metaDocID: metaDocID,),
+                      // ClinicalVerificationEmpDoc(metaDocID: metaDocID,),
+                      // AcknowledgementEmpDoc(metaDocID: metaDocID,),
+                      // CompansationEmpDoc(metaDocID: metaDocID,),
+                      // PerformanceEmpDoc(metaDocID: metaDocID,),
                     ]),
               ),]
             ),

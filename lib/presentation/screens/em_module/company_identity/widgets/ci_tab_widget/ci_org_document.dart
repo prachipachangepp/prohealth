@@ -7,10 +7,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/org_do
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_policies&procedure.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_vendor_contract.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
-
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
@@ -34,6 +31,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     });
   }
   String _selectedItem1 = 'Licenses';
+
   void _onDropdownItemSelected1(String newValue) {
     setState(() {
       _selectedItem1 = newValue;
@@ -53,10 +51,10 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   @override
   void initState() {
     super.initState();
+    documentTypeGet(context);
     // currentPage = 1;
     // itemsPerPage = 5;
     // items = List.generate(20, (index) => 'Item ${index + 1}');
-   documentTypeGet(context);
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }

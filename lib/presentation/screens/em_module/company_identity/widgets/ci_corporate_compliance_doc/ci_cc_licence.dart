@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
@@ -12,7 +11,6 @@ import '../../../../../../data/api_data/establishment_data/ci_manage_button/mana
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import '../checkbox_constant.dart';
 
 class CICCLicense extends StatefulWidget {
   const CICCLicense({super.key});
@@ -45,10 +43,6 @@ class _CICCLicenseState extends State<CICCLicense> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> currentPageItems = items.sublist(
-      (currentPage - 1) * itemsPerPage,
-      min(currentPage * itemsPerPage, items.length),
-    );
     return Material(
       color: Colors.transparent,
       child: Column(

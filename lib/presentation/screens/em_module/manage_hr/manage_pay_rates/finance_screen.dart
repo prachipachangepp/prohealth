@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
@@ -26,7 +27,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  final StreamController<List<PayRateFinance>> _controller = StreamController<List<PayRateFinance>>();
+  final StreamController<List<PayRateFinanceData>> _payRatesController = StreamController<List<PayRateFinanceData>>();
 
   String _selectedOption = 'Option 1';
   late int currentPage;
@@ -39,11 +40,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    // orgDocumentGet(context).then((data) {
-    //   _controller.add(data);
-    // }).catchError((error) {
-    //   // Handle error
-    // });
+    payRatesDataGet(context,1,10).then((data) {
+      _payRatesController.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
 
   @override
@@ -398,34 +399,33 @@ class _FinanceScreenState extends State<FinanceScreen> {
             ///list
             Expanded(
               child:
-              // StreamBuilder<List<PayRateFinance>>(
-              //   stream: _controller.stream,
-              //   builder: (context, snapshot) {
-              //     print('1111111');
-              //     if (snapshot.connectionState == ConnectionState.waiting) {
-              //       return Center(
-              //         child: CircularProgressIndicator(
-              //           color: ColorManager.blueprime,
-              //         ),
-              //       );
-              //     }
-              //     if (snapshot.data!.isEmpty) {
-              //       return Center(
-              //         child: Text(
-              //           AppString.dataNotFound,
-              //           style: CustomTextStylesCommon.commonStyle(
-              //             fontWeight: FontWeightManager.medium,
-              //             fontSize: FontSize.s12,
-              //             color: ColorManager.mediumgrey,
-              //           ),
-              //         ),
-              //       );
-              //     }
-              //     if (snapshot.hasData) {
-              //       return
-              ListView.builder(
+              StreamBuilder<List<PayRateFinanceData>>(
+                stream:_payRatesController.stream,
+                builder: (context, snapshot) {
+                  print('1111111');
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    );
+                  }
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppString.dataNotFound,
+                        style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey,
+                        ),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    return ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: currentPageItems.length,
+                  itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     int serialNumber =
                         index + 1 + (currentPage - 1) * itemsPerPage;
@@ -465,7 +465,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Text(
-                                    'Additional Rates',
+                                    snapshot.data![index].typeVisit,
                                     textAlign: TextAlign.end,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
@@ -476,7 +476,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   ),
                                 ),
                                 Text(
-                                  '\$4.58',
+                                  '\$${snapshot.data![index].payRates}',
                                   textAlign: TextAlign.end,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 10,
@@ -486,7 +486,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'San Jose Zone 1',
+                                  '${snapshot.data![index].zone!}' ,
                                   textAlign: TextAlign.end,
                                   style: GoogleFonts.firaSans(
                                     fontSize: 10,
@@ -679,12 +679,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             )),
                       ],
                     );
-                  }),
-              //;
-//   }
-//   return Offstage();
-// },
-// ),
+                  });
+  }
+  return Offstage();
+},
+),
             ),
           ],
         ),

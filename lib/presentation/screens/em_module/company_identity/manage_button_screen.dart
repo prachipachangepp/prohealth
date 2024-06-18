@@ -97,7 +97,7 @@ class _ManageWidgetState extends State<ManageWidget> {
   final PageController _managePageController = PageController();
 
   int _selectedIndex = 1;
-   int listIndex = 0;
+
 
   void _selectButton(int index) {
     setState(() {
@@ -131,7 +131,7 @@ class _ManageWidgetState extends State<ManageWidget> {
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
-  int docID=1;
+  int docID=0;
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +158,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                 Row(children: [
                   InkWell(
                       onTap: (){
-                      // Navigator.pop(context);
+                      Navigator.pop(context);
                       },
                       child: Icon(Icons.arrow_back,size: 15,color: ColorManager.mediumgrey,)),
                   // IconButton(icon: Icon(Icons.arrow_back_outlined,size: 15),color: ColorManager.mediumgrey, onPressed: () {
@@ -251,6 +251,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                               itemCount:docList.length,
                               itemBuilder: (BuildContext context,index) {
                                 if(snapshot.hasData){
+
                                   return docList[index];
                                   //   InkWell(
                                   //     child: Container(

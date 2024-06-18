@@ -26,6 +26,8 @@ class EstablishmentManagerRepository {
   static String holidays = "/holidays";
   static String employeedocSetup = "/employee-document-type-setup";
   static String getEmployeedocTab= "/employee-document-type-meta-data";
+  static String payRatesSetup = "/payrates-setup";
+  static String employeeType = "/employee-types";
 
 
   static String companyAll(){
@@ -116,12 +118,16 @@ static String postCiVisit(){
   static String workWeekScheduleGet(){
     return "$workWeekSchedule";
   }
-  static String workWeekShiftScheduleGet(){
-    return "$workWeekShiftSchedule";
+  static String workWeekShiftScheduleGet({required int companyId,required String officeId, required String weekDay}){
+    return "$workWeekShiftSchedule/$weekDay/$companyId/$officeId";
+  }
+  static String addWorkWeekShiftPost(){
+    return "$workWeekShiftSchedule$add";
   }
   static String addWorkWeekSchedulePost(){
     return "$workWeekSchedule$add";
   }
+
   // Hlidays
   static String holidaysGet(){
     return "$holidays";
@@ -135,14 +141,27 @@ static String postCiVisit(){
   static String updateHolidaysPatch({required int holidayId}){
     return "$holidays/$holidayId";
   }
+  ///employee doc list
   static String getEmployeeDocSetUpMetaId({
+    // required int metaDocId
     required int pageNo, required int rowsNo,
-    required int employeeDocTypeSetupId
+    required int employeeDocTypeMetaDataId
   }){
-    return "$employeedocSetup/$employeeDocTypeSetupId/$pageNo/$rowsNo";
+    // return "$employeedocSetup/$metaDocId";
+     return "$employeedocSetup/$employeeDocTypeMetaDataId/$pageNo/$rowsNo";
   }
+  ///employee doc tab bar
   static String getEmployeeDocSetup(){
     return "$getEmployeedocTab";
   }
 
+  /// Pay Rates get data
+  static String payRatesSetupGet({required int pageNo,required int noOfRows}){
+    return "$payRatesSetup/$pageNo/$noOfRows";
+  }
+
+  /// Employee type add POST
+  static String addEmployeeTypePost(){
+    return "$employeeType$add";
+  }
 }

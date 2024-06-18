@@ -4,52 +4,7 @@ import '../../../../../data/api_data/establishment_data/employee_doc/employee_do
 import '../../api.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
-/// GET
-Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
-    int employeeDocTypeSetupId,
-    int pageNo,
-    int rowsNo
-    ) async {
-  List<EmployeeDocumentModal> itemsList = [];
-  try {
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.getEmployeeDocSetUpMetaId(
-        pageNo: pageNo,
-        rowsNo: rowsNo,
-        employeeDocTypeSetupId: employeeDocTypeSetupId
-    ));
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      // print("Org Document response:::::${itemsList}");
-      print("1");
-      for(var item in response.data["DocumentList"]){
-        itemsList.add(
-          EmployeeDocumentModal(
-              name: item["doc_name"],
-              expiry: item["expiry_date"],
-              reminderThreshold: item["expiry_reminder"],
-              pageNo: item["pageNbr"],
-              rowsNo: item["NbrofRows"],
-              employeeDocTypesetupId: employeeDocTypeSetupId,
-              sucess: true,
-              message: response.statusMessage!
-          ),
-        );
-      }
-      print("Org Sub Document response:::::${itemsList}");
-    } else {
-      print('Org Api Error');
-      return itemsList;
-    }
-    // print("Org response:::::${response}");
-    return itemsList;
-  } catch (e) {
-    print("Error $e");
-    return itemsList;
-  }
-}
-
-
-/// GET employee-document-type-meta-data
+/// GET employee-document-type-meta-data in tab bar
 Future<List<EmployeeDocTabModal>> getEmployeeDocTab(BuildContext context,
     ) async {
   List<EmployeeDocTabModal> itemsList = [];
@@ -60,20 +15,20 @@ Future<List<EmployeeDocTabModal>> getEmployeeDocTab(BuildContext context,
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
-      print("1");
+      print("1212");
       for(var item in response.data){
         itemsList.add(
           EmployeeDocTabModal(
-              employeeDocType: item['EmployeeDocumentType'],
-              employeeDocMetaDataId: item['EmployeeDocumentTypeMetaDataId'],
-              success: true,
-              message: response.statusMessage!,
+            employeeDocType: item['EmployeeDocumentType']== null ?"null" :item['EmployeeDocumentType'],
+            employeeDocMetaDataId: item['EmployeeDocumentTypeMetaDataId']== null ? 0 :item['EmployeeDocumentTypeMetaDataId'],
+            success: true,
+            message: response.statusMessage!,
           ),
         );
       }
-      print("Org Sub Document response:::::${itemsList}");
+      print("Employee Document Response:::::${itemsList}");
     } else {
-      print('Org Api Error');
+      print('Employee Document');
       return itemsList;
     }
     // print("Org response:::::${response}");
@@ -83,3 +38,48 @@ Future<List<EmployeeDocTabModal>> getEmployeeDocTab(BuildContext context,
     return itemsList;
   }
 }
+/// GET employee-document-type-setup/{EmployeeDocumentTypeMetaDataId}/{pageNbr}/{NbrofRows}
+
+Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
+    // int metaDocID
+    int employeeDocTypeMetataId,
+    int pageNo,
+    int rowsNo
+    ) async {
+  List<EmployeeDocumentModal> itemsList = [];
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.getEmployeeDocSetUpMetaId(
+         // metaDocId: metaDocID
+        pageNo: pageNo,
+        rowsNo: rowsNo,
+        employeeDocTypeMetaDataId:  employeeDocTypeMetataId,
+    ));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1");
+      for(var item in response.data){
+        itemsList.add(EmployeeDocumentModal(
+              docName: item["DocumentName"],
+              expiry: item["Expiry"],
+              reminderThreshold: item["ReminderThreshold"],
+              employeeDocTypesetupId: item['EmployeeDocumentTypeSetupId'],
+              employeeDocTypeMetaId: item['EmployeeDocumentTypeMetaDataId'],
+              sucess: true,
+              message: response.statusMessage!
+          ),
+        );
+      }
+      print("Employee setup Response:::::${response.data}");
+    } else {
+      print('Employee Document Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+

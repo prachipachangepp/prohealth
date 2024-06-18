@@ -7,16 +7,19 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 class HealthEmpDoc extends StatefulWidget {
-  const HealthEmpDoc({super.key});
+  final metaDocID;
+  const HealthEmpDoc({super.key, required this.metaDocID});
 
   @override
   State<HealthEmpDoc> createState() => _HealthEmpDocState();
@@ -28,7 +31,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
   late List<String> items;
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<EmployeeDocumentModal>> _controller = StreamController<List<EmployeeDocumentModal>>();
 
   String? selectedValue;
   late List<Color> hrcontainerColors;
@@ -39,7 +42,12 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+    // orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+    //   _controller.add(data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
+    getEmployeeDoc(context, widget.metaDocID,1,10).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -132,9 +140,10 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
           ),
           SizedBox(height: AppSize.s10,),
           Expanded(
-            child: StreamBuilder<List<CiOrgDocumentCC>>(
+            child: StreamBuilder<List<EmployeeDocumentModal>>(
                 stream: _controller.stream,
                 builder: (context, snapshot) {
+                  print('1111111');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
@@ -182,13 +191,13 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                 ],
                               ),
                               height: AppSize.s56,
-
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].docId.toString(),
+                                        formattedSerialNumber,
+                                        // snapshot.data![index].name.toString(),
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -199,7 +208,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                       )),
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].name.toString(),
+                                        snapshot.data![index].docName,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -209,7 +218,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                       )),
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].expiry.toString(),
+                                        snapshot.data![index].expiry,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -219,7 +228,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                       )),
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].reminderThreshold.toString(),
+                                        snapshot.data![index].reminderThreshold,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -257,16 +266,16 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                         SizedBox(width: 3,),
                                         InkWell(
                                           onTap:(){
-                                            setState(() async{
-                                              await deleteDocument(
-                                                  context,
-                                                  snapshot.data![index].docId!);
-                                              orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
-                                                _controller.add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
-                                            });
+                                            // setState(() async{
+                                            //   await deleteDocument(
+                                            //       context,
+                                            //       snapshot.data![index].docId!);
+                                            //   orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+                                            //     _controller.add(data);
+                                            //   }).catchError((error) {
+                                            //     // Handle error
+                                            //   });
+                                            // });
                                           },
                                             child: Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),)),
                                       ],
@@ -284,31 +293,31 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                 }
             ),
           ),
-          PaginationControlsWidget(
-            currentPage: currentPage,
-            items: items,
-            itemsPerPage: itemsPerPage,
-            onPreviousPagePressed: () {
-              /// Handle previous page button press
-              setState(() {
-                currentPage = currentPage > 1 ? currentPage - 1 : 1;
-              });
-            },
-            onPageNumberPressed: (pageNumber) {
-              /// Handle page number tap
-              setState(() {
-                currentPage = pageNumber;
-              });
-            },
-            onNextPagePressed: () {
-              /// Handle next page button press
-              setState(() {
-                currentPage = currentPage < (items.length / itemsPerPage).ceil()
-                    ? currentPage + 1
-                    : (items.length / itemsPerPage).ceil();
-              });
-            },
-          ),
+          // PaginationControlsWidget(
+          //   currentPage: currentPage,
+          //   items: items,
+          //   itemsPerPage: itemsPerPage,
+          //   onPreviousPagePressed: () {
+          //     /// Handle previous page button press
+          //     setState(() {
+          //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+          //     });
+          //   },
+          //   onPageNumberPressed: (pageNumber) {
+          //     /// Handle page number tap
+          //     setState(() {
+          //       currentPage = pageNumber;
+          //     });
+          //   },
+          //   onNextPagePressed: () {
+          //     /// Handle next page button press
+          //     setState(() {
+          //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
+          //           ? currentPage + 1
+          //           : (items.length / itemsPerPage).ceil();
+          //     });
+          //   },
+          // ),
         ],
       ),
     );
