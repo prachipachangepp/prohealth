@@ -28,6 +28,7 @@ class EstablishmentManagerRepository {
   static String getEmployeedocTab= "/employee-document-type-meta-data";
   static String payRatesSetup = "/payrates-setup";
   static String employeeType = "/employee-types";
+  static String user = "/users";
 
 
   static String companyAll(){
@@ -174,5 +175,11 @@ static String postCiVisit(){
     required int employeeDoctypeSetupId
    }){
     return "$employeedocSetup/$employeeDoctypeSetupId";
+  }
+  static String postEmployeedocTypesetup(){
+    return "$employeedocSetup/$add";
+  }
+  static String userGet(){
+    return "$user";
   }
 }

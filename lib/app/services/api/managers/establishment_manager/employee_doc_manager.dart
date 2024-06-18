@@ -114,3 +114,39 @@ Future<ApiData> employeedoctypeSetupIdDelete(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+///POST employee doc type setup
+Future<ApiData> employeeDocTypeSetupIDPost(
+    BuildContext context,
+    // int departmentId,
+    // String employeeType,
+    // String color,
+    // String abbreviation
+    ) async {
+  try {
+    var response = await Api(context).post(path:
+    EstablishmentManagerRepository.postEmployeedocTypesetup(), data:
+    {
+      // 'DepartmentId':departmentId,
+      // 'employeeType':employeeType,
+      // 'color':color,
+      // 'abbreviation':abbreviation
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Employee type Added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
