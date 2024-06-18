@@ -42,7 +42,8 @@ Future<ApiData> addPayRatesSetupPost(
     BuildContext context, int deptId, int empTypeId,int typeOfVisitId, int zoneId, int payRates) async {
   try {
     var response = await Api(context).post(
-        path: EstablishmentManagerRepository.payRatesSetupPost(),
+        path: EstablishmentManagerRepository.
+        payRatesSetupPost(),
         data: {
           'departmentId': deptId,
           'employeeTypeId': empTypeId,

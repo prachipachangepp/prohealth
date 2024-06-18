@@ -409,12 +409,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         ),
                                         IconButton(
                                           onPressed: () async{
-                                            await deleteVisitPatch(context, snapshot.data![index].visitId!);
-                                            getVisit(context,1,10).then((data) {
-                                              _visitController.add(data);
-                                            }).catchError((error) {
-                                              // Handle error
-                                            });
+                                            // await deleteVisitPatch(context, snapshot.data![index].visitId!);
+                                            // getVisit(context,1,10).then((data) {
+                                            //   _visitController.add(data);
+                                            // }).catchError((error) {
+                                            //   // Handle error
+                                            // });
                                           },
                                           icon: Icon( Icons.delete_outline_outlined,size: 20, color: Color(0xffF6928A)),
                                         ),
