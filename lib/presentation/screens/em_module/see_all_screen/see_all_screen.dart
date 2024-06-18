@@ -251,83 +251,109 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   color: ColorManager.fmediumgrey,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      AppString.srNo,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          AppString.srNo,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "User ID",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "User ID",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "First Name",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                       SizedBox(width: 10),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "First Name",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Last Name",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Last Name",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Role",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Role",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Email ID",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Email ID",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Company ID",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Company ID",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Action",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Action",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 15),
-                     // SizedBox(width: 1),
-                  ],
+                      // SizedBox(width: 15),
+                       // SizedBox(width: 1),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -389,254 +415,281 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               ],
                             ),
                             height: 56,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  formattedSerialNumber,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      formattedSerialNumber,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                      textAlign: TextAlign.start,
+                                    ),
                                   ),
-                                  textAlign: TextAlign.start,
-                                ),
-                                Text(
-                                  snapshot.data![index].userId.toString(),
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      snapshot.data![index].userId.toString(),
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                 snapshot.data![index].firstName,
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                     snapshot.data![index].firstName,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  snapshot.data![index].lastName,
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      snapshot.data![index].lastName,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  snapshot.data![index].role,
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      snapshot.data![index].role,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  snapshot.data![index].email,
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      snapshot.data![index].email,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  snapshot.data![index].companyId.toString(),
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      snapshot.data![index].companyId.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                               Row(
-                                 children: [
-                                   InkWell(
-                                     child: Container(
-                                       height: 20,
-                                       width: 50,
-                                       decoration: BoxDecoration(
-                                         borderRadius:  BorderRadius.circular(10),
-                                           border: Border.all(color: Colors.blueAccent)
-                                       ),
-                                       child: Center(
-                                         child: Text(
-                                           "Edit",
-                                           style: TextStyle(
-                                             fontSize: 8),),
-                                       ),),
-                                     onTap: (){
-                                       showDialog(
-                                         context: context,
-                                         builder: (BuildContext context) {
-                                           return AlertDialog(
-                                               backgroundColor: Colors.white,
-                                               content: Container(
-                                                 height: 440,
-                                                 width: 300,
-                                                 decoration: BoxDecoration(
-                                                   borderRadius: BorderRadius.all(Radius.circular(12))
-                                                 ),
-                                                 child: Column(
-                                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                   children: [
-
-                                                     Row(
-                                                       mainAxisAlignment: MainAxisAlignment.end,
-                                                       crossAxisAlignment: CrossAxisAlignment.end,
+                                 Expanded(
+                                   flex: 1,
+                                   child: Row(
+                                     children: [
+                                       InkWell(
+                                         child: Container(
+                                           height: 20,
+                                           width: 50,
+                                           decoration: BoxDecoration(
+                                             borderRadius:  BorderRadius.circular(10),
+                                               border: Border.all(color: Colors.blueAccent)
+                                           ),
+                                           child: Center(
+                                             child: Text(
+                                               "Edit",
+                                               style: TextStyle(
+                                                 fontSize: 8),),
+                                           ),),
+                                         onTap: (){
+                                           showDialog(
+                                             context: context,
+                                             builder: (BuildContext context) {
+                                               return AlertDialog(
+                                                   backgroundColor: Colors.white,
+                                                   content: Container(
+                                                     height: 440,
+                                                     width: 300,
+                                                     decoration: BoxDecoration(
+                                                       borderRadius: BorderRadius.all(Radius.circular(12))
+                                                     ),
+                                                     child: Column(
+                                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                        children: [
-                                                         IconButton(
-                                                             onPressed: () {
+
+                                                         Row(
+                                                           mainAxisAlignment: MainAxisAlignment.end,
+                                                           crossAxisAlignment: CrossAxisAlignment.end,
+                                                           children: [
+                                                             IconButton(
+                                                                 onPressed: () {
+                                                                   Navigator.pop(context);
+                                                                 },
+                                                                 icon: Icon(Icons.close))
+                                                           ],
+                                                         ),
+                                                         Column(
+                                                           mainAxisAlignment:
+                                                           MainAxisAlignment.spaceAround,
+                                                           children: [
+                                                             HRManageTextField(
+                                                               controller: userIdController,
+                                                               keyboardType: TextInputType.phone,
+                                                               text: "User Id",
+                                                               cursorHeight: 15,
+                                                               labelText: "User Id",
+                                                               labelStyle: GoogleFonts.firaSans(
+                                                                   fontWeight: FontWeight.w500
+
+                                                               ),
+                                                               labelFontSize: 12,),
+                                                             SizedBox(
+                                                               height: 15,
+                                                             ),
+                                                            HRManageTextField(
+                                                                controller: firstNameController,
+                                                                keyboardType: TextInputType.phone,
+                                                                text: "First Name",
+                                                                cursorHeight: 15,
+                                                                labelText: "First Name",
+                                                                labelStyle: GoogleFonts.firaSans(
+                                                                  fontWeight: FontWeight.w500
+                                                                ),
+                                                                labelFontSize: 12,),
+                                                             SizedBox(
+                                                               height: 15,
+                                                             ),
+                                                             HRManageTextField(
+                                                               controller: lastNameController,
+                                                               keyboardType: TextInputType.phone,
+                                                               text: "Last Name",
+                                                               cursorHeight: 15,
+                                                               labelText: "Last Name",
+                                                               labelStyle: GoogleFonts.firaSans(
+                                                                   fontWeight: FontWeight.w500
+
+                                                               ),
+                                                               labelFontSize: 12,),
+                                                             SizedBox(
+                                                               height: 15,
+                                                             ),
+                                                             HRManageTextField(
+                                                               controller: roleController,
+                                                               keyboardType: TextInputType.phone,
+                                                               text: "Role",
+                                                               cursorHeight: 15,
+                                                               labelText: "Role",
+                                                               labelStyle: GoogleFonts.firaSans(
+                                                                   fontWeight: FontWeight.w500
+
+                                                               ),
+                                                               labelFontSize: 12,),
+                                                             SizedBox(
+                                                               height: 15,
+                                                             ),
+                                                             HRManageTextField(
+                                                               controller: emailController,
+                                                               keyboardType: TextInputType.phone,
+                                                               text: "Email Id",
+                                                               cursorHeight: 15,
+                                                               labelText: "Email Id",
+                                                               labelStyle: GoogleFonts.firaSans(
+                                                                   fontWeight: FontWeight.w500
+
+                                                               ),
+                                                               labelFontSize: 12,),
+                                                             SizedBox(
+                                                               height: 15,
+                                                             ),
+                                                             HRManageTextField(
+                                                               controller: companyIdController,
+                                                               keyboardType: TextInputType.phone,
+                                                               text: "Company Id",
+                                                               cursorHeight: 15,
+                                                               labelText: "Company Id",
+                                                               labelStyle: GoogleFonts.firaSans(
+                                                                   fontWeight: FontWeight.w500
+
+                                                               ),
+                                                               labelFontSize: 12,),
+                                                           ],
+                                                         ),
+                                                         SizedBox(
+                                                           height: 40,
+                                                         ),
+                                                         CustomElevatedButton(
+                                                             width: 105,
+                                                             height: 31,
+                                                             text: 'Submit',
+                                                             onPressed: () async{
+                                                               await updateUserPatch(context,
+                                                                   snapshot.data![index].userId,
+                                                                   firstNameController.text,
+                                                                   lastNameController.text,
+                                                                   roleController.text,
+                                                                   emailController.text,
+                                                                   int.parse(companyIdController.text));
+                                                               getUser(context).then((data) {
+                                                                 _companyUsersList.add(data);
+                                                               }).catchError((error) {
+                                                                 // Handle error
+                                                               });
                                                                Navigator.pop(context);
-                                                             },
-                                                             icon: Icon(Icons.close))
+                                                               userIdController.clear();
+                                                               firstNameController.clear();
+                                                               lastNameController.clear();
+                                                               roleController.clear();
+                                                               emailController.clear();
+                                                               companyIdController.clear();
+                                                             })
                                                        ],
                                                      ),
-                                                     Column(
-                                                       mainAxisAlignment:
-                                                       MainAxisAlignment.spaceAround,
-                                                       children: [
-                                                         HRManageTextField(
-                                                           controller: userIdController,
-                                                           keyboardType: TextInputType.phone,
-                                                           text: "User Id",
-                                                           cursorHeight: 15,
-                                                           labelText: "User Id",
-                                                           labelStyle: GoogleFonts.firaSans(
-                                                               fontWeight: FontWeight.w500
-
-                                                           ),
-                                                           labelFontSize: 12,),
-                                                         SizedBox(
-                                                           height: 15,
-                                                         ),
-                                                        HRManageTextField(
-                                                            controller: firstNameController,
-                                                            keyboardType: TextInputType.phone,
-                                                            text: "First Name",
-                                                            cursorHeight: 15,
-                                                            labelText: "First Name",
-                                                            labelStyle: GoogleFonts.firaSans(
-                                                              fontWeight: FontWeight.w500
-                                                            ),
-                                                            labelFontSize: 12,),
-                                                         SizedBox(
-                                                           height: 15,
-                                                         ),
-                                                         HRManageTextField(
-                                                           controller: lastNameController,
-                                                           keyboardType: TextInputType.phone,
-                                                           text: "Last Name",
-                                                           cursorHeight: 15,
-                                                           labelText: "Last Name",
-                                                           labelStyle: GoogleFonts.firaSans(
-                                                               fontWeight: FontWeight.w500
-
-                                                           ),
-                                                           labelFontSize: 12,),
-                                                         SizedBox(
-                                                           height: 15,
-                                                         ),
-                                                         HRManageTextField(
-                                                           controller: roleController,
-                                                           keyboardType: TextInputType.phone,
-                                                           text: "Role",
-                                                           cursorHeight: 15,
-                                                           labelText: "Role",
-                                                           labelStyle: GoogleFonts.firaSans(
-                                                               fontWeight: FontWeight.w500
-
-                                                           ),
-                                                           labelFontSize: 12,),
-                                                         SizedBox(
-                                                           height: 15,
-                                                         ),
-                                                         HRManageTextField(
-                                                           controller: emailController,
-                                                           keyboardType: TextInputType.phone,
-                                                           text: "Email Id",
-                                                           cursorHeight: 15,
-                                                           labelText: "Email Id",
-                                                           labelStyle: GoogleFonts.firaSans(
-                                                               fontWeight: FontWeight.w500
-
-                                                           ),
-                                                           labelFontSize: 12,),
-                                                         SizedBox(
-                                                           height: 15,
-                                                         ),
-                                                         HRManageTextField(
-                                                           controller: companyIdController,
-                                                           keyboardType: TextInputType.phone,
-                                                           text: "Company Id",
-                                                           cursorHeight: 15,
-                                                           labelText: "Company Id",
-                                                           labelStyle: GoogleFonts.firaSans(
-                                                               fontWeight: FontWeight.w500
-
-                                                           ),
-                                                           labelFontSize: 12,),
-                                                       ],
-                                                     ),
-                                                     SizedBox(
-                                                       height: 40,
-                                                     ),
-                                                     CustomElevatedButton(
-                                                         width: 105,
-                                                         height: 31,
-                                                         text: 'Submit',
-                                                         onPressed: () async{
-                                                           await updateUserPatch(context,
-                                                               snapshot.data![index].userId,
-                                                               firstNameController.text,
-                                                               lastNameController.text,
-                                                               roleController.text,
-                                                               emailController.text,
-                                                               int.parse(companyIdController.text));
-                                                           getUser(context).then((data) {
-                                                             _companyUsersList.add(data);
-                                                           }).catchError((error) {
-                                                             // Handle error
-                                                           });
-                                                           Navigator.pop(context);
-                                                           userIdController.clear();
-                                                           firstNameController.clear();
-                                                           lastNameController.clear();
-                                                           roleController.clear();
-                                                           emailController.clear();
-                                                           companyIdController.clear();
-                                                         })
-                                                   ],
-                                                 ),
-                                               ));
+                                                   ));
+                                             },
+                                           );
                                          },
-                                       );
-                                     },
+                                       ),
+                                       SizedBox(
+                                         width: 2,
+                                       ),
+                                       Container(
+                                         height: 20,
+                                         width: 50,
+                                         decoration: BoxDecoration(
+                                             borderRadius:  BorderRadius.circular(10),
+                                             border: Border.all(color: Colors.blueAccent)
+                                         ),
+                                         child: Center(
+                                           child: Text("Delete",style: TextStyle(
+                                             fontSize: 8
+                                           ),),
+                                         ),
+                                       )
+                                     ],
                                    ),
-                                   SizedBox(
-                                     width: 2,
-                                   ),
-                                   Container(
-                                     height: 20,
-                                     width: 50,
-                                     decoration: BoxDecoration(
-                                         borderRadius:  BorderRadius.circular(10),
-                                         border: Border.all(color: Colors.blueAccent)
-                                     ),
-                                     child: Center(
-                                       child: Text("Delete",style: TextStyle(
-                                         fontSize: 8
-                                       ),),
-                                     ),
-                                   )
-                                 ],
-                               )
-                              ],
+                                 )
+                                ],
+                              ),
                             ),
                           ),
                         ],
