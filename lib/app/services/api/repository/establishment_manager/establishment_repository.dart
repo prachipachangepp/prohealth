@@ -28,7 +28,6 @@ class EstablishmentManagerRepository {
   static String getEmployeedocTab= "/employee-document-type-meta-data";
   static String payRatesSetup = "/payrates-setup";
   static String employeeType = "/employee-types";
-  static String zone = "/zone";
 
 
   static String companyAll(){
@@ -96,18 +95,12 @@ class EstablishmentManagerRepository {
 static String getOrgDocument(){
     return "/$document";
 }
-static String getCiVisit({required int pageNo, required int noofRows}){
-    return "/$visit/$pageNo/$noofRows";
+static String getCiVisit(){
+    return "/$visit";
 }
 static String postCiVisit(){
     return "/$visit/$add";
 }
-  static String deleteCiVisit({required int visitId}){
-    return "/$visit/$visitId";
-  }
-  static String updateCiVisit({required String typeVisit}){
-    return "/$visit/$typeVisit";
-  }
   static String documentTypeGet(){
     return "/$documentType";
   }
@@ -148,16 +141,16 @@ static String postCiVisit(){
   static String updateHolidaysPatch({required int holidayId}){
     return "$holidays/$holidayId";
   }
-  ///employee doc list
+    ///employee doc list
   static String getEmployeeDocSetUpMetaId({
-    // required int metaDocId
+    /// required int metaDocId
     required int pageNo, required int rowsNo,
     required int employeeDocTypeMetaDataId
   }){
-    // return "$employeedocSetup/$metaDocId";
+    /// return "$employeedocSetup/$metaDocId";
      return "$employeedocSetup/$employeeDocTypeMetaDataId/$pageNo/$rowsNo";
   }
-  ///employee doc tab bar
+   ///employee doc tab bar
   static String getEmployeeDocSetup(){
     return "$getEmployeedocTab";
   }
@@ -166,17 +159,20 @@ static String postCiVisit(){
   static String payRatesSetupGet({required int pageNo,required int noOfRows}){
     return "$payRatesSetup/$pageNo/$noOfRows";
   }
-  static String payRatesSetupPost(){
-    return "$payRatesSetup$add";
-  }
 
   /// Employee type add POST
   static String addEmployeeTypePost(){
     return "$employeeType$add";
   }
 
-  /// Zone All API
- static String zoneGet(){
-    return "$zone";
- }
+  static String deleteEmployeeTypes({
+    required int employeeTypeId
+   }){
+    return "$employeeType/$employeeTypeId";
+  }
+  static String deleteEmployeedoctypesetup({
+    required int employeeDoctypeSetupId
+   }){
+    return "$employeedocSetup/$employeeDoctypeSetupId";
+  }
 }

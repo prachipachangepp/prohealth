@@ -233,7 +233,6 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                           children: [
                                             IconButton(
                                                 onPressed: () {
-
                                                   // showDialog(
                                                   //     context: context,
                                                   //     builder: (BuildContext
@@ -283,16 +282,9 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                           }, onDelete:
                                                                   () async {
                                                             await deleteHolidays(
-                                                                context,
-                                                                snapshot
-                                                                    .data![
-                                                                        index]
-                                                                    .holidayId!);
-                                                            holidaysListGet(
-                                                                    context)
-                                                                .then((data) {
-                                                              _controller
-                                                                  .add(data);
+                                                                context, snapshot.data![index].holidayId!);
+                                                            holidaysListGet(context).then((data) {
+                                                                   _controller.add(data);
                                                             }).catchError(
                                                                     (error) {
                                                               // Handle error

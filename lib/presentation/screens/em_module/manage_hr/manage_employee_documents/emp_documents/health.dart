@@ -16,6 +16,8 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
+
 
 class HealthEmpDoc extends StatefulWidget {
   final metaDocID;
@@ -262,22 +264,56 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                   DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                                 ],),);
                                           });
-                                        }, icon: Icon(Icons.edit_outlined,color: ColorManager.bluebottom,)),
+                                        },
+                                                icon: Icon(
+                                                Icons.edit_outlined,
+                                                size: 18,
+                                                color: ColorManager.bluebottom,)),
                                         SizedBox(width: 3,),
-                                        InkWell(
-                                          onTap:(){
-                                            // setState(() async{
-                                            //   await deleteDocument(
-                                            //       context,
-                                            //       snapshot.data![index].docId!);
-                                            //   orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
-                                            //     _controller.add(data);
-                                            //   }).catchError((error) {
-                                            //     // Handle error
-                                            //   });
-                                            // });
+                                        IconButton(
+                                          onPressed: () async {
+                                          await showDialog(context: context,
+                                                builder: (context) => DeletePopup(
+                                                    onCancel: (){
+                                                  Navigator.pop(context);
+                                                }, onDelete: (){
+                                                  setState(() async{
+                                                    await employeedoctypeSetupIdDelete(
+                                                        context,
+                                                        snapshot.data![index].employeeDocTypesetupId!);
+                                                    getEmployeeDoc(context, widget.metaDocID,1,10).then((data) {
+                                                      _controller.add(data);
+                                                    }).catchError((error) {
+                                                      // Handle error
+                                                    });
+                                                    Navigator.pop(context);
+                                                  });
+                                                }));
                                           },
-                                            child: Icon(Icons.delete_outline_outlined, size:20,color: Color(0xffF6928A),)),
+                                          icon: Icon(
+                                            size: 18,
+                                            Icons.delete_outline_outlined,
+                                            color: Color(0xffF6928A),
+                                          ),
+                                        ),
+                                        // InkWell(
+                                        //   onTap:(){
+                                        //
+                                        //     setState(() async{
+                                        //       await employeedoctypeSetupIdDelete(
+                                        //           context,
+                                        //           snapshot.data![index].employeeDocTypesetupId!);
+                                        //           getEmployeeDoc(context, widget.metaDocID,1,10).then((data) {
+                                        //           _controller.add(data);
+                                        //       }).catchError((error) {
+                                        //         // Handle error
+                                        //       });
+                                        //     });
+                                        //
+                                        //   },child: Icon(Icons.delete_outline_outlined,
+                                        //   size:20,color: Color(0xffF6928A),
+                                        //     )
+                                        // ),
                                       ],
                                     ),
                                   ),

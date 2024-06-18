@@ -98,4 +98,33 @@ Future<ApiData> addEmployeeTypePost(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+///delete allfromHr Clinical
+Future<ApiData> allfromHrDelete(
+    BuildContext context,
+    int employeeTypeId
+    ) async {
+  try {
+    var response = await Api(context).delete(path:
+    EstablishmentManagerRepository.deleteEmployeeTypes(
+         employeeTypeId: employeeTypeId
+    ));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Hr Doc Deleted");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
 
