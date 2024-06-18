@@ -53,21 +53,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       // Handle error
     });
   }
-//   @override
-//   void dispose() {
-//     docNameController.dispose();
-//     docIdController.dispose();
-//     _visitController.close();
-//     super.dispose();
-//   }
-// }
-  String _selectedItem1 = 'Licenses';
 
-  void _onDropdownItemSelected1(String newValue) {
-    setState(() {
-      _selectedItem1 = newValue;
-    });
-  }
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {

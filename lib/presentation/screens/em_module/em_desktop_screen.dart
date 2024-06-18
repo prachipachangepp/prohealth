@@ -386,7 +386,7 @@ class SMDesktop extends StatelessWidget {
                                     size: 20
                                   )),
                             ),
-                            SizedBox(width: 2),
+                            SizedBox(width: 8),
                             InkWell(
                               splashColor: Colors.white,
                               onTap: () {},
