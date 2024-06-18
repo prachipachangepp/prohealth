@@ -233,37 +233,30 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                           children: [
                                             IconButton(
                                                 onPressed: () {
-                                                  // showDialog(
-                                                  //     context: context,
-                                                  //     builder: (BuildContext
-                                                  //         context) {
-                                                  //       return AddHolidayPopup(
-                                                  //         controller:
-                                                  //             holidayNameController,
-                                                  //         onPressed: ()  {
-                                                  //           //   String dateData = await convertDayMonthYearToIso(calenderController.text);
-                                                  //           //   await addHolidaysPost(
-                                                  //           //       context,
-                                                  //           //       holidayNameController
-                                                  //           //           .text,
-                                                  //           //       dateData,
-                                                  //           //       2024,
-                                                  //           //       11);
-                                                  //           //   holidaysListGet(
-                                                  //           //           context)
-                                                  //           //       .then((data) {
-                                                  //           //     _controller
-                                                  //           //         .add(data);
-                                                  //           //   }).catchError(
-                                                  //           //           (error) {
-                                                  //           //     // Handle error
-                                                  //           //   });
-                                                  //           // },
-                                                  //         },
-                                                  //         calenderDateController:
-                                                  //             calenderController,
-                                                  //       );
-                                                  //     });
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return AddHolidayPopup(
+                                                          controller:
+                                                              holidayNameController,
+                                                          onPressed: ()  async{
+                                                            await updateHolidays(context, snapshot.data![index].holidayId!, holidayNameController.text, calenderController.text, 2024, 11);
+                                                            holidaysListGet(
+                                                                context)
+                                                                .then((data) {
+                                                              _controller
+                                                                  .add(data);
+                                                            }).catchError(
+                                                                    (error) {
+                                                                  // Handle error
+                                                                });
+                                                            Navigator.pop(context);
+                                                          },
+                                                          calenderDateController:
+                                                              calenderController,
+                                                        );
+                                                      });
                                                 },
                                                 icon: Icon(
                                                   Icons.edit_outlined,
@@ -282,9 +275,16 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                           }, onDelete:
                                                                   () async {
                                                             await deleteHolidays(
-                                                                context, snapshot.data![index].holidayId!);
-                                                            holidaysListGet(context).then((data) {
-                                                                   _controller.add(data);
+                                                                context,
+                                                                snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .holidayId!);
+                                                            holidaysListGet(
+                                                                    context)
+                                                                .then((data) {
+                                                              _controller
+                                                                  .add(data);
                                                             }).catchError(
                                                                     (error) {
                                                               // Handle error

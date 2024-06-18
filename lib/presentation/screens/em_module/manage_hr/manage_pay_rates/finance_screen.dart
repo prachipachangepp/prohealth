@@ -4,10 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/theme_manager.dart';
+import '../../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import '../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../widgets/button_constant.dart';
@@ -26,7 +32,7 @@ class FinanceScreen extends StatefulWidget {
 class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController payRatesController = TextEditingController();
   final StreamController<List<PayRateFinanceData>> _payRatesController = StreamController<List<PayRateFinanceData>>();
 
   String _selectedOption = 'Option 1';
@@ -101,279 +107,341 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        ///home health dropdown
-                        Container(
-                          height: 31,
-                          width: 185,
-                          // margin: EdgeInsets.symmetric(horizontal: 20),
-                          padding:
-                              EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                                color: Color(0xff686464).withOpacity(0.5),
-                                width: 1), // Black border
-                            borderRadius:
-                                BorderRadius.circular(12), // Rounded corners
-                          ),
-                          child: DropdownButtonFormField<String>(
-                            focusColor: Colors.transparent,
-                            icon: Icon(
-                              Icons.arrow_drop_down_sharp,
-                              color: Color(0xff686464),
-                            ),
-                            decoration: InputDecoration.collapsed(hintText: ''),
-                            items: <String>[
-                              'Home Health',
-                              'Option 1',
-                              'Option 2',
-                              'Option 3',
-                              'Option 4'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {},
-                            value: 'Home Health',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff686464),
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
+                    FutureBuilder<List<HRClinical>>(
+                        future: companyAllHrClinicApi(context),
+                        builder: (context,snapshot) {
 
-                        ///NC dropdown
-                        Container(
-                          height: 31,
-                          width: 185,
-                          // margin: EdgeInsets.symmetric(horizontal: 20),
-                          padding:
-                              EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                                color: Color(0xff686464).withOpacity(0.5),
-                                width: 1), // Black border
-                            borderRadius:
-                                BorderRadius.circular(12), // Rounded corners
-                          ),
-                          child: DropdownButtonFormField<String>(
-                            focusColor: Colors.transparent,
-                            icon: Icon(
-                              Icons.arrow_drop_down_sharp,
-                              color: Color(0xff686464),
-                            ),
-                            decoration: InputDecoration.collapsed(hintText: ''),
-                            items: <String>[
-                              'NC',
-                              'Option 1',
-                              'Option 2',
-                              'Option 3',
-                              'Option 4'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {},
-                            value: 'NC',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff686464),
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                width: 300,
+                                height: 30,
+                                decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                              )
+                            );
+                          }
+                          if(snapshot.hasData){
 
-                    ///add payrate button
-                    Container(
-                      width: 130,
-                      height: 32,
-                      child: CustomIconButtonConst(
-                          text: 'Add Payrate',
-                          icon: Icons.add,
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  backgroundColor: Colors.white,
-                                  content: Container(
-                                    height: 243,
-                                    width: 309,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                icon: Icon(Icons.close))
-                                          ],
-                                        ),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text('Type of Visit',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              fontWeight: FontWeightManager.bold,
-                                              color: ColorManager.mediumgrey
-                                            ),),
-                                            SizedBox(height: 2,),
-                                            Container(
-                                              height: 30,
-                                              width: 354,
-                                              // margin: EdgeInsets.symmetric(horizontal: 20),
-                                              padding:
-                                              EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                border: Border.all(
-                                                    color: Color(0xff686464).withOpacity(0.5),
-                                                    width: 1), // Black border
-                                                borderRadius:
-                                                BorderRadius.circular(8), // Rounded corners
-                                              ),
-                                              child: DropdownButtonFormField<String>(
-                                                focusColor: Colors.transparent,
-                                                icon: Icon(
-                                                  Icons.arrow_drop_down_sharp,
-                                                  color: Color(0xff686464),
-                                                ),
-                                                decoration: InputDecoration.collapsed(hintText: ''),
-                                                items: <String>[
-                                                  'Random Visit',
-                                                  'Option 1',
-                                                  'Option 2',
-                                                  'Option 3',
-                                                  'Option 4'
-                                                ].map<DropdownMenuItem<String>>((String value) {
-                                                  return DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  );
-                                                }).toList(),
-                                                onChanged: (String? newValue) {},
-                                                value: 'Random Visit',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 17,
-                                            ),
-                                            Text('Zone',
-                                              style: GoogleFonts.firaSans(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeightManager.bold,
-                                                  color: ColorManager.mediumgrey
-                                              ),),
-                                            SizedBox(height: 2,),
-                                            Container(
-                                              height: 30,
-                                              width: 354,
-                                              // margin: EdgeInsets.symmetric(horizontal: 20),
-                                              padding:
-                                              EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                border: Border.all(
-                                                    color: Color(0xff686464).withOpacity(0.5),
-                                                    width: 1), // Black border
-                                                borderRadius:
-                                                BorderRadius.circular(8), // Rounded corners
-                                              ),
-                                              child: DropdownButtonFormField<String>(
-                                                focusColor: Colors.transparent,
-                                                icon: Icon(
-                                                  Icons.arrow_drop_down_sharp,
-                                                  color: Color(0xff686464),
-                                                ),
-                                                decoration: InputDecoration.collapsed(hintText: ''),
-                                                items: <String>[
-                                                  'Sans Josh z4',
-                                                  'Option 1',
-                                                  'Option 2',
-                                                  'Option 3',
-                                                  'Option 4'
-                                                ].map<DropdownMenuItem<String>>((String value) {
-                                                  return DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  );
-                                                }).toList(),
-                                                onChanged: (String? newValue) {},
-                                                value: 'Sans Josh z4',
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 17,
-                                            ),
-                                            SMTextFConst(
-                                              controller: emailController,
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              text: 'Rate',
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                            List<String> dropDownList =[];
+                            List<String> dropDownAbbreviation =[];
+                            for(var i in snapshot.data!){
+                              dropDownList.add(i.empType!,);
+                              dropDownAbbreviation.add(i.abbrivation!);
+                            }
+                            // for(var i in snapshot.data!){
+                            //
+                            // }
+                            print("::::::${dropDownList}");
+                            print("::::::${dropDownAbbreviation}");
+                            return Row(
+                              children: [
+                                ///home health dropdown
+                                Container(
+                                  height: 31,
+                                  width: 185,
+                                  // margin: EdgeInsets.symmetric(horizontal: 20),
+                                  padding:
+                                  EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Color(0xff686464).withOpacity(0.5),
+                                        width: 1), // Black border
+                                    borderRadius:
+                                    BorderRadius.circular(12), // Rounded corners
+                                  ),
+                                  child: DropdownButtonFormField<String>(
+                                    focusColor: Colors.transparent,
+                                    icon: Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      color: Color(0xff686464),
+                                    ),
+                                    decoration: InputDecoration.collapsed(hintText: ''),
+                                    items: dropDownList.map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value == null ? "1" : value,
+                                        child: Text(value),
+                                        // Container(
+                                        //   height: 200,
+                                        //   width: 400,
+                                        //   child: ListView.builder(
+                                        //     itemCount: dropDownList.length,
+                                        //       itemBuilder: (BuildContext context, index){
+                                        //     return Text(dropDownList[index]);
+                                        //   }),
+                                        // ),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {},
+                                    value: dropDownList[0],
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xff686464),
+                                      decoration: TextDecoration.none,
                                     ),
                                   ),
-                                  actions: [
-                                    Center(
-                                      child: CustomElevatedButton(
-                                          width: 105,
-                                          height: 31,
-                                          text: 'Submit',
-                                          onPressed: () {
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //         builder: (context) =>
-                                            //             LoginScreen()));
-                                          }),
-                                    )
-                                  ],
-                                );
-                              },
+                                ),
+
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                /// Abbrevation dropdown
+                                Container(
+                                  height: 31,
+                                  width: 185,
+                                  // margin: EdgeInsets.symmetric(horizontal: 20),
+                                  padding:
+                                  EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Color(0xff686464).withOpacity(0.5),
+                                        width: 1), // Black border
+                                    borderRadius:
+                                    BorderRadius.circular(12), // Rounded corners
+                                  ),
+                                  child: DropdownButtonFormField<String>(
+                                    focusColor: Colors.transparent,
+                                    icon: Icon(
+                                      Icons.arrow_drop_down_sharp,
+                                      color: Color(0xff686464),
+                                    ),
+                                    decoration: InputDecoration.collapsed(hintText: ''),
+                                    items: <String>[
+                                      "NC",
+                                      "PT",
+                                     // "PT",
+                                      "NA",
+                                      //"NA",
+                                      //"NC",
+                                     // "NC"
+                                    ].map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {},
+                                    value: "NC",
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xff686464),
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             );
-                          }),
-                    ),
+                          }else{
+                            return Offstage();
+                          }
+
+                          }
+                        ),
+
+                    ///add payrate button
+        FutureBuilder<List<AllZoneData>>(
+        future:getAllZone(context),
+        builder: (context,snapshot) {
+          if(snapshot.hasData){
+            List<String> dropDownList =[];
+            for(var i in snapshot.data!){
+              dropDownList.add(i.zoneName);
+              return Container(
+                width: 130,
+                height: 32,
+                child: CustomIconButtonConst(
+                    text: 'Add Payrate',
+                    icon: Icons.add,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: Colors.white,
+                            content:
+                            Container(
+                              height: 243,
+                              width: 309,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: Icon(Icons.close))
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text('Type of Visit',
+                                        style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeightManager.bold,
+                                            color: ColorManager.mediumgrey
+                                        ),),
+                                      SizedBox(height: 2,),
+                                      Container(
+                                        height: 30,
+                                        width: 354,
+                                        // margin: EdgeInsets.symmetric(horizontal: 20),
+                                        padding:
+                                        EdgeInsets.symmetric(
+                                            vertical: 3, horizontal: 15),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Color(0xff686464).withOpacity(
+                                                  0.5),
+                                              width: 1), // Black border
+                                          borderRadius:
+                                          BorderRadius.circular(8), // Rounded corners
+                                        ),
+                                        child: DropdownButtonFormField<String>(
+                                          focusColor: Colors.transparent,
+                                          icon: Icon(
+                                            Icons.arrow_drop_down_sharp,
+                                            color: Color(0xff686464),
+                                          ),
+                                          decoration: InputDecoration.collapsed(
+                                              hintText: ''),
+                                          items: <String>[
+                                            'Random Visit',
+                                            'Option 1',
+                                            'Option 2',
+                                            'Option 3',
+                                            'Option 4'
+                                          ].map<DropdownMenuItem<String>>((
+                                              String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                          onChanged: (String? newValue) {},
+                                          value: 'Random Visit',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 17,
+                                      ),
+                                      Text('Zone',
+                                        style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeightManager.bold,
+                                            color: ColorManager.mediumgrey
+                                        ),),
+                                      SizedBox(height: 2,),
+                                      Container(
+                                        height: 30,
+                                        width: 354,
+                                        // margin: EdgeInsets.symmetric(horizontal: 20),
+                                        padding:
+                                        EdgeInsets.symmetric(
+                                            vertical: 3, horizontal: 15),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Color(0xff686464).withOpacity(
+                                                  0.5),
+                                              width: 1), // Black border
+                                          borderRadius:
+                                          BorderRadius.circular(8), // Rounded corners
+                                        ),
+                                        child: DropdownButtonFormField<String>(
+                                          focusColor: Colors.transparent,
+                                          icon: Icon(
+                                            Icons.arrow_drop_down_sharp,
+                                            color: Color(0xff686464),
+                                          ),
+                                          decoration: InputDecoration.collapsed(
+                                              hintText: ''),
+                                          items: dropDownList.map<DropdownMenuItem<String>>((
+                                              String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                          onChanged: (String? newValue) {
+
+                                          },
+                                          value: dropDownList[0],
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xff686464),
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 17,
+                                      ),
+                                      SMTextFConst(
+                                        controller: payRatesController,
+                                        keyboardType:
+                                        TextInputType.emailAddress,
+                                        text: 'Rate',
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              Center(
+                                child: CustomElevatedButton(
+                                    width: 105,
+                                    height: 31,
+                                    text: 'Submit',
+                                    onPressed: () async {
+                                      await addPayRatesSetupPost(context, 1, 2, 2, 1, int.parse(payRatesController.text));
+                                      payRatesDataGet(context,1,10).then((data) {
+                                        _payRatesController.add(data);
+                                      }).catchError((error) {
+                                        // Handle error
+                                      });
+                                      Navigator.pop(context);
+
+                                    }),)
+                            ]
+                            ,
+                          );
+                        },
+                      );
+                    }),
+              );
+            }
+          }else{
+            return Offstage();
+          }
+          return Offstage();
+    }
+
+    )
                   ],
                 ),
               ],
@@ -495,185 +563,194 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     decoration: TextDecoration.none,
                                   ),
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          backgroundColor: Colors.white,
-                                          content: Container(
-                                            height: 243,
-                                            width: 309,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    IconButton(
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        icon: Icon(Icons.close))
-                                                  ],
-                                                ),
-                                                Column(
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              backgroundColor: Colors.white,
+                                              content: Container(
+                                                height: 243,
+                                                width: 309,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(8)),
+                                                child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
-                                                    Text('Type of Visit',
-                                                      style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeightManager.bold,
-                                                          color: ColorManager.fmediumgrey
-                                                      ),),
-                                                    SizedBox(height: 2,),
-                                                    Container(
-                                                      height: 30,
-                                                      width: 354,
-                                                      // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                      padding:
-                                                      EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                            color: Color(0xff686464).withOpacity(0.5),
-                                                            width: 1), // Black border
-                                                        borderRadius:
-                                                        BorderRadius.circular(8), // Rounded corners
-                                                      ),
-                                                      child: DropdownButtonFormField<String>(
-                                                        focusColor: Colors.transparent,
-                                                        icon: Icon(
-                                                          Icons.arrow_drop_down_sharp,
-                                                          color: ColorManager.fmediumgrey,
-                                                        ),
-                                                        decoration: InputDecoration.collapsed(hintText: ''),
-                                                        items: <String>[
-                                                          'Random Visit',
-                                                          'Option 1',
-                                                          'Option 2',
-                                                          'Option 3',
-                                                          'Option 4'
-                                                        ].map<DropdownMenuItem<String>>((String value) {
-                                                          return DropdownMenuItem<String>(
-                                                            value: value,
-                                                            child: Text(value),
-                                                          );
-                                                        }).toList(),
-                                                        onChanged: (String? newValue) {},
-                                                        value: 'Random Visit',
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w600,
-                                                          color: ColorManager.fmediumgrey,
-                                                          decoration: TextDecoration.none,
-                                                        ),
-                                                      ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.end,
+                                                      children: [
+                                                        IconButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            icon: Icon(Icons.close))
+                                                      ],
                                                     ),
-                                                    SizedBox(
-                                                      height: 17,
-                                                    ),
-                                                    Text('Zone',
-                                                      style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeightManager.bold,
-                                                          color: ColorManager.mediumgrey
-                                                      ),),
-                                                    SizedBox(height: 2,),
-                                                    Container(
-                                                      height: 30,
-                                                      width: 354,
-                                                      // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                      padding:
-                                                      EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                            color: Color(0xff686464).withOpacity(0.5),
-                                                            width: 1), // Black border
-                                                        borderRadius:
-                                                        BorderRadius.circular(8), // Rounded corners
-                                                      ),
-                                                      child: DropdownButtonFormField<String>(
-                                                        focusColor: Colors.transparent,
-                                                        icon: Icon(
-                                                          Icons.arrow_drop_down_sharp,
-                                                          color: Color(0xff686464),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Text('Type of Visit',
+                                                          style: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeightManager.bold,
+                                                              color: ColorManager.fmediumgrey
+                                                          ),),
+                                                        SizedBox(height: 2,),
+                                                        Container(
+                                                          height: 30,
+                                                          width: 354,
+                                                          // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                          padding:
+                                                          EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            border: Border.all(
+                                                                color: Color(0xff686464).withOpacity(0.5),
+                                                                width: 1), // Black border
+                                                            borderRadius:
+                                                            BorderRadius.circular(8), // Rounded corners
+                                                          ),
+                                                          child: DropdownButtonFormField<String>(
+                                                            focusColor: Colors.transparent,
+                                                            icon: Icon(
+                                                              Icons.arrow_drop_down_sharp,
+                                                              color: ColorManager.fmediumgrey,
+                                                            ),
+                                                            decoration: InputDecoration.collapsed(hintText: ''),
+                                                            items: <String>[
+                                                              'Random Visit',
+                                                              'Option 1',
+                                                              'Option 2',
+                                                              'Option 3',
+                                                              'Option 4'
+                                                            ].map<DropdownMenuItem<String>>((String value) {
+                                                              return DropdownMenuItem<String>(
+                                                                value: value,
+                                                                child: Text(value),
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (String? newValue) {},
+                                                            value: 'Random Visit',
+                                                            style: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeight.w600,
+                                                              color: ColorManager.fmediumgrey,
+                                                              decoration: TextDecoration.none,
+                                                            ),
+                                                          ),
                                                         ),
-                                                        decoration: InputDecoration.collapsed(hintText: ''),
-                                                        items: <String>[
-                                                          'Sans Josh z4',
-                                                          'Option 1',
-                                                          'Option 2',
-                                                          'Option 3',
-                                                          'Option 4'
-                                                        ].map<DropdownMenuItem<String>>((String value) {
-                                                          return DropdownMenuItem<String>(
-                                                            value: value,
-                                                            child: Text(value),
-                                                          );
-                                                        }).toList(),
-                                                        onChanged: (String? newValue) {},
-                                                        value: 'Sans Josh z4',
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w600,
-                                                          color: Color(0xff686464),
-                                                          decoration: TextDecoration.none,
+                                                        SizedBox(
+                                                          height: 17,
                                                         ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 15,
-                                                    ),
-                                                    SMTextFConst(
-                                                      controller:
-                                                          emailController,
-                                                      keyboardType:
-                                                          TextInputType
-                                                              .emailAddress,
-                                                      text: 'Rate',
+                                                        Text('Zone',
+                                                          style: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeightManager.bold,
+                                                              color: ColorManager.mediumgrey
+                                                          ),),
+                                                        SizedBox(height: 2,),
+                                                        Container(
+                                                          height: 30,
+                                                          width: 354,
+                                                          // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                          padding:
+                                                          EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            border: Border.all(
+                                                                color: Color(0xff686464).withOpacity(0.5),
+                                                                width: 1), // Black border
+                                                            borderRadius:
+                                                            BorderRadius.circular(8), // Rounded corners
+                                                          ),
+                                                          child: DropdownButtonFormField<String>(
+                                                            focusColor: Colors.transparent,
+                                                            icon: Icon(
+                                                              Icons.arrow_drop_down_sharp,
+                                                              color: Color(0xff686464),
+                                                            ),
+                                                            decoration: InputDecoration.collapsed(hintText: ''),
+                                                            items: <String>[
+                                                              'Sans Josh z4',
+                                                              'Option 1',
+                                                              'Option 2',
+                                                              'Option 3',
+                                                              'Option 4'
+                                                            ].map<DropdownMenuItem<String>>((String value) {
+                                                              return DropdownMenuItem<String>(
+                                                                value: value,
+                                                                child: Text(value),
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (String? newValue) {},
+                                                            value: 'Sans Josh z4',
+                                                            style: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeight.w600,
+                                                              color: Color(0xff686464),
+                                                              decoration: TextDecoration.none,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 15,
+                                                        ),
+                                                        SMTextFConst(
+                                                          controller:
+                                                          payRatesController,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .emailAddress,
+                                                          text: 'Rate',
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
+                                              ),
+                                              actions: [
+                                                Center(
+                                                  child: CustomElevatedButton(
+                                                      width: 105,
+                                                      height: 31,
+                                                      text: 'Submit',
+                                                      onPressed: () {
+                                                        // Navigator.push(
+                                                        //     context,
+                                                        //     MaterialPageRoute(
+                                                        //         builder: (context) =>
+                                                        //             LoginScreen()));
+                                                      }),
+                                                )
                                               ],
-                                            ),
-                                          ),
-                                          actions: [
-                                            Center(
-                                              child: CustomElevatedButton(
-                                                  width: 105,
-                                                  height: 31,
-                                                  text: 'Submit',
-                                                  onPressed: () {
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) =>
-                                                    //             LoginScreen()));
-                                                  }),
-                                            )
-                                          ],
+                                            );
+                                          },
                                         );
                                       },
-                                    );
-                                  },
-                                  icon: Icon(
-                                    Icons.edit_outlined,size: 18,
-                                    color: Color(0xffF6928A),
-                                  ),
+                                      icon: Icon(
+                                        Icons.edit_outlined,size: 18,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                    ),
+                                    IconButton(onPressed: (){
+
+                                    }, icon: Icon(
+                                      Icons.delete_outline_outlined,
+                                      size: 18,color: ColorManager.red,))
+                                  ],
                                 ),
                               ],
                             )),

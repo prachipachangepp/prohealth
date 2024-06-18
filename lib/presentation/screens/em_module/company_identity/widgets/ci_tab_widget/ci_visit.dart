@@ -46,7 +46,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    getVisit(context).then((data) {
+    getVisit(context,1,10).then((data) {
       _visitController.add(data);
 
     }).catchError((error) {
@@ -61,7 +61,13 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 //     super.dispose();
 //   }
 // }
+  String _selectedItem1 = 'Licenses';
 
+  void _onDropdownItemSelected1(String newValue) {
+    setState(() {
+      _selectedItem1 = newValue;
+    });
+  }
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -111,16 +117,15 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                             print(":::::${_selectedItem}");
                            await addVisitPost(context,
                                docNamecontroller.text,
-                               _selectedItem
+                               [_selectedItem]
                             );
-                           setState(() async {
-                           await  getVisit(context).then((data) {
+                             getVisit(context,1,10).then((data) {
                                _visitController.add(data);
                              }).catchError((error) {
                                // Handle error
                              });
                            Navigator.pop(context);
-                           });
+
                           },
                           child: CICCDropdown(
                             initialValue: _selectedItem,
@@ -355,9 +360,21 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                           docNamecontroller,
                                                       idOfDocumentController:
                                                           docIdController,
-                                                      onSavePressed: () {},
+                                                      onSavePressed: () async{
+                                                       await updateVisitPatch(context,
+                                                            snapshot.data![index].typeofVisit!,
+                                                            docNamecontroller.text, [_selectedItem]);
+                                                       getVisit(context,1,10).then((data) {
+                                                         _visitController.add(data);
+
+                                                       }).catchError((error) {
+                                                         // Handle error
+                                                       });
+                                                      },
                                                       child: CICCDropdown(
-                                                        initialValue: 'Select',
+                                                        initialValue:
+                                                        _selectedItem,
+                                                        onChange: _onDropdownItemSelected,
                                                         items: [
                                                           DropdownMenuItem(
                                                               value: 'Select',
@@ -390,10 +407,16 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         SizedBox(
                                           width: 3,
                                         ),
-                                        Icon(
-                                          Icons.delete_outline_outlined,
-                                          size: 20,
-                                          color: Color(0xffF6928A),
+                                        IconButton(
+                                          onPressed: () async{
+                                            await deleteVisitPatch(context, snapshot.data![index].visitId!);
+                                            getVisit(context,1,10).then((data) {
+                                              _visitController.add(data);
+                                            }).catchError((error) {
+                                              // Handle error
+                                            });
+                                          },
+                                          icon: Icon( Icons.delete_outline_outlined,size: 20, color: Color(0xffF6928A)),
                                         ),
                                       ],
                                     ),
