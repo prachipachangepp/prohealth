@@ -50,7 +50,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-  companyAllApi(context).then((data){
+    companyAllHrClinicApi(context).then((data){
     _controller.add(data);
     }).catchError((error){});
   }

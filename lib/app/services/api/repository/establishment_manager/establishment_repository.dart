@@ -28,6 +28,7 @@ class EstablishmentManagerRepository {
   static String getEmployeedocTab= "/employee-document-type-meta-data";
   static String payRatesSetup = "/payrates-setup";
   static String employeeType = "/employee-types";
+  static String zone = "/zone";
 
 
   static String companyAll(){
@@ -159,9 +160,17 @@ static String postCiVisit(){
   static String payRatesSetupGet({required int pageNo,required int noOfRows}){
     return "$payRatesSetup/$pageNo/$noOfRows";
   }
+  static String payRatesSetupPost(){
+    return "$payRatesSetup$add";
+  }
 
   /// Employee type add POST
   static String addEmployeeTypePost(){
     return "$employeeType$add";
   }
+
+  /// Zone All API
+ static String zoneGet(){
+    return "$zone";
+ }
 }
