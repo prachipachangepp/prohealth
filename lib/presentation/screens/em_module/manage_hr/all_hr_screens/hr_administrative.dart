@@ -277,14 +277,24 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                             ),
                             IconButton(
                               onPressed: () {
-                                showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
-                                  Navigator.pop(context);
-                                }, onDelete: (){}));
+                                showDialog(context: context,
+                                    builder: (context) => DeletePopup(
+                                        onCancel: (){
+                                          Navigator.pop(context);
+                                        }, onDelete: () async {
+                                      await  allfromHrDelete(
+                                          context, snapshot.data![index].employeeTypesId!);
+                                      companyAllHrClinicApi(context).then((data){
+                                        _controller.add(data);
+                                      }).catchError((error){});
+                                      Navigator.pop(context);
+                                    }));
+
                               },
                               icon: Icon(
-                                Icons.delete_outline,
                                 size: 18,
-                                color: ColorManager.faintOrange,
+                                Icons.delete_outline,
+                                color: Color(0xffF6928A),
                               ),
                             ),
                           ],
