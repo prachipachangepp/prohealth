@@ -116,8 +116,12 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                               lastDate: DateTime(2025),
                             );
                             if (date != null) {
-                              widget.calenderDateController.text = DateFormat("yyyy-MM-dd hh:mm:ss").format(_selectedDate);
-                                  // DateFormat('dd-mm-yyyy').format(_selectedDate);
+                              String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(date);
+                              widget.calenderDateController.text = formattedDate;
+                              field.didChange(formattedDate);
+                              //calenderDateController.text = DateFormat('yyyy-mm-dd').format(_selectedDate);
+
                               field.didChange(date.toLocal().toString().split(' ')[0]);
                             }
                           },

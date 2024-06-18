@@ -563,185 +563,194 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     decoration: TextDecoration.none,
                                   ),
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          backgroundColor: Colors.white,
-                                          content: Container(
-                                            height: 243,
-                                            width: 309,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    IconButton(
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        icon: Icon(Icons.close))
-                                                  ],
-                                                ),
-                                                Column(
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              backgroundColor: Colors.white,
+                                              content: Container(
+                                                height: 243,
+                                                width: 309,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(8)),
+                                                child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
-                                                    Text('Type of Visit',
-                                                      style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeightManager.bold,
-                                                          color: ColorManager.fmediumgrey
-                                                      ),),
-                                                    SizedBox(height: 2,),
-                                                    Container(
-                                                      height: 30,
-                                                      width: 354,
-                                                      // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                      padding:
-                                                      EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                            color: Color(0xff686464).withOpacity(0.5),
-                                                            width: 1), // Black border
-                                                        borderRadius:
-                                                        BorderRadius.circular(8), // Rounded corners
-                                                      ),
-                                                      child: DropdownButtonFormField<String>(
-                                                        focusColor: Colors.transparent,
-                                                        icon: Icon(
-                                                          Icons.arrow_drop_down_sharp,
-                                                          color: ColorManager.fmediumgrey,
-                                                        ),
-                                                        decoration: InputDecoration.collapsed(hintText: ''),
-                                                        items: <String>[
-                                                          'Random Visit',
-                                                          'Option 1',
-                                                          'Option 2',
-                                                          'Option 3',
-                                                          'Option 4'
-                                                        ].map<DropdownMenuItem<String>>((String value) {
-                                                          return DropdownMenuItem<String>(
-                                                            value: value,
-                                                            child: Text(value),
-                                                          );
-                                                        }).toList(),
-                                                        onChanged: (String? newValue) {},
-                                                        value: 'Random Visit',
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w600,
-                                                          color: ColorManager.fmediumgrey,
-                                                          decoration: TextDecoration.none,
-                                                        ),
-                                                      ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.end,
+                                                      children: [
+                                                        IconButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            icon: Icon(Icons.close))
+                                                      ],
                                                     ),
-                                                    SizedBox(
-                                                      height: 17,
-                                                    ),
-                                                    Text('Zone',
-                                                      style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeightManager.bold,
-                                                          color: ColorManager.mediumgrey
-                                                      ),),
-                                                    SizedBox(height: 2,),
-                                                    Container(
-                                                      height: 30,
-                                                      width: 354,
-                                                      // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                      padding:
-                                                      EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                            color: Color(0xff686464).withOpacity(0.5),
-                                                            width: 1), // Black border
-                                                        borderRadius:
-                                                        BorderRadius.circular(8), // Rounded corners
-                                                      ),
-                                                      child: DropdownButtonFormField<String>(
-                                                        focusColor: Colors.transparent,
-                                                        icon: Icon(
-                                                          Icons.arrow_drop_down_sharp,
-                                                          color: Color(0xff686464),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Text('Type of Visit',
+                                                          style: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeightManager.bold,
+                                                              color: ColorManager.fmediumgrey
+                                                          ),),
+                                                        SizedBox(height: 2,),
+                                                        Container(
+                                                          height: 30,
+                                                          width: 354,
+                                                          // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                          padding:
+                                                          EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            border: Border.all(
+                                                                color: Color(0xff686464).withOpacity(0.5),
+                                                                width: 1), // Black border
+                                                            borderRadius:
+                                                            BorderRadius.circular(8), // Rounded corners
+                                                          ),
+                                                          child: DropdownButtonFormField<String>(
+                                                            focusColor: Colors.transparent,
+                                                            icon: Icon(
+                                                              Icons.arrow_drop_down_sharp,
+                                                              color: ColorManager.fmediumgrey,
+                                                            ),
+                                                            decoration: InputDecoration.collapsed(hintText: ''),
+                                                            items: <String>[
+                                                              'Random Visit',
+                                                              'Option 1',
+                                                              'Option 2',
+                                                              'Option 3',
+                                                              'Option 4'
+                                                            ].map<DropdownMenuItem<String>>((String value) {
+                                                              return DropdownMenuItem<String>(
+                                                                value: value,
+                                                                child: Text(value),
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (String? newValue) {},
+                                                            value: 'Random Visit',
+                                                            style: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeight.w600,
+                                                              color: ColorManager.fmediumgrey,
+                                                              decoration: TextDecoration.none,
+                                                            ),
+                                                          ),
                                                         ),
-                                                        decoration: InputDecoration.collapsed(hintText: ''),
-                                                        items: <String>[
-                                                          'Sans Josh z4',
-                                                          'Option 1',
-                                                          'Option 2',
-                                                          'Option 3',
-                                                          'Option 4'
-                                                        ].map<DropdownMenuItem<String>>((String value) {
-                                                          return DropdownMenuItem<String>(
-                                                            value: value,
-                                                            child: Text(value),
-                                                          );
-                                                        }).toList(),
-                                                        onChanged: (String? newValue) {},
-                                                        value: 'Sans Josh z4',
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w600,
-                                                          color: Color(0xff686464),
-                                                          decoration: TextDecoration.none,
+                                                        SizedBox(
+                                                          height: 17,
                                                         ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 15,
-                                                    ),
-                                                    SMTextFConst(
-                                                      controller:
-                                                      payRatesController,
-                                                      keyboardType:
-                                                          TextInputType
-                                                              .emailAddress,
-                                                      text: 'Rate',
+                                                        Text('Zone',
+                                                          style: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeightManager.bold,
+                                                              color: ColorManager.mediumgrey
+                                                          ),),
+                                                        SizedBox(height: 2,),
+                                                        Container(
+                                                          height: 30,
+                                                          width: 354,
+                                                          // margin: EdgeInsets.symmetric(horizontal: 20),
+                                                          padding:
+                                                          EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            border: Border.all(
+                                                                color: Color(0xff686464).withOpacity(0.5),
+                                                                width: 1), // Black border
+                                                            borderRadius:
+                                                            BorderRadius.circular(8), // Rounded corners
+                                                          ),
+                                                          child: DropdownButtonFormField<String>(
+                                                            focusColor: Colors.transparent,
+                                                            icon: Icon(
+                                                              Icons.arrow_drop_down_sharp,
+                                                              color: Color(0xff686464),
+                                                            ),
+                                                            decoration: InputDecoration.collapsed(hintText: ''),
+                                                            items: <String>[
+                                                              'Sans Josh z4',
+                                                              'Option 1',
+                                                              'Option 2',
+                                                              'Option 3',
+                                                              'Option 4'
+                                                            ].map<DropdownMenuItem<String>>((String value) {
+                                                              return DropdownMenuItem<String>(
+                                                                value: value,
+                                                                child: Text(value),
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (String? newValue) {},
+                                                            value: 'Sans Josh z4',
+                                                            style: GoogleFonts.firaSans(
+                                                              fontSize: 12,
+                                                              fontWeight: FontWeight.w600,
+                                                              color: Color(0xff686464),
+                                                              decoration: TextDecoration.none,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 15,
+                                                        ),
+                                                        SMTextFConst(
+                                                          controller:
+                                                          payRatesController,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .emailAddress,
+                                                          text: 'Rate',
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
+                                              ),
+                                              actions: [
+                                                Center(
+                                                  child: CustomElevatedButton(
+                                                      width: 105,
+                                                      height: 31,
+                                                      text: 'Submit',
+                                                      onPressed: () {
+                                                        // Navigator.push(
+                                                        //     context,
+                                                        //     MaterialPageRoute(
+                                                        //         builder: (context) =>
+                                                        //             LoginScreen()));
+                                                      }),
+                                                )
                                               ],
-                                            ),
-                                          ),
-                                          actions: [
-                                            Center(
-                                              child: CustomElevatedButton(
-                                                  width: 105,
-                                                  height: 31,
-                                                  text: 'Submit',
-                                                  onPressed: () {
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) =>
-                                                    //             LoginScreen()));
-                                                  }),
-                                            )
-                                          ],
+                                            );
+                                          },
                                         );
                                       },
-                                    );
-                                  },
-                                  icon: Icon(
-                                    Icons.edit_outlined,size: 18,
-                                    color: Color(0xffF6928A),
-                                  ),
+                                      icon: Icon(
+                                        Icons.edit_outlined,size: 18,
+                                        color: ColorManager.blueprime,
+                                      ),
+                                    ),
+                                    IconButton(onPressed: (){
+
+                                    }, icon: Icon(
+                                      Icons.delete_outline_outlined,
+                                      size: 18,color: ColorManager.red,))
+                                  ],
                                 ),
                               ],
                             )),
