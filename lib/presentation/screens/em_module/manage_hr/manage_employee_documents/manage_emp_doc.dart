@@ -31,7 +31,7 @@ class ManageEmployDocument extends StatefulWidget {
 
 class _ManageEmployDocumentState extends State<ManageEmployDocument> {
   final PageController _managePageController = PageController();
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _selectButton(int index) {
     setState(() {
@@ -146,7 +146,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FutureBuilder<List<EmployeeDocTabModal>>(
-                  future: getEmployeeDocTab(context, ),
+                  future: getEmployeeDocTab(context),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return Material(
@@ -190,7 +190,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                                   : Colors.transparent,
                                             ),
                                             child: Text(
-                                              snapshot.data![index].employeeDocType!,
+                                              snapshot.data![index].employeeDocType,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 12,
@@ -204,7 +204,8 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                             ),
                                           ),
                                            onTap: () {
-                                           _selectButton(snapshot.data![index].employeeDocMetaDataId!);
+                                           _selectButton(snapshot.data![index].employeeDocMetaDataId);
+                                           metaDocID = snapshot.data![index].employeeDocMetaDataId;
                                            }
                                         ),
                                 ]);

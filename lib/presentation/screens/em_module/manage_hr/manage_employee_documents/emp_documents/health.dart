@@ -208,7 +208,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                       )),
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].docName.toString(),
+                                        snapshot.data![index].docName,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -218,7 +218,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                       )),
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].expiry.toString(),
+                                        snapshot.data![index].expiry,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,
@@ -228,7 +228,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                       )),
                                   Center(
                                       child: Text(
-                                        snapshot.data![index].reminderThreshold.toString(),
+                                        snapshot.data![index].reminderThreshold,
                                         style: GoogleFonts.firaSans(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w700,

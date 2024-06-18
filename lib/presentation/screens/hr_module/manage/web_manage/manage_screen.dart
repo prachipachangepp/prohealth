@@ -9,12 +9,10 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
-import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/profile_bar.dart';
 import '../../../em_module/widgets/button_constant.dart';
-import '../../../em_module/widgets/text_form_field_const.dart';
 import '../controller/controller.dart';
 import '../widgets/bottom_row.dart';
 import '../widgets/child_tabbar_constant.dart';
@@ -42,8 +40,6 @@ class _ManageScreenState extends State<ManageScreen> {
   late CenteredTabBarChildController childControlleOne;
   late CenteredTabBarController centeredTabBarController;
   TextEditingController nameController = TextEditingController();
-  // TextEditingController secfaxController = TextEditingController();
-
   TextEditingController addressController = TextEditingController();
   TextEditingController secNumberController = TextEditingController();
   TextEditingController primNumController = TextEditingController();
