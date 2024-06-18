@@ -178,7 +178,7 @@ class HRManageTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 280,
-      height: 35,
+      height: 40,
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p5),
         child: TextFormField(

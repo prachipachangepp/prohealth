@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/manage_emp_doc.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/manage_work_schedule.dart';
+import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
 import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 
 import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
@@ -385,7 +386,7 @@ class SMDesktop extends StatelessWidget {
                                     size: 20
                                   )),
                             ),
-                            SizedBox(width: 2),
+                            SizedBox(width: 8),
                             InkWell(
                               splashColor: Colors.white,
                               onTap: () {},
@@ -712,24 +713,10 @@ class SMDesktop extends StatelessWidget {
                             //     },
                             //   ),
                             // ),
-                            // SizedBox(
-                            //   width: 15,
-                            // ),
-                            // Obx(
-                            //       () => CustomTitleButton(
-                            //     height: 30,
-                            //     width: 100,
-                            //     onPressed: () {
-                            //       //companyAll(context);
-                            //       myController.selectButton(6);
-                            //       _pageController.animateToPage(6,
-                            //           duration: Duration(milliseconds: 500),
-                            //           curve: Curves.ease);
-                            //     },
-                            //     text: 'Manage',
-                            //     isSelected: myController.selectedIndex.value == 6,
-                            //   ),
-                            // ),
+                            SizedBox(
+                              width: 15,
+                            ),
+
                             // SizedBox(
                             //   width: 15,
                             // ),
@@ -753,16 +740,21 @@ class SMDesktop extends StatelessWidget {
                         Row(mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          CustomButton(onPressed: (){},
-                          text: 'See all',
-                            style:  GoogleFonts.firaSans(
-                              fontSize: MediaQuery.of(context).size.width / 120,
-                              fontWeight: FontWeight.w700,
-                              color:Colors.white,
+                          Obx(
+                                () => CustomTitleButton(
+                              height: 30,
+                              width: 100,
+                              onPressed: () {
+                                //companyAll(context);
+                                myController.selectButton(6);
+                                _pageController.animateToPage(6,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease);
+                              },
+                              text: 'See All',
+                              isSelected: myController.selectedIndex.value == 6,
                             ),
-                          borderRadius: 12,
-                            height: 30,
-                            width: 100,)
+                          ),
                         ],)
                       ],
                     ),
@@ -789,7 +781,7 @@ class SMDesktop extends StatelessWidget {
 
                 FinanceScreen(),
 
-                // ManagePopUpScreen(),
+                SeeAllScreen(),
 
                 // WhitelabellingScreen()
               ],

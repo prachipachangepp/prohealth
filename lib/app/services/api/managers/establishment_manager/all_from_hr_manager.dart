@@ -36,7 +36,7 @@ Future<List<HRHeadBar>> companyHRHeadApi(BuildContext context, int deptId) async
 }
 
 /// Get Company data
-Future<List<HRClinical>> companyAllApi(BuildContext context) async {
+Future<List<HRClinical>> companyAllHrClinicApi(BuildContext context) async {
   List<HRClinical> itemsList = [];
   try {
     final response = await Api(context)
@@ -46,6 +46,7 @@ Future<List<HRClinical>> companyAllApi(BuildContext context) async {
       for (var item in response.data) {
         itemsList.add(
           HRClinical(
+              employeeTypesId: item['employeeTypeId'],
               empType: item['employeeType'],
               abbrivation: item['abbreviation'],
               color: item['color'],
@@ -72,7 +73,8 @@ Future<ApiData> addEmployeeTypePost(
     String color,
     String abbreviation) async {
   try {
-    var response = await Api(context).post(path: EstablishmentManagerRepository.addEmployeeTypePost(), data:
+    var response = await Api(context).post(path:
+    EstablishmentManagerRepository.addEmployeeTypePost(), data:
     {
       'DepartmentId':departmentId,
       'employeeType':employeeType,
@@ -81,6 +83,35 @@ Future<ApiData> addEmployeeTypePost(
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employee type Added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+///delete allfromHr Clinical
+Future<ApiData> allfromHrDelete(
+    BuildContext context,
+    int employeeTypeId
+    ) async {
+  try {
+    var response = await Api(context).delete(path:
+    EstablishmentManagerRepository.deleteEmployeeTypes(
+         employeeTypeId: employeeTypeId
+    ));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Hr Doc Deleted");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

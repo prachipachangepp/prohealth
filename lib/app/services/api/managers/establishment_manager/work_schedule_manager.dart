@@ -187,7 +187,7 @@ Future<ApiData> addHolidaysPost(
   try {
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.addHolidaysPost(), data: {
-          'date':date,
+          'date':"${date}T00:00:00Z",
           'holidayName':holidayName,
           'year':year,
           'CompanyId':compantId
@@ -223,7 +223,7 @@ Future<ApiData> updateHolidays(
   try {
     var response = await Api(context).patch(path: EstablishmentManagerRepository.updateHolidaysPatch(holidayId: holidayId),
         data: {
-        'date':date,
+        'date':"${date}T00:00:00Z",
           'holidayName':holidayName,
           'year':year,
           'CompanyId':compantId
@@ -254,7 +254,8 @@ Future<ApiData> deleteHolidays(
     BuildContext context,
     int holidayId,) async {
   try {
-    var response = await Api(context).delete(path: EstablishmentManagerRepository.deleteHolidaysDelete(holidayId: holidayId));
+    var response = await Api(context).delete(path:
+    EstablishmentManagerRepository.deleteHolidaysDelete(holidayId: holidayId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Holiday Deleted");
       return ApiData(

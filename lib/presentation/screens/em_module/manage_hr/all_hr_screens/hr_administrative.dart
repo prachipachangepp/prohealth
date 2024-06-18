@@ -48,7 +48,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
     administrativeData.loadEmployeeData();
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    companyAllApi(context).then((data){
+    companyAllHrClinicApi(context).then((data){
       _controller.add(data);
     }).catchError((error){});
   }
@@ -87,10 +87,14 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                     nameController: nameController,
                     addressController: addressController,
                     emailController: emailController,
-                    onAddPressed: () {
-                      // addEmployeeTypePost();
+                    onAddPressed: () async {
+                      await addEmployeeTypePost(context,1,nameController.text,"#E8A87D",'NC');
+                      companyAllHrClinicApi(context).then((data){
+                        _controller.add(data);
+                      }).catchError((error){});
+                      Navigator.pop(context);
                     },
-                    containerColor: ColorManager.sfaintOrange, onColorChanged: (Color ) {  },
+                    containerColor: ColorManager.sfaintOrange, onColorChanged: (Color) {  },
                   );
                 },
               );
@@ -273,14 +277,24 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                             ),
                             IconButton(
                               onPressed: () {
-                                showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
-                                  Navigator.pop(context);
-                                }, onDelete: (){}));
+                                showDialog(context: context,
+                                    builder: (context) => DeletePopup(
+                                        onCancel: (){
+                                          Navigator.pop(context);
+                                        }, onDelete: () async {
+                                      await  allfromHrDelete(
+                                          context, snapshot.data![index].employeeTypesId!);
+                                      companyAllHrClinicApi(context).then((data){
+                                        _controller.add(data);
+                                      }).catchError((error){});
+                                      Navigator.pop(context);
+                                    }));
+
                               },
                               icon: Icon(
-                                Icons.delete_outline,
                                 size: 18,
-                                color: ColorManager.faintOrange,
+                                Icons.delete_outline,
+                                color: Color(0xffF6928A),
                               ),
                             ),
                           ],
@@ -298,31 +312,31 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
         SizedBox(
           height: AppSize.s10,
         ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            /// Handle previous page button press
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            /// Handle page number tap
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            /// Handle next page button press
-            setState(() {
-              currentPage = currentPage < (items.length / itemsPerPage).ceil()
-                  ? currentPage + 1
-                  : (items.length / itemsPerPage).ceil();
-            });
-          },
-        ),
+        // PaginationControlsWidget(
+        //   currentPage: currentPage,
+        //   items: items,
+        //   itemsPerPage: itemsPerPage,
+        //   onPreviousPagePressed: () {
+        //     /// Handle previous page button press
+        //     setState(() {
+        //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+        //     });
+        //   },
+        //   onPageNumberPressed: (pageNumber) {
+        //     /// Handle page number tap
+        //     setState(() {
+        //       currentPage = pageNumber;
+        //     });
+        //   },
+        //   onNextPagePressed: () {
+        //     /// Handle next page button press
+        //     setState(() {
+        //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
+        //           ? currentPage + 1
+        //           : (items.length / itemsPerPage).ceil();
+        //     });
+        //   },
+        // ),
       ],
     );
   }
