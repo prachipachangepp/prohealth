@@ -223,65 +223,71 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   color: ColorManager.fmediumgrey,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 0),
-                      child: Text(
-                        " ",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text(
-                        "Sr No.",
-                        style: GoogleFonts.firaSans(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "wreuoyuoi",
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
-                            color: ColorManager.white
+                            color: Colors.transparent
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right:80),
-                      child: Text(
-                        "Office Name",
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Sr No.",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 70),
-                      child: Text(
-                        "Address",
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Office Name",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 20),
-                      child: Text(
-                        "Actions",
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.white
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Address",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 20,),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Actions",
+                          textAlign: TextAlign.end,
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -345,47 +351,65 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               ],
                             ),
                             height: 56,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.menu_sharp,
-                                    color: Color(0xff686464),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.menu_sharp,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  formattedSerialNumber,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                  Expanded(
+                                    flex:1,
+                                    child: Text(
+                                      formattedSerialNumber,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                      textAlign: TextAlign.start,
+                                    ),
                                   ),
-                                  textAlign: TextAlign.start,
-                                ),
-                                Text(
-                                  snapshot.data![index].officeName.toString(),
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                  Expanded(
+                                    flex:1,
+                                    child: Text(
+                                      snapshot.data![index].officeName.toString(),
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  snapshot.data![index].address.toString(),
-                                  textAlign: TextAlign.end,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff686464),
+                                  Expanded(
+                                    flex:1,
+                                    child: Text(
+                                      snapshot.data![index].address.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                CustomButtonTransparentSM(
-                                  text: 'Manage',
-                                  onPressed: showManageScreenFunction,
-                                ),
-                              ],
+                                  Expanded(
+                                      flex: 1,
+                                      child: SizedBox(width: 20,)),
+                                  CustomButtonTransparentSM(
+                                    text: 'Manage',
+                                    onPressed: showManageScreenFunction,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],

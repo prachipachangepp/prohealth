@@ -103,7 +103,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             return AlertDialog(
                                 backgroundColor: Colors.white,
                                 content: Container(
-                                  height: 400,
+                                  height: 440,
                                   width: 270,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(12))
@@ -193,6 +193,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
 
                                             ),
                                             labelFontSize: 12,),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
                                           HRManageTextField(
                                             controller: passwordController,
                                             keyboardType: TextInputType.phone,
@@ -266,83 +269,109 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   color: ColorManager.fmediumgrey,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      AppString.srNo,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          AppString.srNo,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "User ID",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "User ID",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "First Name",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "First Name",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Last Name",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Last Name",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Role",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Role",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Email ID",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Email ID",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Company ID",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Company ID",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Action",
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.white
+                      // SizedBox(width: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Action",
+                          style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.white
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 15),
-                     // SizedBox(width: 1),
-                  ],
+
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -518,7 +547,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                return AlertDialog(
                                                    backgroundColor: Colors.white,
                                                    content: Container(
-                                                     height: 400,
+                                                     height: 440,
                                                      width: 270,
                                                      decoration: BoxDecoration(
                                                          borderRadius: BorderRadius.all(Radius.circular(12))
