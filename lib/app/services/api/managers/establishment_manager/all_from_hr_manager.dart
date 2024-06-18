@@ -46,6 +46,7 @@ Future<List<HRClinical>> companyAllHrClinicApi(BuildContext context) async {
       for (var item in response.data) {
         itemsList.add(
           HRClinical(
+              employeeTypesId: item['employeeTypeId'],
               empType: item['employeeType'],
               abbrivation: item['abbreviation'],
               color: item['color'],
@@ -72,7 +73,8 @@ Future<ApiData> addEmployeeTypePost(
     String color,
     String abbreviation) async {
   try {
-    var response = await Api(context).post(path: EstablishmentManagerRepository.addEmployeeTypePost(), data:
+    var response = await Api(context).post(path:
+    EstablishmentManagerRepository.addEmployeeTypePost(), data:
     {
       'DepartmentId':departmentId,
       'employeeType':employeeType,
