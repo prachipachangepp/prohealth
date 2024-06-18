@@ -18,6 +18,7 @@ import '../../../../../data/api_data/establishment_data/company_identity/ci_org_
 import '../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../widgets/table_constant.dart';
 import '../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
@@ -283,6 +284,15 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                           _saveColor(index, color);
                                         });
                                       },
+                                      child:  CICCDropdown(
+                                        initialValue: 'Clinical',
+                                        items: [
+                                          DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
+                                          DropdownMenuItem(value: 'Sales', child: Text('Sales')),
+                                          DropdownMenuItem(value: 'Administrative', child: Text('Administrative')),
+                                        ]
+
+                                    ),
                                       // onColorChanged: (Color color) {
                                       //   setState(() {
                                       //     containerColors[index] =

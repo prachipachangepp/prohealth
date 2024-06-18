@@ -414,9 +414,9 @@ class CustomButtonList extends StatelessWidget {
         child: Text(
           buttonText,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: GoogleFonts.firaSans(
             fontSize: 12,
-            fontWeight: FontWeight.bold,
+            fontWeight: isSelected == docID ? FontWeightManager.bold : FontWeightManager.semiBold,
             color: isSelected == docID ? Colors.grey[600] : Colors.white,
           ),
         ),
