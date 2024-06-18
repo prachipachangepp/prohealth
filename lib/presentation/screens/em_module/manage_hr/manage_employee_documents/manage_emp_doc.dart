@@ -55,11 +55,9 @@ class _ManageEmployDocumentState extends State<ManageEmployDocument> {
 }
 
 class ManageEmpDocWidget extends StatefulWidget {
-
   final PageController managePageController;
   final int selectedIndex;
   final Function(int) selectButton;
-
   ManageEmpDocWidget({
     Key? key,
     required this.managePageController,
@@ -115,9 +113,11 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
       color: Colors.white,
       child: Column(
         children: [
-          widget.selectedIndex == 0 ?
+          // widget.selectedIndex == 0 ?
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p50,vertical: AppPadding.p20),
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppPadding.p50,
+                vertical: AppPadding.p20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -137,9 +137,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                 },icon: Icons.add,)
               ],
             ),
-          )
-              :
-          SizedBox(height: 73,),
+          ),
+              // :
+          // SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(

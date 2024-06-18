@@ -141,16 +141,16 @@ static String postCiVisit(){
   static String updateHolidaysPatch({required int holidayId}){
     return "$holidays/$holidayId";
   }
-  ///employee doc list
+    ///employee doc list
   static String getEmployeeDocSetUpMetaId({
-    // required int metaDocId
+    /// required int metaDocId
     required int pageNo, required int rowsNo,
     required int employeeDocTypeMetaDataId
   }){
-    // return "$employeedocSetup/$metaDocId";
+    /// return "$employeedocSetup/$metaDocId";
      return "$employeedocSetup/$employeeDocTypeMetaDataId/$pageNo/$rowsNo";
   }
-  ///employee doc tab bar
+   ///employee doc tab bar
   static String getEmployeeDocSetup(){
     return "$getEmployeedocTab";
   }
@@ -163,5 +163,11 @@ static String postCiVisit(){
   /// Employee type add POST
   static String addEmployeeTypePost(){
     return "$employeeType$add";
+  }
+
+  static String deleteEmployeedoctypesetup({
+    required int employeeDocTypeSetupId
+   }){
+    return "$employeedocSetup/$employeeDocTypeSetupId";
   }
 }

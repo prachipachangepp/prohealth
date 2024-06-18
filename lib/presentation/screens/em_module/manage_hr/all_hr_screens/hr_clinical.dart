@@ -362,9 +362,12 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                        showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                        showDialog(context: context,
+                                            builder: (context) => DeletePopup(onCancel: (){
                                           Navigator.pop(context);
-                                        }, onDelete: (){}));
+                                        }, onDelete: (){
+
+                                            }));
                                     },
                                     icon: Icon(
                                       size: 18,
