@@ -221,6 +221,7 @@ class EstablishmentManagerRepository {
   static String employeeType = "/employee-types";
   static String user = "/users";
   static String zone = "/zone";
+  static String signUp="/signUp";
 
 
   static String companyAll(){
@@ -382,7 +383,13 @@ class EstablishmentManagerRepository {
   static String userGet(){
     return "$user";
   }
+  static String createUserPost(){
+    return "$user$signUp";
+  }
   static String userUpdatePatch({required userId}){
+    return "$user/$userId";
+  }
+  static String userDelete({required userId}){
     return "$user/$userId";
   }
   static String zoneGet(){

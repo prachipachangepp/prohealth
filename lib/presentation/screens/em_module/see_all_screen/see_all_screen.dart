@@ -33,6 +33,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController roleController = TextEditingController();
   TextEditingController companyIdController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   final StreamController<List<UserModal>> _companyUsersList = StreamController<List<UserModal>>();
   final PageController _pageController = PageController();
   late int currentPage;
@@ -126,20 +127,20 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                         children: [
-                                          HRManageTextField(
-                                            controller: userIdController,
-                                            keyboardType: TextInputType.phone,
-                                            text: "User Id",
-                                            cursorHeight: 12,
-                                            labelText: "User Id",
-                                            labelStyle: GoogleFonts.firaSans(
-                                                fontWeight: FontWeight.w500
-
-                                            ),
-                                            labelFontSize: 12,),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
+                                          // HRManageTextField(
+                                          //   controller: userIdController,
+                                          //   keyboardType: TextInputType.phone,
+                                          //   text: "User Id",
+                                          //   cursorHeight: 12,
+                                          //   labelText: "User Id",
+                                          //   labelStyle: GoogleFonts.firaSans(
+                                          //       fontWeight: FontWeight.w500
+                                          //
+                                          //   ),
+                                          //   labelFontSize: 12,),
+                                          // SizedBox(
+                                          //   height: 15,
+                                          // ),
                                           HRManageTextField(
                                             controller: firstNameController,
                                             keyboardType: TextInputType.phone,
@@ -192,6 +193,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
 
                                             ),
                                             labelFontSize: 12,),
+                                          HRManageTextField(
+                                            controller: passwordController,
+                                            keyboardType: TextInputType.phone,
+                                            text: "Password",
+                                            cursorHeight: 12,
+                                            labelText: "Password",
+                                            labelStyle: GoogleFonts.firaSans(
+                                                fontWeight: FontWeight.w500
+                                            ),
+                                            labelFontSize: 12,),
                                           SizedBox(
                                             height: 15,
                                           ),
@@ -203,7 +214,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                             labelText: "Company Id",
                                             labelStyle: GoogleFonts.firaSans(
                                                 fontWeight: FontWeight.w500
-
                                             ),
                                             labelFontSize: 12,),
                                         ],
@@ -216,19 +226,26 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           height: 31,
                                           text: 'Submit',
                                           onPressed: () async{
-                                            // await addNewOffice(
-                                            //     context,
-                                            //     nameController.text,
-                                            //     addressController.text,
-                                            //     emailController.text,
-                                            //     mobNumController.text,
-                                            //     secNumController.text
-                                            // );
-                                            // companyOfficeListGet(context,11,1,6).then((data) {
-                                            //   _companyIdentityController.add(data);
-                                            // }).catchError((error) {
-                                            // });
+                                            await createUserPost(context,
+                                                firstNameController.text,
+                                                lastNameController.text,
+                                                roleController.text,
+                                                emailController.text,
+                                                int.parse(companyIdController.text),
+                                                passwordController.text
+                                            );
+                                            getUser(context).then((data) {
+                                              _companyUsersList.add(data);
+                                            }).catchError((error) {
+                                              // Handle error
+                                            });
                                             Navigator.pop(context);
+                                            firstNameController.clear();
+                                            lastNameController.clear();
+                                            roleController.clear();
+                                            emailController.clear();
+                                            companyIdController.clear();
+                                            passwordController.clear();
                                           })
                                     ],
                                   ),
@@ -484,7 +501,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                  child: Column(
                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                    children: [
-
                                                      Row(
                                                        mainAxisAlignment: MainAxisAlignment.end,
                                                        crossAxisAlignment: CrossAxisAlignment.end,
@@ -620,17 +636,27 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                    SizedBox(
                                      width: 2,
                                    ),
-                                   Container(
-                                     height: 20,
-                                     width: 50,
-                                     decoration: BoxDecoration(
-                                         borderRadius:  BorderRadius.circular(10),
-                                         border: Border.all(color: Colors.blueAccent)
-                                     ),
-                                     child: Center(
-                                       child: Text("Delete",style: TextStyle(
-                                         fontSize: 8
-                                       ),),
+                                   InkWell(
+                                     onTap:() async{
+                                       await deleteUser(context, snapshot.data![index].userId);
+                                       getUser(context).then((data) {
+                                         _companyUsersList.add(data);
+                                       }).catchError((error) {
+                                         // Handle error
+                                       });
+                                     },
+                                     child: Container(
+                                       height: 20,
+                                       width: 50,
+                                       decoration: BoxDecoration(
+                                           borderRadius:  BorderRadius.circular(10),
+                                           border: Border.all(color: Colors.blueAccent)
+                                       ),
+                                       child: Center(
+                                         child: Text("Delete",style: TextStyle(
+                                           fontSize: 8
+                                         ),),
+                                       ),
                                      ),
                                    )
                                  ],

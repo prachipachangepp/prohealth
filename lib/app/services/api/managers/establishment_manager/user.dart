@@ -40,6 +40,45 @@ Future<List<UserModal>> getUser(BuildContext context,) async {
   }
 }
 
+/// Create user
+Future<ApiData> createUserPost(
+    BuildContext context,
+    String firstName,
+    String lastName,
+    String role,
+    String email,
+    int companyId,
+    String password
+    ) async {
+  try {
+    var response = await Api(context).post(path: EstablishmentManagerRepository.createUserPost(), data: {
+      'firstName':firstName,
+      'lastName':lastName,
+      'role':role,
+      'email':email,
+      'company_id':companyId,
+      'password':password
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("New User Added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
 /// User edit
 Future<ApiData> updateUserPatch(
     BuildContext context,
@@ -60,6 +99,33 @@ Future<ApiData> updateUserPatch(
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("User updated");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Delete user
+Future<ApiData> deleteUser(
+    BuildContext context,
+    int userId,
+    ) async {
+  try {
+    var response = await Api(context).delete(path: EstablishmentManagerRepository.userDelete(userId: userId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("User Deleted");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
