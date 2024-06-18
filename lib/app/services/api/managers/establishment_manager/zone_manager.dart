@@ -7,7 +7,8 @@ Future<List<AllZoneData>> getAllZone(BuildContext context,) async {
   List<AllZoneData> itemsList = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.zoneGet(
+        .get(path: EstablishmentManagerRepository.
+    zoneGet(
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");

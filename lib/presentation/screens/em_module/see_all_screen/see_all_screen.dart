@@ -7,6 +7,9 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/const_field.dart';
+import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
@@ -24,12 +27,12 @@ class SeeAllScreen extends StatefulWidget {
 class _SeeAllScreenState extends State<SeeAllScreen> {
   late CompanyIdentityManager _companyManager;
   final StreamController<List<CompanyModel>> _controller = StreamController<List<CompanyModel>>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
+  TextEditingController userIdController= TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController mobNumController = TextEditingController();
-  TextEditingController secNumController = TextEditingController();
-  TextEditingController OptionalController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController roleController = TextEditingController();
+  TextEditingController companyIdController = TextEditingController();
   final StreamController<List<UserModal>> _companyUsersList = StreamController<List<UserModal>>();
   final PageController _pageController = PageController();
   late int currentPage;
@@ -294,18 +297,162 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 ),
                                Row(
                                  children: [
-                                   Container(
-                                     height: 20,
-                                     width: 50,
-                                     decoration: BoxDecoration(
-                                       borderRadius:  BorderRadius.circular(10),
-                                         border: Border.all(color: Colors.blueAccent)
-                                     ),
-                                     child: Center(
-                                       child: Text("Edit",style: TextStyle(
-                                           fontSize: 8),
-                                                                          ),
-                                     ),),
+                                   InkWell(
+                                     child: Container(
+                                       height: 20,
+                                       width: 50,
+                                       decoration: BoxDecoration(
+                                         borderRadius:  BorderRadius.circular(10),
+                                           border: Border.all(color: Colors.blueAccent)
+                                       ),
+                                       child: Center(
+                                         child: Text(
+                                           "Edit",
+                                           style: TextStyle(
+                                             fontSize: 8),
+                                                                            ),
+                                       ),),
+                                     onTap: (){
+                                       showDialog(
+                                         context: context,
+                                         builder: (BuildContext context) {
+                                           return AlertDialog(
+                                               backgroundColor: Colors.white,
+                                               content: Container(
+                                                 height: 400,
+                                                 width: 270,
+                                                 decoration: BoxDecoration(
+                                                   borderRadius: BorderRadius.all(Radius.circular(12))
+                                                 ),
+                                                 child: Column(
+                                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                   children: [
+                                                     Row(
+                                                       mainAxisAlignment: MainAxisAlignment.end,
+                                                       crossAxisAlignment: CrossAxisAlignment.end,
+                                                       children: [
+                                                         IconButton(
+                                                             onPressed: () {
+                                                               Navigator.pop(context);
+                                                             },
+                                                             icon: Icon(Icons.close))
+                                                       ],
+                                                     ),
+                                                     Column(
+                                                       mainAxisAlignment:
+                                                       MainAxisAlignment.spaceAround,
+                                                       children: [
+                                                         HRManageTextField(
+                                                           controller: userIdController,
+                                                           keyboardType: TextInputType.phone,
+                                                           text: "User Id",
+                                                           cursorHeight: 12,
+                                                           labelText: "User Id",
+                                                           labelStyle: GoogleFonts.firaSans(
+                                                               fontWeight: FontWeight.w500
+
+                                                           ),
+                                                           labelFontSize: 12,),
+                                                         SizedBox(
+                                                           height: 15,
+                                                         ),
+                                                        HRManageTextField(
+                                                            controller: firstNameController,
+                                                            keyboardType: TextInputType.phone,
+                                                            text: "First Name",
+                                                            cursorHeight: 12,
+                                                            labelText: "First Name",
+                                                            labelStyle: GoogleFonts.firaSans(
+                                                              fontWeight: FontWeight.w500
+                                                            ),
+                                                            labelFontSize: 12,),
+                                                         SizedBox(
+                                                           height: 15,
+                                                         ),
+                                                         HRManageTextField(
+                                                           controller: lastNameController,
+                                                           keyboardType: TextInputType.phone,
+                                                           text: "Last Name",
+                                                           cursorHeight: 12,
+                                                           labelText: "Last Name",
+                                                           labelStyle: GoogleFonts.firaSans(
+                                                               fontWeight: FontWeight.w500
+
+                                                           ),
+                                                           labelFontSize: 12,),
+                                                         SizedBox(
+                                                           height: 15,
+                                                         ),
+                                                         HRManageTextField(
+                                                           controller: roleController,
+                                                           keyboardType: TextInputType.phone,
+                                                           text: "Role",
+                                                           cursorHeight: 12,
+                                                           labelText: "Role",
+                                                           labelStyle: GoogleFonts.firaSans(
+                                                               fontWeight: FontWeight.w500
+
+                                                           ),
+                                                           labelFontSize: 12,),
+                                                         SizedBox(
+                                                           height: 15,
+                                                         ),
+                                                         HRManageTextField(
+                                                           controller: emailController,
+                                                           keyboardType: TextInputType.phone,
+                                                           text: "Email Id",
+                                                           cursorHeight: 12,
+                                                           labelText: "Email Id",
+                                                           labelStyle: GoogleFonts.firaSans(
+                                                               fontWeight: FontWeight.w500
+
+                                                           ),
+                                                           labelFontSize: 12,),
+                                                         SizedBox(
+                                                           height: 15,
+                                                         ),
+                                                         HRManageTextField(
+                                                           controller: companyIdController,
+                                                           keyboardType: TextInputType.phone,
+                                                           text: "Company Id",
+                                                           cursorHeight: 12,
+                                                           labelText: "Company Id",
+                                                           labelStyle: GoogleFonts.firaSans(
+                                                               fontWeight: FontWeight.w500
+
+                                                           ),
+                                                           labelFontSize: 12,),
+                                                       ],
+                                                     ),
+                                                     SizedBox(
+                                                       height: 40,
+                                                     ),
+                                                     CustomElevatedButton(
+                                                         width: 105,
+                                                         height: 31,
+                                                         text: 'Submit',
+                                                         onPressed: () async{
+                                                           // await addNewOffice(
+                                                           //     context,
+                                                           //     nameController.text,
+                                                           //     addressController.text,
+                                                           //     emailController.text,
+                                                           //     mobNumController.text,
+                                                           //     secNumController.text
+                                                           // );
+                                                           // companyOfficeListGet(context,11,1,6).then((data) {
+                                                           //   _companyIdentityController.add(data);
+                                                           // }).catchError((error) {
+                                                           // });
+                                                           Navigator.pop(context);
+                                                         })
+                                                   ],
+                                                 ),
+                                               ));
+                                         },
+                                       );
+                                     },
+                                   ),
                                    SizedBox(
                                      width: 2,
                                    ),

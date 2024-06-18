@@ -13,7 +13,9 @@ Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows) asy
   List<CiVisit> itemsList = [];
   try {
     final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.getCiVisit(pageNo: pageNo, noofRows: noOfRows
+        .get(path: EstablishmentManagerRepository.
+    getCiVisit(
+        pageNo: pageNo, noofRows: noOfRows
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
@@ -118,27 +120,28 @@ Future<ApiData> updateVisitPatch(BuildContext context, String typeVisist,String 
 }
 
 /// Delete visit
-Future<ApiData> deleteVisitPatch(BuildContext context,int visitId) async {
-  try {
-    var response = await Api(context).delete(path: EstablishmentManagerRepository.deleteCiVisit(visitId: visitId));
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print("visit data deleted");
-      // orgDocumentGet(context);
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: true,
-          message: response.statusMessage!);
-    } else {
-      print("Error 1");
-      return ApiData(
-          statusCode: response.statusCode!,
-          success: false,
-          message: response.data['message']);
-    }
-  } catch (e) {
-    print("Error $e");
-    print("Error 2");
-    return ApiData(
-        statusCode: 404, success: false, message: AppString.somethingWentWrong);
-  }
-}
+// Future<ApiData> deleteVisitPatch(BuildContext context,int visitId) async {
+//   try {
+//     var response = await Api(context).delete(path:
+//     EstablishmentManagerRepository.deleteCiVisit(visitId: visitId));
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("visit data deleted");
+//       // orgDocumentGet(context);
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: true,
+//           message: response.statusMessage!);
+//     } else {
+//       print("Error 1");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: false,
+//           message: response.data['message']);
+//     }
+//   } catch (e) {
+//     print("Error $e");
+//     print("Error 2");
+//     return ApiData(
+//         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+//   }
+// }
