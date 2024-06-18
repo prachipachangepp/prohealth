@@ -83,6 +83,162 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     return Scaffold(
       body: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 30,
+                    width: 100,
+                    child: CustomIconButton(
+                      text: 'Create',
+                      icon: Icons.add,
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                backgroundColor: Colors.white,
+                                content: Container(
+                                  height: 400,
+                                  width: 270,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(12))
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              icon: Icon(Icons.close))
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                        children: [
+                                          HRManageTextField(
+                                            controller: userIdController,
+                                            keyboardType: TextInputType.phone,
+                                            text: "User Id",
+                                            cursorHeight: 12,
+                                            labelText: "User Id",
+                                            labelStyle: GoogleFonts.firaSans(
+                                                fontWeight: FontWeight.w500
+
+                                            ),
+                                            labelFontSize: 12,),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          HRManageTextField(
+                                            controller: firstNameController,
+                                            keyboardType: TextInputType.phone,
+                                            text: "First Name",
+                                            cursorHeight: 12,
+                                            labelText: "First Name",
+                                            labelStyle: GoogleFonts.firaSans(
+                                                fontWeight: FontWeight.w500
+                                            ),
+                                            labelFontSize: 12,),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          HRManageTextField(
+                                            controller: lastNameController,
+                                            keyboardType: TextInputType.phone,
+                                            text: "Last Name",
+                                            cursorHeight: 12,
+                                            labelText: "Last Name",
+                                            labelStyle: GoogleFonts.firaSans(
+                                                fontWeight: FontWeight.w500
+
+                                            ),
+                                            labelFontSize: 12,),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          HRManageTextField(
+                                            controller: roleController,
+                                            keyboardType: TextInputType.phone,
+                                            text: "Role",
+                                            cursorHeight: 12,
+                                            labelText: "Role",
+                                            labelStyle: GoogleFonts.firaSans(
+                                                fontWeight: FontWeight.w500
+
+                                            ),
+                                            labelFontSize: 12,),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          HRManageTextField(
+                                            controller: emailController,
+                                            keyboardType: TextInputType.phone,
+                                            text: "Email Id",
+                                            cursorHeight: 12,
+                                            labelText: "Email Id",
+                                            labelStyle: GoogleFonts.firaSans(
+                                                fontWeight: FontWeight.w500
+
+                                            ),
+                                            labelFontSize: 12,),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          HRManageTextField(
+                                            controller: companyIdController,
+                                            keyboardType: TextInputType.phone,
+                                            text: "Company Id",
+                                            cursorHeight: 12,
+                                            labelText: "Company Id",
+                                            labelStyle: GoogleFonts.firaSans(
+                                                fontWeight: FontWeight.w500
+
+                                            ),
+                                            labelFontSize: 12,),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 40,
+                                      ),
+                                      CustomElevatedButton(
+                                          width: 105,
+                                          height: 31,
+                                          text: 'Submit',
+                                          onPressed: () async{
+                                            // await addNewOffice(
+                                            //     context,
+                                            //     nameController.text,
+                                            //     addressController.text,
+                                            //     emailController.text,
+                                            //     mobNumController.text,
+                                            //     secNumController.text
+                                            // );
+                                            // companyOfficeListGet(context,11,1,6).then((data) {
+                                            //   _companyIdentityController.add(data);
+                                            // }).catchError((error) {
+                                            // });
+                                            Navigator.pop(context);
+                                          })
+                                    ],
+                                  ),
+                                ));
+                          },
+                        );
+                      },
+                    ),
+                  )
+              )],
+          ),
           Column(
             children: [
               Container(
@@ -322,11 +478,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                  height: 400,
                                                  width: 270,
                                                  decoration: BoxDecoration(
-                                                   borderRadius: BorderRadius.all(Radius.circular(12))
+                                                     borderRadius: BorderRadius.all(Radius.circular(12))
                                                  ),
                                                  child: Column(
                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                    children: [
+
                                                      Row(
                                                        mainAxisAlignment: MainAxisAlignment.end,
                                                        crossAxisAlignment: CrossAxisAlignment.end,
@@ -356,16 +513,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                          SizedBox(
                                                            height: 15,
                                                          ),
-                                                        HRManageTextField(
-                                                            controller: firstNameController,
-                                                            keyboardType: TextInputType.phone,
-                                                            text: "First Name",
-                                                            cursorHeight: 12,
-                                                            labelText: "First Name",
-                                                            labelStyle: GoogleFonts.firaSans(
-                                                              fontWeight: FontWeight.w500
-                                                            ),
-                                                            labelFontSize: 12,),
+                                                         HRManageTextField(
+                                                           controller: firstNameController,
+                                                           keyboardType: TextInputType.phone,
+                                                           text: "First Name",
+                                                           cursorHeight: 12,
+                                                           labelText: "First Name",
+                                                           labelStyle: GoogleFonts.firaSans(
+                                                               fontWeight: FontWeight.w500
+                                                           ),
+                                                           labelFontSize: 12,),
                                                          SizedBox(
                                                            height: 15,
                                                          ),
@@ -432,19 +589,25 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                          height: 31,
                                                          text: 'Submit',
                                                          onPressed: () async{
-                                                           // await addNewOffice(
-                                                           //     context,
-                                                           //     nameController.text,
-                                                           //     addressController.text,
-                                                           //     emailController.text,
-                                                           //     mobNumController.text,
-                                                           //     secNumController.text
-                                                           // );
-                                                           // companyOfficeListGet(context,11,1,6).then((data) {
-                                                           //   _companyIdentityController.add(data);
-                                                           // }).catchError((error) {
-                                                           // });
+                                                           await updateUserPatch(context,
+                                                               snapshot.data![index].userId,
+                                                               firstNameController.text,
+                                                               lastNameController.text,
+                                                               roleController.text,
+                                                               emailController.text,
+                                                               int.parse(companyIdController.text));
+                                                           getUser(context).then((data) {
+                                                             _companyUsersList.add(data);
+                                                           }).catchError((error) {
+                                                             // Handle error
+                                                           });
                                                            Navigator.pop(context);
+                                                           userIdController.clear();
+                                                           firstNameController.clear();
+                                                           lastNameController.clear();
+                                                           roleController.clear();
+                                                           emailController.clear();
+                                                           companyIdController.clear();
                                                          })
                                                    ],
                                                  ),

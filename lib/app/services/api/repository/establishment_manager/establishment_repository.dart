@@ -382,6 +382,9 @@ class EstablishmentManagerRepository {
   static String userGet(){
     return "$user";
   }
+  static String userUpdatePatch({required userId}){
+    return "$user/$userId";
+  }
   static String zoneGet(){
     return "$zone";
   }

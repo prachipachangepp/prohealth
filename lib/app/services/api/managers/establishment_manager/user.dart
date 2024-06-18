@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 
 import '../../../../../data/api_data/establishment_data/user/user_modal.dart';
 import '../../api.dart';
@@ -35,5 +37,43 @@ Future<List<UserModal>> getUser(BuildContext context,) async {
   } catch (e) {
     print("Error $e");
     return itemsList;
+  }
+}
+
+/// User edit
+Future<ApiData> updateUserPatch(
+    BuildContext context,
+    int userId,
+    String firstName,
+    String lastName,
+    String role,
+    String email,
+    int companyId
+    ) async {
+  try {
+    var response = await Api(context).patch(path: EstablishmentManagerRepository.userUpdatePatch(userId: userId), data: {
+      'firstName':firstName,
+      'lastName':lastName,
+      'role':role,
+      'email':email,
+      'company_id':companyId,
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("User updated");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
