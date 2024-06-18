@@ -4,32 +4,11 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_adr.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_cap_reports.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_licence.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_medical_cost_report.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_quaterly_bal_report.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/ci_insurance.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_templates/ci_tempalets.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_country.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_zone.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/zone.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/dme.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/leasas_services.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/md.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/misc.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/snf.dart';
-import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
 
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import 'widgets/ci_insurance/ci_insurance_contract.dart';
-import 'widgets/ci_insurance/ci_insurance_pageview.dart';
 import 'widgets/policies_procedures/document_detail_page_view.dart';
-import 'widgets/policies_procedures/policies_procedures.dart';
 
 // class ManagePopUpScreen extends StatefulWidget {
 //   const ManagePopUpScreen({Key? key}) : super(key: key);
