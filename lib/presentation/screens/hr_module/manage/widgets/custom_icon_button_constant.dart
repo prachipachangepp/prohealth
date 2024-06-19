@@ -211,7 +211,7 @@ class CustomTitleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: isSelected ? 4 : 0,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(12),
       color: Colors.white,
       child: AppClickableWidget(
         onTap: onPressed,
@@ -221,7 +221,7 @@ class CustomTitleButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: isSelected
               ? BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                   gradient: const LinearGradient(
                     colors: [
                       Color(0xff51B5E6),
