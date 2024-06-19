@@ -283,13 +283,14 @@ class EmpDocEditPopup extends StatefulWidget {
   final TextEditingController calenderController;
   final VoidCallback onSavePredded;
   String? expiryType;
+  final Widget radioButton;
   final Widget child;
    EmpDocEditPopup(
       {super.key,
       required this.idDocController,
       required this.nameDocController,
       required this.child,
-      required this.calenderController, this.expiryType, required this.onSavePredded});
+      required this.calenderController, this.expiryType, required this.onSavePredded, required this.radioButton});
 
   @override
   State<EmpDocEditPopup> createState() => _EmpDocEditPopupState();
@@ -386,66 +387,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                       decoration: TextDecoration.none,
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RadioListTile<String>(
-                        title: Text(
-                          'Not Applicable',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'Not Applicable',
-                        groupValue: widget.expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            widget.expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Scheduled',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'Scheduled',
-                        groupValue: widget.expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            widget.expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Issuer Expiry',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'Issuer Expiry',
-                        groupValue: widget.expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            widget.expiryType = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
+                  widget.radioButton
                 ],
               ),
             ),
