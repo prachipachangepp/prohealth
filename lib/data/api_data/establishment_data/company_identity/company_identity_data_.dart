@@ -1,5 +1,3 @@
-import 'package:prohealth/app/resources/color.dart';
-
 /// Company Model
 class CompanyModel {
   // final String? name;
@@ -11,7 +9,8 @@ class CompanyModel {
 
   CompanyModel({
     this.sucess,
-    this.message, this.officeName,
+    this.message,
+    this.officeName,
     this.companyId,
     // this.name,
     this.address,
@@ -31,11 +30,9 @@ class UploadCompanyLogoModel {
   final int? companyId;
   final String? type;
 
-  UploadCompanyLogoModel(
-      {
-      this.companyId,
-      this.type});
+  UploadCompanyLogoModel({this.companyId, this.type});
 }
+
 class CompanyIdentityModel {
   final String? name;
   final String address;
@@ -46,8 +43,15 @@ class CompanyIdentityModel {
   //final OfficeList officeList;
   final bool sucess;
   final String message;
-
-  CompanyIdentityModel({this.name, required this.address, required this.officeName, required this.companyId, required this.pageNo, required this.rowsNo,
+  final String officeId;
+  CompanyIdentityModel({
+    required this.officeId,
+    this.name,
+    required this.address,
+    required this.officeName,
+    required this.companyId,
+    required this.pageNo,
+    required this.rowsNo,
     //required this.officeList,
     required this.sucess,
     required this.message,

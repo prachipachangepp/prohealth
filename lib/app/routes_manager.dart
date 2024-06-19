@@ -23,6 +23,7 @@ class RoutesManager {
     return {
       ///Home
       '/': (context) => token ? const HomeScreen() : const LoginScreen(),
+      // "/": (context) => SMDesktop(),
 
       ///Auth
       LoginScreen.routeName: (context) => const LoginScreen(),
