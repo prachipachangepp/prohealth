@@ -47,7 +47,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 10;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
@@ -68,7 +68,13 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
       }
     });
   }
-
+  String seletedType = "Sales";
+  String color ="#77D2EC";
+  void onChange(String seletedTypeEmp){
+    setState(() {
+      seletedType = seletedTypeEmp;
+    });
+  }
   /// Save color to SharedPreferences
   void _saveColor(int index, Color color) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -270,14 +276,26 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return EditPopupWidget(
-                                      typeController: TextEditingController(),
+                                      typeController: typeController,
                                       shorthandController:
-                                          TextEditingController(),
-                                      emailController:
-                                          TextEditingController(),
+                                      shorthandController,
                                       containerColor:
                                           containerColors[index],
-                                      onSavePressed: () {},
+                                      onSavePressed: ()async{
+                                        await AllFromHrPatch(context,
+                                            snapshot.data![index].employeeTypesId,
+                                            1,
+                                            typeController.text,
+                                            shorthandController.text,
+                                            color);
+                                        companyAllHrClinicApi(context).then((data){
+                                          _controller.add(data);
+                                        }).catchError((error){});
+                                        Navigator.pop(context);
+                                        typeController.clear();
+                                        shorthandController.clear();
+                                        seletedType = "Sales";
+                                      },
                                       onColorChanged: (Color color) {
                                         setState(() {
                                           containerColors[index] = color;
@@ -285,7 +303,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                         });
                                       },
                                       child:  CICCDropdown(
-                                        initialValue: 'Clinical',
+                                        initialValue: seletedType,
+                                        onChange: onChange,
                                         items: [
                                           DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
                                           DropdownMenuItem(value: 'Sales', child: Text('Sales')),

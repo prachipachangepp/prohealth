@@ -134,6 +134,7 @@ Future<ApiData> allfromHrDelete(
 Future<ApiData> AllFromHrPatch(
     BuildContext context,
     int employeeTypeId,
+    int deptId,
     String empType,
     String abbreviation,
     String color,
@@ -143,7 +144,7 @@ Future<ApiData> AllFromHrPatch(
     AllFromHrRepository.patchHRType(
         empId : employeeTypeId,
     ), data: {
-      "DepartmentId": 1,
+      "DepartmentId": deptId,
       "employeeType": empType,
       "color": color,
       "abbreviation": abbreviation
@@ -162,7 +163,7 @@ Future<ApiData> AllFromHrPatch(
           message: response.data['message']);
     }
   } catch (e) {
-    print("Error $e");
+    print("Error 11 $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
