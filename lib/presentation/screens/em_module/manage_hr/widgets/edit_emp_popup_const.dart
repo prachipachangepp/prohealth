@@ -22,19 +22,19 @@ class EditPopupWidget extends StatefulWidget {
   final int? id;
   final TextEditingController typeController;
   final TextEditingController shorthandController;
-  final TextEditingController emailController;
+  final TextEditingController? emailController;
   final VoidCallback onSavePressed;
   final Color containerColor;
   final Widget child;
 
-  final Function(Color) onColorChanged;
+  final Function(Color)? onColorChanged;
   EditPopupWidget({
     required this.typeController,
     required this.shorthandController,
-    required this.emailController,
+     this.emailController,
     required this.containerColor,
     required this.onSavePressed,
-    required this.onColorChanged,
+     this.onColorChanged,
     this.id, required this.child
   });
 
@@ -94,7 +94,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
       setState(() {
         _selectedColors[0] = pickedColor;
         // Update container color by calling the function passed from HrSalesScreen
-        widget.onColorChanged(pickedColor);
+        widget.onColorChanged!(pickedColor);
       });
     }
   }
@@ -217,10 +217,8 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                         width: AppSize.s105,
                         height: AppSize.s30,
                         text: 'Save',
-                        onPressed: () {
-                          widget.onSavePressed;
-                          Navigator.pop(context);
-                        }),
+                        onPressed: widget.onSavePressed,
+                        ),
                   )
                 ],
               ),

@@ -67,6 +67,13 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
       }
     });
   }
+  String seletedType = "Clinical";
+  String color ="#77D2EC";
+  void onChange(String seletedTypeEmp){
+    setState(() {
+      seletedType = seletedTypeEmp;
+    });
+  }
 
   void _saveColor(int index, Color color) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -336,23 +343,24 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                             shorthandController: TextEditingController(),
                                             emailController: TextEditingController(),
                                             containerColor: hrcontainerColors[index],
-                                            onSavePressed: (){},
-                                            // onSavePressed: () async{
-                                            //  await AllFromHrPatch(context,
-                                            //       snapshot.data![index].employeeTypesId!,
-                                            //       typeController.text,
-                                            //       shorthandController.text,
-                                            //       Colors.red as String);
-                                            // },
-                                            // onColorChanged: (Color color) {
-                                            //   setState(() {
-                                            //     hrcontainerColors[index] =
-                                            //         color;
-                                            //     _saveColor(index, color);
-                                            //   });
-                                            // },
+                                            onSavePressed: ()async{
+                                              await AllFromHrPatch(context,
+                                                  snapshot.data![index].employeeTypesId,
+                                                  1,
+                                                  typeController.text,
+                                                  shorthandController.text,
+                                                  color);
+                                              companyAllHrClinicApi(context).then((data){
+                                                _controller.add(data);
+                                              }).catchError((error){});
+                                              Navigator.pop(context);
+                                              typeController.clear();
+                                              shorthandController.clear();
+                                              seletedType = "Clinical";
+                                            },
                                             child: CICCDropdown(
-                                                initialValue: 'Clinical',
+                                                initialValue: seletedType,
+                                                onChange: onChange,
                                                 items: [
                                                   DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
                                                   DropdownMenuItem(value: 'Sales', child: Text('Sales')),
