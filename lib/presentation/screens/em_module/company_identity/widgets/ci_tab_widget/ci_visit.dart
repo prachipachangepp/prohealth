@@ -42,11 +42,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 10;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    getVisit(context,1,10).then((data) {
+    getVisit(context,1,15).then((data) {
       _visitController.add(data);
 
     }).catchError((error) {
@@ -105,7 +105,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                docNamecontroller.text,
                                [_selectedItem]
                             );
-                             getVisit(context,1,10).then((data) {
+                             getVisit(context,1,15).then((data) {
                                _visitController.add(data);
                              }).catchError((error) {
                                // Handle error
@@ -237,10 +237,15 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                         ? totalItems
                         : (currentPage * itemsPerPage),
                   );
+
                   return ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: currentPageItems.length,
                       itemBuilder: (context, index) {
+                        List<List?> listData = [];
+                        for(var i in snapshot.data!){
+                          listData.add(snapshot.data![index].eligibleClinician);
+                        }
                         int serialNumber =
                             index + 1 + (currentPage - 1) * itemsPerPage;
                         String formattedSerialNumber =
@@ -300,8 +305,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           color: Color(0xffF37F81),
                                           child: Center(
                                               child: Text(
-                                                'HO',
-                                                // snapshot.data![index].eligibleClinician.toString(),
+                                                //'HO',
+                                                listData.first.toString().substring(1,3),
                                             style: GoogleFonts.firaSans(
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w500,
@@ -319,8 +324,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           color: Color(0xfFE7E8E6),
                                           child: Center(
                                               child: Text(
-                                                'PT',
-                                                // snapshot.data![index].eligibleClinician.toString(),
+                                                "PT",
+                                           // snapshot.data![index].eligibleClinician![index] == 0 ? "" :"2",
                                             style: GoogleFonts.firaSans(
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w500,
@@ -356,6 +361,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                        }).catchError((error) {
                                                          // Handle error
                                                        });
+                                                       docNamecontroller.clear();
+                                                       _selectedItem="Select";
                                                       },
                                                       child: CICCDropdown(
                                                         initialValue:

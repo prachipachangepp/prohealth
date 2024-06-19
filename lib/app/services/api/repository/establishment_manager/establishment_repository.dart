@@ -299,6 +299,9 @@ class EstablishmentManagerRepository {
   static String documentTypeGet(){
     return "/$documentType";
   }
+  static String deleteCiVisit({required int visitId}){
+    return "/$visit/$visitId";
+  }
   static String updateCiVisit({required String typeVisit}){
     return "/$visit/$typeVisit";
   }
@@ -349,6 +352,10 @@ class EstablishmentManagerRepository {
     /// return "$employeedocSetup/$metaDocId";
     return "$employeedocSetup/$employeeDocTypeMetaDataId/$pageNo/$rowsNo";
   }
+
+  static String addEmployeDocSetup(){
+    return "$employeedocSetup$add";
+  }
   ///employee doc tab bar
   static String getEmployeeDocSetup(){
     return "$getEmployeedocTab";
@@ -378,7 +385,9 @@ class EstablishmentManagerRepository {
   }){
     return "$employeedocSetup/$employeeDoctypeSetupId";
   }
-  static String postEmployeedocTypesetup(){
+  static String postEmployeedocTypesetup(
+  {required int employeeDoctypeSetupId }
+      ){
     return "$employeedocSetup/$add";
   }
   static String userGet(){

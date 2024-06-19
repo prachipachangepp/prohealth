@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:prohealth/app/services/api/repository/establishment_manager/employee_doc_repository.dart';
 
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import '../../../../resources/const_string.dart';
 import '../../api.dart';
+import '../../repository/establishment_manager/all_from_hr_repository.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
 /// GET employee-document-type-meta-data in tab bar
@@ -40,8 +42,9 @@ Future<List<EmployeeDocTabModal>> getEmployeeDocTab(BuildContext context,
     return itemsList;
   }
 }
-/// GET employee-document-type-setup/{EmployeeDocumentTypeMetaDataId}/{pageNbr}/{NbrofRows}
 
+
+/// GET employee-document-type-setup/{EmployeeDocumentTypeMetaDataId}/{pageNbr}/{NbrofRows}
 Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
     // int metaDocID
     int employeeDocTypeMetataId,
@@ -85,6 +88,43 @@ Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
   }
 }
 
+///Add employee doc type setup Id
+Future<ApiData> addEmployeeDocSetup(
+    BuildContext context,
+    int empDocMetaDataId,
+    String docName,
+    String reminerThreshild,
+    String expiry
+    ) async {
+  try {
+    var response = await Api(context).post(path: EstablishmentManagerRepository.addEmployeDocSetup(),
+        data:
+    {
+      "DocumentName": docName,
+      "Expiry": expiry,
+      "ReminderThreshold": reminerThreshild,
+      "EmployeeDocumentTypeMetaDataId": empDocMetaDataId
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Employee Document Addded");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
 ///DELETE employee doc type setup Id
 Future<ApiData> employeedoctypeSetupIdDelete(
     BuildContext context,
@@ -117,19 +157,16 @@ Future<ApiData> employeedoctypeSetupIdDelete(
 ///POST employee doc type setup
 Future<ApiData> employeeDocTypeSetupIDPost(
     BuildContext context,
-    // int departmentId,
-    // String employeeType,
-    // String color,
-    // String abbreviation
+    int employeeDoctypeSetupId
+
     ) async {
   try {
     var response = await Api(context).post(path:
-    EstablishmentManagerRepository.postEmployeedocTypesetup(), data:
+    EstablishmentManagerRepository.postEmployeedocTypesetup(
+        employeeDoctypeSetupId: employeeDoctypeSetupId
+    ), data:
     {
-      // 'DepartmentId':departmentId,
-      // 'employeeType':employeeType,
-      // 'color':color,
-      // 'abbreviation':abbreviation
+
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employee type Added");
@@ -150,3 +187,4 @@ Future<ApiData> employeeDocTypeSetupIDPost(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+///patch employee doc type setup

@@ -8,6 +8,9 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
+import 'widgets/ci_insurance/ci_insurance_pageview.dart';
+import 'widgets/company_identity_zone/ci_zone_country.dart';
+import 'widgets/company_identity_zone/ci_zone_zone.dart';
 import 'widgets/policies_procedures/document_detail_page_view.dart';
 
 // class ManagePopUpScreen extends StatefulWidget {
@@ -117,7 +120,7 @@ class _ManageWidgetState extends State<ManageWidget> {
     // companyAllApi(context);
   }
 
-  int docID = 0;
+  int docID = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -399,16 +402,17 @@ class _ManageWidgetState extends State<ManageWidget> {
                         docID: docID,
                       ),
                       CIDetailsScreen(
-                        officeId: widget.officeID,
+                        officeId: widget.officeID, docTD: 4,
                       ),
-                      // // CiPageview(
-                      // //     managePageController: _managePageController,
-                      // //     selectedIndex: _selectedIndex,
-                      // //     selectButton: _selectButton,
-                      // //     //child1: Container(color: Colors.grey,width: 200,height: 40,),
-                      // //     nameList: ['County', 'Zone'],
-                      // //     screenList: [CIZoneCountry(), CIZoneZone()],
-                      // //     mediaQueryWidth: 3.5),
+                      // CiPageview(
+                      //   docId: 5,
+                      //     managePageController: _managePageController,
+                      //     selectedIndex: _selectedIndex,
+                      //     selectButton: _selectButton,
+                      //     //child1: Container(color: Colors.grey,width: 200,height: 40,),
+                      //     nameList: ['County', 'Zone'],
+                      //     screenList: [CIZoneCountry(), CIZoneZone()],
+                      //     mediaQueryWidth: 3.5,),
                       // CiPageview(
                       //     managePageController: _managePageController,
                       //     selectedIndex: _selectedIndex,
@@ -474,9 +478,9 @@ class CustomButtonList extends StatelessWidget {
         child: Text(
           buttonText,
           textAlign: TextAlign.center,
-          style: GoogleFonts.firaSans(
+          style: TextStyle(
             fontSize: 12,
-            fontWeight: isSelected == docID ? FontWeightManager.bold : FontWeightManager.semiBold,
+            fontWeight: FontWeight.bold,
             color: isSelected == docID ? Colors.grey[600] : Colors.white,
           ),
         ),

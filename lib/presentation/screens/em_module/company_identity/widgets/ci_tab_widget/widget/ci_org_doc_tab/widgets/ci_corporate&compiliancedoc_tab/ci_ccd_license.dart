@@ -276,6 +276,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                             }).catchError((error) {
                                               // Handle error
                                             });
+                                            Navigator.pop(context);
                                           });
                                         }));
                                   }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
