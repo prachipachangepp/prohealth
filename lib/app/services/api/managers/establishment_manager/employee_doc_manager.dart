@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:prohealth/app/services/api/repository/establishment_manager/employee_doc_repository.dart';
 
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import '../../../../resources/const_string.dart';
 import '../../api.dart';
+import '../../repository/establishment_manager/all_from_hr_repository.dart';
 import '../../repository/establishment_manager/establishment_repository.dart';
 
 /// GET employee-document-type-meta-data in tab bar
@@ -117,19 +119,16 @@ Future<ApiData> employeedoctypeSetupIdDelete(
 ///POST employee doc type setup
 Future<ApiData> employeeDocTypeSetupIDPost(
     BuildContext context,
-    // int departmentId,
-    // String employeeType,
-    // String color,
-    // String abbreviation
+    int employeeDoctypeSetupId
+
     ) async {
   try {
     var response = await Api(context).post(path:
-    EstablishmentManagerRepository.postEmployeedocTypesetup(), data:
+    EstablishmentManagerRepository.postEmployeedocTypesetup(
+        employeeDoctypeSetupId: employeeDoctypeSetupId
+    ), data:
     {
-      // 'DepartmentId':departmentId,
-      // 'employeeType':employeeType,
-      // 'color':color,
-      // 'abbreviation':abbreviation
+
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employee type Added");
@@ -150,3 +149,4 @@ Future<ApiData> employeeDocTypeSetupIDPost(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+///patch employee doc type setup

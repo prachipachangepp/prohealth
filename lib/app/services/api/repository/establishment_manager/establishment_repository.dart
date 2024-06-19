@@ -380,7 +380,9 @@ class EstablishmentManagerRepository {
   }){
     return "$employeedocSetup/$employeeDoctypeSetupId";
   }
-  static String postEmployeedocTypesetup(){
+  static String postEmployeedocTypesetup(
+  {required int employeeDoctypeSetupId }
+      ){
     return "$employeedocSetup/$add";
   }
   static String userGet(){

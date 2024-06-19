@@ -124,7 +124,9 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
               children: [
                 CustomIconButtonConst(text: 'Add Document', onPressed: (){
                   showDialog(context: context, builder: (BuildContext context){
-                    return EmpDocEditPopup(idDocController: idDocController, nameDocController: nameDocController,
+                    return EmpDocEditPopup(
+                      idDocController: idDocController,
+                      nameDocController: nameDocController,
                       calenderController: dateController,
                       child:  CICCDropdown(
                         initialValue: 'Health',

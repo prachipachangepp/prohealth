@@ -216,14 +216,6 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
             ),
           ),
         ),
-        // TableHeadConstant(items: [
-        //   TableHeadItem(text: AppStringEM.srno, textAlign: TextAlign.start),
-        //   TableHeadItem(text: AppStringEM.employee, textAlign: TextAlign.start),
-        //   TableHeadItem(
-        //       text: AppStringEM.abbrevation, textAlign: TextAlign.start),
-        //   TableHeadItem(text: AppStringEM.color, textAlign: TextAlign.start),
-        //   TableHeadItem(text: AppStringEM.action, textAlign: TextAlign.center),
-        // ]),
         SizedBox(
           height: AppSize.s5,
         ),
@@ -333,11 +325,11 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                               ),
                               Row(
                                 children: [
+                                  ///edit
                                   IconButton(
                                     onPressed: () {
                                       showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
+                                        context: context, builder: (BuildContext context) {
                                           return EditPopupWidget(
                                             typeController: TextEditingController(),
                                             shorthandController: TextEditingController(),
@@ -345,11 +337,11 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                             containerColor: hrcontainerColors[index],
                                             onSavePressed: ()async{
                                               await AllFromHrPatch(context,
-                                                  snapshot.data![index].employeeTypesId,
-                                                  1,
+                                                  snapshot.data![index].employeeTypesId, 1,
                                                   typeController.text,
                                                   shorthandController.text,
-                                                  color);
+                                                  color
+                                              );
                                               companyAllHrClinicApi(context).then((data){
                                                 _controller.add(data);
                                               }).catchError((error){});
@@ -368,7 +360,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                                 ]
 
                                             ),
-                                            onColorChanged: (Color color) {
+                                            onColorChanged : (Color color) {
                                               setState(() {
                                                 hrcontainerColors[index] =
                                                  color; // Update color for this item
@@ -381,6 +373,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                     icon: Icon(Icons.edit_outlined,size: 18,),
                                     color: ColorManager.blueprime,
                                   ),
+                                  ///delete
                                   IconButton(
                                     onPressed: () {
                                        showDialog(context: context,
