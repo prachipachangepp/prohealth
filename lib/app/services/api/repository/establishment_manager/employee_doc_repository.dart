@@ -18,7 +18,7 @@ class EmployeeDocumentRepository{
 Future<ApiData> editEmployeeDocTypeSetupId(
     BuildContext context,
     String docName,
-    int expiry,
+    String expiry,
     String reminderThreshold,
     int employeeDoctypeSetupId,
     int employeeDocTypeMetaDataId
