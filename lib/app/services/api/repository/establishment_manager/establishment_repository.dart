@@ -222,6 +222,7 @@ class EstablishmentManagerRepository {
   static String user = "/users";
   static String zone = "/zone";
   static String signUp="/signUp";
+  static String companyDept ="/company-department";
 
 
   static String companyAll(){
@@ -394,5 +395,9 @@ class EstablishmentManagerRepository {
   }
   static String zoneGet(){
     return "$zone";
+  }
+  ///Role Manager
+  static String companyDepartment(){
+    return "$companyDept";
   }
 }
