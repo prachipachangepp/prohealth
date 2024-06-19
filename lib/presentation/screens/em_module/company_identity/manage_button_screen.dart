@@ -41,14 +41,20 @@ import 'widgets/policies_procedures/document_detail_page_view.dart';
 //     );
 //   }
 // }
+typedef BackButtonCallBack = void Function(bool val);
 
 class ManageWidget extends StatefulWidget {
   // final PageController managePageController;
   // final int selectedIndex;
   // final Function(int) selectButton;
-
+  final String officeID;
+  final String officeName;
+  final BackButtonCallBack backButtonCallBack;
   ManageWidget({
     Key? key,
+    required this.officeID,
+    required this.officeName,
+    required this.backButtonCallBack,
     // required this.managePageController,
     // required this.selectedIndex,
     // required this.selectButton,
@@ -77,7 +83,6 @@ class _ManageWidgetState extends State<ManageWidget> {
 
   int _selectedIndex = 1;
 
-
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
@@ -85,10 +90,11 @@ class _ManageWidgetState extends State<ManageWidget> {
 
     _managePageController.animateToPage(
       index,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.ease,
     );
   }
+
   // void _listButton(int index) {
   //   setState(() {
   //     listIndex = index;
@@ -110,7 +116,8 @@ class _ManageWidgetState extends State<ManageWidget> {
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
-  int docID=0;
+
+  int docID = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -118,63 +125,96 @@ class _ManageWidgetState extends State<ManageWidget> {
       color: Colors.white,
       child: Column(
         children: [
-          _selectedIndex !=0
-              ? Container(height: 57) :
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p160,vertical: AppPadding.p20),
-            child:  Row(
-              children: [
-                Text('ProHealth San Jose',
-                  style: CompanyIdentityManageHeadings.customTextStyle(context),),
-              ],
-            ),
-          ),
+          _selectedIndex != 0
+              ? Container(height: 57)
+              : Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p160, vertical: AppPadding.p20),
+                  child: Row(
+                    children: [
+                      Text(
+                        widget.officeName,
+                        style: CompanyIdentityManageHeadings.customTextStyle(
+                            context),
+                      ),
+                    ],
+                  ),
+                ),
           Padding(
             padding: const EdgeInsets.only(left: 35),
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(children: [
-                  InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.arrow_back,size: 15,color: ColorManager.mediumgrey,)),
-                  // IconButton(icon: Icon(Icons.arrow_back_outlined,size: 15),color: ColorManager.mediumgrey, onPressed: () {
-                  //   Navigator.push(context, MaterialPageRoute(builder: (context)=> SMDesktop()));
-                  // }, ),
-                  Text(
-                    'Go Back',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.underline, // Remove underline from the text
+                Row(
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          widget.backButtonCallBack(true);
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: 15,
+                          color: ColorManager.mediumgrey,
+                        )),
+                    // IconButton(icon: Icon(Icons.arrow_back_outlined,size: 15),color: ColorManager.mediumgrey, onPressed: () {
+                    //   Navigator.push(context, MaterialPageRoute(builder: (context)=> SMDesktop()));
+                    // }, ),
+                    Text(
+                      'Go Back',
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration
+                            .underline, // Remove underline from the text
+                      ),
                     ),
-                  ),
-                ],),
-                SizedBox(width: MediaQuery.of(context).size.width/24,),
+                  ],
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 24,
+                ),
                 FutureBuilder<List<DocumentTypeData>>(
                     future: documentTypeGet(context),
-                    builder: (context,snapshot) {
-                      if(snapshot.hasData){
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
                         List<Widget> docList = [
-                          CustomButtonList(buttonText: 'Details', isSelected: _selectedIndex,docID: 4,onTap: () {
-                            _selectButton(4);
-                            docID = 4;
-                          },),
-                          CustomButtonList(buttonText: 'Zones', isSelected: _selectedIndex,docID: 5,onTap: () {
-                            _selectButton(5);
-                            docID = 5;
-                          },),
-                          CustomButtonList(buttonText: 'Insurance', isSelected: _selectedIndex,docID: 6,onTap: () {
-                            _selectButton(6);
-                            docID = 6;
-                          },),
-                          CustomButtonList(buttonText: 'Templates', isSelected: _selectedIndex,docID: 7,onTap: () {
-                            _selectButton(7);
-                            docID = 7;
-                          },)
+                          CustomButtonList(
+                            buttonText: 'Details',
+                            isSelected: _selectedIndex,
+                            docID: 4,
+                            onTap: () {
+                              _selectButton(4);
+                              docID = 4;
+                            },
+                          ),
+                          CustomButtonList(
+                            buttonText: 'Zones',
+                            isSelected: _selectedIndex,
+                            docID: 5,
+                            onTap: () {
+                              _selectButton(5);
+                              docID = 5;
+                            },
+                          ),
+                          CustomButtonList(
+                            buttonText: 'Insurance',
+                            isSelected: _selectedIndex,
+                            docID: 6,
+                            onTap: () {
+                              _selectButton(6);
+                              docID = 6;
+                            },
+                          ),
+                          CustomButtonList(
+                            buttonText: 'Templates',
+                            isSelected: _selectedIndex,
+                            docID: 7,
+                            onTap: () {
+                              _selectButton(7);
+                              docID = 7;
+                            },
+                          )
                           // InkWell(
                           //     child: Container(
                           //       height: 30,
@@ -203,13 +243,16 @@ class _ManageWidgetState extends State<ManageWidget> {
                           // );
                         ];
 
-                        for(var a in snapshot.data!){
-                          docList.add(
-                              CustomButtonList(buttonText: a.docType, isSelected: _selectedIndex,docID: a.docID,onTap: () {
-                                _selectButton(a.docID);
-                                docID = a.docID;
-                              },)
-                          );
+                        for (var a in snapshot.data!) {
+                          docList.add(CustomButtonList(
+                            buttonText: a.docType,
+                            isSelected: _selectedIndex,
+                            docID: a.docID,
+                            onTap: () {
+                              _selectButton(a.docID);
+                              docID = a.docID;
+                            },
+                          ));
                         }
                         return Material(
                           elevation: 4,
@@ -222,15 +265,16 @@ class _ManageWidgetState extends State<ManageWidget> {
                                 color: ColorManager.blueprime,
                               ),
                               child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Expanded(
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
-                                        itemCount:docList.length,
-                                        itemBuilder: (BuildContext context,index) {
-                                          if(snapshot.hasData){
-
+                                        itemCount: docList.length,
+                                        itemBuilder:
+                                            (BuildContext context, index) {
+                                          if (snapshot.hasData) {
                                             return docList[index];
                                             //   InkWell(
                                             //     child: Container(
@@ -259,7 +303,6 @@ class _ManageWidgetState extends State<ManageWidget> {
                                             //     docID = snapshot.data![index].docID;}
                                             // );
                                           }
-
                                         },
                                       ),
                                     ),
@@ -297,95 +340,111 @@ class _ManageWidgetState extends State<ManageWidget> {
                                     //
                                     //   ),
                                     // ),
-
-
-                                  ]
-                              )
-                            // .toList(),
-                          ),
+                                  ])
+                              // .toList(),
+                              ),
                         );
-                      }else{
-                        return SizedBox(height: 1,width: 1,);
+                      } else {
+                        return const SizedBox(
+                          height: 1,
+                          width: 1,
+                        );
                       }
-                    }
-                ),
+                    }),
               ],
             ),
           ),
-          SizedBox(height: 30,),
+          const SizedBox(
+            height: 30,
+          ),
           Expanded(
             flex: 10,
-            child: Stack(
-                children:[
-                  _selectedIndex == 1 ? Offstage():  Container(height: MediaQuery.of(context).size.height/3,
-                    decoration: BoxDecoration(color: Color(0xFFF2F9FC),
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
-                        boxShadow: [ BoxShadow(
-                          color: ColorManager.mediumgrey.withOpacity(0.5),
-                          blurRadius: 2,
-                          spreadRadius: -3,
-                          offset: Offset(0, -6),
-                        ),]
-                    ),),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      //horizontal: MediaQuery.of(context).size.width / 45,
-                        vertical: 5),
-                    child: PageView(
-                        controller: _managePageController,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: [
-                          // docID == 5 ?
-                          //  CiZone():Offstage(),
-                          // docID == 4 ?
-                          DocumentPageView(docID: docID,),
-                          DocumentPageView(docID: docID,),
-                          DocumentPageView(docID: docID,),
-                          CIDetailsScreen(),
-
-                          // // CiPageview(
-                          // //     managePageController: _managePageController,
-                          // //     selectedIndex: _selectedIndex,
-                          // //     selectButton: _selectButton,
-                          // //     //child1: Container(color: Colors.grey,width: 200,height: 40,),
-                          // //     nameList: ['County', 'Zone'],
-                          // //     screenList: [CIZoneCountry(), CIZoneZone()],
-                          // //     mediaQueryWidth: 3.5),
-                          // CiPageview(
-                          //     managePageController: _managePageController,
-                          //     selectedIndex: _selectedIndex,
-                          //     selectButton: _selectButton,
-                          //     nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
-                          //     screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
-                          //     mediaQueryWidth: 2),
-                          // CIInsurance(),
-                          // // CiPageview(
-                          // //   managePageController: _managePageController,
-                          // //   selectedIndex: _selectedIndex,
-                          // //   selectButton: _selectButton,
-                          // //   mediaQueryWidth: 3,
-                          // //   nameList: ['Vendor', 'Contracts'],
-                          // //   screenList: [CiInsuranceVendor(), CiInsuranceContract()],
-                          // // ),
-                          // CiPageview(
-                          //   managePageController: _managePageController,
-                          //   selectedIndex: _selectedIndex,
-                          //   selectButton: _selectButton,
-                          //   mediaQueryWidth: 2,
-                          //   nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
-                          //   screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
-                          // ),
-                          // CiPoliciesAndProcedures(),
-                          // CiTempalets()
-                        ]),
-                  ),]
-            ),
+            child: Stack(children: [
+              _selectedIndex == 1
+                  ? const Offstage()
+                  : Container(
+                      height: MediaQuery.of(context).size.height / 3,
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFF2F9FC),
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.mediumgrey.withOpacity(0.5),
+                              blurRadius: 2,
+                              spreadRadius: -3,
+                              offset: const Offset(0, -6),
+                            ),
+                          ]),
+                    ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    //horizontal: MediaQuery.of(context).size.width / 45,
+                    vertical: 5),
+                child: PageView(
+                    controller: _managePageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      // docID == 5 ?
+                      //  CiZone():Offstage(),
+                      // docID == 4 ?
+                      DocumentPageView(
+                        docID: docID,
+                      ),
+                      DocumentPageView(
+                        docID: docID,
+                      ),
+                      DocumentPageView(
+                        docID: docID,
+                      ),
+                      CIDetailsScreen(
+                        officeId: widget.officeID,
+                      ),
+                      // // CiPageview(
+                      // //     managePageController: _managePageController,
+                      // //     selectedIndex: _selectedIndex,
+                      // //     selectButton: _selectButton,
+                      // //     //child1: Container(color: Colors.grey,width: 200,height: 40,),
+                      // //     nameList: ['County', 'Zone'],
+                      // //     screenList: [CIZoneCountry(), CIZoneZone()],
+                      // //     mediaQueryWidth: 3.5),
+                      // CiPageview(
+                      //     managePageController: _managePageController,
+                      //     selectedIndex: _selectedIndex,
+                      //     selectButton: _selectButton,
+                      //     nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
+                      //     screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
+                      //     mediaQueryWidth: 2),
+                      // CIInsurance(),
+                      // // CiPageview(
+                      // //   managePageController: _managePageController,
+                      // //   selectedIndex: _selectedIndex,
+                      // //   selectButton: _selectButton,
+                      // //   mediaQueryWidth: 3,
+                      // //   nameList: ['Vendor', 'Contracts'],
+                      // //   screenList: [CiInsuranceVendor(), CiInsuranceContract()],
+                      // // ),
+                      // CiPageview(
+                      //   managePageController: _managePageController,
+                      //   selectedIndex: _selectedIndex,
+                      //   selectButton: _selectButton,
+                      //   mediaQueryWidth: 2,
+                      //   nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
+                      //   screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
+                      // ),
+                      // CiPoliciesAndProcedures(),
+                      // CiTempalets()
+                    ]),
+              ),
+            ]),
           ),
         ],
       ),
     );
   }
 }
+
 class CustomButtonList extends StatelessWidget {
   final String buttonText;
   final int isSelected;
@@ -396,7 +455,8 @@ class CustomButtonList extends StatelessWidget {
     required this.buttonText,
     required this.isSelected,
     required this.onTap,
-    Key? key, required this.docID,
+    Key? key,
+    required this.docID,
   }) : super(key: key);
 
   @override
@@ -406,7 +466,7 @@ class CustomButtonList extends StatelessWidget {
       child: Container(
         height: 30,
         width: MediaQuery.of(context).size.width / 8.62,
-        padding: EdgeInsets.symmetric(vertical: 6),
+        padding: const EdgeInsets.symmetric(vertical: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: isSelected == docID ? Colors.white : null,
