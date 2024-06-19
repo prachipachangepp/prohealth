@@ -1,24 +1,22 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
-import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
-import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/ci_manage_button/manage_insurance_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 
 /* Establishment manager API */
 
 /// Get Company
-Future<List<CompanyModel>> companyAllApi(BuildContext context, int pageNo, int rowsNo) async {
+Future<List<CompanyModel>> companyAllApi(
+    BuildContext context, int pageNo, int rowsNo) async {
   List<CompanyModel> itemsList = [];
   try {
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.companyOfficeGet(
-         pageNo: pageNo, rowsNo: rowsNo)
-       );
-     if (response.statusCode == 200 || response.statusCode == 201) {
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.companyOfficeGet(
+            pageNo: pageNo, rowsNo: rowsNo));
+    if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
       for (var item in response.data) {
         itemsList.add(
@@ -124,7 +122,7 @@ Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
       'primary_fax': name,
       'secondary_fax': secondaryPhone,
       'office_id': "2",
-      'alternative_phone':primaryPhone
+      'alternative_phone': primaryPhone
     });
     print('::::$response');
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -177,27 +175,26 @@ Future<List<ManageInsuranceVendorData>> companyVendorGet(
 }
 
 ///Get Company by office list by company
-Future<List<CompanyIdentityModel>> companyOfficeListGet(BuildContext context,int companyId, int pageNo, int rowsNo) async {
+Future<List<CompanyIdentityModel>> companyOfficeListGet(
+    BuildContext context, int companyId, int pageNo, int rowsNo) async {
   List<CompanyIdentityModel> itemsList = [];
   try {
-    final response = await Api(context)
-        .get(path: EstablishmentManagerRepository.companyOfficeListGet(
-        pageNo: pageNo, rowsNo: rowsNo, companyId: companyId)
-    );
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.companyOfficeListGet(
+            pageNo: pageNo, rowsNo: rowsNo, companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("ResponseList:::::${itemsList}");
       for (var item in response.data["OfficeList"]) {
-        itemsList.add(
-            CompanyIdentityModel(
-                pageNo: pageNo,
-                rowsNo: rowsNo,
-                sucess: true,
-                message: response.statusMessage!,
-                officeName: item['name'],
-                companyId: companyId,
-                address: item['address'],
-                )
-        );
+        itemsList.add(CompanyIdentityModel(
+          pageNo: pageNo,
+          rowsNo: rowsNo,
+          sucess: true,
+          message: response.statusMessage!,
+          officeName: item['name'],
+          companyId: companyId,
+          address: item['address'],
+          officeId: item['office_id'],
+        ));
       }
       // print("ResponseList:::::${itemsList}");
     } else {
