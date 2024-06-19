@@ -298,6 +298,9 @@ class EstablishmentManagerRepository {
   static String documentTypeGet(){
     return "/$documentType";
   }
+  static String deleteCiVisit({required int visitId}){
+    return "/$visit/$visitId";
+  }
   static String updateCiVisit({required String typeVisit}){
     return "/$visit/$typeVisit";
   }

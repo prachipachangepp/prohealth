@@ -110,7 +110,7 @@ class _ManageWidgetState extends State<ManageWidget> {
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
-  int docID=0;
+  int docID =0;
 
   @override
   Widget build(BuildContext context) {
