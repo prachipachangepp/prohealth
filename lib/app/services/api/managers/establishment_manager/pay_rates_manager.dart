@@ -16,16 +16,16 @@ Future<List<PayRateFinanceData>> payRatesDataGet(
       for (var item in response.data) {
         itemsData.add(
             PayRateFinanceData(
-            department: item['department'],
-            employeeType: item['employeeType'],
-            abbreviation: item['abbreviation'],
-            payRates: item['payrates'],
-            zoneId: item['zoneId'],
-            departmentId: item['departmentId'],
-            employeeTypeId: item['employeeTypeId'],
-            typeOfVisitId: item['typeOfVisitId'],
-            typeVisit: item['typeOfVisit'],
-            zone: item['zone'] == null ? "Null" :item['zone']));
+            department: item['department']== null ? "--" :item['department'],
+            employeeType: item['employeeType']== null ? "--" :item['employeeType'],
+            abbreviation: item['abbreviation']== null ? "--" :item['abbreviation'],
+            payRates: item['payrates']== null ? "--" :item['payrates'],
+            zoneId: item['zoneId']== null ? "--" :item['zoneId'],
+            departmentId: item['departmentId']== null ? "--" :item['departmentId'],
+            employeeTypeId: item['employeeTypeId']== null ? "--" :item['employeeTypeId'],
+            typeOfVisitId: item['typeOfVisitId']== null ? "--" :item['typeOfVisitId'],
+            typeVisit: item['typeOfVisit']== null ? "--" :item['typeOfVisit'],
+            zone: item['zone'] == null ? "--" :item['zone']));
       }
     } else {
       print("Api Pay rates Data Error");
