@@ -65,6 +65,13 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
       }
     });
   }
+  String seletedType = "Administrative";
+  String color ="#77D2EC";
+  void onChange(String seletedTypeEmp){
+    setState(() {
+      seletedType = seletedTypeEmp;
+    });
+  }
 
   void _saveColor(int index, Color color) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -191,7 +198,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                 return
           ListView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: currentPageItems.length,
+              itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
                 String formattedSerialNumber =
@@ -250,20 +257,35 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return EditPopupWidget(
-                                      typeController: TextEditingController(),
+                                      typeController: typeController,
                                       shorthandController:
-                                          TextEditingController(),
-                                      emailController:
-                                          TextEditingController(),
+                                      shorthandController,
                                       containerColor: containerColors[index],
-                                      onSavePressed: () {},
-                                      onColorChanged: (Color color) {
+                                      onSavePressed: () async{
+                                        await AllFromHrPatch(context,
+                                        snapshot.data![index].employeeTypesId,
+                                        1,
+                                        typeController.text,
+                                        shorthandController.text,
+                                            color);
+                                        companyAllHrClinicApi(context).then((data){
+                                          _controller.add(data);
+                                        }).catchError((error){});
+                                        Navigator.pop(context);
+                                        typeController.clear();
+                                        shorthandController.clear();
+                                        seletedType = "Administrative";
+                                      },
+                                      onColorChanged: (Color seletedColor) {
                                         setState(() {
-                                          containerColors[index] = color;
-                                          _saveColor(index, color);
+                                          containerColors[index] = seletedColor;
+                                          color = seletedColor as String;
+                                          print("Color code::::${color}");
+                                          _saveColor(index, seletedColor);
                                         });
                                       }, child:  CICCDropdown(
-                                        initialValue: 'Clinical',
+                                        initialValue: seletedType,
+                                        onChange: onChange,
                                         items: [
                                           DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
                                           DropdownMenuItem(value: 'Sales', child: Text('Sales')),
