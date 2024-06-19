@@ -281,20 +281,22 @@ class EmpDocEditPopup extends StatefulWidget {
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
   final TextEditingController calenderController;
+  final VoidCallback onSavePredded;
+  String? expiryType;
   final Widget child;
-  const EmpDocEditPopup(
+   EmpDocEditPopup(
       {super.key,
       required this.idDocController,
       required this.nameDocController,
       required this.child,
-      required this.calenderController});
+      required this.calenderController, this.expiryType, required this.onSavePredded});
 
   @override
   State<EmpDocEditPopup> createState() => _EmpDocEditPopupState();
 }
 
 class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
-  String? _expiryType;
+
   //TextEditingController calenderController = TextEditingController();
   final DateTime _selectedDate = DateTime.now();
 
@@ -399,10 +401,10 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                           ),
                         ),
                         value: 'Not Applicable',
-                        groupValue: _expiryType,
+                        groupValue: widget.expiryType,
                         onChanged: (value) {
                           setState(() {
-                            _expiryType = value;
+                            widget.expiryType = value;
                           });
                         },
                       ),
@@ -417,10 +419,10 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                           ),
                         ),
                         value: 'Scheduled',
-                        groupValue: _expiryType,
+                        groupValue: widget.expiryType,
                         onChanged: (value) {
                           setState(() {
-                            _expiryType = value;
+                            widget.expiryType = value;
                           });
                         },
                       ),
@@ -435,10 +437,10 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                           ),
                         ),
                         value: 'Issuer Expiry',
-                        groupValue: _expiryType,
+                        groupValue: widget.expiryType,
                         onChanged: (value) {
                           setState(() {
-                            _expiryType = value;
+                            widget.expiryType = value;
                           });
                         },
                       ),
@@ -555,23 +557,23 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.submit,
-                  onPressed: () async{
-                  await addOrgDocumentPost(
-                        context,
-                        widget.calenderController.text,
-                        widget.nameDocController.text,
-                        _expiryType.toString(),
-                        _expiryType.toString());
-                    setState(() {
-                      orgSubDocumentGet(context, 1, 1, 1, 2, 3);
-                      Navigator.pop(context);
-                      widget.nameDocController.clear();
-                      widget.calenderController.clear();
-                      widget.idDocController.clear();
-
-                    });
+                  onPressed: widget.onSavePredded
+                  // await addOrgDocumentPost(
+                  //       context,
+                  //       widget.calenderController.text,
+                  //       widget.nameDocController.text,
+                  //       _expiryType.toString(),
+                  //       _expiryType.toString());
+                  //   setState(() {
+                  //     orgSubDocumentGet(context, 1, 1, 1, 2, 3);
+                  //     Navigator.pop(context);
+                  //     widget.nameDocController.clear();
+                  //     widget.calenderController.clear();
+                  //     widget.idDocController.clear();
+                  //
+                  //   });
                     // Navigator.pop(context);
-                  },
+
                 ),
               ),
             ),
