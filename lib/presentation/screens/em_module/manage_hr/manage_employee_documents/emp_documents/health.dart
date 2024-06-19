@@ -17,6 +17,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/emp_doc_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
@@ -80,6 +81,8 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
       }
     });
   }
+  String? expiryType;
+  int docMetaId = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -256,17 +259,82 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                         IconButton(onPressed: (){
                                           showDialog(context: context, builder: (context){
                                             return EmpDocEditPopup(
+                                              expiryType: expiryType,
                                               idDocController: idDocController,
-                                              nameDocController: nameDocController,
+                                              nameDocController: docNamecontroller,
                                               calenderController: dateController,
-                                              child:  CICCDropdown(
-                                                initialValue: 'Health',
-                                                items: [
-                                                  DropdownMenuItem(value: 'Health', child: Text('Health')),
-                                                  DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                                  DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                                  DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                ],),);
+                                              onSavePredded: () async{
+                                                await editEmployeeDocTypeSetupId(context,
+                                                      docNamecontroller.text,
+                                                      expiryType.toString(),
+                                                      dateController.text,
+                                                      snapshot.data![index].employeeDocTypesetupId!,
+                                                      docMetaId,
+                                                    );
+                                                // await addEmployeeDocSetup(context,
+                                                //     docMetaId,
+                                                //     nameDocController.text,
+                                                //     expiryType.toString(),
+                                                //     dateController.text);
+                                                Navigator.pop(context);
+                                                nameDocController.clear();
+                                                dateController.clear();
+                                              },
+                                              child:  FutureBuilder<List<EmployeeDocTabModal>>(
+                                                  future: getEmployeeDocTab(context),
+                                                  builder: (context,snapshot) {
+                                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                                      return Shimmer.fromColors(
+                                                          baseColor: Colors.grey[300]!,
+                                                          highlightColor: Colors.grey[100]!,
+                                                          child: Container(
+                                                            width: 350,
+                                                            height: 30,
+                                                            decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                          )
+                                                      );
+                                                    }
+                                                    if(snapshot.hasData){
+                                                      List dropDown = [];
+                                                      int docType = 0;
+                                                      List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                                      for(var i in snapshot.data!){
+                                                        dropDownMenuItems.add(
+                                                          DropdownMenuItem<String>(
+                                                            child: Text(i.employeeDocType),
+                                                            value: i.employeeDocType,
+                                                          ),
+                                                        );
+                                                      }
+                                                      return CICCDropdown(
+                                                          initialValue: dropDownMenuItems[0].value,
+                                                          onChange: (val){
+                                                            for(var a in snapshot.data!){
+                                                              if(a.employeeDocType == val){
+                                                                docType = a.employeeDocMetaDataId;
+                                                                docMetaId = docType;
+                                                              }
+                                                            }
+                                                            print(":::${docType}");
+                                                            print(":::<>${docMetaId}");
+                                                          },
+                                                          items:dropDownMenuItems
+                                                        // dropDownMenuItems.map<DropdownMenuItem<String>>((value) {
+                                                        //   return dropDownMenuItems;
+                                                        // }).toList(),
+                                                        // DropdownMenuItem(value: 'Health', child: Text('Health')),
+                                                        // [
+                                                        //   DropdownMenuItem(value: 'Health', child: Text('Health')),
+                                                        //   DropdownMenuItem(value: 'Certification', child: Text('Certification')),
+                                                        //   DropdownMenuItem(value: 'Employment', child: Text('Employment')),
+                                                        //   DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                                        // ],
+                                                      );
+                                                    }else{
+                                                      return SizedBox();
+                                                    }
+                                                  }
+                                              ),);
                                               });
                                              },
                                                 icon: Icon(
