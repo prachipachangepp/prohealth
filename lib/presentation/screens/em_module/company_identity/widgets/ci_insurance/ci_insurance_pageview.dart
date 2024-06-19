@@ -164,6 +164,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 
 
 class CiPageview extends StatelessWidget {
+  final int docId;
   final PageController managePageController;
   final int selectedIndex;
   final Function(int) selectButton;
@@ -178,7 +179,7 @@ class CiPageview extends StatelessWidget {
     required this.selectedIndex,
     required this.selectButton,
     required this.nameList,
-    required this.screenList, required this.mediaQueryWidth,
+    required this.screenList, required this.mediaQueryWidth, required this.docId,
   }) : super(key: key);
   // CiInsurancePageview({super.key});
 

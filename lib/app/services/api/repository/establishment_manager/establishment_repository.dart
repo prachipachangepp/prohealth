@@ -351,6 +351,10 @@ class EstablishmentManagerRepository {
     /// return "$employeedocSetup/$metaDocId";
     return "$employeedocSetup/$employeeDocTypeMetaDataId/$pageNo/$rowsNo";
   }
+
+  static String addEmployeDocSetup(){
+    return "$employeedocSetup$add";
+  }
   ///employee doc tab bar
   static String getEmployeeDocSetup(){
     return "$getEmployeedocTab";

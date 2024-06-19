@@ -42,8 +42,9 @@ Future<List<EmployeeDocTabModal>> getEmployeeDocTab(BuildContext context,
     return itemsList;
   }
 }
-/// GET employee-document-type-setup/{EmployeeDocumentTypeMetaDataId}/{pageNbr}/{NbrofRows}
 
+
+/// GET employee-document-type-setup/{EmployeeDocumentTypeMetaDataId}/{pageNbr}/{NbrofRows}
 Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
     // int metaDocID
     int employeeDocTypeMetataId,
@@ -84,6 +85,43 @@ Future<List<EmployeeDocumentModal>> getEmployeeDoc(BuildContext context,
   } catch (e) {
     print("Error $e");
     return itemsList;
+  }
+}
+
+///Add employee doc type setup Id
+Future<ApiData> addEmployeeDocSetup(
+    BuildContext context,
+    int empDocMetaDataId,
+    String docName,
+    String reminerThreshild,
+    String expiry
+    ) async {
+  try {
+    var response = await Api(context).post(path: EstablishmentManagerRepository.addEmployeDocSetup(),
+        data:
+    {
+      "DocumentName": docName,
+      "Expiry": expiry,
+      "ReminderThreshold": reminerThreshild,
+      "EmployeeDocumentTypeMetaDataId": empDocMetaDataId
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Employee Document Addded");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
 
