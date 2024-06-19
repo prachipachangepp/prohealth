@@ -18,6 +18,7 @@ import '../../../../../data/api_data/establishment_data/company_identity/ci_org_
 import '../../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../../widgets/table_constant.dart';
 import '../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
@@ -46,7 +47,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 10;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
@@ -67,7 +68,13 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
       }
     });
   }
-
+  String seletedType = "Sales";
+  String color ="#77D2EC";
+  void onChange(String seletedTypeEmp){
+    setState(() {
+      seletedType = seletedTypeEmp;
+    });
+  }
   /// Save color to SharedPreferences
   void _saveColor(int index, Color color) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -269,20 +276,42 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return EditPopupWidget(
-                                      typeController: TextEditingController(),
+                                      typeController: typeController,
                                       shorthandController:
-                                          TextEditingController(),
-                                      emailController:
-                                          TextEditingController(),
+                                      shorthandController,
                                       containerColor:
                                           containerColors[index],
-                                      onSavePressed: () {},
+                                      onSavePressed: ()async{
+                                        await AllFromHrPatch(context,
+                                            snapshot.data![index].employeeTypesId,
+                                            1,
+                                            typeController.text,
+                                            shorthandController.text,
+                                            color);
+                                        companyAllHrClinicApi(context).then((data){
+                                          _controller.add(data);
+                                        }).catchError((error){});
+                                        Navigator.pop(context);
+                                        typeController.clear();
+                                        shorthandController.clear();
+                                        seletedType = "Sales";
+                                      },
                                       onColorChanged: (Color color) {
                                         setState(() {
                                           containerColors[index] = color;
                                           _saveColor(index, color);
                                         });
                                       },
+                                      child:  CICCDropdown(
+                                        initialValue: seletedType,
+                                        onChange: onChange,
+                                        items: [
+                                          DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
+                                          DropdownMenuItem(value: 'Sales', child: Text('Sales')),
+                                          DropdownMenuItem(value: 'Administrative', child: Text('Administrative')),
+                                        ]
+
+                                    ),
                                       // onColorChanged: (Color color) {
                                       //   setState(() {
                                       //     containerColors[index] =
