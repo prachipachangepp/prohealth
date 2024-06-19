@@ -116,7 +116,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
   }
   void radioOnChnage(String select){
     setState(() {
-      selectType = select;
+      expiryType = select;
     });
   }
 
@@ -198,95 +198,46 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                           }
                         }
                       ),
-                    radioButton: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomRadioListTile(
-                          value: "Not Applicable",
-                          groupValue: expiryType.toString(),
-                          onChanged: (value) {
-                            setState(() {
-                              expiryType = value!;
-                            });
-                          },
-                          title: "Not Applicable",
-                        ),
-                        CustomRadioListTile(
-                          value: 'Scheduled',
-                          groupValue: expiryType.toString(),
-                          onChanged: (value) {
-                            setState(() {
-                              expiryType = value!;
-                            });
-                          },
-                          title: 'Scheduled',
-                        ),
-                        CustomRadioListTile(
-                          value: 'Issuer Expiry',
-                          groupValue: expiryType.toString(),
-                          onChanged: (value) {
-                            setState(() {
-                              expiryType = value!;
-                            });
-                          },
-                          title: 'Issuer Expiry',
-                        ),
-                        // RadioListTile<String>(
-                        //   title: Text(
-                        //     'Not Applicable',
-                        //     style: GoogleFonts.firaSans(
-                        //       fontSize: FontSize.s10,
-                        //       fontWeight: FontWeightManager.medium,
-                        //       color: ColorManager.mediumgrey,
-                        //       decoration: TextDecoration.none,
-                        //     ),
-                        //   ),
-                        //   value: 'Not Applicable',
-                        //   groupValue: expiryType,
-                        //   onChanged: (value) {
-                        //     setState(() {
-                        //       expiryType = value;
-                        //     });
-                        //   },
-                        // ),
-                        // RadioListTile<String>(
-                        //   title: Text(
-                        //     'Scheduled',
-                        //     style: GoogleFonts.firaSans(
-                        //       fontSize: FontSize.s10,
-                        //       fontWeight: FontWeightManager.medium,
-                        //       color: ColorManager.mediumgrey,
-                        //       decoration: TextDecoration.none,
-                        //     ),
-                        //   ),
-                        //   value: 'Scheduled',
-                        //   groupValue: expiryType,
-                        //   onChanged: (value) {
-                        //     setState(() {
-                        //       expiryType = value;
-                        //     });
-                        //   },
-                        // ),
-                        // RadioListTile<String>(
-                        //   title: Text(
-                        //     'Issuer Expiry',
-                        //     style: GoogleFonts.firaSans(
-                        //       fontSize: FontSize.s10,
-                        //       fontWeight: FontWeightManager.medium,
-                        //       color: ColorManager.mediumgrey,
-                        //       decoration: TextDecoration.none,
-                        //     ),
-                        //   ),
-                        //   value: 'Issuer Expiry',
-                        //   groupValue:expiryType,
-                        //   onChanged: (value) {
-                        //     setState(() {
-                        //       expiryType = value;
-                        //     });
-                        //   },
-                        // ),
-                      ],
+                    radioButton: StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) {
+                       return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomRadioListTile(
+                              value: "Not Applicable",
+                              groupValue: expiryType.toString(),
+                              onChanged: (value) {
+                                setState(() {
+                                  expiryType = value!;
+                                });
+                              },
+                              title: "Not Applicable",
+                            ),
+                            CustomRadioListTile(
+                              value: 'Scheduled',
+                              groupValue: expiryType.toString(),
+                              onChanged: (value) {
+                                setState(() {
+                                  expiryType = value!;
+                                });
+                              },
+                              title: 'Scheduled',
+                            ),
+                            CustomRadioListTile(
+                              value: 'Issuer Expiry',
+                              groupValue: expiryType.toString(),
+                              onChanged: (value) {
+                                setState(() {
+                                  expiryType = value!;
+                                });
+                              },
+                              title: 'Issuer Expiry',
+                            ),
+                          ],
+                        );
+                      },
+
                     ),);
                   });
                 },icon: Icons.add,)

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
-class CustomRadioListTile extends StatelessWidget {
+class CustomRadioListTile extends StatefulWidget {
   final String value;
   final String groupValue;
   final ValueChanged onChanged;
@@ -18,12 +18,17 @@ class CustomRadioListTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<CustomRadioListTile> createState() => _CustomRadioListTileState();
+}
+
+class _CustomRadioListTileState extends State<CustomRadioListTile> {
+  @override
   Widget build(BuildContext context) {
     return RadioListTile<String>(
-      value: value,
-      groupValue: groupValue,
-      onChanged: onChanged,
-      title: Text(title,style: GoogleFonts.firaSans(
+      value: widget.value,
+      groupValue: widget.groupValue,
+      onChanged: widget.onChanged,
+      title: Text(widget.title,style: GoogleFonts.firaSans(
         fontSize: FontSize.s10,
         fontWeight: FontWeightManager.medium,
         color: ColorManager.mediumgrey,
