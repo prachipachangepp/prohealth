@@ -73,7 +73,8 @@ class _DeletePopupState extends State<DeletePopup> {
                     child: CustomButtonTransparent(
                       text: AppStringEM.cancel,
                       onPressed: () {
-                        widget.onCancel();
+                       // widget.onCancel();
+                        Navigator.pop(context);
                       },
                     ),
                   ),
@@ -88,6 +89,7 @@ class _DeletePopupState extends State<DeletePopup> {
                     text: AppStringEM.delete,
                     onPressed: () {
                       widget.onDelete();
+                      Navigator.pop(context);
                     },
                   ),
                 ),

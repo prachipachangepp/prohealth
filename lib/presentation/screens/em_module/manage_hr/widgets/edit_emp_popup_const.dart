@@ -19,11 +19,13 @@ class EditPopupController extends GetxController {
 }
 
 class EditPopupWidget extends StatefulWidget {
+  final int? id;
   final TextEditingController typeController;
   final TextEditingController shorthandController;
   final TextEditingController emailController;
   final VoidCallback onSavePressed;
   final Color containerColor;
+  final Widget child;
 
   final Function(Color) onColorChanged;
   EditPopupWidget({
@@ -33,6 +35,7 @@ class EditPopupWidget extends StatefulWidget {
     required this.containerColor,
     required this.onSavePressed,
     required this.onColorChanged,
+    this.id, required this.child
   });
 
   @override
@@ -152,30 +155,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                           decoration: TextDecoration.none,
                         ),),
                       SizedBox(height: 2),
-                      Container(
-                        height: 30,
-                        padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Color(0xffB1B1B1)), // Black border
-                          borderRadius: BorderRadius.circular(8), // Rounded corners
-                        ),
-                        child: DropdownButtonFormField<String>(
-                          focusColor: Colors.transparent,
-                          icon: Icon(Icons.arrow_drop_down_sharp,color: ColorManager.black,),
-                          decoration: InputDecoration.collapsed(hintText: ''),
-                          items: <String>['Clinical', 'Sales', 'Administration']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value,style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                          },
-                          value: 'Clinical',style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),
-                        ),
-                      ),
+                      widget.child,
                     ],
                   ),
                   SizedBox(

@@ -9,6 +9,7 @@ import 'package:prohealth/app/resources/establishment_resources/establish_theme_
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
@@ -331,28 +332,40 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                         context: context,
                                         builder: (BuildContext context) {
                                           return EditPopupWidget(
-                                            typeController:
-                                                TextEditingController(),
-                                            shorthandController:
-                                                TextEditingController(),
-                                            emailController:
-                                                TextEditingController(),
-                                            containerColor:
-                                                hrcontainerColors[index],
-                                            onSavePressed: () {},
+                                            typeController: TextEditingController(),
+                                            shorthandController: TextEditingController(),
+                                            emailController: TextEditingController(),
+                                            containerColor: hrcontainerColors[index],
+                                            onSavePressed: (){},
+                                            // onSavePressed: () async{
+                                            //  await AllFromHrPatch(context,
+                                            //       snapshot.data![index].employeeTypesId!,
+                                            //       typeController.text,
+                                            //       shorthandController.text,
+                                            //       Colors.red as String);
+                                            // },
+                                            // onColorChanged: (Color color) {
+                                            //   setState(() {
+                                            //     hrcontainerColors[index] =
+                                            //         color;
+                                            //     _saveColor(index, color);
+                                            //   });
+                                            // },
+                                            child: CICCDropdown(
+                                                initialValue: 'Clinical',
+                                                items: [
+                                                  DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
+                                                  DropdownMenuItem(value: 'Sales', child: Text('Sales')),
+                                                  DropdownMenuItem(value: 'Administrative', child: Text('Administrative')),
+                                                ]
+
+                                            ),
                                             onColorChanged: (Color color) {
                                               setState(() {
                                                 hrcontainerColors[index] =
-                                                    color;
-                                                _saveColor(index, color);
+                                                 color; // Update color for this item
                                               });
                                             },
-                                            // onColorChanged: (Color color) {
-                                            //   setState(() {
-                                            //     containerColors[index] =
-                                            //      color; // Update color for this item
-                                            //   });
-                                            // },
                                           );
                                         },
                                       );

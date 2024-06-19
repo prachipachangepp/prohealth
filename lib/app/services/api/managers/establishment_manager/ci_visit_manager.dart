@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';

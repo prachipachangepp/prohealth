@@ -16,6 +16,7 @@ import '../../../../../app/services/api/managers/establishment_manager/all_from_
 import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
+import '../../company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class HrAdministrativeScreen extends StatefulWidget {
@@ -261,7 +262,15 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                           containerColors[index] = color;
                                           _saveColor(index, color);
                                         });
-                                      },
+                                      }, child:  CICCDropdown(
+                                        initialValue: 'Clinical',
+                                        items: [
+                                          DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
+                                          DropdownMenuItem(value: 'Sales', child: Text('Sales')),
+                                          DropdownMenuItem(value: 'Administrative', child: Text('Administrative')),
+                                        ]
+
+                                    ),
                                       // onColorChanged: (Color color) {
                                       //   setState(() {
                                       //     containerColors[index] =

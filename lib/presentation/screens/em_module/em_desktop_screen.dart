@@ -163,14 +163,14 @@ class SMDesktop extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Ask',
-                                    style: GoogleFonts.jost(
+                                    style: GoogleFonts.firaSans(
                                         color: Colors.white,
                                         fontSize: 10,
                                         decoration: TextDecoration.none,
                                         fontWeight: FontWeight.w300),
                                   ),
                                   Text("KLIP",
-                                      style: GoogleFonts.jost(
+                                      style: GoogleFonts.firaSans(
                                         color: Colors.white,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -210,8 +210,7 @@ class SMDesktop extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Establishment Manager',
-                                    style: TextStyle(
-                                      fontFamily: 'Fira Sans',
+                                    style: GoogleFonts.firaSans(
                                       fontSize: FontSize.s14,
                                       fontWeight: FontWeight.w700,
                                       color: Color(0xff2B647F),
@@ -355,13 +354,12 @@ class SMDesktop extends StatelessWidget {
                                             child: Text(
                                               value,
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
+                                              style: GoogleFonts.firaSans(
                                                 color: hrController.selectedItem
                                                     .value ==
                                                     value
                                                     ? Colors.white
                                                     : Colors.black,
-                                                fontFamily: 'FiraSans',
                                                 fontSize: 11,
                                                 fontWeight: FontWeight.w200,
                                               ),
@@ -415,10 +413,9 @@ class SMDesktop extends StatelessWidget {
                           Expanded(
                             child: Text(
                               "William Christiana",
-                              style: TextStyle(
+                              style: GoogleFonts.firaSans(
                                 color: Colors.white,
                                 fontSize: MediaQuery.of(context).size.width/130,
-                                fontFamily: 'FiraSans',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
