@@ -389,9 +389,9 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                       showDialog(
                                         context: context, builder: (BuildContext context) {
                                           return EditPopupWidget(
-                                            typeController: TextEditingController(),
-                                            shorthandController: TextEditingController(),
-                                            emailController: TextEditingController(),
+                                            typeController: typeController,
+                                            shorthandController: shorthandController,
+                                           // emailController: TextEditingController(),
                                             containerColor: hrcontainerColors[index],
                                             onSavePressed: ()async{
                                               await AllFromHrPatch(context,

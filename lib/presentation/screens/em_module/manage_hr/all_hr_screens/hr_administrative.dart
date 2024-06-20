@@ -16,7 +16,6 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
-import '../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import '../../company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import '../manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
@@ -29,11 +28,8 @@ class HrAdministrativeScreen extends StatefulWidget {
 }
 
 class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
-  // TextEditingController nameController = TextEditingController();
-  // TextEditingController addressController = TextEditingController();
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
-  // TextEditingController emailController = TextEditingController();
   AdministrativeData administrativeData = AdministrativeData();
   final StreamController<List<HRClinical>> _controller = StreamController<List<HRClinical>>();
 
@@ -67,7 +63,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
     });
   }
   String seletedType = "Administrative";
-  String color ="#77D2EC";
+   String color = "#ffc107";
   void onChange(String seletedTypeEmp){
     setState(() {
       seletedType = seletedTypeEmp;
@@ -309,54 +305,108 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            // IconButton(
+                            //   onPressed: () {
+                            //     showDialog(
+                            //       context: context,
+                            //       builder: (BuildContext context) {
+                            //         return EditPopupWidget(
+                            //           typeController: typeController,
+                            //           shorthandController: shorthandController,
+                            //           containerColor: containerColors[index],
+                            //           onSavePressed: () async {
+                            //             // Fetch the data by ID
+                            //             List<HRGetEmpId> employeeData = await HrGetById(context, snapshot.data![index].employeeTypesId);
+                            //             await AllFromHrPatch(
+                            //                 context,
+                            //                 snapshot.data![index].employeeTypesId,
+                            //                 1,
+                            //                 typeController.text,
+                            //                 shorthandController.text,
+                            //                 containerColors as String
+                            //             );
+                            //
+                            //             // Refresh the data
+                            //             companyAllHrClinicApi(context).then((data) {
+                            //               _controller.add(data);
+                            //             }).catchError((error) {});
+                            //
+                            //             Navigator.pop(context);
+                            //             typeController.clear();
+                            //             shorthandController.clear();
+                            //             seletedType = "Administrative";
+                            //           },
+                            //           onColorChanged: (Color seletedColor) {
+                            //             setState(() {
+                            //               containerColors[index] = seletedColor;
+                            //               //print("Color code::::${color}");
+                            //               _saveColor(index, containerColors[index]);
+                            //             });
+                            //           },
+                            //           child: CICCDropdown(
+                            //             initialValue: seletedType,
+                            //             onChange: onChange,
+                            //             items: [
+                            //               DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
+                            //               DropdownMenuItem(value: 'Sales', child: Text('Sales')),
+                            //               DropdownMenuItem(value: 'Administrative', child: Text('Administrative')),
+                            //             ],
+                            //           ),
+                            //         );
+                            //       },
+                            //     );
+                            //   },
+                            //   icon: Icon(Icons.edit_outlined, size: 18),
+                            //   color: ColorManager.blueprime,
+                            // ),
+
                             IconButton(
                               onPressed: () {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return EditPopupWidget(
-                                      typeController: typeController,
-                                      shorthandController:
-                                      shorthandController,
-                                      containerColor: containerColors[index],
-                                      onSavePressed: () async{
-                                        await AllFromHrPatch(context,
-                                        snapshot.data![index].employeeTypesId,
-                                        1,
-                                        typeController.text,
-                                        shorthandController.text,
-                                            color);
-                                        companyAllHrClinicApi(context).then((data){
-                                          _controller.add(data);
-                                        }).catchError((error){});
-                                        Navigator.pop(context);
-                                        typeController.clear();
-                                        shorthandController.clear();
-                                        seletedType = "Administrative";
-                                      },
-                                      onColorChanged: (Color seletedColor) {
-                                        setState(() {
-                                          containerColors[index] = seletedColor;
-                                          color = seletedColor as String;
-                                          print("Color code::::${color}");
-                                          _saveColor(index, seletedColor);
-                                        });
-                                      }, child:  CICCDropdown(
-                                        initialValue: seletedType,
-                                        onChange: onChange,
-                                        items: [
-                                          DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
-                                          DropdownMenuItem(value: 'Sales', child: Text('Sales')),
-                                          DropdownMenuItem(value: 'Administrative', child: Text('Administrative')),
-                                        ]
+                                    return FutureBuilder(
+                                      future: HrGetById(context, snapshot.data![index].employeeTypesId),
+                                      builder: (context, snapshot) {
+                                        return EditPopupWidget(
+                                          typeController: TextEditingController(text: snapshot.data?.empType.toString()),
+                                          shorthandController: TextEditingController(text:  snapshot.data?.abbrivation.toString()),
+                                          containerColor: containerColors[index],
+                                          onSavePressed: () async{
+                                            await AllFromHrPatch(context, snapshot.data!.empTypeId, 1, typeController.text, shorthandController.text,color);
+                                            companyAllHrClinicApi(context).then((data){
+                                              _controller.add(data);
+                                            }).catchError((error){});
+                                            Navigator.pop(context);
+                                            typeController.clear();
+                                            shorthandController.clear();
+                                            seletedType = "Administrative";
+                                          },
+                                          onColorChanged: (Color seletedColor) {
+                                            setState(() {
+                                              containerColors[index] = seletedColor;
+                                              color = seletedColor as String;
+                                              print("Color code::::${color}");
+                                              _saveColor(index, seletedColor);
+                                            });
+                                          }, child:  CICCDropdown(
+                                            initialValue: seletedType,
+                                            onChange: onChange,
+                                            items: [
+                                              DropdownMenuItem(value: 'Clinical', child: Text('Clinical')),
+                                              DropdownMenuItem(value: 'Sales', child: Text('Sales')),
+                                              DropdownMenuItem(value: 'Administrative', child: Text('Administrative')),
+                                            ]
 
-                                    ),
-                                      // onColorChanged: (Color color) {
-                                      //   setState(() {
-                                      //     containerColors[index] =
-                                      //      color; // Update color for this item
-                                      //   });
-                                      // },
+                                        ),
+                                          // onColorChanged: (Color color) {
+                                          //   setState(() {
+                                          //     containerColors[index] =
+                                          //      color; // Update color for this item
+                                          //   });
+                                          // },
+                                        );
+                                      }
                                     );
                                   },
                                 );
@@ -380,7 +430,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                     }));
 
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 size: 18,
                                 Icons.delete_outline,
                                 color: Color(0xffF6928A),

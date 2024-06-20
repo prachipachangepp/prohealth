@@ -64,6 +64,35 @@ Future<List<HRClinical>> companyAllHrClinicApi(BuildContext context) async {
     return itemsList;
   }
 }
+///get by id
+Future<HRGetEmpId> HrGetById(BuildContext context, int empId) async {
+  var itemsList;
+  try {
+    final response = await Api(context)
+        .get(path: AllFromHrRepository.getEmpTypeById(empId: empId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("ResponseList:::::${itemsList}");
+      //for (var item in response.data) {
+        itemsList =
+          HRGetEmpId(empTypeId: response.data['employeeTypeId'],
+              deptId: response.data['DepartmentId'],
+            empType: response.data['employeeType'],
+            abbrivation: response.data['abbreviation'],
+            color: response.data['color']
+
+        );
+      //}
+      print("ResponseList:::::${itemsList}");
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
 
 /// Add employee type data POST
 Future<ApiData> addEmployeeTypePost(
