@@ -110,7 +110,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     FutureBuilder<List<HRClinical>>(
                         future: companyAllHrClinicApi(context),
                         builder: (context,snapshot) {
-
                           if(snapshot.connectionState == ConnectionState.waiting){
                             return Shimmer.fromColors(
                               baseColor: Colors.grey[300]!,
@@ -123,16 +122,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             );
                           }
                           if(snapshot.hasData){
-
                             List<String> dropDownList =[];
                             List<String> dropDownAbbreviation =[];
                             for(var i in snapshot.data!){
                               dropDownList.add(i.empType!,);
                               dropDownAbbreviation.add(i.abbrivation!);
                             }
-                            // for(var i in snapshot.data!){
-                            //
-                            // }
                             print("::::::${dropDownList}");
                             print("::::::${dropDownAbbreviation}");
                             return Row(
@@ -163,15 +158,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       return DropdownMenuItem<String>(
                                         value: value == null ? "1" : value,
                                         child: Text(value),
-                                        // Container(
-                                        //   height: 200,
-                                        //   width: 400,
-                                        //   child: ListView.builder(
-                                        //     itemCount: dropDownList.length,
-                                        //       itemBuilder: (BuildContext context, index){
-                                        //     return Text(dropDownList[index]);
-                                        //   }),
-                                        // ),
                                       );
                                     }).toList(),
                                     onChanged: (String? newValue) {},

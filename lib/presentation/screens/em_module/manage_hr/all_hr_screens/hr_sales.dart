@@ -8,6 +8,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_emp_popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -70,6 +71,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   }
   String seletedType = "Sales";
   String color ="#77D2EC";
+  int docTypeMetaId = 0;
   void onChange(String seletedTypeEmp){
     setState(() {
       seletedType = seletedTypeEmp;
@@ -104,17 +106,73 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                 context: context,
                 builder: (BuildContext context) {
                   return CustomPopupWidget(
-                    nameController: nameController,
-                    addressController: addressController,
-                    emailController: emailController,
+                    nameController: typeController,
+                    addressController: shorthandController,
                     onAddPressed: () async {
-                      await addEmployeeTypePost(context,1,nameController.text,"#E8A87D",'NC');
+                      await addEmployeeTypePost(context,docTypeMetaId,typeController.text,"#E8A87D",shorthandController.text);
                       companyAllHrClinicApi(context).then((data){
                         _controller.add(data);
                       }).catchError((error){});
                       Navigator.pop(context);
                     },
-                    containerColor: ColorManager.pinkfaint, onColorChanged: (Color ) {  },
+                    containerColor: ColorManager.sfaintOrange, onColorChanged: (Color) {  },
+                    child: FutureBuilder<List<HRHeadBar>>(
+                        future: companyHRHeadApi(context,widget.deptId),
+                        builder: (context,snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 350,
+                                  height: 30,
+                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                )
+                            );
+                          }
+                          if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                            );
+                          }
+                          if(snapshot.hasData){
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                            for(var i in snapshot.data!){
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.deptName),
+                                  value: i.deptName,
+                                ),
+                              );
+                            }
+                            return CICCDropdown(
+                                initialValue: dropDownMenuItems[0].value,
+                                onChange: (val){
+                                  for(var a in snapshot.data!){
+                                    if(a.deptName == val){
+                                      docType = a.deptId;
+                                      docTypeMetaId = docType;
+                                    }
+                                  }
+                                  print(":::${docType}");
+                                  print(":::<>${docTypeMetaId}");
+                                },
+                                items:dropDownMenuItems
+                            );
+                          }else{
+                            return SizedBox();
+                          }
+                        }
+                    ),
                   );
                 },
               );

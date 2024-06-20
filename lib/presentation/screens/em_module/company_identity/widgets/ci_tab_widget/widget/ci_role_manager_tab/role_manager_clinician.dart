@@ -1,11 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/widgets/ci_role_container_constant.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../../../app/resources/font_manager.dart';
+import '../../../../../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
+import '../../../../../../../../app/services/api/managers/establishment_manager/pay_rates_manager.dart';
+import '../../../../../../../../app/services/api/managers/establishment_manager/role_manager.dart';
+import '../../../../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import '../../../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
+import '../../../../../../../../data/api_data/establishment_data/role_manager/role_manager_data.dart';
 import '../../../../../widgets/button_constant.dart';
 
 
@@ -18,10 +27,32 @@ class RoleManagerClinician extends StatefulWidget {
 
 class _RoleManagerClinicianState extends State<RoleManagerClinician> {
   List<bool> selectedContainers = List.generate(15, (_) => false);
+  String _selectedOffice = 'Pick Office';
+  Color _employeeTextColor = Colors.grey;
+  Color _employeeBorderColor = ColorManager.black.withOpacity(0.3);
+  final StreamController<List<PayRateFinanceData>> _roleMDropDownController = StreamController<List<PayRateFinanceData>>();
+
 
   void toggleSelection(int index) {
     setState(() {
       selectedContainers[index] = !selectedContainers[index];
+    });
+  }
+
+  void _onOfficeChanged(String? newValue) {
+    setState(() {
+      _selectedOffice = newValue!;
+      _employeeTextColor = ColorManager.mediumgrey;
+      _employeeBorderColor = Color(0xff686464).withOpacity(0.3);
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    payRatesDataGet(context,1,10).then((data) {
+      _roleMDropDownController.add(data);
+    }).catchError((error) {
+      // Handle error
     });
   }
 
@@ -33,130 +64,220 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Pick Office',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    SizedBox(height: AppSize.s4),
-                    Container(
-                      height: 30,
-                      width: 354,
-                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Color(0xff686464).withOpacity(0.5),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: DropdownButtonFormField<String>(
-                        focusColor: Colors.transparent,
-                        icon: Icon(
-                          Icons.arrow_drop_down_sharp,
-                          color: Color(0xff686464),
-                        ),
-                        decoration: InputDecoration.collapsed(hintText: ''),
-                        items: <String>[
-                          'Pick Office',
-                          'RN',
-                          'LVN',
-                          'PT',
-                          'PTA',
-                          'OT',
-                          'COTA',
-                          'ST',
-                          'MSW',
-                          'HHA',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {},
-                        value: 'Pick Office',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff686464),
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Pick Office',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.mediumgrey,
+                    decoration: TextDecoration.none,
+                  ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width / 20),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Pick Employee',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.bold,
-                        color: ColorManager.fmediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    SizedBox(height: AppSize.s4),
-                    Container(
-                      height: 30,
-                      width: 354,
-                      padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Color(0xff686464).withOpacity(0.5),
-                          width: 1,
+                SizedBox(height: 4),
+                FutureBuilder<List<RoleManagerData>>(
+                  future: roleManagerDataGet(context),
+                  builder: (context, snapshot) {
+
+    if(snapshot.connectionState == ConnectionState.waiting){
+    return Shimmer.fromColors(
+    baseColor: Colors.grey[300]!,
+    highlightColor: Colors.grey[100]!,
+    child: Container(
+    width: 300,
+    height: 30,
+    decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+    )
+    );
+    }
+    if(snapshot.hasData){
+    List<String> dropDownList =[];
+    List<String> dropDownAbbreviation =[];
+    for(var i in snapshot.data!){
+    dropDownList.add(i.deptName!,);
+    dropDownAbbreviation.add(i.description!);
+    }
+    // for(var i in snapshot.data!){
+    //
+    // }
+    print("::::::${dropDownList}");
+    print("::::::${dropDownAbbreviation}");
+                    return Row(
+                      children: [
+                        Container(
+                          height: 30,
+                          width: 354,
+                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Color(0xff686464).withOpacity(0.5),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: DropdownButtonFormField<String>(
+                            focusColor: Colors.transparent,
+                            icon: Icon(
+                              Icons.arrow_drop_down_sharp,
+                              color: Color(0xff686464),
+                            ),
+                            decoration: InputDecoration.collapsed(hintText: ''),
+                            items: dropDownList.map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value == null ? "1" : value,
+                                child: Text(value),
+                                // Container(
+                                //   height: 200,
+                                //   width: 400,
+                                //   child: ListView.builder(
+                                //     itemCount: dropDownList.length,
+                                //       itemBuilder: (BuildContext context, index){
+                                //     return Text(dropDownList[index]);
+                                //   }),
+                                // ),
+                              );
+                            }).toList(),
+
+                            onChanged: (String? newValue){},
+                            value: dropDownList[0],
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xff686464),
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: DropdownButtonFormField<String>(
-                        focusColor: Colors.transparent,
-                        icon: Icon(
-                          Icons.arrow_drop_down_sharp,
-                          color: Color(0xff686464),
-                        ),
-                        decoration: InputDecoration.collapsed(hintText: ''),
-                        items: <String>[
-                          'ST',
-                          'Option 2',
-                          'Option 3',
-                          'Option 4'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {},
-                        value: 'ST',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: ColorManager.fmediumgrey,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ),
-                  ],
+                      ],
+                    );
+                  }else{
+    return Offstage();
+    }}
                 ),
               ],
             ),
+            SizedBox(width: MediaQuery.of(context).size.width / 20),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Pick Employee',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color:  _employeeTextColor,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                SizedBox(height: 4),
+                FutureBuilder<List<HRClinical>>(
+                    future: companyAllHrClinicApi(context),
+                    builder: (context, snapshot) {
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              width: 300,
+                              height: 30,
+                              decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                            )
+                        );
+                      }
+                      if(snapshot.hasData) {
+                        List<String> dropDownList = [];
+                        List<String> dropDownAbbreviation = [];
+                        for (var i in snapshot.data!) {
+                          dropDownList.add(i.empType!,);
+                          dropDownAbbreviation.add(i.abbrivation!);
+                        }
+                        // for(var i in snapshot.data!){
+                        //
+                        // }
+                        print("::::::${dropDownList}");
+                        print("::::::${dropDownAbbreviation}");
+                        return Row(
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 354,
+                              padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Color(0xff686464).withOpacity(0.5),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: DropdownButtonFormField<String>(
+                                focusColor: Colors.transparent,
+                                icon: Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  color: Color(0xff686464),
+                                ),
+                                decoration: InputDecoration.collapsed(hintText: ''),
+                                // items: <String>[
+                                //   'Pick Office',
+                                //   'RN',
+                                //   'LVN',
+                                //   'PT',
+                                //   'PTA',
+                                //   'OT',
+                                //   'COTA',
+                                //   'ST',
+                                //   'MSW',
+                                //   'HHA',
+                                // ].map<DropdownMenuItem<String>>((String value) {
+                                //   return DropdownMenuItem<String>(
+                                //     value: value,
+                                //     child: Text(value),
+                                //   );
+                                // }).toList(),
+                                items: dropDownList.map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value == null ? "1" : value,
+                                    child: Text(value),
+                                    // Container(
+                                    //   height: 200,
+                                    //   width: 400,
+                                    //   child: ListView.builder(
+                                    //     itemCount: dropDownList.length,
+                                    //       itemBuilder: (BuildContext context, index){
+                                    //     return Text(dropDownList[index]);
+                                    //   }),
+                                    // ),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {},
+                                value:  dropDownList[0],
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff686464),
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }else{return Offstage();
+
+                      }
+                    }
+                ),
+              ],
+            ),
+          ],
+        ),
             SizedBox(height: 20),
             /// row 1
             Row(
