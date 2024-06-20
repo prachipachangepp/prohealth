@@ -10,6 +10,7 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/org_do
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 
@@ -35,6 +36,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
+  String? expiryType;
   @override
   void initState() {
     super.initState();
@@ -63,7 +65,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
               onPressed: (){
               showDialog(context: context, builder: (BuildContext context){
                 return AddPoliciesPopup(nameOfDocumentController: nameOfDocController, idOfDocumentController: idOfDocController, onSavePressed: () {  },
-                child:  CICCDropdown(
+                child:  const CICCDropdown(
                   initialValue: 'Policies & Procedures',
                   items: [
                     DropdownMenuItem(value: 'Policies & Procedures', child: Text('Policies & Procedures')),
@@ -119,10 +121,10 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                   borderRadius: BorderRadius.circular(4),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Color(0xff000000).withOpacity(0.25),
+                                      color: const Color(0xff000000).withOpacity(0.25),
                                       spreadRadius: 0,
                                       blurRadius: 4,
-                                      offset: Offset(0, 2),
+                                      offset: const Offset(0, 2),
                                     ),
                                   ],
                                 ),
@@ -145,7 +147,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w400,
-                                                  color: Color(0xff686464),
+                                                  color: const Color(0xff686464),
                                                   decoration: TextDecoration.none,
                                                 ),
                                               ),
@@ -154,7 +156,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Color(0xff686464),
+                                                  color: const Color(0xff686464),
                                                   decoration: TextDecoration.none,
                                                 ),
                                               ),
@@ -175,7 +177,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                 idDocController: docIdController,
                                                 nameDocController: docNamecontroller,
 
-                                                child:  CICCDropdown(
+                                                child:  const CICCDropdown(
                                                   initialValue: 'Corporate & Compliance Documents',
                                                   items: [
                                                     DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
@@ -183,14 +185,15 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                                     DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
                                                     DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
                                                   ],),
-                                                child1:   CICCDropdown(
+                                                child1:   const CICCDropdown(
                                                   initialValue: 'Policies and Procedures',
                                                   items: [
                                                     DropdownMenuItem(value: 'Policies and Procedures', child: Text('Licenses')),
                                                     DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
                                                     DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
                                                     DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                  ],),);
+                                                  ],),
+                                                  );
                                             });
                                           }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                           IconButton(onPressed: (){
@@ -217,11 +220,11 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                       );
                     });
               }
-              return Offstage();
+              return const Offstage();
             }
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         PaginationControlsWidget(

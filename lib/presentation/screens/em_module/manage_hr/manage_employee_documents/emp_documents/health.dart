@@ -15,6 +15,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_o
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/emp_doc_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -280,6 +281,47 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                 nameDocController.clear();
                                                 dateController.clear();
                                               },
+                                              radioButton: StatefulBuilder(
+                                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                                  return Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      CustomRadioListTile(
+                                                        value: "Not Applicable",
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: "Not Applicable",
+                                                      ),
+                                                      CustomRadioListTile(
+                                                        value: 'Scheduled',
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: 'Scheduled',
+                                                      ),
+                                                      CustomRadioListTile(
+                                                        value: 'Issuer Expiry',
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: 'Issuer Expiry',
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+
+                                              ),
                                               child:  FutureBuilder<List<EmployeeDocTabModal>>(
                                                   future: getEmployeeDocTab(context),
                                                   builder: (context,snapshot) {

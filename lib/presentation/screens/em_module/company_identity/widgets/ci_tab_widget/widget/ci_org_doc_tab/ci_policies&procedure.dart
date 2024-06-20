@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/policies_constant.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../../../../app/resources/color.dart';
@@ -33,6 +34,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   final StreamController<List<CiOrgDocumentCC>> _policiesandprocedureController = StreamController<List<CiOrgDocumentCC>>();
   String? selectedValue;
   late List<Color> hrcontainerColors;
+  String? expiryType;
 
   @override
   void initState() {
@@ -305,6 +307,46 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                         'NPI Number 1234567890'),
                                                   ),
                                                 ],
+                                              ),
+                                              radioButton: StatefulBuilder(
+                                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                                  return Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      CustomRadioListTile(
+                                                        value: "Not Applicable",
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: "Not Applicable",
+                                                      ),
+                                                      CustomRadioListTile(
+                                                        value: 'Scheduled',
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: 'Scheduled',
+                                                      ),
+                                                      CustomRadioListTile(
+                                                        value: 'Issuer Expiry',
+                                                        groupValue: expiryType.toString(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            expiryType = value!;
+                                                          });
+                                                        },
+                                                        title: 'Issuer Expiry',
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
                                               ),
                                             );
                                           },

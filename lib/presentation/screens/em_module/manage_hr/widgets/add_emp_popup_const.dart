@@ -12,17 +12,18 @@ import '../../widgets/text_form_field_const.dart';
 class CustomPopupWidget extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController addressController;
-  final TextEditingController emailController;
+  final TextEditingController? emailController;
   final VoidCallback onAddPressed;
   final Color containerColor;
+  final Widget? child;
   final Function(Color) onColorChanged;
 
   CustomPopupWidget({
     required this.nameController,
     required this.addressController,
-    required this.emailController,
+    this.emailController,
     required this.containerColor,
-    required this.onAddPressed,  required this.onColorChanged,
+    required this.onAddPressed,  required this.onColorChanged, this.child,
 
   });
 
@@ -129,30 +130,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                         decoration: TextDecoration.none,
                       ),),
                       SizedBox(height: 2),
-                      Container(
-                        height: 30,
-                        padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Color(0xffB1B1B1)), // Black border
-                          borderRadius: BorderRadius.circular(8), // Rounded corners
-                        ),
-                        child: DropdownButtonFormField<String>(
-                          focusColor: Colors.transparent,
-                          icon: Icon(Icons.arrow_drop_down_sharp,color: ColorManager.black,),
-                          decoration: InputDecoration.collapsed(hintText: ''),
-                          items: <String>['Clinical', 'A', 'B', 'C']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value,style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                          },
-                          value: 'Clinical',style: GoogleFonts.roboto(color: Color(0xff686464),fontSize: 12,fontWeight: FontWeightManager.bold),
-                        ),
-                      ),
+                      widget.child!
                     ],
                   ),
                   SizedBox(height: AppSize.s16,),

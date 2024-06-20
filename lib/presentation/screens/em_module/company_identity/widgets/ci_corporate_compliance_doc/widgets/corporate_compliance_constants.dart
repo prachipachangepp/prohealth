@@ -244,6 +244,7 @@ class CCScreenEditPopup extends StatefulWidget {
   final VoidCallback? onSavePressed;
   final Widget child;
   final Widget child1;
+  final Widget? radioButton;
 
   const CCScreenEditPopup({
     super.key,
@@ -252,7 +253,7 @@ class CCScreenEditPopup extends StatefulWidget {
     this.onSavePressed,
     required this.child,
     required this.child1,
-    this.id,
+    this.id,  this.radioButton,
   });
 
   @override
@@ -269,7 +270,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s400,
+        width: AppSize.s420,
         height: AppSize.s550,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -347,6 +348,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
             ),
 
             ///radio
+            widget.radioButton == null ? Offstage():
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -365,84 +367,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                       decoration: TextDecoration.none,
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Transform.scale(
-                        scale: 0.8,
-                        child: Container(
-                          height: 20,
-                          child: RadioListTile<String>(
-                            title: Text(
-                              'Not Applicable',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                            value: 'Not Applicable',
-                            groupValue: _expiryType,
-                            onChanged: (value) {
-                              setState(() {
-                                _expiryType = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      Transform.scale(
-                        scale: 0.8,
-                        child: Container(
-                          height: 20,
-                          child: RadioListTile<String>(
-                            title: Text(
-                              'Scheduled',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                            value: 'Scheduled',
-                            groupValue: _expiryType,
-                            onChanged: (value) {
-                              setState(() {
-                                _expiryType = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      Transform.scale(
-                        scale: 0.8,
-                        child: Container(
-                          height: 20,
-                          child: RadioListTile<String>(
-                            title: Text(
-                              'Issuer Expiry',
-                              style: GoogleFonts.firaSans(
-                                fontSize: FontSize.s10,
-                                fontWeight: FontWeightManager.medium,
-                                color: ColorManager.mediumgrey,
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                            value: 'Issuer Expiry',
-                            groupValue: _expiryType,
-                            onChanged: (value) {
-                              setState(() {
-                                _expiryType = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  widget.radioButton!,
                 ],
               ),
             ),
@@ -482,7 +407,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                           decoration: InputDecoration(
                             focusColor: ColorManager.mediumgrey,
                             hoverColor: ColorManager.mediumgrey,
-                            hintText: 'dd-mm-yyyy',
+                            hintText: 'mm-dd-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w700,
@@ -524,7 +449,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                             );
                             if (date != null) {
                               String formattedDate =
-                                  DateFormat('dd-MM-yyyy').format(date);
+                                  DateFormat('mm-dd-yyyy').format(date);
                               calenderController.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
@@ -583,12 +508,13 @@ class AddOrgDocButton extends StatefulWidget {
   final VoidCallback onPressed;
   final Widget child;
   final Widget child1;
+  final Widget? radioButton;
   const AddOrgDocButton(
       {super.key,
       required this.idDocController,
       required this.nameDocController,
       required this.child,
-      required this.child1, required this.onPressed, required this.calenderController});
+      required this.child1, required this.onPressed, required this.calenderController,  this.radioButton});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
@@ -603,8 +529,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s400,
-        height: AppSize.s500,
+        width: AppSize.s420,
+        height: AppSize.s550,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -636,13 +562,13 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
+                  SizedBox(height: AppSize.s10),
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
                     text: 'Name of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
+                  SizedBox(height: AppSize.s10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -679,7 +605,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
-
+SizedBox(height: AppSize.s10,),
             ///radio
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -698,66 +624,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                       decoration: TextDecoration.none,
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RadioListTile<String>(
-                        title: Text(
-                          'Not Applicable',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'Not Applicable',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Scheduled',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'Scheduled',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Issuer Expiry',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'Issuer Expiry',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
+                  widget.radioButton!,
+
                 ],
               ),
             ),
@@ -792,7 +660,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                           ),
                           controller: widget.calenderController,
                           decoration: InputDecoration(
-                            hintText: 'dd-mm-yyyy',
+                            hintText: 'mm-dd-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w700,
@@ -819,7 +687,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                             );
                             if (date != null) {
                               String formattedDate =
-                              DateFormat('dd-MM-yyyy').format(date);
+                              DateFormat('mm-dd-yyyy').format(date);
                               widget.calenderController.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
@@ -841,9 +709,10 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
+            SizedBox(height: AppSize.s10,),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(
                 child: CustomElevatedButton(
                   width: AppSize.s105,

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -347,8 +348,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   builder:
                                                       (BuildContext context) {
                                                     return AddVisitPopup(
-                                                      nameOfDocumentController:
-                                                          docNamecontroller,
+                                                      nameOfDocumentController: docNamecontroller,
                                                       idOfDocumentController:
                                                           docIdController,
                                                       onSavePressed: () async{
