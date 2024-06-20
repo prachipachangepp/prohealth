@@ -113,66 +113,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                 },
               ),
             ),
-            // InkWell(
-            //   onTap: () => _selectButton(2),
-            //   child: Column(
-            //     children: [
-            //       Text(
-            //         "Medical Cost Reporter",
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: 12,
-            //             fontWeight: _selectedIndex == 2 ? FontWeight.w700 : FontWeight.normal,
-            //           color: _selectedIndex == 2 ? ColorManager.blueprime :Color(0xff686464)
-            //         ),
-            //       ),
-            //       Container(
-            //         height: 2,
-            //         width: 130,
-            //         color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // InkWell(
-            //   onTap: () => _selectButton(3),
-            //   child: Column(
-            //     children: [
-            //       Text(
-            //         "CAP Report",
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: 12,
-            //           fontWeight: _selectedIndex == 3 ? FontWeight.w700 : FontWeight.normal,
-            //           color: _selectedIndex == 3 ? ColorManager.blueprime : Color(0xff686464),
-            //         ),
-            //       ),
-            //       Container(
-            //         height: 2,
-            //         width: 70,
-            //         color: _selectedIndex == 3 ? ColorManager.blueprime : Colors.transparent,
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // InkWell(
-            //   onTap: () => _selectButton(4),
-            //   child: Column(
-            //     children: [
-            //       Text(
-            //         "Quarterly Balance Report",
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: 12,
-            //             fontWeight: _selectedIndex == 4 ? FontWeight.w700 : FontWeight.normal,
-            //           color: _selectedIndex == 4 ?  ColorManager.blueprime :Color(0xff686464)
-            //         ),
-            //       ),
-            //       Container(
-            //         height: 2,
-            //         width: 150,
-            //         color: _selectedIndex == 4 ?  ColorManager.blueprime: Colors.transparent,
-            //       ),
-            //     ],
-            //   ),
-            // ),
+
             ],
                         ),
         ));

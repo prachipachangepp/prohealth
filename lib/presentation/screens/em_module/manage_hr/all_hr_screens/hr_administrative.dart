@@ -6,6 +6,7 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/add_e
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/admin_emp_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/edit_emp_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
@@ -28,11 +29,11 @@ class HrAdministrativeScreen extends StatefulWidget {
 }
 
 class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
+  // TextEditingController nameController = TextEditingController();
+  // TextEditingController addressController = TextEditingController();
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
   AdministrativeData administrativeData = AdministrativeData();
   final StreamController<List<HRClinical>> _controller = StreamController<List<HRClinical>>();
 
@@ -77,6 +78,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('containerColor$index', color.value);
   }
+  int docMetaId =0;
 
   @override
   Widget build(BuildContext context) {
@@ -92,17 +94,73 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                 context: context,
                 builder: (BuildContext context) {
                   return CustomPopupWidget(
-                    nameController: nameController,
-                    addressController: addressController,
-                    emailController: emailController,
+                    nameController: typeController,
+                    addressController: shorthandController,
                     onAddPressed: () async {
-                      await addEmployeeTypePost(context,1,nameController.text,"#E8A87D",'NC');
+                      await addEmployeeTypePost(context,docMetaId,typeController.text,"#E8A87D",shorthandController.text);
                       companyAllHrClinicApi(context).then((data){
                         _controller.add(data);
                       }).catchError((error){});
                       Navigator.pop(context);
                     },
                     containerColor: ColorManager.sfaintOrange, onColorChanged: (Color) {  },
+                    child: FutureBuilder<List<HRHeadBar>>(
+                        future: companyHRHeadApi(context,widget.deptId),
+                        builder: (context,snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 350,
+                                  height: 30,
+                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                )
+                            );
+                          }
+                          if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                            );
+                          }
+                          if(snapshot.hasData){
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                            for(var i in snapshot.data!){
+                              dropDownMenuItems.add(
+                                DropdownMenuItem<String>(
+                                  child: Text(i.deptName),
+                                  value: i.deptName,
+                                ),
+                              );
+                            }
+                            return CICCDropdown(
+                                initialValue: dropDownMenuItems[0].value,
+                                onChange: (val){
+                                  for(var a in snapshot.data!){
+                                    if(a.deptName == val){
+                                      docType = a.deptId;
+                                      docMetaId = docType;
+                                    }
+                                  }
+                                  print(":::${docType}");
+                                  print(":::<>${docMetaId}");
+                                },
+                                items:dropDownMenuItems
+                            );
+                          }else{
+                            return SizedBox();
+                          }
+                        }
+                    ),
                   );
                 },
               );

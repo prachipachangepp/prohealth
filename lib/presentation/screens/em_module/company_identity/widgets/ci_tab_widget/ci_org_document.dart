@@ -2,12 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
@@ -59,6 +64,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     // companyAllApi(context);
   }
   var docID = 1;
+  int docTypeMetaId = 1;
+  int docSubTypeMetaId =0;
+  String? expiryType;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -142,59 +150,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                     },
                   ),
                 ),
-                //   }
-                //
-                // ),
-                // InkWell(
-                //   onTap: () => _selectButton(1),
-                //   child: Container(
-                //     height: 30,
-                //     width: 180,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.all(Radius.circular(20)),
-                //       color: _selectedIndex == 1
-                //           ? Colors.white
-                //           : Colors.transparent,
-                //     ),
-                //     child: Center(
-                //       child: Text(
-                //         "Vendor Contract",
-                //         style: GoogleFonts.firaSans(
-                //           fontSize: 12,
-                //           fontWeight: FontWeight.w700,
-                //           color: _selectedIndex == 1
-                //               ? ColorManager.blueprime
-                //               : ColorManager.white,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // InkWell(
-                //   onTap: () => _selectButton(2),
-                //   child: Container(
-                //     height: 30,
-                //     width: 180,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.all(Radius.circular(20)),
-                //       color: _selectedIndex == 2
-                //           ? Colors.white
-                //           : Colors.transparent,
-                //     ),
-                //     child: Center(
-                //       child: Text(
-                //         "Policies & Procedure",
-                //         style: GoogleFonts.firaSans(
-                //           fontSize: 12,
-                //           fontWeight: FontWeight.w700,
-                //           color: _selectedIndex == 2
-                //               ? ColorManager.blueprime
-                //               : ColorManager.white,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // )
               ],
             ),
           ),
@@ -226,11 +181,11 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                   onPressed: () async{
                                     await addCorporateDocumentPost(context: context,
                                         name: docNamecontroller.text,
-                                        docTypeID: int.parse(_selectedItem),
-                                        docSubTypeID: int.parse(_selectedItem1)== null ? 0:int.parse(_selectedItem1),
+                                        docTypeID: docTypeMetaId,
+                                        docSubTypeID: docSubTypeMetaId,
                                         docCreated: DateTime.now().toString(),
                                         url: "url",
-                                        expiryType: "Not Applicable",
+                                        expiryType: expiryType.toString(),
                                         expiryDate: calenderController.text,
                                         expiryReminder: "Schedule",
                                         companyId: 11,
@@ -243,46 +198,160 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                       docNamecontroller.clear();
                                     });
                                   },
-
-
-                                  child: CICCDropdown(
-                                    initialValue:
-                                        _selectedItem,
-                                    onChange: _onDropdownItemSelected,
-                                    items: [
-                                      DropdownMenuItem(
-                                          value:
-                                              '1',
-                                          child: Text(
-                                              'Corporate & Compliance Documents')),
-                                      DropdownMenuItem(
-                                          value: '2',
-                                          child: Text('Vendor Contract')),
-                                      DropdownMenuItem(
-                                          value: '3',
-                                          child: Text('Medicare ID  MPID123')),
-                                    ],
+                                  child1: FutureBuilder<List<IdentityDocumentIdData>>(
+                                      future: identityDocumentTypeGet(context,docTypeMetaId),
+                                      builder: (context,snapshot) {
+                                        if(snapshot.connectionState == ConnectionState.waiting){
+                                          return Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.grey[100]!,
+                                              child: Container(
+                                                width: 350,
+                                                height: 30,
+                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                              )
+                                          );
+                                        }
+                                        if (snapshot.data!.isEmpty) {
+                                          return Center(
+                                            child: Text(
+                                              AppString.dataNotFound,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontWeight: FontWeightManager.medium,
+                                                fontSize: FontSize.s12,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        if(snapshot.hasData){
+                                          List dropDown = [];
+                                          int docType = 0;
+                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                          for(var i in snapshot.data!){
+                                            dropDownMenuItems.add(
+                                              DropdownMenuItem<String>(
+                                                child: Text(i.subDocType),
+                                                value: i.subDocType,
+                                              ),
+                                            );
+                                          }
+                                          return CICCDropdown(
+                                              initialValue: dropDownMenuItems[0].value,
+                                              onChange: (val){
+                                                for(var a in snapshot.data!){
+                                                  if(a.subDocType == val){
+                                                    docType = a.subDocID;
+                                                    docSubTypeMetaId = docType;
+                                                  }
+                                                }
+                                                print(":::${docType}");
+                                                print(":::<>${docSubTypeMetaId}");
+                                              },
+                                              items:dropDownMenuItems
+                                          );
+                                        }else{
+                                          return SizedBox(height:1,width: 1,);
+                                        }
+                                      }
                                   ),
-                                  child1: CICCDropdown(
-                                    initialValue: _selectedItem1,
-                                    onChange: _onDropdownItemSelected1,
-                                    items: [
-                                      DropdownMenuItem(
-                                          value: '1',
-                                          child: Text('Licenses')),
-                                      DropdownMenuItem(
-                                          value: '2',
-                                          child: Text('ADR')),
-                                      DropdownMenuItem(
-                                          value: '3',
-                                          child: Text('Medical Cost Report')),
-                                      DropdownMenuItem(
-                                          value: '4',
-                                          child: Text('Cap Reports')),
-                                      DropdownMenuItem(
-                                          value: '5',
-                                          child: Text('Quarterly Balance Reports')),
-                                    ],
+                                  child:  FutureBuilder<List<DocumentTypeData>>(
+                                      future: documentTypeGet(context),
+                                      builder: (context,snapshot) {
+                                        if(snapshot.connectionState == ConnectionState.waiting){
+                                          return Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.grey[100]!,
+                                              child: Container(
+                                                width: 350,
+                                                height: 30,
+                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                              )
+                                          );
+                                        }
+                                        if (snapshot.data!.isEmpty) {
+                                          return Center(
+                                            child: Text(
+                                              AppString.dataNotFound,
+                                              style: CustomTextStylesCommon.commonStyle(
+                                                fontWeight: FontWeightManager.medium,
+                                                fontSize: FontSize.s12,
+                                                color: ColorManager.mediumgrey,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        if(snapshot.hasData){
+                                          List dropDown = [];
+                                          int docType = 0;
+                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                          for(var i in snapshot.data!){
+                                            dropDownMenuItems.add(
+                                              DropdownMenuItem<String>(
+                                                child: Text(i.docType),
+                                                value: i.docType,
+                                              ),
+                                            );
+                                          }
+                                          return CICCDropdown(
+                                              initialValue: dropDownMenuItems[0].value,
+                                              onChange: (val){
+                                                for(var a in snapshot.data!){
+                                                  if(a.docType == val){
+                                                    docType = a.docID;
+                                                    docTypeMetaId = docType;
+                                                  }
+                                                }
+                                                identityDocumentTypeGet(context,docTypeMetaId);
+                                                print(":::${docType}");
+                                                print(":::<>${docTypeMetaId}");
+                                              },
+                                              items:dropDownMenuItems
+                                          );
+                                        }else{
+                                          return SizedBox();
+                                        }
+                                      }
+                                  ),
+                                  radioButton: StatefulBuilder(
+                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                      return Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          CustomRadioListTile(
+                                            value: "Not Applicable",
+                                            groupValue: expiryType.toString(),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                expiryType = value!;
+                                              });
+                                            },
+                                            title: "Not Applicable",
+                                          ),
+                                          CustomRadioListTile(
+                                            value: 'Scheduled',
+                                            groupValue: expiryType.toString(),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                expiryType = value!;
+                                              });
+                                            },
+                                            title: 'Scheduled',
+                                          ),
+                                          CustomRadioListTile(
+                                            value: 'Issuer Expiry',
+                                            groupValue: expiryType.toString(),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                expiryType = value!;
+                                              });
+                                            },
+                                            title: 'Issuer Expiry',
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 );
                               });
@@ -334,42 +403,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
             ],
           ),
         )
-        // Expanded(
-        //     child: Stack(
-        //      children: [
-        //        _selectedIndex != 2 ? Offstage():
-        //       Container(
-        //       height: MediaQuery.of(context).size.height / 3.5,
-        //       decoration: BoxDecoration(
-        //           color: Color(0xFFF2F9FC),
-        //           borderRadius: BorderRadius.only(
-        //               topLeft: Radius.circular(20),
-        //               topRight: Radius.circular(20)),
-        //           boxShadow: [
-        //             BoxShadow(
-        //               color: ColorManager.faintGrey,
-        //               blurRadius: 2,
-        //               spreadRadius: -2,
-        //               offset: Offset(0, -4),
-        //             ),
-        //           ]),
-        //     ),
-        //     NonScrollablePageView(
-        //       controller: _tabPageController,
-        //       onPageChanged: (index) {
-        //         setState(() {
-        //           _selectedIndex = index;
-        //         });
-        //       },
-        //       children: [
-        //         // Page 1
-        //         CICorporateCompilianceDocument(),
-        //         CIVendorContract(),
-        //         CIPoliciesProcedure()
-        //       ],
-        //     ),
-        //   ],
-        // )),
       ],
     );
   }

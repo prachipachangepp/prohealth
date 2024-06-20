@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/establishment_resources/establish_theme_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
@@ -165,6 +167,18 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                                   height: 30,
                                   decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                                 )
+                            );
+                          }
+                          if (snapshot.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
                             );
                           }
                           if(snapshot.hasData){
