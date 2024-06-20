@@ -5,10 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_pay_rates/widgets/custom_popup.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../app/resources/const_string.dart';
@@ -39,6 +43,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
+  int docZoneId = 0;
+  int docAddVisitTypeId = 0;
+  int docVisitTypeId =0;
 
   @override
   void initState() {
@@ -230,14 +237,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         ),
 
                     ///add payrate button
-        FutureBuilder<List<AllZoneData>>(
-        future:getAllZone(context),
-        builder: (context,snapshot) {
-          if(snapshot.hasData){
-            List<String> dropDownList =[];
-            for(var i in snapshot.data!){
-              dropDownList.add(i.zoneName);
-              return Container(
+                Container(
                 width: 130,
                 height: 32,
                 child: CustomIconButtonConst(
@@ -247,187 +247,141 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: Colors.white,
-                            content:
-                            Container(
-                              height: 243,
-                              width: 309,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.end,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          icon: Icon(Icons.close))
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text('Type of Visit',
-                                        style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeightManager.bold,
-                                            color: ColorManager.mediumgrey
-                                        ),),
-                                      SizedBox(height: 2,),
-                                      Container(
-                                        height: 30,
+                          return PayRatesPopup(
+                            child1: FutureBuilder<List<CiVisit>>(
+                                future: getVisit(context,1,10),
+                              builder: (context,snapshot) {
+                                if(snapshot.connectionState == ConnectionState.waiting){
+                                  return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Container(
                                         width: 354,
-                                        // margin: EdgeInsets.symmetric(horizontal: 20),
-                                        padding:
-                                        EdgeInsets.symmetric(
-                                            vertical: 3, horizontal: 15),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              color: Color(0xff686464).withOpacity(
-                                                  0.5),
-                                              width: 1), // Black border
-                                          borderRadius:
-                                          BorderRadius.circular(8), // Rounded corners
-                                        ),
-                                        child: DropdownButtonFormField<String>(
-                                          focusColor: Colors.transparent,
-                                          icon: Icon(
-                                            Icons.arrow_drop_down_sharp,
-                                            color: Color(0xff686464),
-                                          ),
-                                          decoration: InputDecoration.collapsed(
-                                              hintText: ''),
-                                          items: <String>[
-                                            'Random Visit',
-                                            'Option 1',
-                                            'Option 2',
-                                            'Option 3',
-                                            'Option 4'
-                                          ].map<DropdownMenuItem<String>>((
-                                              String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String? newValue) {},
-                                          value: 'Random Visit',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 17,
-                                      ),
-                                      Text('Zone',
-                                        style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeightManager.bold,
-                                            color: ColorManager.mediumgrey
-                                        ),),
-                                      SizedBox(height: 2,),
-                                      Container(
                                         height: 30,
-                                        width: 354,
-                                        // margin: EdgeInsets.symmetric(horizontal: 20),
-                                        padding:
-                                        EdgeInsets.symmetric(
-                                            vertical: 3, horizontal: 15),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              color: Color(0xff686464).withOpacity(
-                                                  0.5),
-                                              width: 1), // Black border
-                                          borderRadius:
-                                          BorderRadius.circular(8), // Rounded corners
-                                        ),
-                                        child: DropdownButtonFormField<String>(
-                                          focusColor: Colors.transparent,
-                                          icon: Icon(
-                                            Icons.arrow_drop_down_sharp,
-                                            color: Color(0xff686464),
-                                          ),
-                                          decoration: InputDecoration.collapsed(
-                                              hintText: ''),
-                                          items: dropDownList.map<DropdownMenuItem<String>>((
-                                              String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String? newValue) {
+                                        decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                      )
+                                  );
+                                }
+                                if (snapshot.data!.isEmpty) {
+                                  return Center(
+                                    child: Text(
+                                      AppString.dataNotFound,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontWeight: FontWeightManager.medium,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                if(snapshot.hasData){
+                                  List dropDown = [];
+                                  int docType = 0;
+                                  List<DropdownMenuItem<String>> dropDownZoneList = [];
+                                  for(var i in snapshot.data!){
+                                    dropDownZoneList.add(
+                                      DropdownMenuItem<String>(
+                                        child: Text(i.typeofVisit),
+                                        value: i.typeofVisit,
 
-                                          },
-                                          value: dropDownList[0],
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xff686464),
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
                                       ),
-                                      SizedBox(
-                                        height: 17,
-                                      ),
-                                      SMTextFConst(
-                                        controller: payRatesController,
-                                        keyboardType:
-                                        TextInputType.emailAddress,
-                                        text: 'Rate',
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    );
+                                  }
+                                  return CICCDropdown(
+                                      initialValue: dropDownZoneList[0].value,
+                                      onChange: (val){
+                                        for(var a in snapshot.data!){
+                                          if(a.visitId == val){
+                                            docType = a.visitId!;
+                                            docAddVisitTypeId = docType;
+                                          }
+                                        }
+                                        print(":::${docType}");
+                                        print(":::<>${docAddVisitTypeId}");
+                                      },
+                                      items:dropDownZoneList
+                                  );
+                                }
+                                return SizedBox();
+                              }
                             ),
-                            actions: [
-                              Center(
-                                child: CustomElevatedButton(
-                                    width: 105,
-                                    height: 31,
-                                    text: 'Submit',
-                                    onPressed: () async {
-                                      await addPayRatesSetupPost(context, 1, 2, 2, 1, int.parse(payRatesController.text));
-                                      payRatesDataGet(context,1,10).then((data) {
-                                        _payRatesController.add(data);
-                                      }).catchError((error) {
-                                        // Handle error
-                                      });
-                                      Navigator.pop(context);
-
-                                    }),)
-                            ]
-                            ,
-                          );
+                            child2:  FutureBuilder<List<AllZoneData>>(
+                              future: getAllZone(context),
+                              builder: (context,snapshotZone) {
+                                if(snapshotZone.connectionState == ConnectionState.waiting){
+                                  return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Container(
+                                        width: 354,
+                                        height: 30,
+                                        decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                      )
+                                  );
+                                }
+                                if (snapshotZone.data!.isEmpty) {
+                                  return Center(
+                                    child: Text(
+                                      AppString.dataNotFound,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                        fontWeight: FontWeightManager.medium,
+                                        fontSize: FontSize.s12,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                if(snapshotZone.hasData){
+                                  List dropDown = [];
+                                  int docType = 0;
+                                  List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                  for(var i in snapshotZone.data!){
+                                    dropDownTypesList.add(
+                                      DropdownMenuItem<String>(
+                                        value: i.zoneName,
+                                        child: Text(i.zoneName),
+                                      ),
+                                    );
+                                  }
+                                  return CICCDropdown(
+                                      initialValue: dropDownTypesList[0].value,
+                                      onChange: (val){
+                                        for(var a in snapshotZone.data!){
+                                          if(a.zoneName == val){
+                                            docType = a.zoneId;
+                                            print("ZONE id :: ${a.zoneId}");
+                                            docZoneId = docType;
+                                          }
+                                        }
+                                        print(":::${docType}");
+                                        print(":::<>${docZoneId}");
+                                      },
+                                      items:dropDownTypesList
+                                  );
+                                }
+                               return SizedBox();
+                              }
+                            ),
+                            payRatesController: payRatesController,
+                            onPressed: () async{
+                              await addPayRatesSetupPost(
+                                context,
+                                  1,
+                                  1,
+                                  docAddVisitTypeId,
+                                  docZoneId,
+                              int.parse(payRatesController.text));
+                              payRatesDataGet(context,1,10).then((data) {
+                                _payRatesController.add(data);
+                              }).catchError((error) {
+                                // Handle error
+                              });
+                              Navigator.pop(context);
+                            },);
                         },
                       );
                     }),
-              );
-            }
-          }else{
-            return Offstage();
-          }
-          return Offstage();
-    }
-
-    )
+              ),
                   ],
                 ),
               ],
@@ -556,173 +510,138 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              backgroundColor: Colors.white,
-                                              content: Container(
-                                                height: 243,
-                                                width: 309,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(8)),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment.end,
-                                                      children: [
-                                                        IconButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
+                                            return PayRatesPopup(
+                                              child1: IgnorePointer(
+                                                ignoring: true,
+                                                child: FutureBuilder<List<CiVisit>>(
+                                                    future:getVisit(context,1,10),
+                                                    builder: (context,snapshot) {
+                                                      if(snapshot.connectionState == ConnectionState.waiting){
+                                                        return Shimmer.fromColors(
+                                                            baseColor: Colors.grey[300]!,
+                                                            highlightColor: Colors.grey[100]!,
+                                                            child: Container(
+                                                              width: 354,
+                                                              height: 30,
+                                                              decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                            )
+                                                        );
+                                                      }
+                                                      if (snapshot.data!.isEmpty) {
+                                                        return Center(
+                                                          child: Text(
+                                                            AppString.dataNotFound,
+                                                            style: CustomTextStylesCommon.commonStyle(
+                                                              fontWeight: FontWeightManager.medium,
+                                                              fontSize: FontSize.s12,
+                                                              color: ColorManager.mediumgrey,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      if(snapshot.hasData){
+                                                        List dropDown = [];
+                                                        int docType = 0;
+                                                        List<DropdownMenuItem<String>> dropDownZoneList = [];
+                                                        for(var i in snapshot.data!){
+                                                          dropDownZoneList.add(
+                                                            DropdownMenuItem<String>(
+                                                              child: Text(i.typeofVisit!),
+                                                              value: i.typeofVisit,
+                                                            ),
+                                                          );
+                                                        }
+                                                        return CICCDropdown(
+                                                            initialValue: dropDownZoneList[0].value,
+                                                            onChange: (val){
+                                                              for(var a in snapshot.data!){
+                                                                if(a.typeofVisit == val){
+                                                                  docType = a.visitId!;
+                                                                  docZoneId = docType;
+                                                                }
+                                                              }
+                                                              print(":::${docType}");
+                                                              print(":::<>${docVisitTypeId}");
                                                             },
-                                                            icon: Icon(Icons.close))
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Text('Type of Visit',
-                                                          style: GoogleFonts.firaSans(
-                                                              fontSize: 12,
-                                                              fontWeight: FontWeightManager.bold,
-                                                              color: ColorManager.fmediumgrey
-                                                          ),),
-                                                        SizedBox(height: 2,),
-                                                        Container(
-                                                          height: 30,
-                                                          width: 354,
-                                                          // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                          padding:
-                                                          EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                                          decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            border: Border.all(
-                                                                color: Color(0xff686464).withOpacity(0.5),
-                                                                width: 1), // Black border
-                                                            borderRadius:
-                                                            BorderRadius.circular(8), // Rounded corners
-                                                          ),
-                                                          child: DropdownButtonFormField<String>(
-                                                            focusColor: Colors.transparent,
-                                                            icon: Icon(
-                                                              Icons.arrow_drop_down_sharp,
-                                                              color: ColorManager.fmediumgrey,
-                                                            ),
-                                                            decoration: InputDecoration.collapsed(hintText: ''),
-                                                            items: <String>[
-                                                              'Random Visit',
-                                                              'Option 1',
-                                                              'Option 2',
-                                                              'Option 3',
-                                                              'Option 4'
-                                                            ].map<DropdownMenuItem<String>>((String value) {
-                                                              return DropdownMenuItem<String>(
-                                                                value: value,
-                                                                child: Text(value),
-                                                              );
-                                                            }).toList(),
-                                                            onChanged: (String? newValue) {},
-                                                            value: 'Random Visit',
-                                                            style: GoogleFonts.firaSans(
-                                                              fontSize: 12,
-                                                              fontWeight: FontWeight.w600,
-                                                              color: ColorManager.fmediumgrey,
-                                                              decoration: TextDecoration.none,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 17,
-                                                        ),
-                                                        Text('Zone',
-                                                          style: GoogleFonts.firaSans(
-                                                              fontSize: 12,
-                                                              fontWeight: FontWeightManager.bold,
-                                                              color: ColorManager.mediumgrey
-                                                          ),),
-                                                        SizedBox(height: 2,),
-                                                        Container(
-                                                          height: 30,
-                                                          width: 354,
-                                                          // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                          padding:
-                                                          EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                                          decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            border: Border.all(
-                                                                color: Color(0xff686464).withOpacity(0.5),
-                                                                width: 1), // Black border
-                                                            borderRadius:
-                                                            BorderRadius.circular(8), // Rounded corners
-                                                          ),
-                                                          child: DropdownButtonFormField<String>(
-                                                            focusColor: Colors.transparent,
-                                                            icon: Icon(
-                                                              Icons.arrow_drop_down_sharp,
-                                                              color: Color(0xff686464),
-                                                            ),
-                                                            decoration: InputDecoration.collapsed(hintText: ''),
-                                                            items: <String>[
-                                                              'Sans Josh z4',
-                                                              'Option 1',
-                                                              'Option 2',
-                                                              'Option 3',
-                                                              'Option 4'
-                                                            ].map<DropdownMenuItem<String>>((String value) {
-                                                              return DropdownMenuItem<String>(
-                                                                value: value,
-                                                                child: Text(value),
-                                                              );
-                                                            }).toList(),
-                                                            onChanged: (String? newValue) {},
-                                                            value: 'Sans Josh z4',
-                                                            style: GoogleFonts.firaSans(
-                                                              fontSize: 12,
-                                                              fontWeight: FontWeight.w600,
-                                                              color: Color(0xff686464),
-                                                              decoration: TextDecoration.none,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 15,
-                                                        ),
-                                                        SMTextFConst(
-                                                          controller:
-                                                          payRatesController,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .emailAddress,
-                                                          text: 'Rate',
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
+                                                            items:dropDownZoneList
+                                                        );
+                                                      }
+                                                      return SizedBox();
+                                                    }
                                                 ),
                                               ),
-                                              actions: [
-                                                Center(
-                                                  child: CustomElevatedButton(
-                                                      width: 105,
-                                                      height: 31,
-                                                      text: 'Submit',
-                                                      onPressed: () {
-                                                        // Navigator.push(
-                                                        //     context,
-                                                        //     MaterialPageRoute(
-                                                        //         builder: (context) =>
-                                                        //             LoginScreen()));
-                                                      }),
-                                                )
-                                              ],
-                                            );
+                                              child2:  FutureBuilder<List<AllZoneData>>(
+                                                  future: getAllZone(context),
+                                                  builder: (context,snapshot) {
+                                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                                      return Shimmer.fromColors(
+                                                          baseColor: Colors.grey[300]!,
+                                                          highlightColor: Colors.grey[100]!,
+                                                          child: Container(
+                                                            width: 354,
+                                                            height: 30,
+                                                            decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                          )
+                                                      );
+                                                    }
+                                                    if (snapshot.data!.isEmpty) {
+                                                      return Center(
+                                                        child: Text(
+                                                          AppString.dataNotFound,
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                            fontWeight: FontWeightManager.medium,
+                                                            fontSize: FontSize.s12,
+                                                            color: ColorManager.mediumgrey,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    if(snapshot.hasData){
+                                                      List dropDown = [];
+                                                      int docType = 0;
+                                                      List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                                      for(var i in snapshot.data!){
+                                                        dropDownTypesList.add(
+                                                          DropdownMenuItem<String>(
+                                                            child: Text(i.zoneName),
+                                                            value: i.zoneName,
+                                                          ),
+                                                        );
+                                                      }
+                                                      return CICCDropdown(
+                                                          initialValue: dropDownTypesList[0].value,
+                                                          onChange: (val){
+                                                            for(var a in snapshot.data!){
+                                                              if(a.zoneName == val){
+                                                                docType = a.zoneId;
+                                                                docZoneId = docType;
+                                                              }
+                                                            }
+                                                            print(":::${docType}");
+                                                            print(":::<>${docZoneId}");
+                                                          },
+                                                          items:dropDownTypesList
+                                                      );
+                                                    }
+                                                    return SizedBox();
+                                                  }
+                                              ),
+                                              payRatesController: payRatesController,
+                                              onPressed: () async{
+                                                // await addPayRatesSetupPost(
+                                                //     context,
+                                                //     1,
+                                                //     1,
+                                                //     1,
+                                                //     docZoneId,
+                                                //     int.parse(payRatesController.text));
+                                                payRatesDataGet(context,1,10).then((data) {
+                                                  _payRatesController.add(data);
+                                                }).catchError((error) {
+                                                  // Handle error
+                                                });
+                                                Navigator.pop(context);
+                                              },);
                                           },
                                         );
                                       },
