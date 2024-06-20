@@ -222,6 +222,7 @@ class EstablishmentManagerRepository {
   static String user = "/users";
   static String zone = "/zone";
   static String signUp="/signUp";
+  static String companyDept ="/company-department";
 
 
   static String companyAll(){
@@ -384,7 +385,9 @@ class EstablishmentManagerRepository {
   }){
     return "$employeedocSetup/$employeeDoctypeSetupId";
   }
-  static String postEmployeedocTypesetup(){
+  static String postEmployeedocTypesetup(
+  {required int employeeDoctypeSetupId }
+      ){
     return "$employeedocSetup/$add";
   }
   static String userGet(){
@@ -401,5 +404,9 @@ class EstablishmentManagerRepository {
   }
   static String zoneGet(){
     return "$zone";
+  }
+  ///Role Manager
+  static String companyDepartment(){
+    return "$companyDept";
   }
 }

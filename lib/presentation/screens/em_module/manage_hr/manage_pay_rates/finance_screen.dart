@@ -123,7 +123,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             );
                           }
                           if(snapshot.hasData){
-
                             List<String> dropDownList =[];
                             List<String> dropDownAbbreviation =[];
                             for(var i in snapshot.data!){

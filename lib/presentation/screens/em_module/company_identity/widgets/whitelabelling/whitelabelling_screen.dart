@@ -384,7 +384,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   height: 30,
                                                 )
 
-
                                               ],
                                             ),
                                           ],
