@@ -17,8 +17,10 @@ import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employ
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/emp_documents/health.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/emp_documents/performance.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/emp_doc_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/widgets/admin_emp_data.dart';
 import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 
@@ -106,8 +108,21 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
     super.initState();
     getEmployeeDocTab(context);
   }
+  String selectType = "Health";
+  void onChange(String select){
+    setState(() {
+      selectType = select;
+    });
+  }
+  void radioOnChnage(String select){
+    setState(() {
+      expiryType = select;
+    });
+  }
 
   var metaDocID = 1;
+  String? expiryType;
+  int docMetaId = 0;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -124,16 +139,106 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
               children: [
                 CustomIconButtonConst(text: 'Add Document', onPressed: (){
                   showDialog(context: context, builder: (BuildContext context){
-                    return EmpDocEditPopup(idDocController: idDocController, nameDocController: nameDocController,
+                    return EmpDocEditPopup(
+                      //expiryType: expiryType,
+                      idDocController: idDocController, nameDocController: nameDocController,
                       calenderController: dateController,
-                      child:  CICCDropdown(
-                        initialValue: 'Health',
-                        items: [
-                          DropdownMenuItem(value: 'Health', child: Text('Health')),
-                          DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                          DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                          DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                        ],),);
+                      onSavePredded: () async{
+                      await addEmployeeDocSetup(context,
+                          docMetaId,
+                          nameDocController.text,
+                          expiryType.toString(),
+                          dateController.text);
+                      Navigator.pop(context);
+                      nameDocController.clear();
+                      dateController.clear();
+                      },
+                      child:  FutureBuilder<List<EmployeeDocTabModal>>(
+                        future: getEmployeeDocTab(context),
+                        builder: (context,snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 350,
+                                  height: 30,
+                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                )
+                            );
+                          }
+                          if(snapshot.hasData){
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                            for(var i in snapshot.data!){
+                              dropDownMenuItems.add(
+                                  DropdownMenuItem<String>(
+                                    child: Text(i.employeeDocType),
+                                    value: i.employeeDocType,
+                                  ),
+                              );
+                            }
+                            return CICCDropdown(
+                              initialValue: dropDownMenuItems[0].value,
+                              onChange: (val){
+                                for(var a in snapshot.data!){
+                                  if(a.employeeDocType == val){
+                                    docType = a.employeeDocMetaDataId;
+                                    docMetaId = docType;
+                                  }
+                                }
+                                print(":::${docType}");
+                                print(":::<>${docMetaId}");
+                              },
+                              items:dropDownMenuItems
+                            );
+                          }else{
+                            return SizedBox();
+                          }
+                        }
+                      ),
+                    radioButton: StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) {
+                       return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomRadioListTile(
+                              value: "Not Applicable",
+                              groupValue: expiryType.toString(),
+                              onChanged: (value) {
+                                setState(() {
+                                  expiryType = value!;
+                                });
+                              },
+                              title: "Not Applicable",
+                            ),
+                            CustomRadioListTile(
+                              value: 'Scheduled',
+                              groupValue: expiryType.toString(),
+                              onChanged: (value) {
+                                setState(() {
+                                  expiryType = value!;
+                                });
+                              },
+                              title: 'Scheduled',
+                            ),
+                            CustomRadioListTile(
+                              value: 'Issuer Expiry',
+                              groupValue: expiryType.toString(),
+                              onChanged: (value) {
+                                setState(() {
+                                  expiryType = value!;
+                                });
+                              },
+                              title: 'Issuer Expiry',
+                            ),
+                          ],
+                        );
+                      },
+
+                    ),);
                   });
                 },icon: Icons.add,)
               ],

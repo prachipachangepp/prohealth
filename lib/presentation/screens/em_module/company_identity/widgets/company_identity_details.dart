@@ -13,7 +13,8 @@ import 'checkbox_constant.dart';
 //
 // Add Service:  /company-office-service/add
 class CIDetailsScreen extends StatefulWidget {
-  const CIDetailsScreen({super.key, required this.officeId});
+  const CIDetailsScreen({super.key, required this.officeId, required this.docTD});
+  final int docTD;
   final String officeId;
   @override
   State<CIDetailsScreen> createState() => _CIDetailsScreenState();

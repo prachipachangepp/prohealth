@@ -281,20 +281,23 @@ class EmpDocEditPopup extends StatefulWidget {
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
   final TextEditingController calenderController;
+  final VoidCallback onSavePredded;
+  String? expiryType;
+  final Widget radioButton;
   final Widget child;
-  const EmpDocEditPopup(
+   EmpDocEditPopup(
       {super.key,
       required this.idDocController,
       required this.nameDocController,
       required this.child,
-      required this.calenderController});
+      required this.calenderController, this.expiryType, required this.onSavePredded, required this.radioButton});
 
   @override
   State<EmpDocEditPopup> createState() => _EmpDocEditPopupState();
 }
 
 class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
-  String? _expiryType;
+
   //TextEditingController calenderController = TextEditingController();
   final DateTime _selectedDate = DateTime.now();
 
@@ -384,66 +387,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                       decoration: TextDecoration.none,
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RadioListTile<String>(
-                        title: Text(
-                          'Not Applicable',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'Not Applicable',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Scheduled',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'Scheduled',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Issuer Expiry',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'Issuer Expiry',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
+                  widget.radioButton
                 ],
               ),
             ),
@@ -555,23 +499,23 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.submit,
-                  onPressed: () async{
-                  await addOrgDocumentPost(
-                        context,
-                        widget.calenderController.text,
-                        widget.nameDocController.text,
-                        _expiryType.toString(),
-                        _expiryType.toString());
-                    setState(() {
-                      orgSubDocumentGet(context, 1, 1, 1, 2, 3);
-                      Navigator.pop(context);
-                      widget.nameDocController.clear();
-                      widget.calenderController.clear();
-                      widget.idDocController.clear();
-
-                    });
+                  onPressed: widget.onSavePredded
+                  // await addOrgDocumentPost(
+                  //       context,
+                  //       widget.calenderController.text,
+                  //       widget.nameDocController.text,
+                  //       _expiryType.toString(),
+                  //       _expiryType.toString());
+                  //   setState(() {
+                  //     orgSubDocumentGet(context, 1, 1, 1, 2, 3);
+                  //     Navigator.pop(context);
+                  //     widget.nameDocController.clear();
+                  //     widget.calenderController.clear();
+                  //     widget.idDocController.clear();
+                  //
+                  //   });
                     // Navigator.pop(context);
-                  },
+
                 ),
               ),
             ),

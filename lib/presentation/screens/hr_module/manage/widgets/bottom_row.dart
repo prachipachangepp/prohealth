@@ -30,8 +30,7 @@ class BottomBarRow extends StatelessWidget {
               children: [
                 Text(
                   'Washington DC',
-                  style: TextStyle(
-                    fontFamily: 'FiraSans',
+                  style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                     color: ColorManager.darkgrey,
@@ -43,8 +42,7 @@ class BottomBarRow extends StatelessWidget {
                 ),
                 Text(
                   '198.168.1.231',
-                  style: TextStyle(
-                    fontFamily: 'FiraSans',
+                  style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: ColorManager.grey,
@@ -65,8 +63,7 @@ class BottomBarRow extends StatelessWidget {
                 ),
                 Text(
                   'Powered by',
-                  style: TextStyle(
-                    fontFamily: 'FiraSans',
+                  style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: ColorManager.grey,
