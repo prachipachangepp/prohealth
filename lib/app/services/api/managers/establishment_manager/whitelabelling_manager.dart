@@ -116,22 +116,22 @@ Future<ApiData> postWhitelabellingAdd(
 //     return itemsData;
 //   }
 // }
-///
+
 Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
     BuildContext context,
-    int companyDetail
+    int companyId,
     ) async {
   late WhiteLabellingCompanyDetailModal itemsData;
   try {
-    final response = await Api(context).get(
-      path: EstablishmentManagerRepository.getWhitelabellingDetail(
-        companyDetail: companyDetail,
-      ),
+    final url = EstablishmentManagerRepository.getWhitelabellingDetail(
+        companyId: companyId
     );
+    print("Fetching data from URL: $url");
+
+    final response = await Api(context).get(path: url);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       var responseData = response.data;
-
       WLCompanyDetailModal companyDetail =
       WLCompanyDetailModal.fromJson(responseData['CompanyDetail']);
       WLContactDetailModal contactDetail =
@@ -144,7 +144,7 @@ Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
         contactDetail: contactDetail,
         logos: logos,
         message: response.statusMessage ?? 'Success',
-         success: true,
+        success: true,
       );
     } else {
       itemsData = WhiteLabellingCompanyDetailModal(
@@ -159,14 +159,14 @@ Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
         contactDetail: WLContactDetailModal(
             companyContactId: 0,
             companyId: 1,
-            primaryPhone: 'primary_phone',
-            secondaryPhone: 'secondary_phone',
-            primaryFax: 'primary_fax',
-            alternativePhone: 'alternative_phone',
-            email: 'email'),
+            primaryPhone: '',
+            secondaryPhone: '',
+            primaryFax: '',
+            alternativePhone: '',
+            email: ''),
         logos: [],
         success: false,
-        message: response.statusMessage ?? 'Error',
+        message: response.statusMessage ?? 'Whitelabelling get Error',
       );
     }
   } catch (e) {
@@ -188,12 +188,92 @@ Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
           alternativePhone: '',
           email: ''
       ),
-      logos: [
-
-      ],
+      logos: [],
       success: false,
       message: e.toString(),
     );
   }
   return itemsData;
 }
+
+/// workin api
+// Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
+//     BuildContext context,
+//     int companyId,
+//     ) async {
+//   late WhiteLabellingCompanyDetailModal itemsData;
+//   try {
+//     final response = await Api(context).get(
+//       path: EstablishmentManagerRepository.getWhitelabellingDetail(
+//           companyId: companyId
+//       ),
+//     );
+//
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       var responseData = response.data;
+//       WLCompanyDetailModal companyDetail =
+//       WLCompanyDetailModal.fromJson(responseData['CompanyDetail']);
+//       WLContactDetailModal contactDetail =
+//       WLContactDetailModal.fromJson(responseData['ContactDetail']);
+//       List<WLLogoModal> logos = (responseData['Logos'] as List).map((logo) =>
+//           WLLogoModal.fromJson(logo)).toList();
+//
+//       itemsData = WhiteLabellingCompanyDetailModal(
+//         companyDetail: companyDetail,
+//         contactDetail: contactDetail,
+//         logos: logos,
+//         message: response.statusMessage ?? 'Success',
+//          success: true,
+//       );
+//     } else {
+//       itemsData = WhiteLabellingCompanyDetailModal(
+//
+//         companyDetail: WLCompanyDetailModal(
+//             companyId: 1,
+//             name: '',
+//             description: '',
+//             url: '',
+//             address: '',
+//             headOfficeId: ''
+//         ),
+//         contactDetail: WLContactDetailModal(
+//             companyContactId: 0,
+//             companyId: 1,
+//             primaryPhone: '',
+//             secondaryPhone: '',
+//             primaryFax: '',
+//             alternativePhone: '',
+//             email: ''),
+//         logos: [],
+//         success: false,
+//         message: response.statusMessage ?? 'Whitelabelling get Error',
+//       );
+//     }
+//   } catch (e) {
+//     itemsData = WhiteLabellingCompanyDetailModal(
+//       companyDetail: WLCompanyDetailModal(
+//           companyId: 1,
+//           name: '',
+//           description: '',
+//           url: '',
+//           address: '',
+//           headOfficeId: ''
+//       ),
+//       contactDetail: WLContactDetailModal(
+//           companyContactId: 0,
+//           companyId: 1,
+//           primaryPhone: '',
+//           secondaryPhone: '',
+//           primaryFax: '',
+//           alternativePhone: '',
+//           email: ''
+//       ),
+//       logos: [
+//
+//       ],
+//       success: false,
+//       message: e.toString(),
+//     );
+//   }
+//   return itemsData;
+// }

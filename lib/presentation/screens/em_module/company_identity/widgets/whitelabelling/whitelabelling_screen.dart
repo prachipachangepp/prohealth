@@ -550,56 +550,150 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
               children: [
                 Expanded(
                   flex: 2,
-                  child:
-                  StreamBuilder<WhiteLabellingCompanyDetailModal>(
-                    stream: Stream.fromFuture(
-                        getWhiteLabellingData(context, 1)),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        var data = snapshot.data!;
-                        var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
-                            orElse: () => WLLogoModal(companyLogoId: 0,
-                                companyId: 1, url:
-                                'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
-                                type: ''));
-                        var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
-                            orElse: () => WLLogoModal(companyLogoId: 0,
-                                companyId: 1, url:
-                                'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
-                                type: ''));
-                        var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
-                            orElse: () => WLLogoModal(companyLogoId: 0, companyId: 1, url: '', type: ''));
+                  child: Container(
+                    height: 320,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: ColorManager.blueprime,
+                        ),
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20))),
+                    child: StreamBuilder<WhiteLabellingCompanyDetailModal>(
+                      stream: Stream.fromFuture(getWhiteLabellingData(context, 1)),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          var data = snapshot.data!;
+                          var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
+                              orElse: () => WLLogoModal(
+                                  companyLogoId: 3,
+                                  companyId: 1,
+                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                  type: ''));
+                          var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
+                              orElse: () => WLLogoModal(
+                                  companyLogoId: 4,
+                                  companyId: 1,
+                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                  type: ''));
+                          var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
+                              orElse: () => WLLogoModal(
+                                  companyLogoId: 4,
+                                  companyId: 1,
+                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                  type: ''));
 
-                        return Column(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: mainLogo.url.isNotEmpty
-                                  ? Image.network(mainLogo.url)
-                                  : Container(),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: webLogo.url.isNotEmpty
-                                  ? Image.network(webLogo.url)
-                                  : Container(),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: appLogo.url.isNotEmpty
-                                  ? Image.network(appLogo.url)
-                                  : Container(),
-                            ),
-                          ],
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                    },
+                          return Column(
+                            children: [
+                              Container(
+                                height: 100,
+                                child: mainLogo.url.isNotEmpty
+                                    ? Image.network(
+                                  'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                  // mainLogo.url,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                    return Center(
+                                      child: Icon(Icons.error, color: Colors.red),
+                                    );
+                                  },
+                                )
+                                    : Container(),
+                              ),
+                              Container(
+                                height: 100,
+                                child: webLogo.url.isNotEmpty
+                                    ? Image.network(
+                                  "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
+                                  // webLogo.url,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                    return Center(
+                                      child: Icon(Icons.error, color: Colors.red),
+                                    );
+                                  },
+                                )
+                                    : Container(),
+                              ),
+                              Container(
+                                height: 100,
+                                child: appLogo.url.isNotEmpty
+                                    ? Image.network(
+                                  appLogo.url,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                    return Center(
+                                      child: Icon(Icons.error, color: Colors.red),
+                                    );
+                                  },
+                                )
+                                    : Container(),
+                              ),
+                            ],
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
                   ),
                 ),
+
+                ///old
+                // Expanded(
+                //   flex: 2,
+                //   child:
+                //   StreamBuilder<WhiteLabellingCompanyDetailModal>(
+                //     stream: Stream.fromFuture(
+                //         getWhiteLabellingData(context, 1)),
+                //     builder: (context, snapshot) {
+                //       if (snapshot.hasData) {
+                //         var data = snapshot.data!;
+                //         var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
+                //             orElse: () => WLLogoModal(companyLogoId: 3,
+                //                 companyId: 1, url:
+                //                 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                //                 type: ''));
+                //         var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
+                //             orElse: () => WLLogoModal(companyLogoId: 4,
+                //                 companyId: 1, url:
+                //                 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                //                 type: ''));
+                //         var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
+                //             orElse: () => WLLogoModal(companyLogoId: 4, companyId: 1,
+                //                 url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg', type: ''));
+                //         return Column(
+                //           children: [
+                //             Expanded(
+                //               flex: 1,
+                //               child: mainLogo.url.isNotEmpty
+                //                   ? Image.network(mainLogo.url)
+                //                   : Container(),
+                //             ),
+                //             Expanded(
+                //               flex: 1,
+                //               child: webLogo.url.isNotEmpty
+                //                   ? Image.network(webLogo.url)
+                //                   : Container(),
+                //             ),
+                //             Expanded(
+                //               flex: 1,
+                //               child: appLogo.url.isNotEmpty
+                //                   ? Image.network(appLogo.url)
+                //                   : Container(),
+                //             ),
+                //           ],
+                //         );
+                //       } else if (snapshot.hasError) {
+                //         return Text('Error: ${snapshot.error}');
+                //       } else {
+                //         return Center(child: CircularProgressIndicator());
+                //       }
+                //     },
+                //   ),
+                // ),
+                  ///
                   // Column(
                   //   children: [
                   //     Container(
@@ -656,7 +750,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                             ),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
-                        height: 260,
+                        height: 320,
                         // color: ColorManager.red,
                         child: StreamBuilder<WhiteLabellingCompanyDetailModal>(
                             stream: Stream.fromFuture(
