@@ -375,7 +375,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           child: Center(
                                               child: Text(
                                                 //'HO',
-                                                listData.first.toString().substring(1,3),
+                                                snapshot.data![index].eligibleClinician![0].eligibleClinician,
+                                               // listData.first.toString().substring(1,3),
                                             style: GoogleFonts.firaSans(
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w500,
@@ -487,7 +488,16 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                     hintText: 'Enter text to add as chip',
                                                                     border: InputBorder.none,
                                                                     contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
-                                                                    suffixIcon: Icon(Icons.add,color:ColorManager.blueprime,size: 18,)
+                                                                    suffixIcon: InkWell(
+                                                                      onTap: selectedChips.isEmpty ? null :(){
+                                                                        setState((){
+                                                                          if (eligibleClinicalController.toString().isNotEmpty) {
+                                                                            addChip(eligibleClinicalController.toString().trim());
+                                                                            eligibleClinicalController.clear();
+                                                                          }
+                                                                        });
+                                                                      },
+                                                                        child: selectedChips.isEmpty ? Text("") :Icon(Icons.add,color:ColorManager.blueprime,size: 18,))
                                                                   ),
                                                                 ),
                                                               ),

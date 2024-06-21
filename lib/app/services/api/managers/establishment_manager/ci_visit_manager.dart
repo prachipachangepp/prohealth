@@ -18,33 +18,34 @@ Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows) asy
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       print("1");
+      for (var item in response.data) {
+        // Fetch eligible clinicians if available
+        List<CiVisitList> clinicians = [];
+        if (item['eligibleClinician'] != null) {
+          for (var clinicianData in item['eligibleClinician']) {
+            clinicians.add(CiVisitList(
+              empTypeId: clinicianData['employeeTypeId'],
+              eligibleClinician: clinicianData['eligibleClinician'],
+              color: clinicianData['color'],
+            ));
+          }
+        }
 
-      for(var item in response.data){
-        itemsList.add(
-          CiVisit(
-              visitId : item['visitId'],
+        for (var item in response.data) {
+          itemsList.add(
+            CiVisit(
+              visitId: item['visitId'],
               typeofVisit: item['typeOfVisit'],
-              eligibleClinician: item['eligibleClinician'],
+              eligibleClinician: clinicians,
               sucess: true,
               message: response.statusMessage!,
               // color:  item['color']
 
-          ),
-        );
+            ),
+          );
+        }
+        print(":::${itemsList}");
       }
-      print(":::${itemsList}");
-      // for(var item in response.data){
-      //   eligibalList.add(CiVisit(
-      //     // visitId : item['visitId'],
-      //       eligibleClinician: item['eligibleClinician'],
-      //       sucess: true,
-      //       message: response.statusMessage!
-      //
-      //   ),);
-      //   print(":::::::<><>${eligibalList}");
-      //   print(":::::::<><>${response.data}");
-      // }
-      // print("Org Document response:::::${itemsList}");
     } else {
       print('Org Api Error');
       return itemsList;
@@ -56,6 +57,7 @@ Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows) asy
     return itemsList;
   }
 }
+
 /// post
 Future<ApiData> addVisitPost(BuildContext context,
     String typeOfVisit,
