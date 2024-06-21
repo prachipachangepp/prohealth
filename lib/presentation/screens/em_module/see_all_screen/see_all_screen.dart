@@ -231,80 +231,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         SizedBox(
                                           height: 10,
                                         ),
-///
-//                                         ReusableLoadingButton(
-//                                           text: 'Create',
-//                                           onPressed: () async {
-//                                             // if (_validateForm()) {
-//                                             //   setState(() {
-//                                             //     _isLoading = true;
-//                                             //     _showErrorMessage = false;
-//                                             //   });
-//
-//                                             // try {
-//                                             await createUserPost(
-//                                               context,
-//                                               firstNameController.text,
-//                                               lastNameController.text,
-//                                               roleController.text,
-//                                               emailController.text,
-//                                               int.parse(
-//                                                   companyIdController.text),
-//                                               passwordController.text,
-//                                             );
-//
-//                                             getUser(context).then((data) {
-//                                               _companyUsersList.add(data);
-//                                             }).catchError((error) {
-//
-//                                             });
-//
-//                                             Navigator.pop(context);
-//
-//                                             firstNameController.clear();
-//                                             lastNameController.clear();
-//                                             roleController.clear();
-//                                             emailController.clear();
-//                                             companyIdController.clear();
-//                                             passwordController.clear();
-//                                             //
-//                                             // setState(() {
-//                                             //   _isLoading = false;
-//                                             // });
-//
-//                                             showDialog(
-//                                               context: context,
-//                                               builder: (BuildContext context) =>
-//                                                   AlertDialog(
-//                                                     title: Text('Success'),
-//                                                     content: Text(
-//                                                         'User created successfully!'),
-//                                                     actions: [
-//                                                       TextButton(
-//                                                         child: Text('OK'),
-//                                                         onPressed: () {
-//                                                           Navigator.of(context)
-//                                                               .pop();
-//                                                         },
-//                                                       ),
-//                                                     ],
-//                                                   ),
-//                                             );
-//                                             //     } catch (error) {
-//                                             //
-//                                             //       setState(() {
-//                                             //         _isLoading = false;
-//                                             //
-//                                             //       });
-//                                             //     }
-//                                             //   } else {
-//                                             //     setState(() {
-//                                             //       _showErrorMessage = true;
-//                                             //     });
-//                                             //   }
-//                                             // },
-//                                             // loadingDuration: 2,
-//                                           }),
 
                                         ///
                                         ReusableLoadingButton(
@@ -347,35 +273,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           loadingDuration: 2,
 
                                         ),
-                                        ///
-                                        // CustomElevatedButton(
-                                        //         width: 105,
-                                        //         height: 31,
-                                        //         text: 'Submit',
-                                        //         onPressed: () async {
-                                        //           await createUserPost(
-                                        //               context,
-                                        //               firstNameController.text,
-                                        //               lastNameController.text,
-                                        //               roleController.text,
-                                        //               emailController.text,
-                                        //               int.parse(
-                                        //                   companyIdController
-                                        //                       .text),
-                                        //               passwordController.text);
-                                        //           getUser(context).then((data) {
-                                        //             _companyUsersList.add(data);
-                                        //           }).catchError((error) {
-                                        //             // Handle error
-                                        //           });
-                                        //           Navigator.pop(context);
-                                        //           firstNameController.clear();
-                                        //           lastNameController.clear();
-                                        //           roleController.clear();
-                                        //           emailController.clear();
-                                        //           companyIdController.clear();
-                                        //           passwordController.clear();
-                                        //         })
+
                                       ],
                                     ),
                                   ),
@@ -765,22 +663,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                             SizedBox(
                                                               height: 15,
                                                             ),
-                                                            HRManageTextField(
-                                                              controller:
-                                                                  roleController,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .phone,
-                                                              text: "Role",
-                                                              cursorHeight: 12,
-                                                              labelText: "Role",
-                                                              labelStyle: GoogleFonts
-                                                                  .firaSans(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500),
+                                                            HRManageDropdown(controller: roleController,
+                                                              labelText:  'Role',
+                                                              labelStyle: GoogleFonts.firaSans(
+                                                                  fontWeight: FontWeight.w500),
                                                               labelFontSize: 12,
-                                                            ),
+                                                              items: [
+                                                                'Admin',
+                                                                'Staff',
+                                                                'User'
+                                                              ] ,),
                                                             SizedBox(
                                                               height: 15,
                                                             ),
@@ -1015,3 +907,32 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
 //       emailController.clear();
 //       companyIdController.clear();
 //     })
+///
+// CustomElevatedButton(
+//         width: 105,
+//         height: 31,
+//         text: 'Submit',
+//         onPressed: () async {
+//           await createUserPost(
+//               context,
+//               firstNameController.text,
+//               lastNameController.text,
+//               roleController.text,
+//               emailController.text,
+//               int.parse(
+//                   companyIdController
+//                       .text),
+//               passwordController.text);
+//           getUser(context).then((data) {
+//             _companyUsersList.add(data);
+//           }).catchError((error) {
+//             // Handle error
+//           });
+//           Navigator.pop(context);
+//           firstNameController.clear();
+//           lastNameController.clear();
+//           roleController.clear();
+//           emailController.clear();
+//           companyIdController.clear();
+//           passwordController.clear();
+//         })

@@ -129,7 +129,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                 child: Container(
                                   width: 350,
                                   height: 30,
-                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                  decoration: BoxDecoration(color:
+                                  ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                                 )
                             );
                           }
