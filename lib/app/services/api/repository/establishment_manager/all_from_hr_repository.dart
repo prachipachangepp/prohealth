@@ -12,4 +12,7 @@ class AllFromHrRepository{
   static String patchHRType({required int empId}){
     return "$empType/$empId";
   }
+  static String getEmpTypeById({required int empId}){
+    return "$empType/$empId";
+  }
 }
