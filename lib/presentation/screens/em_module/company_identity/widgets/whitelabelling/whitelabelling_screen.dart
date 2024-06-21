@@ -120,10 +120,13 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/1.7),
                     child: Align(
                       alignment: Alignment.topRight,
-                      child: CustomIconButton(
+                      child:
+
+
+                          ///
+                      CustomIconButton(
                           icon: Icons.edit_outlined,
                           text: "Edit Details",
-
                           onPressed: () {
                             showDialog(
                               context: context,
