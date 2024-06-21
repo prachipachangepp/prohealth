@@ -142,7 +142,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                 ///home health dropdown
                                 Container(
                                   height: 31,
-                                  width: 185,
+                                  width: 200,
                                   // margin: EdgeInsets.symmetric(horizontal: 20),
                                   padding:
                                   EdgeInsets.symmetric(vertical: 6, horizontal: 15),
@@ -555,7 +555,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                             initialValue: dropDownZoneList[0].value,
                                                             onChange: (val){
                                                               for(var a in snapshot.data!){
-                                                                if(a.typeofVisit == val){
+                                                                if(a.visitId == val){
                                                                   docType = a.visitId!;
                                                                   docZoneId = docType;
                                                                 }

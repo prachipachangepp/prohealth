@@ -22,15 +22,17 @@ Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows) asy
       for(var item in response.data){
         itemsList.add(
           CiVisit(
-             // visitId : item['visitId'],
+              visitId : item['visitId'],
               typeofVisit: item['typeOfVisit'],
               eligibleClinician: item['eligibleClinician'],
               sucess: true,
-              message: response.statusMessage!
+              message: response.statusMessage!,
+              // color:  item['color']
 
           ),
         );
       }
+      print(":::${itemsList}");
       // for(var item in response.data){
       //   eligibalList.add(CiVisit(
       //     // visitId : item['visitId'],

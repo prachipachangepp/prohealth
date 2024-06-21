@@ -9,8 +9,8 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 
 class DeletePopup extends StatefulWidget {
   final VoidCallback onCancel;
-  final VoidCallback onDelete;
-  const DeletePopup({super.key, required this.onCancel, required this.onDelete});
+   VoidCallback onDelete;
+   DeletePopup({super.key, required this.onCancel, required this.onDelete});
 
   @override
   State<DeletePopup> createState() => _DeletePopupState();

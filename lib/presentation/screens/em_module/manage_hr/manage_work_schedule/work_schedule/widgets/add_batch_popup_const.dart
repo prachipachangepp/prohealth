@@ -8,8 +8,8 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 class AddBatchPopup extends StatefulWidget {
   final TextEditingController controller1;
   final TextEditingController controller2;
-  final VoidCallback onPressed;
-  const AddBatchPopup({super.key, required this.controller1, required this.controller2, required this.onPressed});
+  VoidCallback onPressed;
+   AddBatchPopup({super.key, required this.controller1, required this.controller2,  required this.onPressed});
 
   @override
   State<AddBatchPopup> createState() => _AddBatchPopupState();
@@ -114,10 +114,9 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.add,
-                  onPressed: () {
-                    widget.onPressed();
-                    Navigator.pop(context);
-                  },
+                  onPressed:
+                    widget.onPressed,
+
                 ),
               ),
             ),

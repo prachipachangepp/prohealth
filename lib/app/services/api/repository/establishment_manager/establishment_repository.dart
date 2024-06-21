@@ -329,6 +329,18 @@ class EstablishmentManagerRepository {
   static String addWorkWeekSchedulePost(){
     return "$workWeekSchedule$add";
   }
+  static String deleteWorkWeekScheduleDelete({required int workWeekScheduleId}){
+    return "$workWeekSchedule/$workWeekScheduleId";
+  }
+  static String getShiftPrefillBatches({required int shiftBatchId}){
+    return "$workWeekShiftSchedule/batch/$shiftBatchId";
+  }
+  static String getShiftBatches({required String shiftName,required int companyId,required String officeId, required String weekDay}){
+    return "$workWeekShiftSchedule/batch/$weekDay/$shiftName/$companyId/$officeId";
+  }
+  static String addShiftBatches(){
+    return "$workWeekShiftSchedule/batch/";
+  }
 
   // Hlidays
   static String holidaysGet(){
