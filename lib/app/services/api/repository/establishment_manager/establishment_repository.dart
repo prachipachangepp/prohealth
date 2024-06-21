@@ -409,4 +409,9 @@ class EstablishmentManagerRepository {
   static String companyDepartment(){
     return "$companyDept";
   }
+  static String getWhitelabellingDetail(
+  {required int companyDetail}
+      ){
+    return "$identity/$companyDetail";
+  }
 }

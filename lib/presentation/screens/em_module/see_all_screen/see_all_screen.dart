@@ -56,7 +56,28 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   bool isLoading = false;
   bool _isLoading = false;
   bool _showErrorMessage = false;
+  bool isButtonEnabled = false;
 
+  @override
+  void initState() {
+    super.initState();
+    userIdController.addListener(_checkFields);
+    firstNameController.addListener(_checkFields);
+    lastNameController.addListener(_checkFields);
+    roleController.addListener(_checkFields);
+    emailController.addListener(_checkFields);
+    companyIdController.addListener(_checkFields);
+  }
+  void _checkFields() {
+    setState(() {
+      isButtonEnabled = userIdController.text.isNotEmpty &&
+          firstNameController.text.isNotEmpty &&
+          lastNameController.text.isNotEmpty &&
+          roleController.text.isNotEmpty &&
+          emailController.text.isNotEmpty &&
+          companyIdController.text.isNotEmpty;
+    });
+  }
   bool _validateForm() {
     // Validate all text fields
     if (firstNameController.text.isEmpty ||
@@ -70,6 +91,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     return true;
   }
 
+  @override
+  void dispose() {
+    userIdController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    roleController.dispose();
+    emailController.dispose();
+    companyIdController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -233,11 +264,11 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         ),
 
                                         ///
+
                                         ReusableLoadingButton(
                                           text: 'Create',
-                                          onPressed: () async {
-
-                                              await createUserPost(
+                                          onPressed: ()  {
+                                           createUserPost(
                                                   context,
                                                   firstNameController.text,
                                                   lastNameController.text,
@@ -267,11 +298,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                         'Submit action completed!');
                                                   });
                                               print('Form validated and submitted!');
-
-
                                           },
                                           loadingDuration: 2,
-
                                         ),
 
                                       ],
@@ -670,8 +698,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                               labelFontSize: 12,
                                                               items: [
                                                                 'Admin',
-                                                                'Staff',
-                                                                'User'
+                                                                'Sales',
+                                                                'Clinician'
                                                               ] ,),
                                                             SizedBox(
                                                               height: 15,
