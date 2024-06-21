@@ -8,6 +8,17 @@ class HRHeadBar{
   final String message;
    HRHeadBar({required this.deptId,required this.deptName, required this.deptDescp,required this.sucess,required this.message,});
 }
+///getby id
+class HRGetEmpId{
+  final int empTypeId;
+  final int deptId;
+  final bool? success;
+  final String? message;
+  final String? empType;
+  final String? abbrivation;
+  final String? color;
+  HRGetEmpId({required this.empTypeId, required this.deptId, this.success, this.message, this.empType, this.abbrivation, this.color,});
+}
 ///hr clinical
 class HRClinical {
   final bool? success;
