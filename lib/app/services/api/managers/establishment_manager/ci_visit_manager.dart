@@ -30,7 +30,6 @@ Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows) asy
             ));
           }
         }
-
         for (var item in response.data) {
           itemsList.add(
             CiVisit(
@@ -69,7 +68,7 @@ Future<ApiData> addVisitPost(BuildContext context,
         postCiVisit(),
         data: {
           "typeOfVisit": typeOfVisit,
-          "eligibleClinician": eligibleClinician
+          "employeeTypeId": eligibleClinician
            });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Added request");
@@ -97,7 +96,7 @@ Future<ApiData> updateVisitPatch(BuildContext context, String typeVisist,String 
   try {
     var response = await Api(context).patch(path: EstablishmentManagerRepository.updateCiVisit(typeVisit: typeVisist), data: {
       'typeOfVisit':visitType,
-      'eligibleClinician':eligibleClinical
+      'employeeTypeId':eligibleClinical
     },);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Updated visit data");

@@ -7,11 +7,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_visit_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/visit_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -42,6 +45,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   late List<Color> hrcontainerColors;
   FocusNode _focusNode = FocusNode();
   bool _showList = false;
+  int empTypeId = 0;
   @override
   void initState() {
     super.initState();
@@ -123,7 +127,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 print(":::::${_selectedItem}");
                                 await addVisitPost(context,
                                     docNamecontroller.text,
-                                    [selectedChips]
+                                    selectedChips
                                 );
                                 getVisit(context,1,15).then((data) {
                                   _visitController.add(data);
@@ -156,46 +160,105 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       ),
                                   ]
                               ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: 354,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child:TextField(
-                                      controller: eligibleClinicalController,
-                                      keyboardType: TextInputType.text,
-                                      cursorHeight: 17,
-                                      cursorColor: Colors.black,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                          fontWeight: FontWeightManager.medium,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey
-                                      ),
-                                      onSubmitted: (value) {
-                                        setState(() {
-                                          if (value.isNotEmpty) {
-                                            addChip(value.trim());
-                                          }
-                                        });
-
-                                        print(":::CHIPS${selectedChips}");
-                                      },
-                                      decoration: InputDecoration(
-                                          hintText: 'Enter text to add as chip',
-                                          border: InputBorder.none,
-                                          contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
-                                          suffixIcon: Icon(Icons.add,color:ColorManager.blueprime,size: 18,)
-                                      ),
-                                    ),
-                                  ),
-                                  //SizedBox(height: 10.0),
-
-                                ],
+                              child: FutureBuilder<List<HRClinical>>(
+                                  future: companyAllHrClinicApi(context),
+                                  builder: (context,snapshot) {
+                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                      return Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: Container(
+                                            width: 354,
+                                            height: 30,
+                                            decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                          )
+                                      );
+                                    }
+                                    if (snapshot.data!.isEmpty) {
+                                      return Center(
+                                        child: Text(
+                                          AppString.dataNotFound,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                            fontWeight: FontWeightManager.medium,
+                                            fontSize: FontSize.s12,
+                                            color: ColorManager.mediumgrey,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    if(snapshot.hasData){
+                                      int docType = 0;
+                                      List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                      for(var i in snapshot.data!){
+                                        dropDownTypesList.add(
+                                          DropdownMenuItem<String>(
+                                            child: Text(i.abbrivation!),
+                                            value: i.abbrivation,
+                                          ),
+                                        );
+                                      }
+                                      return CICCDropdown(
+                                          initialValue: dropDownTypesList[0].value,
+                                          onChange: (val){
+                                            for(var a in snapshot.data!){
+                                              if(a.abbrivation == val){
+                                                docType = a.employeeTypesId;
+                                                empTypeId = docType;
+                                                setState(() {
+                                                  if (val.isNotEmpty) {
+                                                    addChip(val.trim());
+                                                  }
+                                                });
+                                              }
+                                            }
+                                            print(":::${docType}");
+                                            print(":::<>${empTypeId}");
+                                          },
+                                          items:dropDownTypesList
+                                      );
+                                    }
+                                    return SizedBox();
+                                  }
                               ),
+                              // Column(
+                              //   children: [
+                              //     Container(
+                              //       width: 354,
+                              //       height: 30,
+                              //       decoration: BoxDecoration(
+                              //         border: Border.all(color: Color(0xFFB1B1B1), width: 1),
+                              //         borderRadius: BorderRadius.circular(8),
+                              //       ),
+                              //       child:TextField(
+                              //         controller: eligibleClinicalController,
+                              //         keyboardType: TextInputType.text,
+                              //         cursorHeight: 17,
+                              //         cursorColor: Colors.black,
+                              //         style: CustomTextStylesCommon.commonStyle(
+                              //             fontWeight: FontWeightManager.medium,
+                              //             fontSize: FontSize.s12,
+                              //             color: ColorManager.mediumgrey
+                              //         ),
+                              //         onSubmitted: (value) {
+                              //           setState(() {
+                              //             if (value.isNotEmpty) {
+                              //               addChip(value.trim());
+                              //             }
+                              //           });
+                              //
+                              //           print(":::CHIPS${selectedChips}");
+                              //         },
+                              //         decoration: InputDecoration(
+                              //             hintText: 'Enter text to add as chip',
+                              //             border: InputBorder.none,
+                              //             contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
+                              //             suffixIcon: Icon(Icons.add,color:ColorManager.blueprime,size: 18,)
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     //SizedBox(height: 10.0),
+                              //   ],
+                              // ),
                             );
                           },
 
@@ -305,15 +368,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                         ? totalItems
                         : (currentPage * itemsPerPage),
                   );
-
                   return ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: currentPageItems.length,
                       itemBuilder: (context, index) {
-                        List<List?> listData = [];
-                        for(var i in snapshot.data!){
-                          listData.add([snapshot.data![index].eligibleClinician!]);
-                        }
                         int serialNumber =
                             index + 1 + (currentPage - 1) * itemsPerPage;
                         String formattedSerialNumber =
@@ -366,7 +424,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         List.generate( snapshot.data![index].eligibleClinician!.length, (index) {
                                             var eligibleClinician = snapshot.data![index].eligibleClinician![index];
                                             String hexColor = eligibleClinician.color.replaceAll('#', '');
-
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 5),
                                             child: Container(
@@ -376,9 +433,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                               child: Center(
                                                   child: Text(
                                                     eligibleClinician.eligibleClinician,
-                                                    //'HO',
-                                                    // snapshot.data![index].eligibleClinician![0].eligibleClinician,
-                                                    // listData.first.toString().substring(1,3),
                                                     style: GoogleFonts.firaSans(
                                                         fontSize: 9,
                                                         fontWeight: FontWeight.w500,
@@ -462,54 +516,65 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                               ),
                                                             ]
                                                           ),
-                                                          child:  Column(
-                                                            children: [
-                                                              Container(
-                                                                width: 354,
-                                                                height: 30,
-                                                                decoration: BoxDecoration(
-                                                                  border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                ),
-                                                                child:TextField(
-                                                                  controller: eligibleClinicalController,
-                                                                  keyboardType: TextInputType.text,
-                                                                  cursorHeight: 17,
-                                                                  cursorColor: Colors.black,
-                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                      fontWeight: FontWeightManager.medium,
-                                                                      fontSize: FontSize.s12,
-                                                                      color: ColorManager.mediumgrey
-                                                                  ),
-                                                                  onSubmitted: (value) {
-                                                                    setState(() {
-                                                                      if (value.isNotEmpty) {
-                                                                        addChip(value.trim());
-                                                                      }
-                                                                    });
-
-                                                                    print(":::CHIPS${selectedChips}");
-                                                                  },
-                                                                  decoration: InputDecoration(
-                                                                    hintText: 'Enter text to add as chip',
-                                                                    border: InputBorder.none,
-                                                                    contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
-                                                                    suffixIcon: InkWell(
-                                                                      onTap: selectedChips.isEmpty ? null :(){
-                                                                        setState((){
-                                                                          if (eligibleClinicalController.toString().isNotEmpty) {
-                                                                            addChip(eligibleClinicalController.toString().trim());
-                                                                            eligibleClinicalController.clear();
+                                                          child:  FutureBuilder<List<HRClinical>>(
+                                                              future: companyAllHrClinicApi(context),
+                                                              builder: (context,snapshot) {
+                                                                if(snapshot.connectionState == ConnectionState.waiting){
+                                                                  return Shimmer.fromColors(
+                                                                      baseColor: Colors.grey[300]!,
+                                                                      highlightColor: Colors.grey[100]!,
+                                                                      child: Container(
+                                                                        width: 354,
+                                                                        height: 30,
+                                                                        decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                                      )
+                                                                  );
+                                                                }
+                                                                if (snapshot.data!.isEmpty) {
+                                                                  return Center(
+                                                                    child: Text(
+                                                                      AppString.dataNotFound,
+                                                                      style: CustomTextStylesCommon.commonStyle(
+                                                                        fontWeight: FontWeightManager.medium,
+                                                                        fontSize: FontSize.s12,
+                                                                        color: ColorManager.mediumgrey,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                if(snapshot.hasData){
+                                                                  int docType = 0;
+                                                                  List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                                                  for(var i in snapshot.data!){
+                                                                    dropDownTypesList.add(
+                                                                      DropdownMenuItem<String>(
+                                                                        child: Text(i.abbrivation!),
+                                                                        value: i.abbrivation,
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  return CICCDropdown(
+                                                                      initialValue: dropDownTypesList[0].value,
+                                                                      onChange: (val){
+                                                                        for(var a in snapshot.data!){
+                                                                          if(a.abbrivation == val){
+                                                                            docType = a.employeeTypesId;
+                                                                            empTypeId = docType;
+                                                                            setState(() {
+                                                                              if (val.isNotEmpty) {
+                                                                                addChip(val.trim());
+                                                                              }
+                                                                            });
                                                                           }
-                                                                        });
+                                                                        }
+                                                                        print(":::${docType}");
+                                                                        print(":::<>${empTypeId}");
                                                                       },
-                                                                        child: selectedChips.isEmpty ? Text("") :Icon(Icons.add,color:ColorManager.blueprime,size: 18,))
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              //SizedBox(height: 10.0),
-
-                                                            ],
+                                                                      items:dropDownTypesList
+                                                                  );
+                                                                }
+                                                                return SizedBox();
+                                                              }
                                                           ),
                                                         );
                                                       },
@@ -525,7 +590,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         ),
                                         IconButton(
                                           onPressed: () async{
-                                            await deleteVisitPatch(context, snapshot.data![index].visitId!);
+                                            await deleteVisitPatch(context, snapshot.data![index].visitId);
                                             getVisit(context,1,10).then((data) {
                                               _visitController.add(data);
                                             }).catchError((error) {

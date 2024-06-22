@@ -336,6 +336,7 @@ class EstablishmentManagerRepository {
     return "$workWeekShiftSchedule/batch/$shiftBatchId";
   }
   static String getShiftBatches({required String shiftName,required int companyId,required String officeId, required String weekDay}){
+    print(":::getshiftbatch${shiftName}");
     return "$workWeekShiftSchedule/batch/$weekDay/$shiftName/$companyId/$officeId";
   }
   static String addShiftBatches(){
