@@ -40,6 +40,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   TextEditingController eligibleClinicalController = TextEditingController();
   final StreamController<List<CiVisit>> _visitController = StreamController<List<CiVisit>>();
   late List<Color> hrcontainerColors;
+  FocusNode _focusNode = FocusNode();
+  bool _showList = false;
   @override
   void initState() {
     super.initState();
@@ -121,7 +123,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 print(":::::${_selectedItem}");
                                 await addVisitPost(context,
                                     docNamecontroller.text,
-                                    [_selectedItem]
+                                    [selectedChips]
                                 );
                                 getVisit(context,1,15).then((data) {
                                   _visitController.add(data);
@@ -153,9 +155,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         },
                                       ),
                                   ]
-                                // })
-                                //for (String chip in selectedChips)
-                                //print(":::CHIPS FOR${chip}"),
                               ),
                               child: Column(
                                 children: [
@@ -367,44 +366,55 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   )),
                                   Center(
                                     child: Row(
-                                      children: [
-                                        Container(
-                                          height: 30,
-                                          width: 30,
-                                          color: Color(0xffF37F81),
-                                          child: Center(
-                                              child: Text(
-                                                //'HO',
-                                                snapshot.data![index].eligibleClinician![0].eligibleClinician,
-                                               // listData.first.toString().substring(1,3),
-                                            style: GoogleFonts.firaSans(
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff686464)
-                                                // color: isSelected ? Colors.white : Colors.black,
-                                                ),
-                                          )),
-                                        ),
-                                        SizedBox(
-                                          width: 3,
-                                        ),
-                                        Container(
-                                          height: 30,
-                                          width: 30,
-                                          color: Color(0xfFE7E8E6),
-                                          child: Center(
-                                              child: Text(
-                                                "PT",
-                                           // snapshot.data![index].eligibleClinician![index] == 0 ? "" :"2",
-                                            style: GoogleFonts.firaSans(
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff686464)
-                                                // color: isSelected ? Colors.white : Colors.black,
-                                                ),
-                                          )),
-                                        )
-                                      ],
+                                      children:
+                                        List.generate( snapshot.data![index].eligibleClinician!.length, (index) {
+                                            var eligibleClinician = snapshot.data![index].eligibleClinician![index];
+                                            String hexColor = eligibleClinician.color.replaceAll('#', '');
+
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                                            child: Container(
+                                              height: 30,
+                                              width: 30,
+                                              color: Color(int.parse('0xFF$hexColor')),
+                                              child: Center(
+                                                  child: Text(
+                                                    eligibleClinician.eligibleClinician,
+                                                    //'HO',
+                                                    // snapshot.data![index].eligibleClinician![0].eligibleClinician,
+                                                    // listData.first.toString().substring(1,3),
+                                                    style: GoogleFonts.firaSans(
+                                                        fontSize: 9,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464)
+                                                      // color: isSelected ? Colors.white : Colors.black,
+                                                    ),
+                                                  )),
+                                            ),
+                                          );
+                                        }
+                                                                              ),
+
+                                        // SizedBox(
+                                        //   width: 3,
+                                        // ),
+                                        // Container(
+                                        //   height: 30,
+                                        //   width: 30,
+                                        //   color: Color(0xfFE7E8E6),
+                                        //   child: Center(
+                                        //       child: Text(
+                                        //         "PT",
+                                        //    // snapshot.data![index].eligibleClinician![index] == 0 ? "" :"2",
+                                        //     style: GoogleFonts.firaSans(
+                                        //         fontSize: 9,
+                                        //         fontWeight: FontWeight.w500,
+                                        //         color: Color(0xff686464)
+                                        //         // color: isSelected ? Colors.white : Colors.black,
+                                        //         ),
+                                        //   )),
+                                        // )
+
                                     ),
                                   ),
                                   Center(
