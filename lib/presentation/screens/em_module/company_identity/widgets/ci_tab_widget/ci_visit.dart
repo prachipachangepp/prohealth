@@ -348,9 +348,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
                                         color: Color(0xff686464)
-                                        // color: isSelected ? Colors.white : Colors.black,
                                         ),
-                                    // style: ThemeManagerDark.customTextStyle(context),
                                     textAlign: TextAlign.start,
                                   )),
                                   Center(
@@ -360,9 +358,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
                                         color: Color(0xff686464)
-                                        // color: isSelected ? Colors.white : Colors.black,
                                         ),
-                                    // style: ThemeManagerDark.customTextStyle(context),
                                   )),
                                   Center(
                                     child: Row(
@@ -435,7 +431,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                           onSavePressed: () async{
                                                             await updateVisitPatch(context,
                                                                 snapshot.data![index].typeofVisit,
-                                                                docNamecontroller.text,[_selectedItem]);
+                                                                docNamecontroller.text,[selectedChips]);
                                                             getVisit(context,1,10).then((data) {
                                                               _visitController.add(data);
 
@@ -535,6 +531,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                             }).catchError((error) {
                                               // Handle error
                                             });
+                                            Navigator.pop(context);
                                           },
                                           icon: Icon( Icons.delete_outline_outlined,size: 20, color: Color(0xffF6928A)),
                                         ),
