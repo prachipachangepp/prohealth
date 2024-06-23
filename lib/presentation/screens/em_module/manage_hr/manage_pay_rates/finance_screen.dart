@@ -46,7 +46,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   int docZoneId = 0;
   int docAddVisitTypeId = 0;
   int docVisitTypeId =0;
-
+  int empTypeId =0;
   @override
   void initState() {
     super.initState();
@@ -129,14 +129,20 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             );
                           }
                           if(snapshot.hasData){
-                            List<String> dropDownList =[];
-                            List<String> dropDownAbbreviation =[];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownList =[];
+                            List<DropdownMenuItem<String>> dropDownAbbreviation =[];
                             for(var i in snapshot.data!){
-                              dropDownList.add(i.empType!,);
-                              dropDownAbbreviation.add(i.abbrivation!);
+                              dropDownList.add(DropdownMenuItem<String>(
+                                child: Text(i.empType!),
+                                value: i.empType,
+                              ));
+                              dropDownAbbreviation.add(
+                                  DropdownMenuItem<String>(
+                                child: Text(i.abbrivation!),
+                                value: i.abbrivation,
+                              ));
                             }
-                            print("::::::${dropDownList}");
-                            print("::::::${dropDownAbbreviation}");
                             return Row(
                               children: [
                                 ///home health dropdown
@@ -161,14 +167,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       color: Color(0xff686464),
                                     ),
                                     decoration: InputDecoration.collapsed(hintText: ''),
-                                    items: dropDownList.map<DropdownMenuItem<String>>((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value == null ? "1" : value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValue) {},
-                                    value: dropDownList[0],
+                                    items: dropDownList,
+                                    onChanged: (newValue) {
+                                      for(var a in snapshot.data!){
+                                        if(a.empType == newValue){
+                                          docType = a.employeeTypesId;
+                                          empTypeId = docType;
+                                        }
+                                      }
+                                    },
+                                    value: dropDownList[0].value,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
@@ -203,22 +211,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       color: Color(0xff686464),
                                     ),
                                     decoration: InputDecoration.collapsed(hintText: ''),
-                                    items: <String>[
-                                      "NC",
-                                      "PT",
-                                     // "PT",
-                                      "NA",
-                                      //"NA",
-                                      //"NC",
-                                     // "NC"
-                                    ].map<DropdownMenuItem<String>>((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValue) {},
-                                    value: "NC",
+                                    items: dropDownAbbreviation,
+                                    onChanged: (newValue) {
+                                      for(var a in snapshot.data!){
+                                        if(a.abbrivation == newValue){
+                                          // docType = a.employeeTypesId;
+                                          // empTypeId = docType;
+                                        }
+                                      }
+                                    },
+                                    value: dropDownAbbreviation[0].value,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,

@@ -68,7 +68,7 @@ Future<ApiData> addVisitPost(BuildContext context,
         postCiVisit(),
         data: {
           "typeOfVisit": typeOfVisit,
-          "employeeTypeId": eligibleClinician
+          "employeeTypeId": [eligibleClinician]
            });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Added request");
