@@ -195,14 +195,15 @@ class _CiOrgDocumentState extends State<CiZone> {
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
                     onSavePressed: (){},
-                    title1: AppStringEM.countyName,
+                    title1: 'Zone Number',
                     countynameController: countynameController,
                     title2: AppStringEM.zipCode,
                     zipcodeController: zipcodeController,
-                    title3: AppStringEM.map,
+                    title3: 'County',
                     mapController: mapController,
-                    title4:AppStringEM.landmark,
-                    landmarkController: landmarkController, );
+                    // title4:'Cities',
+                    // landmarkController: landmarkController,
+                  );
                 });
               }) :
               _selectedIndex == 1 ?
@@ -212,29 +213,31 @@ class _CiOrgDocumentState extends State<CiZone> {
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
                     onSavePressed: (){},
-                    title1: 'Zone Number',
+                    title1: 'County Name',
                     countynameController: countynameController,
-                    title2: 'Zip Codes',
+                    title2: 'Zip Code',
                     zipcodeController: zipcodeController,
-                    title3: 'Cities',
+                    title3: 'Map',
                     mapController: mapController,
-                    landmarkController: landmarkController, title4: 'Landmark',
+                    // title4: 'Landmark',
+                    // landmarkController: landmarkController,
                   );
                 });
               }) :
               CustomIconButtonConst(
                   icon: Icons.add,
-                  text: "save", onPressed: (){
+                  text: "Add", onPressed: (){
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
                     onSavePressed: (){},
-                    title1: 'Zone Number',
+                    title1: 'City Name',
                     countynameController: countynameController,
-                    title2: 'Zip Codes',
+                    title2: 'Zip Code',
                     zipcodeController: zipcodeController,
-                    title3: 'Cities',
+                    title3: 'Map',
                     mapController: mapController,
-                    landmarkController: landmarkController, title4: 'Landmark',
+                    title4: 'Landmark',
+                    landmarkController: landmarkController,
                   );
                 });
               })

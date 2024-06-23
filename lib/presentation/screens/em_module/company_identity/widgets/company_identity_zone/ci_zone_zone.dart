@@ -83,6 +83,13 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                       color: Colors.white,
                       decoration: TextDecoration.none,
                     )),
+                Text('County',textAlign: TextAlign.start,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                    )),
 
                 Padding(
                   padding: const EdgeInsets.only(right: 30.0),
@@ -198,6 +205,18 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                 Expanded(
                                   child: Text(
                                     textAlign: TextAlign.center,
+                                    snapshot.data![index].landmark.toString(),
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.mediumgrey,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    textAlign: TextAlign.center,
                                     snapshot.data![index].city.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
@@ -213,15 +232,12 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                     children: [
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
-                                          return CIZoneAddPopup(
+                                          return CIZoneEditPopup(
                                             onSavePressed: (){},
                                             title1: 'Zone Number',
                                             countynameController: countynameController,
                                             title2: 'Zip Codes',
-                                            zipcodeController: zipcodeController,
-                                            title3: 'Cities',
-                                            mapController: mapController,
-                                            landmarkController: landmarkController, title4: '',
+                                            landmarkController: landmarkController,
                                           );
                                         });
                                       }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),

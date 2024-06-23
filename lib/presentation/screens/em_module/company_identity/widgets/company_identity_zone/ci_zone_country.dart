@@ -93,13 +93,6 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: Text(
-                    AppStringEM.landmark,
-                    style: AllHRTableHeading.customTextStyle(context)
-                  ),
-                ),
-                Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: Text(
                     AppStringEM.actions,
@@ -197,25 +190,16 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
-                                Text(
-                                  'Statue of Liberty',
-                                  style:AllHRTableData.customTextStyle(context)
-                                ),
-                                //  Text(''),
                                 Row(
                                   children: [
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (context){
-                                        return CIZoneAddPopup(
+                                        return CIZoneEditPopup(
                                           onSavePressed: (){
                                           },
                                           title1: AppStringEM.countyName,
                                           countynameController: countynameController,
-                                          title2: AppStringEM.zipCode,
-                                          zipcodeController: zipcodeController,
-                                          title3: AppStringEM.map,
-                                          mapController: mapController,
-                                          title4:AppStringEM.landmark,
+                                          title2:AppStringEM.landmark,
                                           landmarkController: landmarkController, );
                                       });
                                     }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
