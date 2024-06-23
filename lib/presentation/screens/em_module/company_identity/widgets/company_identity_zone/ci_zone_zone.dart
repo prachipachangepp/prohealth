@@ -244,7 +244,14 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
                                           Navigator.pop(context);
-                                        }, onDelete: (){}));
+                                        }, onDelete: ()async{
+                                          await deleteZipCodeSetup(context, snapshot.data![index].zipcodeSetupId!);
+                                          getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
+                                            _zoneController.add(data);
+                                          }).catchError((error){
+                                          });
+                                          Navigator.pop(context);
+                                        }));
                                       }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                     ],
                                   ),

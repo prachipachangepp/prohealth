@@ -37,7 +37,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   final HRClincicalController hrClinController = Get.put(HRClincicalController());
-  final StreamController<List<HRClinical>> _controller = StreamController<List<HRClinical>>();
+  final StreamController<List<HRAllData>> _controller = StreamController<List<HRAllData>>();
 
   late int currentPage;
   late int itemsPerPage;
@@ -52,7 +52,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    companyAllHrClinicApi(context).then((data){
+    getAllHrDeptWise(context,widget.deptId).then((data){
     _controller.add(data);
     }).catchError((error){});
   }
@@ -70,8 +70,8 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
   }
   String seletedType = "Clinical";
   String color ="";
-  int docTypeMetaId =0;
-  int doceEditMetaId=0;
+  int docTypeMetaId =1;
+  int doceEditMetaId=1;
   void onChange(String seletedTypeEmp){
     setState(() {
       seletedType = seletedTypeEmp;
@@ -164,7 +164,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                             await addEmployeeTypePost(context,docTypeMetaId,
                                 typeController.text,
                                 color,shorthandController.text);
-                            companyAllHrClinicApi(context).then((data){
+                            getAllHrDeptWise(context,widget.deptId).then((data){
                               _controller.add(data);
                             }).catchError((error){});
                             Navigator.pop(context);
@@ -299,7 +299,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child:
-    StreamBuilder<List<HRClinical>>(
+    StreamBuilder<List<HRAllData>>(
               stream: _controller.stream,
               builder: (context, snapshot) {
                 print('1111111');
@@ -325,7 +325,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 if (snapshot.hasData) {
                   int totalItems = snapshot.data!.length;
                   // int totalPages = (totalItems / itemsPerPage).ceil();
-                  List<HRClinical> currentPageItems =
+                  List<HRAllData> currentPageItems =
                   snapshot.data!.sublist(
                     (currentPage - 1) * itemsPerPage,
                     (currentPage * itemsPerPage) > totalItems
@@ -406,7 +406,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                                     type == typeController.text ? type.toString() : typeController.text,
                                                     shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
                                                     color);
-                                                companyAllHrClinicApi(context).then((data){
+                                                getAllHrDeptWise(context,widget.deptId).then((data){
                                                   _controller.add(data);
                                                 }).catchError((error){});
                                                 Navigator.pop(context);
@@ -502,7 +502,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                           }, onDelete: () async {
                                          await  allfromHrDelete(
                                               context, snapshot.data![index].employeeTypesId!);
-                                          companyAllHrClinicApi(context).then((data){
+                                          getAllHrDeptWise(context,widget.deptId).then((data){
                                             _controller.add(data);
                                           }).catchError((error){});
                                            Navigator.pop(context);

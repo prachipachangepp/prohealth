@@ -33,6 +33,21 @@ class HRClinical {
       this.success, this.message, this.empType, this.abbrivation, this.color});
 }
 
+/// Hr All
+class HRAllData {
+  final int deptID;
+  final bool? success;
+  final String? message;
+  final String? empType;
+  final String? abbrivation;
+  final String? color;
+  final int employeeTypesId;
+
+  HRAllData({required this.deptID,
+    required this.employeeTypesId,
+    this.success, this.message, this.empType, this.abbrivation, this.color});
+}
+
 ///hr sales
 class HRSales {
   final bool? success;

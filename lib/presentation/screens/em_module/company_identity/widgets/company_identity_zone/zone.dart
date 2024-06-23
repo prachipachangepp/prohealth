@@ -13,7 +13,8 @@ import '../../company_identity_screen.dart';
 class CiZone extends StatefulWidget {
   final int companyID;
   final String officeId;
-  const CiZone({super.key, required this.companyID, required this.officeId});
+  final int docId;
+  const CiZone({super.key, required this.companyID, required this.officeId, required this.docId});
 
   @override
   State<CiZone> createState() => _CiOrgDocumentState();
