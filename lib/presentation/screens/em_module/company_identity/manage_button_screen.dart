@@ -374,9 +374,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                         docID: docID,
                       ),
                       CIDetailsScreen(
-                        officeId: widget.officeID, docTD: 4,
+                        officeId: widget.officeID, docTD: docID,
                       ),
-                      CiZone(companyID: widget.companyID, officeId: widget.officeID,),
+                      CiZone(companyID: widget.companyID, officeId: widget.officeID, docId: docID,),
                       // CiPageview(
                       //   docId: 5,
                       //     managePageController: _managePageController,

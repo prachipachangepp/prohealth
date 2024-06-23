@@ -37,7 +37,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  final StreamController<List<HRClinical>> _controller = StreamController<List<HRClinical>>();
+  final StreamController<List<HRAllData>> _controller = StreamController<List<HRAllData>>();
 
   late int currentPage;
   late int itemsPerPage;
@@ -52,7 +52,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    companyAllHrClinicApi(context).then((data){
+    getAllHrDeptWise(context,widget.deptId).then((data){
       _controller.add(data);
     }).catchError((error){});
   }
@@ -71,8 +71,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   }
   String seletedType = "Sales";
   String color ="#77D2EC";
-  int docTypeMetaId = 0;
-  int doceEditMetaId =0;
+  int docTypeMetaId = 2;
+  int doceEditMetaId =2;
   void onChange(String seletedTypeEmp){
     setState(() {
       seletedType = seletedTypeEmp;
@@ -114,7 +114,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                       await addEmployeeTypePost(context,docTypeMetaId,
                           typeController.text,
                           color,shorthandController.text);
-                      companyAllHrClinicApi(context).then((data){
+                      getAllHrDeptWise(context,widget.deptId).then((data){
                         _controller.add(data);
                       }).catchError((error){});
                       Navigator.pop(context);
@@ -257,7 +257,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
         ),
         Expanded(
           child:
-          StreamBuilder<List<HRClinical>>(
+          StreamBuilder<List<HRAllData>>(
             stream: _controller.stream,
             builder: (context, snapshot) {
               print('1111111');
@@ -283,7 +283,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
               if (snapshot.hasData) {
                 int totalItems = snapshot.data!.length;
                 // int totalPages = (totalItems / itemsPerPage).ceil();
-                List<HRClinical> currentPageItems =
+                List<HRAllData> currentPageItems =
                 snapshot.data!.sublist(
                   (currentPage - 1) * itemsPerPage,
                   (currentPage * itemsPerPage) > totalItems
@@ -366,7 +366,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                                   type == typeController.text ? type.toString() : typeController.text,
                                                   shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
                                                   color);
-                                              companyAllHrClinicApi(context).then((data){
+                                              getAllHrDeptWise(context,widget.deptId).then((data){
                                                 _controller.add(data);
                                               }).catchError((error){});
                                               Navigator.pop(context);
@@ -420,7 +420,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                                     );
                                                   }
                                                   return CICCDropdown(
-                                                      initialValue: dropDownMenuItems[0].value,
+                                                      initialValue: dropDownMenuItems[1].value,
                                                       onChange: (val){
                                                         for(var a in snapshot.data!){
                                                           if(a.deptName == val){
@@ -462,7 +462,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                         }, onDelete: () async {
                                       await  allfromHrDelete(
                                           context, snapshot.data![index].employeeTypesId!);
-                                      companyAllHrClinicApi(context).then((data){
+                                      getAllHrDeptWise(context,widget.deptId).then((data){
                                         _controller.add(data);
                                       }).catchError((error){});
                                       Navigator.pop(context);

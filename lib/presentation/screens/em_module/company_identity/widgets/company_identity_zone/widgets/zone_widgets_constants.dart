@@ -111,7 +111,6 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   text: AppStringEM.save,
                   onPressed: () {
                     widget.onSavePressed();
-                    Navigator.pop(context);
                   },
                 ),
               ),

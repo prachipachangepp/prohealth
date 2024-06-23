@@ -222,7 +222,9 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
                                         Navigator.pop(context);
-                                      }, onDelete: (){}));
+                                      }, onDelete: (){
+                                        //deleteCounty(context, snapshot.data![index].c)
+                                      }));
                                     }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                   ],
                                 )
