@@ -45,19 +45,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
     }).catchError((error) {
       // Handle error
     });
-    // workWeekShiftScheduleGet(context, 11, 'Office 1', 'Monday').then((data) {
-    //   workWeekShiftController.add(data);
-    // }).catchError((error) {
-    //   // Handle error
-    // });
-    // companyAllApi(context);
   }
 
-// @override
-// void dispose(){
-//   workWeekController.close();
-//   super.dispose();
-// }
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -84,6 +73,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
               ));
             }
             if (snapshot.hasData) {
+
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,11 +84,6 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                         alignment: WrapAlignment.start,
                         children: List.generate(snapshot.data!.length, (index) {
                           var data = snapshot.data![index];
-                          // workWeekShiftScheduleGet(context,11,'Office 1',data.weekDays).then((data) {
-                          //   workWeekShiftController.add(data);
-                          // }).catchError((error) {
-                          //   // Handle error
-                          // });
                           return Padding(
                             padding: const EdgeInsets.all(20),
                             child: Container(
@@ -107,8 +92,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                               decoration: BoxDecoration(
                                   color: ColorManager.white,
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    const BoxShadow(
+                                  boxShadow: const [
+                                     BoxShadow(
                                         blurRadius: 2,
                                         color: Colors.grey,
                                         spreadRadius: 1)
@@ -318,9 +303,19 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                           context) {
                                                                     return DeletePopup(
                                                                         onCancel:
-                                                                            () {},
+                                                                            () {
+                                                                          Navigator.pop(context);
+                                                                            },
                                                                         onDelete:
-                                                                            () {});
+                                                                            () async{
+                                                                          await deleteWorkWeekSchedule(context, snapshot.data![index].weekScheduleId);
+                                                                          workWeekScheduleGet(context).then((data) {
+                                                                            workWeekController.add(data);
+                                                                          }).catchError((error) {
+                                                                            // Handle error
+                                                                          });
+                                                                          Navigator.pop(context);
+                                                                            });
                                                                   });
                                                             },
                                                             child: Icon(
@@ -355,8 +350,8 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                     future:
                                                         workWeekShiftScheduleGet(
                                                             context,
-                                                            11,
-                                                            'Office 1',
+                                                            snapshot.data![index].companyId,
+                                                            snapshot.data![index].officeId,
                                                             data.weekDays),
                                                     builder: (context,
                                                         snapshotShift) {
@@ -456,11 +451,13 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                 showDialog(
                                                                                     context: context,
                                                                                     builder: (BuildContext context) {
-                                                                                      return const ViewBatchesPopup();
+                                                                                      return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
+                                                                                        weekName: snapshot.data![index].weekDays, officeId: snapshot.data![index].officeId,
+                                                                                        companyId: snapshot.data![index].companyId!,);
                                                                                     });
                                                                               },
                                                                               child: Text(
-                                                                                '10+ Batches more',
+                                                                                'Batches more',
                                                                                 style: GoogleFonts.firaSans(
                                                                                   fontSize: mediaQuery.width / 115,
                                                                                   fontWeight: FontWeightManager.light,
@@ -481,7 +478,12 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                           return AddBatchPopup(
                                                                                             controller1: startTimeController,
                                                                                             controller2: endTimeController,
-                                                                                            onPressed: () {},
+                                                                                            onPressed: () async{
+                                                                                              await addShiftBatch(context, snapshotShift.data![index].shiftName,
+                                                                                                  snapshotShift.data![index].companyId, snapshotShift.data![index].officeId,
+                                                                                                  snapshot.data![index].weekDays, startTimeController.text, endTimeController.text);
+                                                                                              Navigator.pop(context);
+                                                                                            },
                                                                                           );
                                                                                         });
                                                                                   },
@@ -528,12 +530,12 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                 shiftnameController.text,
                                                                 shiftStartTimeController.text,
                                                                 shiftEndTimeController.text,
-                                                                'Office 1',
-                                                                11);
+                                                                snapshot.data![index].officeId,
+                                                                snapshot.data![index].companyId);
                                                             workWeekShiftScheduleGet(
                                                                 context,
-                                                                11,
-                                                                'Office 1',
+                                                                snapshot.data![index].companyId,
+                                                                snapshot.data![index].officeId,
                                                                 data.weekDays);
                                                             workWeekScheduleGet(context).then((data) {
                                                               workWeekController.add(data);

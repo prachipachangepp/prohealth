@@ -14,7 +14,8 @@ class AddVisitPopup extends StatefulWidget {
   final TextEditingController idOfDocumentController;
   final VoidCallback onSavePressed;
   final Widget child;
-  const AddVisitPopup({super.key, required this.nameOfDocumentController, required this.idOfDocumentController, required this.onSavePressed, required this.child,});
+  final Widget child1;
+  const AddVisitPopup({super.key, required this.nameOfDocumentController, required this.idOfDocumentController, required this.onSavePressed, required this.child, required this.child1,});
 
   @override
   State<AddVisitPopup> createState() => _AddPoliciesPopupState();
@@ -75,7 +76,9 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
                           ),
                         ),
                         SizedBox(height: 5,),
-                        widget.child
+                        widget.child,
+                        SizedBox(height: 5,),
+                        widget.child1,
                       ],),
 
                   ],

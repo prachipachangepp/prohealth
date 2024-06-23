@@ -1,19 +1,19 @@
 /// Work Schedule Data
 class WorkWeekScheduleData {
-  final int? weekScheduleId;
+  final int weekScheduleId;
   final String weekDays;
   final String officeStartTime;
   final String officeEndTime;
-  final int? companyId;
+  final int companyId;
   final String officeId;
   final bool sucess;
   final String message;
   WorkWeekScheduleData(
-      {this.weekScheduleId,
+      {required this.weekScheduleId,
       required this.weekDays,
       required this.officeStartTime,
       required this.officeEndTime,
-      this.companyId,
+      required this.companyId,
       required this.officeId,
       required this.sucess,
       required this.message});
@@ -26,7 +26,7 @@ class WorkWeekShiftScheduleData {
   final String shiftName;
   final String officeStartTime;
   final String officeEndTime;
-  final int? companyId;
+  final int companyId;
   final String officeId;
   final bool sucess;
   final String message;
@@ -36,7 +36,7 @@ class WorkWeekShiftScheduleData {
       required this.shiftName,
       required this.officeStartTime,
       required this.officeEndTime,
-      this.companyId,
+      required this.companyId,
       required this.officeId,
       required this.sucess,
       required this.message});
@@ -58,4 +58,29 @@ class DefineHolidayData {
       required this.holidayName,
       this.holidayId,
       this.companyId});
+}
+
+/// Get baches
+class ShiftBachesData {
+  final int shiftBatchScheduleId;
+  final bool success;
+  final String message;
+  final String weekDay;
+  final String shiftName;
+  final String officeStartTime;
+  final String officeEndTime;
+  final int companyId;
+  final String officeId;
+
+  ShiftBachesData({
+    required this.shiftBatchScheduleId,
+    required this.weekDay,
+    required this.shiftName,
+    required this.officeStartTime,
+    required this.officeEndTime,
+    required this.companyId,
+    required this.officeId,
+    required this.success,
+    required this.message,
+  });
 }
