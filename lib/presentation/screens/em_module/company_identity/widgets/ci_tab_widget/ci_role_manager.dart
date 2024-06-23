@@ -70,7 +70,7 @@ class _CiRoleManagerState extends State<CiRoleManager> {
                       ),
                       child: Center(
                         child: Text(
-                          "Role",
+                          "Roles",
                           style:  GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 0?

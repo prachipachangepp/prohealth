@@ -26,8 +26,8 @@ class EditPopupWidget extends StatefulWidget {
   final VoidCallback onSavePressed;
   final Color containerColor;
   final Widget child;
-
   final Function(Color)? onColorChanged;
+
   EditPopupWidget({
     required this.typeController,
     required this.shorthandController,
@@ -139,7 +139,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                   SMTextFConst(
                     controller: widget.shorthandController,
                     keyboardType: TextInputType.streetAddress,
-                    text: 'Shorthand',
+                    text: 'Abbreviation',
                   ),
                   SizedBox(
                     height: AppSize.s16,

@@ -10,22 +10,24 @@ import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
 
 class CustomPopupWidget extends StatefulWidget {
-  final TextEditingController nameController;
-  final TextEditingController addressController;
+  final TextEditingController typeController;
+  final TextEditingController abbreviationController;
   final TextEditingController? emailController;
   final VoidCallback onAddPressed;
   final Color containerColor;
   final Widget? child;
-  final Function(Color) onColorChanged;
+  final Function(Color)? onColorChanged;
 
   CustomPopupWidget({
-    required this.nameController,
-    required this.addressController,
+    required this.typeController,
+    required this.abbreviationController,
     this.emailController,
     required this.containerColor,
     required this.onAddPressed,  required this.onColorChanged, this.child,
 
   });
+
+
 
   @override
   State<CustomPopupWidget> createState() => _CustomPopupWidgetState();
@@ -80,7 +82,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
       setState(() {
         _selectedColors[0] = pickedColor;
         // Update container color by calling the function passed from HrSalesScreen
-        widget.onColorChanged(pickedColor);
+        widget.onColorChanged!(pickedColor);
       });
     }
   }
@@ -115,9 +117,9 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SMTextFConst(controller: widget.nameController, keyboardType: TextInputType.text, text: 'Employee Type',),
+                  SMTextFConst(controller: widget.typeController, keyboardType: TextInputType.text, text: 'Employee Type',),
                   SizedBox(height: AppSize.s16,),
-                  SMTextFConst(controller: widget.addressController, keyboardType: TextInputType.streetAddress, text: 'Shorthand',),
+                  SMTextFConst(controller: widget.abbreviationController, keyboardType: TextInputType.streetAddress, text: 'Abbreviation',),
                   SizedBox(height: AppSize.s16,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

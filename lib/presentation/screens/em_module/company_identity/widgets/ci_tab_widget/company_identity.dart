@@ -50,11 +50,13 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
 
   String selectedOfficeID = '';
   String selectedOfficeName = '';
+  int selectedCompId = 0;
 
-  void showManageScreenFunction({required String officeId, officeName}) {
+  void showManageScreenFunction({required String officeId, officeName, required int compId}) {
     setState(() {
       selectedOfficeID = officeId;
       selectedOfficeName = officeName;
+      selectedCompId = compId;
       showManageScreen = true;
       showStreamBuilder = false;
       showWhitelabellingScreen = false;
@@ -328,7 +330,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                         .data![index].officeId,
                                                     officeName: snapshot
                                                         .data![index]
-                                                        .officeName);
+                                                        .officeName,
+                                                    compId: snapshot.data![index].companyId);
                                               },
                                             ),
                                           ],
@@ -360,6 +363,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
             child: ManageWidget(
               officeID: selectedOfficeID,
               officeName: selectedOfficeName,
+              companyID: selectedCompId,
               backButtonCallBack: (bool val) {
                 if (val) {
                   setState(() {

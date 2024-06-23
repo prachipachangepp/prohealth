@@ -107,7 +107,7 @@ Future<ApiData> addEmployeeTypePost(
     {
       'DepartmentId':departmentId,
       'employeeType':employeeType,
-      'color':"+${color}",
+      'color':"#${color}",
       'abbreviation':abbreviation
     });
     if (response.statusCode == 200 || response.statusCode == 201) {

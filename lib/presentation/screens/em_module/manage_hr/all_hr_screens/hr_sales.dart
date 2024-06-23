@@ -48,7 +48,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 10;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
@@ -100,25 +100,39 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomIconButtonConst(
-            text: AppStringEM.addemployeetype,
+            text: AppString.addemployeetype,
             icon: Icons.add,
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return CustomPopupWidget(
-                    nameController: typeController,
-                    addressController: shorthandController,
+                    typeController: typeController,
+                    abbreviationController: shorthandController,
+                    containerColor: containerColors[1],
                     onAddPressed: () async {
-                      await addEmployeeTypePost(context,docTypeMetaId,typeController.text,color,shorthandController.text);
+                      await addEmployeeTypePost(context,docTypeMetaId,
+                          typeController.text,
+                          color,shorthandController.text);
                       companyAllHrClinicApi(context).then((data){
                         _controller.add(data);
                       }).catchError((error){});
                       Navigator.pop(context);
+                      typeController.clear();
+                      shorthandController.clear();
                     },
-                    containerColor: ColorManager.sfaintOrange, onColorChanged: (Color selectedColor) {
-                    color = selectedColor.toString().substring(10,16);
-                  },
+                    onColorChanged: (Color seletedColor) {
+                      setState(() {
+                        containerColors[1] = seletedColor;
+                        color = seletedColor.toString().substring(10,16);
+                        _saveColor(1, seletedColor);
+                      });
+                    },
+                    //   containerColor: ColorManager.sfaintOrange,
+                    //   onColorChanged: (Color selectedColor) {
+                    //   color = selectedColor.toString().substring(10,16);
+                    // },
+
                     child: FutureBuilder<List<HRHeadBar>>(
                         future: companyHRHeadApi(context,widget.deptId),
                         builder: (context,snapshot) {
@@ -366,7 +380,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                                 color = seletedColor.toString().substring(10,16);
                                                 _saveColor(index, seletedColor);
                                               });
-                                            }, child:  FutureBuilder<List<HRHeadBar>>(
+                                            },
+                                            child:  FutureBuilder<List<HRHeadBar>>(
                                               future: companyHRHeadApi(context,widget.deptId),
                                               builder: (context,snapshot) {
                                                 if(snapshot.connectionState == ConnectionState.waiting){

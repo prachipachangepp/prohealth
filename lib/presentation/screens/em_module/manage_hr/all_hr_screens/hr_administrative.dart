@@ -91,19 +91,32 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                 context: context,
                 builder: (BuildContext context) {
                   return CustomPopupWidget(
-                    nameController: typeController,
-                    addressController: shorthandController,
+                    typeController: typeController,
+                    abbreviationController: shorthandController,
+                    containerColor: containerColors[1],
                     onAddPressed: () async {
-                      await addEmployeeTypePost(context,docMetaId,typeController.text,color,shorthandController.text);
+                      await addEmployeeTypePost(context,docMetaId,
+                          typeController.text,
+                          color,shorthandController.text);
                       companyAllHrClinicApi(context).then((data){
                         _controller.add(data);
                       }).catchError((error){});
                       Navigator.pop(context);
+                      typeController.clear();
+                      shorthandController.clear();
                     },
-                      containerColor: containerColors[1], onColorChanged: (Color selectedColor) {
-                    color = selectedColor.toString().substring(10,16);
-                    _saveColor(1, selectedColor);
-                  },
+                    onColorChanged: (Color seletedColor) {
+                      setState(() {
+                        containerColors[1] = seletedColor;
+                        color = seletedColor.toString().substring(10,16);
+                        _saveColor(1, seletedColor);
+                      });
+                    },
+                    //   containerColor: ColorManager.sfaintOrange,
+                    //   onColorChanged: (Color selectedColor) {
+                    //   color = selectedColor.toString().substring(10,16);
+                    // },
+
                     child: FutureBuilder<List<HRHeadBar>>(
                         future: companyHRHeadApi(context,widget.deptId),
                         builder: (context,snapshot) {

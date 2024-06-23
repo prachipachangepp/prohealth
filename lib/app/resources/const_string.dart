@@ -202,7 +202,7 @@ class AppString {
   static const String eligibleClinician = "Eligible Clinicians";
   static const String notapplicable = "Not Applicable";
   static const String expiry = "Expiry";
-  static const String clinician = "Clinician";
+  static const String clinician = "Clinicians";
   static const String sales = "Sales";
   static const String roles= "Roles";
   static const String ruleroles= "Rule Roles";

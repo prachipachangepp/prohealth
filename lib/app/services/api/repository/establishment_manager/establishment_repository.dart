@@ -220,7 +220,7 @@ class EstablishmentManagerRepository {
   static String payRatesSetup = "/payrates-setup";
   static String employeeType = "/employee-types";
   static String user = "/users";
-  static String zone = "/zone";
+  //static String zone = "/zone";
   static String signUp="/signUp";
   static String companyDept ="/company-department";
 
@@ -402,9 +402,9 @@ class EstablishmentManagerRepository {
   static String userDelete({required userId}){
     return "$user/$userId";
   }
-  static String zoneGet(){
-    return "$zone";
-  }
+  // static String zoneGet(){
+  //   return "$zone";
+  // }
   ///Role Manager
   static String companyDepartment(){
     return "$companyDept";
