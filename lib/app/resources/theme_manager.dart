@@ -236,8 +236,8 @@ class CodeVerficationText {
   static TextStyle VerifyCode(BuildContext context) {
     return GoogleFonts.firaSans(
       color: ColorManager.darkgrey,
-      //fontSize: FontSize.s10,
-      fontSize: MediaQuery.of(context).size.width / 120,
+     // fontSize: FontSize.s10,
+      fontSize: MediaQuery.of(context).size.width / 110,
       fontWeight: FontWeightManager.semiBold,
     );
   }

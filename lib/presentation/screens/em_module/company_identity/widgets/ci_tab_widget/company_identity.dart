@@ -111,14 +111,24 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
+                                      Text(
+                                        'Add New Office',
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeightManager.semiBold,
+                                          color: ColorManager.primary,
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
                                       IconButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          icon: const Icon(Icons.close))
+                                          icon: const Icon(Icons.close)),
                                     ],
                                   ),
                                   Column(

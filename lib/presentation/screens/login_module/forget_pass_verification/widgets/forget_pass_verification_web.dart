@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -217,7 +218,12 @@ class _VerifyForgotPassWebState extends State<VerifyForgotPassWeb> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(AppString.didntrecieveCode,
-                        style: CodeVerficationText.VerifyCode(context)),
+                        style: GoogleFonts.firaSans(
+                          color: ColorManager.mediumgrey,
+                          //fontSize: FontSize.s10,
+                          fontSize: MediaQuery.of(context).size.width / 115,
+                          fontWeight: FontWeightManager.semiBold,
+                        )),
                     TextButton(
                       onPressed: () {
                         print("Resend tapped!");

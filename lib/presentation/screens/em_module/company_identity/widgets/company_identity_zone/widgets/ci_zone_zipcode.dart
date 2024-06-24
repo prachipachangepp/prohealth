@@ -66,6 +66,24 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
               children: [
                 // Text(''),
                 Text(
+                  'Zone Id',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                Text(
+                  'County Id',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                Text(
                   'City Name',
                   style: GoogleFonts.firaSans(
                     fontSize: 12,
@@ -181,6 +199,30 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                 Expanded(
                                   child: Text(
                                     textAlign: TextAlign.center,
+                                    snapshot.data![index].zoneId.toString(),
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.mediumgrey,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    snapshot.data![index].countyID.toString(),
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.mediumgrey,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    textAlign: TextAlign.center,
                                     snapshot.data![index].city.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
@@ -241,7 +283,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                             zipcodeController: zipcodeController,
                                             title3: 'Cities',
                                             mapController: mapController,
-                                            landmarkController: landmarkController, title4: '',
+                                            landmarkController: landmarkController,
+                                            title4: 'Landmark',
                                           );
                                         });
                                       }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),

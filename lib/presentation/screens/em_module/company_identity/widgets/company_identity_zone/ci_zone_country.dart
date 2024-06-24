@@ -71,7 +71,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  AppStringEM.zones,
+                  'Sr. No.',
                   style: AllHRTableHeading.customTextStyle(context)
                 ),
                 Padding(
@@ -85,20 +85,13 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                       textAlign: TextAlign.start,
                       style:AllHRTableHeading.customTextStyle(context)),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: Text(
-                    AppStringEM.map,
-                    style: AllHRTableHeading.customTextStyle(context)
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: Text(
-                    AppStringEM.landmark,
-                    style: AllHRTableHeading.customTextStyle(context)
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 15.0),
+                //   child: Text(
+                //     AppStringEM.map,
+                //     style: AllHRTableHeading.customTextStyle(context)
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: Text(
@@ -188,34 +181,25 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                     snapshot.data![index].zipcodes.toString(),
                                   style: AllHRTableData.customTextStyle(context)
                                 ),
-                                Text(
-                                  'View map',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.medium,
-                                    color: ColorManager.mediumgrey,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                Text(
-                                  'Statue of Liberty',
-                                  style:AllHRTableData.customTextStyle(context)
-                                ),
-                                //  Text(''),
+                                // Text(
+                                //   'View map',
+                                //   style: GoogleFonts.firaSans(
+                                //     fontSize: FontSize.s10,
+                                //     fontWeight: FontWeightManager.medium,
+                                //     color: ColorManager.mediumgrey,
+                                //     decoration: TextDecoration.underline,
+                                //   ),
+                                // ),
                                 Row(
                                   children: [
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (context){
-                                        return CIZoneAddPopup(
+                                        return CIZoneEditPopup(
                                           onSavePressed: (){
                                           },
                                           title1: AppStringEM.countyName,
                                           countynameController: countynameController,
-                                          title2: AppStringEM.zipCode,
-                                          zipcodeController: zipcodeController,
-                                          title3: AppStringEM.map,
-                                          mapController: mapController,
-                                          title4:AppStringEM.landmark,
+                                          title2:AppStringEM.landmark,
                                           landmarkController: landmarkController, );
                                       });
                                     }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),

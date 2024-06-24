@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -64,118 +65,132 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
             borderRadius: BorderRadius.circular(24),
             color: ColorManager.white,
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                child: Text(
                   AppString.enter6digitcode,
                   style: CustomTextStylesCommon.commonStyle(
                       color: ColorManager.darkgrey,
                       fontSize: FontSize.s12,
                       fontWeight: FontWeightManager.bold),
                 ),
+              ),
 
-                ///txtfield
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    6,
-                    (index) => Container(
-                      width: MediaQuery.of(context).size.width / 30,
-                      height: MediaQuery.of(context).size.height / 22,
-                      margin: EdgeInsets.only(left: AppPadding.p12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2.26),
-                        border: Border.all(
-                          color: ColorManager.bluecontainer,
-                          width: 0.85,
-                        ),
+              ///txtfield
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  6,
+                  (index) => Container(
+                    width: MediaQuery.of(context).size.width / 25,
+                    height: MediaQuery.of(context).size.height / 22,
+                    margin: EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2.26),
+                      border: Border.all(
+                        color: ColorManager.bluecontainer,
+                        width: 0.85,
                       ),
-                      child: TextFormField(
-                        controller: _otpControllers[index],
-                        cursorColor: ColorManager.black,
-                        cursorHeight: 20,
-                        cursorWidth: 2,
-                        cursorRadius: const Radius.circular(1),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(r'[0-9]'),
-                          ),
-                        ],
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        textAlignVertical: TextAlignVertical.center,
-                        maxLength: 1,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: AppSize.s15),
-                          counterText: '',
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          errorBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
+                    ),
+                    child: TextFormField(
+                      controller: _otpControllers[index],
+                      cursorColor: ColorManager.black,
+                      cursorHeight: 20,
+                      cursorWidth: 2,
+                      cursorRadius: const Radius.circular(1),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r'[0-9]'),
                         ),
-                        validator: (value) {
-                          return value!.isEmpty ? AppString.otp : null;
-                        },
-                        onChanged: (value) {
-                          if (value.isNotEmpty && index < 5) {
-                            FocusScope.of(context).nextFocus();
-                          } else if (value.isNotEmpty && index == 5) {
-                            _verifyOTPAndLogin();
-                          }
-                        },
+                      ],
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      textAlignVertical: TextAlignVertical.center,
+                      maxLength: 1,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(bottom: AppSize.s15),
+                        counterText: '',
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
                       ),
+                      validator: (value) {
+                        return value!.isEmpty ? AppString.otp : null;
+                      },
+                      onChanged: (value) {
+                        if (value.isNotEmpty && index < 5) {
+                          FocusScope.of(context).nextFocus();
+                        } else if (value.isNotEmpty && index == 5) {
+                          _verifyOTPAndLogin();
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ),
+
+              ///didnt receive code
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(AppString.didntrecieveCode,
+                      style: GoogleFonts.firaSans(
+                        color: ColorManager.darkgrey,
+                        //fontSize: FontSize.s10,
+                        fontSize: MediaQuery.of(context).size.width / 77,
+                        fontWeight: FontWeightManager.semiBold,
+                      )),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(AppString.resend,
+                        style: CustomTextStylesCommon.commonStyle(
+                          color: ColorManager.blueprime,
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.semiBold,
+                        )),
+                  )
+                ],
+              ),
+
+              ///button
+              CustomButton(
+                borderRadius: 23.82,
+                paddingVertical: AppPadding.p5,
+                height: MediaQuery.of(context).size.height / 24,
+                width: MediaQuery.of(context).size.width / 3,
+                text: _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeightManager.semiBold,
+                    color: ColorManager.white,
+                    decoration: TextDecoration.none,
+                  ),
+                onPressed: () {
+                  _verifyOTPAndLogin();
+                },
+              ),
+              if (_errorMessage != null)
+                Padding(
+                  padding: const EdgeInsets.all(AppPadding.p8),
+                  child: Text(
+                    _errorMessage!,
+                    style: CustomTextStylesCommon.commonStyle(
+                      color: ColorManager.red,
+                      fontSize: FontSize.s10,
+                      fontWeight: FontWeightManager.bold,
                     ),
                   ),
                 ),
 
-                ///didnt receive code
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(AppString.didntrecieveCode,
-                        style: CodeVerficationText.VerifyCode(context)),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(AppString.resend,
-                          style: CustomTextStylesCommon.commonStyle(
-                            color: ColorManager.blueprime,
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.semiBold,
-                          )),
-                    )
-                  ],
-                ),
-
-                ///button
-                CustomButton(
-                  borderRadius: 23.82,
-                  paddingVertical: AppPadding.p5,
-                  height: MediaQuery.of(context).size.height / 24,
-                  width: MediaQuery.of(context).size.width / 3,
-                  text: _isVerifyingOTP ? AppString.verify : AppString.loginbtn,
-                  onPressed: () {
-                    _verifyOTPAndLogin();
-                  },
-                ),
-                if (_errorMessage != null)
-                  Padding(
-                    padding: const EdgeInsets.all(AppPadding.p8),
-                    child: Text(
-                      _errorMessage!,
-                      style: CustomTextStylesCommon.commonStyle(
-                        color: ColorManager.red,
-                        fontSize: FontSize.s10,
-                        fontWeight: FontWeightManager.bold,
-                      ),
-                    ),
-                  ),
-
-                ///bottomtxt
-                InkWell(
+              ///bottomtxt
+              Padding(
+                padding: const EdgeInsets.only(left: AppPadding.p16),
+                child: InkWell(
                   child: Text(
                     AppString.donthaveauth,
                     style: CustomTextStylesCommon.commonStyle(
@@ -206,9 +221,9 @@ class _EmailVerifyTabState extends State<EmailVerifyTab> {
                       ),
                     );
                   },
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),
