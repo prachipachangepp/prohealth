@@ -66,6 +66,24 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
               children: [
                 // Text(''),
                 Text(
+                  'Zone Id',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                Text(
+                  'County Id',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                Text(
                   'City Name',
                   style: GoogleFonts.firaSans(
                     fontSize: 12,
@@ -178,6 +196,30 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Row(
                               children: [
+                                Expanded(
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    snapshot.data![index].zoneId.toString(),
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.mediumgrey,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    snapshot.data![index].countyID.toString(),
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.mediumgrey,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ),
                                 Expanded(
                                   child: Text(
                                     textAlign: TextAlign.center,

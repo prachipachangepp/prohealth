@@ -119,7 +119,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                   Text("Logos",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.mediumgrey,
                       )),
                   // SizedBox(width: MediaQuery.of(context).size.width / 5),
@@ -129,7 +129,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                     child: Text("Details",
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeightManager.semiBold,
                           color: ColorManager.mediumgrey,
                         )),
                   ),
@@ -140,6 +140,13 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       height: 30,
                       width: 90,
                       child: CustomButton(
+                        borderRadius: 12,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeightManager.medium,
+                          color: ColorManager.white,
+                          decoration: TextDecoration.none,
+                        ),
                         text: "Save",
                         onPressed: () {},
                       ),

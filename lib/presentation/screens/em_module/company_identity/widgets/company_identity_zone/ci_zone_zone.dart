@@ -83,13 +83,13 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                       color: Colors.white,
                       decoration: TextDecoration.none,
                     )),
-                Text('County',textAlign: TextAlign.start,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    )),
+                // Text('County',textAlign: TextAlign.start,
+                //     style: GoogleFonts.firaSans(
+                //       fontSize: 12,
+                //       fontWeight: FontWeight.w700,
+                //       color: Colors.white,
+                //       decoration: TextDecoration.none,
+                //     )),
 
                 Padding(
                   padding: const EdgeInsets.only(right: 30.0),
@@ -202,18 +202,18 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    snapshot.data![index].landmark.toString(),
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
+                                // Expanded(
+                                //   child: Text(
+                                //     textAlign: TextAlign.center,
+                                //     snapshot.data![index].landmark.toString(),
+                                //     style: GoogleFonts.firaSans(
+                                //       fontSize: 10,
+                                //       fontWeight: FontWeight.w500,
+                                //       color: ColorManager.mediumgrey,
+                                //       decoration: TextDecoration.none,
+                                //     ),
+                                //   ),
+                                // ),
                                 Expanded(
                                   child: Text(
                                     textAlign: TextAlign.center,

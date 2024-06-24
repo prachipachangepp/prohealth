@@ -71,7 +71,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  AppStringEM.zones,
+                  'Sr. No.',
                   style: AllHRTableHeading.customTextStyle(context)
                 ),
                 Padding(
@@ -85,13 +85,13 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                       textAlign: TextAlign.start,
                       style:AllHRTableHeading.customTextStyle(context)),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: Text(
-                    AppStringEM.map,
-                    style: AllHRTableHeading.customTextStyle(context)
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 15.0),
+                //   child: Text(
+                //     AppStringEM.map,
+                //     style: AllHRTableHeading.customTextStyle(context)
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: Text(
@@ -181,15 +181,15 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                     snapshot.data![index].zipcodes.toString(),
                                   style: AllHRTableData.customTextStyle(context)
                                 ),
-                                Text(
-                                  'View map',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.medium,
-                                    color: ColorManager.mediumgrey,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
+                                // Text(
+                                //   'View map',
+                                //   style: GoogleFonts.firaSans(
+                                //     fontSize: FontSize.s10,
+                                //     fontWeight: FontWeightManager.medium,
+                                //     color: ColorManager.mediumgrey,
+                                //     decoration: TextDecoration.underline,
+                                //   ),
+                                // ),
                                 Row(
                                   children: [
                                     IconButton(onPressed: (){

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -54,7 +55,7 @@ class _CiOrgDocumentState extends State<CiZone> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _selectedIndex ==  0?
+              _selectedIndex ==  1?
               Container(
                 height: 30,
                 width: 354,
@@ -101,10 +102,10 @@ class _CiOrgDocumentState extends State<CiZone> {
               SizedBox(width: 354,),
               ///tabbar
               Padding(
-                padding: const EdgeInsets.only(right: 250),
+                padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/7),
                 child: Container(
                   //color: Colors.greenAccent,
-                  width: MediaQuery.of(context).size.width/6,
+                  width: MediaQuery.of(context).size.width/5.5,
                   height: 40,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,7 +114,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                         onTap: () => _selectButton(0),
                         child: Container(
                           height: 40,
-                          width: 80,
+                          width: MediaQuery.of(context).size.width/20,
                           child: Column(
                             children: [
                               Text(
@@ -138,7 +139,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                         onTap: () => _selectButton(1),
                         child: Container(
                           height: 40,
-                          width: 80,
+                          width: MediaQuery.of(context).size.width/20,//80,
                           child: Column(
                             children: [
                               Text(
@@ -163,7 +164,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                         onTap: () => _selectButton(2),
                         child: Container(
                           height: 40,
-                          width: 80,
+                          width:MediaQuery.of(context).size.width/20,// 80,
                           child: Column(
                             children: [
                               Text(
