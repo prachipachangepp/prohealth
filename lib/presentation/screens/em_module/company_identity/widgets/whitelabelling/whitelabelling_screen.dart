@@ -108,11 +108,15 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   }
    String bucketId = "symmetry-office-document";
    AwsS3Client s3client = AwsS3Client(
-    region: "us-west-2",
+    region: "",
+    // "us-west-2",
     // host: "s3.eu-central-1.amazonaws.com",
-    bucketId: "symmetry-office-document",
-    accessKey: "AKIAU5UP6ITKKAGCXEXK",
-    secretKey: "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",
+    bucketId:"" ,
+    // "symmetry-office-document",
+    accessKey: "",
+    // "AKIAU5UP6ITKKAGCXEXK",
+    secretKey: "",
+    // "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",
   );
 
   @override
