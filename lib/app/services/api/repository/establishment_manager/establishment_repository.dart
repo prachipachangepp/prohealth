@@ -223,6 +223,8 @@ class EstablishmentManagerRepository {
   //static String zone = "/zone";
   static String signUp="/signUp";
   static String companyDept ="/company-department";
+  static String roleMetaData ="/app-module-meta-data";
+  static String addAppRoleModule ="/app-role-module";
   static String companyDetail ="/CompanyDetail";
 
 
@@ -422,6 +424,12 @@ class EstablishmentManagerRepository {
   ///Role Manager
   static String companyDepartment(){
     return "$companyDept";
+  }
+  static String getRoalMetaData(){
+    return "$roleMetaData";
+  }
+  static String addAppRoleModulePost(){
+    return "$addAppRoleModule$add";
   }
   static String getWhitelabellingDetail(
   {required int companyId}

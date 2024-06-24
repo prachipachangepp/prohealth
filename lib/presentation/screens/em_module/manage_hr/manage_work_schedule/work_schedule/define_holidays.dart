@@ -73,6 +73,24 @@ class _DefineHolidaysState extends State<DefineHolidays> {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Positioned(
+            right: 40,
+            // top: 20,
+            child: CustomIconButtonConst(
+                icon: Icons.add,
+                text: "Add New Holiday", onPressed: (){
+              showDialog(context: context, builder: (BuildContext context){
+                return AddHolidayPopup(controller: holidayNameController, onPressed: () async{
+                  await addHolidaysPost(context, holidayNameController.text, calenderController.text, 2024, 11);
+                  holidaysListGet(context).then((data) {
+                    _controller.add(data);
+                  }).catchError((error) {
+                    // Handle error
+                  });
+                }, calenderDateController: calenderController,);
+              });
+            }),
+          ),
           SizedBox(
             height: 10,
           ),

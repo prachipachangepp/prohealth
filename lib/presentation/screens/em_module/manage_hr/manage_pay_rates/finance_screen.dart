@@ -101,7 +101,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pick Employee',
+                      'Pick Employee Type',
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,

@@ -62,19 +62,22 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     });
   }
   List<String> selectedChips = [];
+  List<int> selectedChipsEmpId = [];
   String chips="";
 
-  void addChip(String chip) {
+  void addChip(String chip,int chipEmpId) {
     setState(() {
       selectedChips.add(chip);
-      eligibleClinicalController.clear();
+      selectedChipsEmpId.add(chipEmpId);
+
       //chips = selectedChips;
     });
   }
 
-  void deleteChip(String chip) {
+  void deleteChip(String chip,int chipEmpId) {
     setState(() {
       selectedChips.remove(chip);
+      selectedChipsEmpId.remove(chipEmpId);
     });
   }
   void _loadColors() async {
@@ -142,6 +145,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   children:[
                                     // List.generate(selectedChips.length, (index){
                                     for(String chip in selectedChips)
+                                      for(int chipId in selectedChipsEmpId)
                                       Chip(
                                         shape:StadiumBorder(side:BorderSide(color: ColorManager.blueprime) ),
                                         //side: BorderSide(color: ColorManager.blueprime),
@@ -153,7 +157,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         ),),
                                         onDeleted: () {
                                           setState(() {
-                                            deleteChip(chip);
+                                            deleteChip(chip,chipId);
                                           });
 
                                         },
@@ -206,7 +210,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                 empTypeId = docType;
                                                 setState(() {
                                                   if (val.isNotEmpty) {
-                                                    addChip(val.trim());
+                                                    addChip(val.trim(),empTypeId);
                                                   }
                                                 });
                                               }
@@ -220,45 +224,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                     return SizedBox();
                                   }
                               ),
-                              // Column(
-                              //   children: [
-                              //     Container(
-                              //       width: 354,
-                              //       height: 30,
-                              //       decoration: BoxDecoration(
-                              //         border: Border.all(color: Color(0xFFB1B1B1), width: 1),
-                              //         borderRadius: BorderRadius.circular(8),
-                              //       ),
-                              //       child:TextField(
-                              //         controller: eligibleClinicalController,
-                              //         keyboardType: TextInputType.text,
-                              //         cursorHeight: 17,
-                              //         cursorColor: Colors.black,
-                              //         style: CustomTextStylesCommon.commonStyle(
-                              //             fontWeight: FontWeightManager.medium,
-                              //             fontSize: FontSize.s12,
-                              //             color: ColorManager.mediumgrey
-                              //         ),
-                              //         onSubmitted: (value) {
-                              //           setState(() {
-                              //             if (value.isNotEmpty) {
-                              //               addChip(value.trim());
-                              //             }
-                              //           });
-                              //
-                              //           print(":::CHIPS${selectedChips}");
-                              //         },
-                              //         decoration: InputDecoration(
-                              //             hintText: 'Enter text to add as chip',
-                              //             border: InputBorder.none,
-                              //             contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
-                              //             suffixIcon: Icon(Icons.add,color:ColorManager.blueprime,size: 18,)
-                              //         ),
-                              //       ),
-                              //     ),
-                              //     //SizedBox(height: 10.0),
-                              //   ],
-                              // ),
                             );
                           },
 
@@ -499,6 +464,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                             spacing: 8.0,
                                                             children: [
                                                               for(String chip in selectedChips)
+                                                                for(int chipId in selectedChipsEmpId)
                                                                Chip(
                                                                  shape:StadiumBorder(side:BorderSide(color: ColorManager.blueprime) ),
                                                                  //side: BorderSide(color: ColorManager.blueprime),
@@ -510,7 +476,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                  ),),
                                                                 onDeleted: () {
                                                                   setState(() {
-                                                                    deleteChip(chip);
+                                                                    deleteChip(chip,chipId);
                                                                   });
                                                                 },
                                                               ),
@@ -562,7 +528,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             empTypeId = docType;
                                                                             setState(() {
                                                                               if (val.isNotEmpty) {
-                                                                                addChip(val.trim());
+                                                                                addChip(val.trim(),empTypeId);
                                                                               }
                                                                             });
                                                                           }
