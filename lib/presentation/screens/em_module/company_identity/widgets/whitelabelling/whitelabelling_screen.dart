@@ -106,7 +106,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   void openFile(PlatformFile file) {
     OpenFile.open(file.path!);
   }
-   String bucketId = "symmetry-office-document";
+   String bucketId = "";
+       // "symmetry-office-document";
    AwsS3Client s3client = AwsS3Client(
     region: "",
     // "us-west-2",
