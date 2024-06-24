@@ -27,11 +27,13 @@ class RoleManagerClinician extends StatefulWidget {
 class _RoleManagerClinicianState extends State<RoleManagerClinician> {
   List<bool> selectedContainers = List.generate(15, (_) => false);
   String _selectedOffice = 'Pick Office';
-  Color _employeeTextColor = Colors.grey;
-  Color _employeeBorderColor = ColorManager.black.withOpacity(0.3);
+  // Color _employeeTextColor = Colors.grey;
+  // Color _employeeBorderColor = ColorManager.black.withOpacity(0.3);
   final StreamController<List<PayRateFinanceData>> _roleMDropDownController =
       StreamController<List<PayRateFinanceData>>();
   // bool _officeSelected = false;
+  Color _employeeTextColor = ColorManager.black.withOpacity(0.3);
+  Color _employeeBorderColor = Colors.grey;
 
   void toggleSelection(int index) {
     setState(() {
@@ -65,233 +67,191 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Pick Office',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    FutureBuilder<List<RoleManagerData>>(
-                        future: roleManagerDataGet(context),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  width: 300,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.faintGrey,
-                                      borderRadius: BorderRadius.circular(10)),
-                                ));
-                          }
-                          if (snapshot.hasData) {
-                            List<String> dropDownList = [];
-                            List<String> dropDownAbbreviation = [];
-                            for (var i in snapshot.data!) {
-                              dropDownList.add(
-                                i.deptName!,
-                              );
-                              dropDownAbbreviation.add(i.description!);
-                            }
-                            // for(var i in snapshot.data!){
-                            //
-                            // }
-                            print("::::::${dropDownList}");
-                            print("::::::${dropDownAbbreviation}");
-                            return Row(
-                              children: [
-                                Container(
-                                  height: 30,
-                                  width: 354,
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 3, horizontal: 15),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: Color(0xff686464).withOpacity(0.5),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: DropdownButtonFormField<String>(
-                                    focusColor: Colors.transparent,
-                                    icon: Icon(
-                                      Icons.arrow_drop_down_sharp,
-                                      color: Color(0xff686464),
-                                    ),
-                                    decoration:
-                                        InputDecoration.collapsed(hintText: ''),
-                                    items: dropDownList
-                                        .map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value == null ? "1" : value,
-                                        child: Text(value),
-                                        // Container(
-                                        //   height: 200,
-                                        //   width: 400,
-                                        //   child: ListView.builder(
-                                        //     itemCount: dropDownList.length,
-                                        //       itemBuilder: (BuildContext context, index){
-                                        //     return Text(dropDownList[index]);
-                                        //   }),
-                                        // ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValue) {},
-                                    value: dropDownList[0],
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xff686464),
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          } else {
-                            return Offstage();
-                          }
-                        }),
-                  ],
+                Text(
+                  'Pick Office',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.mediumgrey,
+                    decoration: TextDecoration.none,
+                  ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width / 20),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Pick Employee Type',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: _employeeTextColor,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    FutureBuilder<List<HRClinical>>(
-                        future: companyAllHrClinicApi(context),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  width: 300,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.faintGrey,
-                                      borderRadius: BorderRadius.circular(10)),
-                                ));
-                          }
-                          if (snapshot.hasData) {
-                            List<String> dropDownList = [];
-                            List<String> dropDownAbbreviation = [];
-                            for (var i in snapshot.data!) {
-                              dropDownList.add(
-                                i.empType!,
-                              );
-                              dropDownAbbreviation.add(i.abbrivation!);
-                            }
-                            // for(var i in snapshot.data!){
-                            //
-                            // }
-                            print("::::::${dropDownList}");
-                            print("::::::${dropDownAbbreviation}");
-                            return Row(
-                              children: [
-                                Container(
-                                  height: 30,
-                                  width: 354,
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 3, horizontal: 15),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: _employeeBorderColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: DropdownButtonFormField<String>(
-                                    focusColor: Colors.transparent,
-                                    icon: Icon(
-                                      Icons.arrow_drop_down_sharp,
-                                      color: Color(0xff686464),
-                                    ),
-                                    decoration:
-                                        InputDecoration.collapsed(hintText: ''),
-                                    // items: <String>[
-                                    //   'Pick Office',
-                                    //   'RN',
-                                    //   'LVN',
-                                    //   'PT',
-                                    //   'PTA',
-                                    //   'OT',
-                                    //   'COTA',
-                                    //   'ST',
-                                    //   'MSW',
-                                    //   'HHA',
-                                    // ].map<DropdownMenuItem<String>>((String value) {
-                                    //   return DropdownMenuItem<String>(
-                                    //     value: value,
-                                    //     child: Text(value),
-                                    //   );
-                                    // }).toList(),
-                                    items: dropDownList
-                                        .map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value == null ? "1" : value,
-                                        child: Text(value),
-                                        // Container(
-                                        //   height: 200,
-                                        //   width: 400,
-                                        //   child: ListView.builder(
-                                        //     itemCount: dropDownList.length,
-                                        //       itemBuilder: (BuildContext context, index){
-                                        //     return Text(dropDownList[index]);
-                                        //   }),
-                                        // ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValue) {},
-                                    value: dropDownList[0],
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: _employeeTextColor,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          } else {
-                            return Offstage();
-                          }
-                        }),
-                  ],
+                const SizedBox(height: 4),
+                FutureBuilder<List<RoleManagerData>>(
+                  future: roleManagerDataGet(context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          width: 300,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: ColorManager.faintGrey,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      List<String> dropDownList = [];
+                      List<String> dropDownAbbreviation = [];
+                      for (var i in snapshot.data!) {
+                        dropDownList.add(i.deptName);
+                        dropDownAbbreviation.add(i.description);
+                      }
+                      return Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 354,
+                            padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Color(0xff686464).withOpacity(0.5),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: DropdownButtonFormField<String>(
+                              focusColor: Colors.transparent,
+                              icon: Icon(
+                                Icons.arrow_drop_down_sharp,
+                                color: Color(0xff686464),
+                              ),
+                              decoration:
+                              InputDecoration.collapsed(hintText: ''),
+                              items: dropDownList
+                                  .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value == null ? "1" : value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _employeeTextColor = Color(0xff686464);
+                                  _employeeBorderColor = Color(0xff686464);
+                                });
+                              },
+                              value: dropDownList[0],
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff686464),
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Offstage();
+                    }
+                  },
                 ),
               ],
             ),
+            SizedBox(width: MediaQuery.of(context).size.width / 20),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Pick Employee Type',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: _employeeTextColor,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                SizedBox(height: 4),
+                FutureBuilder<List<HRClinical>>(
+                  future: companyAllHrClinicApi(context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          width: 300,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: ColorManager.faintGrey,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      List<String> dropDownList = [];
+                      List<String> dropDownAbbreviation = [];
+                      for (var i in snapshot.data!) {
+                        dropDownList.add(i.empType!);
+                        dropDownAbbreviation.add(i.abbrivation!);
+                      }
+                      return Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 354,
+                            padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: _employeeBorderColor,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: DropdownButtonFormField<String>(
+                              focusColor: Colors.transparent,
+                              icon: Icon(
+                                Icons.arrow_drop_down_sharp,
+                                color: Color(0xff686464),
+                              ),
+                              decoration:
+                              InputDecoration.collapsed(hintText: ''),
+                              items: dropDownList
+                                  .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value == null ? "1" : value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {},
+                              value: dropDownList[0],
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: _employeeTextColor,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Offstage();
+                    }
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
             SizedBox(height: 20),
 
             /// row 1
@@ -466,7 +426,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                 height: AppSize.s30,
                 text: AppStringEM.save,
                 onPressed: () {
-                  Navigator.pop(context);
+                  //Navigator.pop(context);
                 },
               ),
             ),

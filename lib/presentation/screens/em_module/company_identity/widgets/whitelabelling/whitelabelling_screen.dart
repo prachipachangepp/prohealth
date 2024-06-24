@@ -46,7 +46,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   TextEditingController npiNumCtlr = TextEditingController();
   TextEditingController faxCtlr = TextEditingController();
 
-  String fileName = "No Chosen";
+  String fileName = "No File Chosen";
 
   void pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -58,7 +58,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
     } else {
       // User canceled the picker
       setState(() {
-        fileName = "No Chosen";
+        fileName = "No File Chosen";
       });
     }
   }
