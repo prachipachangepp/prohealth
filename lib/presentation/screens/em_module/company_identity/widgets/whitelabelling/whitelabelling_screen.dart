@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -587,8 +586,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                               Container(
                                 height: 100,
                                 child: mainLogo.url.isNotEmpty
-                                    ? Image.network(
-                                  'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                    ? Image.asset(
+                                  'images/formainlogoprohealth.png',
                                   // mainLogo.url,
                                   fit: BoxFit.cover,
                                   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
@@ -616,9 +615,10 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                               ),
                               Container(
                                 height: 100,
-                                child: appLogo.url.isNotEmpty
+                                child:
+                                appLogo.url.isNotEmpty
                                     ? Image.network(
-                                  appLogo.url,
+                                      'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
                                   fit: BoxFit.cover,
                                   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                                     return Center(
@@ -640,8 +640,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                   ),
                 ),
 
-                ///old
-                // Expanded(
+                  ///old
+                  // Expanded(
                 //   flex: 2,
                 //   child:
                 //   StreamBuilder<WhiteLabellingCompanyDetailModal>(
