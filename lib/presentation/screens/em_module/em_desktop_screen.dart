@@ -499,6 +499,7 @@ class CustomDropdownButton extends StatelessWidget {
               );
             }).toList();
           },
+
           dropdownColor: Colors.white,
         ),
       ),

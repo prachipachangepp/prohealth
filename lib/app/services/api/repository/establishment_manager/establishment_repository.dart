@@ -223,6 +223,7 @@ class EstablishmentManagerRepository {
   //static String zone = "/zone";
   static String signUp="/signUp";
   static String companyDept ="/company-department";
+  static String companyDetail ="/CompanyDetail";
 
 
   static String companyAll(){
@@ -421,5 +422,10 @@ class EstablishmentManagerRepository {
   ///Role Manager
   static String companyDepartment(){
     return "$companyDept";
+  }
+  static String getWhitelabellingDetail(
+  {required int companyId}
+      ){
+    return "$identity$companyDetail/$companyId";
   }
 }

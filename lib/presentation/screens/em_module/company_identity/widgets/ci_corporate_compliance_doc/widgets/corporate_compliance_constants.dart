@@ -144,11 +144,11 @@ class CICCDropdown extends StatefulWidget {
   final String? initialValue;
   final Function(String)? onChange;
 
-
   const CICCDropdown({
     Key? key,
     required this.items,
-    this.initialValue, this.onChange,
+    this.initialValue,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -156,7 +156,6 @@ class CICCDropdown extends StatefulWidget {
 }
 
 class _CIDetailsDropdownState extends State<CICCDropdown> {
-
   String? _selectedValue;
   GlobalKey _dropdownKey = GlobalKey();
 
@@ -253,7 +252,8 @@ class CCScreenEditPopup extends StatefulWidget {
     this.onSavePressed,
     required this.child,
     required this.child1,
-    this.id,  this.radioButton,
+    this.id,
+    this.radioButton,
   });
 
   @override
@@ -348,29 +348,30 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
             ),
 
             ///radio
-            widget.radioButton == null ? Offstage():
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Expiry Type',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
+            widget.radioButton == null
+                ? Offstage()
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppPadding.p3,
+                      horizontal: AppPadding.p20,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Expiry Type',
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.mediumgrey,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        widget.radioButton!,
+                      ],
                     ),
                   ),
-                  widget.radioButton!,
-                ],
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p8,
@@ -498,8 +499,6 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
   }
 }
 
-
-
 ///
 class AddOrgDocButton extends StatefulWidget {
   final TextEditingController idDocController;
@@ -509,12 +508,17 @@ class AddOrgDocButton extends StatefulWidget {
   final Widget child;
   final Widget child1;
   final Widget? radioButton;
+  final int? loadingDuration;
   const AddOrgDocButton(
       {super.key,
       required this.idDocController,
       required this.nameDocController,
       required this.child,
-      required this.child1, required this.onPressed, required this.calenderController,  this.radioButton});
+      required this.child1,
+      required this.onPressed,
+      required this.calenderController,
+      this.radioButton,
+      this.loadingDuration});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
@@ -522,8 +526,9 @@ class AddOrgDocButton extends StatefulWidget {
 
 class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   String? _expiryType;
-
+  bool _isLoading = false;
   var _selectedDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -605,7 +610,10 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
-SizedBox(height: AppSize.s10,),
+            SizedBox(
+              height: AppSize.s10,
+            ),
+
             ///radio
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -625,7 +633,6 @@ SizedBox(height: AppSize.s10,),
                     ),
                   ),
                   widget.radioButton!,
-
                 ],
               ),
             ),
@@ -687,7 +694,7 @@ SizedBox(height: AppSize.s10,),
                             );
                             if (date != null) {
                               String formattedDate =
-                              DateFormat('mm-dd-yyyy').format(date);
+                                  DateFormat('mm-dd-yyyy').format(date);
                               widget.calenderController.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
@@ -709,19 +716,29 @@ SizedBox(height: AppSize.s10,),
                 ],
               ),
             ),
-            SizedBox(height: AppSize.s10,),
+            SizedBox(
+              height: AppSize.s10,
+            ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(
-                child: CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.save,
-                  onPressed: (){
-                    widget.onPressed();
-                  },
-                ),
+                child: _isLoading
+                    ? SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
+                      )
+                    : CustomElevatedButton(
+                        width: AppSize.s105,
+                        height: AppSize.s30,
+                        text: AppStringEM.save,
+                        onPressed: () {
+                          widget.onPressed();
+                        },
+                      ),
               ),
             ),
           ],

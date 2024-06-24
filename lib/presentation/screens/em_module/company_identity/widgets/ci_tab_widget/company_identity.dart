@@ -33,7 +33,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   final PageController _pageController = PageController();
   late int currentPage;
   late int itemsPerPage;
-
   bool showStreamBuilder = true;
   bool showManageScreen = false;
   bool showWhitelabellingScreen =
