@@ -10,9 +10,16 @@ class ManageDetails {
   final bool sucess;
   final String message;
 
-  ManageDetails({required this.officeID, required this.sucess, required this.message,required this.officeName, required this.priNumber,
-      required this.secNumber, required this.alternateNumber,
-      required this.address, required this.email});
+  ManageDetails({
+    required this.officeID,
+    required this.sucess,
+    required this.message,
+    required this.officeName,
+    required this.priNumber,
+      required this.secNumber,
+    required this.alternateNumber,
+      required this.address,
+    required this.email});
   // factory ManageDetails.fromJson(Map<String, dynamic> json) => _$ManageDetailsFromJson(json);
   //
   // // Method to convert a User instance to JSON

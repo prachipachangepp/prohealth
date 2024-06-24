@@ -9,6 +9,8 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/org_do
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
+import '../../../../../../app/resources/theme_manager.dart';
+
 class EmpDocEditPopupDatePicker extends StatefulWidget {
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
@@ -28,6 +30,7 @@ class EmpDocEditPopupDatePicker extends StatefulWidget {
 
 class _EmpDocEditPopupDatePickerState extends State<EmpDocEditPopupDatePicker> {
   String? _expiryType;
+  String? _errorMessage;
   TextEditingController birthdayController = TextEditingController();
   final DateTime _selectedDate = DateTime.now();
   @override
@@ -277,32 +280,53 @@ class _EmpDocEditPopupDatePickerState extends State<EmpDocEditPopupDatePicker> {
   }
 }
 
+///
 class EmpDocEditPopup extends StatefulWidget {
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
   final TextEditingController calenderController;
-  final VoidCallback onSavePredded;
+  final Future<void> Function() onSavePredded;
+  final bool? isSaving;
   String? expiryType;
   final Widget radioButton;
   final Widget child;
-   EmpDocEditPopup(
+  final int? loadingDuration;
+  EmpDocEditPopup(
       {super.key,
       required this.idDocController,
       required this.nameDocController,
       required this.child,
-      required this.calenderController, this.expiryType, required this.onSavePredded, required this.radioButton});
+      required this.calenderController,
+      this.expiryType,
+      required this.onSavePredded,
+      required this.radioButton, this.isSaving,   this.loadingDuration = 3,});
 
   @override
   State<EmpDocEditPopup> createState() => _EmpDocEditPopupState();
 }
 
 class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
-
   //TextEditingController calenderController = TextEditingController();
   final DateTime _selectedDate = DateTime.now();
+  String? _errorMessage;
+  bool _isLoading = false;
 
+  void _handlePress() {
+    setState(() {
+      _isLoading = true;
+    });
+
+    widget.onSavePredded?.call();
+    Future.delayed(Duration(seconds: widget.loadingDuration!), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    bool isSaving = false;
+
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -468,11 +492,10 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                               lastDate: DateTime(2025),
                             );
                             if (date != null) {
-                              String formattedDate = DateFormat('dd-MM-yyyy').format(date);
-                              widget.calenderController.text =
-                                  formattedDate;
-                              field.didChange(
-                                  formattedDate);
+                              String formattedDate =
+                                  DateFormat('dd-MM-yyyy').format(date);
+                              widget.calenderController.text = formattedDate;
+                              field.didChange(formattedDate);
                               // birthdayController.text =
                               // date.toLocal().toString().split(' ')[0];
                               // field.didChange(date.toLocal().toString().split(' ')[0]);
@@ -492,33 +515,47 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
               ),
             ),
             Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
-              child: Center(
-                child: CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.submit,
-                  onPressed: widget.onSavePredded
-                  // await addOrgDocumentPost(
-                  //       context,
-                  //       widget.calenderController.text,
-                  //       widget.nameDocController.text,
-                  //       _expiryType.toString(),
-                  //       _expiryType.toString());
-                  //   setState(() {
-                  //     orgSubDocumentGet(context, 1, 1, 1, 2, 3);
-                  //     Navigator.pop(context);
-                  //     widget.nameDocController.clear();
-                  //     widget.calenderController.clear();
-                  //     widget.idDocController.clear();
-                  //
-                  //   });
-                    // Navigator.pop(context);
+            _isLoading
+                ? SizedBox(
+              width: 30,
+              height: 30,
+              child: CircularProgressIndicator(
+                color: Colors.blue,
 
-                ),
               ),
+            )
+                :
+            Center(
+              child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomElevatedButton(
+                        width: AppSize.s105,
+                        height: AppSize.s30,
+                        text: AppStringEM.submit,
+                        // onPressed: widget.onSavePredded
+                        onPressed: () async {
+                          setState(()  {
+                            isSaving = true;
+                            Navigator.pop(context);
+                          });
+                          await widget.onSavePredded();
+                        },
+
+                      ),
+                    ),
             ),
+            // if (_errorMessage != null)
+            //   Padding(
+            //     padding: const EdgeInsets.all(AppPadding.p8),
+            //     child: Text(
+            //       _errorMessage!,
+            //       style: CustomTextStylesCommon.commonStyle(
+            //         color: ColorManager.red,
+            //         fontSize: FontSize.s14,
+            //         fontWeight: FontWeightManager.bold,
+            //       ),
+            //     ),
+
           ],
         ),
       ),

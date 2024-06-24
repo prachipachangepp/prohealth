@@ -13,6 +13,10 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import '../../company_identity_screen.dart';
 
 class CiOrgDocument extends StatefulWidget {
@@ -67,8 +71,10 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   int docTypeMetaId = 1;
   int docSubTypeMetaId =0;
   String? expiryType;
+
   @override
   Widget build(BuildContext context) {
+    bool _isLoading = false;
     return Column(
       children: [
         SizedBox(
@@ -179,7 +185,12 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                   idDocController: docIdController,
                                   nameDocController: docNamecontroller,
                                   onPressed: () async{
-                                    await addCorporateDocumentPost(context: context,
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    try {
+                                      await addCorporateDocumentPost(
+                                        context: context,
                                         name: docNamecontroller.text,
                                         docTypeID: docTypeMetaId,
                                         docSubTypeID: docSubTypeMetaId,
@@ -189,14 +200,48 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                         expiryDate: calenderController.text,
                                         expiryReminder: "Schedule",
                                         companyId: 11,
-                                        officeId: "1");
-                                    setState(() async {
-                                    await  orgSubDocumentGet(context, 11, docID, 1, 1, 6);
-                                    Navigator.pop(context);
-                                    calenderController.clear();
-                                      docIdController.clear();
-                                      docNamecontroller.clear();
-                                    });
+                                        officeId: "1",
+                                      );
+                                      setState(() async {
+                                        await orgSubDocumentGet(
+                                          context,
+                                          11,
+                                          docID,
+                                          1,
+                                          1,
+                                          6,
+                                        );
+                                        Navigator.pop(context);
+                                         calenderController.clear();
+                                        docIdController.clear();
+                                        docNamecontroller.clear();
+                                      });
+                                    } finally {
+                                      setState(() {
+                                        _isLoading = false;
+                                      });
+                                    }
+
+
+///
+                                    // await addCorporateDocumentPost(context: context,
+                                    //     name: docNamecontroller.text,
+                                    //     docTypeID: docTypeMetaId,
+                                    //     docSubTypeID: docSubTypeMetaId,
+                                    //     docCreated: DateTime.now().toString(),
+                                    //     url: "url",
+                                    //     expiryType: expiryType.toString(),
+                                    //     expiryDate: calenderController.text,
+                                    //     expiryReminder: "Schedule",
+                                    //     companyId: 11,
+                                    //     officeId: "1");
+                                    // setState(() async {
+                                    // await  orgSubDocumentGet(context, 11, docID, 1, 1, 6);
+                                    // Navigator.pop(context);
+                                    // calenderController.clear();
+                                    //   docIdController.clear();
+                                    //   docNamecontroller.clear();
+                                    // });
                                   },
                                   child1: FutureBuilder<List<IdentityDocumentIdData>>(
                                       future: identityDocumentTypeGet(context,docTypeMetaId),
@@ -353,6 +398,11 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                       );
                                     },
                                   ),
+
+
+
+
+
                                 );
                               });
                         }),

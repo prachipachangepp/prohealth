@@ -147,7 +147,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
 }
 ///todo prachi
 ///Human Resource screen textField
-class HRManageTextField extends StatelessWidget {
+class HRManageTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String text;
@@ -164,42 +164,149 @@ class HRManageTextField extends StatelessWidget {
   final Icon? suffixIcon;
   final IconData? prefixIcon;
   final FocusNode? focusNode;
-
-
+  final String? errorText;
+  // final bool Function(String)? validator;
+  final ValueChanged<String>? onChanged;
   HRManageTextField({
     Key? key,
     required this.controller,
     required this.keyboardType,
     required this.text,
-    this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.width, this.height, required this.cursorHeight, required this.labelText, required this.labelStyle, required this.labelFontSize, this.suffixIcon, this.prefixIcon, this.focusNode,
+    this.textColor = const Color(0xff686464), this.icon,
+    this.onChange, this.readOnly, this.width, this.height,
+    required this.cursorHeight, required this.labelText,
+    required this.labelStyle, required this.labelFontSize, this.suffixIcon,
+    this.prefixIcon, this.focusNode, this.errorText, this.onChanged,
+    // this.validator,
   }) : super(key: key);
+
+  @override
+  State<HRManageTextField> createState() => _HRManageTextFieldState();
+}
+
+class _HRManageTextFieldState extends State<HRManageTextField> {
+  late bool hasError;
+
+  @override
+  void initState() {
+    super.initState();
+    hasError = false;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 280,
+      width: 250,
       height: 40,
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p5),
         child: TextFormField(
-          focusNode: focusNode,
-          controller: controller,
+          focusNode: widget.focusNode,
+          controller: widget.controller,
           textAlign: TextAlign.start,
           style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
           textAlignVertical: TextAlignVertical.center,
-          cursorHeight: cursorHeight,
+          cursorHeight: widget.cursorHeight,
+          // validator: (value) {
+          //   if (value == null || value.isEmpty) {
+          //     return 'This field cannot be empty';
+          //   }
+          //   return null;
+          // },
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
-            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3,
+                top: AppPadding.p5, left: AppPadding.p2),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.black),
+            ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.black),
             ),
-            labelText: labelText,
-            labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
+            labelText: widget.labelText,
+            labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize),
+            errorText: hasError ? widget.errorText : null,
             suffixIcon: Padding(
               padding: const EdgeInsets.only(left: AppPadding.p14),
-              child: suffixIcon,
+              child: widget.suffixIcon,
             ),
+          ),
+        )
+        ,
+      ),
+    );
+  }
+}
+///drop down User
+
+
+class HRManageDropdown extends StatefulWidget {
+  final TextEditingController controller;
+  final String labelText;
+  final TextStyle labelStyle;
+  final double labelFontSize;
+  final List<String> items;
+  final String? errorText;
+  final ValueChanged<String>? onChanged;
+
+  HRManageDropdown({
+    Key? key,
+    required this.controller,
+    required this.labelText,
+    required this.labelStyle,
+    required this.labelFontSize,
+    required this.items,
+    this.errorText,
+    this.onChanged,
+  }) : super(key: key);
+
+  @override
+  State<HRManageDropdown> createState() => _HRManageDropdownState();
+}
+
+class _HRManageDropdownState extends State<HRManageDropdown> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 250,
+      height: 40,
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: DropdownButtonFormField<String>(
+          value: widget.controller.text.isEmpty ? null : widget.controller.text,
+          items: widget.items.map((item) {
+            return DropdownMenuItem(
+              value: item,
+              child: Text(
+                item,
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width / 130,
+                  color: Color(0xff686464),
+                ),
+              ),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              widget.controller.text = value!;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(value!);
+            }
+          },
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(
+                bottom: 3.0, top: 5.0, left: 2.0), // Adjust padding
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+            ),
+            labelText: widget.labelText,
+            labelStyle: widget.labelStyle.copyWith(
+              fontSize: widget.labelFontSize,
+            ),
+            errorText: widget.errorText,
           ),
         ),
       ),
