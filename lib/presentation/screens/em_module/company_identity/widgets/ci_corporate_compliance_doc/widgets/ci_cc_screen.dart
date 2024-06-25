@@ -22,7 +22,6 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
   final PageController _tabPageController = PageController();
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
-
   int _selectedIndex = 0;
 
   void _selectButton(int index) {
