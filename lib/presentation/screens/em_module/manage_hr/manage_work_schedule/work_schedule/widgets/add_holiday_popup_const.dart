@@ -12,7 +12,7 @@ class AddHolidayPopup extends StatefulWidget {
   final TextEditingController controller;
   final TextEditingController calenderDateController;
   final VoidCallback onPressed;
-  const AddHolidayPopup({super.key, required this.controller, required this.onPressed, required this.calenderDateController});
+   AddHolidayPopup({super.key, required this.controller, required this.onPressed, required this.calenderDateController});
 
   @override
   State<AddHolidayPopup> createState() => _AddHolidayPopupState();

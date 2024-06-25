@@ -7,13 +7,13 @@ import '../../../../../data/api_data/api_data.dart';
 import '../../../../resources/const_string.dart';
 
 /// get
-Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows) async {
+Future<List<CiVisit>> getVisit(BuildContext context,int companyId,int pageNo,int noOfRows,) async {
   List<CiVisit> itemsList = [];
   try {
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.
     getCiVisit(
-        pageNo: pageNo, noofRows: noOfRows
+      companyId: companyId, pageNo: pageNo, noofRows: noOfRows,
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
@@ -24,11 +24,12 @@ Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows) asy
         if (item['eligibleClinician'] != null) {
           for (var clinicianData in item['eligibleClinician']) {
             clinicians.add(CiVisitList(
-              empTypeId: clinicianData['employeeTypeId'],
-              eligibleClinician: clinicianData['eligibleClinician'],
-              color: clinicianData['color'],
+              empTypeId: clinicianData['employeeTypeId'] ?? 0,
+              eligibleClinician: clinicianData['eligibleClinician'] ?? "--",
+              color: clinicianData['color'] ?? "#FFFFFF",
             ));
           }
+          print("::::LIST${clinicians}");
         }
         for (var item in response.data) {
           itemsList.add(

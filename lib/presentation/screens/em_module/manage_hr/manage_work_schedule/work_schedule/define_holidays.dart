@@ -270,7 +270,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                               onPressed: ()  async{
                                                                 await updateHolidays(context, snapshot.data![index].holidayId,
                                                                     holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
-                                                                    date == calenderController.text ? date.toString() : calenderController.text, 2024, snapshot.data![index].companyId!);
+                                                                    date == calenderController.text ? date.toString() : calenderController.text, 2024, 1);
                                                                 holidaysListGet(
                                                                     context)
                                                                     .then((data) {

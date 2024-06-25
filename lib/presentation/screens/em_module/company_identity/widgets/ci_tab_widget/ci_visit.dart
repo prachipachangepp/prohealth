@@ -54,7 +54,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    getVisit(context,1,15).then((data) {
+    getVisit(context,1,1,15).then((data) {
       _visitController.add(data);
 
     }).catchError((error) {
@@ -62,22 +62,22 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     });
   }
   List<String> selectedChips = [];
-  List<int> selectedChipsEmpId = [];
+  //List<int> selectedChipsEmpId = [];
   String chips="";
 
-  void addChip(String chip,int chipEmpId) {
+  void addChip(String chip,) {
     setState(() {
       selectedChips.add(chip);
-      selectedChipsEmpId.add(chipEmpId);
+      //selectedChipsEmpId.add(chipEmpId);
 
       //chips = selectedChips;
     });
   }
 
-  void deleteChip(String chip,int chipEmpId) {
+  void deleteChip(String chip,) {
     setState(() {
       selectedChips.remove(chip);
-      selectedChipsEmpId.remove(chipEmpId);
+      //selectedChipsEmpId.remove(chipEmpId);
     });
   }
   void _loadColors() async {
@@ -132,7 +132,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                     docNamecontroller.text,
                                     selectedChips
                                 );
-                                getVisit(context,1,15).then((data) {
+                                getVisit(context,1,1,15).then((data) {
                                   _visitController.add(data);
                                 }).catchError((error) {
                                   // Handle error
@@ -145,7 +145,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   children:[
                                     // List.generate(selectedChips.length, (index){
                                     for(String chip in selectedChips)
-                                      for(int chipId in selectedChipsEmpId)
+                                      //for(int chipId in selectedChipsEmpId)
                                       Chip(
                                         shape:StadiumBorder(side:BorderSide(color: ColorManager.blueprime) ),
                                         //side: BorderSide(color: ColorManager.blueprime),
@@ -157,7 +157,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         ),),
                                         onDeleted: () {
                                           setState(() {
-                                            deleteChip(chip,chipId);
+                                            deleteChip(chip);
                                           });
 
                                         },
@@ -210,7 +210,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                 empTypeId = docType;
                                                 setState(() {
                                                   if (val.isNotEmpty) {
-                                                    addChip(val.trim(),empTypeId);
+                                                    addChip(val.trim());
                                                   }
                                                 });
                                               }
@@ -386,18 +386,19 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   Center(
                                     child: Row(
                                       children:
-                                        List.generate( snapshot.data![index].eligibleClinician!.length, (index) {
-                                            var eligibleClinician = snapshot.data![index].eligibleClinician![index];
-                                            String hexColor = eligibleClinician.color.replaceAll('#', '');
+                                        List.generate( 2, (index) {
+                                            // var eligibleClinician = snapshot.data![index].eligibleClinician![index];
+                                            // String hexColor = eligibleClinician.color.replaceAll('#', '');
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 5),
                                             child: Container(
                                               height: 30,
                                               width: 30,
-                                              color: Color(int.parse('0xFF$hexColor')),
+                                              color: Colors.white,
+                                              // Color(int.parse('0xFF$hexColor')),
                                               child: Center(
                                                   child: Text(
-                                                    eligibleClinician.eligibleClinician,
+                                                    "HC",
                                                     style: GoogleFonts.firaSans(
                                                         fontSize: 9,
                                                         fontWeight: FontWeight.w500,
@@ -451,7 +452,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                             await updateVisitPatch(context,
                                                                 snapshot.data![index].typeofVisit,
                                                                 docNamecontroller.text,[selectedChips]);
-                                                            getVisit(context,1,10).then((data) {
+                                                            getVisit(context,11,1,10).then((data) {
                                                               _visitController.add(data);
 
                                                             }).catchError((error) {
@@ -464,7 +465,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                             spacing: 8.0,
                                                             children: [
                                                               for(String chip in selectedChips)
-                                                                for(int chipId in selectedChipsEmpId)
+                                                                //for(int chipId in selectedChipsEmpId)
                                                                Chip(
                                                                  shape:StadiumBorder(side:BorderSide(color: ColorManager.blueprime) ),
                                                                  //side: BorderSide(color: ColorManager.blueprime),
@@ -476,7 +477,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                  ),),
                                                                 onDeleted: () {
                                                                   setState(() {
-                                                                    deleteChip(chip,chipId);
+                                                                    deleteChip(chip);
                                                                   });
                                                                 },
                                                               ),
@@ -528,7 +529,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             empTypeId = docType;
                                                                             setState(() {
                                                                               if (val.isNotEmpty) {
-                                                                                addChip(val.trim(),empTypeId);
+                                                                                addChip(val.trim());
                                                                               }
                                                                             });
                                                                           }
@@ -557,7 +558,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         IconButton(
                                           onPressed: () async{
                                             await deleteVisitPatch(context, snapshot.data![index].visitId);
-                                            getVisit(context,1,10).then((data) {
+                                            getVisit(context,1,1,10).then((data) {
                                               _visitController.add(data);
                                             }).catchError((error) {
                                               // Handle error

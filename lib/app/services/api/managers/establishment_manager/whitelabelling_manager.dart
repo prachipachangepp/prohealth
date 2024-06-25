@@ -132,12 +132,14 @@ Future<WhiteLabellingCompanyDetailModal> getWhiteLabellingData(
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       var responseData = response.data;
+      print("Sucess");
       WLCompanyDetailModal companyDetail =
       WLCompanyDetailModal.fromJson(responseData['CompanyDetail']);
       WLContactDetailModal contactDetail =
       WLContactDetailModal.fromJson(responseData['ContactDetail']);
       List<WLLogoModal> logos = (responseData['Logos'] as List).map((logo) =>
           WLLogoModal.fromJson(logo)).toList();
+
 
       itemsData = WhiteLabellingCompanyDetailModal(
         companyDetail: companyDetail,

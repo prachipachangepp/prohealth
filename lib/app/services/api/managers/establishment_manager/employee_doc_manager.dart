@@ -187,4 +187,36 @@ Future<ApiData> employeeDocTypeSetupIDPost(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
-///patch employee doc type setup
+
+/// GET Prefill employee-document-type-Setuo-data
+Future<GetEmployeeSetupPrefillData> getPrefillEmployeeDocTab(BuildContext context,
+   int  empDocTypeId) async {
+  var itemsList;
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.getPrefillEmployeDocSetup(empDocTypeId: empDocTypeId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1212");
+
+        itemsList =
+            GetEmployeeSetupPrefillData(
+              docName: response.data["DocumentName"],
+              expiry: response.data["Expiry"],
+              reminderThreshold: response.data["ReminderThreshold"],
+              employeeDocTypesetupId: response.data['EmployeeDocumentTypeSetupId'],
+              employeeDocTypeMetaId: response.data['EmployeeDocumentTypeMetaDataId'],
+              sucess: true,
+              message: response.statusMessage!
+          );
+    } else {
+      print('Employee Document');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}

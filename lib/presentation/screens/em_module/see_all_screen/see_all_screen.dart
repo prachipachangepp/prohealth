@@ -394,7 +394,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          "Email ID",
+                          "Email",
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -416,7 +416,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          "Action",
+                          "Actions",
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -808,7 +808,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         },
                                       ),
                                       SizedBox(
-                                        width: 2,
+                                        width: 20,
                                       ),
                                       InkWell(
                                         onTap: () async {
@@ -872,102 +872,3 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
 
 }
 
-///sec old
-// CustomElevatedButton(
-//   isLoading: false,
-//   duration: 3,
-//    width: 105,
-//    height: 31,
-//    text: 'Submit',
-//    onPressed: () async {
-//      setState(() {
-//         _isUpdating = true; // Show loader
-//      });
-//      try {
-//        updateUserPatch(
-//          context,
-//          snapshot.data![index].userId,
-//          firstNameController.text,
-//          lastNameController.text,
-//          roleController.text,
-//          emailController.text,
-//          int.parse(companyIdController.text),
-//        );
-//        getUser(context).then((data) {
-//          _companyUsersList.add(data);
-//        }).catchError((error) {
-//          // Handle error
-//        });
-//      } finally {
-//        setState(() {
-//          _isUpdating  = false; // Hide loader
-//        });
-//
-//        // Clear form fields
-//        userIdController.clear();
-//        firstNameController.clear();
-//        lastNameController.clear();
-//        roleController.clear();
-//        emailController.clear();
-//        companyIdController.clear();
-//
-//        // Navigate back
-//        Navigator.pop(context);
-//      }
-//    },
-//  ),
-///old
-// CustomElevatedButton(
-//     width: 105,
-//     height: 31,
-//     text: 'Submit',
-//     onPressed: () async{
-//       await updateUserPatch(context,
-//           snapshot.data![index].userId,
-//           firstNameController.text,
-//           lastNameController.text,
-//           roleController.text,
-//           emailController.text,
-//           int.parse(companyIdController.text));
-//       getUser(context).then((data) {
-//         _companyUsersList.add(data);
-//       }).catchError((error) {
-//         // Handle error
-//       });
-//       Navigator.pop(context);
-//       userIdController.clear();
-//       firstNameController.clear();
-//       lastNameController.clear();
-//       roleController.clear();
-//       emailController.clear();
-//       companyIdController.clear();
-//     })
-///
-// CustomElevatedButton(
-//         width: 105,
-//         height: 31,
-//         text: 'Submit',
-//         onPressed: () async {
-//           await createUserPost(
-//               context,
-//               firstNameController.text,
-//               lastNameController.text,
-//               roleController.text,
-//               emailController.text,
-//               int.parse(
-//                   companyIdController
-//                       .text),
-//               passwordController.text);
-//           getUser(context).then((data) {
-//             _companyUsersList.add(data);
-//           }).catchError((error) {
-//             // Handle error
-//           });
-//           Navigator.pop(context);
-//           firstNameController.clear();
-//           lastNameController.clear();
-//           roleController.clear();
-//           emailController.clear();
-//           companyIdController.clear();
-//           passwordController.clear();
-//         })
