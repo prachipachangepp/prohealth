@@ -16,7 +16,6 @@ class AllCountyGet {
   final String? zipcodes;
   final bool? sucess;
   final String? message;
-
   AllCountyGet({required this.countyName,required this.state,required this.country,required this.zipcodes,required this.sucess,required this.message,});
 }
 

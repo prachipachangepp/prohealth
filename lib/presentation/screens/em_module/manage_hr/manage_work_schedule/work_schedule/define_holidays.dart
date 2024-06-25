@@ -74,7 +74,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           Container(
             height: 30,
