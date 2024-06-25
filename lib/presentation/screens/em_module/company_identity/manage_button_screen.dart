@@ -4,8 +4,22 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_adr.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_cap_reports.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_licence.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_medical_cost_report.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_quaterly_bal_report.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/ci_cc_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/ci_insurance.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_templates/ci_tempalets.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/zone.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/policies_procedures/policies_procedures.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/dme.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/leasas_services.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/md.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/misc.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/snf.dart';
 
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
@@ -40,23 +54,22 @@ class ManageWidget extends StatefulWidget {
 }
 
 class _ManageWidgetState extends State<ManageWidget> {
-  // final List<String> _categories = [
-  //
-  //   'Details',
-  //   'Zones',
-  //   'Insurance',
-  //   'Templates'
-  // ];
-  // final List<int> _categoriesInt = [
-  //   0,
-  //   1,
-  //   2,
-  //   3
-  // ];
+  final List<String> _categories = [
+    'Details',
+    'Zones',
+    'Insurance',
+    'Templates'
+  ];
+  final List<int> _categoriesInt = [
+    0,
+    1,
+    2,
+    3
+  ];
 
   final PageController _managePageController = PageController();
 
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   void _selectButton(int index) {
     setState(() {
@@ -69,18 +82,18 @@ class _ManageWidgetState extends State<ManageWidget> {
       curve: Curves.ease,
     );
   }
+int listIndex = 0 ;
+  void _listButton(int index) {
+    setState(() {
+      listIndex = index;
+    });
 
-  // void _listButton(int index) {
-  //   setState(() {
-  //     listIndex = index;
-  //   });
-  //
-  //   _managePageController.animateToPage(
-  //     index,
-  //     duration: Duration(milliseconds: 500),
-  //     curve: Curves.ease,
-  //   );
-  // }
+    _managePageController.animateToPage(
+      index,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
   @override
   void initState() {
     super.initState();
@@ -91,6 +104,7 @@ class _ManageWidgetState extends State<ManageWidget> {
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
+
 
   int docID = 1;
 
@@ -131,9 +145,6 @@ class _ManageWidgetState extends State<ManageWidget> {
                           size: 15,
                           color: ColorManager.mediumgrey,
                         )),
-                    // IconButton(icon: Icon(Icons.arrow_back_outlined,size: 15),color: ColorManager.mediumgrey, onPressed: () {
-                    //   Navigator.push(context, MaterialPageRoute(builder: (context)=> SMDesktop()));
-                    // }, ),
                     Text(
                       'Go Back',
                       style: GoogleFonts.firaSans(
@@ -147,190 +158,380 @@ class _ManageWidgetState extends State<ManageWidget> {
                   ],
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 24,
+                  width: MediaQuery.of(context).size.width / 34,
                 ),
-                FutureBuilder<List<DocumentTypeData>>(
-                    future: documentTypeGet(context),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<Widget> docList = [
-                          CustomButtonList(
-                            buttonText: 'Details',
-                            isSelected: _selectedIndex,
-                            docID: 4,
-                            onTap: () {
-                              _selectButton(4);
-                              docID = 4;
-                            },
-                          ),
-                          CustomButtonList(
-                            buttonText: 'Zones',
-                            isSelected: _selectedIndex,
-                            docID: 5,
-                            onTap: () {
-                              _selectButton(5);
-                              docID = 6;
-                            },
-                          ),
-                          CustomButtonList(
-                            buttonText: 'Insurance',
-                            isSelected: _selectedIndex,
-                            docID: 6,
-                            onTap: () {
-                              _selectButton(6);
-                              docID = 6;
-                            },
-                          ),
-                          CustomButtonList(
-                            buttonText: 'Templates',
-                            isSelected: _selectedIndex,
-                            docID: 7,
-                            onTap: () {
-                              _selectButton(7);
-                              docID = 7;
-                            },
-                          )
-                          // InkWell(
-                          //     child: Container(
-                          //       height: 30,
-                          //       width: MediaQuery.of(context).size.width / 8.62,
-                          //       padding: EdgeInsets.symmetric(vertical: 6),
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(20),
-                          //         color: widget.selectedIndex == snapshot.data![index].docID
-                          //             ? Colors.white
-                          //             : null,
-                          //       ),
-                          //       child: Text(
-                          //         snapshot.data![index].docType,
-                          //         textAlign: TextAlign.center,
-                          //         style: GoogleFonts.firaSans(
-                          //           fontSize: 12,
-                          //           fontWeight: FontWeightManager.semiBold,
-                          //           color: widget.selectedIndex == snapshot.data![index].docID
-                          //               ? ColorManager.mediumgrey
-                          //               : Colors.white,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     onTap: (){widget.selectButton(snapshot.data![index].docID);
-                          //     docID = snapshot.data![index].docID;}
-                          // );
-                        ];
-
-                        for (var a in snapshot.data!) {
-                          docList.add(CustomButtonList(
-                            buttonText: a.docType,
-                            isSelected: _selectedIndex,
-                            docID: a.docID,
-                            onTap: () {
-                              _selectButton(a.docID);
-                              docID = a.docID;
-                            },
-                          ));
-                        }
-                        return Material(
-                          elevation: 4,
-                          borderRadius: BorderRadius.circular(20),
-                          child: Container(
-                              height: 28,
-                              width: MediaQuery.of(context).size.width / 1.23,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: ColorManager.blueprime,
-                              ),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Expanded(
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: docList.length,
-                                        itemBuilder:
-                                            (BuildContext context, index) {
-                                          if (snapshot.hasData) {
-                                            return docList[index];
-                                            //   InkWell(
-                                            //     child: Container(
-                                            //       height: 30,
-                                            //       width: MediaQuery.of(context).size.width / 8.62,
-                                            //       padding: EdgeInsets.symmetric(vertical: 6),
-                                            //       decoration: BoxDecoration(
-                                            //         borderRadius: BorderRadius.circular(20),
-                                            //         color: widget.selectedIndex == snapshot.data![index].docID
-                                            //             ? Colors.white
-                                            //             : null,
-                                            //       ),
-                                            //       child: Text(
-                                            //         snapshot.data![index].docType,
-                                            //         textAlign: TextAlign.center,
-                                            //         style: GoogleFonts.firaSans(
-                                            //           fontSize: 12,
-                                            //           fontWeight: FontWeightManager.semiBold,
-                                            //           color: widget.selectedIndex == snapshot.data![index].docID
-                                            //               ? ColorManager.mediumgrey
-                                            //               : Colors.white,
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //     onTap: (){widget.selectButton(snapshot.data![index].docID);
-                                            //     docID = snapshot.data![index].docID;}
-                                            // );
-                                          }
-                                        },
+                Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(14),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width/1.2,height: 30,
+                  decoration: BoxDecoration(
+                      color: ColorManager.blueprime,
+                    borderRadius: BorderRadius.circular(14)
+                  ),
+                    child: Row(
+                      children: [
+                        InkWell(
+                                      child: Container(
+                                        height: 30,
+                                        width: MediaQuery.of(context).size.width / 8.62,
+                                        padding: EdgeInsets.symmetric(vertical: 6),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: _selectedIndex == 0
+                                              ? Colors.white
+                                              : null,
+                                        ),
+                                        child: Text(
+                                          'Details',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeightManager.semiBold,
+                                            color: _selectedIndex == 0
+                                                ? ColorManager.mediumgrey
+                                                : Colors.white,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    // Expanded(
-                                    //   child: ListView.builder(
-                                    //     scrollDirection: Axis.horizontal,
-                                    //     itemCount: _categories.length,
-                                    //     itemBuilder: (BuildContext context, int index) {
-                                    //       return InkWell(
-                                    //         child: Container(
-                                    //           height: 30,
-                                    //           width: MediaQuery.of(context).size.width / 8.62,
-                                    //           padding: EdgeInsets.symmetric(vertical: 6),
-                                    //           decoration: BoxDecoration(
-                                    //             borderRadius: BorderRadius.circular(20),
-                                    //             color: listIndex == _categoriesInt[index]
-                                    //                 ? Colors.white
-                                    //                 : null,
-                                    //           ),
-                                    //           child: Text(
-                                    //             _categories[index],
-                                    //             textAlign: TextAlign.start,
-                                    //             style: GoogleFonts.firaSans(
-                                    //               fontSize: 12,
-                                    //               fontWeight: FontWeightManager.semiBold,
-                                    //               color: listIndex == _categoriesInt[index]
-                                    //                   ? ColorManager.mediumgrey
-                                    //                   : Colors.white,
-                                    //             ),
-                                    //           ),
-                                    //         ),
-                                    //         onTap: () => _listButton(_categoriesInt[index]),
-                                    //       );
-                                    //     },
-                                    //
-                                    //   ),
-                                    // ),
-                                  ])
-                              // .toList(),
+                          onTap: () => _selectButton(0),
+                                  ),
+                        InkWell(
+                                      child: Container(
+                                        height: 30,
+                                        width: MediaQuery.of(context).size.width / 8.62,
+                                        padding: EdgeInsets.symmetric(vertical: 6),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: _selectedIndex == 1
+                                              ? Colors.white
+                                              : null,
+                                        ),
+                                        child: Text(
+                                          'Zone',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeightManager.semiBold,
+                                            color: _selectedIndex == 1
+                                                ? ColorManager.mediumgrey
+                                                : Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                          onTap: () => _selectButton(1),
+                                  ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 2
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Corporate & Compliance Documents',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 2
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
                               ),
-                        );
-                      } else {
-                        return const SizedBox(
-                          height: 1,
-                          width: 1,
-                        );
-                      }
-                    }),
+                            ),
+                          ),
+                          onTap: () => _selectButton(2),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 3
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Insurance',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 3
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(3),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 4
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Vendor Contracts',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 4
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(4),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 5
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Policies & Procedures',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 5
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(5),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 6
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Templates',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 6
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(6),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+                // FutureBuilder<List<DocumentTypeData>>(
+                //     future: documentTypeGet(context),
+                //     builder: (context, snapshot) {
+                //       if (snapshot.hasData) {
+                //         List<Widget> docList = [
+                //           CustomButtonList(
+                //             buttonText: 'Details',
+                //             isSelected: _selectedIndex,
+                //             docID: 4,
+                //             onTap: () {
+                //               _selectButton(4);
+                //               docID = 4;
+                //             },
+                //           ),
+                //           CustomButtonList(
+                //             buttonText: 'Zones',
+                //             isSelected: _selectedIndex,
+                //             docID: 5,
+                //             onTap: () {
+                //               _selectButton(5);
+                //               docID = 6;
+                //             },
+                //           ),
+                //           CustomButtonList(
+                //             buttonText: 'Insurance',
+                //             isSelected: _selectedIndex,
+                //             docID: 6,
+                //             onTap: () {
+                //               _selectButton(6);
+                //               docID = 6;
+                //             },
+                //           ),
+                //           CustomButtonList(
+                //             buttonText: 'Templates',
+                //             isSelected: _selectedIndex,
+                //             docID: 7,
+                //             onTap: () {
+                //               _selectButton(7);
+                //               docID = 7;
+                //             },
+                //           )
+                //           // InkWell(
+                //           //     child: Container(
+                //           //       height: 30,
+                //           //       width: MediaQuery.of(context).size.width / 8.62,
+                //           //       padding: EdgeInsets.symmetric(vertical: 6),
+                //           //       decoration: BoxDecoration(
+                //           //         borderRadius: BorderRadius.circular(20),
+                //           //         color: widget.selectedIndex == snapshot.data![index].docID
+                //           //             ? Colors.white
+                //           //             : null,
+                //           //       ),
+                //           //       child: Text(
+                //           //         snapshot.data![index].docType,
+                //           //         textAlign: TextAlign.center,
+                //           //         style: GoogleFonts.firaSans(
+                //           //           fontSize: 12,
+                //           //           fontWeight: FontWeightManager.semiBold,
+                //           //           color: widget.selectedIndex == snapshot.data![index].docID
+                //           //               ? ColorManager.mediumgrey
+                //           //               : Colors.white,
+                //           //         ),
+                //           //       ),
+                //           //     ),
+                //           //     onTap: (){widget.selectButton(snapshot.data![index].docID);
+                //           //     docID = snapshot.data![index].docID;}
+                //           // );
+                //         ];
+                //
+                //         for (var a in snapshot.data!) {
+                //           docList.add(CustomButtonList(
+                //             buttonText: a.docType,
+                //             isSelected: _selectedIndex,
+                //             docID: a.docID,
+                //             onTap: () {
+                //               _selectButton(a.docID);
+                //               docID = a.docID;
+                //             },
+                //           ));
+                //         }
+                //         return Material(
+                //           elevation: 4,
+                //           borderRadius: BorderRadius.circular(20),
+                //           child: Container(
+                //               height: 28,
+                //               width: MediaQuery.of(context).size.width / 1.23,
+                //               decoration: BoxDecoration(
+                //                 borderRadius: BorderRadius.circular(20),
+                //                 color: ColorManager.blueprime,
+                //               ),
+                //               child: Row(
+                //                   mainAxisAlignment:
+                //                       MainAxisAlignment.spaceEvenly,
+                //                   children: [
+                //                     // Expanded(
+                //                     //   child: ListView.builder(
+                //                     //     scrollDirection: Axis.horizontal,
+                //                     //     itemCount: docList.length,
+                //                     //     itemBuilder:
+                //                     //         (BuildContext context, index) {
+                //                     //       if (snapshot.hasData) {
+                //                     //         return docList[index];
+                //                     //         //   InkWell(
+                //                     //         //     child: Container(
+                //                     //         //       height: 30,
+                //                     //         //       width: MediaQuery.of(context).size.width / 8.62,
+                //                     //         //       padding: EdgeInsets.symmetric(vertical: 6),
+                //                     //         //       decoration: BoxDecoration(
+                //                     //         //         borderRadius: BorderRadius.circular(20),
+                //                     //         //         color: widget.selectedIndex == snapshot.data![index].docID
+                //                     //         //             ? Colors.white
+                //                     //         //             : null,
+                //                     //         //       ),
+                //                     //         //       child: Text(
+                //                     //         //         snapshot.data![index].docType,
+                //                     //         //         textAlign: TextAlign.center,
+                //                     //         //         style: GoogleFonts.firaSans(
+                //                     //         //           fontSize: 12,
+                //                     //         //           fontWeight: FontWeightManager.semiBold,
+                //                     //         //           color: widget.selectedIndex == snapshot.data![index].docID
+                //                     //         //               ? ColorManager.mediumgrey
+                //                     //         //               : Colors.white,
+                //                     //         //         ),
+                //                     //         //       ),
+                //                     //         //     ),
+                //                     //         //     onTap: (){widget.selectButton(snapshot.data![index].docID);
+                //                     //         //     docID = snapshot.data![index].docID;}
+                //                     //         // );
+                //                     //       }
+                //                     //     },
+                //                     //   ),
+                //                     // ),
+                //                     Expanded(
+                //                       child: ListView.builder(
+                //                         scrollDirection: Axis.horizontal,
+                //                         itemCount: _categories.length,
+                //                         itemBuilder: (BuildContext context, int index) {
+                //                           return InkWell(
+                //                             child: Container(
+                //                               height: 30,
+                //                               width: MediaQuery.of(context).size.width / 8.62,
+                //                               padding: EdgeInsets.symmetric(vertical: 6),
+                //                               decoration: BoxDecoration(
+                //                                 borderRadius: BorderRadius.circular(20),
+                //                                 color: listIndex == _categoriesInt[index]
+                //                                     ? Colors.white
+                //                                     : null,
+                //                               ),
+                //                               child: Text(
+                //                                 _categories[index],
+                //                                 textAlign: TextAlign.start,
+                //                                 style: GoogleFonts.firaSans(
+                //                                   fontSize: 12,
+                //                                   fontWeight: FontWeightManager.semiBold,
+                //                                   color: listIndex == _categoriesInt[index]
+                //                                       ? ColorManager.mediumgrey
+                //                                       : Colors.white,
+                //                                 ),
+                //                               ),
+                //                             ),
+                //                             onTap: () => _listButton(_categoriesInt[index]),
+                //                           );
+                //                         },
+                //
+                //                       ),
+                //                     ),
+                //                   ])
+                //               // .toList(),
+                //               ),
+                //         );
+                //       } else {
+                //         return const SizedBox(
+                //           height: 1,
+                //           width: 1,
+                //         );
+                //       }
+                //     }),
               ],
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           Expanded(
             flex: 10,
@@ -364,15 +565,15 @@ class _ManageWidgetState extends State<ManageWidget> {
                       // docID == 5 ?
                       //  CiZone():Offstage(),
                       // docID == 4 ?
-                      DocumentPageView(
-                        docID: docID,
-                      ),
-                      DocumentPageView(
-                        docID: docID,
-                      ),
-                      DocumentPageView(
-                        docID: docID,
-                      ),
+                      // DocumentPageView(
+                      //   docID: docID,
+                      // ),
+                      // DocumentPageView(
+                      //   docID: docID,
+                      // ),
+                      // DocumentPageView(
+                      //   docID: docID,
+                      // ),
                       CIDetailsScreen(
                         officeId: widget.officeID, docTD: docID,
                       ),
@@ -386,32 +587,33 @@ class _ManageWidgetState extends State<ManageWidget> {
                       //     nameList: ['County', 'Zone'],
                       //     screenList: [CIZoneCountry(), CIZoneZone()],
                       //     mediaQueryWidth: 3.5,),
+                      CiCorporateComplianceScreen(),
                       // CiPageview(
                       //     managePageController: _managePageController,
                       //     selectedIndex: _selectedIndex,
                       //     selectButton: _selectButton,
                       //     nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
                       //     screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
-                      //     mediaQueryWidth: 2),
-                      // CIInsurance(),
-                      // // CiPageview(
-                      // //   managePageController: _managePageController,
-                      // //   selectedIndex: _selectedIndex,
-                      // //   selectButton: _selectButton,
-                      // //   mediaQueryWidth: 3,
-                      // //   nameList: ['Vendor', 'Contracts'],
-                      // //   screenList: [CiInsuranceVendor(), CiInsuranceContract()],
-                      // // ),
+                      //     mediaQueryWidth: 2, docId: docID,),
+                      CIInsurance(),
                       // CiPageview(
                       //   managePageController: _managePageController,
                       //   selectedIndex: _selectedIndex,
                       //   selectButton: _selectButton,
-                      //   mediaQueryWidth: 2,
-                      //   nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
-                      //   screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
+                      //   mediaQueryWidth: 3,
+                      //   nameList: ['Vendor', 'Contracts'],
+                      //   screenList: [CiInsuranceVendor(), CiInsuranceContract()],
                       // ),
-                      // CiPoliciesAndProcedures(),
-                      // CiTempalets()
+                      CiPageview(
+                        managePageController: _managePageController,
+                        selectedIndex: _selectedIndex,
+                        selectButton: _selectButton,
+                        mediaQueryWidth: 2,
+                        nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
+                        screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()], docId: docID,
+                      ),
+                      CiPoliciesAndProcedures(docID: docID, subDocID: docID,),
+                      CiTempalets()
                     ]),
               ),
             ]),

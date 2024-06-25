@@ -240,7 +240,8 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                       },
                                       child: CIRoleContainerConstant(
                                         metaModule.mainModule,
-                                        AssetImage(metaModule.iconUrl.toString()),
+                                       // AssetImage(metaModule.iconUrl.toString()),
+                                        AssetImage('images/i_s.png'),
                                         borderColor: selectedContainers[0]
                                             ? ColorManager.blueprime
                                             : Colors.white,
