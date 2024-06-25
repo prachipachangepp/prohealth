@@ -106,14 +106,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   void openFile(PlatformFile file) {
     OpenFile.open(file.path!);
   }
-  //  String bucketId = "symmetry-office-document";
-  //  AwsS3Client s3client = AwsS3Client(
-  //   region: "us-west-2",
-  //   // host: "s3.eu-central-1.amazonaws.com",
-  //   bucketId: "symmetry-office-document",
-  //   accessKey: "AKIAU5UP6ITKKAGCXEXK",
-  //   secretKey: "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",
-  // );
+
 
   @override
   Widget build(BuildContext context) {
