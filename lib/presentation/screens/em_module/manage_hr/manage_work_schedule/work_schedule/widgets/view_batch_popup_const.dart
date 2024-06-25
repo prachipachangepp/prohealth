@@ -9,6 +9,8 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/add_batch_popup_const.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ViewBatchesPopup extends StatefulWidget {
@@ -28,6 +30,8 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
   StreamController<List<ShiftBachesData>>();
   late int currentPage;
   late int itemsPerPage;
+  TextEditingController startTimeController = TextEditingController();
+  TextEditingController endTimeController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -252,8 +256,55 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                         Row(
                                                           children: [
                                                             IconButton(onPressed: (){
+                                                              showDialog(
+                                                                  context: context,
+                                                                  builder: (BuildContext context) {
+                                                                    return FutureBuilder<ShiftBachesData>(
+                                                                      future: shiftPrefillBatchesGet(context, snapshot.data![index].shiftBatchScheduleId),
+                                                                      builder: (context,snapshotPrefill) {
+                                                                        var startTime = snapshotPrefill.data?.officeStartTime.toString();
+                                                                        var endTime = snapshotPrefill.data?.officeEndTime.toString();
+                                                                        startTimeController = TextEditingController(text: snapshotPrefill.data?.officeStartTime.toString());
+                                                                        endTimeController = TextEditingController(text: snapshotPrefill.data?.officeEndTime.toString());
+                                                                        return AddBatchPopup(
+                                                                          controller1: startTimeController,
+                                                                          controller2: endTimeController,
+                                                                          onPressed: () async{
+                                                                            await updateShiftBatch(context,
+                                                                                widget.shiftName, widget.companyId, widget.officeId,widget.weekName,
+                                                                                startTime == startTimeController.text ? startTime.toString() : startTimeController.text,
+                                                                                endTime == endTimeController.text ? endTime.toString() : endTimeController.text,
+                                                                                snapshot.data![index].shiftBatchScheduleId);
+                                                                            shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+                                                                              workWeekShiftBatchesController.add(data);
+                                                                            }).catchError((error) {
+                                                                              // Handle error
+                                                                            });
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                        );
+                                                                      }
+                                                                    );
+                                                                  });
                                                             }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                                            IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                            IconButton(onPressed: (){
+                                                              showDialog(
+                                                                  context: context,
+                                                                  builder: (context) =>
+                                                                      DeletePopup(
+                                                                          onCancel: () {
+                                                                            Navigator.pop(
+                                                                                context);
+                                                                          }, onDelete:
+                                                                          () async {
+                                                                            await deleteShiftBatch(context, snapshot.data![index].shiftBatchScheduleId);
+                                                                            shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+                                                                              workWeekShiftBatchesController.add(data);
+                                                                            }).catchError((error) {
+                                                                              // Handle error
+                                                                            });
+                                                                      }));
+                                                            }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
                                                           ],
                                                         )
                                                       ],

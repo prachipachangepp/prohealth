@@ -56,7 +56,7 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
   @override
   void initState() {
     super.initState();
-    payRatesDataGet(context, 1, 10).then((data) {
+    payRatesDataGet(context,11,1, 1, 10).then((data) {
       _roleMDropDownController.add(data);
     }).catchError((error) {
       // Handle error

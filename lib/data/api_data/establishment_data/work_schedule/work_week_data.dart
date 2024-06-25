@@ -48,7 +48,7 @@ class DefineHolidayData {
   final String message;
   final String holidayName;
   final String date;
-  final int? holidayId;
+  final int holidayId;
   final int? companyId;
 
   DefineHolidayData(
@@ -56,8 +56,27 @@ class DefineHolidayData {
       required this.message,
       required this.date,
       required this.holidayName,
-      this.holidayId,
+      required this.holidayId,
       this.companyId});
+}
+
+/// Get prefill Holidays
+/// Holiday Data
+class DefinePrefillHolidayData {
+  final bool success;
+  final String message;
+  final String holidayName;
+  final String date;
+  final int? holidayId;
+  final int? companyId;
+
+  DefinePrefillHolidayData(
+      {required this.success,
+        required this.message,
+        required this.date,
+        required this.holidayName,
+        this.holidayId,
+        this.companyId});
 }
 
 /// Get baches
