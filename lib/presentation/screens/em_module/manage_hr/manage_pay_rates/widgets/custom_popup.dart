@@ -80,8 +80,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       ),
                       SMTextFConst(
                         controller: widget.payRatesController,
-                        keyboardType:
-                        TextInputType.emailAddress,
+                        keyboardType: TextInputType.number,
                         text: 'Rate',
                       ),
                      // widget.child,

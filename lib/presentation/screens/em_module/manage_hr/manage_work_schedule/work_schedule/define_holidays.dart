@@ -73,6 +73,24 @@ class _DefineHolidaysState extends State<DefineHolidays> {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Positioned(
+            right: 40,
+            // top: 20,
+            child: CustomIconButtonConst(
+                icon: Icons.add,
+                text: "Add New Holiday", onPressed: (){
+              showDialog(context: context, builder: (BuildContext context){
+                return AddHolidayPopup(controller: holidayNameController, onPressed: () async{
+                  await addHolidaysPost(context, holidayNameController.text, calenderController.text, 2024, 11);
+                  holidaysListGet(context).then((data) {
+                    _controller.add(data);
+                  }).catchError((error) {
+                    // Handle error
+                  });
+                }, calenderDateController: calenderController,);
+              });
+            }),
+          ),
           SizedBox(
             height: 20,
           ),
@@ -237,24 +255,36 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                       context: context,
                                                       builder: (BuildContext
                                                           context) {
-                                                        return AddHolidayPopup(
-                                                          controller:
-                                                              holidayNameController,
-                                                          onPressed: ()  async{
-                                                            await updateHolidays(context, snapshot.data![index].holidayId!, holidayNameController.text, calenderController.text, 2024, 11);
-                                                            holidaysListGet(
-                                                                context)
-                                                                .then((data) {
-                                                              _controller
-                                                                  .add(data);
-                                                            }).catchError(
-                                                                    (error) {
-                                                                  // Handle error
-                                                                });
-                                                            Navigator.pop(context);
-                                                          },
-                                                          calenderDateController:
+                                                        return FutureBuilder<DefinePrefillHolidayData>(
+                                                          future: holidaysPrefillGet(context, snapshot.data![index].holidayId),
+                                                          builder: (context, snapshotPrefill) {
+                                                            var holidayName = snapshotPrefill.data?.holidayName.toString();
+                                                            var date = snapshotPrefill.data?.date.toString();
+                                                            holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
+                                                            calenderController = TextEditingController(text: snapshotPrefill.data?.date.toString());
+                                                            return AddHolidayPopup(
+                                                              controller:
+                                                                  holidayNameController,
+                                                              calenderDateController:
                                                               calenderController,
+                                                              onPressed: ()  async{
+                                                                await updateHolidays(context, snapshot.data![index].holidayId,
+                                                                    holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
+                                                                    date == calenderController.text ? date.toString() : calenderController.text, 2024, snapshot.data![index].companyId!);
+                                                                holidaysListGet(
+                                                                    context)
+                                                                    .then((data) {
+                                                                  _controller
+                                                                      .add(data);
+                                                                }).catchError(
+                                                                        (error) {
+                                                                      // Handle error
+                                                                    });
+                                                                Navigator.pop(context);
+                                                              },
+
+                                                            );
+                                                          }
                                                         );
                                                       });
                                                 },

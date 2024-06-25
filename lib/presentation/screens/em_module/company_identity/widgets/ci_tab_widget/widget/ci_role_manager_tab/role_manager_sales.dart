@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/role_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/role_manager/role_manager_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/widgets/ci_role_container_constant.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../../../app/resources/color.dart';
@@ -23,6 +27,8 @@ class RoleManagerSales extends StatefulWidget {
 class _RoleManagerSalesState extends State<RoleManagerSales> {
   List<bool> selectedContainers = List.generate(15, (_) => false);
   final StreamController<List<PayRateFinanceData>> _roleMDropDownController = StreamController<List<PayRateFinanceData>>();
+  final StreamController<List<ModuleMetaData>> roleMetaDataSaleController =
+  StreamController<List<ModuleMetaData>>();
 
   void toggleSelection(int index) {
     setState(() {
@@ -33,8 +39,13 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
   @override
   void initState() {
     super.initState();
-    payRatesDataGet(context,1,10).then((data) {
+    payRatesDataGet(context,11,1,1,10).then((data) {
       _roleMDropDownController.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
+    roleMabagerMetaData(context).then((data) {
+      roleMetaDataSaleController.add(data);
     }).catchError((error) {
       // Handle error
     });
@@ -56,7 +67,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Pick Employee',
+                    Text('Pick Employee Type',
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s10,
                         fontWeight: FontWeightManager.bold,
@@ -166,143 +177,84 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
           ),
           SizedBox(height: 20,),
           ///row 1
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () {
-                  toggleSelection(0);
-                },
-                child: CIRoleContainerConstant(
-                  'Referral Resource Manager',
-                  AssetImage("images/r_r_m.png"),
-                  borderColor: selectedContainers[0] ? ColorManager.blueprime : Colors.white,
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 20),
-              InkWell(
-                onTap: () {
-                  toggleSelection(1);
-                },
-                child: CIRoleContainerConstant(
-                  'Business Intelligence & Reports',
-                  AssetImage("images/b_i_r.png"),
-                  borderColor: selectedContainers[1] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 20),
-              InkWell(
-                onTap: () {
-                  toggleSelection(2);
-                },
-                child: CIRoleContainerConstant(
-                  'Intake & Scheduler',
-                  AssetImage("images/i_s.png"),
-                  borderColor: selectedContainers[2] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 20),
-              InkWell(
-                onTap: () {
-                  toggleSelection(3);
-                },
-                child: CIRoleContainerConstant(
-                  'Rehab',
-                  AssetImage("images/rehab.png"),
-                  borderColor: selectedContainers[3] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          /// row 2
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () {
-                  toggleSelection(4);
-                },
-                child: CIRoleContainerConstant(
-                  'Home Care',
-                  AssetImage("images/h_c.png"),
-                  borderColor: selectedContainers[4] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 20),
-              InkWell(
-                onTap: () {
-                  toggleSelection(5);
-                },
-                child: CIRoleContainerConstant(
-                  'Establishment Manager',
-                  AssetImage("images/e_m.png"),
-                  borderColor: selectedContainers[5] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 20),
-              InkWell(
-                onTap: () {
-                  toggleSelection(6);
-                },
-                child: CIRoleContainerConstant(
-                  'Human Resource Manager',
-                  AssetImage("images/h_r_m.png"),
-                  borderColor: selectedContainers[6] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 20),
-              InkWell(
-                onTap: () {
-                  toggleSelection(7);
-                },
-                child: CIRoleContainerConstant(
-                  'Home Health EMR',
-                  AssetImage("images/h_h_emr.png"),
-                  borderColor: selectedContainers[7] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          /// row 3
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () {
-                  toggleSelection(8);
-                },
-                child: CIRoleContainerConstant(
-                  'Hospice EMR',
-                  AssetImage("images/h_emr.png"),
-                  borderColor: selectedContainers[8] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 20),
-              InkWell(
-                onTap: () {
-                  toggleSelection(9);
-                },
-                child: CIRoleContainerConstant(
-                  'Finance',
-                  AssetImage("images/finance.png"),
-                  borderColor: selectedContainers[9] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 20),
-              InkWell(
-                onTap: () {
-                  toggleSelection(10);
-                },
-                child: CIRoleContainerConstant(
-                  'Other',
-                  AssetImage("images/other.png"),
-                  borderColor: selectedContainers[10] ? ColorManager.blueprime : Colors.transparent,
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 5),
-            ],
+          StreamBuilder<List<ModuleMetaData>>(
+              stream: roleMetaDataSaleController.stream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1,
+                        child: Center(
+                          child: Wrap(
+                              children: List.generate(10, (index){
+                                return Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 10),
+                                    child: Container(
+                                      height: MediaQuery.of(context).size.height / 5.3,
+                                      width: MediaQuery.of(context).size.width / 6.5,
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.faintGrey,
+                                        borderRadius: BorderRadius.all(Radius.circular(24)),
+                                      ),
+                                    )
+                                );
+                              })
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                      ),
+                    ),
+                  );
+                }
+                if(snapshot.hasData){
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1,
+                      child: Center(
+                        child: Wrap(
+                            children: List.generate(snapshot.data!.length, (index){
+                              var metaModule = snapshot.data![index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 10),
+                                child: InkWell(
+                                  onTap: () {
+                                    toggleSelection(0);
+                                  },
+                                  child: CIRoleContainerConstant(
+                                    metaModule.mainModule,
+                                    AssetImage(metaModule.iconUrl.toString()),
+                                    borderColor: selectedContainers[0]
+                                        ? ColorManager.blueprime
+                                        : Colors.white,
+                                  ),
+                                ),
+                              );
+                            })
+                        ),
+                      ),
+                    ),
+                  );
+                }else{
+                  return SizedBox();
+                }
+
+              }
           ),
           SizedBox(height: 40,),
           ///button

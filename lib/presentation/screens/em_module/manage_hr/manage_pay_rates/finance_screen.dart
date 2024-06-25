@@ -13,6 +13,7 @@ import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_v
 import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_pay_rates/widgets/custom_popup.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../app/resources/const_string.dart';
@@ -53,7 +54,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    payRatesDataGet(context,1,10).then((data) {
+    payRatesDataGet(context,11,1,1,10).then((data) {
       _payRatesController.add(data);
     }).catchError((error) {
       // Handle error
@@ -101,7 +102,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pick Employee',
+                      'Pick Employee Type',
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -215,8 +216,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     onChanged: (newValue) {
                                       for(var a in snapshot.data!){
                                         if(a.abbrivation == newValue){
-                                          // docType = a.employeeTypesId;
-                                          // empTypeId = docType;
+                                          docType = a.employeeTypesId;
+                                          empTypeId = docType;
                                         }
                                       }
                                     },
@@ -250,8 +251,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         context: context,
                         builder: (BuildContext context) {
                           return PayRatesPopup(
-                            child1: FutureBuilder<List<CiVisit>>(
-                                future: getVisit(context,1,10),
+                            child1: FutureBuilder<List<VisitListData>>(
+                                future: getVisitList(context),
                               builder: (context,snapshot) {
                                 if(snapshot.connectionState == ConnectionState.waiting){
                                   return Shimmer.fromColors(
@@ -283,8 +284,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   for(var i in snapshot.data!){
                                     dropDownZoneList.add(
                                       DropdownMenuItem<String>(
-                                        child: Text(i.typeofVisit),
-                                        value: i.typeofVisit,
+                                        child: Text(i.visitType),
+                                        value: i.visitType,
 
                                       ),
                                     );
@@ -293,8 +294,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       initialValue: dropDownZoneList[0].value,
                                       onChange: (val){
                                         for(var a in snapshot.data!){
-                                          if(a.visitId == val){
-                                            docType = a.visitId!;
+                                          if(a.visitType == val){
+                                            docType = a.visitId;
                                             docAddVisitTypeId = docType;
                                           }
                                         }
@@ -372,8 +373,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   1,
                                   docAddVisitTypeId,
                                   docZoneId,
-                              int.parse(payRatesController.text));
-                              payRatesDataGet(context,1,10).then((data) {
+                              int.parse(payRatesController.text),
+                              11);
+                              payRatesDataGet(context,11,1,1,10).then((data) {
                                 _payRatesController.add(data);
                               }).catchError((error) {
                                 // Handle error
@@ -515,8 +517,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                             return PayRatesPopup(
                                               child1: IgnorePointer(
                                                 ignoring: true,
-                                                child: FutureBuilder<List<CiVisit>>(
-                                                    future:getVisit(context,1,10),
+                                                child: FutureBuilder<List<VisitListData>>(
+                                                    future:getVisitList(context),
                                                     builder: (context,snapshot) {
                                                       if(snapshot.connectionState == ConnectionState.waiting){
                                                         return Shimmer.fromColors(
@@ -548,8 +550,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                         for(var i in snapshot.data!){
                                                           dropDownZoneList.add(
                                                             DropdownMenuItem<String>(
-                                                              child: Text(i.typeofVisit!),
-                                                              value: i.typeofVisit,
+                                                              child: Text(i.visitType!),
+                                                              value: i.visitType,
                                                             ),
                                                           );
                                                         }
@@ -558,8 +560,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                             onChange: (val){
                                                               for(var a in snapshot.data!){
                                                                 if(a.visitId == val){
-                                                                  docType = a.visitId!;
-                                                                  docZoneId = docType;
+                                                                  docType = a.visitId;
+                                                                  docVisitTypeId = docType;
                                                                 }
                                                               }
                                                               print(":::${docType}");
@@ -630,14 +632,15 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                               ),
                                               payRatesController: payRatesController,
                                               onPressed: () async{
-                                                // await addPayRatesSetupPost(
-                                                //     context,
-                                                //     1,
-                                                //     1,
-                                                //     1,
-                                                //     docZoneId,
-                                                //     int.parse(payRatesController.text));
-                                                payRatesDataGet(context,1,10).then((data) {
+                                                await addPayRatesSetupPost(
+                                                    context,
+                                                    1,
+                                                    1,
+                                                    docVisitTypeId,
+                                                    docZoneId,
+                                                    int.parse(payRatesController.text),
+                                                    11);
+                                                payRatesDataGet(context,11,1,1,10).then((data) {
                                                   _payRatesController.add(data);
                                                 }).catchError((error) {
                                                   // Handle error
@@ -653,7 +656,23 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       ),
                                     ),
                                     IconButton(onPressed: (){
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              DeletePopup(
+                                                  onCancel: () {
+                                                    Navigator.pop(
+                                                        context);
+                                                  }, onDelete:
+                                                  () async {
+                                                await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
+                                                payRatesDataGet(context,11,1,1,10).then((data) {
+                                                  _payRatesController.add(data);
+                                                }).catchError((error) {
+                                                  // Handle error
+                                                });
 
+                                              }));
                                     }, icon: Icon(
                                       Icons.delete_outline_outlined,
                                       size: 18,color: ColorManager.red,))

@@ -199,11 +199,50 @@ Future<List<DefineHolidayData>> holidaysListGet(BuildContext context) async {
             date: formattedDate,
             holidayName: item['holidayName'],
             holidayId: item['holidayId'],
-            companyId: 11));
+            companyId: item['companyId']));
       }
       print("Response::::::${itemsData}");
     } else {
       print("Holidays Api Data Error");
+    }
+    return itemsData;
+  } catch (e) {
+    return itemsData;
+  }
+}
+/// Get holiday prefill list
+Future<DefinePrefillHolidayData> holidaysPrefillGet(BuildContext context,int holidayId) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('dd MMM yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+  var itemsData;
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.holidaysPrefillGet(holidayId: holidayId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+
+        String formattedDate = convertIsoToDayMonthYear(response.data['date']);
+        itemsData = DefinePrefillHolidayData(
+            success: true,
+            message: response.statusMessage!,
+            date: formattedDate,
+            holidayName: response.data['holidayName'],
+            holidayId: response.data['holidayId'],
+            companyId: response.data['companyId']);
+
+      print("Response::::::${itemsData}");
+    } else {
+      print("Holidays Api prefill Data Error");
     }
     return itemsData;
   } catch (e) {
@@ -349,19 +388,18 @@ Future<ShiftBachesData> shiftPrefillBatchesGet(
         path: EstablishmentManagerRepository.getShiftPrefillBatches(
             shiftBatchId: shiftBatchId));
     if (response.statusCode == 200 || response.statusCode == 201) {
-      for (var item in response.data) {
+
         itemsData =
             ShiftBachesData(
-            shiftBatchScheduleId: item['ShiftBatchScheduleId'],
-            weekDay: item['weekDay'],
-            shiftName: item['shiftName'],
-            officeStartTime: item['officeStartTime'],
-            officeEndTime: item['officeEndTime'],
-            companyId: item['companyId'],
-            officeId: item['officeId'],
+            shiftBatchScheduleId: response.data['ShiftBatchScheduleId'],
+            weekDay: response.data['weekDay'],
+            shiftName: response.data['shiftName'],
+            officeStartTime: response.data['officeStartTime'],
+            officeEndTime: response.data['officeEndTime'],
+            companyId: response.data['companyId'],
+            officeId: response.data['officeId'],
             success: true,
             message: response.statusMessage!);
-      }
 
     } else {
       print("Api Shift batch Data Error");
@@ -378,6 +416,40 @@ Future<ApiData> addShiftBatch(BuildContext context,
   try {
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.addShiftBatches(),
+        data: {
+          "weekDay": weekDay,
+          "shiftName": shiftName,
+          "officeStartTime": batchStartTime,
+          "officeEndTime": batchEndTime,
+          "companyId": companyId,
+          "officeId": officeId
+        });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Batch added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error1111 $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// update batch
+Future<ApiData> updateShiftBatch(BuildContext context,
+    String shiftName,int companyId, String officeId, String weekDay,String batchStartTime,String batchEndTime,int shiftBatchScheduleId) async {
+  try {
+    var response = await Api(context).patch(
+        path: EstablishmentManagerRepository.modifyShiftBatches(shiftBatchScheduleId: shiftBatchScheduleId),
         data: {
           "weekDay": weekDay,
           "shiftName": shiftName,
@@ -405,4 +477,32 @@ Future<ApiData> addShiftBatch(BuildContext context,
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+/// delete batch
+Future<ApiData> deleteShiftBatch(BuildContext context,int shiftBatchScheduleId) async {
+  try {
+    var response = await Api(context).delete(
+        path: EstablishmentManagerRepository.modifyShiftBatches(shiftBatchScheduleId: shiftBatchScheduleId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Batch deleted");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error1111 $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+
 
