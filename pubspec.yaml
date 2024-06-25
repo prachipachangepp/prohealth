@@ -53,7 +53,15 @@ dependencies:
   open_file: any
   amplify_flutter: any
   amplify_storage_s3: any
-  flutter_aws_s3_client: ^0.6.0
+  flutter_aws_s3_client: ^0.5.2
+  http: ^0.13.3
+  aws_s3_upload: any
+  amplify_core: ^1.0.0
+  crypto: ^3.0.0
+  amplify_auth_cognito: ^1.8.0
+  permission_handler: ^11.3.1
+  flutter_dotenv: ^5.0.2
+
 
 
 
@@ -62,11 +70,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the

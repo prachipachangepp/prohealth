@@ -32,7 +32,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
 
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   String _selectedItem = 'Corporate & Compliance Documents';
   void _onDropdownItemSelected(String newValue) {
     setState(() {
