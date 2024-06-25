@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -11,7 +12,10 @@ import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../company_identity_screen.dart';
 
 class CiZone extends StatefulWidget {
-  const CiZone({super.key});
+  final int companyID;
+  final String officeId;
+  final int docId;
+  const CiZone({super.key, required this.companyID, required this.officeId, required this.docId});
 
   @override
   State<CiZone> createState() => _CiOrgDocumentState();
@@ -51,8 +55,7 @@ class _CiOrgDocumentState extends State<CiZone> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _selectedIndex == 0 ?
-              SizedBox(width: 354,):
+              _selectedIndex ==  1?
               Container(
                 height: 30,
                 width: 354,
@@ -95,13 +98,14 @@ class _CiOrgDocumentState extends State<CiZone> {
                     decoration: TextDecoration.none,
                   ),
                 ),
-              ),
+              ) :
+              SizedBox(width: 354,),
               ///tabbar
               Padding(
-                padding: const EdgeInsets.only(right: 250),
+                padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/7),
                 child: Container(
                   //color: Colors.greenAccent,
-                  width: MediaQuery.of(context).size.width/7,
+                  width: MediaQuery.of(context).size.width/5.5,
                   height: 40,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,11 +114,11 @@ class _CiOrgDocumentState extends State<CiZone> {
                         onTap: () => _selectButton(0),
                         child: Container(
                           height: 40,
-                          width: 80,
+                          width: MediaQuery.of(context).size.width/20,
                           child: Column(
                             children: [
                               Text(
-                                "County",
+                                "Zone",
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: _selectedIndex == 0
@@ -135,11 +139,11 @@ class _CiOrgDocumentState extends State<CiZone> {
                         onTap: () => _selectButton(1),
                         child: Container(
                           height: 40,
-                          width: 80,
+                          width: MediaQuery.of(context).size.width/20,//80,
                           child: Column(
                             children: [
                               Text(
-                                "Zone",
+                                "County",
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: _selectedIndex == 1
@@ -160,11 +164,11 @@ class _CiOrgDocumentState extends State<CiZone> {
                         onTap: () => _selectButton(2),
                         child: Container(
                           height: 40,
-                          width: 80,
+                          width:MediaQuery.of(context).size.width/20,// 80,
                           child: Column(
                             children: [
                               Text(
-                                "Zone",
+                                "Zip Code",
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: _selectedIndex == 2
@@ -193,14 +197,33 @@ class _CiOrgDocumentState extends State<CiZone> {
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
                     onSavePressed: (){},
-                    title1: AppStringEM.countyName,
+                    title1: 'Zone Number',
                     countynameController: countynameController,
                     title2: AppStringEM.zipCode,
                     zipcodeController: zipcodeController,
-                    title3: AppStringEM.map,
+                    title3: 'County',
                     mapController: mapController,
-                    title4:AppStringEM.landmark,
-                    landmarkController: landmarkController, );
+                    // title4:'Cities',
+                    // landmarkController: landmarkController,
+                  );
+                });
+              }) :
+              _selectedIndex == 1 ?
+              CustomIconButtonConst(
+                  icon: Icons.add,
+                  text: "Add", onPressed: (){
+                showDialog(context: context, builder: (context){
+                  return CIZoneAddPopup(
+                    onSavePressed: (){},
+                    title1: 'County Name',
+                    countynameController: countynameController,
+                    title2: 'Zip Code',
+                    zipcodeController: zipcodeController,
+                    title3: 'Map',
+                    mapController: mapController,
+                    // title4: 'Landmark',
+                    // landmarkController: landmarkController,
+                  );
                 });
               }) :
               CustomIconButtonConst(
@@ -209,77 +232,17 @@ class _CiOrgDocumentState extends State<CiZone> {
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
                     onSavePressed: (){},
-                    title1: 'Zone Number',
+                    title1: 'City Name',
                     countynameController: countynameController,
-                    title2: 'Zip Codes',
+                    title2: 'Zip Code',
                     zipcodeController: zipcodeController,
-                    title3: 'Cities',
+                    title3: 'Map',
                     mapController: mapController,
-                    landmarkController: landmarkController, title4: 'Landmark',
+                    title4: 'Landmark',
+                    landmarkController: landmarkController,
                   );
                 });
-              }),
-              // Align(
-              //     alignment: Alignment.bottomRight,
-              //     child: Material(
-              //       elevation: 3,
-              //       borderRadius: BorderRadius.circular(20),
-              //       child: Container(
-              //         height: 30,
-              //         width: 150,
-              //         child: CustomIconButton(
-              //             icon: CupertinoIcons.plus,
-              //             text: "Add Document",
-              //             onPressed: () {
-              //               showDialog(
-              //                   context: context,
-              //                   builder: (context) {
-              //                     return AddOrgDocButton(
-              //                       idDocController: docIdController,
-              //                       nameDocController: docNamecontroller,
-              //
-              //                       child: CICCDropdown(
-              //                         initialValue:
-              //                         'Corporate & Compliance Documents',
-              //                         items: [
-              //                           DropdownMenuItem(
-              //                               value:
-              //                               'Corporate & Compliance Documents',
-              //                               child: Text(
-              //                                   'Corporate & Compliance Documents')),
-              //                           DropdownMenuItem(
-              //                               value: 'HCO Number      254612',
-              //                               child: Text('HCO Number  254612')),
-              //                           DropdownMenuItem(
-              //                               value: 'Medicare ID      MPID123',
-              //                               child: Text('Medicare ID  MPID123')),
-              //                           DropdownMenuItem(
-              //                               value: 'NPI Number     1234567890',
-              //                               child: Text('NPI Number 1234567890')),
-              //                         ],
-              //                       ),
-              //                       child1: CICCDropdown(
-              //                         initialValue: 'Licenses',
-              //                         items: [
-              //                           DropdownMenuItem(
-              //                               value: 'Licenses',
-              //                               child: Text('Licenses')),
-              //                           DropdownMenuItem(
-              //                               value: 'HCO Number      254612',
-              //                               child: Text('HCO Number  254612')),
-              //                           DropdownMenuItem(
-              //                               value: 'Medicare ID      MPID123',
-              //                               child: Text('Medicare ID  MPID123')),
-              //                           DropdownMenuItem(
-              //                               value: 'NPI Number     1234567890',
-              //                               child: Text('NPI Number 1234567890')),
-              //                         ],
-              //                       ),
-              //                     );
-              //                   });
-              //             }),
-              //       ),
-              //     )),
+              })
             ],
           ),
         ),
@@ -299,9 +262,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                   },
                   children: [
                     // Page 1
-                    CIZoneCountry(),
-                    CIZoneZone(),
-                    CiZoneZipcode()
+                    CIZoneZone(companyID: widget.companyID, officeId: widget.officeId,),
+                    CIZoneCountry(companyID: widget.companyID, officeId: widget.officeId,),
+                    CiZoneZipcode(companyID: widget.companyID, officeId: widget.officeId,)
                   ],
                 ),
               ),

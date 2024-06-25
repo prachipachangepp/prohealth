@@ -37,7 +37,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  final StreamController<List<HRClinical>> _controller = StreamController<List<HRClinical>>();
+  final StreamController<List<HRAllData>> _controller = StreamController<List<HRAllData>>();
 
   late int currentPage;
   late int itemsPerPage;
@@ -48,11 +48,11 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 10;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    companyAllHrClinicApi(context).then((data){
+    getAllHrDeptWise(context,widget.deptId).then((data){
       _controller.add(data);
     }).catchError((error){});
   }
@@ -71,8 +71,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   }
   String seletedType = "Sales";
   String color ="#77D2EC";
-  int docTypeMetaId = 0;
-  int doceEditMetaId =0;
+  int docTypeMetaId = 2;
+  int doceEditMetaId =2;
   void onChange(String seletedTypeEmp){
     setState(() {
       seletedType = seletedTypeEmp;
@@ -100,25 +100,39 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomIconButtonConst(
-            text: AppStringEM.addemployeetype,
+            text: AppString.addemployeetype,
             icon: Icons.add,
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return CustomPopupWidget(
-                    nameController: typeController,
-                    addressController: shorthandController,
+                    typeController: typeController,
+                    abbreviationController: shorthandController,
+                    containerColor: containerColors[1],
                     onAddPressed: () async {
-                      await addEmployeeTypePost(context,docTypeMetaId,typeController.text,color,shorthandController.text);
-                      companyAllHrClinicApi(context).then((data){
+                      await addEmployeeTypePost(context,docTypeMetaId,
+                          typeController.text,
+                          color,shorthandController.text);
+                      getAllHrDeptWise(context,widget.deptId).then((data){
                         _controller.add(data);
                       }).catchError((error){});
                       Navigator.pop(context);
+                      typeController.clear();
+                      shorthandController.clear();
                     },
-                    containerColor: ColorManager.sfaintOrange, onColorChanged: (Color selectedColor) {
-                    color = selectedColor.toString().substring(10,16);
-                  },
+                    onColorChanged: (Color seletedColor) {
+                      setState(() {
+                        containerColors[1] = seletedColor;
+                        color = seletedColor.toString().substring(10,16);
+                        _saveColor(1, seletedColor);
+                      });
+                    },
+                    //   containerColor: ColorManager.sfaintOrange,
+                    //   onColorChanged: (Color selectedColor) {
+                    //   color = selectedColor.toString().substring(10,16);
+                    // },
+
                     child: FutureBuilder<List<HRHeadBar>>(
                         future: companyHRHeadApi(context,widget.deptId),
                         builder: (context,snapshot) {
@@ -129,7 +143,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                 child: Container(
                                   width: 350,
                                   height: 30,
-                                  decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                  decoration: BoxDecoration(color:
+                                  ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
                                 )
                             );
                           }
@@ -243,7 +258,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
         ),
         Expanded(
           child:
-          StreamBuilder<List<HRClinical>>(
+          StreamBuilder<List<HRAllData>>(
             stream: _controller.stream,
             builder: (context, snapshot) {
               print('1111111');
@@ -269,7 +284,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
               if (snapshot.hasData) {
                 int totalItems = snapshot.data!.length;
                 // int totalPages = (totalItems / itemsPerPage).ceil();
-                List<HRClinical> currentPageItems =
+                List<HRAllData> currentPageItems =
                 snapshot.data!.sublist(
                   (currentPage - 1) * itemsPerPage,
                   (currentPage * itemsPerPage) > totalItems
@@ -352,7 +367,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                                   type == typeController.text ? type.toString() : typeController.text,
                                                   shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
                                                   color);
-                                              companyAllHrClinicApi(context).then((data){
+                                              getAllHrDeptWise(context,widget.deptId).then((data){
                                                 _controller.add(data);
                                               }).catchError((error){});
                                               Navigator.pop(context);
@@ -366,7 +381,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                                 color = seletedColor.toString().substring(10,16);
                                                 _saveColor(index, seletedColor);
                                               });
-                                            }, child:  FutureBuilder<List<HRHeadBar>>(
+                                            },
+                                            child:  FutureBuilder<List<HRHeadBar>>(
                                               future: companyHRHeadApi(context,widget.deptId),
                                               builder: (context,snapshot) {
                                                 if(snapshot.connectionState == ConnectionState.waiting){
@@ -405,7 +421,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                                     );
                                                   }
                                                   return CICCDropdown(
-                                                      initialValue: dropDownMenuItems[0].value,
+                                                      initialValue: dropDownMenuItems[1].value,
                                                       onChange: (val){
                                                         for(var a in snapshot.data!){
                                                           if(a.deptName == val){
@@ -447,7 +463,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                         }, onDelete: () async {
                                       await  allfromHrDelete(
                                           context, snapshot.data![index].employeeTypesId!);
-                                      companyAllHrClinicApi(context).then((data){
+                                      getAllHrDeptWise(context,widget.deptId).then((data){
                                         _controller.add(data);
                                       }).catchError((error){});
                                       Navigator.pop(context);

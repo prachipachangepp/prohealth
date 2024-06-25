@@ -31,7 +31,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
   TextEditingController typeController = TextEditingController();
   TextEditingController shorthandController = TextEditingController();
   AdministrativeData administrativeData = AdministrativeData();
-  final StreamController<List<HRClinical>> _controller = StreamController<List<HRClinical>>();
+  final StreamController<List<HRAllData>> _controller = StreamController<List<HRAllData>>();
 
   late int currentPage;
   late int itemsPerPage;
@@ -46,7 +46,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
     administrativeData.loadEmployeeData();
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    companyAllHrClinicApi(context).then((data){
+    getAllHrDeptWise(context,widget.deptId).then((data){
       _controller.add(data);
     }).catchError((error){});
   }
@@ -74,8 +74,8 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('containerColor$index', color.value);
   }
-  int docMetaId =0;
-  int doceEditMetaId=0;
+  int docMetaId =3;
+  int doceEditMetaId=3;
 
   @override
   Widget build(BuildContext context) {
@@ -91,19 +91,32 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                 context: context,
                 builder: (BuildContext context) {
                   return CustomPopupWidget(
-                    nameController: typeController,
-                    addressController: shorthandController,
+                    typeController: typeController,
+                    abbreviationController: shorthandController,
+                    containerColor: containerColors[1],
                     onAddPressed: () async {
-                      await addEmployeeTypePost(context,docMetaId,typeController.text,color,shorthandController.text);
-                      companyAllHrClinicApi(context).then((data){
+                      await addEmployeeTypePost(context,docMetaId,
+                          typeController.text,
+                          color,shorthandController.text);
+                      getAllHrDeptWise(context,widget.deptId).then((data){
                         _controller.add(data);
                       }).catchError((error){});
                       Navigator.pop(context);
+                      typeController.clear();
+                      shorthandController.clear();
                     },
-                      containerColor: containerColors[1], onColorChanged: (Color selectedColor) {
-                    color = selectedColor.toString().substring(10,16);
-                    _saveColor(1, selectedColor);
-                  },
+                    onColorChanged: (Color seletedColor) {
+                      setState(() {
+                        containerColors[1] = seletedColor;
+                        color = seletedColor.toString().substring(10,16);
+                        _saveColor(1, seletedColor);
+                      });
+                    },
+                    //   containerColor: ColorManager.sfaintOrange,
+                    //   onColorChanged: (Color selectedColor) {
+                    //   color = selectedColor.toString().substring(10,16);
+                    // },
+
                     child: FutureBuilder<List<HRHeadBar>>(
                         future: companyHRHeadApi(context,widget.deptId),
                         builder: (context,snapshot) {
@@ -220,7 +233,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
         ),
         Expanded(
           child:
-          StreamBuilder<List<HRClinical>>(
+          StreamBuilder<List<HRAllData>>(
             stream: _controller.stream,
             builder: (context, snapshot) {
               print('1111111');
@@ -246,7 +259,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
               if (snapshot.hasData) {
                 int totalItems = snapshot.data!.length;
                 // int totalPages = (totalItems / itemsPerPage).ceil();
-                List<HRClinical> currentPageItems =
+                List<HRAllData> currentPageItems =
                 snapshot.data!.sublist(
                   (currentPage - 1) * itemsPerPage,
                   (currentPage * itemsPerPage) > totalItems
@@ -385,7 +398,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                                 type == typeController.text ? type.toString() : typeController.text,
                                                 shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
                                                 color);
-                                            companyAllHrClinicApi(context).then((data){
+                                            getAllHrDeptWise(context,widget.deptId).then((data){
                                               _controller.add(data);
                                             }).catchError((error){});
                                             Navigator.pop(context);
@@ -438,7 +451,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                                   );
                                                 }
                                                 return CICCDropdown(
-                                                    initialValue: dropDownMenuItems[0].value,
+                                                    initialValue: dropDownMenuItems[2].value,
                                                     onChange: (val){
                                                       for(var a in snapshot.data!){
                                                         if(a.deptName == val){
@@ -480,8 +493,8 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                           Navigator.pop(context);
                                         }, onDelete: () async {
                                       await  allfromHrDelete(
-                                          context, snapshot.data![index].employeeTypesId!);
-                                      companyAllHrClinicApi(context).then((data){
+                                          context, snapshot.data![index].employeeTypesId);
+                                      getAllHrDeptWise(context,widget.deptId).then((data){
                                         _controller.add(data);
                                       }).catchError((error){});
                                       Navigator.pop(context);

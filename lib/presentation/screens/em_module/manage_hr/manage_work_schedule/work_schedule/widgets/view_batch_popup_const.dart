@@ -1,17 +1,42 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/work_schedule_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ViewBatchesPopup extends StatefulWidget {
-  const ViewBatchesPopup({super.key});
+  final String shiftName;
+  final String weekName;
+  final String officeId;
+  final int companyId;
+  const ViewBatchesPopup({super.key, required this.shiftName, required this.weekName, required this.officeId, required this.companyId});
 
   @override
   State<ViewBatchesPopup> createState() => _ViewBatchesPopupState();
 }
 
 class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
+  final StreamController<List<ShiftBachesData>>
+  workWeekShiftBatchesController =
+  StreamController<List<ShiftBachesData>>();
+  late int currentPage;
+  late int itemsPerPage;
+  @override
+  void initState() {
+    super.initState();
+    shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+      workWeekShiftBatchesController.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -24,174 +49,233 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Batches",style: GoogleFonts.firaSans(
-                    fontSize: FontSize.s16,
-                    fontWeight: FontWeightManager.bold,
-                    color: ColorManager.mediumgrey,
-                    decoration: TextDecoration.none,
-                  ),),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Sr No.',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                          Text('Start Time',textAlign: TextAlign.start,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                decoration: TextDecoration.none,
-                              )),
-                          Text('End Time',textAlign: TextAlign.start,
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                decoration: TextDecoration.none,
-                              )),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Text('Actions',
-                                textAlign: TextAlign.start,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                )),
-                          ),
-                        ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                        child: Text("Batches",style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s16,
+                          fontWeight: FontWeightManager.bold,
+                          color: ColorManager.blueprime,
+                          decoration: TextDecoration.none,
+                        ),),
                       ),
-                    ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height/1.5,
-                    child:
-                    ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: 15,
-                        itemBuilder: (context, index) {
-                          // int serialNumber =
-                          //     index + 1 + (currentPage - 1) * itemsPerPage;
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // SizedBox(height: 5),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(4),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0xff000000).withOpacity(0.25),
-                                          spreadRadius: 0,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 2),
+                  StreamBuilder<List<ShiftBachesData>>(
+                      stream: workWeekShiftBatchesController.stream,
+                      builder: (context, snapshot) {
+                        if(snapshot.connectionState == ConnectionState.waiting){
+                          return Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child:  Container(
+                              height:MediaQuery.of(context).size.height/1.5,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: 10,
+                                  itemBuilder: (context, index) {
+                                    // int serialNumber =
+                                    //     index + 1 + (currentPage - 1) * itemsPerPage;
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        // SizedBox(height: 5),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.faintGrey,
+                                                borderRadius: BorderRadius.circular(4),
+                                              ),
+                                              height: 50),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                            ),
+                          );
+                        }
+                        if (snapshot.data!.isEmpty) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 100),
+                            child: Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        if(snapshot.hasData){
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: AppPadding.p3,
+                              horizontal: AppPadding.p20,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          'Sr No.',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                        //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                        Text('Start Time',textAlign: TextAlign.start,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                              decoration: TextDecoration.none,
+                                            )),
+                                        Text('End Time',textAlign: TextAlign.start,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                              decoration: TextDecoration.none,
+                                            )),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 10),
+                                          child: Text('Actions',
+                                              textAlign: TextAlign.start,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                                decoration: TextDecoration.none,
+                                              )),
                                         ),
                                       ],
                                     ),
-                                    height: 50,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            "0",
-                                            // formattedSerialNumber,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  height: MediaQuery.of(context).size.height/1.5,
+                                  child:
+                                  ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: snapshot.data!.length,
+                                      itemBuilder: (context, index) {
+                                        int serialNumber =
+                                            index + 1 + (currentPage - 1) * itemsPerPage;
+                                        String formattedSerialNumber =
+                                        serialNumber.toString().padLeft(2, '0');
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            // SizedBox(height: 5),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(4),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: const Color(0xff000000).withOpacity(0.25),
+                                                        spreadRadius: 0,
+                                                        blurRadius: 4,
+                                                        offset: const Offset(0, 2),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  height: 50,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.spaceAround,
+                                                      children: [
+                                                        Text(
+                                                          formattedSerialNumber,
+                                                          // formattedSerialNumber,
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: const Color(0xff686464),
+                                                            decoration: TextDecoration.none,
+                                                          ),
+                                                        ),
+                                                        // Text(''),
+                                                        Text(
+                                                          snapshot.data![index].officeStartTime,textAlign:TextAlign.center,
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: const Color(0xff686464),
+                                                            decoration: TextDecoration.none,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          snapshot.data![index].officeEndTime,textAlign:TextAlign.center,
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: const Color(0xff686464),
+                                                            decoration: TextDecoration.none,
+                                                          ),
+                                                        ),
+                                                        //  Text(''),
+                                                        Row(
+                                                          children: [
+                                                            IconButton(onPressed: (){
+                                                            }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                                            IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )),
                                             ),
-                                          ),
-                                          // Text(''),
-                                          Text(
-                                            "1:00 PM",textAlign:TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          Text(
-                                            "4:00 PM",textAlign:TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          //  Text(''),
-                                          Row(
-                                            children: [
-                                              IconButton(onPressed: (){
-                                              }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                              IconButton(onPressed: (){}, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                              ),
-                            ],
+                                          ],
+                                        );
+                                      }),
+                                ),
+                              ],
+                            ),
                           );
-                        }),
+                        }
+                        else{
+                          return const SizedBox();
+                        }
+
+                    }
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

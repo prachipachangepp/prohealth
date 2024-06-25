@@ -265,6 +265,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                               nameDocController: docNamecontroller,
                                               calenderController: dateController,
                                               onSavePredded: () async{
+
                                                 await editEmployeeDocTypeSetupId(context,
                                                       docNamecontroller.text,
                                                       expiryType.toString(),
@@ -272,15 +273,18 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                       snapshot.data![index].employeeDocTypesetupId!,
                                                       docMetaId,
                                                     );
-                                                // await addEmployeeDocSetup(context,
-                                                //     docMetaId,
-                                                //     nameDocController.text,
-                                                //     expiryType.toString(),
-                                                //     dateController.text);
                                                 Navigator.pop(context);
                                                 nameDocController.clear();
                                                 dateController.clear();
+                                                Future.delayed(
+                                                    Duration(
+                                                        seconds: 2),
+                                                        () {
+                                                      print(
+                                                          'Submit action completed!');
+                                                    });
                                               },
+
                                               radioButton: StatefulBuilder(
                                                 builder: (BuildContext context, void Function(void Function()) setState) {
                                                   return Column(
@@ -361,22 +365,15 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                             print(":::<>${docMetaId}");
                                                           },
                                                           items:dropDownMenuItems
-                                                        // dropDownMenuItems.map<DropdownMenuItem<String>>((value) {
-                                                        //   return dropDownMenuItems;
-                                                        // }).toList(),
-                                                        // DropdownMenuItem(value: 'Health', child: Text('Health')),
-                                                        // [
-                                                        //   DropdownMenuItem(value: 'Health', child: Text('Health')),
-                                                        //   DropdownMenuItem(value: 'Certification', child: Text('Certification')),
-                                                        //   DropdownMenuItem(value: 'Employment', child: Text('Employment')),
-                                                        //   DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                        // ],
+
                                                       );
                                                     }else{
                                                       return SizedBox();
                                                     }
                                                   }
-                                              ),);
+                                              ),
+
+                                            );
                                               });
                                              },
                                                 icon: Icon(
@@ -384,6 +381,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                 size: 18,
                                                 color: ColorManager.bluebottom,)),
                                         SizedBox(width: 3,),
+                                        ///delete
                                         IconButton(
                                           onPressed: () async {
                                           await showDialog(context: context,
@@ -402,7 +400,9 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                     });
                                                     Navigator.pop(context);
                                                   });
-                                                }));
+                                                }
+                                                )
+                                          );
                                           },
                                           icon: Icon(
                                             size: 18,

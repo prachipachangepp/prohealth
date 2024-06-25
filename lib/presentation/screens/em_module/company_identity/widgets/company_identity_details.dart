@@ -10,7 +10,7 @@ import '../../../../../app/resources/establishment_resources/establish_theme_man
 import 'checkbox_constant.dart';
 
 //Get Details : /identity/officeDetailWithServiceByCompany/{company_id}/{office_id}
-//
+
 // Add Service:  /company-office-service/add
 class CIDetailsScreen extends StatefulWidget {
   const CIDetailsScreen({super.key, required this.officeId, required this.docTD});
@@ -370,18 +370,18 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                                   ),
                                   CIDetailsDropdown(
                                       initialValue: 'Palliative Care',
-                                      items: [
-                                        const DropdownMenuItem(
+                                      items: const [
+                                        DropdownMenuItem(
                                             value: 'Palliative Care',
                                             child: Text('Palliative Care')),
-                                        const DropdownMenuItem(
+                                        DropdownMenuItem(
                                             value: 'HCO Number      254612',
                                             child: Text('HCO Number  254612')),
-                                        const DropdownMenuItem(
+                                        DropdownMenuItem(
                                             value: 'Medicare ID      MPID123',
                                             child:
                                                 Text('Medicare ID  MPID123')),
-                                        const DropdownMenuItem(
+                                        DropdownMenuItem(
                                             value: 'NPI Number     1234567890',
                                             child:
                                                 Text('NPI Number 1234567890')),

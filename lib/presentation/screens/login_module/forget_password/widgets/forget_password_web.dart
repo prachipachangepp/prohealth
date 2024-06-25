@@ -73,7 +73,7 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                         style: GoogleFonts.firaSans(
                           letterSpacing: 0.5,
                           color: ColorManager.mediumgrey,
-                          fontSize: MediaQuery.of(context).size.width / 120,
+                          fontSize: FontSize.s10,
                           fontWeight: FontWeightManager.semiBold,
                         ),
                       ),
@@ -121,8 +121,14 @@ class _ForgetPasswordWebState extends State<ForgetPasswordWeb> {
                         child: CustomButton(
                           borderRadius: 24,
                           height: MediaQuery.of(context).size.height / 18,
-                          width: MediaQuery.of(context).size.width / 10,
+                          width: MediaQuery.of(context).size.width / 6,
                           text: AppString.continuet,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeightManager.semiBold,
+                            color: ColorManager.white,
+                            decoration: TextDecoration.none,
+                          ),
                           onPressed: submitForm,
                         ),
                       )

@@ -33,7 +33,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   final PageController _pageController = PageController();
   late int currentPage;
   late int itemsPerPage;
-
   bool showStreamBuilder = true;
   bool showManageScreen = false;
   bool showWhitelabellingScreen =
@@ -50,11 +49,13 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
 
   String selectedOfficeID = '';
   String selectedOfficeName = '';
+  int selectedCompId = 0;
 
-  void showManageScreenFunction({required String officeId, officeName}) {
+  void showManageScreenFunction({required String officeId, officeName, required int compId}) {
     setState(() {
       selectedOfficeID = officeId;
       selectedOfficeName = officeName;
+      selectedCompId = compId;
       showManageScreen = true;
       showStreamBuilder = false;
       showWhitelabellingScreen = false;
@@ -110,14 +111,24 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
+                                      Text(
+                                        'Add New Office',
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 13,
+                                          fontWeight: FontWeightManager.semiBold,
+                                          color: ColorManager.primary,
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
                                       IconButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          icon: const Icon(Icons.close))
+                                          icon: const Icon(Icons.close)),
                                     ],
                                   ),
                                   Column(
@@ -328,7 +339,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                                         .data![index].officeId,
                                                     officeName: snapshot
                                                         .data![index]
-                                                        .officeName);
+                                                        .officeName,
+                                                    compId: snapshot.data![index].companyId);
                                               },
                                             ),
                                           ],
@@ -360,6 +372,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
             child: ManageWidget(
               officeID: selectedOfficeID,
               officeName: selectedOfficeName,
+              companyID: selectedCompId,
               backButtonCallBack: (bool val) {
                 if (val) {
                   setState(() {

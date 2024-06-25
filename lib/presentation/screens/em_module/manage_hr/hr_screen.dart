@@ -149,39 +149,6 @@ class _HrWidgetState extends State<HrWidget> {
                               }
                             }))
                       ]
-                      // _categories
-                      //     .asMap()
-                      //     .entries
-                      //     .map(
-                      //       (entry) => InkWell(
-                      //         child: Container(
-                      //           height: 30,
-                      //           width: MediaQuery.of(context).size.width / 9,
-                      //           padding: EdgeInsets.all(5),
-                      //           decoration: BoxDecoration(
-                      //             borderRadius: BorderRadius.circular(20),
-                      //             color: widget.selectedIndex == entry.key
-                      //                 ? Colors.white
-                      //                 : null,
-                      //           ),
-                      //           child: Text(
-                      //             entry.value,
-                      //             textAlign: TextAlign.center,
-                      //             style: GoogleFonts.firaSans(
-                      //               fontSize: 12,
-                      //               fontWeight: widget.selectedIndex == entry.key
-                      //               ? FontWeightManager.bold
-                      //               :FontWeightManager.semiBold,
-                      //               color: widget.selectedIndex == entry.key
-                      //                   ? ColorManager.mediumgrey
-                      //                   : ColorManager.white,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //         onTap: () => widget.selectButton(entry.key),
-                      //       ),
-                      //     )
-                      //     .toList(),
                     ),
                   ),
                 );

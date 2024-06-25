@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:open_file/open_file.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/whitelabelling_modal/whitelabelling_modal_.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/color.dart';
@@ -32,7 +36,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   TextEditingController hcoNumController = TextEditingController();
   TextEditingController medicareController = TextEditingController();
   TextEditingController npiNumController = TextEditingController();
-  TextEditingController faxontroller = TextEditingController();
+  TextEditingController faxController = TextEditingController();
+
   ///
   TextEditingController addressCtlr = TextEditingController();
   TextEditingController nameCtlr = TextEditingController();
@@ -45,22 +50,58 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   TextEditingController medicareCtlr = TextEditingController();
   TextEditingController npiNumCtlr = TextEditingController();
   TextEditingController faxCtlr = TextEditingController();
+  final StreamController<List<PlatformFile>> _mobileFilesStreamController =
+      StreamController<List<PlatformFile>>.broadcast();
+  final StreamController<List<PlatformFile>> _webFilesStreamController =
+      StreamController<List<PlatformFile>>.broadcast();
+  final StreamController<List<WhiteLabellingCompanyDetailModal>> _controller =
+      StreamController<List<WhiteLabellingCompanyDetailModal>>();
+  @override
+  void dispose() {
+    _mobileFilesStreamController.close();
+    _webFilesStreamController.close();
+
+    super.dispose();
+  }
 
   String fileName = "No Chosen";
-
-  void pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
+  //
+  // void pickFile() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //
+  //   if (result != null) {
+  //     setState(() {
+  //       fileName = result.files.single.name;
+  //     });
+  //   } else {
+  //     // User canceled the picker
+  //     setState(() {
+  //       fileName = "No Chosen";
+  //     });
+  //   }
+  // }
+  List<PlatformFile>? pickedMobileFiles;
+  List<PlatformFile>? pickedWebFiles;
+  Future<void> pickMobileLogo() async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(allowMultiple: true);
     if (result != null) {
-      setState(() {
-        fileName = result.files.single.name;
-      });
-    } else {
-      // User canceled the picker
-      setState(() {
-        fileName = "No Chosen";
-      });
+      pickedMobileFiles = result.files;
+      _mobileFilesStreamController.add(pickedMobileFiles!);
     }
+  }
+
+  Future<void> pickWebLogo() async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(allowMultiple: true);
+    if (result != null) {
+      pickedWebFiles = result.files;
+      _webFilesStreamController.add(pickedWebFiles!);
+    }
+  }
+
+  void openFile(PlatformFile file) {
+    OpenFile.open(file.path!);
   }
 
   @override
@@ -70,60 +111,57 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // Row(
-            //   children: [
-            //     IconButton(
-            //       icon: Icon(Icons.arrow_back_outlined, size: 15),
-            //       color: ColorManager.mediumgrey,
-            //       onPressed: () {
-            //         Navigator.push(
-            //             context,
-            //             MaterialPageRoute(
-            //                 builder: (context) => CompanyIdentityScreen()));
-            //       },
-            //     ),
-            //     Text(
-            //       'Go Back',
-            //       style: GoogleFonts.firaSans(
-            //         fontSize: FontSize.s12,
-            //         fontWeight: FontWeightManager.bold,
-            //         color: ColorManager.mediumgrey,
-            //         decoration: TextDecoration
-            //             .underline,
-            //       ),
-            //     ),
-            //   ],
-            // ),
             Padding(
-              padding:  EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text("Logos",
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
-                        fontWeight: FontWeightManager.medium,
+                        fontWeight: FontWeightManager.semiBold,
                         color: ColorManager.mediumgrey,
                       )),
                   // SizedBox(width: MediaQuery.of(context).size.width / 5),
                   Padding(
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/4.3),
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 4.3),
                     child: Text("Details",
                         style: GoogleFonts.firaSans(
                           fontSize: FontSize.s12,
-                          fontWeight: FontWeightManager.medium,
+                          fontWeight: FontWeightManager.semiBold,
                           color: ColorManager.mediumgrey,
                         )),
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 2.2),
+                    child: Container(
+                      height: 30,
+                      width: 90,
+                      child: CustomButton(
+                        borderRadius: 12,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeightManager.medium,
+                          color: ColorManager.white,
+                          decoration: TextDecoration.none,
+                        ),
+                        text: "Save",
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
                   // SizedBox(width: MediaQuery.of(context).size.width / 5),
                   Padding(
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/1.7),
+                    padding: EdgeInsets.only(left: 20
+                        // MediaQuery.of(context).size.width/3
+                        ),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: CustomIconButton(
                           icon: Icons.edit_outlined,
                           text: "Edit Details",
-
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -134,8 +172,10 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                     height: 350,
                                     width: 950,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Align(
                                           alignment: Alignment.topRight,
@@ -148,95 +188,136 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
-
                                             Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text("Company App Logo",
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: FontSize.s12,
+                                                        style: GoogleFonts
+                                                            .firaSans(
+                                                          fontSize:
+                                                              FontSize.s12,
                                                           fontWeight:
-                                                          FontWeightManager.bold,
-                                                          color: Color(0xff686464),
+                                                              FontWeightManager
+                                                                  .bold,
+                                                          color:
+                                                              Color(0xff686464),
                                                         )),
+
+                                                    ///main
                                                     Container(
                                                       width: 354,
                                                       height: 50,
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
                                                             color: Colors.grey),
-                                                        borderRadius: BorderRadius.all(
-                                                            Radius.circular(10)),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10)),
                                                       ),
                                                       child: Row(
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment.spaceAround,
+                                                            MainAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Text(
                                                               "Upload Immunization Records from PDF",
                                                               style: GoogleFonts.firaSans(
-                                                                  fontSize: 10,
-                                                                  fontWeight: FontWeight
-                                                                      .w500,
-                                                                  color: Color(0xff686464))
-                                                          ),
-                                                          Container(
-                                                            width: 130,
-                                                            height: 30,
-                                                            decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                  color: Colors.grey),
-                                                              borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10)),
-                                                            ),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: pickFile,
-                                                                  child: Container(
-                                                                    color:
-                                                                    Color(0xffD9D9D9),
-                                                                    child: Text(
-                                                                      "Choose File",
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize: 10,
-                                                                        fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                        color:
-                                                                        Colors.grey,
-                                                                      ),
+                                                                  fontSize: 9,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  color: Color(
+                                                                      0xff686464))),
+
+                                                          ///sub container
+                                                          StreamBuilder<
+                                                              List<
+                                                                  PlatformFile>>(
+                                                            stream:
+                                                                _mobileFilesStreamController
+                                                                    .stream,
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              return Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 150,
+                                                                    height: 30,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border: Border.all(
+                                                                          color:
+                                                                              Colors.grey),
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(10)),
+                                                                    ),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceAround,
+                                                                      children: [
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              pickMobileLogo,
+                                                                          child:
+                                                                              Container(
+                                                                            color:
+                                                                                Color(0xffD9D9D9),
+                                                                            child:
+                                                                                Text(
+                                                                              "Choose File",
+                                                                              style: GoogleFonts.firaSans(
+                                                                                fontSize: 10,
+                                                                                fontWeight: FontWeight.w500,
+                                                                                color: Colors.grey,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        if (snapshot
+                                                                            .hasData)
+                                                                          ...snapshot
+                                                                              .data!
+                                                                              .map((file) => InkWell(
+                                                                                    child: Container(
+                                                                                      padding: EdgeInsets.only(bottom: 15),
+                                                                                      // height: 30,
+                                                                                      // width: 90,
+                                                                                      child: Text(
+                                                                                        file.name,
+                                                                                        textAlign: TextAlign.start,
+                                                                                        style: GoogleFonts.firaSans(
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          color: Colors.grey,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    onTap: () => openFile(file),
+                                                                                  ))
+                                                                              .toList(),
+                                                                      ],
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                Container(
-                                                                  child: Text(
-                                                                    fileName,
-                                                                    style: GoogleFonts
-                                                                        .firaSans(
-                                                                      fontSize: 10,
-                                                                      fontWeight:
-                                                                      FontWeight.w500,
-                                                                      color: Colors.grey,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                                ],
+                                                              );
+                                                            },
                                                           ),
+
                                                         ],
                                                       ),
                                                     ),
@@ -244,43 +325,54 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                 ),
                                                 SMTextFConst(
                                                   controller: nameController,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType:
+                                                      TextInputType.text,
                                                   text: AppStringEM.companyName,
                                                 ),
                                                 SizedBox(height: AppSize.s4),
                                                 SMTextFConst(
-                                                  controller: secNumberController,
-                                                  keyboardType: TextInputType.number,
+                                                  controller:
+                                                      secNumberController,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                   text: AppStringEM.secNum,
                                                 ),
                                                 SizedBox(height: AppSize.s4),
                                                 SMTextFConst(
-                                                  controller: faxontroller,
-                                                  keyboardType: TextInputType.text,
+                                                  controller: faxController,
+                                                  keyboardType:
+                                                      TextInputType.text,
                                                   text: AppStringEM.fax,
                                                 ),
                                                 SizedBox(height: AppSize.s4),
                                                 SMTextFConst(
                                                   controller: addressController,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType:
+                                                      TextInputType.text,
                                                   text: AppStringEM.address,
                                                 ),
                                               ],
                                             ),
                                             Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Text("Company App Logo",
-                                                        style: GoogleFonts.firaSans(
-                                                          fontSize: FontSize.s12,
+                                                    Text("Company Web Logo",
+                                                        style: GoogleFonts
+                                                            .firaSans(
+                                                          fontSize:
+                                                              FontSize.s12,
                                                           fontWeight:
-                                                          FontWeightManager.bold,
-                                                          color: Color(0xff686464),
+                                                              FontWeightManager
+                                                                  .bold,
+                                                          color:
+                                                              Color(0xff686464),
                                                         )),
                                                     Container(
                                                       width: 354,
@@ -288,70 +380,103 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
                                                             color: Colors.grey),
-                                                        borderRadius: BorderRadius.all(
-                                                            Radius.circular(10)),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10)),
                                                       ),
                                                       child: Row(
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment.spaceAround,
+                                                            MainAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Text(
                                                               "Upload Immunization Records from PDF",
                                                               style: GoogleFonts.firaSans(
-                                                                  fontSize: 10,
-                                                                  fontWeight: FontWeight
-                                                                      .w500,
-                                                                  color: Color(0xff686464))
-                                                          ),
-                                                          Container(
-                                                            width: 130,
-                                                            height: 30,
-                                                            decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                  color: Colors.grey),
-                                                              borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10)),
-                                                            ),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: pickFile,
-                                                                  child: Container(
-                                                                    color:
-                                                                    Color(0xffD9D9D9),
-                                                                    child: Text(
-                                                                      "Choose File",
-                                                                      style: GoogleFonts
-                                                                          .firaSans(
-                                                                        fontSize: 10,
-                                                                        fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                        color:
-                                                                        Colors.grey,
-                                                                      ),
+                                                                  fontSize: 9,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  color: Color(
+                                                                      0xff686464))),
+
+                                                          ///sub container
+                                                          StreamBuilder<
+                                                              List<
+                                                                  PlatformFile>>(
+                                                            stream:
+                                                                _webFilesStreamController
+                                                                    .stream,
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              return Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 150,
+                                                                    height: 30,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border: Border.all(
+                                                                          color:
+                                                                              Colors.grey),
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(10)),
+                                                                    ),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceAround,
+                                                                      children: [
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              pickWebLogo,
+                                                                          child:
+                                                                              Container(
+                                                                            color:
+                                                                                Color(0xffD9D9D9),
+                                                                            child:
+                                                                                Text(
+                                                                              "Choose File",
+                                                                              style: GoogleFonts.firaSans(
+                                                                                fontSize: 10,
+                                                                                fontWeight: FontWeight.w500,
+                                                                                color: Colors.grey,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        if (snapshot
+                                                                            .hasData)
+                                                                          ...snapshot
+                                                                              .data!
+                                                                              .map((file) => InkWell(
+                                                                                    child: Container(
+                                                                                      padding: EdgeInsets.only(bottom: 15),
+                                                                                      // height: 30,
+                                                                                      // width: 90,
+                                                                                      child: Text(
+                                                                                        file.name,
+                                                                                        textAlign: TextAlign.start,
+                                                                                        style: GoogleFonts.firaSans(
+                                                                                          fontSize: 10,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          color: Colors.grey,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    onTap: () => openFile(file),
+                                                                                  ))
+                                                                              .toList(),
+                                                                      ],
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                Container(
-                                                                  child: Text(
-                                                                    fileName,
-                                                                    style: GoogleFonts
-                                                                        .firaSans(
-                                                                      fontSize: 10,
-                                                                      fontWeight:
-                                                                      FontWeight.w500,
-                                                                      color: Colors.grey,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                                ],
+                                                              );
+                                                            },
                                                           ),
                                                         ],
                                                       ),
@@ -360,19 +485,23 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                 ),
                                                 SMTextFConst(
                                                   controller: primNumController,
-                                                  keyboardType: TextInputType.number,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                   text: AppStringEM.primNum,
                                                 ),
                                                 SizedBox(height: AppSize.s4),
                                                 SMTextFConst(
                                                   controller: altNumController,
-                                                  keyboardType: TextInputType.number,
-                                                  text: AppStringEM.alternatephone,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  text: AppStringEM
+                                                      .alternatephone,
                                                 ),
                                                 SizedBox(height: AppSize.s4),
                                                 SMTextFConst(
                                                   controller: emailController,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType:
+                                                      TextInputType.text,
                                                   text: AppStringEM.primarymail,
                                                 ),
                                                 SizedBox(
@@ -383,7 +512,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   width: 354,
                                                   height: 30,
                                                 )
-
                                               ],
                                             ),
                                           ],
@@ -405,7 +533,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                               '',
                                               primNumController.text,
                                               secNumberController.text,
-                                              faxontroller.text,
+                                              faxController.text,
                                               emailController.text,
                                               altNumController.text,
                                               nameController.text,
@@ -429,50 +557,193 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
               children: [
                 Expanded(
                   flex: 2,
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 290,
-                        margin: const EdgeInsets.all(15.0),
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: ColorManager.blueprime),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        height: 260,
-                        // color: ColorManager.green,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Image.asset(
-                                "images/formainlogoprohealth.png",
-                                // height: 60,
-                                //   width: 120,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Image.asset(
-                                "images/forwebprohealth.png",
-                                // height: 60,
-                                // width: 120,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Image.asset(
-                                "images/forappprohealth.png",
-                                // height: 60,
-                                // width: 120,
-                              ),
-                            ),
-                          ],
+                  child: Container(
+                    height: 320,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: ColorManager.blueprime,
                         ),
-                      ),
-                    ],
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20))),
+                    child: StreamBuilder<WhiteLabellingCompanyDetailModal>(
+                      stream: Stream.fromFuture(getWhiteLabellingData(context, 1)),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          var data = snapshot.data!;
+                          var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
+                              orElse: () => WLLogoModal(
+                                  companyLogoId: 3,
+                                  companyId: 1,
+                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                  type: ''));
+                          var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
+                              orElse: () => WLLogoModal(
+                                  companyLogoId: 4,
+                                  companyId: 1,
+                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                  type: ''));
+                          var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
+                              orElse: () => WLLogoModal(
+                                  companyLogoId: 4,
+                                  companyId: 1,
+                                  url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                                  type: ''));
+
+                          return Column(
+                            children: [
+                              Container(
+                                height: 100,
+                                child: mainLogo.url.isNotEmpty
+                                    ? Image.network(
+                                  'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                  // mainLogo.url,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                    return Center(
+                                      child: Icon(Icons.error, color: Colors.red),
+                                    );
+                                  },
+                                )
+                                    : Container(),
+                              ),
+                              Container(
+                                height: 100,
+                                child: webLogo.url.isNotEmpty
+                                    ? Image.network(
+                                  "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
+                                  // webLogo.url,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                    return Center(
+                                      child: Icon(Icons.error, color: Colors.red),
+                                    );
+                                  },
+                                )
+                                    : Container(),
+                              ),
+                              Container(
+                                height: 100,
+                                child: appLogo.url.isNotEmpty
+                                    ? Image.network(
+                                  appLogo.url,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                    return Center(
+                                      child: Icon(Icons.error, color: Colors.red),
+                                    );
+                                  },
+                                )
+                                    : Container(),
+                              ),
+                            ],
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
                   ),
                 ),
+
+                ///old
+                // Expanded(
+                //   flex: 2,
+                //   child:
+                //   StreamBuilder<WhiteLabellingCompanyDetailModal>(
+                //     stream: Stream.fromFuture(
+                //         getWhiteLabellingData(context, 1)),
+                //     builder: (context, snapshot) {
+                //       if (snapshot.hasData) {
+                //         var data = snapshot.data!;
+                //         var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
+                //             orElse: () => WLLogoModal(companyLogoId: 3,
+                //                 companyId: 1, url:
+                //                 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                //                 type: ''));
+                //         var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
+                //             orElse: () => WLLogoModal(companyLogoId: 4,
+                //                 companyId: 1, url:
+                //                 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+                //                 type: ''));
+                //         var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
+                //             orElse: () => WLLogoModal(companyLogoId: 4, companyId: 1,
+                //                 url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg', type: ''));
+                //         return Column(
+                //           children: [
+                //             Expanded(
+                //               flex: 1,
+                //               child: mainLogo.url.isNotEmpty
+                //                   ? Image.network(mainLogo.url)
+                //                   : Container(),
+                //             ),
+                //             Expanded(
+                //               flex: 1,
+                //               child: webLogo.url.isNotEmpty
+                //                   ? Image.network(webLogo.url)
+                //                   : Container(),
+                //             ),
+                //             Expanded(
+                //               flex: 1,
+                //               child: appLogo.url.isNotEmpty
+                //                   ? Image.network(appLogo.url)
+                //                   : Container(),
+                //             ),
+                //           ],
+                //         );
+                //       } else if (snapshot.hasError) {
+                //         return Text('Error: ${snapshot.error}');
+                //       } else {
+                //         return Center(child: CircularProgressIndicator());
+                //       }
+                //     },
+                //   ),
+                // ),
+                  ///
+                  // Column(
+                  //   children: [
+                  //     Container(
+                  //       width: 290,
+                  //       margin: const EdgeInsets.all(15.0),
+                  //       padding: const EdgeInsets.all(3.0),
+                  //       decoration: BoxDecoration(
+                  //           border: Border.all(color: ColorManager.blueprime),
+                  //           borderRadius:
+                  //               BorderRadius.all(Radius.circular(20))),
+                  //       height: 260,
+                  //       // color: ColorManager.green,
+                  //       child: Column(
+                  //         children: [
+                  //           Expanded(
+                  //             flex: 1,
+                  //             child: Image.asset(
+                  //               "images/formainlogoprohealth.png",
+                  //               // height: 60,
+                  //               //   width: 120,
+                  //             ),
+                  //           ),
+                  //           Expanded(
+                  //             flex: 1,
+                  //             child: Image.asset(
+                  //               "images/forwebprohealth.png",
+                  //               // height: 60,
+                  //               // width: 120,
+                  //             ),
+                  //           ),
+                  //           Expanded(
+                  //             flex: 1,
+                  //             child: Image.asset(
+                  //               "images/forappprohealth.png",
+                  //               // height: 60,
+                  //               // width: 120,
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 Expanded(
                   flex: 6,
                   child: Column(
@@ -481,71 +752,92 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                         margin: const EdgeInsets.all(15.0),
                         padding: const EdgeInsets.all(3.0),
                         decoration: BoxDecoration(
-                            border: Border.all(color: ColorManager.blueprime,),
+                            border: Border.all(
+                              color: ColorManager.blueprime,
+                            ),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
-                        height: 260,
+                        height: 320,
                         // color: ColorManager.red,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                EditTextField(
-                                  controller: nameController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.companyName,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                EditTextField(
-                                  controller: secNumberController,
-                                  keyboardType: TextInputType.number,
-                                  text: AppStringEM.secNum,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                EditTextField(
-                                  controller: faxontroller,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.fax,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                EditTextField(
-                                  controller: addressController,
-                                  keyboardType: TextInputType.text,
-                                  text: "Street Address",
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                EditTextField(
-                                  controller: primNumController,
-                                  keyboardType: TextInputType.number,
-                                  text: AppStringEM.primNum,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                EditTextField(
-                                  controller: altNumController,
-                                  keyboardType: TextInputType.number,
-                                  text: AppStringEM.alternatephone,
-                                ),
-                                SizedBox(height: AppSize.s4),
-                                EditTextField(
-                                  controller: emailController,
-                                  keyboardType: TextInputType.text,
-                                  text: AppStringEM.primarymail,
-                                ),
-                                SizedBox(
-                                  width: 354,
-                                  height: 30,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                        child: StreamBuilder<WhiteLabellingCompanyDetailModal>(
+                            stream: Stream.fromFuture(
+                                getWhiteLabellingData(context, 1)),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                var data = snapshot.data!;
+                                nameController.text = data.companyDetail.name;
+                                secNumberController.text = data.contactDetail.secondaryPhone;
+                                faxController.text = data.contactDetail.primaryFax;
+                                addressController.text = data.companyDetail.address;
+                                primNumController.text = data.contactDetail.primaryPhone;
+                                altNumController.text = data.contactDetail.alternativePhone;
+                                emailController.text = data.contactDetail.email;
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              }
+
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      EditTextField(
+                                        controller: nameController,
+                                        keyboardType: TextInputType.text,
+                                        text: AppStringEM.companyName,
+                                      ),
+                                      SizedBox(height: AppSize.s4),
+                                      EditTextField(
+                                        controller: secNumberController,
+                                        keyboardType: TextInputType.number,
+                                        text: AppStringEM.secNum,
+                                      ),
+                                      SizedBox(height: AppSize.s4),
+                                      EditTextField(
+                                        controller: faxController,
+                                        keyboardType: TextInputType.text,
+                                        text: AppStringEM.fax,
+                                      ),
+                                      SizedBox(height: AppSize.s4),
+                                      EditTextField(
+                                        controller: addressController,
+                                        keyboardType: TextInputType.text,
+                                        text: "Street Address",
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      EditTextField(
+                                        controller: primNumController,
+                                        keyboardType: TextInputType.number,
+                                        text: AppStringEM.primNum,
+                                      ),
+                                      SizedBox(height: AppSize.s4),
+                                      EditTextField(
+                                        controller: altNumController,
+                                        keyboardType: TextInputType.number,
+                                        text: AppStringEM.alternatephone,
+                                      ),
+                                      SizedBox(height: AppSize.s4),
+                                      EditTextField(
+                                        controller: emailController,
+                                        keyboardType: TextInputType.text,
+                                        text: AppStringEM.primarymail,
+                                      ),
+                                      SizedBox(
+                                        width: 354,
+                                        height: 30,
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }),
+                      )
                     ],
                   ),
                 )

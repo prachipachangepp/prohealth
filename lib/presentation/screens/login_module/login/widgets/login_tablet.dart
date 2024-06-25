@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
 import 'package:prohealth/data/navigator_arguments/screen_arguments.dart';
 import 'package:prohealth/presentation/screens/login_module/email_verification/email_verification.dart';
@@ -125,6 +126,12 @@ class _LoginTabletState extends State<LoginTablet> {
                             height: MediaQuery.of(context).size.height / 22,
                             width: MediaQuery.of(context).size.height / 6,
                             text: AppString.next,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: ColorManager.white,
+                                decoration: TextDecoration.none,
+                              ),
                             onPressed: () async {
                               if (_formKey.currentState?.validate() ??
                                   false) {

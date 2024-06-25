@@ -5,6 +5,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/zone.dart';
 
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
@@ -13,37 +14,6 @@ import 'widgets/company_identity_zone/ci_zone_country.dart';
 import 'widgets/company_identity_zone/ci_zone_zone.dart';
 import 'widgets/policies_procedures/document_detail_page_view.dart';
 
-// class ManagePopUpScreen extends StatefulWidget {
-//   const ManagePopUpScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   State<ManagePopUpScreen> createState() => _ManagePopUpScreenState();
-// }
-//
-// class _ManagePopUpScreenState extends State<ManagePopUpScreen> {
-//   final PageController _managePageController = PageController();
-//   int _selectedIndex = 1;
-//
-//   void _selectButton(int index) {
-//     setState(() {
-//       _selectedIndex = index;
-//     });
-//     _managePageController.animateToPage(
-//       index,
-//       duration: Duration(milliseconds: 500),
-//       curve: Curves.ease,
-//     );
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return ManageWidget(
-//       managePageController: _managePageController,
-//       selectedIndex: _selectedIndex,
-//       selectButton: _selectButton,
-//     );
-//   }
-// }
 typedef BackButtonCallBack = void Function(bool val);
 
 class ManageWidget extends StatefulWidget {
@@ -51,6 +21,7 @@ class ManageWidget extends StatefulWidget {
   // final int selectedIndex;
   // final Function(int) selectButton;
   final String officeID;
+  final int companyID;
   final String officeName;
   final BackButtonCallBack backButtonCallBack;
   ManageWidget({
@@ -58,6 +29,7 @@ class ManageWidget extends StatefulWidget {
     required this.officeID,
     required this.officeName,
     required this.backButtonCallBack,
+    required this.companyID,
     // required this.managePageController,
     // required this.selectedIndex,
     // required this.selectButton,
@@ -197,7 +169,7 @@ class _ManageWidgetState extends State<ManageWidget> {
                             docID: 5,
                             onTap: () {
                               _selectButton(5);
-                              docID = 5;
+                              docID = 6;
                             },
                           ),
                           CustomButtonList(
@@ -402,8 +374,9 @@ class _ManageWidgetState extends State<ManageWidget> {
                         docID: docID,
                       ),
                       CIDetailsScreen(
-                        officeId: widget.officeID, docTD: 4,
+                        officeId: widget.officeID, docTD: docID,
                       ),
+                      CiZone(companyID: widget.companyID, officeId: widget.officeID, docId: docID,),
                       // CiPageview(
                       //   docId: 5,
                       //     managePageController: _managePageController,

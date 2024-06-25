@@ -34,11 +34,11 @@ class CustomIconButton extends StatelessWidget {
               fontWeight: FontWeightManager.bold,
               color: ColorManager.white)),
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        backgroundColor: const Color(0xFF50B5E5),
+        padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        backgroundColor:  Color(0xFF50B5E5),
         // shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(16),
         ),
       ),
     );

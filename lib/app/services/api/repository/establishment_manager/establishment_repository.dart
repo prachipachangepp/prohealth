@@ -220,9 +220,10 @@ class EstablishmentManagerRepository {
   static String payRatesSetup = "/payrates-setup";
   static String employeeType = "/employee-types";
   static String user = "/users";
-  static String zone = "/zone";
+  //static String zone = "/zone";
   static String signUp="/signUp";
   static String companyDept ="/company-department";
+  static String companyDetail ="/CompanyDetail";
 
 
   static String companyAll(){
@@ -329,6 +330,19 @@ class EstablishmentManagerRepository {
   static String addWorkWeekSchedulePost(){
     return "$workWeekSchedule$add";
   }
+  static String deleteWorkWeekScheduleDelete({required int workWeekScheduleId}){
+    return "$workWeekSchedule/$workWeekScheduleId";
+  }
+  static String getShiftPrefillBatches({required int shiftBatchId}){
+    return "$workWeekShiftSchedule/batch/$shiftBatchId";
+  }
+  static String getShiftBatches({required String shiftName,required int companyId,required String officeId, required String weekDay}){
+    print(":::getshiftbatch${shiftName}");
+    return "$workWeekShiftSchedule/batch/$weekDay/$shiftName/$companyId/$officeId";
+  }
+  static String addShiftBatches(){
+    return "$workWeekShiftSchedule/batch/";
+  }
 
   // Hlidays
   static String holidaysGet(){
@@ -402,11 +416,16 @@ class EstablishmentManagerRepository {
   static String userDelete({required userId}){
     return "$user/$userId";
   }
-  static String zoneGet(){
-    return "$zone";
-  }
+  // static String zoneGet(){
+  //   return "$zone";
+  // }
   ///Role Manager
   static String companyDepartment(){
     return "$companyDept";
+  }
+  static String getWhitelabellingDetail(
+  {required int companyId}
+      ){
+    return "$identity$companyDetail/$companyId";
   }
 }

@@ -64,6 +64,37 @@ Future<List<HRClinical>> companyAllHrClinicApi(BuildContext context) async {
     return itemsList;
   }
 }
+
+/// Get data by depart ment ID
+Future<List<HRAllData>> getAllHrDeptWise(BuildContext context,int deptId) async {
+  List<HRAllData> itemsList = [];
+  try {
+    final response = await Api(context)
+        .get(path: AllFromHrRepository.getEmployeeTypeDeptWise(deptId: deptId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("ResponseList:::::${itemsList}");
+      for (var item in response.data) {
+        itemsList.add(
+          HRAllData(
+            deptID: item['DepartmentId'],
+            employeeTypesId: item['employeeTypeId'],
+            empType: item['employeeType'],
+            abbrivation: item['abbreviation'],
+            color: item['color'],
+          ),
+        );
+      }
+      print("ResponseList:::::${itemsList}");
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
 ///get by id
 Future<HRGetEmpId> HrGetById(BuildContext context, int empId) async {
   var itemsList;
@@ -107,7 +138,7 @@ Future<ApiData> addEmployeeTypePost(
     {
       'DepartmentId':departmentId,
       'employeeType':employeeType,
-      'color':"+${color}",
+      'color':"#${color}",
       'abbreviation':abbreviation
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
