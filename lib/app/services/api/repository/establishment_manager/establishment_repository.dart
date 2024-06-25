@@ -208,6 +208,7 @@ class EstablishmentManagerRepository {
   static String getDocTypeManageCC = "/document-type";
   static String getDocListCompany = "/GetDocumentListByCompany";
   static String visit = "/visits";
+  static String visitList = "/visitList";
   static String documentType = "/document-type";
   static String identityDocumentType = "/identity/GetDocType";
   static String getlistByCompany = "/officeListByCompany";
@@ -223,6 +224,8 @@ class EstablishmentManagerRepository {
   //static String zone = "/zone";
   static String signUp="/signUp";
   static String companyDept ="/company-department";
+  static String roleMetaData ="/app-module-meta-data";
+  static String addAppRoleModule ="/app-role-module";
   static String companyDetail ="/CompanyDetail";
 
 
@@ -294,6 +297,9 @@ class EstablishmentManagerRepository {
   static String getCiVisit({required int pageNo, required int noofRows}){
     return "/$visit/$pageNo/$noofRows";
   }
+  static String getCiVisitList(){
+    return "/$visit$visitList";
+  }
   static String postCiVisit(){
     return "/$visit/$add";
   }
@@ -343,10 +349,16 @@ class EstablishmentManagerRepository {
   static String addShiftBatches(){
     return "$workWeekShiftSchedule/batch/";
   }
+  static String modifyShiftBatches({required int shiftBatchScheduleId}){
+    return "$workWeekShiftSchedule/batch/$shiftBatchScheduleId";
+  }
 
   // Hlidays
   static String holidaysGet(){
     return "$holidays";
+  }
+  static String holidaysPrefillGet({required int holidayId}){
+    return "$holidays/$holidayId";
   }
   static String addHolidaysPost(){
     return "$holidays$add";
@@ -366,6 +378,9 @@ class EstablishmentManagerRepository {
     /// return "$employeedocSetup/$metaDocId";
     return "$employeedocSetup/$employeeDocTypeMetaDataId/$pageNo/$rowsNo";
   }
+  static String getPrefillEmployeDocSetup({required int empDocTypeId}){
+    return "$employeedocSetup/$empDocTypeId";
+  }
 
   static String addEmployeDocSetup(){
     return "$employeedocSetup$add";
@@ -376,11 +391,14 @@ class EstablishmentManagerRepository {
   }
 
   /// Pay Rates get data
-  static String payRatesSetupGet({required int pageNo,required int noOfRows}){
-    return "$payRatesSetup/$pageNo/$noOfRows";
+  static String payRatesSetupGet({required int empTypeId,required int companyId,required int pageNo,required int noOfRows}){
+    return "$payRatesSetup/$companyId/$empTypeId/$pageNo/$noOfRows";
   }
   static String payRatesSetupPost(){
     return "$payRatesSetup$add";
+  }
+  static String deletePayRatesSetup({required int payRatesId}){
+    return "$payRatesSetup/$payRatesId";
   }
 
 
@@ -422,6 +440,12 @@ class EstablishmentManagerRepository {
   ///Role Manager
   static String companyDepartment(){
     return "$companyDept";
+  }
+  static String getRoalMetaData(){
+    return "$roleMetaData";
+  }
+  static String addAppRoleModulePost(){
+    return "$addAppRoleModule$add";
   }
   static String getWhitelabellingDetail(
   {required int companyId}

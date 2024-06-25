@@ -61,6 +61,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   @override
   void initState() {
     super.initState();
+    getUser(context)
+        .then((data) {
+      _companyUsersList
+          .add(data);
+    }).catchError(
+            (error) {
+          // Handle error
+        });
     userIdController.addListener(_checkFields);
     firstNameController.addListener(_checkFields);
     lastNameController.addListener(_checkFields);
@@ -156,7 +164,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-
                                             HRManageTextField(
                                               controller: firstNameController,
                                               keyboardType: TextInputType.phone,

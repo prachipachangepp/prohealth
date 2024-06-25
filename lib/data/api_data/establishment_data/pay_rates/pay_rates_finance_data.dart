@@ -9,11 +9,13 @@ class PayRateFinanceData {
   final int departmentId;
   final int employeeTypeId;
   final int typeOfVisitId;
+  final int payRatesSetupId;
   PayRateFinanceData(
       {required this.department,
        this.employeeType,
        this.abbreviation,
-      required this.payRates,
+  required this.payRatesSetupId,
+  required this.payRates,
       required this.zoneId,
       required this.departmentId,
       required this.employeeTypeId,

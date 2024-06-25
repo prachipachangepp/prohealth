@@ -57,6 +57,35 @@ Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows) asy
   }
 }
 
+/// GET visit List
+Future<List<VisitListData>> getVisitList(BuildContext context) async {
+  List<VisitListData> itemsList = [];
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.getCiVisitList());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      for(var item in response.data){
+       itemsList.add(VisitListData(
+           sucess: true,
+           message: response.statusMessage!,
+           companyId: item['companyId'] == null ? 11 :item['companyId'],
+           visitId: item['visitId'],
+           visitType: item['typeOfVisit']));
+      }
+      print("1");
+    } else {
+      print('Org Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
 /// post
 Future<ApiData> addVisitPost(BuildContext context,
     String typeOfVisit,

@@ -92,7 +92,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                               fontWeight: FontWeight.w700,
                               color: ColorManager.mediumgrey),
                           decoration: InputDecoration(
-                            hintText: 'dd-mm-yyyy',
+                            hintText: 'mm-dd-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w700,

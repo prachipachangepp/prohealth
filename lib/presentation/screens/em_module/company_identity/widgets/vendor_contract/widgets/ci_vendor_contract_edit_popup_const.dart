@@ -221,7 +221,7 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
                         child: TextFormField(
                           controller: birthdayController,
                           decoration: InputDecoration(
-                            hintText: 'dd-mm-yyyy',
+                            hintText: 'mm-dd-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w700,
@@ -246,12 +246,16 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
                               context: context,
                               initialDate: _selectedDate,
                               firstDate: DateTime(1100),
-                              lastDate: DateTime.now(),
+                              lastDate: DateTime(2026),
                             );
                             if (date != null) {
-                              birthdayController.text =DateFormat('dd-mm-yyyy').format(_selectedDate);
-                              field.didChange(
-                                  date.toLocal().toString().split(' ')[0]);
+                              String formattedDate =
+                              DateFormat('mm-dd-yyyy').format(date);
+                              birthdayController.text = formattedDate;
+                              field.didChange(formattedDate);
+                              // birthdayController.text =DateFormat('mm-dd-yyyy').format(_selectedDate);
+                              // field.didChange(
+                              //     date.toLocal().toString().split(' ')[0]);
                             }
                           },
                           validator: (value) {

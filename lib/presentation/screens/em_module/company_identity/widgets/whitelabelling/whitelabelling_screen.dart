@@ -1,9 +1,11 @@
 import 'dart:async';
-
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_aws_s3_client/flutter_aws_s3_client.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:open_file/open_file.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
@@ -18,6 +20,7 @@ import '../../../widgets/button_constant.dart';
 import '../../../widgets/text_form_field_const.dart';
 
 class WhitelabellingScreen extends StatefulWidget {
+  // final int companyId;
   WhitelabellingScreen({super.key});
 
   @override
@@ -103,6 +106,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   void openFile(PlatformFile file) {
     OpenFile.open(file.path!);
   }
+  //  String bucketId = "symmetry-office-document";
+  //  AwsS3Client s3client = AwsS3Client(
+  //   region: "us-west-2",
+  //   // host: "s3.eu-central-1.amazonaws.com",
+  //   bucketId: "symmetry-office-document",
+  //   accessKey: "AKIAU5UP6ITKKAGCXEXK",
+  //   secretKey: "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",
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -565,7 +576,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                         ),
                         borderRadius:
                         BorderRadius.all(Radius.circular(20))),
-                    child: StreamBuilder<WhiteLabellingCompanyDetailModal>(
+                    child:
+                      ///old code
+                    StreamBuilder<WhiteLabellingCompanyDetailModal>(
                       stream: Stream.fromFuture(getWhiteLabellingData(context, 1)),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
@@ -594,8 +607,8 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                               Container(
                                 height: 100,
                                 child: mainLogo.url.isNotEmpty
-                                    ? Image.network(
-                                  'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+                                    ? Image.asset(
+                                  'images/formainlogoprohealth.png',
                                   // mainLogo.url,
                                   fit: BoxFit.cover,
                                   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
@@ -609,6 +622,31 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                               Container(
                                 height: 100,
                                 child: webLogo.url.isNotEmpty
+                                //     ? FutureBuilder<String>(
+                                //   future: s3client.getObject(bucketId).then((response) => response.body),
+                                //   builder: (context, snapshot) {
+                                //     if (snapshot.connectionState == ConnectionState.waiting) {
+                                //       return Center(child: CircularProgressIndicator());
+                                //     } else if (snapshot.hasError) {
+                                //       return Center(
+                                //         child: Icon(Icons.error, color: Colors.red),
+                                //       );
+                                //     } else if (snapshot.hasData) {
+                                //       return Image.network(
+                                //         snapshot.data!,
+                                //         fit: BoxFit.cover,
+                                //         errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                //           return Center(
+                                //             child: Icon(Icons.error, color: Colors.red),
+                                //           );
+                                //         },
+                                //       );
+                                //     } else {
+                                //       return Container(); // Handle other cases as needed
+                                //     }
+                                //   },
+                                // )
+                                //     : Container(),
                                     ? Image.network(
                                   "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
                                   // webLogo.url,
@@ -623,9 +661,10 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                               ),
                               Container(
                                 height: 100,
-                                child: appLogo.url.isNotEmpty
+                                child:
+                                appLogo.url.isNotEmpty
                                     ? Image.network(
-                                  appLogo.url,
+                                      'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
                                   fit: BoxFit.cover,
                                   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                                     return Center(
@@ -646,104 +685,6 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                     ),
                   ),
                 ),
-
-                ///old
-                // Expanded(
-                //   flex: 2,
-                //   child:
-                //   StreamBuilder<WhiteLabellingCompanyDetailModal>(
-                //     stream: Stream.fromFuture(
-                //         getWhiteLabellingData(context, 1)),
-                //     builder: (context, snapshot) {
-                //       if (snapshot.hasData) {
-                //         var data = snapshot.data!;
-                //         var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
-                //             orElse: () => WLLogoModal(companyLogoId: 3,
-                //                 companyId: 1, url:
-                //                 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
-                //                 type: ''));
-                //         var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
-                //             orElse: () => WLLogoModal(companyLogoId: 4,
-                //                 companyId: 1, url:
-                //                 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
-                //                 type: ''));
-                //         var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
-                //             orElse: () => WLLogoModal(companyLogoId: 4, companyId: 1,
-                //                 url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg', type: ''));
-                //         return Column(
-                //           children: [
-                //             Expanded(
-                //               flex: 1,
-                //               child: mainLogo.url.isNotEmpty
-                //                   ? Image.network(mainLogo.url)
-                //                   : Container(),
-                //             ),
-                //             Expanded(
-                //               flex: 1,
-                //               child: webLogo.url.isNotEmpty
-                //                   ? Image.network(webLogo.url)
-                //                   : Container(),
-                //             ),
-                //             Expanded(
-                //               flex: 1,
-                //               child: appLogo.url.isNotEmpty
-                //                   ? Image.network(appLogo.url)
-                //                   : Container(),
-                //             ),
-                //           ],
-                //         );
-                //       } else if (snapshot.hasError) {
-                //         return Text('Error: ${snapshot.error}');
-                //       } else {
-                //         return Center(child: CircularProgressIndicator());
-                //       }
-                //     },
-                //   ),
-                // ),
-                  ///
-                  // Column(
-                  //   children: [
-                  //     Container(
-                  //       width: 290,
-                  //       margin: const EdgeInsets.all(15.0),
-                  //       padding: const EdgeInsets.all(3.0),
-                  //       decoration: BoxDecoration(
-                  //           border: Border.all(color: ColorManager.blueprime),
-                  //           borderRadius:
-                  //               BorderRadius.all(Radius.circular(20))),
-                  //       height: 260,
-                  //       // color: ColorManager.green,
-                  //       child: Column(
-                  //         children: [
-                  //           Expanded(
-                  //             flex: 1,
-                  //             child: Image.asset(
-                  //               "images/formainlogoprohealth.png",
-                  //               // height: 60,
-                  //               //   width: 120,
-                  //             ),
-                  //           ),
-                  //           Expanded(
-                  //             flex: 1,
-                  //             child: Image.asset(
-                  //               "images/forwebprohealth.png",
-                  //               // height: 60,
-                  //               // width: 120,
-                  //             ),
-                  //           ),
-                  //           Expanded(
-                  //             flex: 1,
-                  //             child: Image.asset(
-                  //               "images/forappprohealth.png",
-                  //               // height: 60,
-                  //               // width: 120,
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                 Expanded(
                   flex: 6,
                   child: Column(
@@ -849,3 +790,178 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
     );
   }
 }
+///old
+// Expanded(
+//   flex: 2,
+//   child:
+//   StreamBuilder<WhiteLabellingCompanyDetailModal>(
+//     stream: Stream.fromFuture(
+//         getWhiteLabellingData(context, 1)),
+//     builder: (context, snapshot) {
+//       if (snapshot.hasData) {
+//         var data = snapshot.data!;
+//         var appLogo = data.logos.firstWhere((logo) => logo.type == 'app',
+//             orElse: () => WLLogoModal(companyLogoId: 3,
+//                 companyId: 1, url:
+//                 'https://symmetry-image.s3.us-west-2.amazonaws.com/fd32e5b5-192d-4c13-a80a-f2a5e337f537-complogo2.jpg',
+//                 type: ''));
+//         var webLogo = data.logos.firstWhere((logo) => logo.type == 'web',
+//             orElse: () => WLLogoModal(companyLogoId: 4,
+//                 companyId: 1, url:
+//                 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg',
+//                 type: ''));
+//         var mainLogo = data.logos.firstWhere((logo) => logo.type == 'main',
+//             orElse: () => WLLogoModal(companyLogoId: 4, companyId: 1,
+//                 url: 'https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg', type: ''));
+//         return Column(
+//           children: [
+//             Expanded(
+//               flex: 1,
+//               child: mainLogo.url.isNotEmpty
+//                   ? Image.network(mainLogo.url)
+//                   : Container(),
+//             ),
+//             Expanded(
+//               flex: 1,
+//               child: webLogo.url.isNotEmpty
+//                   ? Image.network(webLogo.url)
+//                   : Container(),
+//             ),
+//             Expanded(
+//               flex: 1,
+//               child: appLogo.url.isNotEmpty
+//                   ? Image.network(appLogo.url)
+//                   : Container(),
+//             ),
+//           ],
+//         );
+//       } else if (snapshot.hasError) {
+//         return Text('Error: ${snapshot.error}');
+//       } else {
+//         return Center(child: CircularProgressIndicator());
+//       }
+//     },
+//   ),
+// ),
+///
+// Column(
+//   children: [
+//     Container(
+//       width: 290,
+//       margin: const EdgeInsets.all(15.0),
+//       padding: const EdgeInsets.all(3.0),
+//       decoration: BoxDecoration(
+//           border: Border.all(color: ColorManager.blueprime),
+//           borderRadius:
+//               BorderRadius.all(Radius.circular(20))),
+//       height: 260,
+//       // color: ColorManager.green,
+//       child: Column(
+//         children: [
+//           Expanded(
+//             flex: 1,
+//             child: Image.asset(
+//               "images/formainlogoprohealth.png",
+//               // height: 60,
+//               //   width: 120,
+//             ),
+//           ),
+//           Expanded(
+//             flex: 1,
+//             child: Image.asset(
+//               "images/forwebprohealth.png",
+//               // height: 60,
+//               // width: 120,
+//             ),
+//           ),
+//           Expanded(
+//             flex: 1,
+//             child: Image.asset(
+//               "images/forappprohealth.png",
+//               // height: 60,
+//               // width: 120,
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+//   ],
+// ),
+//
+// void configureAmplify() async {
+//   // Add Amplify plugins
+//   Amplify.addPlugin(AmplifyStorageS3());
+//
+//   try {
+//     await Amplify.configure(amplifyconfig);
+//     print('Amplify configured successfully');
+//   } catch (e) {
+//     print('Error configuring Amplify: $e');
+//   }
+// }
+//
+//
+// Future<String> getS3ImageUrl(String key) async {
+//   try {
+//     GetUrlResult result = await Amplify.Storage.getUrl(key: key);
+//     return result.url;
+//   } catch (e) {
+//     print('Error getting URL: $e');
+//     return '';
+//   }
+// }
+//
+// class ImageFetcher extends StatefulWidget {
+//   @override
+//   _ImageFetcherState createState() => _ImageFetcherState();
+// }
+//
+// class _ImageFetcherState extends State<ImageFetcher> {
+//   String? imageUrl;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     configureAmplify();
+//     _fetchImageUrl();
+//   }
+//
+//   void _fetchImageUrl() async {
+//     String url = await getS3ImageUrl('your_image_key');
+//     setState(() {
+//       imageUrl = url;
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('S3 Image Fetcher'),
+//       ),
+//       body: Center(
+//         child: imageUrl != null
+//             ? Image.network(imageUrl!)
+//             : CircularProgressIndicator(),
+//       ),
+//     );
+//   }
+// }
+//
+//
+// final region = 'us-west-2';
+// final bucketId = 'your-bucket-id';
+// final accessKey = 'your-access-key';
+// final secretKey = 'your-secret-key';
+//
+// final s3client = S3(region: region, bucketId: bucketId, accessKey: accessKey, secretKey: secretKey);
+//
+// Future<String> getSignedUrl(String key) async {
+//   try {
+//     final url = s3client.getSignedUrl(key);
+//     return url;
+//   } catch (e) {
+//     print('Error getting signed URL: $e');
+//     return '';
+//   }
+// }

@@ -47,9 +47,6 @@ class _CiOrgDocumentState extends State<CiZone> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 10,
-        ),
         Padding(
           padding: EdgeInsets.symmetric( horizontal: MediaQuery.of(context).size.width / 50.0),
           child: Row(
@@ -247,7 +244,7 @@ class _CiOrgDocumentState extends State<CiZone> {
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         Expanded(
           child:
