@@ -130,7 +130,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 print(":::::${_selectedItem}");
                                 await addVisitPost(context,
                                     docNamecontroller.text,
-                                    selectedChips
+                                    [1,2]
                                 );
                                 getVisit(context,1,1,15).then((data) {
                                   _visitController.add(data);

@@ -11,7 +11,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 class AddHolidayPopup extends StatefulWidget {
   final TextEditingController controller;
   final TextEditingController calenderDateController;
-  final VoidCallback onPressed;
+   VoidCallback onPressed;
    AddHolidayPopup({super.key, required this.controller, required this.onPressed, required this.calenderDateController});
 
   @override
@@ -146,12 +146,14 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.add,
-                  onPressed: () {
+                  onPressed:(){
                     widget.onPressed();
                     Navigator.pop(context);
                     widget.calenderDateController.clear();
                     widget.controller.clear();
-                  },
+                  }
+
+
                 ),
               ),
             ),

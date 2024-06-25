@@ -90,7 +90,7 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
 /// post
 Future<ApiData> addVisitPost(BuildContext context,
     String typeOfVisit,
-    List eligibleClinician,
+    List<int> eligibleClinician,
     ) async {
   try {
     var response = await Api(context).post(
@@ -98,7 +98,7 @@ Future<ApiData> addVisitPost(BuildContext context,
         postCiVisit(),
         data: {
           "typeOfVisit": typeOfVisit,
-          "employeeTypeId": [eligibleClinician]
+          "employeeTypeId": eligibleClinician
            });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Added request");

@@ -640,12 +640,11 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                       return Image.network(
                                         snapshot.data!,
                                         fit: BoxFit.cover,
-
-                                        // errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                        //   return Center(
-                                        //     //child: Icon(Icons.error, color: Colors.red),
-                                        //   );
-                                        // },
+                                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                          return Center(
+                                            //child: Icon(Icons.error, color: Colors.red),
+                                          );
+                                        },
                                       );
                                     } else {
                                       return Container(); // Handle other cases as needed
