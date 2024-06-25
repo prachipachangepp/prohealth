@@ -5,7 +5,6 @@ import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/establishment_data/work_schedule/work_week_data.dart';
-
 /// Work Week GET
 Future<List<WorkWeekScheduleData>> workWeekScheduleGet(
     BuildContext context) async {

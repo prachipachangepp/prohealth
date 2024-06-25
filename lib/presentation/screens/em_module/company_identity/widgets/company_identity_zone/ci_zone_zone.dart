@@ -8,7 +8,6 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
-import '../../../../../../data/api_data/establishment_data/ci_manage_button/manage_zone_data.dart';
 import '../../../../../../data/api_data/establishment_data/zone/zone_model_data.dart';
 import '../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart';

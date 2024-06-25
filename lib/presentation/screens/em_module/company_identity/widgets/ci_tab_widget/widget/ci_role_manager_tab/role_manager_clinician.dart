@@ -357,7 +357,8 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                 },
                                 child: CIRoleContainerConstant(
                                   metaModule.mainModule,
-                                  AssetImage(metaModule.iconUrl.toString()),
+                                //  AssetImage(metaModule.iconUrl.toString()),
+                                  AssetImage('images/rehab.png'),
                                   borderColor: selectedContainers[0]
                                       ? ColorManager.blueprime
                                       : Colors.white,

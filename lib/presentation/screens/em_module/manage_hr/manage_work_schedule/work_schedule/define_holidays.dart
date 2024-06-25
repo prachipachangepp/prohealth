@@ -92,7 +92,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
             }),
           ),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           Container(
             height: 30,

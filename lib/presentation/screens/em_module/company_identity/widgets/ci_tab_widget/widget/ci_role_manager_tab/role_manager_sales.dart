@@ -238,7 +238,8 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                                   },
                                   child: CIRoleContainerConstant(
                                     metaModule.mainModule,
-                                    AssetImage(metaModule.iconUrl.toString()),
+                                   // AssetImage(metaModule.iconUrl.toString()),
+                                    AssetImage('images/other.png'),
                                     borderColor: selectedContainers[0]
                                         ? ColorManager.blueprime
                                         : Colors.white,
