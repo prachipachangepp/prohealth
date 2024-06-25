@@ -237,9 +237,6 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                               ),
                               Row(
                                 children: [
-                                  IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.bluebottom,)),
-                                  IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.bluebottom,)),
-                                  IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.bluebottom,)),
                                   IconButton(onPressed: (){
                                     showDialog(context: context, builder: (context){
                                       return CCScreenEditPopup(

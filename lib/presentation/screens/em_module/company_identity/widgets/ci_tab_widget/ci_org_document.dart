@@ -416,7 +416,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
         Expanded(
           child: Stack(
             children: [
-              _selectedIndex != 3
+              _selectedIndex != 0
                   ? Container(
                 height: MediaQuery.of(context).size.height / 3.5,
                 decoration: BoxDecoration(
