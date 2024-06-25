@@ -11,7 +11,6 @@ import '../ci_cc_cap_reports.dart';
 import '../ci_cc_medical_cost_report.dart';
 import '../ci_cc_quaterly_bal_report.dart';
 import 'corporate_compliance_constants.dart';
-
 class CiCorporateComplianceScreen extends StatefulWidget {
   const CiCorporateComplianceScreen({super.key});
 
