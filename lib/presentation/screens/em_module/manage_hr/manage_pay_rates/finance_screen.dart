@@ -60,7 +60,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
       // Handle error
     });
   }
-
+ bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     List<String> currentPageItems = items.sublist(
@@ -380,7 +380,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               }).catchError((error) {
                                 // Handle error
                               });
-                              Navigator.pop(context);
                             },);
                         },
                       );
@@ -529,139 +528,109 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                           showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return PayRatesPopup(
-                                                child1: IgnorePointer(
-                                                  ignoring: true,
-                                                  child: FutureBuilder<List<VisitListData>>(
-                                                      future:getVisitList(context),
-                                                      builder: (context,snapshot) {
-                                                        if(snapshot.connectionState == ConnectionState.waiting){
-                                                          return Shimmer.fromColors(
-                                                              baseColor: Colors.grey[300]!,
-                                                              highlightColor: Colors.grey[100]!,
-                                                              child: Container(
-                                                                width: 354,
-                                                                height: 30,
-                                                                decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                              )
-                                                          );
-                                                        }
-                                                        if (snapshot.data!.isEmpty) {
-                                                          return Center(
-                                                            child: Text(
-                                                              AppString.dataNotFound,
-                                                              style: CustomTextStylesCommon.commonStyle(
-                                                                fontWeight: FontWeightManager.medium,
-                                                                fontSize: FontSize.s12,
-                                                                color: ColorManager.mediumgrey,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                        if(snapshot.hasData){
-                                                          List dropDown = [];
-                                                          int docType = 0;
-                                                          List<DropdownMenuItem<String>> dropDownZoneList = [];
-                                                          for(var i in snapshot.data!){
-                                                            dropDownZoneList.add(
-                                                              DropdownMenuItem<String>(
-                                                                child: Text(i.visitType!),
-                                                                value: i.visitType,
+                                              return FutureBuilder<PayRatePrefillFinanceData>(
+                                                future:payPrefillRatesDataGet(context,snapshot.data![index].payRatesSetupId),
+                                                builder: (context,snapshotPrefill) {
+                                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                    return Center(
+                                                      child: CircularProgressIndicator(
+                                                        color: ColorManager.blueprime,
+                                                      ),
+                                                    );
+                                                  }
+                                                  var payRates = snapshotPrefill.data?.payRates;
+                                                  var visitTypeId = snapshotPrefill.data!.typeOfVisitId;
+                                                  print(":::PAYRATESTYPE${visitTypeId}");
+                                                  var zoneTypeId = snapshotPrefill.data!.zoneId;
+                                                  payRatesController = TextEditingController(text: snapshotPrefill.data?.payRates.toString());
+                                                  return PayRatesPopup(
+                                                    child1: SMTextFConst(
+                                                      enable: false,
+                                                      readOnly: true,
+                                                      controller: TextEditingController(text: visitTypeId.toString(),),
+                                                      keyboardType: TextInputType.number,
+                                                      text: 'Type of Visit',
+                                                    ),
+                                                    child2:  FutureBuilder<List<AllZoneData>>(
+                                                        future: getAllZone(context),
+                                                        builder: (context,snapshot) {
+                                                          if(snapshot.connectionState == ConnectionState.waiting){
+                                                            return Shimmer.fromColors(
+                                                                baseColor: Colors.grey[300]!,
+                                                                highlightColor: Colors.grey[100]!,
+                                                                child: Container(
+                                                                  width: 354,
+                                                                  height: 30,
+                                                                  decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                                )
+                                                            );
+                                                          }
+                                                          if (snapshot.data!.isEmpty) {
+                                                            return Center(
+                                                              child: Text(
+                                                                AppString.dataNotFound,
+                                                                style: CustomTextStylesCommon.commonStyle(
+                                                                  fontWeight: FontWeightManager.medium,
+                                                                  fontSize: FontSize.s12,
+                                                                  color: ColorManager.mediumgrey,
+                                                                ),
                                                               ),
                                                             );
                                                           }
-                                                          return CICCDropdown(
-                                                              initialValue: dropDownZoneList[0].value,
-                                                              onChange: (val){
-                                                                for(var a in snapshot.data!){
-                                                                  if(a.visitId == val){
-                                                                    docType = a.visitId;
-                                                                    docVisitTypeId = docType;
+                                                          if(snapshot.hasData){
+                                                            List dropDown = [];
+                                                            int docType = 0;
+                                                            List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                                            for(var i in snapshot.data!){
+                                                              dropDownTypesList.add(
+                                                                DropdownMenuItem<String>(
+                                                                  child: Text(i.zoneName),
+                                                                  value: i.zoneName,
+                                                                ),
+                                                              );
+                                                            }
+                                                            return CICCDropdown(
+                                                                initialValue: dropDownTypesList[zoneTypeId].value,
+                                                                onChange: (val){
+                                                                  for(var a in snapshot.data!){
+                                                                    if(a.zoneName == val){
+                                                                      docType = a.zoneId;
+                                                                      docZoneId = docType;
+                                                                    }
                                                                   }
-                                                                }
-                                                                print(":::${docType}");
-                                                                print(":::<>${docVisitTypeId}");
-                                                              },
-                                                              items:dropDownZoneList
-                                                          );
+                                                                  print(":::${docType}");
+                                                                  print(":::<>${docZoneId}");
+                                                                },
+                                                                items:dropDownTypesList
+                                                            );
+                                                          }
+                                                          return SizedBox();
                                                         }
-                                                        return SizedBox();
-                                                      }
-                                                  ),
-                                                ),
-                                                child2:  FutureBuilder<List<AllZoneData>>(
-                                                    future: getAllZone(context),
-                                                    builder: (context,snapshot) {
-                                                      if(snapshot.connectionState == ConnectionState.waiting){
-                                                        return Shimmer.fromColors(
-                                                            baseColor: Colors.grey[300]!,
-                                                            highlightColor: Colors.grey[100]!,
-                                                            child: Container(
-                                                              width: 354,
-                                                              height: 30,
-                                                              decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                            )
-                                                        );
-                                                      }
-                                                      if (snapshot.data!.isEmpty) {
-                                                        return Center(
-                                                          child: Text(
-                                                            AppString.dataNotFound,
-                                                            style: CustomTextStylesCommon.commonStyle(
-                                                              fontWeight: FontWeightManager.medium,
-                                                              fontSize: FontSize.s12,
-                                                              color: ColorManager.mediumgrey,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      if(snapshot.hasData){
-                                                        List dropDown = [];
-                                                        int docType = 0;
-                                                        List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                                        for(var i in snapshot.data!){
-                                                          dropDownTypesList.add(
-                                                            DropdownMenuItem<String>(
-                                                              child: Text(i.zoneName),
-                                                              value: i.zoneName,
-                                                            ),
-                                                          );
-                                                        }
-                                                        return CICCDropdown(
-                                                            initialValue: dropDownTypesList[0].value,
-                                                            onChange: (val){
-                                                              for(var a in snapshot.data!){
-                                                                if(a.zoneName == val){
-                                                                  docType = a.zoneId;
-                                                                  docZoneId = docType;
-                                                                }
-                                                              }
-                                                              print(":::${docType}");
-                                                              print(":::<>${docZoneId}");
-                                                            },
-                                                            items:dropDownTypesList
-                                                        );
-                                                      }
-                                                      return SizedBox();
-                                                    }
-                                                ),
-                                                payRatesController: payRatesController,
-                                                onPressed: () async{
-                                                  await addPayRatesSetupPost(
-                                                      context,
-                                                      1,
-                                                      1,
-                                                      docVisitTypeId,
-                                                      docZoneId,
-                                                      int.parse(payRatesController.text),
-                                                      11);
-                                                  payRatesDataGet(context,11,1,1,10).then((data) {
-                                                    _payRatesController.add(data);
-                                                  }).catchError((error) {
-                                                    // Handle error
-                                                  });
-                                                  Navigator.pop(context);
-                                                },);
+                                                    ),
+                                                    payRatesController: payRatesController,
+                                                    onPressed: () async{
+                                                      await updatePayRatesSetupPost(
+                                                          context,
+                                                          1,
+                                                          1,
+                                                          visitTypeId,
+                                                          zoneTypeId == docZoneId ? zoneTypeId : docZoneId,
+                                                           payRates == int.parse(payRatesController.text) ? payRates! : int.parse(payRatesController.text),
+                                                          11,
+                                                        snapshot.data![index].payRatesSetupId,);
+                                                      print("ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
+                                                      payRatesDataGet(context,11,1,1,10).then((data) {
+                                                        _payRatesController.add(data);
+                                                      }).catchError((error) {
+                                                        // Handle error
+                                                      });
+                                                      docZoneId = 0;
+                                                      zoneTypeId = 0;
+                                                      visitTypeId = 0;
+                                                      payRatesController.clear();
+                                                    },);
+                                                }
+                                              );
                                             },
                                           );
                                         },
@@ -674,20 +643,39 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                         showDialog(
                                             context: context,
                                             builder: (context) =>
-                                                DeletePopup(
-                                                    onCancel: () {
-                                                      Navigator.pop(
-                                                          context);
-                                                    }, onDelete:
-                                                    () async {
-                                                  await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
-                                                  payRatesDataGet(context,11,1,1,10).then((data) {
-                                                    _payRatesController.add(data);
-                                                  }).catchError((error) {
-                                                    // Handle error
-                                                  });
+                                                StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                    return  DeletePopup(
+                                                        loadingDuration: _isLoading,
+                                                        onCancel: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        }, onDelete: () async {
+                                                      setState(() {
+                                                        _isLoading = true;
+                                                      });
+                                                      try {
+                                                        await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
+                                                        setState(() async {
+                                                          await payRatesDataGet(context,11,1,1,10).then((data) {
+                                                            _payRatesController.add(data);
+                                                          }).catchError((error) {
+                                                            // Handle error
+                                                          });
+                                                          Navigator.pop(context);
+                                                        });
+                                                      } finally {
+                                                        setState(() {
+                                                          _isLoading = false;
+                                                        });
+                                                      }
 
-                                                }));
+
+
+                                                    });
+                                                  },
+
+                                                ));
                                       }, icon: Icon(
                                         Icons.delete_outline_outlined,
                                         size: 18,color: ColorManager.red,))

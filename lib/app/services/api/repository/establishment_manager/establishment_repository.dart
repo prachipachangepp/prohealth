@@ -404,6 +404,9 @@ class EstablishmentManagerRepository {
   static String deletePayRatesSetup({required int payRatesId}){
     return "$payRatesSetup/$payRatesId";
   }
+  static String updatePayRatesSetup({required int payRatesId}){
+    return "$payRatesSetup/$payRatesId";
+  }
 
 
   /// Employee type add POST
