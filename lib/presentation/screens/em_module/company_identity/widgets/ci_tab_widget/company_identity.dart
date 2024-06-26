@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/manage_button_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/add_office_submit_button.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/whitelabelling_screen.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -35,9 +36,8 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   late int itemsPerPage;
   bool showStreamBuilder = true;
   bool showManageScreen = false;
-  bool _isSubmitting = false;
+  // bool _isSubmitting = false;
   bool showWhitelabellingScreen = false;
-   bool loadingDuration = false;
 
   void loadData() {}
 
@@ -51,6 +51,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   String selectedOfficeID = '';
   String selectedOfficeName = '';
   int selectedCompId = 0;
+  // bool _isSubmitting = false;
 
   void showManageScreenFunction(
       {required String officeId, officeName, required int compId}) {
@@ -74,6 +75,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
 
   @override
   Widget build(BuildContext context) {
+
     _companyIdentityController = StreamController<List<CompanyIdentityModel>>();
     return Column(
       children: [
@@ -105,122 +107,193 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return Stack(
-                          children:[
-                            AlertDialog(
-                            backgroundColor: Colors.white,
-                            content:
-                            Stack(children:[
+                            return AddOfficeSumbitButton(
+                              nameController: nameController,
+                              addressController: addressController,
+                              emailController: emailController,
+                              mobNumController: mobNumController,
+                              secNumController: secNumController,
+                              OptionalController: OptionalController,
+                              onPressed: () async{
+                                await
+                                addNewOffice(
+                                  context,
+                                  nameController.text,
+                                  addressController.text,
+                                  emailController.text,
+                                  mobNumController.text,
+                                  secNumController.text,
+                                );
+                                companyOfficeListGet(
+                                    context, 11, 1, 15)
+                                    .then((data) {
+                                  _companyIdentityController
+                                      .add(data);
+                                }).catchError((error) {});
+                              },);
+                            // return AlertDialog(
+                            //   backgroundColor: Colors.white,
+                            //   content: Stack(
+                            //       children: [
+                            //         // Stack(
+                            //         //   children: [
+                            //         //     Container(
+                            //         //       height: 40,
+                            //         //       width: 300,
+                            //         //       color: Colors.blue,
+                            //         //     )
+                            //         //   ],
+                            //         // ),
+                            //         Container(
+                            //           height: 450,
+                            //           width: 300,
+                            //           child: Column(
+                            //             mainAxisAlignment:
+                            //             MainAxisAlignment.spaceAround,
+                            //             children: [
+                            //               Row(
+                            //                 mainAxisAlignment:
+                            //                 MainAxisAlignment.spaceBetween,
+                            //                 crossAxisAlignment: CrossAxisAlignment.end,
+                            //                 children: [
+                            //                   Text(
+                            //                     'Add New Office',
+                            //                     textAlign: TextAlign.center,
+                            //                     style: GoogleFonts.firaSans(
+                            //                       fontSize: 13,
+                            //                       fontWeight:
+                            //                       FontWeightManager.semiBold,
+                            //                       color: ColorManager.primary,
+                            //                       decoration: TextDecoration.none,
+                            //                     ),
+                            //                   ),
+                            //                   IconButton(
+                            //                     onPressed: () {
+                            //                       Navigator.pop(context);
+                            //                     },
+                            //                     icon: const Icon(Icons.close),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //               Column(
+                            //                 mainAxisAlignment:
+                            //                 MainAxisAlignment.spaceBetween,
+                            //                 children: [
+                            //                   SMTextFConst(
+                            //                     controller: nameController,
+                            //                     keyboardType: TextInputType.text,
+                            //                     text: 'Name',
+                            //                   ),
+                            //                   const SizedBox(height: 7),
+                            //                   SMTextFConst(
+                            //                     controller: addressController,
+                            //                     keyboardType:
+                            //                     TextInputType.streetAddress,
+                            //                     text: 'Address',
+                            //                   ),
+                            //                   const SizedBox(height: 7),
+                            //                   SMTextFConst(
+                            //                     controller: emailController,
+                            //                     keyboardType:
+                            //                     TextInputType.emailAddress,
+                            //                     text: 'Email',
+                            //                   ),
+                            //                   const SizedBox(height: 7),
+                            //                   SMTextFConst(
+                            //                     controller: mobNumController,
+                            //                     keyboardType: TextInputType.number,
+                            //                     text: 'Primary Phone',
+                            //                   ),
+                            //                   const SizedBox(height: 7),
+                            //                   SMTextFConst(
+                            //                     controller: secNumController,
+                            //                     keyboardType: TextInputType.number,
+                            //                     text: 'Secondary Phone',
+                            //                   ),
+                            //                   const SizedBox(height: 7),
+                            //                   SMTextFConst(
+                            //                     controller: OptionalController,
+                            //                     keyboardType: TextInputType.number,
+                            //                     text: 'Alternative Phone',
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //               const SizedBox(height: 40),
+                            //               isSubmitting == true
+                            //                   ? CircularProgressIndicator(color: ColorManager.blueprime,)
+                            //                   : SizedBox(
+                            //                 width: 100,
+                            //                 height: 35,
+                            //                 child: ElevatedButton(
+                            //                     onPressed: () async {
+                            //                      setState((){
+                            //                        isSubmitting = true;
+                            //                      });
+                            //
+                            //
+                            //                       try {
+                            //                         await Text('sd');
+                            //                         print("sdsdsdsdsd");// await
 
-                              Container(
-                                height: 450,
-                                width: 300,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          'Add New Office',
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 13,
-                                            fontWeight:
-                                                FontWeightManager.semiBold,
-                                            color: ColorManager.primary,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          icon: const Icon(Icons.close),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SMTextFConst(
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: 'Name',
-                                        ),
-                                        const SizedBox(height: 7),
-                                        SMTextFConst(
-                                          controller: addressController,
-                                          keyboardType:
-                                              TextInputType.streetAddress,
-                                          text: 'Address',
-                                        ),
-                                        const SizedBox(height: 7),
-                                        SMTextFConst(
-                                          controller: emailController,
-                                          keyboardType:
-                                              TextInputType.emailAddress,
-                                          text: 'Email',
-                                        ),
-                                        const SizedBox(height: 7),
-                                        SMTextFConst(
-                                          controller: mobNumController,
-                                          keyboardType: TextInputType.number,
-                                          text: 'Primary Phone',
-                                        ),
-                                        const SizedBox(height: 7),
-                                        SMTextFConst(
-                                          controller: secNumController,
-                                          keyboardType: TextInputType.number,
-                                          text: 'Secondary Phone',
-                                        ),
-                                        const SizedBox(height: 7),
-                                        SMTextFConst(
-                                          controller: OptionalController,
-                                          keyboardType: TextInputType.number,
-                                          text: 'Alternative Phone',
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 40), Center(
-                                  child: loadingDuration == true
-                                      ? SizedBox(
-                                    height: 25,
-                                    width: 25,
-                                    child: CircularProgressIndicator(
-                                      color: ColorManager.blueprime,
-                                    ),
-                                  )
-                                      :
-                                    CustomElevatedButton(
-                                      width: 105,
-                                      height: 31,
-                                      text: 'Submit',
-                                      onPressed: () async {
-                                        await addNewOffice(
-                                          context,
-                                          nameController.text,
-                                          addressController.text,
-                                          emailController.text,
-                                          mobNumController.text,
-                                          secNumController.text,
-                                        );
-                                        companyOfficeListGet(context, 11, 1, 6).then((data) {
-                                          _companyIdentityController.add(data);
-                                        }).catchError((error) {});
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  )
-                                  ],
-                                ),
-                              ),
-                            ]),
-                          ),
-                        ]);
+                            //                         setState(()  {
+
+                            //
+                            //                         });
+                            //                       } finally {
+                            //                         setState(() {
+                            //                           isSubmitting = false;
+                            //                         });
+                            //                         Navigator.pop(context);
+                            //                       }
+                            //
+                            //                     },
+                            //                     style: ElevatedButton.styleFrom(
+                            //                       backgroundColor:
+                            //                       Color(0xFF1696C8),
+                            //                       foregroundColor: ColorManager
+                            //                           .textPrimaryColor,
+                            //                       shape: RoundedRectangleBorder(
+                            //                         borderRadius:
+                            //                         BorderRadius.circular(12),
+                            //                       ),
+                            //                       padding: EdgeInsets.symmetric(
+                            //                           vertical: 12,
+                            //                           horizontal: 16),
+                            //                     ),
+                            //                     child: Text('Submit',
+                            //                         style: GoogleFonts.firaSans(
+                            //                           fontSize: 12,
+                            //                           fontWeight: FontWeight.w700,
+                            //                           color: Colors.white,
+                            //                         ))),
+                            //                 // : widget.child,
+                            //               ),
+                            //               ///
+                            //               // CustomElevatedButton(
+                            //               //   width: 105,
+                            //               //   height: 31,
+                            //               //   text: 'Submit',
+                            //               //   onPressed: () async {
+                            //               //     await addNewOffice(
+                            //               //       context,
+                            //               //       nameController.text,
+                            //               //       addressController.text,
+                            //               //       emailController.text,
+                            //               //       mobNumController.text,
+                            //               //       secNumController.text,
+                            //               //     );
+                            //               //     companyOfficeListGet(context, 11, 1, 6).then((data) {
+                            //               //       _companyIdentityController.add(data);
+                            //               //     }).catchError((error) {});
+                            //               //     Navigator.pop(context);
+                            //               //   },
+                            //               // ),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //       ]),
+                            // );
+
                       },
                     );
                   },
@@ -247,7 +320,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   flex: 1,
                   child: Text(
                     "Sr No.",
-                    textAlign: TextAlign.start,
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -260,7 +332,6 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   flex: 2,
                   child: Text(
                     "Office Name",
-                    textAlign: TextAlign.start,
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -270,7 +341,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 ),
                 Expanded(flex: 2, child: Container()),
                 Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: Text(
                     "Address",
                     textAlign: TextAlign.center,
@@ -281,7 +352,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     ),
                   ),
                 ),
-                Expanded(flex: 3, child: Container()),
+                Expanded(flex: 2, child: Container()),
                 Expanded(
                   flex: 2,
                   child: Text(
@@ -296,13 +367,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               ],
             ),
           ),
-
         /// Render list only if both manage and whitelabelling screens are not shown
         if (!showManageScreen && !showWhitelabellingScreen)
           Expanded(
             child: showStreamBuilder
                 ? FutureBuilder(
-                    future: companyOfficeListGet(context, 11, 1, 6),
+                    future: companyOfficeListGet(context, 11, 1, 15),
                     builder: (context, snap) {
                       if (snap.hasData) {
                         _companyIdentityController.add(snap.data!);
@@ -821,46 +891,3 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
 //       ),
 //   ],
 // );
-// SizedBox(
-//        width: 100,
-//        height: 35,
-//        child: ElevatedButton(
-//            onPressed: () async {
-//              await addNewOffice(
-//                context,
-//                nameController.text,
-//                addressController.text,
-//                emailController.text,
-//                mobNumController.text,
-//                secNumController.text,
-//              );
-//              companyOfficeListGet(
-//                      context, 11, 1, 6)
-//                  .then((data) {
-//                _companyIdentityController
-//                    .add(data);
-//              }).catchError((error) {});
-//              Navigator.pop(context);
-//            },
-//            style: ElevatedButton.styleFrom(
-//              backgroundColor:
-//                  Color(0xFF1696C8),
-//              foregroundColor: ColorManager
-//                  .textPrimaryColor,
-//              shape: RoundedRectangleBorder(
-//                borderRadius:
-//                    BorderRadius.circular(12),
-//              ),
-//              padding: EdgeInsets.symmetric(
-//                  vertical: 12,
-//                  horizontal: 16),
-//            ),
-//            child: Text('Submit',
-//                style: GoogleFonts.firaSans(
-//                  fontSize: 12,
-//                  fontWeight: FontWeight.w700,
-//                  color: Colors.white,
-//                ))),
-//        // : widget.child,
-//      ),
-///

@@ -455,7 +455,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                           decoration: InputDecoration(
                             focusColor: ColorManager.mediumgrey,
                             hoverColor: ColorManager.mediumgrey,
-                            hintText: 'dd-mm-yyyy',
+                            hintText: 'mm-dd-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w700,
@@ -497,7 +497,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                             );
                             if (date != null) {
                               String formattedDate =
-                                  DateFormat('dd-MM-yyyy').format(date);
+                                  DateFormat('MM-dd-yyyy').format(date);
                               widget.calenderController.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
