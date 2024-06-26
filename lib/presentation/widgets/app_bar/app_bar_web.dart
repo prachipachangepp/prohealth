@@ -18,6 +18,7 @@ class AppBarWeb extends StatelessWidget {
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.width);
     return Material(
+      color: Colors.white,
       child: SizedBox(
         height: AppBar().preferredSize.height + 15,
         width: double.maxFinite,
@@ -26,6 +27,7 @@ class AppBarWeb extends StatelessWidget {
           children: [
             Container(
               width: 200,
+              // color: Colors.white,
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               child: Image.asset(
                 'images/logo_login.png',
