@@ -27,7 +27,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
   late int itemsPerPage;
   late List<String> items;
 
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
 
   void _selectButton(int index) {
@@ -50,7 +50,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
-  var subDocId = 1;
+  var subDocId = 0;
   @override
   Widget build(BuildContext context) {
     return Column(

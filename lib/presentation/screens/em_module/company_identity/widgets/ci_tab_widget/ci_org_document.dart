@@ -32,7 +32,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
 
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   String _selectedItem = 'Corporate & Compliance Documents';
   void _onDropdownItemSelected(String newValue) {
     setState(() {
@@ -416,7 +416,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
         Expanded(
           child: Stack(
             children: [
-              _selectedIndex != 3
+              _selectedIndex != 0
                   ? Container(
                 height: MediaQuery.of(context).size.height / 3.5,
                 decoration: BoxDecoration(

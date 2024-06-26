@@ -46,9 +46,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 10,
-        ),
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width / 50.0),
