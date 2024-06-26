@@ -142,6 +142,7 @@ class CustomElevatedButton extends StatefulWidget {
 
 class _CustomElevatedButtonState extends State<CustomElevatedButton> {
   bool _isLoading = false;
+  bool  _isSubmitting= false;
 
   void _handlePress() {
     setState(() {
@@ -158,15 +159,8 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
   @override
   Widget build(BuildContext context) {
     return
-      // _isLoading
-      //     ? SizedBox(
-      //   width: 30,
-      //   height: 30,
-      //   child: CircularProgressIndicator(
-      //     color: Colors.blue,
-      //   ),
-      // )
-      //     :
+    //   _isSubmitting ? CircularProgressIndicator()
+    // :
       SizedBox(
       width: widget.width,
       height: widget.height,
