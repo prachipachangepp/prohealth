@@ -20,6 +20,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/md.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/misc.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/snf.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
 
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
@@ -536,7 +537,7 @@ int listIndex = 0 ;
           Expanded(
             flex: 10,
             child: Stack(children: [
-              _selectedIndex == 1
+              _selectedIndex == 0
                   ? const Offstage()
                   : Container(
                       height: MediaQuery.of(context).size.height / 3,
@@ -604,14 +605,15 @@ int listIndex = 0 ;
                       //   nameList: ['Vendor', 'Contracts'],
                       //   screenList: [CiInsuranceVendor(), CiInsuranceContract()],
                       // ),
-                      CiPageview(
-                        managePageController: _managePageController,
-                        selectedIndex: _selectedIndex,
-                        selectButton: _selectButton,
-                        mediaQueryWidth: 2,
-                        nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
-                        screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()], docId: docID,
-                      ),
+                      CiCcVendorContractScreen(companyID: widget.companyID, officeId: widget.officeID,),
+                      // CiPageview(
+                      //   managePageController: _managePageController,
+                      //   selectedIndex: _selectedIndex,
+                      //   selectButton: _selectButton,
+                      //   mediaQueryWidth: 2,
+                      //   nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
+                      //   screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()], docId: docID,
+                      // ),
                       CiPoliciesAndProcedures(docID: docID, subDocID: docID,),
                       CiTempalets()
                     ]),

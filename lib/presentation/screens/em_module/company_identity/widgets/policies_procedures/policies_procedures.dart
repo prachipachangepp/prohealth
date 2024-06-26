@@ -55,204 +55,208 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-            CustomIconButtonConst(text: 'Add Doctype',
-              onPressed: (){
-              showDialog(context: context, builder: (BuildContext context){
-                return AddPoliciesPopup(nameOfDocumentController: nameOfDocController, idOfDocumentController: idOfDocController, onSavePressed: () {  },
-                child:  const CICCDropdown(
-                  initialValue: 'Policies & Procedures',
-                  items: [
-                    DropdownMenuItem(value: 'Policies & Procedures', child: Text('Policies & Procedures')),
-                    DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                    DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                    DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                  ],),);
-              });
-            },icon: Icons.add,)
-            ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+              CustomIconButtonConst(text: 'Add Doctype',
+                onPressed: (){
+                showDialog(context: context, builder: (BuildContext context){
+                  return AddPoliciesPopup(nameOfDocumentController: nameOfDocController, idOfDocumentController: idOfDocController, onSavePressed: () {  },
+                  child:  const CICCDropdown(
+                    initialValue: 'Policies & Procedures',
+                    items: [
+                      DropdownMenuItem(value: 'Policies & Procedures', child: Text('Policies & Procedures')),
+                      DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                      DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                      DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                    ],),);
+                });
+              },icon: Icons.add,)
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child:
-          StreamBuilder<List<CiOrgDocumentCC>>(
-            stream: _controller.stream,
-            builder: (context,snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                );
-              }
-              if (snapshot.data!.isEmpty) {
-                return Center(
-                  child: Text(
-                    AppString.dataNotFound,
-                    style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey,
+          SizedBox(height: 10,),
+          Expanded(
+            child:
+            StreamBuilder<List<CiOrgDocumentCC>>(
+              stream: _controller.stream,
+              builder: (context,snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
                     ),
-                  ),
-                );
-              }
-              if(snapshot.hasData){
-                return ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      // int serialNumber =
-                      //     index + 1 + (currentPage - 1) * itemsPerPage;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // SizedBox(height: 5),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0xff000000).withOpacity(0.25),
-                                      spreadRadius: 0,
-                                      blurRadius: 4,
-                                      offset: const Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                height: 50,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,color: ColorManager.blueprime,)),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                snapshot.data![index].createdAt.toString(),textAlign:TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: const Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                              Text(
-                                                snapshot.data![index].name.toString(),textAlign:TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: const Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                  );
+                }
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text(
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey,
+                      ),
+                    ),
+                  );
+                }
+                if(snapshot.hasData){
+                  return ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        // int serialNumber =
+                        //     index + 1 + (currentPage - 1) * itemsPerPage;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // SizedBox(height: 5),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(4),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0xff000000).withOpacity(0.25),
+                                        spreadRadius: 0,
+                                        blurRadius: 4,
+                                        offset: const Offset(0, 2),
                                       ),
-
-                                      //  Text(''),
-                                      Row(
-                                        children: [
-                                          IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.blueprime,)),
-                                          IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.blueprime,)),
-                                          IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.blueprime,)),
-                                          IconButton(onPressed: (){
-                                            showDialog(context: context, builder: (context){
-                                              return CCScreenEditPopup(
-                                                idDocController: docIdController,
-                                                nameDocController: docNamecontroller,
-
-                                                child:  const CICCDropdown(
-                                                  initialValue: 'Corporate & Compliance Documents',
-                                                  items: [
-                                                    DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-                                                    DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                                    DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                                    DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                  ],),
-                                                child1:   const CICCDropdown(
-                                                  initialValue: 'Policies and Procedures',
-                                                  items: [
-                                                    DropdownMenuItem(value: 'Policies and Procedures', child: Text('Licenses')),
-                                                    DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                                                    DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                                                    DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                                                  ],),
-                                                  );
-                                            });
-                                          }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                          IconButton(onPressed: (){
-                                            showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
-                                              Navigator.pop(context);
-                                            }, onDelete: (){ setState(() async{
-                                              await deleteDocument(
-                                                  context,
-                                                  snapshot.data![index].docId!);
-                                              orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
-                                                _controller.add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
-                                            });}));
-                                          }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
-                                        ],
-                                      )
                                     ],
                                   ),
-                                )),
-                          ),
-                        ],
-                      );
-                    });
+                                  height: 50,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye_outlined,color: ColorManager.blueprime,)),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  snapshot.data![index].createdAt.toString(),textAlign:TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: const Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  snapshot.data![index].name.toString(),textAlign:TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: const Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+
+                                        //  Text(''),
+                                        Row(
+                                          children: [
+                                            IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.blueprime,)),
+                                            IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.blueprime,)),
+                                            IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.blueprime,)),
+                                            IconButton(onPressed: (){
+                                              showDialog(context: context, builder: (context){
+                                                return CCScreenEditPopup(
+                                                  idDocController: docIdController,
+                                                  nameDocController: docNamecontroller,
+
+                                                  child:  const CICCDropdown(
+                                                    initialValue: 'Corporate & Compliance Documents',
+                                                    items: [
+                                                      DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+                                                      DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                      DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                      DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                                    ],),
+                                                  child1:   const CICCDropdown(
+                                                    initialValue: 'Policies and Procedures',
+                                                    items: [
+                                                      DropdownMenuItem(value: 'Policies and Procedures', child: Text('Licenses')),
+                                                      DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                                                      DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                                                      DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                                                    ],),
+                                                    );
+                                              });
+                                            }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                            IconButton(onPressed: (){
+                                              showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                                Navigator.pop(context);
+                                              }, onDelete: (){ setState(() async{
+                                                await deleteDocument(
+                                                    context,
+                                                    snapshot.data![index].docId!);
+                                                orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                                                  _controller.add(data);
+                                                }).catchError((error) {
+                                                  // Handle error
+                                                });
+                                              });}));
+                                            }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        );
+                      });
+                }
+                return const Offstage();
               }
-              return const Offstage();
-            }
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        PaginationControlsWidget(
-          currentPage: currentPage,
-          items: items,
-          itemsPerPage: itemsPerPage,
-          onPreviousPagePressed: () {
-            /// Handle previous page button press
-            setState(() {
-              currentPage = currentPage > 1 ? currentPage - 1 : 1;
-            });
-          },
-          onPageNumberPressed: (pageNumber) {
-            /// Handle page number tap
-            setState(() {
-              currentPage = pageNumber;
-            });
-          },
-          onNextPagePressed: () {
-            /// Handle next page button press
-            setState(() {
-              currentPage = currentPage < (items.length / itemsPerPage).ceil()
-                  ? currentPage + 1
-                  : (items.length / itemsPerPage).ceil();
-            });
-          },
-        ),
-      ],),
+          const SizedBox(
+            height: 10,
+          ),
+          PaginationControlsWidget(
+            currentPage: currentPage,
+            items: items,
+            itemsPerPage: itemsPerPage,
+            onPreviousPagePressed: () {
+              /// Handle previous page button press
+              setState(() {
+                currentPage = currentPage > 1 ? currentPage - 1 : 1;
+              });
+            },
+            onPageNumberPressed: (pageNumber) {
+              /// Handle page number tap
+              setState(() {
+                currentPage = pageNumber;
+              });
+            },
+            onNextPagePressed: () {
+              /// Handle next page button press
+              setState(() {
+                currentPage = currentPage < (items.length / itemsPerPage).ceil()
+                    ? currentPage + 1
+                    : (items.length / itemsPerPage).ceil();
+              });
+            },
+          ),
+        ],),
+      ),
     );
   }
 }
