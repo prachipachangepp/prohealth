@@ -213,6 +213,7 @@ class EstablishmentManagerRepository {
   static String identityDocumentType = "/identity/GetDocType";
   static String getlistByCompany = "/officeListByCompany";
   static String addCorporateDocument = "/corporate-document/addDocument";
+  static String CorporateDocument = "/corporate-document";
   static String workWeekSchedule = "/work-week-schedule";
   static String workWeekShiftSchedule = "/work-week-shift-schedule";
   static String holidays = "/holidays";
@@ -260,7 +261,7 @@ class EstablishmentManagerRepository {
     return "$addDocument";
   }
   static String updateOrgCocument({required int docId}){
-    return "$document/$docId";
+    return "$CorporateDocument/$docId";
   }
   static String companyOfficeServiceGet(){
     return "$companyOfficeService";
@@ -322,6 +323,9 @@ class EstablishmentManagerRepository {
   }
   static String addCorporateDocumentPost(){
     return "$addCorporateDocument";
+  }
+  static String updateCorporateDocumentPost({required int docID}){
+    return "$CorporateDocument/$docID";
   }
   /// Work Schedule
   static String workWeekScheduleGet(){

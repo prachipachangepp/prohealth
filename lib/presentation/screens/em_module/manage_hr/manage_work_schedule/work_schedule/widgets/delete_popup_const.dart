@@ -11,8 +11,8 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 class DeletePopup extends StatefulWidget {
   final VoidCallback onCancel;
   final VoidCallback onDelete;
-  final int? loadingDuration;
-  const DeletePopup({super.key, required this.onCancel,
+  final bool? loadingDuration;
+   DeletePopup({super.key, required this.onCancel,
     required this.onDelete, this.loadingDuration});
 
   @override
@@ -86,13 +86,21 @@ class _DeletePopupState extends State<DeletePopup> {
                 Padding(
                 padding: const EdgeInsets.only(bottom: AppPadding.p24),
                 child: Center(
-                  child: CustomElevatedButton(
+                  child: widget.loadingDuration == true
+                      ? SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blueprime,
+                    ),
+                  )
+                      : CustomElevatedButton(
                     width: AppSize.s105,
                     height: AppSize.s30,
                     text: AppStringEM.delete,
                     onPressed: () {
                       widget.onDelete();
-                      Navigator.pop(context);
+
                     },
                   ),
                 ),
