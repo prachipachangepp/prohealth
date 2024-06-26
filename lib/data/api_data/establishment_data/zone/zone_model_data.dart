@@ -18,7 +18,20 @@ class AllCountyGet {
   final String? message;
   AllCountyGet({required this.countyName,required this.state,required this.country,required this.zipcodes,required this.sucess,required this.message,});
 }
-
+//
+// class AllCountyGet {
+//   final int? countyId;
+//   final String? countyName;
+//   final String? state;
+//   final String? country;
+//   final String? latitude;
+//   final String? longitude;
+//   final int? compId;
+//   final int? officeId;
+//   final bool? sucess;
+//   final String? message;
+//   AllCountyGet({required this.countyId,required this.latitude,required this.longitude,required this.compId,required this.officeId, required this.countyName,required this.state,required this.country,required this.sucess,required this.message,});
+// }
 ///zipcode,zone get
 class AllZipCodeGet{
   final int? zipcodeSetupId;

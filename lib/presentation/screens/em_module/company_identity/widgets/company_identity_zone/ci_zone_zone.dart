@@ -177,6 +177,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                             child: Row(
                               children: [
                                 Expanded(
+                                  flex: 3,
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     snapshot.data![index].zoneId.toString(),
@@ -190,6 +191,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                 ),
                                 // Text(''),
                                 Expanded(
+                                  flex: 3,
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     snapshot.data![index].zipcode.toString(),
@@ -214,6 +216,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                 //   ),
                                 // ),
                                 Expanded(
+                                  flex: 3,
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     snapshot.data![index].city.toString(),
@@ -226,6 +229,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                   ),
                                 ),
                                 Expanded(
+                                  flex: 3,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

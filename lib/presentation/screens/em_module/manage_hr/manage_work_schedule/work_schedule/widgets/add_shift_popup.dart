@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+
+import '../../../../../../../app/resources/font_manager.dart';
 
 class AddShiftPopup extends StatefulWidget {
   final TextEditingController controller1;
@@ -68,8 +71,20 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Add Shift',
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.semiBold,
+                      color: ColorManager.blueprime,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ),
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);

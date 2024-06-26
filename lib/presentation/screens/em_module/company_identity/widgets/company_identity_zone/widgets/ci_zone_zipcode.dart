@@ -65,13 +65,16 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // Text(''),
-                Text(
-                  'Zone Id',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text(
+                    'Zone Id',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                 ),
                 Text(
@@ -93,18 +96,9 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                   ),
                 ),
 //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                Text('Zip Code',textAlign: TextAlign.start,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    )),
-
                 Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: Text('Map',
-                      textAlign: TextAlign.start,
+                  padding: const EdgeInsets.only(right: 12.0),
+                  child: Text('Zip Code',textAlign: TextAlign.start,
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
@@ -112,6 +106,15 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                         decoration: TextDecoration.none,
                       )),
                 ),
+
+                Text('Map',
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                    )),
                 Text(
                   'Landmark',
                   style: GoogleFonts.firaSans(
@@ -121,13 +124,16 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                     decoration: TextDecoration.none,
                   ),
                 ),
-                Text(
-                  'Actions',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: Text(
+                    'Actions',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                 ),
               ],
@@ -197,6 +203,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                             child: Row(
                               children: [
                                 Expanded(
+                                  flex: 2,
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     snapshot.data![index].zoneId.toString(),
@@ -209,6 +216,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                   ),
                                 ),
                                 Expanded(
+                                  flex: 2,
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     snapshot.data![index].countyID.toString(),
@@ -221,6 +229,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                   ),
                                 ),
                                 Expanded(
+                                  flex: 2,
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     snapshot.data![index].city.toString(),
@@ -234,6 +243,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                 ),
                                 // Text(''),
                                 Expanded(
+                                  flex: 2,
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     snapshot.data![index].zipcode.toString(),
@@ -246,6 +256,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                   ),
                                 ),
                                 Expanded(
+                                  flex: 2,
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     'Map',
@@ -258,6 +269,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                   ),
                                 ),
                                 Expanded(
+                                  flex: 2,
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     snapshot.data![index].landmark.toString(),
@@ -270,6 +282,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                   ),
                                 ),
                                 Expanded(
+                                  flex: 2,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
