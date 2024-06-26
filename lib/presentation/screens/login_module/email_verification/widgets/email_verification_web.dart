@@ -27,7 +27,6 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
   final List<TextEditingController> _otpControllers =
       List.generate(6, (_) => TextEditingController());
 
-
   bool _isVerifyingOTP = false;
   String? _errorMessage = "";
 
@@ -99,7 +98,6 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                       fontSize: FontSize.s14,
                       fontWeight: FontWeightManager.bold),
                 ),
-
                 ///txtfield
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -114,7 +112,7 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(2.26),
                           border: Border.all(
-                            color: Colors.blue,
+                            color: ColorManager.bluecontainer,
                             width: 0.85,
                           ),
                         ),
@@ -170,129 +168,6 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                     },
                   ),
                 ),
-///
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: List.generate(
-                //     6,
-                //         (index) {
-                //       return Container(
-                //         width: MediaQuery.of(context).size.width / 45,
-                //         height: MediaQuery.of(context).size.height / 19,
-                //         margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 150),
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(2.26),
-                //           border: Border.all(
-                //             color: ColorManager.bluecontainer,
-                //             width: 0.85,
-                //           ),
-                //         ),
-                //         child: Focus(
-                //           onKey: (node, event) {
-                //             if (event is RawKeyDownEvent) {
-                //               if (event.logicalKey == LogicalKeyboardKey.backspace && _otpControllers[index].text.isEmpty && index > 0) {
-                //                 FocusScope.of(context).previousFocus();
-                //                 _otpControllers[index - 1].clear();
-                //                 return KeyEventResult.handled;
-                //               }
-                //             }
-                //             return KeyEventResult.ignored;
-                //           },
-                //           child: TextFormField(
-                //             controller: _otpControllers[index],
-                //             cursorColor: ColorManager.black,
-                //             cursorHeight: 20,
-                //             cursorWidth: 2,
-                //             cursorRadius: const Radius.circular(1),
-                //             inputFormatters: [
-                //               FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                //             ],
-                //             keyboardType: TextInputType.number,
-                //             textAlign: TextAlign.center,
-                //             textAlignVertical: TextAlignVertical.center,
-                //             maxLength: 1,
-                //             decoration: const InputDecoration(
-                //               contentPadding: EdgeInsets.only(bottom: AppSize.s15),
-                //               counterText: '',
-                //               focusedBorder: InputBorder.none,
-                //               enabledBorder: InputBorder.none,
-                //               errorBorder: InputBorder.none,
-                //               disabledBorder: InputBorder.none,
-                //             ),
-                //             validator: (value) {
-                //             return value!.isEmpty ? AppString.otp : null;
-                //              },
-                //             onChanged: (value) {
-                //               if (value.isNotEmpty && index < 5) {
-                //                 FocusScope.of(context).nextFocus();
-                //               } else if (value.isNotEmpty && index == 5) {
-                //                 _verifyOTPAndLogin();
-                //               }
-                //             },
-                //           ),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
-
-
-                ///
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: List.generate(
-                //     6,
-                //     (index) => Container(
-                //       // width: MediaQuery.of(context).size.width /45,
-                //       width: MediaQuery.of(context).size.width / 45,
-                //       height: MediaQuery.of(context).size.height / 19,
-                //       margin: EdgeInsets.symmetric(
-                //           horizontal: MediaQuery.of(context).size.width / 150),
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(2.26),
-                //         border: Border.all(
-                //           color: ColorManager.bluecontainer,
-                //           width: 0.85,
-                //         ),
-                //       ),
-                //       child: TextFormField(
-                //         controller: _otpControllers[index],
-                //         cursorColor: ColorManager.black,
-                //         cursorHeight: 20,
-                //         cursorWidth: 2,
-                //         cursorRadius: const Radius.circular(1),
-                //         inputFormatters: [
-                //           FilteringTextInputFormatter.allow(
-                //             RegExp(r'[0-9]'),
-                //           ),
-                //         ],
-                //         keyboardType: TextInputType.number,
-                //         textAlign: TextAlign.center,
-                //         textAlignVertical: TextAlignVertical.center,
-                //         maxLength: 1,
-                //         decoration: const InputDecoration(
-                //           contentPadding: EdgeInsets.only(bottom: AppSize.s15),
-                //           counterText: '',
-                //           focusedBorder: InputBorder.none,
-                //           enabledBorder: InputBorder.none,
-                //           errorBorder: InputBorder.none,
-                //           disabledBorder: InputBorder.none,
-                //         ),
-                //         validator: (value) {
-                //           return value!.isEmpty ? AppString.otp : null;
-                //         },
-                //         onChanged: (value) {
-                //           if (value.isNotEmpty && index < 5) {
-                //             FocusScope.of(context).nextFocus();
-                //           } else if (value.isNotEmpty && index == 5) {
-                //             _verifyOTPAndLogin();
-                //           }
-                //         },
-                //       ),
-                //     ),
-                //   ),
-                // ),
-
                 ///didnt receive code
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -310,7 +185,6 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                     )
                   ],
                 ),
-
                 ///button
                 CustomButton(
                   borderRadius: 24,
@@ -333,7 +207,6 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
                       ),
                     ),
                   ),
-
                 ///bottomtxt
                 InkWell(
                   child: Text(
@@ -375,3 +248,123 @@ class _EmailVerifyWebState extends State<EmailVerifyWeb> {
     );
   }
 }
+///
+// Row(
+//   mainAxisAlignment: MainAxisAlignment.center,
+//   children: List.generate(
+//     6,
+//         (index) {
+//       return Container(
+//         width: MediaQuery.of(context).size.width / 45,
+//         height: MediaQuery.of(context).size.height / 19,
+//         margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 150),
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(2.26),
+//           border: Border.all(
+//             color: ColorManager.bluecontainer,
+//             width: 0.85,
+//           ),
+//         ),
+//         child: Focus(
+//           onKey: (node, event) {
+//             if (event is RawKeyDownEvent) {
+//               if (event.logicalKey == LogicalKeyboardKey.backspace && _otpControllers[index].text.isEmpty && index > 0) {
+//                 FocusScope.of(context).previousFocus();
+//                 _otpControllers[index - 1].clear();
+//                 return KeyEventResult.handled;
+//               }
+//             }
+//             return KeyEventResult.ignored;
+//           },
+//           child: TextFormField(
+//             controller: _otpControllers[index],
+//             cursorColor: ColorManager.black,
+//             cursorHeight: 20,
+//             cursorWidth: 2,
+//             cursorRadius: const Radius.circular(1),
+//             inputFormatters: [
+//               FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+//             ],
+//             keyboardType: TextInputType.number,
+//             textAlign: TextAlign.center,
+//             textAlignVertical: TextAlignVertical.center,
+//             maxLength: 1,
+//             decoration: const InputDecoration(
+//               contentPadding: EdgeInsets.only(bottom: AppSize.s15),
+//               counterText: '',
+//               focusedBorder: InputBorder.none,
+//               enabledBorder: InputBorder.none,
+//               errorBorder: InputBorder.none,
+//               disabledBorder: InputBorder.none,
+//             ),
+//             validator: (value) {
+//             return value!.isEmpty ? AppString.otp : null;
+//              },
+//             onChanged: (value) {
+//               if (value.isNotEmpty && index < 5) {
+//                 FocusScope.of(context).nextFocus();
+//               } else if (value.isNotEmpty && index == 5) {
+//                 _verifyOTPAndLogin();
+//               }
+//             },
+//           ),
+//         ),
+//       );
+//     },
+//   ),
+// ),
+///
+// Row(
+//   mainAxisAlignment: MainAxisAlignment.center,
+//   children: List.generate(
+//     6,
+//     (index) => Container(
+//       // width: MediaQuery.of(context).size.width /45,
+//       width: MediaQuery.of(context).size.width / 45,
+//       height: MediaQuery.of(context).size.height / 19,
+//       margin: EdgeInsets.symmetric(
+//           horizontal: MediaQuery.of(context).size.width / 150),
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(2.26),
+//         border: Border.all(
+//           color: ColorManager.bluecontainer,
+//           width: 0.85,
+//         ),
+//       ),
+//       child: TextFormField(
+//         controller: _otpControllers[index],
+//         cursorColor: ColorManager.black,
+//         cursorHeight: 20,
+//         cursorWidth: 2,
+//         cursorRadius: const Radius.circular(1),
+//         inputFormatters: [
+//           FilteringTextInputFormatter.allow(
+//             RegExp(r'[0-9]'),
+//           ),
+//         ],
+//         keyboardType: TextInputType.number,
+//         textAlign: TextAlign.center,
+//         textAlignVertical: TextAlignVertical.center,
+//         maxLength: 1,
+//         decoration: const InputDecoration(
+//           contentPadding: EdgeInsets.only(bottom: AppSize.s15),
+//           counterText: '',
+//           focusedBorder: InputBorder.none,
+//           enabledBorder: InputBorder.none,
+//           errorBorder: InputBorder.none,
+//           disabledBorder: InputBorder.none,
+//         ),
+//         validator: (value) {
+//           return value!.isEmpty ? AppString.otp : null;
+//         },
+//         onChanged: (value) {
+//           if (value.isNotEmpty && index < 5) {
+//             FocusScope.of(context).nextFocus();
+//           } else if (value.isNotEmpty && index == 5) {
+//             _verifyOTPAndLogin();
+//           }
+//         },
+//       ),
+//     ),
+//   ),
+// ),

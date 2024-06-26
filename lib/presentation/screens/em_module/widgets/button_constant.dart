@@ -15,25 +15,29 @@ class CustomButtonTransparentSM extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height:25,
-      width: 89,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style: GoogleFonts.firaSans(
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFFF6928A),
+    return Material(
+      borderRadius: BorderRadius.circular(12),
+      elevation: 4,
+      child: Container(
+        height:25,
+        width: 86,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: Text(
+            text,
+            style: GoogleFonts.firaSans(
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFFF6928A),
+            ),
           ),
-        ),
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: BorderSide(color: Color(0xFFF6928A)),
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(color: Color(0xFFF6928A)),
+            ),
           ),
         ),
       ),
