@@ -387,6 +387,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                       builder: (context, snapshot) {
                                         var type = snapshot.data?.empType.toString();
                                         var shorthand = snapshot.data?.empType.toString();
+                                        doceEditMetaId = snapshot.data!.deptId;
                                         typeController = TextEditingController(text: snapshot.data?.empType.toString());
                                         shorthandController = TextEditingController(text: snapshot.data?.abbrivation.toString());
                                         return EditPopupWidget(
@@ -394,13 +395,14 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                           shorthandController: shorthandController,
                                           containerColor: containerColors[index],
                                           onSavePressed: () async{
-                                            await AllFromHrPatch(context, snapshot.data!.empTypeId, 1,
+                                            await AllFromHrPatch(context, snapshot.data!.empTypeId, doceEditMetaId,
                                                 type == typeController.text ? type.toString() : typeController.text,
                                                 shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
                                                 color);
                                             getAllHrDeptWise(context,widget.deptId).then((data){
                                               _controller.add(data);
                                             }).catchError((error){});
+                                            doceEditMetaId = 0;
                                             Navigator.pop(context);
                                             typeController.clear();
                                             shorthandController.clear();

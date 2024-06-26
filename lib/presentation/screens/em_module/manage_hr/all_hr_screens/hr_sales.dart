@@ -71,8 +71,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   }
   String seletedType = "Sales";
   String color ="#77D2EC";
-  int docTypeMetaId = 2;
-  int doceEditMetaId =2;
+
   void onChange(String seletedTypeEmp){
     setState(() {
       seletedType = seletedTypeEmp;
@@ -83,6 +82,8 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('containerColor$index', color.value);
   }
+  int docTypeMetaId = 2;
+  int doceEditMetaId =2;
 
   @override
   Widget build(BuildContext context) {
@@ -200,6 +201,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
         ),
         Container(
           height: 30,
+          margin: EdgeInsets.symmetric(horizontal: 50),
           decoration: BoxDecoration(
             color: ColorManager.fmediumgrey,
             borderRadius: BorderRadius.circular(12),
@@ -220,15 +222,12 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
 //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                 Text(AppStringEM.employee,textAlign: TextAlign.start,
                     style:  AllHRTableHeading.customTextStyle(context)),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: Text(
-                    AppStringEM.abbrevation,
-                    style:  AllHRTableHeading.customTextStyle(context)
-                  ),
+                Text(
+                  AppStringEM.abbrevation,
+                  style:  AllHRTableHeading.customTextStyle(context)
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 70.0),
+                  padding: const EdgeInsets.only(right: 10.0),
                   child: Text(
                     AppStringEM.color,
                     style:  AllHRTableHeading.customTextStyle(context)
@@ -319,164 +318,182 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                       //crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          formattedSerialNumber,
-                          textAlign: TextAlign.center,
-                          style:AllHRTableData.customTextStyle(context)
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            formattedSerialNumber,
+                            textAlign: TextAlign.center,
+                            style:AllHRTableData.customTextStyle(context)
+                          ),
                         ),
-                        Text(
-                            snapshot.data![index].empType.toString(),
-                          textAlign: TextAlign.center,
-                          style: AllHRTableData.customTextStyle(context)
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                              snapshot.data![index].empType.toString(),
+                            textAlign: TextAlign.center,
+                            style: AllHRTableData.customTextStyle(context)
+                          ),
                         ),
-                        Text(
-                            snapshot.data![index].abbrivation.toString(),
-                          textAlign: TextAlign.center,
-                          style: AllHRTableData.customTextStyle(context)
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                              snapshot.data![index].abbrivation.toString(),
+                            textAlign: TextAlign.center,
+                            style: AllHRTableData.customTextStyle(context)
+                          ),
                         ),
 
                         ///also change the color of this container
-                        Container(
-                          width: MediaQuery.of(context).size.width / 20,
-                          height: AppSize.s22,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: snapshot.data![index].color?.toColor,
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 20,
+                            height: AppSize.s22,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: snapshot.data![index].color?.toColor,
+                            ),
                           ),
                         ),
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return  FutureBuilder<HRGetEmpId>(
-                                        future: HrGetById(context, snapshot.data![index].employeeTypesId),
-                                        builder: (context, snapshot) {
-                                          var type = snapshot.data?.empType.toString();
-                                          var shorthand = snapshot.data?.empType.toString();
-                                          typeController = TextEditingController(text: snapshot.data?.empType.toString());
-                                          shorthandController = TextEditingController(text: snapshot.data?.abbrivation.toString());
-                                          return EditPopupWidget(
-                                            typeController: typeController,
-                                            shorthandController: shorthandController,
-                                            containerColor: containerColors[index],
-                                            onSavePressed: () async{
-                                              await AllFromHrPatch(context, snapshot.data!.empTypeId, 1,
-                                                  type == typeController.text ? type.toString() : typeController.text,
-                                                  shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
-                                                  color);
-                                              getAllHrDeptWise(context,widget.deptId).then((data){
-                                                _controller.add(data);
-                                              }).catchError((error){});
-                                              Navigator.pop(context);
-                                              typeController.clear();
-                                              shorthandController.clear();
-                                              seletedType = "Administrative";
-                                            },
-                                            onColorChanged: (Color seletedColor) {
-                                              setState(() {
-                                                containerColors[index] = seletedColor;
-                                                color = seletedColor.toString().substring(10,16);
-                                                _saveColor(index, seletedColor);
-                                              });
-                                            },
-                                            child:  FutureBuilder<List<HRHeadBar>>(
-                                              future: companyHRHeadApi(context,widget.deptId),
-                                              builder: (context,snapshot) {
-                                                if(snapshot.connectionState == ConnectionState.waiting){
-                                                  return Shimmer.fromColors(
-                                                      baseColor: Colors.grey[300]!,
-                                                      highlightColor: Colors.grey[100]!,
-                                                      child: Container(
-                                                        width: 350,
-                                                        height: 30,
-                                                        decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                      )
-                                                  );
-                                                }
-                                                if (snapshot.data!.isEmpty) {
-                                                  return Center(
-                                                    child: Text(
-                                                      AppString.dataNotFound,
-                                                      style: CustomTextStylesCommon.commonStyle(
-                                                        fontWeight: FontWeightManager.medium,
-                                                        fontSize: FontSize.s12,
-                                                        color: ColorManager.mediumgrey,
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                                if(snapshot.hasData){
-                                                  List dropDown = [];
-                                                  int docType = 0;
-                                                  List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                                  for(var i in snapshot.data!){
-                                                    dropDownMenuItems.add(
-                                                      DropdownMenuItem<String>(
-                                                        child: Text(i.deptName),
-                                                        value: i.deptName,
+                        Expanded(
+                          flex: 3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return  FutureBuilder<HRGetEmpId>(
+                                          future: HrGetById(context, snapshot.data![index].employeeTypesId),
+                                          builder: (context, snapshot) {
+                                            var type = snapshot.data?.empType.toString();
+                                            var shorthand = snapshot.data?.empType.toString();
+                                            doceEditMetaId = snapshot.data!.deptId;
+                                            typeController = TextEditingController(text: snapshot.data?.empType.toString());
+                                            shorthandController = TextEditingController(text: snapshot.data?.abbrivation.toString());
+                                            return EditPopupWidget(
+                                              typeController: typeController,
+                                              shorthandController: shorthandController,
+                                              containerColor: containerColors[index],
+                                              onSavePressed: () async{
+                                                await AllFromHrPatch(context, snapshot.data!.empTypeId, doceEditMetaId,
+                                                    type == typeController.text ? type.toString() : typeController.text,
+                                                    shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
+                                                    color);
+                                                getAllHrDeptWise(context,widget.deptId).then((data){
+                                                  _controller.add(data);
+                                                }).catchError((error){});
+                                                doceEditMetaId = 0;
+                                                Navigator.pop(context);
+                                                typeController.clear();
+                                                shorthandController.clear();
+                                                seletedType = "Sales";
+                                              },
+                                              onColorChanged: (Color seletedColor) {
+                                                setState(() {
+                                                  containerColors[index] = seletedColor;
+                                                  color = seletedColor.toString().substring(10,16);
+                                                  _saveColor(index, seletedColor);
+                                                });
+                                              },
+                                              child:  FutureBuilder<List<HRHeadBar>>(
+                                                future: companyHRHeadApi(context,widget.deptId),
+                                                builder: (context,snapshot) {
+                                                  if(snapshot.connectionState == ConnectionState.waiting){
+                                                    return Shimmer.fromColors(
+                                                        baseColor: Colors.grey[300]!,
+                                                        highlightColor: Colors.grey[100]!,
+                                                        child: Container(
+                                                          width: 350,
+                                                          height: 30,
+                                                          decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                        )
+                                                    );
+                                                  }
+                                                  if (snapshot.data!.isEmpty) {
+                                                    return Center(
+                                                      child: Text(
+                                                        AppString.dataNotFound,
+                                                        style: CustomTextStylesCommon.commonStyle(
+                                                          fontWeight: FontWeightManager.medium,
+                                                          fontSize: FontSize.s12,
+                                                          color: ColorManager.mediumgrey,
+                                                        ),
                                                       ),
                                                     );
                                                   }
-                                                  return CICCDropdown(
-                                                      initialValue: dropDownMenuItems[1].value,
-                                                      onChange: (val){
-                                                        for(var a in snapshot.data!){
-                                                          if(a.deptName == val){
-                                                            docType = a.deptId;
-                                                            doceEditMetaId = docType;
+                                                  if(snapshot.hasData){
+                                                    List dropDown = [];
+                                                    int docType = 0;
+                                                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                                    for(var i in snapshot.data!){
+                                                      dropDownMenuItems.add(
+                                                        DropdownMenuItem<String>(
+                                                          child: Text(i.deptName),
+                                                          value: i.deptName,
+                                                        ),
+                                                      );
+                                                    }
+                                                    return CICCDropdown(
+                                                        initialValue: dropDownMenuItems[1].value,
+                                                        onChange: (val){
+                                                          for(var a in snapshot.data!){
+                                                            if(a.deptName == val){
+                                                              docType = a.deptId;
+                                                              doceEditMetaId = docType;
+                                                            }
                                                           }
-                                                        }
-                                                        print(":::${docType}");
-                                                        print(":::<>${doceEditMetaId}");
-                                                      },
-                                                      items:dropDownMenuItems
-                                                  );
-                                                }else{
-                                                  return SizedBox();
+                                                          print(":::${docType}");
+                                                          print(":::<>${doceEditMetaId}");
+                                                        },
+                                                        items:dropDownMenuItems
+                                                    );
+                                                  }else{
+                                                    return SizedBox();
+                                                  }
                                                 }
-                                              }
-                                          ),
-                                            // onColorChanged: (Color color) {
-                                            //   setState(() {
-                                            //     containerColors[index] =
-                                            //      color; // Update color for this item
-                                            //   });
-                                            // },
-                                          );
-                                        }
-                                    );
-                                  },
-                                );
-                              },
-                              icon: Icon(Icons.edit_outlined,size: 18,),
-                              color: ColorManager.blueprime,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                showDialog(context: context,
-                                    builder: (context) => DeletePopup(
-                                        onCancel: (){
-                                          Navigator.pop(context);
-                                        }, onDelete: () async {
-                                      await  allfromHrDelete(
-                                          context, snapshot.data![index].employeeTypesId!);
-                                      getAllHrDeptWise(context,widget.deptId).then((data){
-                                        _controller.add(data);
-                                      }).catchError((error){});
-                                      Navigator.pop(context);
-                                    }));
-
-                              },
-                              icon: Icon(
-                                size: 18,
-                                Icons.delete_outline,
-                                color: Color(0xffF6928A),
+                                            ),
+                                              // onColorChanged: (Color color) {
+                                              //   setState(() {
+                                              //     containerColors[index] =
+                                              //      color; // Update color for this item
+                                              //   });
+                                              // },
+                                            );
+                                          }
+                                      );
+                                    },
+                                  );
+                                },
+                                icon: Icon(Icons.edit_outlined,size: 18,),
+                                color: ColorManager.blueprime,
                               ),
-                            ),
-                          ],
+                              IconButton(
+                                onPressed: () {
+                                  showDialog(context: context,
+                                      builder: (context) => DeletePopup(
+                                          onCancel: (){
+                                            Navigator.pop(context);
+                                          }, onDelete: () async {
+                                        await  allfromHrDelete(
+                                            context, snapshot.data![index].employeeTypesId!);
+                                        getAllHrDeptWise(context,widget.deptId).then((data){
+                                          _controller.add(data);
+                                        }).catchError((error){});
+                                        Navigator.pop(context);
+                                      }));
+
+                                },
+                                icon: Icon(
+                                  size: 18,
+                                  Icons.delete_outline,
+                                  color: Color(0xffF6928A),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ));

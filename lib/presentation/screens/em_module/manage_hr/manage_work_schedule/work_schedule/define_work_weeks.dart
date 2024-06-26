@@ -451,7 +451,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                                     builder: (BuildContext context) {
                                                                                       return ViewBatchesPopup(shiftName: snapshotShift.data![index].shiftName,
                                                                                         weekName: snapshot.data![index].weekDays, officeId: snapshot.data![index].officeId,
-                                                                                        companyId: snapshot.data![index].companyId!,);
+                                                                                        companyId: snapshot.data![index].companyId,);
                                                                                     });
                                                                               },
                                                                               child: Text(

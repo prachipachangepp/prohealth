@@ -106,17 +106,21 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   void openFile(PlatformFile file) {
     OpenFile.open(file.path!);
   }
-  //  String bucketId = "symmetry-office-document";
-  //  AwsS3Client s3client = AwsS3Client(
-  //   region: "us-west-2",
-  //   // host: "s3.eu-central-1.amazonaws.com",
-  //   bucketId: "symmetry-office-document",
-  //   accessKey: "AKIAU5UP6ITKKAGCXEXK",
-  //   secretKey: "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",
-  // );
+   String bucketId = "symmetry-office-document";
+   AwsS3Client s3client = AwsS3Client(
+    region: "us-west-2",
+    // host: "s3.eu-central-1.amazonaws.com",
+    bucketId: "symmetry-office-document",
+    accessKey: "AKIAU5UP6ITKKAGCXEXK",
+    secretKey: "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",
+  );
 
   @override
   Widget build(BuildContext context) {
+    s3client.getObject(bucketId).then((response) {
+      response.body;
+      print('Response::${response.body}');
+    });
     return Material(
       color: Colors.white,
       child: SingleChildScrollView(
@@ -334,13 +338,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     ),
                                                   ],
                                                 ),
+                                                SizedBox(height: AppSize.s10),
                                                 SMTextFConst(
                                                   controller: nameController,
                                                   keyboardType:
                                                       TextInputType.text,
                                                   text: AppStringEM.companyName,
                                                 ),
-                                                SizedBox(height: AppSize.s4),
+                                                SizedBox(height: AppSize.s10),
                                                 SMTextFConst(
                                                   controller:
                                                       secNumberController,
@@ -348,14 +353,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                       TextInputType.number,
                                                   text: AppStringEM.secNum,
                                                 ),
-                                                SizedBox(height: AppSize.s4),
+                                                SizedBox(height:AppSize.s10),
                                                 SMTextFConst(
                                                   controller: faxController,
                                                   keyboardType:
                                                       TextInputType.text,
                                                   text: AppStringEM.fax,
                                                 ),
-                                                SizedBox(height: AppSize.s4),
+                                                SizedBox(height: AppSize.s10),
                                                 SMTextFConst(
                                                   controller: addressController,
                                                   keyboardType:
@@ -494,13 +499,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     ),
                                                   ],
                                                 ),
+                                                SizedBox(height: AppSize.s10),
                                                 SMTextFConst(
                                                   controller: primNumController,
                                                   keyboardType:
                                                       TextInputType.number,
                                                   text: AppStringEM.primNum,
                                                 ),
-                                                SizedBox(height: AppSize.s4),
+                                                SizedBox(height: AppSize.s10),
                                                 SMTextFConst(
                                                   controller: altNumController,
                                                   keyboardType:
@@ -508,7 +514,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   text: AppStringEM
                                                       .alternatephone,
                                                 ),
-                                                SizedBox(height: AppSize.s4),
+                                                SizedBox(height: AppSize.s10),
                                                 SMTextFConst(
                                                   controller: emailController,
                                                   keyboardType:
@@ -622,22 +628,36 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                               Container(
                                 height: 100,
                                 child: webLogo.url.isNotEmpty
-                                //     ? FutureBuilder<String>(
+                                    ?     Image.network(
+                        "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
+                        // webLogo.url,
+                        fit: BoxFit.cover,
+                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                        return Center(
+                        child: Icon(Icons.error, color: Colors.red),
+                        );
+                        },
+                        )
+                            : Container(),
+                                // FutureBuilder<String>(
                                 //   future: s3client.getObject(bucketId).then((response) => response.body),
                                 //   builder: (context, snapshot) {
+                                //     print("<<<><><>${snapshot.data}");
                                 //     if (snapshot.connectionState == ConnectionState.waiting) {
                                 //       return Center(child: CircularProgressIndicator());
-                                //     } else if (snapshot.hasError) {
+                                //     }
+                                //     else if (snapshot.hasError) {
                                 //       return Center(
                                 //         child: Icon(Icons.error, color: Colors.red),
                                 //       );
-                                //     } else if (snapshot.hasData) {
+                                //     }
+                                //     else if (snapshot.hasData) {
                                 //       return Image.network(
                                 //         snapshot.data!,
                                 //         fit: BoxFit.cover,
                                 //         errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                                 //           return Center(
-                                //             child: Icon(Icons.error, color: Colors.red),
+                                //             //child: Icon(Icons.error, color: Colors.red),
                                 //           );
                                 //         },
                                 //       );
@@ -647,17 +667,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                 //   },
                                 // )
                                 //     : Container(),
-                                    ? Image.network(
-                                  "https://symmetry-image.s3.us-west-2.amazonaws.com/8ba4e2e2-1a95-42ca-b15b-5b6cb71a1417-complogo1.jpg",
-                                  // webLogo.url,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                    return Center(
-                                      child: Icon(Icons.error, color: Colors.red),
-                                    );
-                                  },
-                                )
-                                    : Container(),
+
                               ),
                               Container(
                                 height: 100,

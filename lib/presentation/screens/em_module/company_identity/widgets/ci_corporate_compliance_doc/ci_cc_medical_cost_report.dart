@@ -54,32 +54,32 @@ class _CICCMedicalCRState extends State<CICCMedicalCR> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-        CustomIconButtonConst(
-            icon: Icons.add,
-            text: "Add Doctype", onPressed: (){
-          showDialog(context: context, builder: (context){
-            return CCScreensAddPopup(
-              countynameController: docNamecontroller,
-              zipcodeController: docIdController,
-              onSavePressed: () {  },
-              child:  CICCDropdown(
-                initialValue: 'Corporate & Compliance Documents',
-                items: [
-                  DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-                  DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                  DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                  DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                ],),
-              child1:  CICCDropdown(
-                initialValue: 'Medical Cost Reports',
-                items: [
-                  DropdownMenuItem(value: 'Medical Cost Reports', child: Text('Medical Cost Reports')),
-                  DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                  DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                  DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                ],),);
-          });
-        }),
+        // CustomIconButtonConst(
+        //     icon: Icons.add,
+        //     text: "Add Doctype", onPressed: (){
+        //   showDialog(context: context, builder: (context){
+        //     return CCScreensAddPopup(
+        //       countynameController: docNamecontroller,
+        //       zipcodeController: docIdController,
+        //       onSavePressed: () {  },
+        //       child:  CICCDropdown(
+        //         initialValue: 'Corporate & Compliance Documents',
+        //         items: [
+        //           DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
+        //           DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+        //           DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+        //           DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+        //         ],),
+        //       child1:  CICCDropdown(
+        //         initialValue: 'Medical Cost Reports',
+        //         items: [
+        //           DropdownMenuItem(value: 'Medical Cost Reports', child: Text('Medical Cost Reports')),
+        //           DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+        //           DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+        //           DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+        //         ],),);
+        //   });
+        // }),
         SizedBox(height: 5,),
         Expanded(
             child:

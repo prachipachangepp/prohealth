@@ -294,8 +294,8 @@ class EstablishmentManagerRepository {
   static String getOrgDocument(){
     return "/$document";
   }
-  static String getCiVisit({required int pageNo, required int noofRows}){
-    return "/$visit/$pageNo/$noofRows";
+  static String getCiVisit({required int companyId,required int pageNo, required int noofRows}){
+    return "/$visit/$companyId/$pageNo/$noofRows";
   }
   static String getCiVisitList(){
     return "/$visit$visitList";

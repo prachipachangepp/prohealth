@@ -261,7 +261,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                             var holidayName = snapshotPrefill.data?.holidayName.toString();
                                                             var date = snapshotPrefill.data?.date.toString();
                                                             holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
-                                                            calenderController = TextEditingController(text: snapshotPrefill.data?.date.toString());
+                                                            calenderController = TextEditingController(text: snapshotPrefill.data?.date);
                                                             return AddHolidayPopup(
                                                               controller:
                                                                   holidayNameController,
@@ -270,7 +270,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                               onPressed: ()  async{
                                                                 await updateHolidays(context, snapshot.data![index].holidayId,
                                                                     holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
-                                                                    date == calenderController.text ? date.toString() : calenderController.text, 2024, snapshot.data![index].companyId!);
+                                                                    date == calenderController.text ? DateFormat('mm-dd-yyy').format(date as DateTime) : calenderController.text, 2024, 1);
                                                                 holidaysListGet(
                                                                     context)
                                                                     .then((data) {
