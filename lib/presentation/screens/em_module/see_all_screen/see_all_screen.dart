@@ -496,7 +496,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           ),
                           height: 56,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/50),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -587,13 +587,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 1,
+                                  // flex: 1,
                                   child: Row(
                                     children: [
+                                      ///edit
                                       InkWell(
                                         child: Container(
-                                          height: 20,
-                                          width: 50,
+                                          height: MediaQuery.of(context).size.height/30,
+                                          width: MediaQuery.of(context).size.width/25,
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -820,6 +821,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                       SizedBox(
                                         width: 20,
                                       ),
+                                      ///delete
                                       InkWell(
                                         onTap: () async {
                                           await showDialog(
@@ -845,8 +847,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                   }));
                                         },
                                         child: Container(
-                                          height: 20,
-                                          width: 50,
+                                          height: MediaQuery.of(context).size.height/30,
+                                          width: MediaQuery.of(context).size.width/25,
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -862,7 +864,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                       )
                                     ],
                                   ),
-                                )
+                                ),
+                                // Expanded(child: Container())
                               ],
                             ),
                           ),
