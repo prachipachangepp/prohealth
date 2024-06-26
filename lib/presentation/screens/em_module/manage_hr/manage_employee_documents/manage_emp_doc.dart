@@ -124,8 +124,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
       color: Colors.white,
       child: Column(
         children: [
-          // widget.selectedIndex == 0 ?
-          Padding(
+          _selectedIndex == 1 ? Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: AppPadding.p50,
                 vertical: AppPadding.p20),
@@ -148,6 +147,47 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                       nameDocController.clear();
                       dateController.clear();
                       },
+                    radioButton: StatefulBuilder(
+                      builder: (BuildContext context, void Function(void Function()) setState) {
+                       return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomRadioListTile(
+                              value: "Not Applicable",
+                              groupValue: expiryType.toString(),
+                              onChanged: (value) {
+                                setState(() {
+                                  expiryType = value!;
+                                });
+                              },
+                              title: "Not Applicable",
+                            ),
+                            CustomRadioListTile(
+                              value: 'Scheduled',
+                              groupValue: expiryType.toString(),
+                              onChanged: (value) {
+                                setState(() {
+                                  expiryType = value!;
+                                });
+                              },
+                              title: 'Scheduled',
+                            ),
+                            CustomRadioListTile(
+                              value: 'Issuer Expiry',
+                              groupValue: expiryType.toString(),
+                              onChanged: (value) {
+                                setState(() {
+                                  expiryType = value!;
+                                });
+                              },
+                              title: 'Issuer Expiry',
+                            ),
+                          ],
+                        );
+                      },
+
+                    ),
                       child:  FutureBuilder<List<EmployeeDocTabModal>>(
                         future: getEmployeeDocTab(context),
                         builder: (context,snapshot) {
@@ -204,55 +244,12 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                             return SizedBox();
                           }
                         }
-                      ),
-                    radioButton: StatefulBuilder(
-                      builder: (BuildContext context, void Function(void Function()) setState) {
-                       return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomRadioListTile(
-                              value: "Not Applicable",
-                              groupValue: expiryType.toString(),
-                              onChanged: (value) {
-                                setState(() {
-                                  expiryType = value!;
-                                });
-                              },
-                              title: "Not Applicable",
-                            ),
-                            CustomRadioListTile(
-                              value: 'Scheduled',
-                              groupValue: expiryType.toString(),
-                              onChanged: (value) {
-                                setState(() {
-                                  expiryType = value!;
-                                });
-                              },
-                              title: 'Scheduled',
-                            ),
-                            CustomRadioListTile(
-                              value: 'Issuer Expiry',
-                              groupValue: expiryType.toString(),
-                              onChanged: (value) {
-                                setState(() {
-                                  expiryType = value!;
-                                });
-                              },
-                              title: 'Issuer Expiry',
-                            ),
-                          ],
-                        );
-                      },
-
-                    ),);
+                      ),);
                   });
                 },icon: Icons.add,)
               ],
             ),
-          ),
-              // :
-          // SizedBox(height: 20,),
+          ) : const SizedBox(height: 72,),
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(
@@ -364,6 +361,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                     },
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
+                       HealthEmpDoc(metaDocID: metaDocID),
                        HealthEmpDoc(metaDocID: metaDocID),
                        HealthEmpDoc(metaDocID: metaDocID),
                        HealthEmpDoc(metaDocID: metaDocID),
