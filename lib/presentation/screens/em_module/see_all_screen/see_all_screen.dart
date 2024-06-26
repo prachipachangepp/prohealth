@@ -329,14 +329,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                 decoration: BoxDecoration(
                   color: ColorManager.fmediumgrey,
                   borderRadius: BorderRadius.circular(12),
+
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Text(
                           AppString.srNo,
                           style: TextStyle(
@@ -346,9 +348,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           ),
                         ),
                       ),
-                      // SizedBox(width: 5),
+
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Text(
                           "User ID",
                           style: GoogleFonts.firaSans(
@@ -357,20 +359,21 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               color: ColorManager.white),
                         ),
                       ),
-                      // SizedBox(width: 5),
+
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Text(
                           "First Name",
+
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.white),
                         ),
                       ),
-                      // SizedBox(width: 5),
+
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Text(
                           "Last Name",
                           style: GoogleFonts.firaSans(
@@ -379,9 +382,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               color: ColorManager.white),
                         ),
                       ),
-                      // SizedBox(width: 5),
+
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Text(
                           "Role",
                           style: GoogleFonts.firaSans(
@@ -390,33 +393,36 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               color: ColorManager.white),
                         ),
                       ),
-                      // SizedBox(width: 5),
+
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Text(
                           "Email",
+                          textAlign: TextAlign.start,
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.white),
                         ),
                       ),
-                      // SizedBox(width: 5),
+
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Text(
                           "Company ID",
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.white),
                         ),
                       ),
-                      // SizedBox(width: 5),
+
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Text(
                           "Actions",
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -472,6 +478,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 5),
+
                         Container(
                           padding: EdgeInsets.only(bottom: 5),
                           margin: EdgeInsets.symmetric(horizontal: 50),
@@ -520,7 +527,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   flex: 1,
                                   child: Text(
                                     snapshot.data![index].firstName,
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.start,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -528,11 +535,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                     ),
                                   ),
                                 ),
+                                // Expanded(
+                                //     flex: 1,
+                                //     child: Container()),
                                 Expanded(
                                   flex: 1,
                                   child: Text(
                                     snapshot.data![index].lastName,
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.start,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -544,7 +554,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   flex: 1,
                                   child: Text(
                                     snapshot.data![index].role,
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.start,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -556,7 +566,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   flex: 1,
                                   child: Text(
                                     snapshot.data![index].email,
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.start,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,

@@ -159,9 +159,8 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
   @override
   Widget build(BuildContext context) {
     return
-    //   _isSubmitting ? CircularProgressIndicator()
-    // :
-      SizedBox(
+
+    SizedBox(
       width: widget.width,
       height: widget.height,
       child: ElevatedButton(

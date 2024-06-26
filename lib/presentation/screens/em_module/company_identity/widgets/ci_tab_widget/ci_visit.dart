@@ -41,10 +41,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController eligibleClinicalController = TextEditingController();
-  final StreamController<List<CiVisit>> _visitController = StreamController<List<CiVisit>>();
+  final StreamController<List<CiVisit>> _visitController =
+      StreamController<List<CiVisit>>();
   late List<Color> hrcontainerColors;
-  FocusNode _focusNode = FocusNode();
-  bool _showList = false;
+  // FocusNode _focusNode = FocusNode();
+  // bool _showList = false;
   int empTypeId = 0;
   @override
   void initState() {
@@ -54,18 +55,20 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    getVisit(context,1,1,15).then((data) {
+    getVisit(context, 1, 1, 15).then((data) {
       _visitController.add(data);
-
     }).catchError((error) {
       // Handle error
     });
   }
+
   List<String> selectedChips = [];
   //List<int> selectedChipsEmpId = [];
-  String chips="";
+  String chips = "";
 
-  void addChip(String chip,) {
+  void addChip(
+    String chip,
+  ) {
     setState(() {
       selectedChips.add(chip);
       //selectedChipsEmpId.add(chipEmpId);
@@ -74,12 +77,15 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     });
   }
 
-  void deleteChip(String chip,) {
+  void deleteChip(
+    String chip,
+  ) {
     setState(() {
       selectedChips.remove(chip);
       //selectedChipsEmpId.remove(chipEmpId);
     });
   }
+
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -91,6 +97,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       }
     });
   }
+
   String _selectedItem = 'Select';
   void _onDropdownItemSelected(String newValue) {
     setState(() {
@@ -122,78 +129,86 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return StatefulBuilder(
-                          builder: (BuildContext context, void Function(void Function()) setState) {
-                            return  AddVisitPopup(
+                          builder: (BuildContext context,
+                              void Function(void Function()) setState) {
+                            return AddVisitPopup(
                               nameOfDocumentController: docNamecontroller,
                               idOfDocumentController: docIdController,
                               onSavePressed: () async {
                                 print(":::::${_selectedItem}");
-                                await addVisitPost(context,
-                                    docNamecontroller.text,
-                                    [1,2]
-                                );
-                                getVisit(context,1,1,15).then((data) {
+                                await addVisitPost(
+                                    context, docNamecontroller.text, [1, 2]);
+                                getVisit(context, 1, 1, 15).then((data) {
                                   _visitController.add(data);
                                 }).catchError((error) {
                                   // Handle error
                                 });
                                 Navigator.pop(context);
-
                               },
-                              child1:  Wrap(
-                                  spacing: 8.0,
-                                  children:[
-                                    // List.generate(selectedChips.length, (index){
-                                    for(String chip in selectedChips)
-                                      //for(int chipId in selectedChipsEmpId)
-                                      Chip(
-                                        shape:StadiumBorder(side:BorderSide(color: ColorManager.blueprime) ),
-                                        //side: BorderSide(color: ColorManager.blueprime),
-                                        deleteIcon: Icon(Icons.close,color: ColorManager.blueprime,size: 17,),
-                                        label: Text(chip,style: CustomTextStylesCommon.commonStyle(
-                                            fontWeight: FontWeightManager.medium,
-                                            fontSize: FontSize.s10,
-                                            color: ColorManager.mediumgrey
-                                        ),),
-                                        onDeleted: () {
-                                          setState(() {
-                                            deleteChip(chip);
-                                          });
-
-                                        },
-                                      ),
-                                  ]
-                              ),
+                              child1: Wrap(spacing: 8.0, children: [
+                                // List.generate(selectedChips.length, (index){
+                                for (String chip in selectedChips)
+                                  //for(int chipId in selectedChipsEmpId)
+                                  Chip(
+                                    shape: StadiumBorder(
+                                        side: BorderSide(
+                                            color: ColorManager.blueprime)),
+                                    //side: BorderSide(color: ColorManager.blueprime),
+                                    deleteIcon: Icon(
+                                      Icons.close,
+                                      color: ColorManager.blueprime,
+                                      size: 17,
+                                    ),
+                                    label: Text(
+                                      chip,
+                                      style: CustomTextStylesCommon.commonStyle(
+                                          fontWeight: FontWeightManager.medium,
+                                          fontSize: FontSize.s10,
+                                          color: ColorManager.mediumgrey),
+                                    ),
+                                    onDeleted: () {
+                                      setState(() {
+                                        deleteChip(chip);
+                                      });
+                                    },
+                                  ),
+                              ]),
                               child: FutureBuilder<List<HRClinical>>(
                                   future: companyAllHrClinicApi(context),
-                                  builder: (context,snapshot) {
-                                    if(snapshot.connectionState == ConnectionState.waiting){
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
                                       return Shimmer.fromColors(
                                           baseColor: Colors.grey[300]!,
                                           highlightColor: Colors.grey[100]!,
                                           child: Container(
                                             width: 354,
                                             height: 30,
-                                            decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                          )
-                                      );
+                                            decoration: BoxDecoration(
+                                                color: ColorManager.faintGrey,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                          ));
                                     }
                                     if (snapshot.data!.isEmpty) {
                                       return Center(
                                         child: Text(
                                           AppString.dataNotFound,
-                                          style: CustomTextStylesCommon.commonStyle(
-                                            fontWeight: FontWeightManager.medium,
+                                          style: CustomTextStylesCommon
+                                              .commonStyle(
+                                            fontWeight:
+                                                FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
                                         ),
                                       );
                                     }
-                                    if(snapshot.hasData){
+                                    if (snapshot.hasData) {
                                       int docType = 0;
-                                      List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                      for(var i in snapshot.data!){
+                                      List<DropdownMenuItem<String>>
+                                          dropDownTypesList = [];
+                                      for (var i in snapshot.data!) {
                                         dropDownTypesList.add(
                                           DropdownMenuItem<String>(
                                             child: Text(i.abbrivation!),
@@ -202,10 +217,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         );
                                       }
                                       return CICCDropdown(
-                                          initialValue: dropDownTypesList[0].value,
-                                          onChange: (val){
-                                            for(var a in snapshot.data!){
-                                              if(a.abbrivation == val){
+                                          initialValue:
+                                              dropDownTypesList[0].value,
+                                          onChange: (val) {
+                                            for (var a in snapshot.data!) {
+                                              if (a.abbrivation == val) {
                                                 docType = a.employeeTypesId;
                                                 empTypeId = docType;
                                                 setState(() {
@@ -218,15 +234,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                             print(":::${docType}");
                                             print(":::<>${empTypeId}");
                                           },
-                                          items:dropDownTypesList
-                                      );
+                                          items: dropDownTypesList);
                                     }
                                     return SizedBox();
-                                  }
-                              ),
+                                  }),
                             );
                           },
-
                         );
                       });
                 }),
@@ -246,31 +259,41 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Center(
-                child: Text(
-              AppString.srNo,
-              // style: RegisterTableHead.customTextStyle(context),
-              style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.white
-                  // color: isSelected ? Colors.white : Colors.black,
-                  ),
-            )),
-           ///visit
-            Center(
-                child: Text(
-              AppString.visit,
-              style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.white
-                  // color: isSelected ? Colors.white : Colors.black,
-                  ),
-              // style: RegisterTableHead.customTextStyle(context),
-            )),
+            Expanded(flex: 2, child: Container()),
+            Expanded(
+              flex: 2,
+              child: Text(
+                AppString.srNo,
+                // style: RegisterTableHead.customTextStyle(context),
+                style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.white
+                    // color: isSelected ? Colors.white : Colors.black,
+                    ),
+              ),
+            ),
+            Expanded(flex: 1, child: Container()),
+
+            ///visit
+            Expanded(
+              flex: 2,
+              child: Text(
+                AppString.visit,
+                style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.white
+                    // color: isSelected ? Colors.white : Colors.black,
+                    ),
+                // style: RegisterTableHead.customTextStyle(context),
+              ),
+            ),
+            Expanded(flex: 1, child: Container()),
+
             ///EL clinician
-            Center(
+            Expanded(
+              flex: 2,
               child: Text(
                 AppString.eligibleClinician,
                 style: GoogleFonts.firaSans(
@@ -281,18 +304,22 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                     ),
               ),
             ),
+            Expanded(flex: 1, child: Container()),
             // style: RegisterTableHead.customTextStyle(context),),),
-            Center(
-                child: Text(
-              AppString.actions,
-              style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.white
-                  // color: isSelected ? Colors.white : Colors.black,
-                  ),
-              // style: RegisterTableHead.customTextStyle(context),
-            )),
+            Expanded(
+              flex: 2,
+              child: Text(
+                AppString.actions,
+                style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.white
+                    // color: isSelected ? Colors.white : Colors.black,
+                    ),
+                // style: RegisterTableHead.customTextStyle(context),
+              ),
+            ),
+            Expanded(flex: 2, child: Container())
           ],
         ),
       ),
@@ -300,286 +327,373 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
         height: AppSize.s10,
       ),
       Expanded(
-          child: StreamBuilder<List<CiVisit>>(
-              stream:  _visitController.stream,
-              builder: (context, snapshot) {
-                print('1111111');
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: ColorManager.blueprime,
+        child: StreamBuilder<List<CiVisit>>(
+            stream: _visitController.stream,
+            builder: (context, snapshot) {
+              print('1111111');
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                );
+              }
+              if (snapshot.data!.isEmpty) {
+                return Center(
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.medium,
+                      fontSize: FontSize.s12,
+                      color: ColorManager.mediumgrey,
                     ),
-                  );
-                }
-                if (snapshot.data!.isEmpty) {
-                  return Center(
-                    child: Text(
-                      AppString.dataNotFound,
-                      style: CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: FontSize.s12,
-                        color: ColorManager.mediumgrey,
-                      ),
-                    ),
-                  );
-                }
-                if (snapshot.hasData) {
-                  int totalItems = snapshot.data!.length;
-                  // int totalPages = (totalItems / itemsPerPage).ceil();
-                  List<CiVisit> currentPageItems =
-                      snapshot.data!.sublist(
-                    (currentPage - 1) * itemsPerPage,
-                    (currentPage * itemsPerPage) > totalItems
-                        ? totalItems
-                        : (currentPage * itemsPerPage),
-                  );
-                  return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: currentPageItems.length,
-                      itemBuilder: (context, index) {
-                        int serialNumber =
-                            index + 1 + (currentPage - 1) * itemsPerPage;
-                        String formattedSerialNumber =
-                            serialNumber.toString().padLeft(2, '0');
-                        return Column(children: [
-                          SizedBox(height: AppSize.s5),
-                          Container(
-                              padding: EdgeInsets.only(bottom: AppPadding.p5),
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: AppMargin.m50),
-                              decoration: BoxDecoration(
-                                color: ColorManager.white,
-                                borderRadius: BorderRadius.circular(4),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: ColorManager.grey.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              height: AppSize.s56,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Center(
-                                      child: Text(
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                int totalItems = snapshot.data!.length;
+                // int totalPages = (totalItems / itemsPerPage).ceil();
+                List<CiVisit> currentPageItems = snapshot.data!.sublist(
+                  (currentPage - 1) * itemsPerPage,
+                  (currentPage * itemsPerPage) > totalItems
+                      ? totalItems
+                      : (currentPage * itemsPerPage),
+                );
+                return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: currentPageItems.length,
+                    itemBuilder: (context, index) {
+                      int serialNumber =
+                          index + 1 + (currentPage - 1) * itemsPerPage;
+                      String formattedSerialNumber =
+                          serialNumber.toString().padLeft(2, '0');
+                      return Column(children: [
+                        SizedBox(height: AppSize.s5),
+                        Container(
+                            padding: EdgeInsets.only(bottom: AppPadding.p5),
+                            margin:
+                                EdgeInsets.symmetric(horizontal: AppMargin.m50),
+                            decoration: BoxDecoration(
+                              color: ColorManager.white,
+                              borderRadius: BorderRadius.circular(4),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: ColorManager.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            height: AppSize.s56,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(flex: 2, child: Container()),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
                                     formattedSerialNumber,
                                     style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
-                                        color: Color(0xff686464)
-                                        ),
+                                        color: Color(0xff686464)),
                                     textAlign: TextAlign.start,
-                                  )),
-                                  Center(
-                                      child: Text(
-                                        snapshot.data![index].typeofVisit.toString(),
+                                  ),
+                                ),
+                                Expanded(flex: 1, child: Container()),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    snapshot.data![index].typeofVisit
+                                        .toString(),
                                     style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
-                                        color: Color(0xff686464)
-                                        ),
-                                  )),
-                                  Center(
-                                    child: Row(
-                                      children:
-                                        List.generate( 2, (index) {
-                                            // var eligibleClinician = snapshot.data![index].eligibleClinician![index];
-                                            // String hexColor = eligibleClinician.color.replaceAll('#', '');
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                                            child: Container(
-                                              height: 30,
-                                              width: 30,
-                                              color: Colors.white,
-                                              // Color(int.parse('0xFF$hexColor')),
-                                              child: Center(
-                                                  child: Text(
-                                                    "HC",
-                                                    style: GoogleFonts.firaSans(
-                                                        fontSize: 9,
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Color(0xff686464)
-                                                      // color: isSelected ? Colors.white : Colors.black,
-                                                    ),
-                                                  )),
-                                            ),
-                                          );
-                                        }
-                                                                              ),
-
-                                        // SizedBox(
-                                        //   width: 3,
-                                        // ),
-                                        // Container(
-                                        //   height: 30,
-                                        //   width: 30,
-                                        //   color: Color(0xfFE7E8E6),
-                                        //   child: Center(
-                                        //       child: Text(
-                                        //         "PT",
-                                        //    // snapshot.data![index].eligibleClinician![index] == 0 ? "" :"2",
-                                        //     style: GoogleFonts.firaSans(
-                                        //         fontSize: 9,
-                                        //         fontWeight: FontWeight.w500,
-                                        //         color: Color(0xff686464)
-                                        //         // color: isSelected ? Colors.white : Colors.black,
-                                        //         ),
-                                        //   )),
-                                        // )
-
-                                    ),
+                                        color: Color(0xff686464)),
                                   ),
-                                  Center(
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return StatefulBuilder(
-                                                      builder: (BuildContext context, void Function(void Function()) setState) {
-                                                        return AddVisitPopup(
-                                                          nameOfDocumentController: docNamecontroller,
-                                                          idOfDocumentController:
-                                                          docIdController,
-                                                          onSavePressed: () async{
-                                                            await updateVisitPatch(context,
-                                                                snapshot.data![index].typeofVisit,
-                                                                docNamecontroller.text,[selectedChips]);
-                                                            getVisit(context,11,1,10).then((data) {
-                                                              _visitController.add(data);
+                                ),
+                                Expanded(flex: 1, child: Container()),
+                                Row(
+                                  children: List.generate(2, (index) {
+                                    // var eligibleClinician = snapshot.data![index].eligibleClinician![index];
+                                    // String hexColor = eligibleClinician.color.replaceAll('#', '');
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        color: Colors.white,
+                                        // Color(int.parse('0xFF$hexColor')),
+                                        child: Center(
+                                            child: Text(
+                                          "HC",
+                                          style: GoogleFonts.firaSans(
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff686464)
+                                              // color: isSelected ? Colors.white : Colors.black,
+                                              ),
+                                        )),
+                                      ),
+                                    );
+                                  }),
 
-                                                            }).catchError((error) {
-                                                              // Handle error
-                                                            });
-                                                            docNamecontroller.clear();
-                                                            _selectedItem="Select";
-                                                          },
-                                                          child1:  Wrap(
+                                  // SizedBox(
+                                  //   width: 3,
+                                  // ),
+                                  // Container(
+                                  //   height: 30,
+                                  //   width: 30,
+                                  //   color: Color(0xfFE7E8E6),
+                                  //   child: Center(
+                                  //       child: Text(
+                                  //         "PT",
+                                  //    // snapshot.data![index].eligibleClinician![index] == 0 ? "" :"2",
+                                  //     style: GoogleFonts.firaSans(
+                                  //         fontSize: 9,
+                                  //         fontWeight: FontWeight.w500,
+                                  //         color: Color(0xff686464)
+                                  //         // color: isSelected ? Colors.white : Colors.black,
+                                  //         ),
+                                  //   )),
+                                  // )
+                                ),
+                                Expanded(flex: 2, child: Container()),
+                                Center(
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return StatefulBuilder(
+                                                    builder: (BuildContext
+                                                            context,
+                                                        void Function(
+                                                                void Function())
+                                                            setState) {
+                                                      return AddVisitPopup(
+                                                        nameOfDocumentController:
+                                                            docNamecontroller,
+                                                        idOfDocumentController:
+                                                            docIdController,
+                                                        onSavePressed:
+                                                            () async {
+                                                          await updateVisitPatch(
+                                                              context,
+                                                              snapshot
+                                                                  .data![index]
+                                                                  .typeofVisit,
+                                                              docNamecontroller
+                                                                  .text,
+                                                              [selectedChips]);
+                                                          getVisit(context, 11,
+                                                                  1, 10)
+                                                              .then((data) {
+                                                            _visitController
+                                                                .add(data);
+                                                          }).catchError(
+                                                                  (error) {
+                                                            // Handle error
+                                                          });
+                                                          docNamecontroller
+                                                              .clear();
+                                                          _selectedItem =
+                                                              "Select";
+                                                        },
+                                                        child1: Wrap(
                                                             spacing: 8.0,
                                                             children: [
-                                                              for(String chip in selectedChips)
+                                                              for (String chip
+                                                                  in selectedChips)
                                                                 //for(int chipId in selectedChipsEmpId)
-                                                               Chip(
-                                                                 shape:StadiumBorder(side:BorderSide(color: ColorManager.blueprime) ),
-                                                                 //side: BorderSide(color: ColorManager.blueprime),
-                                                                 deleteIcon: Icon(Icons.close,color: ColorManager.blueprime,size: 17,),
-                                                                 label: Text(chip,style: CustomTextStylesCommon.commonStyle(
-                                                                     fontWeight: FontWeightManager.medium,
-                                                                     fontSize: FontSize.s10,
-                                                                     color: ColorManager.mediumgrey
-                                                                 ),),
-                                                                onDeleted: () {
-                                                                  setState(() {
-                                                                    deleteChip(chip);
-                                                                  });
-                                                                },
-                                                              ),
-                                                            ]
-                                                          ),
-                                                          child:  FutureBuilder<List<HRClinical>>(
-                                                              future: companyAllHrClinicApi(context),
-                                                              builder: (context,snapshot) {
-                                                                if(snapshot.connectionState == ConnectionState.waiting){
-                                                                  return Shimmer.fromColors(
-                                                                      baseColor: Colors.grey[300]!,
-                                                                      highlightColor: Colors.grey[100]!,
-                                                                      child: Container(
-                                                                        width: 354,
-                                                                        height: 30,
-                                                                        decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                      )
-                                                                  );
-                                                                }
-                                                                if (snapshot.data!.isEmpty) {
-                                                                  return Center(
-                                                                    child: Text(
-                                                                      AppString.dataNotFound,
-                                                                      style: CustomTextStylesCommon.commonStyle(
-                                                                        fontWeight: FontWeightManager.medium,
-                                                                        fontSize: FontSize.s12,
-                                                                        color: ColorManager.mediumgrey,
-                                                                      ),
+                                                                Chip(
+                                                                  shape: StadiumBorder(
+                                                                      side: BorderSide(
+                                                                          color:
+                                                                              ColorManager.blueprime)),
+                                                                  //side: BorderSide(color: ColorManager.blueprime),
+                                                                  deleteIcon:
+                                                                      Icon(
+                                                                    Icons.close,
+                                                                    color: ColorManager
+                                                                        .blueprime,
+                                                                    size: 17,
+                                                                  ),
+                                                                  label: Text(
+                                                                    chip,
+                                                                    style: CustomTextStylesCommon.commonStyle(
+                                                                        fontWeight:
+                                                                            FontWeightManager
+                                                                                .medium,
+                                                                        fontSize:
+                                                                            FontSize
+                                                                                .s10,
+                                                                        color: ColorManager
+                                                                            .mediumgrey),
+                                                                  ),
+                                                                  onDeleted:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
+                                                                      deleteChip(
+                                                                          chip);
+                                                                    });
+                                                                  },
+                                                                ),
+                                                            ]),
+                                                        child: FutureBuilder<
+                                                                List<
+                                                                    HRClinical>>(
+                                                            future:
+                                                                companyAllHrClinicApi(
+                                                                    context),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              if (snapshot
+                                                                      .connectionState ==
+                                                                  ConnectionState
+                                                                      .waiting) {
+                                                                return Shimmer
+                                                                    .fromColors(
+                                                                        baseColor:
+                                                                            Colors.grey[
+                                                                                300]!,
+                                                                        highlightColor:
+                                                                            Colors.grey[
+                                                                                100]!,
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              354,
+                                                                          height:
+                                                                              30,
+                                                                          decoration: BoxDecoration(
+                                                                              color: ColorManager.faintGrey,
+                                                                              borderRadius: BorderRadius.circular(10)),
+                                                                        ));
+                                                              }
+                                                              if (snapshot.data!
+                                                                  .isEmpty) {
+                                                                return Center(
+                                                                  child: Text(
+                                                                    AppString
+                                                                        .dataNotFound,
+                                                                    style: CustomTextStylesCommon
+                                                                        .commonStyle(
+                                                                      fontWeight:
+                                                                          FontWeightManager
+                                                                              .medium,
+                                                                      fontSize:
+                                                                          FontSize
+                                                                              .s12,
+                                                                      color: ColorManager
+                                                                          .mediumgrey,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                              if (snapshot
+                                                                  .hasData) {
+                                                                int docType = 0;
+                                                                List<
+                                                                        DropdownMenuItem<
+                                                                            String>>
+                                                                    dropDownTypesList =
+                                                                    [];
+                                                                for (var i
+                                                                    in snapshot
+                                                                        .data!) {
+                                                                  dropDownTypesList
+                                                                      .add(
+                                                                    DropdownMenuItem<
+                                                                        String>(
+                                                                      child: Text(
+                                                                          i.abbrivation!),
+                                                                      value: i
+                                                                          .abbrivation,
                                                                     ),
                                                                   );
                                                                 }
-                                                                if(snapshot.hasData){
-                                                                  int docType = 0;
-                                                                  List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                                                  for(var i in snapshot.data!){
-                                                                    dropDownTypesList.add(
-                                                                      DropdownMenuItem<String>(
-                                                                        child: Text(i.abbrivation!),
-                                                                        value: i.abbrivation,
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  return CICCDropdown(
-                                                                      initialValue: dropDownTypesList[0].value,
-                                                                      onChange: (val){
-                                                                        for(var a in snapshot.data!){
-                                                                          if(a.abbrivation == val){
-                                                                            docType = a.employeeTypesId;
-                                                                            empTypeId = docType;
-                                                                            setState(() {
-                                                                              if (val.isNotEmpty) {
-                                                                                addChip(val.trim());
-                                                                              }
-                                                                            });
-                                                                          }
+                                                                return CICCDropdown(
+                                                                    initialValue:
+                                                                        dropDownTypesList[0]
+                                                                            .value,
+                                                                    onChange:
+                                                                        (val) {
+                                                                      for (var a
+                                                                          in snapshot
+                                                                              .data!) {
+                                                                        if (a.abbrivation ==
+                                                                            val) {
+                                                                          docType =
+                                                                              a.employeeTypesId;
+                                                                          empTypeId =
+                                                                              docType;
+                                                                          setState(
+                                                                              () {
+                                                                            if (val.isNotEmpty) {
+                                                                              addChip(val.trim());
+                                                                            }
+                                                                          });
                                                                         }
-                                                                        print(":::${docType}");
-                                                                        print(":::<>${empTypeId}");
-                                                                      },
-                                                                      items:dropDownTypesList
-                                                                  );
-                                                                }
-                                                                return SizedBox();
+                                                                      }
+                                                                      print(
+                                                                          ":::${docType}");
+                                                                      print(
+                                                                          ":::<>${empTypeId}");
+                                                                    },
+                                                                    items:
+                                                                        dropDownTypesList);
                                                               }
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                  });
-                                            },
-                                            icon: Icon(
-                                              Icons.edit_outlined,
-                                              color: ColorManager.bluebottom,
-                                            )),
-                                        SizedBox(
-                                          width: 3,
-                                        ),
-                                        IconButton(
-                                          onPressed: () async{
-                                            await deleteVisitPatch(context, snapshot.data![index].visitId);
-                                            getVisit(context,1,1,10).then((data) {
-                                              _visitController.add(data);
-                                            }).catchError((error) {
-                                              // Handle error
-                                            });
-                                            Navigator.pop(context);
+                                                              return SizedBox();
+                                                            }),
+                                                      );
+                                                    },
+                                                  );
+                                                });
                                           },
-                                          icon: Icon( Icons.delete_outline_outlined,size: 20, color: Color(0xffF6928A)),
-                                        ),
-                                      ],
-                                    ),
+                                          icon: Icon(
+                                            Icons.edit_outlined,
+                                            color: ColorManager.bluebottom,
+                                          )),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      IconButton(
+                                        onPressed: () async {
+                                          await deleteVisitPatch(context,
+                                              snapshot.data![index].visitId);
+                                          getVisit(context, 1, 1, 10)
+                                              .then((data) {
+                                            _visitController.add(data);
+                                          }).catchError((error) {
+                                            // Handle error
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                        icon: Icon(
+                                            Icons.delete_outline_outlined,
+                                            size: 20,
+                                            color: Color(0xffF6928A)),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ))
-                        ]);
-                      });
-                   }
-                  return Offstage();
-                 }
-              ),
-             ),
-           //       PaginationControlsWidget(
-          ]);
-     }
+                                ),
+                                Expanded(flex: 3, child: Container())
+                              ],
+                            ))
+                      ]);
+                    });
+              }
+              return Offstage();
+            }),
+      ),
+      //       PaginationControlsWidget(
+    ]);
+  }
 }
