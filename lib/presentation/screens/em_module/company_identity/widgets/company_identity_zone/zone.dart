@@ -52,50 +52,50 @@ class _CiOrgDocumentState extends State<CiZone> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _selectedIndex ==  1?
-              Container(
-                height: 30,
-                width: 354,
-                // margin: EdgeInsets.symmetric(horizontal: 20),
-                padding:
-                EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                      color: Color(0xff686464).withOpacity(0.5),
-                      width: 1), // Black border
-                  borderRadius:
-                  BorderRadius.circular(8), // Rounded corners
-                ),
-                child: DropdownButtonFormField<String>(
-                  focusColor: Colors.transparent,
-                  icon: Icon(
-                    Icons.arrow_drop_down_sharp,
-                    color: Color(0xff686464),
-                  ),
-                  decoration: InputDecoration.collapsed(hintText: ''),
-                  items: <String>[
-                    'Sant Clara',
-                    'Option 1',
-                    'Option 2',
-                    'Option 3',
-                    'Option 4'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {},
-                  value: 'Sant Clara',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff686464),
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ) :
+              // _selectedIndex ==  1?
+              // Container(
+              //   height: 30,
+              //   width: 354,
+              //   // margin: EdgeInsets.symmetric(horizontal: 20),
+              //   padding:
+              //   EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     border: Border.all(
+              //         color: Color(0xff686464).withOpacity(0.5),
+              //         width: 1), // Black border
+              //     borderRadius:
+              //     BorderRadius.circular(8), // Rounded corners
+              //   ),
+              //   child: DropdownButtonFormField<String>(
+              //     focusColor: Colors.transparent,
+              //     icon: Icon(
+              //       Icons.arrow_drop_down_sharp,
+              //       color: Color(0xff686464),
+              //     ),
+              //     decoration: InputDecoration.collapsed(hintText: ''),
+              //     items: <String>[
+              //       'Sant Clara',
+              //       'Option 1',
+              //       'Option 2',
+              //       'Option 3',
+              //       'Option 4'
+              //     ].map<DropdownMenuItem<String>>((String value) {
+              //       return DropdownMenuItem<String>(
+              //         value: value,
+              //         child: Text(value),
+              //       );
+              //     }).toList(),
+              //     onChanged: (String? newValue) {},
+              //     value: 'Sant Clara',
+              //     style: GoogleFonts.firaSans(
+              //       fontSize: 12,
+              //       fontWeight: FontWeight.w600,
+              //       color: Color(0xff686464),
+              //       decoration: TextDecoration.none,
+              //     ),
+              //   ),
+              // ) :
               SizedBox(width: 354,),
               ///tabbar
               Padding(
@@ -164,16 +164,18 @@ class _CiOrgDocumentState extends State<CiZone> {
                           width:MediaQuery.of(context).size.width/20,// 80,
                           child: Column(
                             children: [
-                              Text(
-                                "Zip Code",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: _selectedIndex == 2
-                                      ? FontWeightManager.bold
-                                      : FontWeightManager.regular,
-                                  color: _selectedIndex == 2
-                                      ? ColorManager.blueprime
-                                      : ColorManager.mediumgrey,
+                              Expanded(
+                                child: Text(
+                                  "Zip Code",
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: _selectedIndex == 2
+                                        ? FontWeightManager.bold
+                                        : FontWeightManager.regular,
+                                    color: _selectedIndex == 2
+                                        ? ColorManager.blueprime
+                                        : ColorManager.mediumgrey,
+                                  ),
                                 ),
                               ),
                               _selectedIndex == 2 ?
@@ -194,12 +196,12 @@ class _CiOrgDocumentState extends State<CiZone> {
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
                     onSavePressed: (){},
-                    title1: 'Zone Number',
+                    title1: 'City Name',
                     countynameController: countynameController,
                     title2: AppStringEM.zipCode,
                     zipcodeController: zipcodeController,
-                    title3: 'County',
-                    mapController: mapController,
+                    // title3: 'Map',
+                    // mapController: mapController,
                     // title4:'Cities',
                     // landmarkController: landmarkController,
                   );
@@ -216,8 +218,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                     countynameController: countynameController,
                     title2: 'Zip Code',
                     zipcodeController: zipcodeController,
-                    title3: 'Map',
-                    mapController: mapController,
+                    // title3: 'Map',
+                    // mapController: mapController,
                     // title4: 'Landmark',
                     // landmarkController: landmarkController,
                   );

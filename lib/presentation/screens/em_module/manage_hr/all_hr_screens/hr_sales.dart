@@ -134,6 +134,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                     //   color = selectedColor.toString().substring(10,16);
                     // },
 
+                    title: 'Add Sales',
                     child: FutureBuilder<List<HRHeadBar>>(
                         future: companyHRHeadApi(context,widget.deptId),
                         builder: (context,snapshot) {
@@ -201,7 +202,6 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
         ),
         Container(
           height: 30,
-          margin: EdgeInsets.symmetric(horizontal: 50),
           decoration: BoxDecoration(
             color: ColorManager.fmediumgrey,
             borderRadius: BorderRadius.circular(12),
@@ -212,33 +212,36 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // Text(''),
-                Padding(
-                  padding: const EdgeInsets.only(right: 25.0),
-                  child: Text(
+                Text(
                     AppStringEM.srno,
                     style:  AllHRTableHeading.customTextStyle(context)
-                  ),
                 ),
 //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                Text(AppStringEM.employee,textAlign: TextAlign.start,
-                    style:  AllHRTableHeading.customTextStyle(context)),
-                Text(
-                  AppStringEM.abbrevation,
-                  style:  AllHRTableHeading.customTextStyle(context)
+                Padding(
+                  padding: const EdgeInsets.only(left: 40),
+                  child: Text(AppStringEM.employee,textAlign: TextAlign.start,
+                      style:  AllHRTableHeading.customTextStyle(context)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
+                  padding: const EdgeInsets.only(left: 90),
                   child: Text(
-                    AppStringEM.color,
-                    style:  AllHRTableHeading.customTextStyle(context)
+                      AppStringEM.abbrevation,
+                      style:  AllHRTableHeading.customTextStyle(context)
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30.0),
+                  child: Text(
+                      AppStringEM.color,
+                      style:  AllHRTableHeading.customTextStyle(context)
                   ),
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(right: 35.0),
+                  padding: const EdgeInsets.only(right: 50),
                   child: Text(AppStringEM.action,
                       textAlign: TextAlign.start,
-                      style:  AllHRTableHeading.customTextStyle(context)),
+                      style: AllHRTableHeading.customTextStyle(context)),
                 ),
               ],
             ),
@@ -368,6 +371,13 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                       return  FutureBuilder<HRGetEmpId>(
                                           future: HrGetById(context, snapshot.data![index].employeeTypesId),
                                           builder: (context, snapshot) {
+                                            if(snapshot.connectionState == ConnectionState.waiting){
+                                              return Center(
+                                                child: CircularProgressIndicator(
+                                                  color: ColorManager.blueprime,
+                                                ),
+                                              );
+                                            }
                                             var type = snapshot.data?.empType.toString();
                                             var shorthand = snapshot.data?.empType.toString();
                                             doceEditMetaId = snapshot.data!.deptId;
@@ -398,6 +408,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                                   _saveColor(index, seletedColor);
                                                 });
                                               },
+                                              title: 'Edit Sales',
                                               child:  FutureBuilder<List<HRHeadBar>>(
                                                 future: companyHRHeadApi(context,widget.deptId),
                                                 builder: (context,snapshot) {

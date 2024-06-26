@@ -18,7 +18,9 @@ import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_pop
 import 'widgets/ci_vendor_contract_edit_popup_const.dart';
 
 class CiDme extends StatefulWidget {
-  const CiDme({super.key});
+  final int companyID;
+  final String officeId;
+  const CiDme({super.key, required this.companyID, required this.officeId});
 
   @override
   State<CiDme> createState() => _CiDmeState();
@@ -56,52 +58,52 @@ class _CiDmeState extends State<CiDme> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          CustomIconButtonConst(
-              icon: Icons.add,
-              text: "Add Doctype",
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CiVendorAddPopup(
-                        nameOfDocController: nameOfDocController,
-                        idOfDocController: idOfDocController,
-                        onSavePressed: () {},
-                        child: CICCDropdown(
-                          initialValue: 'Vendor Contract',
-                          items: [
-                            DropdownMenuItem(
-                                value: 'Vendor Contract',
-                                child: Text('Vendor Contract')),
-                            DropdownMenuItem(
-                                value: 'HCO Number      254612',
-                                child: Text('HCO Number  254612')),
-                            DropdownMenuItem(
-                                value: 'Medicare ID      MPID123',
-                                child: Text('Medicare ID  MPID123')),
-                            DropdownMenuItem(
-                                value: 'NPI Number     1234567890',
-                                child: Text('NPI Number 1234567890')),
-                          ],
-                        ),
-                        child1: CICCDropdown(
-                          initialValue: 'DME',
-                          items: [
-                            DropdownMenuItem(value: 'DME', child: Text('DME')),
-                            DropdownMenuItem(
-                                value: 'HCO Number      254612',
-                                child: Text('HCO Number  254612')),
-                            DropdownMenuItem(
-                                value: 'Medicare ID      MPID123',
-                                child: Text('Medicare ID  MPID123')),
-                            DropdownMenuItem(
-                                value: 'NPI Number     1234567890',
-                                child: Text('NPI Number 1234567890')),
-                          ],
-                        ),
-                      );
-                    });
-              }),
+          // CustomIconButtonConst(
+          //     icon: Icons.add,
+          //     text: "Add Doctype",
+          //     onPressed: () {
+          //       showDialog(
+          //           context: context,
+          //           builder: (context) {
+          //             return CiVendorAddPopup(
+          //               nameOfDocController: nameOfDocController,
+          //               idOfDocController: idOfDocController,
+          //               onSavePressed: () {},
+          //               child: CICCDropdown(
+          //                 initialValue: 'Vendor Contract',
+          //                 items: [
+          //                   DropdownMenuItem(
+          //                       value: 'Vendor Contract',
+          //                       child: Text('Vendor Contract')),
+          //                   DropdownMenuItem(
+          //                       value: 'HCO Number      254612',
+          //                       child: Text('HCO Number  254612')),
+          //                   DropdownMenuItem(
+          //                       value: 'Medicare ID      MPID123',
+          //                       child: Text('Medicare ID  MPID123')),
+          //                   DropdownMenuItem(
+          //                       value: 'NPI Number     1234567890',
+          //                       child: Text('NPI Number 1234567890')),
+          //                 ],
+          //               ),
+          //               child1: CICCDropdown(
+          //                 initialValue: 'DME',
+          //                 items: [
+          //                   DropdownMenuItem(value: 'DME', child: Text('DME')),
+          //                   DropdownMenuItem(
+          //                       value: 'HCO Number      254612',
+          //                       child: Text('HCO Number  254612')),
+          //                   DropdownMenuItem(
+          //                       value: 'Medicare ID      MPID123',
+          //                       child: Text('Medicare ID  MPID123')),
+          //                   DropdownMenuItem(
+          //                       value: 'NPI Number     1234567890',
+          //                       child: Text('NPI Number 1234567890')),
+          //                 ],
+          //               ),
+          //             );
+          //           });
+          //     }),
           Expanded(
             child: StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
