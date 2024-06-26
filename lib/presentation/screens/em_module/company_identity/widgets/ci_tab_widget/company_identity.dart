@@ -108,15 +108,15 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                           backgroundColor: Colors.white,
                           content: Stack(
                               children: [
-                                Stack(
-                                  children: [
-                                    Container(
-                                      height: 40,
-                                      width: 300,
-                                      color: Colors.blue,
-                                    )
-                                  ],
-                                ),
+                                // Stack(
+                                //   children: [
+                                //     Container(
+                                //       height: 40,
+                                //       width: 300,
+                                //       color: Colors.blue,
+                                //     )
+                                //   ],
+                                // ),
                             Container(
                               height: 450,
                               width: 300,
@@ -192,28 +192,39 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                     ],
                                   ),
                                   const SizedBox(height: 40),
-                                  _isSubmitting
-                                      ? CircularProgressIndicator()
+                                  _isSubmitting == true
+                                      ? CircularProgressIndicator(color: ColorManager.blueprime,)
                                       : SizedBox(
                                           width: 100,
                                           height: 35,
                                           child: ElevatedButton(
                                               onPressed: () async {
-                                                await addNewOffice(
-                                                  context,
-                                                  nameController.text,
-                                                  addressController.text,
-                                                  emailController.text,
-                                                  mobNumController.text,
-                                                  secNumController.text,
-                                                );
-                                                companyOfficeListGet(
-                                                        context, 11, 1, 6)
-                                                    .then((data) {
-                                                  _companyIdentityController
-                                                      .add(data);
-                                                }).catchError((error) {});
-                                                Navigator.pop(context);
+                                                setState(() {
+                                                  _isSubmitting = true;
+                                                });
+                                                try {
+                                                  await addNewOffice(
+                                                    context,
+                                                    nameController.text,
+                                                    addressController.text,
+                                                    emailController.text,
+                                                    mobNumController.text,
+                                                    secNumController.text,
+                                                  );
+                                                  setState(() async {
+                                                    companyOfficeListGet(
+                                                        context, 11, 1, 15)
+                                                        .then((data) {
+                                                      _companyIdentityController
+                                                          .add(data);
+                                                    }).catchError((error) {});
+                                                    Navigator.pop(context);
+                                                  });
+                                                } finally {
+                                                  setState(() {
+                                                    _isSubmitting = false;
+                                                  });
+                                                }
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor:
@@ -311,6 +322,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   flex: 2,
                   child: Text(
                     "Address",
+                    textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -333,13 +345,12 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               ],
             ),
           ),
-
         /// Render list only if both manage and whitelabelling screens are not shown
         if (!showManageScreen && !showWhitelabellingScreen)
           Expanded(
             child: showStreamBuilder
                 ? FutureBuilder(
-                    future: companyOfficeListGet(context, 11, 1, 6),
+                    future: companyOfficeListGet(context, 11, 1, 15),
                     builder: (context, snap) {
                       if (snap.hasData) {
                         _companyIdentityController.add(snap.data!);

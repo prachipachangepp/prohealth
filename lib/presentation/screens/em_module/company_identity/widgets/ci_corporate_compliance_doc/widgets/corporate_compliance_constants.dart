@@ -451,7 +451,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                             );
                             if (date != null) {
                               String formattedDate =
-                                  DateFormat('mm-dd-yyyy').format(date);
+                                  DateFormat('MM-dd-yyyy').format(date);
                               widget.calenderController!.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
@@ -697,7 +697,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                             );
                             if (date != null) {
                               String formattedDate =
-                                  DateFormat('mm-dd-yyyy').format(date);
+                                  DateFormat('MM-dd-yyyy').format(date);
                               widget.calenderController.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
