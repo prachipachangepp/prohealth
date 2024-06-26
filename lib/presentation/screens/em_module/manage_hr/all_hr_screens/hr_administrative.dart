@@ -390,6 +390,9 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                         doceEditMetaId = snapshot.data!.deptId;
                                         typeController = TextEditingController(text: snapshot.data?.empType.toString());
                                         shorthandController = TextEditingController(text: snapshot.data?.abbrivation.toString());
+                                        if(snapshot.connectionState == ConnectionState.waiting){
+
+                                        }
                                         return EditPopupWidget(
                                           typeController: typeController,
                                           shorthandController: shorthandController,
