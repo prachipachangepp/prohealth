@@ -11,8 +11,14 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 class AddHolidayPopup extends StatefulWidget {
   final TextEditingController controller;
   final TextEditingController calenderDateController;
-   VoidCallback onPressed;
-   AddHolidayPopup({super.key, required this.controller, required this.onPressed, required this.calenderDateController});
+  final Future<void> Function() onPressed; // Changed to Future<void> for async operations
+
+  const AddHolidayPopup({
+    super.key,
+    required this.controller,
+    required this.calenderDateController,
+    required this.onPressed,
+  });
 
   @override
   State<AddHolidayPopup> createState() => _AddHolidayPopupState();
@@ -21,6 +27,8 @@ class AddHolidayPopup extends StatefulWidget {
 class _AddHolidayPopupState extends State<AddHolidayPopup> {
   String? _expiryType;
   final DateTime _selectedDate = DateTime.now();
+  bool isLoading = false; // Added loading state
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -35,8 +43,20 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Define Holiday',
+                    style: GoogleFonts.firaSans(
+                      fontSize: FontSize.s12,
+                      fontWeight: FontWeightManager.semiBold,
+                      color: ColorManager.blueprime,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ),
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -88,46 +108,42 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                         child: TextFormField(
                           controller: widget.calenderDateController,
                           style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey),
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.mediumgrey,
+                          ),
                           decoration: InputDecoration(
                             hintText: 'mm-dd-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(width: 1),
                             ),
                             contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime,),
                             errorText: field.errorText,
                           ),
                           readOnly: true,
                           onTap: () async {
                             DateTime? date = await showDatePicker(
                               context: context,
-                              initialDate:_selectedDate,
+                              initialDate: _selectedDate,
                               firstDate: DateTime(1100),
                               lastDate: DateTime(2025),
                             );
                             if (date != null) {
-                              String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(date);
+                              String formattedDate = DateFormat('yyyy-MM-dd').format(date);
                               widget.calenderDateController.text = formattedDate;
                               field.didChange(formattedDate);
-                              //calenderDateController.text = DateFormat('yyyy-mm-dd').format(_selectedDate);
-
-                              field.didChange(date.toLocal().toString().split(' ')[0]);
                             }
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'please select date';
+                              return 'Please select date';
                             }
                             return null;
                           },
@@ -142,18 +158,27 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Center(
-                child: CustomElevatedButton(
+                child: isLoading
+                    ? CircularProgressIndicator( color: ColorManager.blueprime,)
+                    : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.add,
-                  onPressed:(){
-                    widget.onPressed();
-                    Navigator.pop(context);
-                    widget.calenderDateController.clear();
-                    widget.controller.clear();
-                  }
-
-
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    try {
+                      await widget.onPressed();
+                    } finally {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      Navigator.pop(context);
+                      widget.calenderDateController.clear();
+                      widget.controller.clear();
+                    }
+                  },
                 ),
               ),
             ),

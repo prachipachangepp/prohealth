@@ -17,7 +17,7 @@ class _CiTempaletsState extends State<CiTempalets> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10,right: 30),
             child: CustomIconButtonConst(
                 icon: Icons.add,
                 text: "Add Doctype", onPressed: (){

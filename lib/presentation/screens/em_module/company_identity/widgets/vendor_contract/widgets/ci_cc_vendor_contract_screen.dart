@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_licence.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/leasas_services.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/snf.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/vendor_add_popup_const.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../company_identity_screen.dart';
-import '../ci_cc_adr.dart';
-import '../ci_cc_cap_reports.dart';
-import '../ci_cc_medical_cost_report.dart';
-import '../ci_cc_quaterly_bal_report.dart';
-import 'corporate_compliance_constants.dart';
-class CiCorporateComplianceScreen extends StatefulWidget {
-  const CiCorporateComplianceScreen({super.key});
+import '../../ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import '../dme.dart';
+import '../md.dart';
+import '../misc.dart';
+
+class CiCcVendorContractScreen extends StatefulWidget {
+  final int companyID;
+  final String officeId;
+  const CiCcVendorContractScreen({super.key, required this.companyID, required this.officeId});
 
   @override
-  State<CiCorporateComplianceScreen> createState() => _CiCorporateComplianceScreenState();
+  State<CiCcVendorContractScreen> createState() => _CiCcVendorContractScreenState();
 }
 
-class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScreen> {
+class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
   final PageController _tabPageController = PageController();
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
+  TextEditingController nameOfDocController = TextEditingController();
+  TextEditingController idOfDocController = TextEditingController();
+  TextEditingController editnameOfDocController = TextEditingController();
+  TextEditingController editidOfDocController = TextEditingController();
 
   int _selectedIndex = 0;
 
@@ -44,8 +52,9 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              SizedBox(width: MediaQuery.of(context).size.width/20,),
               Container(
-               // color: Colors.greenAccent,
+                // color: Colors.greenAccent,
                 width: MediaQuery.of(context).size.width/1.7,
                 height: 50,
                 child: Row(
@@ -65,7 +74,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                         child: Column(
                           children: [
                             Text(
-                              'Licenses',
+                              'Leases & Services',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
@@ -98,7 +107,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                         child: Column(
                           children: [
                             Text(
-                              'ADR',
+                              'SNF',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
@@ -131,7 +140,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                         child: Column(
                           children: [
                             Text(
-                              'Medical Cost Reports',
+                              'DME',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
@@ -164,7 +173,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                         child: Column(
                           children: [
                             Text(
-                              'CAP Reports',
+                              'MD',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
@@ -197,7 +206,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                         child: Column(
                           children: [
                             Text(
-                              'Quarterly Balance Reports',
+                              'MISC',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
                                 fontSize: 12,
@@ -224,27 +233,21 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                   icon: Icons.add,
                   text: "Add Doctype", onPressed: (){
                 showDialog(context: context, builder: (context){
-                  return CCScreensAddPopup(
-                    countynameController: docNamecontroller,
-                    zipcodeController: docIdController,
-                    onSavePressed: () {  },
-                    child:  CICCDropdown(
-                      initialValue: 'Corporate & Compliance Documents',
-                      items: [
-                        DropdownMenuItem(value: 'Corporate & Compliance Documents', child: Text('Corporate & Compliance Documents')),
-                        DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
-                        DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
-                        DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
-                      ],),
-                    child1:  CICCDropdown(
-                      initialValue: 'Licenses',
-                      items: [
-                        DropdownMenuItem(value: 'Licenses', child: Text('Licenses')),
-                        DropdownMenuItem(value: 'ADR', child: Text('ADR')),
-                        DropdownMenuItem(value: 'Medical Cosr Reports', child: Text('Medical Cosr Reports')),
-                        DropdownMenuItem(value: 'CAP Reports', child: Text('CAP Reports')),
-                        DropdownMenuItem(value: 'Quarterly Balance Report', child: Text('Quarterly Balance Report')),
-                      ],),);
+                  return CiVendorAddPopup(nameOfDocController: nameOfDocController, idOfDocController: idOfDocController, onSavePressed: (){}, child: CICCDropdown(
+                    initialValue: 'Vendor Contract',
+                    items: [
+                      DropdownMenuItem(value: 'Vendor Contract', child: Text('Vendor Contract')),
+                      DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                      DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                      DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                    ],), child1:  CICCDropdown(
+                    initialValue: 'Leases & Services',
+                    items: [
+                      DropdownMenuItem(value: 'Leases & Services', child: Text('Leases & Services')),
+                      DropdownMenuItem(value: 'HCO Number      254612', child: Text('HCO Number  254612')),
+                      DropdownMenuItem(value: 'Medicare ID      MPID123', child: Text('Medicare ID  MPID123')),
+                      DropdownMenuItem(value: 'NPI Number     1234567890', child: Text('NPI Number 1234567890')),
+                    ],),);
                 });
               }),
             ],
@@ -266,11 +269,11 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
               },
               children: [
                 // Page 1
-                CICCLicense(),
-                CICCADR(),
-                CICCMedicalCR(),
-                CICCCAPReports(),
-                CICCQuarterlyBalReport()
+                CiLeasesAndServices(companyID: widget.companyID, officeId: widget.officeId,),
+                CiSnf(companyID: widget.companyID, officeId: widget.officeId,),
+                CiDme(companyID: widget.companyID, officeId: widget.officeId,),
+                CiMd(companyID: widget.companyID, officeId: widget.officeId,),
+                CiMisc(companyID: widget.companyID, officeId: widget.officeId,)
               ],
             ),
           ),
