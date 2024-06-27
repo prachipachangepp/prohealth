@@ -332,6 +332,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                   flex: 2,
                   child: Text(
                     "Office Name",
+                    textAlign: TextAlign.start,
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -339,9 +340,9 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     ),
                   ),
                 ),
-                Expanded(flex: 2, child: Container()),
+                Expanded(flex: 1, child: Container()),
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Text(
                     "Address",
                     textAlign: TextAlign.center,

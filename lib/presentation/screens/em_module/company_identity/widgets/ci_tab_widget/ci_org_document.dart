@@ -60,10 +60,17 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
       curve: Curves.ease,
     );
   }
+
+  List<DocumentTypeData> docTypeData = [];
+   // void loadData()async{
+  //   await docTypeData = DocumentTypeData(contex);
+  //
+  // }
   @override
   void initState() {
     super.initState();
     //documentTypeGet(context);
+   // docTypeData = DocumentTypeData(contex);
     identityDocumentTypeGet(context,docTypeMetaId).then((data) {
       _identityDataController.add(data);
     }).catchError((error) {
@@ -75,6 +82,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
+
   var docID = 8;
   int docTypeMetaId = 8;
   int docSubTypeMetaId =0;
