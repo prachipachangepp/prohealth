@@ -37,7 +37,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>.broadcast();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   String? selectedValue;
@@ -53,7 +53,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     itemsPerPage = 3;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
-    print(":::SUBDOCID${widget.subDocID} + ${widget.docID}");
+    print(":::SUBDOCID              ${widget.subDocID} + ${widget.docID}");
     identityDocumentTypeGet(context,docTypeMetaId).then((data) {
       _identityDataController.add(data);
     }).catchError((error) {
@@ -67,6 +67,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     //   // Handle error
     // });
   }
+
 
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -87,11 +88,15 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       stream: _controller.stream,
       builder: (context, snapshot) {
         snapData.clear();
-        orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
-          _controller.add(data);
+        Future.delayed(Duration(milliseconds: 1000), () {
           CircularProgressIndicator(color: ColorManager.blueprime,);
-        }).catchError((error) {
-          // Handle error
+          orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+            _controller.add(data);
+
+          }).catchError((error) {
+            // Handle error
+          });
+
         });
         print('1111111');
         print(":::SUBDOCID${widget.subDocID} + ${widget.docID}");

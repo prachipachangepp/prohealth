@@ -183,17 +183,20 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 getUser(context).then((data) {
                                   _companyUsersList.add(data);
                                 }).catchError((error) {
-
                                 });
+                                Navigator.pop(context);
+                                // print("::::::::${firstNameController.text}");
+                                //  print("::::::::${lastNameController.text}");
+                                //  print("::::::::${roleController.text}");
+                                //  print("::::::::${emailController.text}");
+                                //  print("::::::::${companyIdController.text}");
+                                //  print("::::::::${passwordController.text}");
                                 firstNameController.clear();
                                 lastNameController.clear();
                                 roleController.clear();
                                 emailController.clear();
                                 companyIdController.clear();
                                 passwordController.clear();
-                                Future.delayed(Duration(seconds: 2), () {
-                                  print('Submit action completed!');
-                                });
                                 print('Form validated and submitted!');
                               },
 
