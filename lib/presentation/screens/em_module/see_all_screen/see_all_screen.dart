@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/data/api_data/establishment_data/user/user_modal.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/popup_const.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/const_field.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
@@ -57,18 +58,41 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   bool _isLoading = false;
   bool _showErrorMessage = false;
   bool isButtonEnabled = false;
-
+  void handleSubmit() async {
+    try {
+      await createUserPost(
+          context,
+          firstNameController.text,
+          lastNameController.text,
+          roleController.text,
+          emailController.text,
+          int.parse(companyIdController.text),
+          passwordController.text);
+      // Handle response here
+      firstNameController.clear();
+      lastNameController.clear();
+      roleController.clear();
+      emailController.clear();
+      companyIdController.clear();
+      passwordController.clear();
+      print('Form validated and submitted!');
+    } catch (error) {
+      // Handle error here
+      print('Error: $error');
+    } finally {
+      Future.delayed(Duration(seconds: 2), () {
+        print('Submit action completed!');
+      });
+    }
+  }
   @override
   void initState() {
     super.initState();
-    getUser(context)
-        .then((data) {
-      _companyUsersList
-          .add(data);
-    }).catchError(
-            (error) {
-          // Handle error
-        });
+    getUser(context).then((data) {
+      _companyUsersList.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
     userIdController.addListener(_checkFields);
     firstNameController.addListener(_checkFields);
     lastNameController.addListener(_checkFields);
@@ -76,6 +100,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     emailController.addListener(_checkFields);
     companyIdController.addListener(_checkFields);
   }
+
   void _checkFields() {
     setState(() {
       isButtonEnabled = userIdController.text.isNotEmpty &&
@@ -86,6 +111,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
           companyIdController.text.isNotEmpty;
     });
   }
+
   bool _validateForm() {
     // Validate all text fields
     if (firstNameController.text.isEmpty ||
@@ -121,200 +147,260 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
               ///Create USer
               Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 30,
-                    width: 150,
-                    child: CustomIconButton(
-                      text: 'Create User',
-                      icon: Icons.add,
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 30,
+                  width: 150,
+                  child:
+                  Center(
+                    child: ElevatedButton(
                       onPressed: () {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                                backgroundColor: Colors.white,
-                                content: Container(
-                                  height: 440,
-                                  width: 270,
-                                  child: Form(
-                                    key: _formKey,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                icon: Icon(Icons.close))
-                                          ],
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            HRManageTextField(
-                                              controller: firstNameController,
-                                              keyboardType: TextInputType.phone,
-                                              text: "First Name",
-                                              cursorHeight: 12,
-                                              labelText: "First Name",
-                                              labelStyle: GoogleFonts.firaSans(
-                                                  fontWeight: FontWeight.w500),
-                                              labelFontSize: 12,
-                                              errorText: 'First Name is required',
-                                              // onChanged: () {
-                                              //   // Reset validation status when text changes
-                                              //   isField1Valid = true;
-                                              // },
-                                            ),
-                                            SizedBox(
-                                              height: 7,
-                                            ),
-                                            HRManageTextField(
-                                              controller: lastNameController,
-                                              keyboardType: TextInputType.phone,
-                                              text: "Last Name",
-                                              cursorHeight: 12,
-                                              labelText: "Last Name",
-                                              labelStyle: GoogleFonts.firaSans(
-                                                  fontWeight: FontWeight.w500),
-                                              labelFontSize: 12,
-                                              errorText: 'Last Name is required',
+                            return CustomDialog(
+                              title: "Custom Dialog ",
+                              userIdController: userIdController,
+                              lastNameController: lastNameController,
+                              emailController: emailController,
+                              firstNameController: firstNameController,
+                              roleController: roleController,
+                              passwordController: passwordController,
+                              companyIdController: companyIdController,
+                              onSubmit: ()
+                              async {
+                                 await createUserPost(
+                                    context,
+                                    // userIdController.text,
+                                    firstNameController.text,
+                                    lastNameController.text,
+                                    roleController.text,
+                                    emailController.text,
+                                    int.parse(companyIdController.text),
+                                    passwordController.text);
+                                getUser(context).then((data) {
+                                  _companyUsersList.add(data);
+                                }).catchError((error) {
 
-                                            ),
-                                            SizedBox(
-                                              height: 7,
-                                            ),
-                                            //  HRManageTextField(
-                                            //   controller: roleController,
-                                            //   keyboardType: TextInputType.phone,
-                                            //   text: "Role",
-                                            //   cursorHeight: 12,
-                                            //   labelText: "Role",
-                                            //   labelStyle: GoogleFonts.firaSans(
-                                            //       fontWeight: FontWeight.w500),
-                                            //   labelFontSize: 12,
-                                            //   errorText: 'Role is required',
-                                            //   // validator: (value) => value.isEmpty,
-                                            // ),
-                                            HRManageDropdown(controller: roleController,
-                                              labelText:  'Role',
-                                              labelStyle: GoogleFonts.firaSans(
-                                                     fontWeight: FontWeight.w500),
-                                              labelFontSize: 12,
-                                              items: [
-                                                'Admin',
-                                                'Staff',
-                                                'User'
-                                              ] ,),
-                                            SizedBox(
-                                              height: 7,
-                                            ),
-                                            HRManageTextField(
-                                              controller: emailController,
-                                              keyboardType: TextInputType.phone,
-                                              text: "Email Id",
-                                              cursorHeight: 12,
-                                              labelText: "Email Id",
-                                              labelStyle: GoogleFonts.firaSans(
-                                                  fontWeight: FontWeight.w500),
-                                              labelFontSize: 12,
-                                              errorText: 'Email ID is required',
-                                              // validator: (value) => value.isEmpty,
-                                            ),
-                                            SizedBox(
-                                              height: 7,
-                                            ),
-                                            HRManageTextField(
-                                              controller: passwordController,
-                                              keyboardType: TextInputType.phone,
-                                              text: "Password",
-                                              cursorHeight: 12,
-                                              labelText: "Password",
-                                              labelStyle: GoogleFonts.firaSans(
-                                                  fontWeight: FontWeight.w500),
-                                              labelFontSize: 12,
-                                              errorText: 'Password required',
-                                              // validator: (value) => value.isEmpty,
-                                            ),
-                                            SizedBox(
-                                              height: 7,
-                                            ),
-                                            HRManageTextField(
-                                              controller: companyIdController,
-                                              keyboardType: TextInputType.phone,
-                                              text: "Company Id",
-                                              cursorHeight: 12,
-                                              labelText: "Company Id",
-                                              labelStyle: GoogleFonts.firaSans(
-                                                  fontWeight: FontWeight.w500),
-                                              labelFontSize: 12,
-                                              errorText: 'Company ID is required',
-                                              // validator: (value) => value.isEmpty,
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        ReusableLoadingButton(
-                                          text: 'Create',
-                                          onPressed: ()  {
-                                           createUserPost(
-                                                  context,
-                                                  firstNameController.text,
-                                                  lastNameController.text,
-                                                  roleController.text,
-                                                  emailController.text,
-                                                  int.parse(
-                                                      companyIdController
-                                                          .text),
-                                                  passwordController.text);
-                                              getUser(context).then((data) {
-                                                _companyUsersList.add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
-                                              Navigator.pop(context);
-                                              firstNameController.clear();
-                                              lastNameController.clear();
-                                              roleController.clear();
-                                              emailController.clear();
-                                              companyIdController.clear();
-                                              passwordController.clear();
-                                              Future.delayed(
-                                                  Duration(
-                                                      seconds: 2),
-                                                      () {
-                                                    print(
-                                                        'Submit action completed!');
-                                                  });
-                                              print('Form validated and submitted!');
-                                          },
-                                          loadingDuration: 2,
-                                        ),
+                                });
+                                firstNameController.clear();
+                                lastNameController.clear();
+                                roleController.clear();
+                                emailController.clear();
+                                companyIdController.clear();
+                                passwordController.clear();
+                                Future.delayed(Duration(seconds: 2), () {
+                                  print('Submit action completed!');
+                                });
+                                print('Form validated and submitted!');
+                              },
 
-                                      ],
-                                    ),
-                                  ),
-                                )
                             );
                           },
                         );
                       },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            ColorManager.buttoncolor, // Background color
+                      ),
+                      child: Text('Create',
+                          style: GoogleFonts.firaSans(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700)),
                     ),
-                  ))
+                  ),
+                ),
+
+                ///working create
+                // CustomIconButton(
+                //   text: 'Create User',
+                //   icon: Icons.add,
+                //   onPressed: () {
+                //     showDialog(
+                //       context: context,
+                //       builder: (BuildContext context) {
+                //         return AlertDialog(
+                //             backgroundColor: Colors.white,
+                //             content: Container(
+                //               height: 440,
+                //               width: 270,
+                //               child: Form(
+                //                 key: _formKey,
+                //                 child: Column(
+                //                   mainAxisAlignment:
+                //                       MainAxisAlignment.spaceAround,
+                //                   children: [
+                //                     Row(
+                //                       mainAxisAlignment:
+                //                           MainAxisAlignment.end,
+                //                       crossAxisAlignment:
+                //                           CrossAxisAlignment.end,
+                //                       children: [
+                //                         IconButton(
+                //                             onPressed: () {
+                //                               Navigator.pop(context);
+                //                             },
+                //                             icon: Icon(Icons.close))
+                //                       ],
+                //                     ),
+                //                     Column(
+                //                       mainAxisAlignment:
+                //                           MainAxisAlignment.spaceAround,
+                //                       children: [
+                //                         HRManageTextField(
+                //                           controller: firstNameController,
+                //                           keyboardType: TextInputType.phone,
+                //                           text: "First Name",
+                //                           cursorHeight: 12,
+                //                           labelText: "First Name",
+                //                           labelStyle: GoogleFonts.firaSans(
+                //                               fontWeight: FontWeight.w500),
+                //                           labelFontSize: 12,
+                //                           errorText: 'First Name is required',
+                //                           // onChanged: () {
+                //                           //   // Reset validation status when text changes
+                //                           //   isField1Valid = true;
+                //                           // },
+                //                         ),
+                //                         SizedBox(
+                //                           height: 7,
+                //                         ),
+                //                         HRManageTextField(
+                //                           controller: lastNameController,
+                //                           keyboardType: TextInputType.phone,
+                //                           text: "Last Name",
+                //                           cursorHeight: 12,
+                //                           labelText: "Last Name",
+                //                           labelStyle: GoogleFonts.firaSans(
+                //                               fontWeight: FontWeight.w500),
+                //                           labelFontSize: 12,
+                //                           errorText: 'Last Name is required',
+                //
+                //                         ),
+                //                         SizedBox(
+                //                           height: 7,
+                //                         ),
+                //                         //  HRManageTextField(
+                //                         //   controller: roleController,
+                //                         //   keyboardType: TextInputType.phone,
+                //                         //   text: "Role",
+                //                         //   cursorHeight: 12,
+                //                         //   labelText: "Role",
+                //                         //   labelStyle: GoogleFonts.firaSans(
+                //                         //       fontWeight: FontWeight.w500),
+                //                         //   labelFontSize: 12,
+                //                         //   errorText: 'Role is required',
+                //                         //   // validator: (value) => value.isEmpty,
+                //                         // ),
+                //                         HRManageDropdown(controller: roleController,
+                //                           labelText:  'Role',
+                //                           labelStyle: GoogleFonts.firaSans(
+                //                                  fontWeight: FontWeight.w500),
+                //                           labelFontSize: 12,
+                //                           items: [
+                //                             'Admin',
+                //                             'Staff',
+                //                             'User'
+                //                           ] ,),
+                //                         SizedBox(
+                //                           height: 7,
+                //                         ),
+                //                         HRManageTextField(
+                //                           controller: emailController,
+                //                           keyboardType: TextInputType.phone,
+                //                           text: "Email Id",
+                //                           cursorHeight: 12,
+                //                           labelText: "Email Id",
+                //                           labelStyle: GoogleFonts.firaSans(
+                //                               fontWeight: FontWeight.w500),
+                //                           labelFontSize: 12,
+                //                           errorText: 'Email ID is required',
+                //                           // validator: (value) => value.isEmpty,
+                //                         ),
+                //                         SizedBox(
+                //                           height: 7,
+                //                         ),
+                //                         HRManageTextField(
+                //                           controller: passwordController,
+                //                           keyboardType: TextInputType.phone,
+                //                           text: "Password",
+                //                           cursorHeight: 12,
+                //                           labelText: "Password",
+                //                           labelStyle: GoogleFonts.firaSans(
+                //                               fontWeight: FontWeight.w500),
+                //                           labelFontSize: 12,
+                //                           errorText: 'Password required',
+                //                           // validator: (value) => value.isEmpty,
+                //                         ),
+                //                         SizedBox(
+                //                           height: 7,
+                //                         ),
+                //                         HRManageTextField(
+                //                           controller: companyIdController,
+                //                           keyboardType: TextInputType.phone,
+                //                           text: "Company Id",
+                //                           cursorHeight: 12,
+                //                           labelText: "Company Id",
+                //                           labelStyle: GoogleFonts.firaSans(
+                //                               fontWeight: FontWeight.w500),
+                //                           labelFontSize: 12,
+                //                           errorText: 'Company ID is required',
+                //                           // validator: (value) => value.isEmpty,
+                //                         ),
+                //                       ],
+                //                     ),
+                //                     SizedBox(
+                //                       height: 10,
+                //                     ),
+                //                     ReusableLoadingButton(
+                //                       text: 'Create',
+                //                       onPressed: ()  {
+                //                        createUserPost(
+                //                               context,
+                //                               firstNameController.text,
+                //                               lastNameController.text,
+                //                               roleController.text,
+                //                               emailController.text,
+                //                               int.parse(
+                //                                   companyIdController
+                //                                       .text),
+                //                               passwordController.text);
+                //                           getUser(context).then((data) {
+                //                             _companyUsersList.add(data);
+                //                           }).catchError((error) {
+                //                             // Handle error
+                //                           });
+                //                           Navigator.pop(context);
+                //                           firstNameController.clear();
+                //                           lastNameController.clear();
+                //                           roleController.clear();
+                //                           emailController.clear();
+                //                           companyIdController.clear();
+                //                           passwordController.clear();
+                //                           Future.delayed(
+                //                               Duration(
+                //                                   seconds: 2),
+                //                                   () {
+                //                                 print(
+                //                                     'Submit action completed!');
+                //                               });
+                //                           print('Form validated and submitted!');
+                //                       },
+                //                       loadingDuration: 2,
+                //                     ),
+                //
+                //                   ],
+                //                 ),
+                //               ),
+                //             )
+                //         );
+                //       },
+                //     );
+                //   },
+                // ),
+              )
             ],
           ),
           Column(
@@ -325,14 +411,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                 decoration: BoxDecoration(
                   color: ColorManager.fmediumgrey,
                   borderRadius: BorderRadius.circular(12),
-
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-
                       Expanded(
                         flex: 2,
                         child: Text(
@@ -344,7 +428,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           ),
                         ),
                       ),
-
                       Expanded(
                         flex: 2,
                         child: Text(
@@ -355,19 +438,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               color: ColorManager.white),
                         ),
                       ),
-
                       Expanded(
                         flex: 2,
                         child: Text(
                           "First Name",
-
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.white),
                         ),
                       ),
-
                       Expanded(
                         flex: 2,
                         child: Text(
@@ -378,7 +458,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               color: ColorManager.white),
                         ),
                       ),
-
                       Expanded(
                         flex: 2,
                         child: Text(
@@ -389,7 +468,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               color: ColorManager.white),
                         ),
                       ),
-
                       Expanded(
                         flex: 2,
                         child: Text(
@@ -401,7 +479,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               color: ColorManager.white),
                         ),
                       ),
-
                       Expanded(
                         flex: 2,
                         child: Text(
@@ -413,7 +490,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                               color: ColorManager.white),
                         ),
                       ),
-
                       Expanded(
                         flex: 2,
                         child: Text(
@@ -474,7 +550,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 5),
-
                         Container(
                           padding: EdgeInsets.only(bottom: 5),
                           margin: EdgeInsets.symmetric(horizontal: 50),
@@ -492,7 +567,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           ),
                           height: 56,
                           child: Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/50),
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width / 50),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -589,8 +666,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                       ///edit
                                       InkWell(
                                         child: Container(
-                                          height: MediaQuery.of(context).size.height/30,
-                                          width: MediaQuery.of(context).size.width/25,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              30,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              25,
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -617,7 +700,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                             BorderRadius.all(
                                                                 Radius.circular(
                                                                     12))),
-                                                    child: SingleChildScrollView(
+                                                    child:
+                                                        SingleChildScrollView(
                                                       child: Column(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
@@ -632,7 +716,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     .end,
                                                             children: [
                                                               IconButton(
-                                                                  onPressed: () {
+                                                                  onPressed:
+                                                                      () {
                                                                     Navigator.pop(
                                                                         context);
                                                                   },
@@ -652,15 +737,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                     TextInputType
                                                                         .phone,
                                                                 text: "User Id",
-                                                                cursorHeight: 12,
+                                                                cursorHeight:
+                                                                    12,
                                                                 labelText:
                                                                     "User Id",
-                                                                labelStyle: GoogleFonts
-                                                                    .firaSans(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500),
-                                                                labelFontSize: 12,
+                                                                labelStyle: GoogleFonts.firaSans(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                                labelFontSize:
+                                                                    12,
                                                               ),
                                                               SizedBox(
                                                                 height: 15,
@@ -673,15 +759,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                         .phone,
                                                                 text:
                                                                     "First Name",
-                                                                cursorHeight: 12,
+                                                                cursorHeight:
+                                                                    12,
                                                                 labelText:
                                                                     "First Name",
-                                                                labelStyle: GoogleFonts
-                                                                    .firaSans(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500),
-                                                                labelFontSize: 12,
+                                                                labelStyle: GoogleFonts.firaSans(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                                labelFontSize:
+                                                                    12,
                                                               ),
                                                               SizedBox(
                                                                 height: 15,
@@ -692,30 +779,39 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                 keyboardType:
                                                                     TextInputType
                                                                         .phone,
-                                                                text: "Last Name",
-                                                                cursorHeight: 12,
+                                                                text:
+                                                                    "Last Name",
+                                                                cursorHeight:
+                                                                    12,
                                                                 labelText:
                                                                     "Last Name",
-                                                                labelStyle: GoogleFonts
-                                                                    .firaSans(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500),
-                                                                labelFontSize: 12,
+                                                                labelStyle: GoogleFonts.firaSans(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                                labelFontSize:
+                                                                    12,
                                                               ),
                                                               SizedBox(
                                                                 height: 15,
                                                               ),
-                                                              HRManageDropdown(controller: roleController,
-                                                                labelText:  'Role',
+                                                              HRManageDropdown(
+                                                                controller:
+                                                                    roleController,
+                                                                labelText:
+                                                                    'Role',
                                                                 labelStyle: GoogleFonts.firaSans(
-                                                                    fontWeight: FontWeight.w500),
-                                                                labelFontSize: 12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                                labelFontSize:
+                                                                    12,
                                                                 items: [
                                                                   'Admin',
                                                                   'Sales',
                                                                   'Clinician'
-                                                                ] ,),
+                                                                ],
+                                                              ),
                                                               SizedBox(
                                                                 height: 15,
                                                               ),
@@ -725,16 +821,18 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                 keyboardType:
                                                                     TextInputType
                                                                         .phone,
-                                                                text: "Email Id",
-                                                                cursorHeight: 12,
+                                                                text:
+                                                                    "Email Id",
+                                                                cursorHeight:
+                                                                    12,
                                                                 labelText:
                                                                     "Email Id",
-                                                                labelStyle: GoogleFonts
-                                                                    .firaSans(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500),
-                                                                labelFontSize: 12,
+                                                                labelStyle: GoogleFonts.firaSans(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                                labelFontSize:
+                                                                    12,
                                                               ),
                                                               SizedBox(
                                                                 height: 15,
@@ -747,15 +845,16 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                         .phone,
                                                                 text:
                                                                     "Company Id",
-                                                                cursorHeight: 12,
+                                                                cursorHeight:
+                                                                    12,
                                                                 labelText:
                                                                     "Company Id",
-                                                                labelStyle: GoogleFonts
-                                                                    .firaSans(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500),
-                                                                labelFontSize: 12,
+                                                                labelStyle: GoogleFonts.firaSans(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                                labelFontSize:
+                                                                    12,
                                                               ),
                                                             ],
                                                           ),
@@ -768,7 +867,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                               updateUserPatch(
                                                                 context,
                                                                 snapshot
-                                                                    .data![index]
+                                                                    .data![
+                                                                        index]
                                                                     .userId,
                                                                 firstNameController
                                                                     .text,
@@ -790,14 +890,20 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                                       (error) {
                                                                 // Handle error
                                                               });
-                                                              firstNameController.clear();
-                                                              lastNameController.clear();
-                                                              roleController.clear();
-                                                              emailController.clear();
-                                                              companyIdController.clear();
+                                                              firstNameController
+                                                                  .clear();
+                                                              lastNameController
+                                                                  .clear();
+                                                              roleController
+                                                                  .clear();
+                                                              emailController
+                                                                  .clear();
+                                                              companyIdController
+                                                                  .clear();
                                                               Future.delayed(
                                                                   Duration(
-                                                                      seconds: 2),
+                                                                      seconds:
+                                                                          2),
                                                                   () {
                                                                 print(
                                                                     'Submit action completed!');
@@ -807,7 +913,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                             },
                                                             loadingDuration: 2,
                                                           ),
-                                                      
                                                         ],
                                                       ),
                                                     ),
@@ -819,6 +924,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                       SizedBox(
                                         width: 20,
                                       ),
+
                                       ///delete
                                       InkWell(
                                         onTap: () async {
@@ -845,8 +951,14 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                   }));
                                         },
                                         child: Container(
-                                          height: MediaQuery.of(context).size.height/30,
-                                          width: MediaQuery.of(context).size.width/25,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              30,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              25,
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -880,6 +992,4 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       ),
     );
   }
-
 }
-
