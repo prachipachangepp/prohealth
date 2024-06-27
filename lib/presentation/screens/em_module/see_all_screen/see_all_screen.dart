@@ -14,14 +14,12 @@ import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/services/api/managers/establishment_manager/company_identrity_manager.dart';
-import '../../../../app/services/api/repository/establishment_manager/establishment_repository.dart';
 import '../../../../app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import '../../../../data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import '../../hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../login_module/login/widgets/login_web.dart';
 import '../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 class SeeAllScreen extends StatefulWidget {
   const SeeAllScreen({super.key});
 
@@ -60,7 +58,33 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   bool _isLoading = false;
   bool _showErrorMessage = false;
   bool isButtonEnabled = false;
-
+  void handleSubmit() async {
+    try {
+      await createUserPost(
+          context,
+          firstNameController.text,
+          lastNameController.text,
+          roleController.text,
+          emailController.text,
+          int.parse(companyIdController.text),
+          passwordController.text);
+      // Handle response here
+      firstNameController.clear();
+      lastNameController.clear();
+      roleController.clear();
+      emailController.clear();
+      companyIdController.clear();
+      passwordController.clear();
+      print('Form validated and submitted!');
+    } catch (error) {
+      // Handle error here
+      print('Error: $error');
+    } finally {
+      Future.delayed(Duration(seconds: 2), () {
+        print('Submit action completed!');
+      });
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -111,32 +135,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     companyIdController.dispose();
     super.dispose();
   }
-  void handleSubmit(BuildContext context) async {
-    try {
-      await createUserPost(
-        context,
-        firstNameController.text,
-        lastNameController.text,
-        roleController.text,
-        emailController.text,
-        int.parse(companyIdController.text),
-        passwordController.text,
-      );
-      firstNameController.clear();
-      lastNameController.clear();
-      roleController.clear();
-      emailController.clear();
-      companyIdController.clear();
-      passwordController.clear();
-      print('Form validated and submitted!');
-    } catch (error) {
-      print('Error: $error');
-    } finally {
-      Future.delayed(Duration(seconds: 2), () {
-        print('Submit action completed!');
-      });
-    }
-  }
+
   @override
   Widget build(BuildContext context) {
     int currentPage = 1;
@@ -162,39 +161,44 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                           context: context,
                           builder: (BuildContext context) {
                             return CustomDialog(
-                              title: "Create User",
+                              title: "Custom Dialog ",
                               userIdController: userIdController,
-                              firstNameController: firstNameController,
                               lastNameController: lastNameController,
-                              roleController: roleController,
                               emailController: emailController,
+                              firstNameController: firstNameController,
+                              roleController: roleController,
                               passwordController: passwordController,
                               companyIdController: companyIdController,
-                              onSubmit: () => handleSubmit(context)
-                              // async {
-                              //    await createUserPost(
-                              //       context,
-                              //       // userIdController.text,
-                              //       firstNameController.text,
-                              //       lastNameController.text,
-                              //       roleController.text,
-                              //       emailController.text,
-                              //       int.parse(companyIdController.text),
-                              //       passwordController.text);
-                              //   getUser(context).then((data) {
-                              //     _companyUsersList.add(data);
-                              //   }).catchError((error) {});
-                              //   firstNameController.clear();
-                              //   lastNameController.clear();
-                              //   roleController.clear();
-                              //   emailController.clear();
-                              //   companyIdController.clear();
-                              //   passwordController.clear();
-                              //   Future.delayed(Duration(seconds: 2), () {
-                              //     print('Submit action completed!');
-                              //   });
-                              //   print('Form validated and submitted!');
-                              // },
+                              onSubmit: ()
+                              async {
+                                 await createUserPost(
+                                    context,
+                                    // userIdController.text,
+                                    firstNameController.text,
+                                    lastNameController.text,
+                                    roleController.text,
+                                    emailController.text,
+                                    int.parse(companyIdController.text),
+                                    passwordController.text);
+                                getUser(context).then((data) {
+                                  _companyUsersList.add(data);
+                                }).catchError((error) {
+                                });
+                                Navigator.pop(context);
+                                // print("::::::::${firstNameController.text}");
+                                //  print("::::::::${lastNameController.text}");
+                                //  print("::::::::${roleController.text}");
+                                //  print("::::::::${emailController.text}");
+                                //  print("::::::::${companyIdController.text}");
+                                //  print("::::::::${passwordController.text}");
+                                firstNameController.clear();
+                                lastNameController.clear();
+                                roleController.clear();
+                                emailController.clear();
+                                companyIdController.clear();
+                                passwordController.clear();
+                                print('Form validated and submitted!');
+                              },
 
                             );
                           },
@@ -992,4 +996,3 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
     );
   }
 }
-

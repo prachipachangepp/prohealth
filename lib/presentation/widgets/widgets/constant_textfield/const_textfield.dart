@@ -199,7 +199,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 320,
       height: 40,
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p5),
@@ -219,7 +219,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           // },
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: AppPadding.p3,
-                top: AppPadding.p5, left: AppPadding.p2),
+                top: AppPadding.p5, left: AppPadding.p5),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.black),
             ),
@@ -271,7 +271,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 320,
       height: 40,
       child: Padding(
         padding: const EdgeInsets.all(5.0),
@@ -299,7 +299,7 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
           },
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(
-                bottom: 3.0, top: 5.0, left: 2.0), // Adjust padding
+                bottom: 3.0, top: 5.0, left: 5.0), // Adjust padding
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black),
             ),
