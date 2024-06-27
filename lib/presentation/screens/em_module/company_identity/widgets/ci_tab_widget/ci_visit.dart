@@ -672,10 +672,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           getVisit(context, 1, 1, 10)
                                               .then((data) {
                                             _visitController.add(data);
+                                            // Navigator.pop(context);
                                           }).catchError((error) {
                                             // Handle error
                                           });
-                                          Navigator.pop(context);
+                                          //
                                         },
                                         icon: Icon(
                                             Icons.delete_outline_outlined,
