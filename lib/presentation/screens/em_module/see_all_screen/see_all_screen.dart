@@ -149,260 +149,66 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
             children: [
               ///Create USer
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/25,
+                bottom: MediaQuery.of(context).size.width/120,
+                ),
                 child: Container(
                   height: 30,
-                  width: 150,
-                  child:
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CustomDialog(
-                              title: "Custom Dialog ",
-                              userIdController: userIdController,
-                              lastNameController: lastNameController,
-                              emailController: emailController,
-                              firstNameController: firstNameController,
-                              roleController: roleController,
-                              passwordController: passwordController,
-                              companyIdController: companyIdController,
-                              onSubmit: ()
-                              async {
-                                 await createUserPost(
-                                    context,
-                                    // userIdController.text,
-                                    firstNameController.text,
-                                    lastNameController.text,
-                                    roleController.text,
-                                    emailController.text,
-                                    int.parse(companyIdController.text),
-                                    passwordController.text);
-                                getUser(context).then((data) {
-                                  _companyUsersList.add(data);
-                                }).catchError((error) {
-                                });
-                                Navigator.pop(context);
-                                // print("::::::::${firstNameController.text}");
-                                //  print("::::::::${lastNameController.text}");
-                                //  print("::::::::${roleController.text}");
-                                //  print("::::::::${emailController.text}");
-                                //  print("::::::::${companyIdController.text}");
-                                //  print("::::::::${passwordController.text}");
-                                firstNameController.clear();
-                                lastNameController.clear();
-                                roleController.clear();
-                                emailController.clear();
-                                companyIdController.clear();
-                                passwordController.clear();
-                                print('Form validated and submitted!');
-                              },
-
-                            );
+                  width: 130,
+                  child: CustomIconButton(
+                    icon: Icons.add,
+                    text: 'Create User',
+                    onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CustomDialog(
+                          title: "Create User ",
+                          userIdController: userIdController,
+                          lastNameController: lastNameController,
+                          emailController: emailController,
+                          firstNameController: firstNameController,
+                          roleController: roleController,
+                          passwordController: passwordController,
+                          companyIdController: companyIdController,
+                          onSubmit: ()
+                          async {
+                            await createUserPost(
+                                context,
+                                // userIdController.text,
+                                firstNameController.text,
+                                lastNameController.text,
+                                roleController.text,
+                                emailController.text,
+                                int.parse(companyIdController.text),
+                                passwordController.text);
+                            getUser(context).then((data) {
+                              _companyUsersList.add(data);
+                            }).catchError((error) {
+                            });
+                            Navigator.pop(context);
+                            // print("::::::::${firstNameController.text}");
+                            //  print("::::::::${lastNameController.text}");
+                            //  print("::::::::${roleController.text}");
+                            //  print("::::::::${emailController.text}");
+                            //  print("::::::::${companyIdController.text}");
+                            //  print("::::::::${passwordController.text}");
+                            firstNameController.clear();
+                            lastNameController.clear();
+                            roleController.clear();
+                            emailController.clear();
+                            companyIdController.clear();
+                            passwordController.clear();
+                            print('Form validated and submitted!');
                           },
+
                         );
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            ColorManager.buttoncolor, // Background color
-                      ),
-                      child: Text('Create',
-                          style: GoogleFonts.firaSans(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700)),
-                    ),
+                    );
+                  },
+
                   ),
                 ),
-
-                ///working create
-                // CustomIconButton(
-                //   text: 'Create User',
-                //   icon: Icons.add,
-                //   onPressed: () {
-                //     showDialog(
-                //       context: context,
-                //       builder: (BuildContext context) {
-                //         return AlertDialog(
-                //             backgroundColor: Colors.white,
-                //             content: Container(
-                //               height: 440,
-                //               width: 270,
-                //               child: Form(
-                //                 key: _formKey,
-                //                 child: Column(
-                //                   mainAxisAlignment:
-                //                       MainAxisAlignment.spaceAround,
-                //                   children: [
-                //                     Row(
-                //                       mainAxisAlignment:
-                //                           MainAxisAlignment.end,
-                //                       crossAxisAlignment:
-                //                           CrossAxisAlignment.end,
-                //                       children: [
-                //                         IconButton(
-                //                             onPressed: () {
-                //                               Navigator.pop(context);
-                //                             },
-                //                             icon: Icon(Icons.close))
-                //                       ],
-                //                     ),
-                //                     Column(
-                //                       mainAxisAlignment:
-                //                           MainAxisAlignment.spaceAround,
-                //                       children: [
-                //                         HRManageTextField(
-                //                           controller: firstNameController,
-                //                           keyboardType: TextInputType.phone,
-                //                           text: "First Name",
-                //                           cursorHeight: 12,
-                //                           labelText: "First Name",
-                //                           labelStyle: GoogleFonts.firaSans(
-                //                               fontWeight: FontWeight.w500),
-                //                           labelFontSize: 12,
-                //                           errorText: 'First Name is required',
-                //                           // onChanged: () {
-                //                           //   // Reset validation status when text changes
-                //                           //   isField1Valid = true;
-                //                           // },
-                //                         ),
-                //                         SizedBox(
-                //                           height: 7,
-                //                         ),
-                //                         HRManageTextField(
-                //                           controller: lastNameController,
-                //                           keyboardType: TextInputType.phone,
-                //                           text: "Last Name",
-                //                           cursorHeight: 12,
-                //                           labelText: "Last Name",
-                //                           labelStyle: GoogleFonts.firaSans(
-                //                               fontWeight: FontWeight.w500),
-                //                           labelFontSize: 12,
-                //                           errorText: 'Last Name is required',
-                //
-                //                         ),
-                //                         SizedBox(
-                //                           height: 7,
-                //                         ),
-                //                         //  HRManageTextField(
-                //                         //   controller: roleController,
-                //                         //   keyboardType: TextInputType.phone,
-                //                         //   text: "Role",
-                //                         //   cursorHeight: 12,
-                //                         //   labelText: "Role",
-                //                         //   labelStyle: GoogleFonts.firaSans(
-                //                         //       fontWeight: FontWeight.w500),
-                //                         //   labelFontSize: 12,
-                //                         //   errorText: 'Role is required',
-                //                         //   // validator: (value) => value.isEmpty,
-                //                         // ),
-                //                         HRManageDropdown(controller: roleController,
-                //                           labelText:  'Role',
-                //                           labelStyle: GoogleFonts.firaSans(
-                //                                  fontWeight: FontWeight.w500),
-                //                           labelFontSize: 12,
-                //                           items: [
-                //                             'Admin',
-                //                             'Staff',
-                //                             'User'
-                //                           ] ,),
-                //                         SizedBox(
-                //                           height: 7,
-                //                         ),
-                //                         HRManageTextField(
-                //                           controller: emailController,
-                //                           keyboardType: TextInputType.phone,
-                //                           text: "Email Id",
-                //                           cursorHeight: 12,
-                //                           labelText: "Email Id",
-                //                           labelStyle: GoogleFonts.firaSans(
-                //                               fontWeight: FontWeight.w500),
-                //                           labelFontSize: 12,
-                //                           errorText: 'Email ID is required',
-                //                           // validator: (value) => value.isEmpty,
-                //                         ),
-                //                         SizedBox(
-                //                           height: 7,
-                //                         ),
-                //                         HRManageTextField(
-                //                           controller: passwordController,
-                //                           keyboardType: TextInputType.phone,
-                //                           text: "Password",
-                //                           cursorHeight: 12,
-                //                           labelText: "Password",
-                //                           labelStyle: GoogleFonts.firaSans(
-                //                               fontWeight: FontWeight.w500),
-                //                           labelFontSize: 12,
-                //                           errorText: 'Password required',
-                //                           // validator: (value) => value.isEmpty,
-                //                         ),
-                //                         SizedBox(
-                //                           height: 7,
-                //                         ),
-                //                         HRManageTextField(
-                //                           controller: companyIdController,
-                //                           keyboardType: TextInputType.phone,
-                //                           text: "Company Id",
-                //                           cursorHeight: 12,
-                //                           labelText: "Company Id",
-                //                           labelStyle: GoogleFonts.firaSans(
-                //                               fontWeight: FontWeight.w500),
-                //                           labelFontSize: 12,
-                //                           errorText: 'Company ID is required',
-                //                           // validator: (value) => value.isEmpty,
-                //                         ),
-                //                       ],
-                //                     ),
-                //                     SizedBox(
-                //                       height: 10,
-                //                     ),
-                //                     ReusableLoadingButton(
-                //                       text: 'Create',
-                //                       onPressed: ()  {
-                //                        createUserPost(
-                //                               context,
-                //                               firstNameController.text,
-                //                               lastNameController.text,
-                //                               roleController.text,
-                //                               emailController.text,
-                //                               int.parse(
-                //                                   companyIdController
-                //                                       .text),
-                //                               passwordController.text);
-                //                           getUser(context).then((data) {
-                //                             _companyUsersList.add(data);
-                //                           }).catchError((error) {
-                //                             // Handle error
-                //                           });
-                //                           Navigator.pop(context);
-                //                           firstNameController.clear();
-                //                           lastNameController.clear();
-                //                           roleController.clear();
-                //                           emailController.clear();
-                //                           companyIdController.clear();
-                //                           passwordController.clear();
-                //                           Future.delayed(
-                //                               Duration(
-                //                                   seconds: 2),
-                //                                   () {
-                //                                 print(
-                //                                     'Submit action completed!');
-                //                               });
-                //                           print('Form validated and submitted!');
-                //                       },
-                //                       loadingDuration: 2,
-                //                     ),
-                //
-                //                   ],
-                //                 ),
-                //               ),
-                //             )
-                //         );
-                //       },
-                //     );
-                //   },
-                // ),
               )
             ],
           ),
@@ -455,6 +261,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         flex: 2,
                         child: Text(
                           "Last Name",
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -475,7 +282,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         flex: 2,
                         child: Text(
                           "Email",
-                          textAlign: TextAlign.start,
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -566,6 +373,12 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 blurRadius: 4,
                                 offset: Offset(0, 2),
                               ),
+                              BoxShadow(
+                                color: Colors.blue.withOpacity(0.5), // Blue shadow color
+                                // spreadRadius: 1,
+                                // blurRadius: 4,
+                                offset: Offset(-4, 0), // Offset to the left
+                              ),
                             ],
                           ),
                           height: 56,
@@ -618,7 +431,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   flex: 1,
                                   child: Text(
                                     snapshot.data![index].lastName,
-                                    textAlign: TextAlign.start,
+                                    textAlign: TextAlign.center,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -642,7 +455,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   flex: 1,
                                   child: Text(
                                     snapshot.data![index].email,
-                                    textAlign: TextAlign.start,
+                                    textAlign: TextAlign.center,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
