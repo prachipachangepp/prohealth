@@ -61,11 +61,11 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     });
    // orgDocumentGet(context);
     _loadColors();
-    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+    // orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+    //   _controller.add(data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
   }
 
   void _loadColors() async {
@@ -80,11 +80,13 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       }
     });
   }
+  List snapData = [];
   @override
   Widget build(BuildContext context) {
     return  StreamBuilder<List<CiOrgDocumentCC>>(
       stream: _controller.stream,
       builder: (context, snapshot) {
+        snapData.clear();
         orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
           _controller.add(data);
           CircularProgressIndicator(color: ColorManager.blueprime,);
@@ -113,6 +115,9 @@ class _CICcdLicenseState extends State<CICcdLicense> {
           );
         }
         if (snapshot.hasData){
+          for(var i in snapshot.data!){
+            snapData.add(i);
+          }
           return Column(
             children: [
               Container(
@@ -193,7 +198,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                 child:
                 ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: snapshot.data!.length,
+                  itemCount: snapData.length,
                   itemBuilder: (context, index) {
                     int serialNumber =
                         index + 1 + (currentPage - 1) * itemsPerPage;
@@ -237,7 +242,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    snapshot.data![index].name.toString(),
+                                    snapData[index].name.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -249,7 +254,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    snapshot.data![index].expiry.toString(),
+                                    snapData[index].expiry.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -261,7 +266,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    snapshot.data![index]
+                                    snapData[index]
                                         .reminderThreshold
                                         .toString(),
                                     style: GoogleFonts.firaSans(
