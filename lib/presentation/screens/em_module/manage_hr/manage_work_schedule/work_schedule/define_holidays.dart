@@ -65,6 +65,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
 
     return formattedDate;
   }
+  bool _isLoading = false;
   
   @override
   Widget build(BuildContext context) {
@@ -106,47 +107,57 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   // Text(''),
-                  Text(
-                    'Sr No.',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                  Text('Holiday Name    ',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Text(
-                      'Date           ',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Text('Actions',
-                        textAlign: TextAlign.start,
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        'Sr No.',
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           decoration: TextDecoration.none,
-                        )),
+                        ),
+                      ),
+                    ),
+                  ),
+//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                  Expanded(
+                    child: Center(
+                      child: Text('Holiday Name',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        'Date',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Expanded(
+                    child: Center(
+                      child: Text('Actions',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                    ),
                   ),
                 ],
               ),
@@ -215,118 +226,151 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        Text(
-                                          formattedSerialNumber,
-                                          // formattedSerialNumber,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff686464),
-                                            decoration: TextDecoration.none,
+                                        Expanded(
+                                          child: Center(
+                                            child: Text(
+                                              formattedSerialNumber,
+                                              // formattedSerialNumber,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w500,
+                                                color: Color(0xff686464),
+                                                decoration: TextDecoration.none,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         // Text(''),
-                                        Text(
-                                          snapshot.data![index].holidayName,
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff686464),
-                                            decoration: TextDecoration.none,
+                                        Expanded(
+                                          child: Center(
+                                            child: Text(
+                                              snapshot.data![index].holidayName,
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w500,
+                                                color: Color(0xff686464),
+                                                decoration: TextDecoration.none,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                        Text(
-                                          snapshot.data![index].date.toString(),
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff686464),
-                                            decoration: TextDecoration.none,
+                                        Expanded(
+                                          child: Center(
+                                            child: Text(
+                                              snapshot.data![index].date.toString(),
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w500,
+                                                color: Color(0xff686464),
+                                                decoration: TextDecoration.none,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         //  Text(''),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return FutureBuilder<DefinePrefillHolidayData>(
-                                                          future: holidaysPrefillGet(context, snapshot.data![index].holidayId),
-                                                          builder: (context, snapshotPrefill) {
-                                                            var holidayName = snapshotPrefill.data?.holidayName.toString();
-                                                            var date = snapshotPrefill.data?.date.toString();
-                                                            holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
-                                                            calenderController = TextEditingController(text: snapshotPrefill.data?.date);
-                                                            return AddHolidayPopup(
-                                                              controller:
-                                                                  holidayNameController,
-                                                              calenderDateController:
-                                                              calenderController,
-                                                              onPressed: ()  async{
-                                                                await updateHolidays(context, snapshot.data![index].holidayId,
-                                                                    holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
-                                                                    date == calenderController.text ? DateFormat('mm-dd-yyy').format(date as DateTime) : calenderController.text, 2024, 1);
-                                                                holidaysListGet(
-                                                                    context)
-                                                                    .then((data) {
-                                                                  _controller
-                                                                      .add(data);
-                                                                }).catchError(
-                                                                        (error) {
-                                                                      // Handle error
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return FutureBuilder<DefinePrefillHolidayData>(
+                                                            future: holidaysPrefillGet(context, snapshot.data![index].holidayId),
+                                                            builder: (context, snapshotPrefill) {
+                                                              var holidayName = snapshotPrefill.data?.holidayName.toString();
+                                                              var date = snapshotPrefill.data?.date.toString();
+                                                              holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
+                                                              calenderController = TextEditingController(text: snapshotPrefill.data?.date);
+                                                              return AddHolidayPopup(
+                                                                controller:
+                                                                    holidayNameController,
+                                                                calenderDateController:
+                                                                calenderController,
+                                                                onPressed: ()  async{
+                                                                  await updateHolidays(context, snapshot.data![index].holidayId,
+                                                                      holidayName == holidayNameController.text ? holidayName.toString() : holidayNameController.text,
+                                                                      date == calenderController.text ? DateFormat('mm-dd-yyy').format(date as DateTime) : calenderController.text, 2024, 1);
+                                                                  holidaysListGet(
+                                                                      context)
+                                                                      .then((data) {
+                                                                    _controller
+                                                                        .add(data);
+                                                                  }).catchError(
+                                                                          (error) {
+                                                                        // Handle error
+                                                                      });
+                                                                  Navigator.pop(context);
+                                                                },
+
+                                                              );
+                                                            }
+                                                          );
+                                                        });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.edit_outlined,
+                                                    size: 18,
+                                                    color: ColorManager.blueprime,
+                                                  )),
+                                              IconButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            StatefulBuilder(
+                                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                return DeletePopup(
+                                                                    loadingDuration: _isLoading,
+                                                                    onCancel: () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    }, onDelete:
+                                                                    () async {
+                                                                  setState(() {
+                                                                    _isLoading = true;
+                                                                  });
+                                                                  try {
+                                                                    await deleteHolidays(
+                                                                        context,
+                                                                        snapshot
+                                                                            .data![
+                                                                        index]
+                                                                            .holidayId);
+                                                                    setState(() async {
+                                                                      await holidaysListGet(
+                                                                          context)
+                                                                          .then((data) {
+                                                                        _controller
+                                                                            .add(data);
+                                                                      }).catchError(
+                                                                              (error) {
+                                                                            // Handle error
+                                                                          });
+                                                                      Navigator.pop(context);
                                                                     });
-                                                                Navigator.pop(context);
+                                                                  } finally {
+                                                                    setState(() {
+                                                                      _isLoading = false;
+                                                                    });
+                                                                  }
+                                                                });
                                                               },
 
-                                                            );
-                                                          }
-                                                        );
-                                                      });
-                                                },
-                                                icon: Icon(
-                                                  Icons.edit_outlined,
-                                                  size: 18,
-                                                  color: ColorManager.blueprime,
-                                                )),
-                                            IconButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          DeletePopup(
-                                                              onCancel: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          }, onDelete:
-                                                                  () async {
-                                                            await deleteHolidays(
-                                                                context,
-                                                                snapshot
-                                                                    .data![
-                                                                        index]
-                                                                    .holidayId!);
-                                                            holidaysListGet(
-                                                                    context)
-                                                                .then((data) {
-                                                              _controller
-                                                                  .add(data);
-                                                            }).catchError(
-                                                                    (error) {
-                                                              // Handle error
-                                                            });
-                                                          }));
-                                                },
-                                                icon: Icon(
-                                                  Icons.delete_outline,
-                                                  size: 18,
-                                                  color: ColorManager.red,
-                                                )),
-                                          ],
+                                                            ));
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete_outline,
+                                                    size: 18,
+                                                    color: ColorManager.red,
+                                                  )),
+                                            ],
+                                          ),
                                         )
                                       ],
                                     ),

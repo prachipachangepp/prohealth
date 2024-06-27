@@ -14,6 +14,7 @@ class SMTextFConst extends StatelessWidget {
   final Icon? icon;
   final bool? readOnly;
   final VoidCallback? onChange;
+  final bool ? enable;
 
 
    SMTextFConst({
@@ -21,7 +22,7 @@ class SMTextFConst extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
      required this.text,
-     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly,
+     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,
   }) : super(key: key);
 
   @override
@@ -49,6 +50,7 @@ class SMTextFConst extends StatelessWidget {
           ),
           child: TextFormField(
             autofocus: true,
+            enabled: enable == null ? true : false,
             controller: controller,
             keyboardType: keyboardType,
             cursorHeight: 17,

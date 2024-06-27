@@ -23,14 +23,18 @@ class TableHeadConstant extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: items.map((item) {
-          return Text(
-            item.text,
-            textAlign: item.textAlign,
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: ColorManager.white,
-              decoration: TextDecoration.none,
+          return Expanded(
+            child: Center(
+              child: Text(
+                item.text,
+                textAlign: item.textAlign,
+                style: GoogleFonts.firaSans(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: ColorManager.white,
+                  decoration: TextDecoration.none,
+                ),
+              ),
             ),
           );
         }).toList(),

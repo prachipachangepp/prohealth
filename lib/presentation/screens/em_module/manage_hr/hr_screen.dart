@@ -18,7 +18,7 @@ class HrScreen extends StatefulWidget {
 
 class _HrScreenState extends State<HrScreen> {
   final PageController _hrPageController = PageController();
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _selectButton(int index) {
     setState(() {
@@ -64,7 +64,7 @@ class _HrWidgetState extends State<HrWidget> {
     companyHRHeadApi(context, deptId);
   }
 
-  var deptId = 0;
+  var deptId = 1;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -167,7 +167,8 @@ class _HrWidgetState extends State<HrWidget> {
                 controller: widget.hrPageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  Container(),
+                  //Container(),
+                  HrClinicalScreen(deptId: deptId,),
                   HrClinicalScreen(deptId: deptId,),
                   HrSalesScreen(deptId: deptId,),
                   HrAdministrativeScreen(deptId: deptId,),

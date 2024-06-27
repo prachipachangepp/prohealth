@@ -15,10 +15,10 @@ import '../../../../widgets/text_form_field_const.dart';
 class CCScreensAddPopup extends StatefulWidget {
   final TextEditingController countynameController;
   final TextEditingController zipcodeController;
-  final VoidCallback onSavePressed;
+   VoidCallback onSavePressed;
   final Widget child;
   final Widget child1;
-  const CCScreensAddPopup(
+   CCScreensAddPopup(
       {super.key,
       required this.countynameController,
       required this.zipcodeController,
@@ -240,12 +240,14 @@ class CCScreenEditPopup extends StatefulWidget {
   final int? id;
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
+  final TextEditingController? calenderController;
   final VoidCallback? onSavePressed;
   final Widget child;
   final Widget child1;
   final Widget? radioButton;
+   bool? loadingDuration;
 
-  const CCScreenEditPopup({
+   CCScreenEditPopup({
     super.key,
     required this.idDocController,
     required this.nameDocController,
@@ -253,7 +255,7 @@ class CCScreenEditPopup extends StatefulWidget {
     required this.child,
     required this.child1,
     this.id,
-    this.radioButton,
+    this.radioButton,  this.calenderController, this.loadingDuration,
   });
 
   @override
@@ -262,7 +264,6 @@ class CCScreenEditPopup extends StatefulWidget {
 
 class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
   String? _expiryType;
-  TextEditingController calenderController = TextEditingController();
   final DateTime _selectedDate = DateTime.now();
 
   @override
@@ -404,7 +405,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                             color: ColorManager.mediumgrey,
                             //decoration: TextDecoration.none,
                           ),
-                          controller: calenderController,
+                          controller: widget.calenderController,
                           decoration: InputDecoration(
                             focusColor: ColorManager.mediumgrey,
                             hoverColor: ColorManager.mediumgrey,
@@ -450,8 +451,8 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                             );
                             if (date != null) {
                               String formattedDate =
-                                  DateFormat('mm-dd-yyyy').format(date);
-                              calenderController.text = formattedDate;
+                                  DateFormat('MM-dd-yyyy').format(date);
+                              widget.calenderController!.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
                               // date.toLocal().toString().split(' ')[0];
@@ -475,19 +476,21 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(
-                child: CustomElevatedButton(
+                child:  widget.loadingDuration == true
+                    ? SizedBox(
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                )
+                    :CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.submit,
                   onPressed: () {
-                    updateOrgDocument(
-                        context,
-                        widget.id!,
-                        widget.nameDocController.text,
-                        calenderController.text,
-                        _expiryType.toString(),
-                        _expiryType.toString());
-                    Navigator.pop(context);
+                    widget.onSavePressed!();
+
                   },
                 ),
               ),
@@ -505,16 +508,16 @@ class AddOrgDocButton extends StatefulWidget {
   final TextEditingController nameDocController;
   final TextEditingController calenderController;
   final VoidCallback onPressed;
-  final Widget child;
-  final Widget child1;
+   Widget? child;
+   Widget? child1;
   final Widget? radioButton;
-  final int? loadingDuration;
-  const AddOrgDocButton(
+  final bool? loadingDuration;
+   AddOrgDocButton(
       {super.key,
       required this.idDocController,
       required this.nameDocController,
-      required this.child,
-      required this.child1,
+       this.child,
+       this.child1,
       required this.onPressed,
       required this.calenderController,
       this.radioButton,
@@ -526,7 +529,7 @@ class AddOrgDocButton extends StatefulWidget {
 
 class _AddOrgDocButtonState extends State<AddOrgDocButton> {
   String? _expiryType;
-  bool _isLoading = false;
+  // bool _isLoading = false;
   var _selectedDate = DateTime.now();
 
   @override
@@ -587,7 +590,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      widget.child,
+                      widget.child ?? SizedBox(),
                     ],
                   ),
                   SizedBox(height: AppSize.s12),
@@ -604,7 +607,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      widget.child1,
+                      widget.child1 ?? SizedBox(),
                     ],
                   ),
                 ],
@@ -694,7 +697,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                             );
                             if (date != null) {
                               String formattedDate =
-                                  DateFormat('mm-dd-yyyy').format(date);
+                                  DateFormat('MM-dd-yyyy').format(date);
                               widget.calenderController.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
@@ -702,7 +705,6 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                               // field.didChange(date.toLocal().toString().split(' ')[0]);
                             }
                           },
-
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'please select birth date';
@@ -717,18 +719,18 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               ),
             ),
             SizedBox(
-              height: AppSize.s10,
+              height: AppSize.s30,
             ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(
-                child: _isLoading
+                child: widget.loadingDuration == true
                     ? SizedBox(
-                        height: 30,
-                        width: 30,
+                        height: 25,
+                        width: 25,
                         child: CircularProgressIndicator(
-                          color: Colors.blue,
+                          color: ColorManager.blueprime,
                         ),
                       )
                     : CustomElevatedButton(

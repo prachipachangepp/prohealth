@@ -55,6 +55,55 @@ Future<ApiData> addCorporateDocumentPost({required BuildContext context,
   }
 }
 
+/// Update corporate document
+Future<ApiData> updateCorporateDocumentPost({required BuildContext context,
+  required int docId,
+  required String name,
+  required int docTypeID,
+  required int docSubTypeID,
+  required String docCreated,
+  required String url,
+  required String expiryType,
+  required String expiryDate,
+  required String expiryReminder,
+  required int companyId,
+  required String officeId,
+}) async {
+  try {
+    var response = await Api(context)
+        .patch(path: EstablishmentManagerRepository.updateCorporateDocumentPost(docID: docId), data: {
+      "doc_name": name,
+      "document_type_id": docTypeID,
+      "document_subtype_id": docSubTypeID,
+      "doc_created_at": docCreated,
+      "url": url,
+      "expiry_type": expiryType,
+      "expiry_date": expiryDate,
+      "expiry_reminder": expiryReminder,
+      "company_id": companyId,
+      "office_id": officeId
+    });
+    print('::::$response');
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Document addded ");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    print("Error 2");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
 /// get
 Future<List<IdentityData>> getOrgDocfetch(BuildContext context,
     int companyId,

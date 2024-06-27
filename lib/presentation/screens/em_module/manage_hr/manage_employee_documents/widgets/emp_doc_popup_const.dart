@@ -320,7 +320,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
       _isLoading = true;
     });
 
-    widget.onSavePredded?.call();
+    widget.onSavePredded.call();
     Future.delayed(Duration(seconds: widget.loadingDuration!), () {
       setState(() {
         _isLoading = false;
@@ -455,7 +455,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                           decoration: InputDecoration(
                             focusColor: ColorManager.mediumgrey,
                             hoverColor: ColorManager.mediumgrey,
-                            hintText: 'dd-mm-yyyy',
+                            hintText: 'mm-dd-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w700,
@@ -497,7 +497,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                             );
                             if (date != null) {
                               String formattedDate =
-                                  DateFormat('dd-MM-yyyy').format(date);
+                                  DateFormat('MM-dd-yyyy').format(date);
                               widget.calenderController.text = formattedDate;
                               field.didChange(formattedDate);
                               // birthdayController.text =
@@ -521,16 +521,14 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
             Spacer(),
             _isLoading
                 ? SizedBox(
-              width: 30,
-              height: 30,
+              width: 25,
+              height: 25,
               child: CircularProgressIndicator(
-                color: Colors.blue,
-
+                color: ColorManager.blueprime,
               ),
             )
-                :
-            Center(
-              child: Padding(
+                : Center(
+              child:  Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CustomElevatedButton(
                         width: AppSize.s105,
@@ -539,10 +537,14 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                         // onPressed: widget.onSavePredded
                         onPressed: () async {
                           setState(()  {
+                            _isLoading = true;
                             isSaving = true;
                             Navigator.pop(context);
                           });
                           await widget.onSavePredded();
+                          setState(() {
+                            _isLoading = false;
+                          });
                         },
 
                       ),
