@@ -296,22 +296,22 @@ class EstablishmentManagerRepository {
     return "/$document";
   }
   static String getCiVisit({required int companyId,required int pageNo, required int noofRows}){
-    return "/$visit/$companyId/$pageNo/$noofRows";
+    return "$visit/$companyId/$pageNo/$noofRows";
   }
   static String getCiVisitList(){
-    return "/$visit$visitList";
+    return "$visit$visitList";
   }
   static String postCiVisit(){
-    return "/$visit/$add";
+    return "$visit/$add";
   }
   static String documentTypeGet(){
     return "/$documentType";
   }
   static String deleteCiVisit({required int visitId}){
-    return "/$visit/$visitId";
+    return "$visit/$visitId";
   }
   static String updateCiVisit({required String typeVisit}){
-    return "/$visit/$typeVisit";
+    return "$visit/$typeVisit";
   }
 
   static String identityDocumentTypeGet({required int docId}){

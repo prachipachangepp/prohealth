@@ -13,6 +13,7 @@ import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/visit_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
@@ -46,6 +47,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   FocusNode _focusNode = FocusNode();
   bool _showList = false;
   int empTypeId = 0;
+  bool _isLoading =false;
   @override
   void initState() {
     super.initState();
@@ -80,6 +82,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       //selectedChipsEmpId.remove(chipEmpId);
     });
   }
+  List<int> chipsList = [];
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -557,13 +560,36 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         ),
                                         IconButton(
                                           onPressed: () async{
-                                            await deleteVisitPatch(context, snapshot.data![index].visitId);
-                                            getVisit(context,1,1,10).then((data) {
-                                              _visitController.add(data);
-                                            }).catchError((error) {
-                                              // Handle error
+                                            showDialog(context: context, builder: (BuildContext context){
+                                              return StatefulBuilder(
+                                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                                  return DeletePopup(
+                                                    loadingDuration: _isLoading,
+                                                    onCancel: () {  }, onDelete: () async{
+                                                    setState(() {
+                                                      _isLoading = true;
+                                                    });
+                                                    try {
+                                                      await deleteVisitPatch(context, snapshot.data![index].visitId);
+                                                      setState(() async {
+                                                        await getVisit(context,1,1,10).then((data) {
+                                                          _visitController.add(data);
+                                                        }).catchError((error) {
+                                                          // Handle error
+                                                        });
+                                                        Navigator.pop(context);
+                                                      });
+                                                    } finally {
+                                                      setState(() {
+                                                        _isLoading = false;
+                                                      });
+                                                    }
+                                                  },);
+                                                },
+                                              );
                                             });
-                                            Navigator.pop(context);
+
+
                                           },
                                           icon: Icon( Icons.delete_outline_outlined,size: 20, color: Color(0xffF6928A)),
                                         ),

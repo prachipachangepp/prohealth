@@ -351,7 +351,7 @@ Future<List<ShiftBachesData>> shiftBatchesGet(
   try {
     final response = await Api(context).get(
         path: EstablishmentManagerRepository.getShiftBatches(
-            shiftName: shiftName, companyId: companyId, officeId: officeId.replaceAll('%20', ' '), weekDay: weekDay));
+            shiftName: shiftName, companyId: companyId, officeId: officeId, weekDay: weekDay));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(
