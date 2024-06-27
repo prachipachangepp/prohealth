@@ -17,18 +17,18 @@ class ViewBatchesPopup extends StatefulWidget {
   final String weekName;
   final String officeId;
   final int companyId;
-  const ViewBatchesPopup({super.key, required this.shiftName, required this.weekName, required this.officeId, required this.companyId});
+   ViewBatchesPopup({super.key, required this.shiftName, required this.weekName, required this.officeId, required this.companyId});
 
   @override
   State<ViewBatchesPopup> createState() => _ViewBatchesPopupState();
 }
 
 class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
+  int currentPage = 1;
+  int itemsPerPage = 10;
   final StreamController<List<ShiftBachesData>>
   workWeekShiftBatchesController =
   StreamController<List<ShiftBachesData>>();
-  late int currentPage;
-  late int itemsPerPage;
   TextEditingController startTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
   @override

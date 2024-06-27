@@ -65,6 +65,13 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
     future: identityDocumentTypeGet(context, widget.docID),
     builder: (context,snapshot) {
       if(snapshot.hasData){
+        if(docSubTypeData.isEmpty){
+          for(var a in snapshot.data!){
+            docSubTypeData.add(
+                a
+            );
+          }
+        }
         return  Center(
           child: Container(
             width: 750,
@@ -82,6 +89,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                   if (snapshot.connectionState == ConnectionState.waiting) {
                   }
                   if(snapshot.hasData){
+
                     return InkWell(
                       //splashColor: Colors.white,
                       highlightColor: Color(0xFFF2F9FC),
@@ -141,7 +149,6 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
               CICcdLicense(subDocID: subDocId, docID: widget.docID,),
               CICcdLicense(subDocID: subDocId, docID: widget.docID,),
               CICcdLicense(subDocID: subDocId, docID: widget.docID,),
-
               // CICcdADR(),
               // CiCcdMedicalCostReport(),
               // CiCcdCapReports(),

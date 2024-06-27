@@ -359,6 +359,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                       ? totalItems
                       : (currentPage * itemsPerPage),
                 );
+
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: currentPageItems.length,

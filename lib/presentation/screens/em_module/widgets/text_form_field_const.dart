@@ -6,7 +6,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../app/resources/font_manager.dart';
 
-class SMTextFConst extends StatelessWidget {
+class SMTextFConst extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String text;
@@ -15,6 +15,7 @@ class SMTextFConst extends StatelessWidget {
   final bool? readOnly;
   final VoidCallback? onChange;
   final bool ? enable;
+  final String? Function(String?)? validator;
 
 
    SMTextFConst({
@@ -22,21 +23,27 @@ class SMTextFConst extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
      required this.text,
-     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,
+     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,  this.validator,
   }) : super(key: key);
 
   @override
+  State<SMTextFConst> createState() => _SMTextFConstState();
+}
+
+class _SMTextFConstState extends State<SMTextFConst> {
+  @override
   Widget build(BuildContext context) {
+    String? errorText;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          text,
+          widget.text,
           style: GoogleFonts.firaSans(
             fontSize: FontSize.s12,
             fontWeight: FontWeight.w700,
-            color: textColor,
+            color: widget.textColor,
             decoration: TextDecoration.none,
           ),
         ),
@@ -50,13 +57,14 @@ class SMTextFConst extends StatelessWidget {
           ),
           child: TextFormField(
             autofocus: true,
-            enabled: enable == null ? true : false,
-            controller: controller,
-            keyboardType: keyboardType,
+            enabled: widget.enable == null ? true : false,
+            controller: widget.controller,
+            keyboardType: widget.keyboardType,
             cursorHeight: 17,
             cursorColor: Colors.black,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
-              suffixIcon: icon,
+              suffixIcon: widget.icon,
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
             ),
@@ -65,7 +73,8 @@ class SMTextFConst extends StatelessWidget {
               fontSize: FontSize.s12,
               color: ColorManager.mediumgrey
             ),
-            onTap: onChange,
+            //validator: widget.validator,
+            onTap: widget.onChange,
           ),
         ),
       ],

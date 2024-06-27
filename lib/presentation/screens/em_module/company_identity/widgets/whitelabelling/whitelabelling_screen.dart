@@ -186,354 +186,361 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                   content: Container(
                                     height: 350,
                                     width: 950,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: IconButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            icon: Icon(Icons.close),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.topRight,
+                                            child: IconButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              icon: Icon(Icons.close),
+                                            ),
                                           ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text("Company App Logo",
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize:
-                                                              FontSize.s12,
-                                                          fontWeight:
-                                                              FontWeightManager
-                                                                  .bold,
-                                                          color:
-                                                              Color(0xff686464),
-                                                        )),
-
-                                                    ///main
-                                                    Container(
-                                                      width: 354,
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Colors.grey),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    10)),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                              "Upload Immunization Records from PDF",
-                                                              style: GoogleFonts.firaSans(
-                                                                  fontSize: 9,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color: Color(
-                                                                      0xff686464))),
-
-                                                          ///sub container
-                                                          StreamBuilder<
-                                                              List<
-                                                                  PlatformFile>>(
-                                                            stream:
-                                                                _mobileFilesStreamController
-                                                                    .stream,
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              return Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                children: [
-                                                                  Container(
-                                                                    width: 150,
-                                                                    height: 30,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      border: Border.all(
-                                                                          color:
-                                                                              Colors.grey),
-                                                                      borderRadius:
-                                                                          BorderRadius.all(
-                                                                              Radius.circular(10)),
-                                                                    ),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceAround,
-                                                                      children: [
-                                                                        InkWell(
-                                                                          onTap:
-                                                                              pickMobileLogo,
-                                                                          child:
-                                                                              Container(
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text("Company App Logo",
+                                                          style: GoogleFonts
+                                                              .firaSans(
+                                                            fontSize:
+                                                                FontSize.s12,
+                                                            fontWeight:
+                                                                FontWeightManager
+                                                                    .bold,
+                                                            color:
+                                                                Color(0xff686464),
+                                                          )),
+                                      
+                                                      ///main
+                                                      Container(
+                                                        width: 354,
+                                                        height: 50,
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: Colors.grey),
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10)),
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Padding(
+                                                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                              child: Text(
+                                                                  "Upload Immunization Records from PDF",
+                                                                  style: GoogleFonts.firaSans(
+                                                                      fontSize: 9,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color: Color(0xff686464))),
+                                                            ),
+                                      
+                                                            ///sub container
+                                                            StreamBuilder<
+                                                                List<
+                                                                    PlatformFile>>(
+                                                              stream:
+                                                                  _mobileFilesStreamController
+                                                                      .stream,
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                return Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceAround,
+                                                                  children: [
+                                                                    Container(
+                                                                      width: 150,
+                                                                      height: 30,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        border: Border.all(
                                                                             color:
-                                                                                Color(0xffD9D9D9),
+                                                                                Colors.grey),
+                                                                        borderRadius:
+                                                                            BorderRadius.all(
+                                                                                Radius.circular(10)),
+                                                                      ),
+                                                                      child: Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment
+                                                                                .spaceAround,
+                                                                        children: [
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                pickMobileLogo,
                                                                             child:
-                                                                                Text(
-                                                                              "Choose File",
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: Colors.grey,
+                                                                                Container(
+                                                                              color:
+                                                                                  Color(0xffD9D9D9),
+                                                                              child:
+                                                                                  Text(
+                                                                                "Choose File",
+                                                                                style: GoogleFonts.firaSans(
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                  color: Colors.grey,
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        ),
-                                                                        if (snapshot
-                                                                            .hasData)
-                                                                          ...snapshot
-                                                                              .data!
-                                                                              .map((file) => InkWell(
-                                                                                    child: Container(
-                                                                                      padding: EdgeInsets.only(bottom: 15),
-                                                                                      // height: 30,
-                                                                                      // width: 90,
-                                                                                      child: Text(
-                                                                                        file.name,
-                                                                                        textAlign: TextAlign.start,
-                                                                                        style: GoogleFonts.firaSans(
-                                                                                          fontSize: 10,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                          color: Colors.grey,
+                                                                          if (snapshot
+                                                                              .hasData)
+                                                                            ...snapshot
+                                                                                .data!
+                                                                                .map((file) => InkWell(
+                                                                                      child: Container(
+                                                                                        padding: EdgeInsets.only(bottom: 15),
+                                                                                        // height: 30,
+                                                                                        // width: 90,
+                                                                                        child: Text(
+                                                                                          file.name.substring(0,10) + "...",
+                                                                                          textAlign: TextAlign.start,
+                                                                                          style: GoogleFonts.firaSans(
+                                                                                            fontSize: 10,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            color: Colors.grey,
+                                                                                          ),
                                                                                         ),
                                                                                       ),
-                                                                                    ),
-                                                                                    onTap: () => openFile(file),
-                                                                                  ))
-                                                                              .toList(),
-                                                                      ],
+                                                                                      onTap: () => openFile(file),
+                                                                                    ))
+                                                                                .toList(),
+                                                                        ],
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          ),
-
-                                                        ],
+                                                                  ],
+                                                                );
+                                                              },
+                                                            ),
+                                      
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: AppSize.s10),
-                                                SMTextFConst(
-                                                  controller: nameController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  text: AppStringEM.companyName,
-                                                ),
-                                                SizedBox(height: AppSize.s10),
-                                                SMTextFConst(
-                                                  controller:
-                                                      secNumberController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  text: AppStringEM.secNum,
-                                                ),
-                                                SizedBox(height:AppSize.s10),
-                                                SMTextFConst(
-                                                  controller: faxController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  text: AppStringEM.fax,
-                                                ),
-                                                SizedBox(height: AppSize.s10),
-                                                SMTextFConst(
-                                                  controller: addressController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  text: AppStringEM.address,
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text("Company Web Logo",
-                                                        style: GoogleFonts
-                                                            .firaSans(
-                                                          fontSize:
-                                                              FontSize.s12,
-                                                          fontWeight:
-                                                              FontWeightManager
-                                                                  .bold,
-                                                          color:
-                                                              Color(0xff686464),
-                                                        )),
-                                                    Container(
-                                                      width: 354,
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Colors.grey),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    10)),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                              "Upload Immunization Records from PDF",
-                                                              style: GoogleFonts.firaSans(
-                                                                  fontSize: 9,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color: Color(
-                                                                      0xff686464))),
-
-                                                          ///sub container
-                                                          StreamBuilder<
-                                                              List<
-                                                                  PlatformFile>>(
-                                                            stream:
-                                                                _webFilesStreamController
-                                                                    .stream,
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              return Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                children: [
-                                                                  Container(
-                                                                    width: 150,
-                                                                    height: 30,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      border: Border.all(
-                                                                          color:
-                                                                              Colors.grey),
-                                                                      borderRadius:
-                                                                          BorderRadius.all(
-                                                                              Radius.circular(10)),
-                                                                    ),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceAround,
-                                                                      children: [
-                                                                        InkWell(
-                                                                          onTap:
-                                                                              pickWebLogo,
-                                                                          child:
-                                                                              Container(
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: AppSize.s15),
+                                                  SMTextFConst(
+                                                    controller: nameController,
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    text: AppStringEM.companyName,
+                                                  ),
+                                                  SizedBox(height: AppSize.s15),
+                                                  SMTextFConst(
+                                                    controller:
+                                                        secNumberController,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    text: AppStringEM.secNum,
+                                                  ),
+                                                  SizedBox(height:AppSize.s15),
+                                                  SMTextFConst(
+                                                    controller: faxController,
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    text: AppStringEM.fax,
+                                                  ),
+                                                  SizedBox(height: AppSize.s15),
+                                                  SMTextFConst(
+                                                    controller: addressController,
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    text: AppStringEM.address,
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text("Company Web Logo",
+                                                          style: GoogleFonts
+                                                              .firaSans(
+                                                            fontSize:
+                                                                FontSize.s12,
+                                                            fontWeight:
+                                                                FontWeightManager
+                                                                    .bold,
+                                                            color:
+                                                                Color(0xff686464),
+                                                          )),
+                                                      Container(
+                                                        width: 354,
+                                                        height: 50,
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: Colors.grey),
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10)),
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Padding(
+                                                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                              child: Text(
+                                                                  "Upload Immunization Records from PDF",
+                                                                  style: GoogleFonts.firaSans(
+                                                                      fontSize: 9,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color: Color(
+                                                                          0xff686464))),
+                                                            ),
+                                      
+                                                            ///sub container
+                                                            StreamBuilder<
+                                                                List<
+                                                                    PlatformFile>>(
+                                                              stream:
+                                                                  _webFilesStreamController
+                                                                      .stream,
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                return Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceAround,
+                                                                  children: [
+                                                                    Container(
+                                                                      width: 150,
+                                                                      height: 30,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        border: Border.all(
                                                                             color:
-                                                                                Color(0xffD9D9D9),
+                                                                                Colors.grey),
+                                                                        borderRadius:
+                                                                            BorderRadius.all(
+                                                                                Radius.circular(10)),
+                                                                      ),
+                                                                      child: Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment
+                                                                                .spaceAround,
+                                                                        children: [
+                                                                          InkWell(
+                                                                            onTap:
+                                                                                pickWebLogo,
                                                                             child:
-                                                                                Text(
-                                                                              "Choose File",
-                                                                              style: GoogleFonts.firaSans(
-                                                                                fontSize: 10,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                color: Colors.grey,
+                                                                                Container(
+                                                                              color:
+                                                                                  Color(0xffD9D9D9),
+                                                                              child:
+                                                                                  Text(
+                                                                                "Choose File",
+                                                                                style: GoogleFonts.firaSans(
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                  color: Colors.grey,
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        ),
-                                                                        if (snapshot
-                                                                            .hasData)
-                                                                          ...snapshot
-                                                                              .data!
-                                                                              .map((file) => InkWell(
-                                                                                    child: Container(
-                                                                                      padding: EdgeInsets.only(bottom: 15),
-                                                                                      // height: 30,
-                                                                                      // width: 90,
-                                                                                      child: Text(
-                                                                                        file.name,
-                                                                                        textAlign: TextAlign.start,
-                                                                                        style: GoogleFonts.firaSans(
-                                                                                          fontSize: 10,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                          color: Colors.grey,
+                                                                          if (snapshot
+                                                                              .hasData)
+                                                                            ...snapshot
+                                                                                .data!
+                                                                                .map((file) => InkWell(
+                                                                                      child: Container(
+                                                                                        padding: EdgeInsets.only(bottom: 15),
+                                                                                        // height: 30,
+                                                                                        // width: 90,
+                                                                                        child: Text(
+                                                                                          file.name.substring(0,10) + "...",
+                                                                                          textAlign: TextAlign.start,
+                                                                                          style: GoogleFonts.firaSans(
+                                                                                            fontSize: 10,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            color: Colors.grey,
+                                                                                          ),
                                                                                         ),
                                                                                       ),
-                                                                                    ),
-                                                                                    onTap: () => openFile(file),
-                                                                                  ))
-                                                                              .toList(),
-                                                                      ],
+                                                                                      onTap: () => openFile(file),
+                                                                                    ))
+                                                                                .toList(),
+                                                                        ],
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          ),
-                                                        ],
+                                                                  ],
+                                                                );
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: AppSize.s10),
-                                                SMTextFConst(
-                                                  controller: primNumController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  text: AppStringEM.primNum,
-                                                ),
-                                                SizedBox(height: AppSize.s10),
-                                                SMTextFConst(
-                                                  controller: altNumController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  text: AppStringEM
-                                                      .alternatephone,
-                                                ),
-                                                SizedBox(height: AppSize.s10),
-                                                SMTextFConst(
-                                                  controller: emailController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  text: AppStringEM.primarymail,
-                                                ),
-                                                SizedBox(
-                                                  width: 354,
-                                                  height: 30,
-                                                ),
-                                                SizedBox(
-                                                  width: 354,
-                                                  height: 30,
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: AppSize.s15),
+                                                  SMTextFConst(
+                                                    controller: primNumController,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    text: AppStringEM.primNum,
+                                                  ),
+                                                  SizedBox(height: AppSize.s15),
+                                                  SMTextFConst(
+                                                    controller: altNumController,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    text: AppStringEM
+                                                        .alternatephone,
+                                                  ),
+                                                  SizedBox(height: AppSize.s15),
+                                                  SMTextFConst(
+                                                    controller: emailController,
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    text: AppStringEM.primarymail,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 354,
+                                                    height: 30,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 354,
+                                                    height: 30,
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   actions: [

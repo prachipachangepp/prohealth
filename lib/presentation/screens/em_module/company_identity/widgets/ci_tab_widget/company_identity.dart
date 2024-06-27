@@ -32,6 +32,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   TextEditingController OptionalController = TextEditingController();
   late StreamController<List<CompanyIdentityModel>> _companyIdentityController;
   final PageController _pageController = PageController();
+  final _formKey = GlobalKey<FormState>();
   late int currentPage;
   late int itemsPerPage;
   bool showStreamBuilder = true;
@@ -130,7 +131,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                                   _companyIdentityController
                                       .add(data);
                                 }).catchError((error) {});
-                              },);
+                              }, formKey: _formKey,);
                             // return AlertDialog(
                             //   backgroundColor: Colors.white,
                             //   content: Stack(
