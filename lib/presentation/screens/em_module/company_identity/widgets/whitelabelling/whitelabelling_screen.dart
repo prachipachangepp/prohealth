@@ -746,19 +746,19 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         keyboardType: TextInputType.text,
                                         text: AppStringEM.companyName,
                                       ),
-                                      SizedBox(height: AppSize.s4),
+                                      SizedBox(height: AppSize.s9),
                                       EditTextField(
                                         controller: secNumberController,
                                         keyboardType: TextInputType.number,
                                         text: AppStringEM.secNum,
                                       ),
-                                      SizedBox(height: AppSize.s4),
+                                      SizedBox(height: AppSize.s9),
                                       EditTextField(
                                         controller: faxController,
                                         keyboardType: TextInputType.text,
                                         text: AppStringEM.fax,
                                       ),
-                                      SizedBox(height: AppSize.s4),
+                                      SizedBox(height: AppSize.s9),
                                       EditTextField(
                                         controller: addressController,
                                         keyboardType: TextInputType.text,
@@ -774,13 +774,13 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         keyboardType: TextInputType.number,
                                         text: AppStringEM.primNum,
                                       ),
-                                      SizedBox(height: AppSize.s4),
+                                      SizedBox(height: AppSize.s9),
                                       EditTextField(
                                         controller: altNumController,
                                         keyboardType: TextInputType.number,
                                         text: AppStringEM.alternatephone,
                                       ),
-                                      SizedBox(height: AppSize.s4),
+                                      SizedBox(height: AppSize.s9),
                                       EditTextField(
                                         controller: emailController,
                                         keyboardType: TextInputType.text,

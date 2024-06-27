@@ -324,7 +324,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
         ),
       ),
       SizedBox(
-        height: AppSize.s10,
+        height: AppSize.s5,
       ),
       Expanded(
         child: StreamBuilder<List<CiVisit>>(
@@ -369,7 +369,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                       String formattedSerialNumber =
                           serialNumber.toString().padLeft(2, '0');
                       return Column(children: [
-                        SizedBox(height: AppSize.s5),
+
                         Container(
                             padding: EdgeInsets.only(bottom: AppPadding.p5),
                             margin:

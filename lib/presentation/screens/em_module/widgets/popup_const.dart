@@ -180,7 +180,9 @@ class _CustomDialogState extends State<CustomDialog> {
                 ReusableLoadingButton(
                   text: 'Create',
                   onPressed: (){
-                    widget.onSubmit();
+                    if (_formKey.currentState!.validate()) {
+                      widget.onSubmit();
+                    }
                   },
                   loadingDuration: 2,
                 ),
