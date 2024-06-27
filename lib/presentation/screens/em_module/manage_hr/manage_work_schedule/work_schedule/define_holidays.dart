@@ -65,6 +65,7 @@ class _DefineHolidaysState extends State<DefineHolidays> {
 
     return formattedDate;
   }
+  bool _isLoading = false;
   
   @override
   Widget build(BuildContext context) {
@@ -322,28 +323,46 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                     showDialog(
                                                         context: context,
                                                         builder: (context) =>
-                                                            DeletePopup(
-                                                                onCancel: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            }, onDelete:
+                                                            StatefulBuilder(
+                                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                return DeletePopup(
+                                                                    loadingDuration: _isLoading,
+                                                                    onCancel: () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    }, onDelete:
                                                                     () async {
-                                                              await deleteHolidays(
-                                                                  context,
-                                                                  snapshot
-                                                                      .data![
-                                                                          index]
-                                                                      .holidayId!);
-                                                              holidaysListGet(
-                                                                      context)
-                                                                  .then((data) {
-                                                                _controller
-                                                                    .add(data);
-                                                              }).catchError(
-                                                                      (error) {
-                                                                // Handle error
-                                                              });
-                                                            }));
+                                                                  setState(() {
+                                                                    _isLoading = true;
+                                                                  });
+                                                                  try {
+                                                                    await deleteHolidays(
+                                                                        context,
+                                                                        snapshot
+                                                                            .data![
+                                                                        index]
+                                                                            .holidayId);
+                                                                    setState(() async {
+                                                                      await holidaysListGet(
+                                                                          context)
+                                                                          .then((data) {
+                                                                        _controller
+                                                                            .add(data);
+                                                                      }).catchError(
+                                                                              (error) {
+                                                                            // Handle error
+                                                                          });
+                                                                      Navigator.pop(context);
+                                                                    });
+                                                                  } finally {
+                                                                    setState(() {
+                                                                      _isLoading = false;
+                                                                    });
+                                                                  }
+                                                                });
+                                                              },
+
+                                                            ));
                                                   },
                                                   icon: Icon(
                                                     Icons.delete_outline,

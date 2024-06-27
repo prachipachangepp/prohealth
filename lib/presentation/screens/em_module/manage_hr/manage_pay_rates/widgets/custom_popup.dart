@@ -10,7 +10,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 class PayRatesPopup extends StatefulWidget {
   final Widget child1;
   final Widget child2;
-  final VoidCallback onPressed;
+  final Future<void> Function() onPressed;
   final TextEditingController payRatesController;
   PayRatesPopup({super.key, required this.child1, required this.child2, required this.payRatesController, required this.onPressed});
 
@@ -19,6 +19,7 @@ class PayRatesPopup extends StatefulWidget {
 }
 
 class _PayRatesPopupState extends State<PayRatesPopup> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -55,13 +56,13 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Type of Visit',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeightManager.bold,
-                            color: ColorManager.mediumgrey
-                        ),),
-                      SizedBox(height: 2,),
+                      // Text('Type of Visit',
+                      //   style: GoogleFonts.firaSans(
+                      //       fontSize: 12,
+                      //       fontWeight: FontWeightManager.bold,
+                      //       color: ColorManager.mediumgrey
+                      //   ),),
+                      // SizedBox(height: 2,),
                        widget.child1,
                       SizedBox(
                         height: 17,
@@ -94,12 +95,28 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(
-                child: CustomElevatedButton(
+                child: isLoading
+                    ? SizedBox(
+                  height: 25,
+                    width: 25,
+                    child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                    :CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.submit,
-                  onPressed: (){
-                    widget.onPressed();
+                  onPressed: () async{
+                    setState(() {
+                      isLoading = true;
+                    });
+                    try {
+                      await widget.onPressed();
+                    } finally {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      Navigator.pop(context);
+                    }
+
                   },
                 ),
               ),

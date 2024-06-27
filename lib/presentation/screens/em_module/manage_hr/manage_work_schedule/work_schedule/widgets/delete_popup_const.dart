@@ -100,12 +100,13 @@ class _DeletePopupState extends State<DeletePopup> {
                     text: AppStringEM.delete,
                     onPressed: () {
                       widget.onDelete();
-
+                      //Navigator.pop(context);
                     },
                   ),
                 ),
               ),]
             ),
+            //
           ],
         ),
       ),
