@@ -173,7 +173,7 @@ int listIndex = 0 ;
                     child: Row(
                       children: [
                         InkWell(
-                                      child: Container(
+                          child: Container(
                                         height: 30,
                                         width: MediaQuery.of(context).size.width / 8.62,
                                         padding: EdgeInsets.symmetric(vertical: 6),
@@ -576,6 +576,7 @@ int listIndex = 0 ;
                       //   docID: docID,
                       // ),
                       CIDetailsScreen(
+                        // companyID: widget.companyID,
                         officeId: widget.officeID, docTD: docID,
                       ),
                       CiZone(companyID: widget.companyID, officeId: widget.officeID, docId: docID,),

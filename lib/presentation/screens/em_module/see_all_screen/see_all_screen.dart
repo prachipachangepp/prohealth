@@ -121,6 +121,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+
+              ///Create USer
               Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -136,11 +138,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                             return AlertDialog(
                                 backgroundColor: Colors.white,
                                 content: Container(
-                                  height: 500,
+                                  height: 440,
                                   width: 270,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(12))),
                                   child: Form(
                                     key: _formKey,
                                     child: Column(
@@ -269,9 +268,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         SizedBox(
                                           height: 10,
                                         ),
-
-                                        ///
-
                                         ReusableLoadingButton(
                                           text: 'Create',
                                           onPressed: ()  {
