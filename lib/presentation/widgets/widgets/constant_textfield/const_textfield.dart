@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../app/resources/value_manager.dart';
@@ -165,8 +166,10 @@ class HRManageTextField extends StatefulWidget {
   final IconData? prefixIcon;
   final FocusNode? focusNode;
   final String? errorText;
+  final String? Function(String?)? validator;
   // final bool Function(String)? validator;
   final ValueChanged<String>? onChanged;
+
   HRManageTextField({
     Key? key,
     required this.controller,
@@ -176,7 +179,7 @@ class HRManageTextField extends StatefulWidget {
     this.onChange, this.readOnly, this.width, this.height,
     required this.cursorHeight, required this.labelText,
     required this.labelStyle, required this.labelFontSize, this.suffixIcon,
-    this.prefixIcon, this.focusNode, this.errorText, this.onChanged,
+    this.prefixIcon, this.focusNode, this.errorText, this.onChanged, this.validator,
     // this.validator,
   }) : super(key: key);
 
@@ -207,6 +210,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
           textAlignVertical: TextAlignVertical.center,
           cursorHeight: widget.cursorHeight,
+          // validator: validator,
           // validator: (value) {
           //   if (value == null || value.isEmpty) {
           //     return 'This field cannot be empty';
@@ -306,7 +310,9 @@ class _HRManageDropdownState extends State<HRManageDropdown> {
             labelStyle: widget.labelStyle.copyWith(
               fontSize: widget.labelFontSize,
             ),
-            errorText: widget.errorText,
+
+            // errorText: widget.errorText,
+            // validator: validator,
           ),
         ),
       ),

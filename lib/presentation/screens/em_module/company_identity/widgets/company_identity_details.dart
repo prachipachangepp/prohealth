@@ -9,7 +9,7 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import 'checkbox_constant.dart';
 
-//Get Details : /identity/officeDetailWithServiceByCompany/{company_id}/{office_id}
+
 
 // Add Service:  /company-office-service/add
 class CIDetailsScreen extends StatefulWidget {
