@@ -53,6 +53,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     itemsPerPage = 3;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
+    print(":::SUBDOCID${widget.subDocID} + ${widget.docID}");
     identityDocumentTypeGet(context,docTypeMetaId).then((data) {
       _identityDataController.add(data);
     }).catchError((error) {
@@ -69,6 +70,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
 
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("KDKDKD");
     setState(() {
       for (int i = 0; i < hrcontainerColors.length; i++) {
         int? colorValue = prefs.getInt('containerColor$i');
@@ -83,7 +85,14 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     return  StreamBuilder<List<CiOrgDocumentCC>>(
       stream: _controller.stream,
       builder: (context, snapshot) {
+        orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+          _controller.add(data);
+          CircularProgressIndicator(color: ColorManager.blueprime,);
+        }).catchError((error) {
+          // Handle error
+        });
         print('1111111');
+        print(":::SUBDOCID${widget.subDocID} + ${widget.docID}");
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: CircularProgressIndicator(

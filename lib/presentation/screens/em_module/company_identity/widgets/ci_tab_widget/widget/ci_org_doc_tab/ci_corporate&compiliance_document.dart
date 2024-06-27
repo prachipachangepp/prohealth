@@ -40,9 +40,14 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
       curve: Curves.ease,
     );
   }
+  List<IdentityDocumentIdData> docSubTypeData = [];
+  void loadData() async{
+    docSubTypeData = await identityDocumentTypeGet(context, widget.docID);
+  }
   @override
   void initState() {
     super.initState();
+    identityDocumentTypeGet(context, widget.docID);
     // currentPage = 1;
     // itemsPerPage = 5;
     // items = List.generate(20, (index) => 'Item ${index + 1}');

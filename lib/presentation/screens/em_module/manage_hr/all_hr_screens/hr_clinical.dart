@@ -266,12 +266,12 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                 ),
 //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50),
+                  padding: const EdgeInsets.only(left: 60),
                   child: Text(AppStringEM.employee,textAlign: TextAlign.start,
                       style:  AllHRTableHeading.customTextStyle(context)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 90),
+                  padding: const EdgeInsets.only(left: 100),
                   child: Text(
                       AppStringEM.abbrevation,
                       style:  AllHRTableHeading.customTextStyle(context)
