@@ -6,6 +6,14 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController nameController;
@@ -37,8 +45,17 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
         ),
         child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
+            Container(
+              height: 40,
+              width: AppSize.s390,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -49,7 +66,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       fontSize: 13,
                       fontWeight:
                       FontWeightManager.semiBold,
-                      color: ColorManager.primary,
+                      color: ColorManager.white,
                       decoration: TextDecoration.none,
                     ),
                   ),
@@ -57,7 +74,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close),
+                    icon: Icon(Icons.close, color: Colors.white,),
                   ),
                 ],
               ),
