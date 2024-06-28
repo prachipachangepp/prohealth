@@ -425,6 +425,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                                   ),
                                                 ],
                                               ),
+
                                               child:  FutureBuilder<List<DocumentTypeData>>(
                                                   future: documentTypeGet(context),
                                                   builder: (context,snapshot) {

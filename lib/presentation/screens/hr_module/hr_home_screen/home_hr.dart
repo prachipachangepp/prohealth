@@ -44,7 +44,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ApplicationAppBar(headingText: "Human Resource Manager"),
           ///appbar titles
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
