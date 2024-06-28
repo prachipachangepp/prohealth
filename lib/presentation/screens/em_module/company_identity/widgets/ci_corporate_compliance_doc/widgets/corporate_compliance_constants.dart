@@ -279,16 +279,41 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
         ),
         child: ListView(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              height: 40,
+              width: AppSize.s420,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Edit Document',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 13,
+                      fontWeight:
+                      FontWeightManager.semiBold,
+                      color: ColorManager.white,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,
+                      color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -545,16 +570,41 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
         ),
         child: ListView(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              height: AppSize.s40,
+              width: AppSize.s420,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Add Document',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 13,
+                      fontWeight:
+                      FontWeightManager.semiBold,
+                      color: ColorManager.white,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,
+                      color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
