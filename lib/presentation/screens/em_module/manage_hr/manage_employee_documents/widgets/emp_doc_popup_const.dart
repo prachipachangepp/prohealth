@@ -295,6 +295,7 @@ class EmpDocEditPopup extends StatefulWidget {
   final Widget radioButton;
   final Widget child;
   final int? loadingDuration;
+  final String  title;
   EmpDocEditPopup(
       {super.key,
       required this.idDocController,
@@ -303,7 +304,7 @@ class EmpDocEditPopup extends StatefulWidget {
       required this.calenderController,
       this.expiryType,
       required this.onSavePredded,
-      required this.radioButton, this.isSaving,   this.loadingDuration = 3,});
+      required this.radioButton, this.isSaving,   this.loadingDuration = 3, required this.title,});
 
   @override
   State<EmpDocEditPopup> createState() => _EmpDocEditPopupState();
@@ -342,16 +343,38 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              decoration:  BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                     widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

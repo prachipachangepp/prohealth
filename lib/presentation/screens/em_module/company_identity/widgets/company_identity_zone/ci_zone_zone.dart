@@ -235,13 +235,21 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                     children: [
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
-                                          return CIZoneEditPopup(
-                                            onSavePressed: (){},
+                                          return CIZoneAddPopup(
+                                              onSavePressed: ()async{},
+                                            title: 'Edit Zone',
                                             title1: 'Zone Number',
                                             countynameController: countynameController,
                                             title2: 'Zip Codes',
-                                            landmarkController: landmarkController,
-                                          );
+                                            zipcodeController: landmarkController, );
+                                          //   CIZoneEditPopup(
+                                          //   onSavePressed: (){},
+                                          //   title: 'Edit Zone',
+                                          //   title1: 'Zone Number',
+                                          //   countynameController: countynameController,
+                                          //   // title2: 'Zip Codes',
+                                          //   // landmarkController: landmarkController,
+                                          // );
                                         });
                                       }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                       IconButton(onPressed: (){

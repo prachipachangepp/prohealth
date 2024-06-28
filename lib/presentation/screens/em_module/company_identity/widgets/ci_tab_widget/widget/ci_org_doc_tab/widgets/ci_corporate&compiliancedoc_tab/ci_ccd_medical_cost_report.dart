@@ -250,6 +250,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                   IconButton(onPressed: (){
                                     showDialog(context: context, builder: (context){
                                       return CCScreenEditPopup(
+                                        title: 'Edit Medical Cost Report',
                                         id: snapshot.data![index].docId,
                                         idDocController: docIdController,
                                         nameDocController: docNameController,

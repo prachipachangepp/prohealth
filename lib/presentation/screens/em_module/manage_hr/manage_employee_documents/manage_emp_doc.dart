@@ -134,6 +134,7 @@ class _ManageEmpDocWidgetState extends State<ManageEmpDocWidget> {
                 CustomIconButtonConst(text: 'Add Document', onPressed: (){
                   showDialog(context: context, builder: (BuildContext context){
                     return EmpDocEditPopup(
+                      title:  'Add Document',
                       //expiryType: expiryType,
                       idDocController: idDocController, nameDocController: nameDocController,
                       calenderController: dateController,

@@ -222,6 +222,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
                                           return CCScreenEditPopup(
+                                            title: 'Edit ADR',
                                             idDocController: docIdController,
                                             nameDocController: docNamecontroller,
                                             onSavePressed: (){},

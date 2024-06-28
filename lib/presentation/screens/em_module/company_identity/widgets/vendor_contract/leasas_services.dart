@@ -173,7 +173,9 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                           IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.blueprime,)),
                                           IconButton(onPressed: (){
                                             showDialog(context: context, builder: (BuildContext context){
-                                              return CCScreenEditPopup(idDocController: editidOfDocController,
+                                              return CCScreenEditPopup(
+                                                title: 'Edit Leases Services',
+                                                idDocController: editidOfDocController,
                                                 nameDocController: editnameOfDocController,
                                                 child:  CICCDropdown(
                                                   initialValue: 'Vendor Contract',

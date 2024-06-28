@@ -231,6 +231,7 @@ class _CiDmeState extends State<CiDme> {
                                                       builder:
                                                           (BuildContext context) {
                                                         return CCScreenEditPopup(
+                                                          title: 'Edit DME',
                                                           idDocController:
                                                           editidOfDocController,
                                                           nameDocController:

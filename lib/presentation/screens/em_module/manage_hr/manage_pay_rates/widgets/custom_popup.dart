@@ -10,9 +10,10 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 class PayRatesPopup extends StatefulWidget {
   final Widget child1;
   final Widget child2;
+  final String title;
   final Future<void> Function() onPressed;
   final TextEditingController payRatesController;
-  PayRatesPopup({super.key, required this.child1, required this.child2, required this.payRatesController, required this.onPressed});
+  PayRatesPopup({super.key, required this.child1, required this.child2, required this.payRatesController, required this.onPressed, required this.title});
 
   @override
   State<PayRatesPopup> createState() => _PayRatesPopupState();
@@ -33,17 +34,40 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
         ),
         child: ListView(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
+            SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,

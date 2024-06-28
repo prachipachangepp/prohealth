@@ -13,7 +13,8 @@ class CiVendorAddPopup extends StatefulWidget {
   final VoidCallback onSavePressed;
   final Widget child;
   final Widget child1;
-  const CiVendorAddPopup({super.key, required this.nameOfDocController, required this.idOfDocController, required this.onSavePressed, required this.child, required this.child1});
+  final String title;
+  const CiVendorAddPopup({super.key, required this.nameOfDocController, required this.idOfDocController, required this.onSavePressed, required this.child, required this.child1, required this.title});
 
   @override
   State<CiVendorAddPopup> createState() => _CiVendorAddPopupState();
@@ -33,16 +34,38 @@ class _CiVendorAddPopupState extends State<CiVendorAddPopup> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

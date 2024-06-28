@@ -225,6 +225,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                   text: "Add Doctype", onPressed: (){
                 showDialog(context: context, builder: (context){
                   return CCScreensAddPopup(
+                    title: 'Add Document',
                     countynameController: docNamecontroller,
                     zipcodeController: docIdController,
                     onSavePressed: () {  },
