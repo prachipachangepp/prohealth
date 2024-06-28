@@ -62,26 +62,54 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     });
   }
 
-  List<String> selectedChips = [];
+  List<Widget> selectedChips = [];
+  List<int> selectedChipsId = [];
   //List<int> selectedChipsEmpId = [];
   String chips = "";
 
   void addChip(
     String chip,
+      int chipId
   ) {
     setState(() {
-      selectedChips.add(chip);
-      //selectedChipsEmpId.add(chipEmpId);
+      selectedChips.add(Chip(
+        shape: StadiumBorder(
+            side: BorderSide(
+                color: ColorManager.blueprime)),
+        //side: BorderSide(color: ColorManager.blueprime),
+        deleteIcon: Icon(
+          Icons.close,
+          color: ColorManager.blueprime,
+          size: 17,
+        ),
+        label: Text(
+          chip,
+          style: CustomTextStylesCommon.commonStyle(
+              fontWeight: FontWeightManager.medium,
+              fontSize: FontSize.s10,
+              color: ColorManager.mediumgrey),
+        ),
 
-      //chips = selectedChips;
+        onDeleted: () {
+          setState(() {
+            deleteChip(chip,chipId);
+            selectedChips.clear();
+            print(":::Chips name ${selectedChips}");
+            print(":::: Chips Id ${selectedChipsId}");
+          });
+        },
+      ),);
+      selectedChipsId.add(chipId);
     });
   }
 
   void deleteChip(
     String chip,
+      int chipId
   ) {
     setState(() {
       selectedChips.remove(chip);
+      selectedChipsId.remove(chipId);
       //selectedChipsEmpId.remove(chipEmpId);
     });
   }
@@ -104,7 +132,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       _selectedItem = newValue;
     });
   }
-
+ // List<> eligibalClinical =[];
   @override
   Widget build(BuildContext context) {
     List<String> currentPageItems = items.sublist(
@@ -137,7 +165,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               onSavePressed: () async {
                                 print(":::::${_selectedItem}");
                                 await addVisitPost(
-                                    context, docNamecontroller.text, [1, 2]);
+                                    context, docNamecontroller.text, selectedChipsId);
                                 getVisit(context, 1, 1, 15).then((data) {
                                   _visitController.add(data);
                                 }).catchError((error) {
@@ -145,34 +173,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 });
                                 Navigator.pop(context);
                               },
-                              child1: Wrap(spacing: 8.0, children: [
-                                // List.generate(selectedChips.length, (index){
-                                for (String chip in selectedChips)
-                                  //for(int chipId in selectedChipsEmpId)
-                                  Chip(
-                                    shape: StadiumBorder(
-                                        side: BorderSide(
-                                            color: ColorManager.blueprime)),
-                                    //side: BorderSide(color: ColorManager.blueprime),
-                                    deleteIcon: Icon(
-                                      Icons.close,
-                                      color: ColorManager.blueprime,
-                                      size: 17,
-                                    ),
-                                    label: Text(
-                                      chip,
-                                      style: CustomTextStylesCommon.commonStyle(
-                                          fontWeight: FontWeightManager.medium,
-                                          fontSize: FontSize.s10,
-                                          color: ColorManager.mediumgrey),
-                                    ),
-                                    onDeleted: () {
-                                      setState(() {
-                                        deleteChip(chip);
-                                      });
-                                    },
-                                  ),
-                              ]),
+                              child1: Wrap(spacing: 8.0,
+                                  children: selectedChips),
                               child: FutureBuilder<List<HRClinical>>(
                                   future: companyAllHrClinicApi(context),
                                   builder: (context, snapshot) {
@@ -226,7 +228,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                 empTypeId = docType;
                                                 setState(() {
                                                   if (val.isNotEmpty) {
-                                                    addChip(val.trim());
+                                                    addChip(val.trim(),docType);
+                                                    print("::${selectedChipsId}");
+                                                    print("::${selectedChips}");
                                                   }
                                                 });
                                               }
@@ -352,6 +356,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               }
               if (snapshot.hasData) {
                 int totalItems = snapshot.data!.length;
+
                 // int totalPages = (totalItems / itemsPerPage).ceil();
                 List<CiVisit> currentPageItems = snapshot.data!.sublist(
                   (currentPage - 1) * itemsPerPage,
@@ -359,337 +364,274 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                       ? totalItems
                       : (currentPage * itemsPerPage),
                 );
-
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: currentPageItems.length,
                     itemBuilder: (context, index) {
+                      print("Length ::: ${snapshot.data![index].eligibleClinician.toString()}");
+                      List<Widget> clinical = [];
+                      for(var i in snapshot.data![index].eligibleClinician!){
+                         var hexColor = i.color.replaceAll("#","");
+                        //var = i.color.trim();
+                        clinical.add(Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height:30,
+                            width: 30,
+                            color: Color(int.parse('0xFF$hexColor')),
+                            child:Center(child: Text(i.eligibleClinician))
+                          ),
+                        ));
+                      }
                       int serialNumber =
                           index + 1 + (currentPage - 1) * itemsPerPage;
                       String formattedSerialNumber =
                           serialNumber.toString().padLeft(2, '0');
-                      return Column(children: [
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Column(children: [
 
-                        Container(
-                            padding: EdgeInsets.only(bottom: AppPadding.p5),
-                            margin:
-                                EdgeInsets.symmetric(horizontal: AppMargin.m50),
-                            decoration: BoxDecoration(
-                              color: ColorManager.white,
-                              borderRadius: BorderRadius.circular(4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: ColorManager.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            height: AppSize.s56,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(flex: 2, child: Container()),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    formattedSerialNumber,
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700,
-                                        color: Color(0xff686464)),
-                                    textAlign: TextAlign.start,
+                          Container(
+                              padding: EdgeInsets.only(bottom: AppPadding.p5),
+                              margin:
+                                  EdgeInsets.symmetric(horizontal: AppMargin.m50),
+                              decoration: BoxDecoration(
+                                color: ColorManager.white,
+                                borderRadius: BorderRadius.circular(4),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: ColorManager.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
                                   ),
-                                ),
-                                Expanded(flex: 1, child: Container()),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    snapshot.data![index].typeofVisit
-                                        .toString(),
-                                    style: GoogleFonts.firaSans(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w700,
-                                        color: Color(0xff686464)),
+                                ],
+                              ),
+                              height: AppSize.s56,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Expanded(flex: 2, child: Container()),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      formattedSerialNumber,
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xff686464)),
+                                      textAlign: TextAlign.start,
+                                    ),
                                   ),
-                                ),
-                                Expanded(flex: 1, child: Container()),
-                                Row(
-                                  children: List.generate(2, (index) {
-                                    // var eligibleClinician = snapshot.data![index].eligibleClinician![index];
-                                    // String hexColor = eligibleClinician.color.replaceAll('#', '');
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5),
-                                      child: Container(
-                                        height: 30,
-                                        width: 30,
-                                        color: Colors.white,
-                                        // Color(int.parse('0xFF$hexColor')),
-                                        child: Center(
-                                            child: Text(
-                                          "HC",
-                                          style: GoogleFonts.firaSans(
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464)
-                                              // color: isSelected ? Colors.white : Colors.black,
-                                              ),
-                                        )),
-                                      ),
-                                    );
-                                  }),
-
-                                  // SizedBox(
-                                  //   width: 3,
-                                  // ),
-                                  // Container(
-                                  //   height: 30,
-                                  //   width: 30,
-                                  //   color: Color(0xfFE7E8E6),
-                                  //   child: Center(
-                                  //       child: Text(
-                                  //         "PT",
-                                  //    // snapshot.data![index].eligibleClinician![index] == 0 ? "" :"2",
-                                  //     style: GoogleFonts.firaSans(
-                                  //         fontSize: 9,
-                                  //         fontWeight: FontWeight.w500,
-                                  //         color: Color(0xff686464)
-                                  //         // color: isSelected ? Colors.white : Colors.black,
-                                  //         ),
-                                  //   )),
-                                  // )
-                                ),
-                                Expanded(flex: 2, child: Container()),
-                                Center(
-                                  child: Row(
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return StatefulBuilder(
-                                                    builder: (BuildContext
-                                                            context,
-                                                        void Function(
-                                                                void Function())
-                                                            setState) {
-                                                      return AddVisitPopup(
-                                                        nameOfDocumentController:
-                                                            docNamecontroller,
-                                                        idOfDocumentController:
-                                                            docIdController,
-                                                        onSavePressed:
-                                                            () async {
-                                                          await updateVisitPatch(
+                                  Expanded(flex: 1, child: Container()),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      snapshot.data![index].typeofVisit
+                                          .toString(),
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xff686464)),
+                                    ),
+                                  ),
+                                  Expanded(flex: 1, child: Container()),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children:clinical
+                                  ),
+                                  Expanded(flex: 2, child: Container()),
+                                  Center(
+                                    child: Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return StatefulBuilder(
+                                                      builder: (BuildContext
                                                               context,
-                                                              snapshot
-                                                                  .data![index]
-                                                                  .typeofVisit,
-                                                              docNamecontroller
-                                                                  .text,
-                                                              [selectedChips]);
-                                                          getVisit(context, 11,
-                                                                  1, 10)
-                                                              .then((data) {
-                                                            _visitController
-                                                                .add(data);
-                                                          }).catchError(
-                                                                  (error) {
-                                                            // Handle error
-                                                          });
-                                                          docNamecontroller
-                                                              .clear();
-                                                          _selectedItem =
-                                                              "Select";
-                                                        },
-                                                        child1: Wrap(
-                                                            spacing: 8.0,
-                                                            children: [
-                                                              for (String chip
-                                                                  in selectedChips)
-                                                                //for(int chipId in selectedChipsEmpId)
-                                                                Chip(
-                                                                  shape: StadiumBorder(
-                                                                      side: BorderSide(
-                                                                          color:
-                                                                              ColorManager.blueprime)),
-                                                                  //side: BorderSide(color: ColorManager.blueprime),
-                                                                  deleteIcon:
-                                                                      Icon(
-                                                                    Icons.close,
-                                                                    color: ColorManager
-                                                                        .blueprime,
-                                                                    size: 17,
-                                                                  ),
-                                                                  label: Text(
-                                                                    chip,
-                                                                    style: CustomTextStylesCommon.commonStyle(
+                                                          void Function(
+                                                                  void Function())
+                                                              setState) {
+                                                        return AddVisitPopup(
+                                                          nameOfDocumentController:
+                                                              docNamecontroller,
+                                                          idOfDocumentController:
+                                                              docIdController,
+                                                          onSavePressed:
+                                                              () async {
+                                                            await updateVisitPatch(
+                                                                context,
+                                                                snapshot
+                                                                    .data![index]
+                                                                    .typeofVisit,
+                                                                docNamecontroller
+                                                                    .text,
+                                                                [selectedChips]);
+                                                            getVisit(context, 11,
+                                                                    1, 10)
+                                                                .then((data) {
+                                                              _visitController
+                                                                  .add(data);
+                                                            }).catchError(
+                                                                    (error) {
+                                                              // Handle error
+                                                            });
+                                                            docNamecontroller
+                                                                .clear();
+                                                            _selectedItem =
+                                                                "Select";
+                                                          },
+                                                          child1: Wrap(
+                                                              spacing: 8.0,
+                                                              children: selectedChips),
+                                                          child: FutureBuilder<
+                                                                  List<
+                                                                      HRClinical>>(
+                                                              future:
+                                                                  companyAllHrClinicApi(
+                                                                      context),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                        .connectionState ==
+                                                                    ConnectionState
+                                                                        .waiting) {
+                                                                  return Shimmer
+                                                                      .fromColors(
+                                                                          baseColor:
+                                                                              Colors.grey[
+                                                                                  300]!,
+                                                                          highlightColor:
+                                                                              Colors.grey[
+                                                                                  100]!,
+                                                                          child:
+                                                                              Container(
+                                                                            width:
+                                                                                354,
+                                                                            height:
+                                                                                30,
+                                                                            decoration: BoxDecoration(
+                                                                                color: ColorManager.faintGrey,
+                                                                                borderRadius: BorderRadius.circular(10)),
+                                                                          ));
+                                                                }
+                                                                if (snapshot.data!
+                                                                    .isEmpty) {
+                                                                  return Center(
+                                                                    child: Text(
+                                                                      AppString
+                                                                          .dataNotFound,
+                                                                      style: CustomTextStylesCommon
+                                                                          .commonStyle(
                                                                         fontWeight:
                                                                             FontWeightManager
                                                                                 .medium,
                                                                         fontSize:
                                                                             FontSize
-                                                                                .s10,
+                                                                                .s12,
                                                                         color: ColorManager
-                                                                            .mediumgrey),
-                                                                  ),
-                                                                  onDeleted:
-                                                                      () {
-                                                                    setState(
-                                                                        () {
-                                                                      deleteChip(
-                                                                          chip);
-                                                                    });
-                                                                  },
-                                                                ),
-                                                            ]),
-                                                        child: FutureBuilder<
-                                                                List<
-                                                                    HRClinical>>(
-                                                            future:
-                                                                companyAllHrClinicApi(
-                                                                    context),
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              if (snapshot
-                                                                      .connectionState ==
-                                                                  ConnectionState
-                                                                      .waiting) {
-                                                                return Shimmer
-                                                                    .fromColors(
-                                                                        baseColor:
-                                                                            Colors.grey[
-                                                                                300]!,
-                                                                        highlightColor:
-                                                                            Colors.grey[
-                                                                                100]!,
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              354,
-                                                                          height:
-                                                                              30,
-                                                                          decoration: BoxDecoration(
-                                                                              color: ColorManager.faintGrey,
-                                                                              borderRadius: BorderRadius.circular(10)),
-                                                                        ));
-                                                              }
-                                                              if (snapshot.data!
-                                                                  .isEmpty) {
-                                                                return Center(
-                                                                  child: Text(
-                                                                    AppString
-                                                                        .dataNotFound,
-                                                                    style: CustomTextStylesCommon
-                                                                        .commonStyle(
-                                                                      fontWeight:
-                                                                          FontWeightManager
-                                                                              .medium,
-                                                                      fontSize:
-                                                                          FontSize
-                                                                              .s12,
-                                                                      color: ColorManager
-                                                                          .mediumgrey,
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              }
-                                                              if (snapshot
-                                                                  .hasData) {
-                                                                int docType = 0;
-                                                                List<
-                                                                        DropdownMenuItem<
-                                                                            String>>
-                                                                    dropDownTypesList =
-                                                                    [];
-                                                                for (var i
-                                                                    in snapshot
-                                                                        .data!) {
-                                                                  dropDownTypesList
-                                                                      .add(
-                                                                    DropdownMenuItem<
-                                                                        String>(
-                                                                      child: Text(
-                                                                          i.abbrivation!),
-                                                                      value: i
-                                                                          .abbrivation,
+                                                                            .mediumgrey,
+                                                                      ),
                                                                     ),
                                                                   );
                                                                 }
-                                                                return CICCDropdown(
-                                                                    initialValue:
-                                                                        dropDownTypesList[0]
-                                                                            .value,
-                                                                    onChange:
-                                                                        (val) {
-                                                                      for (var a
-                                                                          in snapshot
-                                                                              .data!) {
-                                                                        if (a.abbrivation ==
-                                                                            val) {
-                                                                          docType =
-                                                                              a.employeeTypesId;
-                                                                          empTypeId =
-                                                                              docType;
-                                                                          setState(
-                                                                              () {
-                                                                            if (val.isNotEmpty) {
-                                                                              addChip(val.trim());
-                                                                            }
-                                                                          });
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  int docType = 0;
+                                                                  List<
+                                                                          DropdownMenuItem<
+                                                                              String>>
+                                                                      dropDownTypesList =
+                                                                      [];
+                                                                  for (var i
+                                                                      in snapshot
+                                                                          .data!) {
+                                                                    dropDownTypesList
+                                                                        .add(
+                                                                      DropdownMenuItem<
+                                                                          String>(
+                                                                        child: Text(
+                                                                            i.abbrivation!),
+                                                                        value: i
+                                                                            .abbrivation,
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  return CICCDropdown(
+                                                                      initialValue:
+                                                                          dropDownTypesList[0]
+                                                                              .value,
+                                                                      onChange:
+                                                                          (val) {
+                                                                        for (var a
+                                                                            in snapshot
+                                                                                .data!) {
+                                                                          if (a.abbrivation ==
+                                                                              val) {
+                                                                            docType =
+                                                                                a.employeeTypesId;
+                                                                            empTypeId =
+                                                                                docType;
+                                                                            setState(
+                                                                                () {
+                                                                              if (val.isNotEmpty) {
+                                                                                addChip(val.trim(),empTypeId);
+                                                                              }
+                                                                            });
+                                                                          }
                                                                         }
-                                                                      }
-                                                                      print(
-                                                                          ":::${docType}");
-                                                                      print(
-                                                                          ":::<>${empTypeId}");
-                                                                    },
-                                                                    items:
-                                                                        dropDownTypesList);
-                                                              }
-                                                              return SizedBox();
-                                                            }),
-                                                      );
-                                                    },
-                                                  );
-                                                });
+                                                                        print(
+                                                                            ":::${docType}");
+                                                                        print(
+                                                                            ":::<>${empTypeId}");
+                                                                      },
+                                                                      items:
+                                                                          dropDownTypesList);
+                                                                }
+                                                                return SizedBox();
+                                                              }),
+                                                        );
+                                                      },
+                                                    );
+                                                  });
+                                            },
+                                            icon: Icon(
+                                              Icons.edit_outlined,
+                                              color: ColorManager.bluebottom,
+                                            )),
+                                        SizedBox(
+                                          width: 3,
+                                        ),
+                                        IconButton(
+                                          onPressed: () async {
+                                            await deleteVisitPatch(context,
+                                                snapshot.data![index].visitId);
+                                            getVisit(context, 1, 1, 10)
+                                                .then((data) {
+                                              _visitController.add(data);
+                                              // Navigator.pop(context);
+                                            }).catchError((error) {
+                                              // Handle error
+                                            });
+                                            //
                                           },
                                           icon: Icon(
-                                            Icons.edit_outlined,
-                                            color: ColorManager.bluebottom,
-                                          )),
-                                      SizedBox(
-                                        width: 3,
-                                      ),
-                                      IconButton(
-                                        onPressed: () async {
-                                          await deleteVisitPatch(context,
-                                              snapshot.data![index].visitId);
-                                          getVisit(context, 1, 1, 10)
-                                              .then((data) {
-                                            _visitController.add(data);
-                                            // Navigator.pop(context);
-                                          }).catchError((error) {
-                                            // Handle error
-                                          });
-                                          //
-                                        },
-                                        icon: Icon(
-                                            Icons.delete_outline_outlined,
-                                            size: 20,
-                                            color: Color(0xffF6928A)),
-                                      ),
-                                    ],
+                                              Icons.delete_outline_outlined,
+                                              size: 20,
+                                              color: Color(0xffF6928A)),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Expanded(flex: 3, child: Container())
-                              ],
-                            ))
-                      ]);
+                                  Expanded(flex: 3, child: Container())
+                                ],
+                              ))
+                        ]),
+                      );
                     });
               }
               return Offstage();

@@ -42,7 +42,6 @@ Future<List<HRClinical>> companyAllHrClinicApi(BuildContext context) async {
     final response = await Api(context)
         .get(path: AllFromHrRepository.getEmployeeType());
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("ResponseList:::::${itemsList}");
       for (var item in response.data) {
         itemsList.add(
           HRClinical(
@@ -53,7 +52,6 @@ Future<List<HRClinical>> companyAllHrClinicApi(BuildContext context) async {
               ),
         );
       }
-      print("ResponseList:::::${itemsList}");
     } else {
       print('Api Error');
     }
