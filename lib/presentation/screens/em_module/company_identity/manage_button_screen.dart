@@ -576,8 +576,9 @@ int listIndex = 0 ;
                       //   docID: docID,
                       // ),
                       CIDetailsScreen(
-                        // companyID: widget.companyID,
+                        companyID: widget.companyID,
                         officeId: widget.officeID, docTD: docID,
+                        companyId: widget.companyID,
                       ),
                       CiZone(companyID: widget.companyID, officeId: widget.officeID, docId: docID,),
                       // CiPageview(

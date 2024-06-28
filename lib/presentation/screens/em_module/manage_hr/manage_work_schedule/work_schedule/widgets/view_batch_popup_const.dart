@@ -17,18 +17,18 @@ class ViewBatchesPopup extends StatefulWidget {
   final String weekName;
   final String officeId;
   final int companyId;
-  const ViewBatchesPopup({super.key, required this.shiftName, required this.weekName, required this.officeId, required this.companyId});
+   ViewBatchesPopup({super.key, required this.shiftName, required this.weekName, required this.officeId, required this.companyId});
 
   @override
   State<ViewBatchesPopup> createState() => _ViewBatchesPopupState();
 }
 
 class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
+  int currentPage = 1;
+  int itemsPerPage = 10;
   final StreamController<List<ShiftBachesData>>
   workWeekShiftBatchesController =
   StreamController<List<ShiftBachesData>>();
-  late int currentPage;
-  late int itemsPerPage;
   TextEditingController startTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
   @override
@@ -143,40 +143,53 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
-                                        Text(
-                                          'Sr No.',
-                                          style: GoogleFonts.firaSans(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.white,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                        ),
-                                        //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                        Text('Start Time',textAlign: TextAlign.start,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white,
-                                              decoration: TextDecoration.none,
-                                            )),
-                                        Text('End Time',textAlign: TextAlign.start,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white,
-                                              decoration: TextDecoration.none,
-                                            )),
-                                        Padding(
-                                          padding: const EdgeInsets.only(right: 10),
-                                          child: Text('Actions',
-                                              textAlign: TextAlign.start,
+                                        Expanded(
+                                          child: Center(
+                                            child: Text(
+                                              'Sr No.',
                                               style: GoogleFonts.firaSans(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: Colors.white,
                                                 decoration: TextDecoration.none,
-                                              )),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                        Expanded(
+                                          child: Center(
+                                            child: Text('Start Time',textAlign: TextAlign.start,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white,
+                                                  decoration: TextDecoration.none,
+                                                )),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                            child: Text('End Time',textAlign: TextAlign.start,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white,
+                                                  decoration: TextDecoration.none,
+                                                )),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                            child: Text('Actions',
+                                                textAlign: TextAlign.start,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white,
+                                                  decoration: TextDecoration.none,
+                                                )),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -222,89 +235,107 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                       mainAxisAlignment:
                                                       MainAxisAlignment.spaceAround,
                                                       children: [
-                                                        Text(
-                                                          formattedSerialNumber,
-                                                          // formattedSerialNumber,
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w500,
-                                                            color: const Color(0xff686464),
-                                                            decoration: TextDecoration.none,
+                                                        Expanded(
+                                                          child: Center(
+                                                            child: Text(
+                                                              formattedSerialNumber,
+                                                              // formattedSerialNumber,
+                                                              style: GoogleFonts.firaSans(
+                                                                fontSize: 10,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: const Color(0xff686464),
+                                                                decoration: TextDecoration.none,
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
                                                         // Text(''),
-                                                        Text(
-                                                          snapshot.data![index].officeStartTime,textAlign:TextAlign.center,
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w500,
-                                                            color: const Color(0xff686464),
-                                                            decoration: TextDecoration.none,
+                                                        Expanded(
+                                                          child: Center(
+                                                            child: Text(
+                                                              snapshot.data![index].officeStartTime,textAlign:TextAlign.center,
+                                                              style: GoogleFonts.firaSans(
+                                                                fontSize: 10,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: const Color(0xff686464),
+                                                                decoration: TextDecoration.none,
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
-                                                        Text(
-                                                          snapshot.data![index].officeEndTime,textAlign:TextAlign.center,
-                                                          style: GoogleFonts.firaSans(
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w500,
-                                                            color: const Color(0xff686464),
-                                                            decoration: TextDecoration.none,
+                                                        Expanded(
+                                                          child: Center(
+                                                            child: Text(
+                                                              snapshot.data![index].officeEndTime,textAlign:TextAlign.center,
+                                                              style: GoogleFonts.firaSans(
+                                                                fontSize: 10,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: const Color(0xff686464),
+                                                                decoration: TextDecoration.none,
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
                                                         //  Text(''),
-                                                        Row(
-                                                          children: [
-                                                            IconButton(onPressed: (){
-                                                              showDialog(
-                                                                  context: context,
-                                                                  builder: (BuildContext context) {
-                                                                    return FutureBuilder<ShiftBachesData>(
-                                                                      future: shiftPrefillBatchesGet(context, snapshot.data![index].shiftBatchScheduleId),
-                                                                      builder: (context,snapshotPrefill) {
-                                                                        var startTime = snapshotPrefill.data?.officeStartTime.toString();
-                                                                        var endTime = snapshotPrefill.data?.officeEndTime.toString();
-                                                                        startTimeController = TextEditingController(text: snapshotPrefill.data?.officeStartTime.toString());
-                                                                        endTimeController = TextEditingController(text: snapshotPrefill.data?.officeEndTime.toString());
-                                                                        return AddBatchPopup(
-                                                                          controller1: startTimeController,
-                                                                          controller2: endTimeController,
-                                                                          onPressed: () async{
-                                                                            await updateShiftBatch(context,
-                                                                                widget.shiftName, widget.companyId, widget.officeId,widget.weekName,
-                                                                                startTime == startTimeController.text ? startTime.toString() : startTimeController.text,
-                                                                                endTime == endTimeController.text ? endTime.toString() : endTimeController.text,
-                                                                                snapshot.data![index].shiftBatchScheduleId);
-                                                                            shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
-                                                                              workWeekShiftBatchesController.add(data);
-                                                                            }).catchError((error) {
-                                                                              // Handle error
-                                                                            });
-                                                                            Navigator.pop(context);
-                                                                          },
+                                                        Expanded(
+                                                          child: Center(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                IconButton(onPressed: (){
+                                                                  showDialog(
+                                                                      context: context,
+                                                                      builder: (BuildContext context) {
+                                                                        return FutureBuilder<ShiftBachesData>(
+                                                                          future: shiftPrefillBatchesGet(context, snapshot.data![index].shiftBatchScheduleId),
+                                                                          builder: (context,snapshotPrefill) {
+                                                                            var startTime = snapshotPrefill.data?.officeStartTime.toString();
+                                                                            var endTime = snapshotPrefill.data?.officeEndTime.toString();
+                                                                            startTimeController = TextEditingController(text: snapshotPrefill.data?.officeStartTime.toString());
+                                                                            endTimeController = TextEditingController(text: snapshotPrefill.data?.officeEndTime.toString());
+                                                                            return AddBatchPopup(
+                                                                              controller1: startTimeController,
+                                                                              controller2: endTimeController,
+                                                                              onPressed: () async{
+                                                                                await updateShiftBatch(context,
+                                                                                    widget.shiftName, widget.companyId, widget.officeId,widget.weekName,
+                                                                                    startTime == startTimeController.text ? startTime.toString() : startTimeController.text,
+                                                                                    endTime == endTimeController.text ? endTime.toString() : endTimeController.text,
+                                                                                    snapshot.data![index].shiftBatchScheduleId);
+                                                                                shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+                                                                                  workWeekShiftBatchesController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                              },
+                                                                            );
+                                                                          }
                                                                         );
-                                                                      }
-                                                                    );
-                                                                  });
-                                                            }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                                            IconButton(onPressed: (){
-                                                              showDialog(
-                                                                  context: context,
-                                                                  builder: (context) =>
-                                                                      DeletePopup(
-                                                                          onCancel: () {
-                                                                            Navigator.pop(
-                                                                                context);
-                                                                          }, onDelete:
-                                                                          () async {
-                                                                            await deleteShiftBatch(context, snapshot.data![index].shiftBatchScheduleId);
-                                                                            shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
-                                                                              workWeekShiftBatchesController.add(data);
-                                                                            }).catchError((error) {
-                                                                              // Handle error
-                                                                            });
-                                                                      }));
-                                                            }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
-                                                          ],
+                                                                      });
+                                                                }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                                                IconButton(onPressed: (){
+                                                                  showDialog(
+                                                                      context: context,
+                                                                      builder: (context) =>
+                                                                          DeletePopup(
+                                                                              onCancel: () {
+                                                                                Navigator.pop(
+                                                                                    context);
+                                                                              }, onDelete:
+                                                                              () async {
+                                                                                await deleteShiftBatch(context, snapshot.data![index].shiftBatchScheduleId);
+                                                                                shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+                                                                                  workWeekShiftBatchesController.add(data);
+                                                                                }).catchError((error) {
+                                                                                  // Handle error
+                                                                                });
+                                                                                Navigator.pop(context);
+                                                                          }));
+                                                                }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                              ],
+                                                            ),
+                                                          ),
                                                         )
                                                       ],
                                                     ),

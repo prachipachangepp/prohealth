@@ -38,8 +38,9 @@ class CustomIconButton extends StatelessWidget {
         backgroundColor:  Color(0xFF50B5E5),
         // shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
         ),
+        elevation: 5
       ),
     );
   }

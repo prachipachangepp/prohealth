@@ -13,7 +13,8 @@ import 'checkbox_constant.dart';
 
 // Add Service:  /company-office-service/add
 class CIDetailsScreen extends StatefulWidget {
-  const CIDetailsScreen({super.key, required this.officeId, required this.docTD});
+   CIDetailsScreen({super.key, required this.officeId, required this.docTD, required this.companyId, required int companyID});
+  final int companyId;
   final int docTD;
   final String officeId;
   @override
@@ -36,10 +37,16 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
   bool checkboxValue3 = false;
   bool checkboxValue4 = false;
   @override
+  void initState() {
+    super.initState();
+    print(":::::OFFICE ID ${widget.officeId} + ${widget.companyId}");
+    companyDetailGetAll(context, 11, widget.officeId);
+  }
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: FutureBuilder<ManageDetails>(
-          future: companyDetailGetAll(context, 11, widget.officeId),
+          future: companyDetailGetAll(context, widget.companyId, widget.officeId),
           builder: (context, snapshot) {
             //nameController = snapshot.data?.officeName as TextEditingController;
             if (snapshot.connectionState == ConnectionState.waiting) {

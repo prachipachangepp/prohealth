@@ -6,6 +6,14 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
 class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController nameController;
@@ -15,7 +23,8 @@ class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController secNumController;
   final TextEditingController OptionalController;
   final Future<void> Function() onPressed;
-  const AddOfficeSumbitButton({super.key, required this.nameController, required this.addressController, required this.emailController, required this.mobNumController, required this.secNumController, required this.OptionalController, required this.onPressed});
+  final GlobalKey<FormState> formKey;
+  AddOfficeSumbitButton({super.key, required this.nameController, required this.addressController, required this.emailController, required this.mobNumController, required this.secNumController, required this.OptionalController, required this.onPressed, required this.formKey});
 
   @override
   State<AddOfficeSumbitButton> createState() => _AddOfficeSumbitButtonState();
@@ -36,8 +45,17 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
         ),
         child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
+            Container(
+              height: 40,
+              width: AppSize.s390,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -48,7 +66,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       fontSize: 13,
                       fontWeight:
                       FontWeightManager.semiBold,
-                      color: ColorManager.primary,
+                      color: ColorManager.white,
                       decoration: TextDecoration.none,
                     ),
                   ),
@@ -56,7 +74,7 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close),
+                    icon: Icon(Icons.close, color: Colors.white,),
                   ),
                 ],
               ),
@@ -66,49 +84,61 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                 vertical: AppPadding.p3,
                 horizontal: AppPadding.p15,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SMTextFConst(
-                    controller: widget.nameController,
-                    keyboardType: TextInputType.text,
-                    text: 'Name',
-                  ),
-                  const SizedBox(height: AppSize.s9),
-                  SMTextFConst(
-                    controller: widget.addressController,
-                    keyboardType:
-                    TextInputType.streetAddress,
-                    text: 'Address',
-                  ),
-                  const SizedBox(height: AppSize.s9),
-                  SMTextFConst(
-                    controller: widget.emailController,
-                    keyboardType:
-                    TextInputType.emailAddress,
-                    text: 'Email',
-                  ),
-                  const SizedBox(height: AppSize.s9),
-                  SMTextFConst(
-                    controller: widget.mobNumController,
-                    keyboardType: TextInputType.number,
-                    text: 'Primary Phone',
-                  ),
-                  const SizedBox(height: AppSize.s9),
-                  SMTextFConst(
-                    controller: widget.secNumController,
-                    keyboardType: TextInputType.number,
-                    text: 'Secondary Phone',
-                  ),
-                  const SizedBox(height: AppSize.s9),
-                  SMTextFConst(
-                    controller: widget.OptionalController,
-                    keyboardType: TextInputType.number,
-                    text: 'Alternative Phone',
-                  ),
+              child: Form(
+                key: widget.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SMTextFConst(
+                      controller: widget.nameController,
+                      keyboardType: TextInputType.text,
+                      text: 'Name',
+                      validator: (value){
+                        if(value!.isEmpty){
+                          return "Please enter name";
+                        }
+                        if(!value.contains(RegExp(r'[0-9]'))){
+                          return 'Please enter valid name';
+                        }
+                        return "";
+                      },
+                    ),
+                    const SizedBox(height: AppSize.s9),
+                    SMTextFConst(
+                      controller: widget.addressController,
+                      keyboardType:
+                      TextInputType.streetAddress,
+                      text: 'Address',
+                    ),
+                    const SizedBox(height: AppSize.s9),
+                    SMTextFConst(
+                      controller: widget.emailController,
+                      keyboardType:
+                      TextInputType.emailAddress,
+                      text: 'Email',
+                    ),
+                    const SizedBox(height: AppSize.s9),
+                    SMTextFConst(
+                      controller: widget.mobNumController,
+                      keyboardType: TextInputType.number,
+                      text: 'Primary Phone',
+                    ),
+                    const SizedBox(height: AppSize.s9),
+                    SMTextFConst(
+                      controller: widget.secNumController,
+                      keyboardType: TextInputType.number,
+                      text: 'Secondary Phone',
+                    ),
+                    const SizedBox(height: AppSize.s9),
+                    SMTextFConst(
+                      controller: widget.OptionalController,
+                      keyboardType: TextInputType.number,
+                      text: 'Alternative Phone',
+                    ),
 
-                ],
+                  ],
+                ),
               ),
             ),
             Spacer(),
@@ -133,7 +163,12 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       isLoading = true;
                     });
                     try {
-                      await widget.onPressed();
+                      if(widget.formKey.currentState!.validate()){
+                        await widget.onPressed();
+                      }else{
+                        print('Validation error');
+                      }
+
                     } finally {
                       setState(() {
                         isLoading = false;

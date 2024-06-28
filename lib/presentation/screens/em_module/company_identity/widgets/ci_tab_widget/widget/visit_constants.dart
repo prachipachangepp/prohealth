@@ -36,17 +36,41 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
         child: Column(
 
           children: [
-            Row(
-
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
-                ),
-              ],
+            Container(
+          height: 40,
+              width: AppSize.s400,
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8),
+              topRight: Radius.circular(8),
+            ),
+          ),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Add New Visit',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 13,
+                      fontWeight:
+                      FontWeightManager.semiBold,
+                      color: ColorManager.white,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,
+                      color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
