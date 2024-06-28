@@ -40,9 +40,14 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
       curve: Curves.ease,
     );
   }
+  List<IdentityDocumentIdData> docSubTypeData = [];
+  void loadData() async{
+    docSubTypeData = await identityDocumentTypeGet(context, widget.docID);
+  }
   @override
   void initState() {
     super.initState();
+    identityDocumentTypeGet(context, widget.docID);
     // currentPage = 1;
     // itemsPerPage = 5;
     // items = List.generate(20, (index) => 'Item ${index + 1}');
@@ -60,6 +65,13 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
     future: identityDocumentTypeGet(context, widget.docID),
     builder: (context,snapshot) {
       if(snapshot.hasData){
+        if(docSubTypeData.isEmpty){
+          for(var a in snapshot.data!){
+            docSubTypeData.add(
+                a
+            );
+          }
+        }
         return  Center(
           child: Container(
             width: 750,
@@ -77,6 +89,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                   if (snapshot.connectionState == ConnectionState.waiting) {
                   }
                   if(snapshot.hasData){
+
                     return InkWell(
                       //splashColor: Colors.white,
                       highlightColor: Color(0xFFF2F9FC),
@@ -136,7 +149,6 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
               CICcdLicense(subDocID: subDocId, docID: widget.docID,),
               CICcdLicense(subDocID: subDocId, docID: widget.docID,),
               CICcdLicense(subDocID: subDocId, docID: widget.docID,),
-
               // CICcdADR(),
               // CiCcdMedicalCostReport(),
               // CiCcdCapReports(),

@@ -36,19 +36,19 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
    final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   int _selectedIndex = 8;
-  String _selectedItem = 'Corporate & Compliance Documents';
-  void _onDropdownItemSelected(String newValue) {
-    setState(() {
-      _selectedItem = newValue;
-    });
-  }
-  String _selectedItem1 = 'Licenses';
-
-  void _onDropdownItemSelected1(String newValue) {
-    setState(() {
-      _selectedItem1 = newValue;
-    });
-  }
+  // String _selectedItem = 'Corporate & Compliance Documents';
+  // void _onDropdownItemSelected(String newValue) {
+  //   setState(() {
+  //     _selectedItem = newValue;
+  //   });
+  // }
+  // String _selectedItem1 = 'Licenses';
+  //
+  // void _onDropdownItemSelected1(String newValue) {
+  //   setState(() {
+  //     _selectedItem1 = newValue;
+  //   });
+  // }
 
   void _selectButton(int index) {
     setState(() {
@@ -60,17 +60,13 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
       curve: Curves.ease,
     );
   }
-
   List<DocumentTypeData> docTypeData = [];
-   // void loadData()async{
-  //   await docTypeData = DocumentTypeData(contex);
-  //
-  // }
+  void loadData() async{
+    docTypeData = await documentTypeGet(context);
+  }
   @override
   void initState() {
     super.initState();
-    //documentTypeGet(context);
-   // docTypeData = DocumentTypeData(contex);
     identityDocumentTypeGet(context,docTypeMetaId).then((data) {
       _identityDataController.add(data);
     }).catchError((error) {
@@ -82,7 +78,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     //_companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
-
   var docID = 8;
   int docTypeMetaId = 8;
   int docSubTypeMetaId =0;
@@ -107,6 +102,13 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     future: documentTypeGet(context),
     builder:(context,snapshot){
       if(snapshot.hasData){
+        if(docTypeData.isEmpty){
+          for(var a in snapshot.data!){
+            docTypeData.add(
+                a
+            );
+          }
+        }
         return Material(
           elevation: 4,
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -122,7 +124,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 Expanded(
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: snapshot.data!.length,
+                    itemCount: docTypeData.length,
                     itemBuilder: (BuildContext context, int index) {
                       if (snapshot.connectionState ==
                           ConnectionState.waiting) {
@@ -137,10 +139,10 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                         return InkWell(
                           onTap: () {
                             _selectButton(
-                                snapshot.data![index].docID);
+                                docTypeData[index].docID);
                             identityDocumentTypeGet(
-                                context, snapshot.data![index].docID);
-                            docID = snapshot.data![index].docID;
+                                context, docTypeData[index].docID);
+                            docID = docTypeData[index].docID;
                           },
                           child: Container(
                             height: 30,
@@ -149,18 +151,18 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               borderRadius: BorderRadius.all(
                                   Radius.circular(20)),
                               color: _selectedIndex ==
-                                  snapshot.data![index].docID
+                                  docTypeData[index].docID
                                   ? Colors.white
                                   : Colors.transparent,
                             ),
                             child: Center(
                               child: Text(
-                                snapshot.data![index].docType,
+                                docTypeData[index].docType,
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                   color: _selectedIndex ==
-                                      snapshot.data![index].docID
+                                      docTypeData[index].docID
                                       ? ColorManager.mediumgrey
                                       : ColorManager.white,
                                 ),

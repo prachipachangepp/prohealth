@@ -37,7 +37,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
   TextEditingController docNameController = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
-  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>();
+  final StreamController<List<CiOrgDocumentCC>> _controller = StreamController<List<CiOrgDocumentCC>>.broadcast();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
 
   String? selectedValue;
@@ -53,6 +53,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     itemsPerPage = 3;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
+    print(":::SUBDOCID              ${widget.subDocID} + ${widget.docID}");
     identityDocumentTypeGet(context,docTypeMetaId).then((data) {
       _identityDataController.add(data);
     }).catchError((error) {
@@ -60,15 +61,17 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     });
    // orgDocumentGet(context);
     _loadColors();
-    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+    // orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+    //   _controller.add(data);
+    // }).catchError((error) {
+    //   // Handle error
+    // });
   }
+
 
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("KDKDKD");
     setState(() {
       for (int i = 0; i < hrcontainerColors.length; i++) {
         int? colorValue = prefs.getInt('containerColor$i');
@@ -78,12 +81,25 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       }
     });
   }
+  List snapData = [];
   @override
   Widget build(BuildContext context) {
     return  StreamBuilder<List<CiOrgDocumentCC>>(
       stream: _controller.stream,
       builder: (context, snapshot) {
+        snapData.clear();
+        Future.delayed(Duration(milliseconds: 1000), () {
+          CircularProgressIndicator(color: ColorManager.blueprime,);
+          orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+            _controller.add(data);
+
+          }).catchError((error) {
+            // Handle error
+          });
+
+        });
         print('1111111');
+        print(":::SUBDOCID${widget.subDocID} + ${widget.docID}");
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: CircularProgressIndicator(
@@ -104,6 +120,9 @@ class _CICcdLicenseState extends State<CICcdLicense> {
           );
         }
         if (snapshot.hasData){
+          for(var i in snapshot.data!){
+            snapData.add(i);
+          }
           return Column(
             children: [
               Container(
@@ -184,7 +203,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                 child:
                 ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: snapshot.data!.length,
+                  itemCount: snapData.length,
                   itemBuilder: (context, index) {
                     int serialNumber =
                         index + 1 + (currentPage - 1) * itemsPerPage;
@@ -228,7 +247,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    snapshot.data![index].name.toString(),
+                                    snapData[index].name.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -240,7 +259,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    snapshot.data![index].expiry.toString(),
+                                    snapData[index].expiry.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -252,7 +271,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    snapshot.data![index]
+                                    snapData[index]
                                         .reminderThreshold
                                         .toString(),
                                     style: GoogleFonts.firaSans(

@@ -121,7 +121,7 @@ Future<ApiData> addNewOffice(BuildContext context, String name, address, email,
       'company_id': 11,
       'primary_fax': name,
       'secondary_fax': secondaryPhone,
-      'office_id': "2",
+      'office_id': name,
       'alternative_phone': primaryPhone
     });
     print('::::$response');

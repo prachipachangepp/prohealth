@@ -324,7 +324,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
         ),
       ),
       SizedBox(
-        height: AppSize.s10,
+        height: AppSize.s5,
       ),
       Expanded(
         child: StreamBuilder<List<CiVisit>>(
@@ -359,6 +359,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                       ? totalItems
                       : (currentPage * itemsPerPage),
                 );
+
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: currentPageItems.length,
@@ -368,7 +369,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                       String formattedSerialNumber =
                           serialNumber.toString().padLeft(2, '0');
                       return Column(children: [
-                        SizedBox(height: AppSize.s5),
+
                         Container(
                             padding: EdgeInsets.only(bottom: AppPadding.p5),
                             margin:
@@ -671,10 +672,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           getVisit(context, 1, 1, 10)
                                               .then((data) {
                                             _visitController.add(data);
+                                            // Navigator.pop(context);
                                           }).catchError((error) {
                                             // Handle error
                                           });
-                                          Navigator.pop(context);
+                                          //
                                         },
                                         icon: Icon(
                                             Icons.delete_outline_outlined,
