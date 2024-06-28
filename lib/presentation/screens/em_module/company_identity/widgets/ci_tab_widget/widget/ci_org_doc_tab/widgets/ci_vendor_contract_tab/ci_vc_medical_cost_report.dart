@@ -222,6 +222,7 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
                                           return CCScreenEditPopup(
+                                            title: 'Edit Medical Cost Report',
                                             idDocController: docIdController,
                                             nameDocController: docNamecontroller,
                                             onSavePressed: (){},

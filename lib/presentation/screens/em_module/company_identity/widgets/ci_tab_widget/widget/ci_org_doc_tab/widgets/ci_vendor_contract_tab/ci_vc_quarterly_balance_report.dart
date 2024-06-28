@@ -222,6 +222,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
                                           return CCScreenEditPopup(
+                                            title: 'Edit Quarterly Balance Report',
                                             idDocController: docIdController,
                                             nameDocController: docNamecontroller,
                                             onSavePressed: (){},

@@ -198,6 +198,7 @@ class _CICCCAPReportsState extends State<CICCCAPReports> {
                                               IconButton(onPressed: (){
                                                 showDialog(context: context, builder: (context){
                                                   return CCScreenEditPopup(
+                                                    title: 'Edit Cap Reports',
                                                     idDocController: docIdController,
                                                     nameDocController: docNamecontroller,
                                                     onSavePressed: (){},

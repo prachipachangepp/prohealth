@@ -289,7 +289,8 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
                                           return CIZoneAddPopup(
-                                            onSavePressed: (){},
+                                            title: 'Edit Zip Code',
+                                            onSavePressed: ()async{},
                                             title1: 'Zone Number',
                                             countynameController: countynameController,
                                             title2: 'Zip Codes',

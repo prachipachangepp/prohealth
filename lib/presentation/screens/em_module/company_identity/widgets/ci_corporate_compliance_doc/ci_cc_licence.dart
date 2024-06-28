@@ -193,6 +193,7 @@ class _CICCLicenseState extends State<CICCLicense> {
                                           IconButton(onPressed: (){
                                             showDialog(context: context, builder: (context){
                                               return CCScreenEditPopup(
+                                                title: 'Edit Lisence',
                                                 idDocController: docIdController,
                                                 nameDocController: docNamecontroller,
                                                 onSavePressed: (){},

@@ -66,7 +66,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
               CustomIconButtonConst(text: 'Add Doctype',
                 onPressed: (){
                 showDialog(context: context, builder: (BuildContext context){
-                  return AddPoliciesPopup(nameOfDocumentController: nameOfDocController, idOfDocumentController: idOfDocController, onSavePressed: () {  },
+                  return AddPoliciesPopup(
+                    title: 'Add Policies & Procedures',
+                    nameOfDocumentController: nameOfDocController, idOfDocumentController: idOfDocController, onSavePressed: () {  },
                   child:  const CICCDropdown(
                     initialValue: 'Policies & Procedures',
                     items: [
@@ -171,12 +173,13 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         //  Text(''),
                                         Row(
                                           children: [
-                                            IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.blueprime,)),
-                                            IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.blueprime,)),
-                                            IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.blueprime,)),
+                                            // IconButton(onPressed: (){}, icon: Icon(Icons.history,size:18,color: ColorManager.blueprime,)),
+                                            // IconButton(onPressed: (){}, icon: Icon(Icons.print_outlined,size:18,color: ColorManager.blueprime,)),
+                                            // IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.blueprime,)),
                                             IconButton(onPressed: (){
                                               showDialog(context: context, builder: (context){
                                                 return CCScreenEditPopup(
+                                                  title: "Edit Policies & Procedures",
                                                   idDocController: docIdController,
                                                   nameDocController: docNamecontroller,
 

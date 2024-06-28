@@ -251,6 +251,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                         context: context,
                         builder: (BuildContext context) {
                           return PayRatesPopup(
+                            title: 'Add Payrates',
                             child1: FutureBuilder<List<VisitListData>>(
                                 future: getVisitList(context),
                               builder: (context,snapshot) {
@@ -544,6 +545,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                   var zoneTypeId = snapshotPrefill.data!.zoneId;
                                                   payRatesController = TextEditingController(text: snapshotPrefill.data?.payRates.toString());
                                                   return PayRatesPopup(
+                                                    title: 'Edit Payrate',
                                                     child1: SMTextFConst(
                                                       enable: false,
                                                       readOnly: true,

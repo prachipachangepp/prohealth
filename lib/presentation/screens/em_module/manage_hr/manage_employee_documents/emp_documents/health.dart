@@ -298,6 +298,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                   dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
                                     
                                                   return EmpDocEditPopup(
+                                                    title:  'Edit Document',
                                                     expiryType: expiryType,
                                                     idDocController: idDocController,
                                                     nameDocController: docNamecontroller,

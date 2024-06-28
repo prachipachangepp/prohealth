@@ -293,28 +293,38 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    widget.title,
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.semiBold,
-                      color: ColorManager.blueprime,
-                      decoration: TextDecoration.none,
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
-                ),
-              ],
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -322,6 +332,7 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SizedBox(height: AppSize.s10,),
                   SMTextFConst(
                     controller: widget.typeController,
                     keyboardType: TextInputType.text,
@@ -394,7 +405,9 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
                   SizedBox(height: MediaQuery.of(context).size.width / 22),
                   Center(
                     child: isLoading
-                        ? CircularProgressIndicator( color: ColorManager.blueprime,)
+                        ? SizedBox(
+                        height: 25,width: 25,
+                        child: CircularProgressIndicator( color: ColorManager.blueprime,))
                         : CustomElevatedButton(
                       width: AppSize.s105,
                       height: AppSize.s30,

@@ -26,9 +26,13 @@ class _CiOrgDocumentState extends State<CiZone> {
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController countynameController = TextEditingController();
+  TextEditingController countyController = TextEditingController();
   TextEditingController zipcodeController = TextEditingController();
   TextEditingController mapController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController zoneController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
 
   int _selectedIndex = 0;
 
@@ -195,11 +199,13 @@ class _CiOrgDocumentState extends State<CiZone> {
                   text: AppStringEM.add, onPressed: (){
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
-                    onSavePressed: (){},
-                    title1: 'City Name',
+                    title: 'Add Zone',
+                    onSavePressed: ()async{},
+                    title1: 'Zone Number',
                     countynameController: countynameController,
-                    title2: AppStringEM.zipCode,
+                    title2: 'City Name',
                     zipcodeController: zipcodeController,
+
                     // title3: 'Map',
                     // mapController: mapController,
                     // title4:'Cities',
@@ -213,17 +219,17 @@ class _CiOrgDocumentState extends State<CiZone> {
                   text: "Add", onPressed: (){
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
-                    onSavePressed: (){
-
+                    title: 'Add County',
+                    onSavePressed: ()async{
                     },
                     title1: 'County Name',
                     countynameController: countynameController,
-                    title2: 'Zip Code',
-                    zipcodeController: zipcodeController,
-                    // title3: 'Map',
-                    // mapController: mapController,
-                    // title4: 'Landmark',
-                    // landmarkController: landmarkController,
+                    title2: 'Country',
+                    countryController: countyController,
+                    title3: 'State',
+                   zipcodeController: stateController,
+                    title4: 'Map',
+                    mapController: mapController,
                   );
                 });
               }) :
@@ -232,15 +238,20 @@ class _CiOrgDocumentState extends State<CiZone> {
                   text: "Add", onPressed: (){
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
-                    onSavePressed: (){},
+                    title: 'Add Zipcode',
+                    onSavePressed: ()async{},
                     title1: 'City Name',
-                    countynameController: countynameController,
+                    cityController: cityController,
                     title2: 'Zip Code',
                     zipcodeController: zipcodeController,
                     title3: 'Map',
                     mapController: mapController,
                     title4: 'Landmark',
                     landmarkController: landmarkController,
+                    title5: 'Zone',
+                    zoneController: zoneController,
+                    title6: 'County',
+                    countynameController: countyController,
                   );
                 });
               })

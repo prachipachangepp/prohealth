@@ -246,6 +246,7 @@ class _CiMiscState extends State<CiMisc> {
                                                         builder: (BuildContext
                                                             context) {
                                                           return CCScreenEditPopup(
+                                                            title: 'Edit MISC',
                                                             idDocController:
                                                                 editidOfDocController,
                                                             nameDocController:

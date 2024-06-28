@@ -249,6 +249,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
                                           return CCScreenEditPopup(
+                                            title: 'Edit License',
                                             idDocController: docIdController,
                                             nameDocController: docNamecontroller,
                                             onSavePressed: (){},

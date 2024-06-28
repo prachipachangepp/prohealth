@@ -197,6 +197,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                               IconButton(onPressed: (){
                                                 showDialog(context: context, builder: (context){
                                                   return CCScreenEditPopup(
+                                                    title: 'Edit Quarterly Balance Report',
                                                     idDocController: docIdController,
                                                     nameDocController: docNamecontroller,
                                                     onSavePressed: (){},

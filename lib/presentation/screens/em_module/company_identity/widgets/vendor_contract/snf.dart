@@ -172,7 +172,9 @@ class _CiSnfState extends State<CiSnf> {
                                           IconButton(onPressed: (){}, icon: Icon(Icons.file_download_outlined,size:18,color: ColorManager.blueprime,)),
                                           IconButton(onPressed: (){
                                             showDialog(context: context, builder: (BuildContext context){
-                                              return CCScreenEditPopup(idDocController: editidOfDocController,
+                                              return CCScreenEditPopup(
+                                                title: 'Edit SNF',
+                                                idDocController: editidOfDocController,
                                                 nameDocController: editnameOfDocController,
                                                 child:  CICCDropdown(
                                                   initialValue: 'Vendor Contract',
