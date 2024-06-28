@@ -181,11 +181,11 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return AlertDialog(
+                                return Dialog(
                                   backgroundColor: Colors.white,
-                                  content: Container(
-                                    height: 350,
-                                    width: 950,
+                                  child: Container(
+                                    height: 440,
+                                    width: 820,
                                     child: SingleChildScrollView(
                                       child: Column(
                                         mainAxisAlignment:
@@ -193,15 +193,43 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              icon: Icon(Icons.close),
+                                          Container(
+                                            height: 40,
+                                            width: 820,
+                                            padding: EdgeInsets.all(5),
+                                            decoration: BoxDecoration(
+                                              color: Colors.blue,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(8),
+                                                topRight: Radius.circular(8),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              // mainAxisAlignment: MainAxisAlignment.end,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Edit whitelabelling',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                    FontWeightManager.semiBold,
+                                                    color: ColorManager.white,
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  icon: Icon(Icons.close,
+                                                    color: ColorManager.white,),
+                                                ),
+                                              ],
                                             ),
                                           ),
+                                          SizedBox(height: 20,),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -539,34 +567,35 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                               ),
                                             ],
                                           ),
+                                          Align(
+                                            alignment: Alignment.bottomRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(15.0),
+                                              child: CustomElevatedButton(
+                                                  width: 105,
+                                                  height: 31,
+                                                  text: 'Submit',
+                                                  onPressed: () async {
+                                                    await postWhitelabellingAdd(
+                                                      context,
+                                                      0,
+                                                      '',
+                                                      primNumController.text,
+                                                      secNumberController.text,
+                                                      faxController.text,
+                                                      emailController.text,
+                                                      altNumController.text,
+                                                      nameController.text,
+                                                      addressController.text,
+                                                    );
+                                                    Navigator.pop(context);
+                                                  }),
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),
                                   ),
-                                  actions: [
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: CustomElevatedButton(
-                                          width: 105,
-                                          height: 31,
-                                          text: 'Submit',
-                                          onPressed: () async {
-                                            await postWhitelabellingAdd(
-                                              context,
-                                              0,
-                                              '',
-                                              primNumController.text,
-                                              secNumberController.text,
-                                              faxController.text,
-                                              emailController.text,
-                                              altNumController.text,
-                                              nameController.text,
-                                              addressController.text,
-                                            );
-                                            Navigator.pop(context);
-                                          }),
-                                    )
-                                  ],
                                 );
                               },
                             );

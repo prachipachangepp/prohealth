@@ -69,28 +69,38 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    'Add Batches',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.semiBold,
-                      color: ColorManager.blueprime,
-                      decoration: TextDecoration.none,
+            Container(
+              decoration:  BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      'Add Batches',
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
-                ),
-              ],
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

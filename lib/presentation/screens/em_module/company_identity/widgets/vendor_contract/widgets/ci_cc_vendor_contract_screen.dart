@@ -233,7 +233,9 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                   icon: Icons.add,
                   text: "Add Doctype", onPressed: (){
                 showDialog(context: context, builder: (context){
-                  return CiVendorAddPopup(nameOfDocController: nameOfDocController, idOfDocController: idOfDocController, onSavePressed: (){}, child: CICCDropdown(
+                  return CiVendorAddPopup(
+                    title: 'Add Vendor Contract',
+                    nameOfDocController: nameOfDocController, idOfDocController: idOfDocController, onSavePressed: (){}, child: CICCDropdown(
                     initialValue: 'Vendor Contract',
                     items: [
                       DropdownMenuItem(value: 'Vendor Contract', child: Text('Vendor Contract')),

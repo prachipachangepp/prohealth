@@ -241,6 +241,7 @@ class _CompansationEmpDocState extends State<CompansationEmpDoc> {
                                         IconButton(onPressed: (){
                                           showDialog(context: context, builder: (context){
                                             return CCScreenEditPopup(
+                                              title: 'Edit Compansation',
                                               idDocController: docIdController,
                                               nameDocController: docNamecontroller,
                                               onSavePressed: (){},

@@ -18,13 +18,14 @@ class CCScreensAddPopup extends StatefulWidget {
    VoidCallback onSavePressed;
   final Widget child;
   final Widget child1;
+  final String title;
    CCScreensAddPopup(
       {super.key,
       required this.countynameController,
       required this.zipcodeController,
       required this.onSavePressed,
       required this.child,
-      required this.child1});
+      required this.child1, required this.title});
 
   @override
   State<CCScreensAddPopup> createState() => _CCScreensAddPopusState();
@@ -44,16 +45,38 @@ class _CCScreensAddPopusState extends State<CCScreensAddPopup> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -246,6 +269,7 @@ class CCScreenEditPopup extends StatefulWidget {
   final Widget child1;
   final Widget? radioButton;
    bool? loadingDuration;
+   final String title;
 
    CCScreenEditPopup({
     super.key,
@@ -255,7 +279,7 @@ class CCScreenEditPopup extends StatefulWidget {
     required this.child,
     required this.child1,
     this.id,
-    this.radioButton,  this.calenderController, this.loadingDuration,
+    this.radioButton,  this.calenderController, this.loadingDuration, required this.title,
   });
 
   @override
@@ -279,16 +303,38 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
         ),
         child: ListView(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

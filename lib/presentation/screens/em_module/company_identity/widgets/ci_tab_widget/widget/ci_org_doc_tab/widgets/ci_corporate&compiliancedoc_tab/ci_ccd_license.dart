@@ -291,6 +291,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                         return StatefulBuilder(
                                           builder: (BuildContext context, void Function(void Function()) setState) {
                                             return CCScreenEditPopup(
+                                              title: 'Edit License',
                                               id: snapshot.data![index].docId,
                                               idDocController: docIdController,
                                               nameDocController: docNameController,

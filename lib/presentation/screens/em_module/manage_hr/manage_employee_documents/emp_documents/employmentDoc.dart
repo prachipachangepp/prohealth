@@ -243,6 +243,7 @@ class _EmplomentDocState extends State<EmplomentDoc> {
                                         IconButton(onPressed: (){
                                           showDialog(context: context, builder: (context){
                                             return CCScreenEditPopup(
+                                              title: 'Edit Employee Document',
                                               idDocController: docIdController,
                                               nameDocController: docNamecontroller,
                                               onSavePressed: (){},

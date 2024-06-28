@@ -250,6 +250,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                           context: context,
                                           builder: (context) {
                                             return CCScreenEditPopup(
+                                              title: "Edit Policies & Procedures",
                                               id: currentPageItems[index].docId,
                                               idDocController: docIdController,
                                               nameDocController:

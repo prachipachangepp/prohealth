@@ -242,6 +242,7 @@ class _ClinicalVerificationEmpDocState extends State<ClinicalVerificationEmpDoc>
                                         IconButton(onPressed: (){
                                           showDialog(context: context, builder: (context){
                                             return CCScreenEditPopup(
+                                              title: 'Edit Clinical Verification',
                                               idDocController: docIdController,
                                               nameDocController: docNamecontroller,
                                               onSavePressed: (){},

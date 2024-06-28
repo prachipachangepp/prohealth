@@ -73,14 +73,23 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                   'Sr. No.',
                   style: AllHRTableHeading.customTextStyle(context)
                 ),
+                Text(
+                  'Country',
+                  style: AllHRTableHeading.customTextStyle(context)
+                ),
+                Text(
+                  'State',
+                  style: AllHRTableHeading.customTextStyle(context)
+                ),
                 Padding(
                   padding: const EdgeInsets.only(right: 50.0),
-                  child: Text(AppStringEM.name,textAlign: TextAlign.start,
+                  child: Text(AppStringEM.name,
+                      textAlign: TextAlign.start,
                       style: AllHRTableHeading.customTextStyle(context)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 45.0),
-                  child: Text(AppStringEM.zipCode,
+                  child: Text(AppStringEM.map,
                       textAlign: TextAlign.start,
                       style:AllHRTableHeading.customTextStyle(context)),
                 ),
@@ -193,13 +202,14 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                   children: [
                                     IconButton(onPressed: (){
                                       showDialog(context: context, builder: (context){
-                                        return CIZoneEditPopup(
-                                          onSavePressed: (){
+                                        return CIZoneAddPopup(
+                                          onSavePressed: ()async{
                                           },
+                                          title: 'Edit County',
                                           title1: AppStringEM.countyName,
                                           countynameController: countynameController,
                                           title2:AppStringEM.landmark,
-                                          landmarkController: landmarkController, );
+                                          zipcodeController: landmarkController,  );
                                       });
                                     }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                     IconButton(onPressed: (){

@@ -8,8 +8,6 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/org_doc_ccd.dart';
-import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
-import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -238,6 +236,7 @@ class _PerformanceEmpDocState extends State<PerformanceEmpDoc> {
                                         IconButton(onPressed: (){
                                           showDialog(context: context, builder: (context){
                                             return CCScreenEditPopup(
+                                              title: 'Edit Performance',
                                               idDocController: docIdController,
                                               nameDocController: docNamecontroller,
                                               onSavePressed: (){},

@@ -247,6 +247,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                   IconButton(onPressed: (){
                                     showDialog(context: context, builder: (context){
                                       return CCScreenEditPopup(
+                                        title: 'Edit ADR',
                                         id: snapshot.data![index].docId,
                                         idDocController: docIdController,
                                         nameDocController: docNameController,

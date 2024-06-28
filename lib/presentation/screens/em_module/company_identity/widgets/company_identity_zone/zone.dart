@@ -26,9 +26,13 @@ class _CiOrgDocumentState extends State<CiZone> {
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController countynameController = TextEditingController();
+  TextEditingController countyController = TextEditingController();
   TextEditingController zipcodeController = TextEditingController();
   TextEditingController mapController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController zoneController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
 
   int _selectedIndex = 0;
 
@@ -52,50 +56,50 @@ class _CiOrgDocumentState extends State<CiZone> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // _selectedIndex ==  1?
-              // Container(
-              //   height: 30,
-              //   width: 354,
-              //   // margin: EdgeInsets.symmetric(horizontal: 20),
-              //   padding:
-              //   EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-              //   decoration: BoxDecoration(
-              //     color: Colors.white,
-              //     border: Border.all(
-              //         color: Color(0xff686464).withOpacity(0.5),
-              //         width: 1), // Black border
-              //     borderRadius:
-              //     BorderRadius.circular(8), // Rounded corners
-              //   ),
-              //   child: DropdownButtonFormField<String>(
-              //     focusColor: Colors.transparent,
-              //     icon: Icon(
-              //       Icons.arrow_drop_down_sharp,
-              //       color: Color(0xff686464),
-              //     ),
-              //     decoration: InputDecoration.collapsed(hintText: ''),
-              //     items: <String>[
-              //       'Sant Clara',
-              //       'Option 1',
-              //       'Option 2',
-              //       'Option 3',
-              //       'Option 4'
-              //     ].map<DropdownMenuItem<String>>((String value) {
-              //       return DropdownMenuItem<String>(
-              //         value: value,
-              //         child: Text(value),
-              //       );
-              //     }).toList(),
-              //     onChanged: (String? newValue) {},
-              //     value: 'Sant Clara',
-              //     style: GoogleFonts.firaSans(
-              //       fontSize: 12,
-              //       fontWeight: FontWeight.w600,
-              //       color: Color(0xff686464),
-              //       decoration: TextDecoration.none,
-              //     ),
-              //   ),
-              // ) :
+              _selectedIndex ==  1?
+              Container(
+                height: 30,
+                width: 354,
+                // margin: EdgeInsets.symmetric(horizontal: 20),
+                padding:
+                EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                      color: Color(0xff686464).withOpacity(0.5),
+                      width: 1), // Black border
+                  borderRadius:
+                  BorderRadius.circular(8), // Rounded corners
+                ),
+                child: DropdownButtonFormField<String>(
+                  focusColor: Colors.transparent,
+                  icon: Icon(
+                    Icons.arrow_drop_down_sharp,
+                    color: Color(0xff686464),
+                  ),
+                  decoration: InputDecoration.collapsed(hintText: ''),
+                  items: <String>[
+                    'Sant Clara',
+                    'Option 1',
+                    'Option 2',
+                    'Option 3',
+                    'Option 4'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {},
+                  value: 'Sant Clara',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff686464),
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              ) :
               SizedBox(width: 354,),
               ///tabbar
               Padding(
@@ -115,7 +119,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                           child: Column(
                             children: [
                               Text(
-                                "Zone",
+                                "County",
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: _selectedIndex == 0
@@ -140,7 +144,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                           child: Column(
                             children: [
                               Text(
-                                "County",
+                                "Zone",
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: _selectedIndex == 1
@@ -192,13 +196,34 @@ class _CiOrgDocumentState extends State<CiZone> {
               _selectedIndex == 0 ?
               CustomIconButtonConst(
                   icon: Icons.add,
+                  text: "Add", onPressed: (){
+                showDialog(context: context, builder: (context){
+                  return CIZoneAddPopup(
+                    title: 'Add County',
+                    onSavePressed: ()async{
+                    },
+                    title1: 'State Name',
+                    zipcodeController: stateController,
+                    title2: 'Country Name',
+                    countryController: countyController,
+                    title3: 'County Name',
+                    countynameController: countynameController,
+                    title4: 'Map',
+                    mapController: mapController,
+                  );
+                });
+              }) :
+              _selectedIndex == 1 ?
+              CustomIconButtonConst(
+                  icon: Icons.add,
                   text: AppStringEM.add, onPressed: (){
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
-                    onSavePressed: (){},
-                    title1: 'City Name',
+                    title: 'Add Zone',
+                    onSavePressed: ()async{},
+                    title1: 'Zone Number',
                     countynameController: countynameController,
-                    title2: AppStringEM.zipCode,
+                    title2: 'County',
                     zipcodeController: zipcodeController,
                     // title3: 'Map',
                     // mapController: mapController,
@@ -206,41 +231,26 @@ class _CiOrgDocumentState extends State<CiZone> {
                     // landmarkController: landmarkController,
                   );
                 });
-              }) :
-              _selectedIndex == 1 ?
+              }):
               CustomIconButtonConst(
                   icon: Icons.add,
                   text: "Add", onPressed: (){
                 showDialog(context: context, builder: (context){
                   return CIZoneAddPopup(
-                    onSavePressed: (){
-
-                    },
-                    title1: 'County Name',
-                    countynameController: countynameController,
-                    title2: 'Zip Code',
-                    zipcodeController: zipcodeController,
-                    // title3: 'Map',
-                    // mapController: mapController,
-                    // title4: 'Landmark',
-                    // landmarkController: landmarkController,
-                  );
-                });
-              }) :
-              CustomIconButtonConst(
-                  icon: Icons.add,
-                  text: "Add", onPressed: (){
-                showDialog(context: context, builder: (context){
-                  return CIZoneAddPopup(
-                    onSavePressed: (){},
+                    title: 'Add Zipcode',
+                    onSavePressed: ()async{},
                     title1: 'City Name',
-                    countynameController: countynameController,
+                    cityController: cityController,
                     title2: 'Zip Code',
                     zipcodeController: zipcodeController,
                     title3: 'Map',
                     mapController: mapController,
                     title4: 'Landmark',
                     landmarkController: landmarkController,
+                    title5: 'Zone',
+                    zoneController: zoneController,
+                    title6: 'County',
+                    countynameController: countyController,
                   );
                 });
               })
@@ -263,8 +273,8 @@ class _CiOrgDocumentState extends State<CiZone> {
                   },
                   children: [
                     // Page 1
-                    CIZoneZone(companyID: widget.companyID, officeId: widget.officeId,),
                     CIZoneCountry(companyID: widget.companyID, officeId: widget.officeId,),
+                    CIZoneZone(companyID: widget.companyID, officeId: widget.officeId,),
                     CiZoneZipcode(companyID: widget.companyID, officeId: widget.officeId,)
                   ],
                 ),
