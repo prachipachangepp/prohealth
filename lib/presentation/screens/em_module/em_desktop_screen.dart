@@ -297,6 +297,7 @@ class SMDesktop extends StatelessWidget {
                       ),
                     ],
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,

@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_aws_s3_client/flutter_aws_s3_client.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:open_file/open_file.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
@@ -68,29 +67,21 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   }
 
   String fileName = "No Chosen";
-  //
-  // void pickFile() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-  //
-  //   if (result != null) {
-  //     setState(() {
-  //       fileName = result.files.single.name;
-  //     });
-  //   } else {
-  //     // User canceled the picker
-  //     setState(() {
-  //       fileName = "No Chosen";
-  //     });
-  //   }
-  // }
+  String? _previewImageUrl;
+
+
   List<PlatformFile>? pickedMobileFiles;
   List<PlatformFile>? pickedWebFiles;
+
+
   Future<void> pickMobileLogo() async {
     FilePickerResult? result =
         await FilePicker.platform.pickFiles(allowMultiple: true);
     if (result != null) {
       pickedMobileFiles = result.files;
       _mobileFilesStreamController.add(pickedMobileFiles!);
+      // type: FileType.image,
+      // allowMultiple: false,
     }
   }
 
@@ -106,21 +97,24 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
   void openFile(PlatformFile file) {
     OpenFile.open(file.path!);
   }
-   String bucketId = "symmetry-office-document";
-   AwsS3Client s3client = AwsS3Client(
-    region: "us-west-2",
-    // host: "s3.eu-central-1.amazonaws.com",
-    bucketId: "symmetry-office-document",
-    accessKey: "AKIAU5UP6ITKKAGCXEXK",
-    secretKey: "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",
-  );
+  //
+  //  String bucketId = "symmetry-office-document";
+  //  AwsS3Client s3client = AwsS3Client(
+  //   region: "us-west-2",
+  //   // host: "s3.eu-central-1.amazonaws.com",
+  //   bucketId: "symmetry-office-document",
+  //   accessKey: "AKIAU5UP6ITKKAGCXEXK",
+  //   secretKey: "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",
+  // );
 
   @override
   Widget build(BuildContext context) {
-    s3client.getObject(bucketId).then((response) {
-      response.body;
-      print('Response::${response.body}');
-    });
+
+    // s3client.getObject(bucketId).then((response) {
+    //   response.body;
+    //   print('Response::${response.body}');
+    // });
+
     return Material(
       color: Colors.white,
       child: SingleChildScrollView(
@@ -452,13 +446,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                       
                                                             ///sub container
                                                             StreamBuilder<
-                                                                List<
-                                                                    PlatformFile>>(
-                                                              stream:
-                                                                  _webFilesStreamController
-                                                                      .stream,
-                                                              builder: (context,
-                                                                  snapshot) {
+                                                                List<PlatformFile>>(
+                                                              stream: _webFilesStreamController.stream,
+                                                              builder: (context, snapshot) {
                                                                 return Row(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
@@ -674,37 +664,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                         );
                         },
                         )
-                            : Container(),
-                                // FutureBuilder<String>(
-                                //   future: s3client.getObject(bucketId).then((response) => response.body),
-                                //   builder: (context, snapshot) {
-                                //     print("<<<><><>${snapshot.data}");
-                                //     if (snapshot.connectionState == ConnectionState.waiting) {
-                                //       return Center(child: CircularProgressIndicator());
-                                //     }
-                                //     else if (snapshot.hasError) {
-                                //       return Center(
-                                //         child: Icon(Icons.error, color: Colors.red),
-                                //       );
-                                //     }
-                                //     else if (snapshot.hasData) {
-                                //       return Image.network(
-                                //         snapshot.data!,
-                                //         fit: BoxFit.cover,
-                                //         errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                //           return Center(
-                                //             //child: Icon(Icons.error, color: Colors.red),
-                                //           );
-                                //         },
-                                //       );
-                                //     } else {
-                                //       return Container(); // Handle other cases as needed
-                                //     }
-                                //   },
-                                // )
-                                //     : Container(),
-
-                              ),
+                            : Container(),),
                               Container(
                                 height: 100,
                                 child:
