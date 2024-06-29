@@ -65,74 +65,67 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // Text(''),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    'Zone Id',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                ),
-                Text(
-                  'County Id',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                Text(
-                  'City Name',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                Padding(
-                  padding: const EdgeInsets.only(right: 12.0),
-                  child: Text('Zip Code',textAlign: TextAlign.start,
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'City Name',
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                         decoration: TextDecoration.none,
-                      )),
-                ),
-
-                Text('Map',
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    )),
-                Text(
-                  'Landmark',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
+                      ),
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: Text(
-                    'Actions',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
+//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                Expanded(
+                  child: Center(
+                    child: Text('Zip Code',textAlign: TextAlign.start,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        )),
+                  ),
+                ),
+
+                Expanded(
+                  child: Center(
+                    child: Text('Map',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        )),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'Landmark',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'Actions',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      ),
                     ),
                   ),
                 ),
@@ -202,32 +195,32 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Row(
                               children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    snapshot.data![index].zoneId.toString(),
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    snapshot.data![index].countyID.toString(),
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
+                                // Expanded(
+                                //   flex: 2,
+                                //   child: Text(
+                                //     textAlign: TextAlign.center,
+                                //     snapshot.data![index].zoneId.toString(),
+                                //     style: GoogleFonts.firaSans(
+                                //       fontSize: 10,
+                                //       fontWeight: FontWeight.w500,
+                                //       color: ColorManager.mediumgrey,
+                                //       decoration: TextDecoration.none,
+                                //     ),
+                                //   ),
+                                // ),
+                                // Expanded(
+                                //   flex: 2,
+                                //   child: Text(
+                                //     textAlign: TextAlign.center,
+                                //     snapshot.data![index].countyID.toString(),
+                                //     style: GoogleFonts.firaSans(
+                                //       fontSize: 10,
+                                //       fontWeight: FontWeight.w500,
+                                //       color: ColorManager.mediumgrey,
+                                //       decoration: TextDecoration.none,
+                                //     ),
+                                //   ),
+                                // ),
                                 Expanded(
                                   flex: 2,
                                   child: Text(
