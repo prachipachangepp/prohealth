@@ -162,11 +162,11 @@ class _RoleManagerClinicianState extends State<RoleManagerClinician> {
                                     );
                                   }).toList(),
                                   onChanged: (String? newValue) {
-                                    setState(() {
+
                                       _selectedValue = newValue;
                                       _employeeTextColor = Color(0xff686464);
                                       _employeeBorderColor = Color(0xff686464);
-                                    });
+
                                   },
                                   //value: dropDownList[0],
                                   style: GoogleFonts.firaSans(

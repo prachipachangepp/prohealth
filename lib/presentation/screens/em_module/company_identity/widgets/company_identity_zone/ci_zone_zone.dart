@@ -65,49 +65,65 @@ class _CIZoneZoneState extends State<CIZoneZone> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // Text(''),
-                Text(
-                  'Zone Number',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                Text('Zip Codes',textAlign: TextAlign.start,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    )),
-                // Text('County',textAlign: TextAlign.start,
-                //     style: GoogleFonts.firaSans(
-                //       fontSize: 12,
-                //       fontWeight: FontWeight.w700,
-                //       color: Colors.white,
-                //       decoration: TextDecoration.none,
-                //     )),
-
-                Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: Text('Cities',
-                      textAlign: TextAlign.start,
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'Zone Number',
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                         decoration: TextDecoration.none,
-                      )),
+                      ),
+                    ),
+                  ),
                 ),
-                Text(
-                  'Actions',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
+//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                Expanded(
+                  child: Center(
+                    child: Text('Zip Codes',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        )),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Text('County',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        )),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Text('Cities',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        )),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'Actions',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
                   ),
                 ),
               ],

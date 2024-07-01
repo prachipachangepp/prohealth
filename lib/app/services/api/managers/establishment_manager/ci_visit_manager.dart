@@ -9,6 +9,7 @@ import '../../../../resources/const_string.dart';
 /// get
 Future<List<CiVisit>> getVisit(BuildContext context,int companyId,int pageNo,int noOfRows,) async {
   List<CiVisit> itemsList = [];
+
   try {
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.
@@ -18,21 +19,22 @@ Future<List<CiVisit>> getVisit(BuildContext context,int companyId,int pageNo,int
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
       print("1");
-      for (var item in response.data) {
-        // Fetch eligible clinicians if available
-        List<CiVisitList> clinicians = [];
-        if (item['eligibleClinician'] != null) {
-          for (var clinicianData in item['eligibleClinician']) {
-            clinicians.add(CiVisitList(
-              empTypeId: clinicianData['employeeTypeId'] ?? 0,
-              eligibleClinician: clinicianData['eligibleClinician'] ?? "--",
-              color: clinicianData['color'] ?? "#FFFFFF",
-            ));
-          }
-          print("::::LIST${clinicians}");
-        }
-        for (var item in response.data) {
-          itemsList.add(
+
+            for (var item in response.data) {
+              List<CiVisitList> clinicians = [];
+              for(var clinical in item['eligibleClinician']){
+                try{
+                  clinicians.add(
+                      CiVisitList(
+                        empTypeId: clinical['employeeTypeId'],
+                        eligibleClinician: clinical['eligibleClinician'],
+                        color: clinical['color'],
+                      ));
+                }catch(e){
+                }
+              }
+              print("::Item${item}");
+            itemsList.add(
             CiVisit(
               visitId: item['visitId'],
               typeofVisit: item['typeOfVisit'],
@@ -40,12 +42,9 @@ Future<List<CiVisit>> getVisit(BuildContext context,int companyId,int pageNo,int
               sucess: true,
               message: response.statusMessage!,
               // color:  item['color']
-
             ),
-          );
+        );
         }
-        print(":::${itemsList}");
-      }
     } else {
       print('Org Api Error');
       return itemsList;
@@ -79,7 +78,6 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
       print('Org Api Error');
       return itemsList;
     }
-    // print("Org response:::::${response}");
     return itemsList;
   } catch (e) {
     print("Error $e");
@@ -90,7 +88,7 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
 /// post
 Future<ApiData> addVisitPost(BuildContext context,
     String typeOfVisit,
-    List<int> eligibleClinician,
+    List eligibleClinician,
     ) async {
   try {
     var response = await Api(context).post(
@@ -98,7 +96,7 @@ Future<ApiData> addVisitPost(BuildContext context,
         postCiVisit(),
         data: {
           "typeOfVisit": typeOfVisit,
-          "employeeTypeId": eligibleClinician
+          "employeeTypeId": [eligibleClinician],
            });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Added request");

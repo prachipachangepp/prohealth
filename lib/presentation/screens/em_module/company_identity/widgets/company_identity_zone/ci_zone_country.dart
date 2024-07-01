@@ -61,7 +61,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
         Container(
           height: AppSize.s30,
           decoration: BoxDecoration(
-            color: ColorManager.fmediumgrey,
+            color: Colors.grey,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Padding(
@@ -69,42 +69,36 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  'Sr. No.',
-                  style: AllHRTableHeading.customTextStyle(context)
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'Sr No.',
+                      style: AllHRTableHeading.customTextStyle(context)
+                    ),
+                  ),
                 ),
-                Text(
-                  'Country',
-                  style: AllHRTableHeading.customTextStyle(context)
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'Name',
+                      style: AllHRTableHeading.customTextStyle(context)
+                    ),
+                  ),
                 ),
-                Text(
-                  'State',
-                  style: AllHRTableHeading.customTextStyle(context)
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      'Zones',
+                      style: AllHRTableHeading.customTextStyle(context)
+                    ),
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 50.0),
-                  child: Text(AppStringEM.name,
-                      textAlign: TextAlign.start,
-                      style: AllHRTableHeading.customTextStyle(context)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 45.0),
-                  child: Text(AppStringEM.map,
-                      textAlign: TextAlign.start,
-                      style:AllHRTableHeading.customTextStyle(context)),
-                ),
-                // Padding(
-                //   padding: const EdgeInsets.only(right: 15.0),
-                //   child: Text(
-                //     AppStringEM.map,
-                //     style: AllHRTableHeading.customTextStyle(context)
-                //   ),
-                // ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: Text(
-                    AppStringEM.actions,
-                    style: AllHRTableHeading.customTextStyle(context)
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      AppStringEM.actions,
+                      style: AllHRTableHeading.customTextStyle(context)
+                    ),
                   ),
                 ),
               ],
@@ -189,15 +183,6 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                     snapshot.data![index].zipcodes.toString(),
                                   style: AllHRTableData.customTextStyle(context)
                                 ),
-                                // Text(
-                                //   'View map',
-                                //   style: GoogleFonts.firaSans(
-                                //     fontSize: FontSize.s10,
-                                //     fontWeight: FontWeightManager.medium,
-                                //     color: ColorManager.mediumgrey,
-                                //     decoration: TextDecoration.underline,
-                                //   ),
-                                // ),
                                 Row(
                                   children: [
                                     IconButton(onPressed: (){
