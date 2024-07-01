@@ -7,7 +7,7 @@ class RoleManagerData {
 }
 
 class ModuleMetaData {
-  final int? appModuleMetaDataId;
+  final int appModuleMetaDataId;
   final String mainModule;
   final String iconUrl;
   final bool sucess;

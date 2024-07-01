@@ -157,7 +157,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    "Sr No.",
+                    "   Sr No.",
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -182,7 +182,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 Expanded(
                   flex: 3,
                   child: Text(
-                    "Address",
+                    "    Address",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
@@ -195,7 +195,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    "Actions",
+                    " Actions",
                     style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,

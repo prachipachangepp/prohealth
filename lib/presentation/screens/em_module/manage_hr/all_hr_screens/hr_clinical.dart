@@ -412,8 +412,17 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                         return FutureBuilder<HRGetEmpId>(
                                             future: HrGetById(context, snapshot.data![index].employeeTypesId),
                                             builder: (context, snapshot) {
+                                              if(snapshot.connectionState == ConnectionState.waiting){
+                                                return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                              }
                                               var type = snapshot.data?.empType.toString();
                                               var shorthand = snapshot.data?.empType.toString();
+                                              var hexColorData = snapshot.data!.color!.replaceAll("#","").toString();
+                                               //hexColorData = i.color.replaceAll("#","");
+                                              Color hexColor = Color(int.parse('0xFF$hexColorData'));
+                                              print('Hex Color ::::${hexColor}');
+                                               hrcontainerColors[index] = hexColor;
+                                              var splitHexColor = hexColor.toString().substring(10,16);
                                               typeController = TextEditingController(text: snapshot.data?.empType.toString());
                                               shorthandController = TextEditingController(text: snapshot.data?.abbrivation.toString());
                                               return EditPopupWidget(
@@ -424,7 +433,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                                   await AllFromHrPatch(context, snapshot.data!.empTypeId, 1,
                                                       type == typeController.text ? type.toString() : typeController.text,
                                                       shorthand == shorthandController.text ? shorthand.toString() : shorthandController.text,
-                                                      color);
+                                                      splitHexColor == hrcontainerColors[index] ? splitHexColor : color );
                                                   getAllHrDeptWise(context,widget.deptId).then((data){
                                                     _controller.add(data);
                                                   }).catchError((error){});
@@ -436,6 +445,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                                 onColorChanged: (Color seletedColor) {
                                                   setState(() {
                                                     hrcontainerColors[index] = seletedColor;
+                                                    print("Color ${seletedColor}");
                                                     color = seletedColor.toString().substring(10,16);
                                                     _saveColor(index, seletedColor);
                                                   });

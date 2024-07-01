@@ -16,16 +16,18 @@ Future<List<PayRateFinanceData>> payRatesDataGet(
       for (var item in response.data) {
         itemsData.add(
             PayRateFinanceData(
-            department: item['department']== null ? "--" :item['department'],
-            employeeType: item['employeeType']== null ? "--" :item['employeeType'],
-            abbreviation: item['abbreviation']== null ? "--" :item['abbreviation'],
-            payRates: item['payrates']== null ? "--" :item['payrates'],
-            zoneId: item['zoneId']== null ? "--" :item['zoneId'],
-            departmentId: item['departmentId']== null ? "--" :item['departmentId'],
-            employeeTypeId: item['employeeTypeId']== null ? "--" :item['employeeTypeId'],
-            typeOfVisitId: item['typeOfVisitId']== null ? "--" :item['typeOfVisitId'],
-            typeVisit: item['typeOfVisit']== null ? "--" :item['typeOfVisit'],
-            zone: item['zone'] == null ? "--" :item['zone'], payRatesSetupId: item['PayratesSetupId']== null ? "--" :item['PayratesSetupId']));
+            department: item['department'] ?? "--",
+            employeeType: item['employeeType'] ?? "--",
+            abbreviation: item['abbreviation'] ?? "--",
+            payRates: item['payrates'] ?? 0,
+            zoneId: item['zoneId'] ?? 0,
+            departmentId: item['departmentId'] ?? 0,
+            employeeTypeId: item['employeeTypeId'] ?? 0,
+            typeOfVisitId: item['typeOfVisitId'] ?? 0,
+            typeVisit: item['typeOfVisit'] ?? "--",
+            zone: item['zone'] ?? "--",
+                payRatesSetupId: item['PayratesSetupId'] ?? 0,
+                permile: item['permiles'] ?? 0));
       }
     } else {
       print("Api Pay rates Data Error");
@@ -47,16 +49,17 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
       print(":::::LIST${response.data}");
         itemsData =
             PayRatePrefillFinanceData(
-                department: response.data['department']== null ? "--" :response.data['department'],
-                employeeType: response.data['employeeType']== null ? "--" :response.data['employeeType'],
-                abbreviation: response.data['abbreviation']== null ? "--" :response.data['abbreviation'],
-                payRates: response.data['payrates']== null ? "--" :response.data['payrates'],
-                zoneId: response.data['zoneId']== null ? "--" :response.data['zoneId'],
-                departmentId: response.data['departmentId']== null ? "--" :response.data['departmentId'],
-                employeeTypeId: response.data['employeeTypeId']== null ? "--" :response.data['employeeTypeId'],
-                typeOfVisitId: response.data['typeOfVisitId']== null ? "--" :response.data['typeOfVisitId'],
-                typeVisit: response.data['typeOfVisit']== null ? "--" :response.data['typeOfVisit'],
-                zone: response.data['zone'] == null ? "--" :response.data['zone'], payRatesSetupId: response.data['PayratesSetupId']== null ? "--" :response.data['PayratesSetupId']) ;
+                department: response.data['department'] ?? "--",
+                employeeType: response.data['employeeType'] ?? "--",
+                abbreviation: response.data['abbreviation'] ?? "--",
+                payRates: response.data['rates'] ?? 0,
+                zoneId: response.data['zoneId'] ?? 0,
+                departmentId: response.data['departmentId'] ?? 0,
+                employeeTypeId: response.data['employeeTypeId'] ?? 0,
+                typeOfVisitId: response.data['typeOfVisitId'] ?? 0,
+                typeVisit: response.data['typeOfVisit'] ?? "--",
+                perMiles: response.data['permile'] ?? 0,
+                zone: response.data['zone'] ?? "--", payRatesSetupId: response.data['PayratesSetupId'] ?? 0) ;
 
     } else {
       print("Api Pay rates Data Error");
@@ -69,7 +72,7 @@ Future<PayRatePrefillFinanceData> payPrefillRatesDataGet(
 }
 /// Add pay rates setup POST
 Future<ApiData> addPayRatesSetupPost(
-    BuildContext context, int deptId, int empTypeId,int typeOfVisitId, int zoneId, int payRates, int companyId) async {
+    BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates, int companyId) async {
   try {
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.
@@ -79,7 +82,8 @@ Future<ApiData> addPayRatesSetupPost(
           'employeeTypeId': empTypeId,
           'typeOfVisitId':typeOfVisitId,
           'zoneId':zoneId,
-          'payrates':payRates,
+          'rates':payRates,
+          'permile':permile,
           'companyId':companyId
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -104,7 +108,7 @@ Future<ApiData> addPayRatesSetupPost(
 }
 /// Update pay rates
 Future<ApiData> updatePayRatesSetupPost(
-    BuildContext context, int deptId, int empTypeId,int typeOfVisitId, int zoneId, int payRates, int companyId, int payRatesId) async {
+    BuildContext context, int deptId, int empTypeId,int permile,int typeOfVisitId, int zoneId, int payRates, int companyId, int payRatesId) async {
   try {
     var response = await Api(context).patch(
         path: EstablishmentManagerRepository.
@@ -114,7 +118,8 @@ Future<ApiData> updatePayRatesSetupPost(
           'employeeTypeId': empTypeId,
           'typeOfVisitId':typeOfVisitId,
           'zoneId':zoneId,
-          'payrates':payRates,
+          'rates':payRates,
+          'permile':permile,
           'companyId':companyId
         });
     if (response.statusCode == 200 || response.statusCode == 201) {

@@ -13,6 +13,7 @@ import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/visit_constants.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
@@ -66,7 +67,13 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   List<int> selectedChipsId = [];
   //List<int> selectedChipsEmpId = [];
   String chips = "";
-
+  bool _isLoading = false;
+  bool _isDarkColor(Color color) {
+    // Calculate the perceived luminance of the color
+    // Formula: 0.299*R + 0.587*G + 0.114*B (perceived brightness)
+    double perceivedBrightness = color.red * 0.299 + color.green * 0.587 + color.blue * 0.114;
+    return perceivedBrightness < 128; // If perceived brightness is less than 128, color is considered dark
+  }
   void addChip(
     String chip,
       int chipId
@@ -165,7 +172,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               onSavePressed: () async {
                                 print(":::::${_selectedItem}");
                                 await addVisitPost(
-                                    context, docNamecontroller.text, selectedChipsId);
+                                    context, docNamecontroller.text, 1,selectedChipsId);
                                 getVisit(context, 1, 1, 15).then((data) {
                                   _visitController.add(data);
                                 }).catchError((error) {
@@ -312,15 +319,17 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             // style: RegisterTableHead.customTextStyle(context),),),
             Expanded(
               flex: 2,
-              child: Text(
-                AppString.actions,
-                style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                    ),
-                // style: RegisterTableHead.customTextStyle(context),
+              child: Center(
+                child: Text(
+                  AppString.actions,
+                  style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.white
+                      // color: isSelected ? Colors.white : Colors.black,
+                      ),
+                  // style: RegisterTableHead.customTextStyle(context),
+                ),
               ),
             ),
             Expanded(flex: 2, child: Container())
@@ -379,7 +388,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                             height:30,
                             width: 30,
                             color: Color(int.parse('0xFF$hexColor')),
-                            child:Center(child: Text(i.eligibleClinician))
+                            child:Center(child: Text(i.eligibleClinician,style: GoogleFonts.firaSans(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: _isDarkColor(Color(int.parse('0xFF$hexColor'))) ? ColorManager.white : ColorManager.black,
+                              decoration: TextDecoration.none,
+                            ),))
                           ),
                         ));
                       }
@@ -443,6 +457,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                   Expanded(flex: 2, child: Container()),
                                   Center(
                                     child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         IconButton(
                                             onPressed: () {
@@ -467,11 +482,12 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                 context,
                                                                 snapshot
                                                                     .data![index]
-                                                                    .typeofVisit,
+                                                                    .visitId,
                                                                 docNamecontroller
                                                                     .text,
-                                                                [selectedChips]);
-                                                            getVisit(context, 11,
+                                                                1,
+                                                                selectedChipsId);
+                                                            getVisit(context, 1,
                                                                     1, 10)
                                                                 .then((data) {
                                                               _visitController
@@ -579,7 +595,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             setState(
                                                                                 () {
                                                                               if (val.isNotEmpty) {
-                                                                                addChip(val.trim(),empTypeId);
+                                                                                addChip(val.trim(),docType);
+                                                                                print("chipsID:::${selectedChipsId}");
+
                                                                               }
                                                                             });
                                                                           }
@@ -608,15 +626,40 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                         ),
                                         IconButton(
                                           onPressed: () async {
-                                            await deleteVisitPatch(context,
-                                                snapshot.data![index].visitId);
-                                            getVisit(context, 1, 1, 10)
-                                                .then((data) {
-                                              _visitController.add(data);
-                                              // Navigator.pop(context);
-                                            }).catchError((error) {
-                                              // Handle error
-                                            });
+                                            showDialog(context: context,
+                                                builder: (context) => StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                    return  DeletePopup(
+                                                        loadingDuration: _isLoading,
+                                                        onCancel: (){
+                                                          Navigator.pop(context);
+                                                        }, onDelete: () async{
+                                                      setState(() {
+                                                        _isLoading = true;
+                                                      });
+                                                      try {
+                                                        await deleteVisitPatch(context,
+                                                            snapshot.data![index].visitId);
+                                                        setState(() async {
+                                                          await getVisit(context, 1, 1, 10)
+                                                              .then((data) {
+                                                            _visitController.add(data);
+                                                          }).catchError((error) {
+                                                            // Handle error
+                                                          });
+                                                          Navigator.pop(context);
+                                                        });
+                                                      } finally {
+                                                        setState(() {
+                                                          _isLoading = false;
+                                                        });
+                                                      }
+
+                                                    });
+                                                  },
+
+                                                ));
+
                                             //
                                           },
                                           icon: Icon(

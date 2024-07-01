@@ -10,8 +10,9 @@ class PayRateFinanceData {
   final int employeeTypeId;
   final int typeOfVisitId;
   final int payRatesSetupId;
-  PayRateFinanceData(
-      {required this.department,
+  final int permile;
+  PayRateFinanceData({required this.permile,
+      required this.department,
        this.employeeType,
        this.abbreviation,
   required this.payRatesSetupId,
@@ -37,8 +38,9 @@ class PayRatePrefillFinanceData {
   final int employeeTypeId;
   final int typeOfVisitId;
   final int payRatesSetupId;
-  PayRatePrefillFinanceData(
-      {required this.department,
+  final int perMiles;
+  PayRatePrefillFinanceData({required this.perMiles,
+      required this.department,
         this.employeeType,
         this.abbreviation,
         required this.payRatesSetupId,

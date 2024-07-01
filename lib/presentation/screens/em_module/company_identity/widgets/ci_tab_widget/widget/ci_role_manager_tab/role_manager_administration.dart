@@ -236,13 +236,13 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                     padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 10),
                                     child: InkWell(
                                       onTap: () {
-                                        toggleSelection(0);
+                                        toggleSelection(metaModule.appModuleMetaDataId);
                                       },
                                       child: CIRoleContainerConstant(
                                         metaModule.mainModule,
-                                       // AssetImage(metaModule.iconUrl.toString()),
+                                      // metaModule.iconUrl.toString(),
                                         AssetImage('images/i_s.png'),
-                                        borderColor: selectedContainers[0]
+                                        borderColor: selectedContainers[metaModule.appModuleMetaDataId]
                                             ? ColorManager.blueprime
                                             : Colors.white,
                                       ),

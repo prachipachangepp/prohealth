@@ -13,7 +13,8 @@ class PayRatesPopup extends StatefulWidget {
   final String title;
   final Future<void> Function() onPressed;
   final TextEditingController payRatesController;
-  PayRatesPopup({super.key, required this.child1, required this.child2, required this.payRatesController, required this.onPressed, required this.title});
+  final TextEditingController perMilesController;
+  PayRatesPopup({super.key, required this.child1, required this.child2, required this.payRatesController, required this.onPressed, required this.title, required this.perMilesController});
 
   @override
   State<PayRatesPopup> createState() => _PayRatesPopupState();
@@ -27,7 +28,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s300,
+        height: AppSize.s350,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -104,9 +105,18 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                         height: 17,
                       ),
                       SMTextFConst(
+                        prefixWidget: Text("\$ "),
                         controller: widget.payRatesController,
                         keyboardType: TextInputType.number,
                         text: 'Rate',
+                      ),
+                      SizedBox(
+                        height: 17,
+                      ),
+                      SMTextFConst(
+                        controller: widget.perMilesController,
+                        keyboardType: TextInputType.number,
+                        text: 'Permile',
                       ),
                      // widget.child,
                     ],
