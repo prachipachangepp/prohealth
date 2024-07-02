@@ -72,7 +72,7 @@ Future<List<AllCountyGet>> getZoneBYcompOffice(
   }
 }
 
-/// County get
+/// County get List
 Future<List<AllCountyGetList>> getCountyZoneList(BuildContext context) async {
   List<AllCountyGetList> itemsList = [];
   try {
@@ -231,6 +231,54 @@ Future<ApiData> addZipCodeSetup(
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Zip Code record Added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Uodate zipcode setup
+/// Add zipCode
+Future<ApiData> updateZipCodeSetup(
+    BuildContext context,
+    int zipCodeSetupId,
+    int zoneId,
+    int countyId,
+    int companyId,
+    String officeId,
+    String cityName,
+    String zipCode,
+    String latitude,
+    String longitude,
+    String landmark,
+    ) async {
+  try {
+    var response = await Api(context)
+        .patch(path: AllZoneRepository.updateZipCodeSetup(zipCodeSetupId: zipCodeSetupId),data: {
+      "zoneId": zoneId,
+      "countyId": countyId,
+      "city": cityName,
+      "zipcode": zipCode,
+      "latitude": latitude,
+      "longitude": longitude,
+      "landmark": landmark,
+      "companyId": companyId,
+      "officeId": officeId
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Zip Code record Updated");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

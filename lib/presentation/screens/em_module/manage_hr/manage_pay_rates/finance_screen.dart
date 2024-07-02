@@ -682,7 +682,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                       try {
                                                         await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
                                                         setState(() async {
-                                                          await payRatesDataGet(context,11,1,1,10).then((data) {
+                                                          await payRatesDataGet(context,1,1,1,10).then((data) {
                                                             _payRatesController.add(data);
                                                           }).catchError((error) {
                                                             // Handle error

@@ -37,7 +37,9 @@ class AllZoneRepository{
   static String addZipCodeSetupPost(){
     return "$zipcodesetup/add";
   }
-
+  static String updateZipCodeSetup({required int zipCodeSetupId}){
+    return "$zipcodesetup/$zipCodeSetupId";
+  }
   /// get
   static String zoneBYcompOfficeGet({required int companyId,required String officeId,required int pageNo,required int noOfRow}){
     return "$zone/$companyId/$officeId/$pageNo/$noOfRow";
