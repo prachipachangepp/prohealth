@@ -219,18 +219,19 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                     ),
                                   ),
                                 ),
-                                // Expanded(
-                                //   child: Text(
-                                //     textAlign: TextAlign.center,
-                                //     snapshot.data![index].landmark.toString(),
-                                //     style: GoogleFonts.firaSans(
-                                //       fontSize: 10,
-                                //       fontWeight: FontWeight.w500,
-                                //       color: ColorManager.mediumgrey,
-                                //       decoration: TextDecoration.none,
-                                //     ),
-                                //   ),
-                                // ),
+                                Expanded(
+                                  flex:3,
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    snapshot.data![index].countyName.toString(),
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorManager.mediumgrey,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ),
                                 Expanded(
                                   flex: 3,
                                   child: Text(

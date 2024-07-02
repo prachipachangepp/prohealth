@@ -34,7 +34,6 @@ Future<ApiData> editEmployeeDocTypeSetupId(
       "Expiry": expiry,
       "ReminderThreshold": reminderThreshold,
       "EmployeeDocumentTypeMetaDataId": employeeDocTypeMetaDataId,
-      "EmployeeDocumentTypeSetupId" :employeeDoctypeSetupId
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employee Doc type Updated");

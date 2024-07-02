@@ -79,32 +79,37 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       int chipId
   ) {
     setState(() {
-      selectedChips.add(Chip(
-        shape: StadiumBorder(
-            side: BorderSide(
-                color: ColorManager.blueprime)),
-        //side: BorderSide(color: ColorManager.blueprime),
-        deleteIcon: Icon(
-          Icons.close,
-          color: ColorManager.blueprime,
-          size: 17,
-        ),
-        label: Text(
-          chip,
-          style: CustomTextStylesCommon.commonStyle(
-              fontWeight: FontWeightManager.medium,
-              fontSize: FontSize.s10,
-              color: ColorManager.mediumgrey),
-        ),
+      selectedChips.add(StatefulBuilder(
+        builder: (BuildContext context, void Function(void Function()) setState) {
+          return Chip(
+            shape: StadiumBorder(
+                side: BorderSide(
+                    color: ColorManager.blueprime)),
+            //side: BorderSide(color: ColorManager.blueprime),
+            deleteIcon: Icon(
+              Icons.close,
+              color: ColorManager.blueprime,
+              size: 17,
+            ),
+            label: Text(
+              chip,
+              style: CustomTextStylesCommon.commonStyle(
+                  fontWeight: FontWeightManager.medium,
+                  fontSize: FontSize.s10,
+                  color: ColorManager.mediumgrey),
+            ),
 
-        onDeleted: () {
-          setState(() {
-            deleteChip(chip,chipId);
-            selectedChips.clear();
-            print(":::Chips name ${selectedChips}");
-            print(":::: Chips Id ${selectedChipsId}");
-          });
+            onDeleted: () {
+              setState(() {
+                deleteChip(chip,chipId);
+                selectedChips.clear();
+                print(":::Chips name ${selectedChips}");
+                print(":::: Chips Id ${selectedChipsId}");
+              });
+            },
+          );
         },
+
       ),);
       selectedChipsId.add(chipId);
     });
@@ -178,7 +183,6 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 }).catchError((error) {
                                   // Handle error
                                 });
-                                Navigator.pop(context);
                               },
                               child1: Wrap(spacing: 8.0,
                                   children: selectedChips),

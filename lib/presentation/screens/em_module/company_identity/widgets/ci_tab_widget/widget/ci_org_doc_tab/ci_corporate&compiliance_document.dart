@@ -138,9 +138,9 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
           NonScrollablePageView(
             controller: _tabPageController,
             onPageChanged: (index) {
-              setState(() {
+              // setState(() {
                 _selectedIndex = index;
-              });
+              // });
             },
             children: [
               CICcdLicense(subDocID: subDocId, docID: widget.docID,),

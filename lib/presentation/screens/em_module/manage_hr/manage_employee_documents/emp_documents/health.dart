@@ -437,7 +437,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                     setState(() async{
                                                       await employeedoctypeSetupIdDelete(
                                                           context,
-                                                          snapshot.data![index].employeeDocTypesetupId!);
+                                                          snapshot.data![index].employeeDocTypesetupId);
                                                       getEmployeeDoc(context, widget.metaDocID,1,10).then((data) {
                                                         _controller.add(data);
                                                       }).catchError((error) {

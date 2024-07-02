@@ -408,15 +408,13 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
                                           Navigator.pop(context);
-                                        }, onDelete: ()async{
+                                        }, onDelete: () async{
                                           await deleteZipCodeSetup(context, snapshot.data![index].zipcodeSetupId!);
                                           getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
                                             _zipcodeController.add(data);
                                           }).catchError((error){
-
                                           });
                                           Navigator.pop(context);
-
                                         }));
                                       }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                     ],
@@ -428,8 +426,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                     ),
                   ],
                 );
-              })
-          ;
+              });
   }
   return Offstage();
 },

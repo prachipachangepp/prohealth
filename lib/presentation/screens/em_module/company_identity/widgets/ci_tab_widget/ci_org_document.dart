@@ -438,9 +438,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
               NonScrollablePageView(
                 controller: _tabPageController,
                 onPageChanged: (index) {
-                  setState(() {
+                  // setState(() {
                     _selectedIndex = index;
-                  });
+                  // });
                 },
                 children: [
                   // Page 1
