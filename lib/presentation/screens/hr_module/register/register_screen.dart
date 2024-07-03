@@ -125,6 +125,7 @@ class RegisterScreen extends StatelessWidget {
                                 color: Colors.blue,
                                 width: 1.0,
                               ),
+                              ///update here
                               color: Colors.red,
                               borderRadius: BorderRadius.all(Radius.circular(12)),
                             ),
