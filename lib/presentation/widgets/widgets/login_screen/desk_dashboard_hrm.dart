@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/home_hr.dart';
 import '../../../screens/hr_module/manage/controller/controller.dart';
 import '../const_appbar/app_bar.dart';
 
@@ -16,8 +17,8 @@ class _HomeScreenState extends State<HomeScreenHRM> {
 
   @override
   Widget build(BuildContext context) {
-    return
+    return HomeHrScreen();
         // HrAppBar();
-        MyAppBar();
+        // MyAppBar();
   }
 }

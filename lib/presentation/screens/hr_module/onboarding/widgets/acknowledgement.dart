@@ -1,5 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
@@ -11,16 +11,17 @@ class AcknowledgementTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80, vertical: AppPadding.p40),
+      padding: EdgeInsets.only(left: AppPadding.p80,right:  AppPadding.p80, bottom: MediaQuery.of(context).size.width/2),
       child: Material(
         elevation: 5,
         borderRadius: BorderRadius.all(Radius.circular(12)),
         child: Container(
+       //   height: AppSize.s181,
           height: AppSize.s181,
           width: MediaQuery.of(context).size.width / 70,
           padding: EdgeInsets.symmetric(vertical: AppPadding.p10),
           decoration: BoxDecoration(
-            color: ColorManager.white,
+            color: ColorManager.red,
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Row(

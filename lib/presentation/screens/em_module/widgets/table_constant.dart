@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 class TableHeadConstant extends StatelessWidget {
   final List<TableHeadItem> items;
@@ -15,21 +16,25 @@ class TableHeadConstant extends StatelessWidget {
       padding: EdgeInsets.only(right: 30,),
       height: 30,
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: ColorManager.fmediumgrey,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: items.map((item) {
-          return Text(
-            item.text,
-            textAlign: item.textAlign,
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-              decoration: TextDecoration.none,
+          return Expanded(
+            child: Center(
+              child: Text(
+                item.text,
+                textAlign: item.textAlign,
+                style: GoogleFonts.firaSans(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: ColorManager.white,
+                  decoration: TextDecoration.none,
+                ),
+              ),
             ),
           );
         }).toList(),

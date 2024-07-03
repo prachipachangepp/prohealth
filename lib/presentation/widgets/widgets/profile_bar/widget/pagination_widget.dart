@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 class PaginationControlsWidget extends StatelessWidget {
   final int currentPage;
@@ -32,7 +33,7 @@ class PaginationControlsWidget extends StatelessWidget {
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
-                color: Colors.grey,
+                color: ColorManager.fmediumgrey.withOpacity(0.2),
                 width: 0.79,
               ),
             ),
@@ -60,7 +61,7 @@ class PaginationControlsWidget extends StatelessWidget {
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                      color: currentPage == i ? Colors.blue : Colors.grey,
+                      color: currentPage == i ? Colors.blue : ColorManager.fmediumgrey.withOpacity(0.2),
                       width: currentPage == i ? 2.0 : 1.0,
                     ),
                     color: currentPage == i ? Colors.blue : Colors.transparent,
@@ -68,7 +69,7 @@ class PaginationControlsWidget extends StatelessWidget {
                   child: Text(
                     '$i',
                     style: TextStyle(
-                      color: currentPage == i ? Colors.white : Colors.grey,
+                      color: currentPage == i ? Colors.white : ColorManager.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
                     ),
@@ -92,7 +93,7 @@ class PaginationControlsWidget extends StatelessWidget {
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
-                color: Colors.grey,
+                color: ColorManager.fmediumgrey.withOpacity(0.2),
                 width: 0.79,
               ),
             ),

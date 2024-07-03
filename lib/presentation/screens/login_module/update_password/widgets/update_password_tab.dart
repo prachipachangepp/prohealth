@@ -223,11 +223,17 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                               color: ColorManager.blueprime)
                               : CustomButton(
                             width:
-                            MediaQuery.of(context).size.width / 7,
+                            MediaQuery.of(context).size.width / 4,
                             height:
                             MediaQuery.of(context).size.height /
                                 25,
                             text: AppString.updatepass,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeightManager.semiBold,
+                              color: ColorManager.white,
+                              decoration: TextDecoration.none,
+                            ),
                             backgroundColor: ColorManager.blueprime,
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
@@ -307,8 +313,13 @@ class _TabUpdatePassState extends State<TabUpdatePass> {
                                               CustomButton(
                                                 width: AppSize.s181,
                                                 height: AppSize.s45,
-                                                text: AppString
-                                                    .continuebutton,
+                                                text: AppString.continuebutton,
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeightManager.semiBold,
+                                                  color: ColorManager.white,
+                                                  decoration: TextDecoration.none,
+                                                ),
                                                 borderRadius: 24,
                                                 onPressed: () {
                                                   Navigator.push(

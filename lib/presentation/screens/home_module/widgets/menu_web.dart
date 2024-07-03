@@ -3,6 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/hr_home_screen.dart';
+
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/theme_manager.dart';
@@ -17,6 +21,7 @@ class HomeScreenWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           ///bg image
@@ -84,7 +89,8 @@ class HomeScreenWeb extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Select a Module',
@@ -95,6 +101,13 @@ class HomeScreenWeb extends StatelessWidget {
                                       color: ColorManager.darkgrey,
                                     ),
                                   ),
+                                  IconButton(
+                                      onPressed: () {
+                                        TokenManager.removeAccessToken();
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context, '/', (route) => false);
+                                      },
+                                      icon: const Icon(Icons.logout))
                                 ],
                               ),
                             ),
@@ -128,6 +141,7 @@ class HomeScreenWeb extends StatelessWidget {
                                         ),
                                         InkWell(
                                             onTap: () {
+                                              documentTypeGet(context);
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -150,7 +164,9 @@ class HomeScreenWeb extends StatelessWidget {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          const HomeScreenHRM()));
+                                                          // HomeScreenHRM()
+                                                          HRHomeScreen()
+                                                  ));
                                             },
                                             child: const ResponsiveContainer(
                                               'Human Resource Manager',

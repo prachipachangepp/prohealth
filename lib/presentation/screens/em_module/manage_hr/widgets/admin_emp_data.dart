@@ -19,11 +19,11 @@ class AdministrativeData {
     List<Map<String, dynamic>> jsonData = [
       {'employeeType': 'Human Resource Manager', 'abbreviation': 'HRM'},
       {'employeeType': 'Business Development', 'abbreviation': 'HRM'},
-      {'employeeType': 'Accountant', 'abbreviation': 'HRM'},
+      {'employeeType': 'Human Resource Manager', 'abbreviation': 'HRM'},
       {'employeeType': 'Human Resource Manager', 'abbreviation': 'HRM'},
       {'employeeType': 'Business Development', 'abbreviation': 'HRM'},
       {'employeeType': 'Accountant', 'abbreviation': 'HRM'},
-      {'employeeType': 'Intake', 'abbreviation': 'HRM'},
+      {'employeeType': 'Human Resource Manager', 'abbreviation': 'HRM'},
       {'employeeType': 'Patient Care Co ordinator', 'abbreviation': 'HRM'},
     ];
 
