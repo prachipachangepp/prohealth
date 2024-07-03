@@ -12,22 +12,14 @@ import 'onboarding_tab_bar_const.dart';
 
 
 ///prachi
-class OnBoardingScreen extends StatefulWidget {
+class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
-}
-
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      /// green blue container
-      // ProfileBar(),
-      // SizedBox(
-      //   height: MediaQuery.of(context).size.width / 88,
-      // ),
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
       OnboardingTabBar(OnboardingController(tabs: [
         Tab(text: AppString.general),
         Tab(text: AppString.qualification),

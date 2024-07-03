@@ -53,7 +53,7 @@ class OnboardingTabBar extends StatelessWidget {
           ),
           SizedBox(height: AppSize.s10),
           Container(
-            height: MediaQuery.of(context).size.height/1.3,
+            height: MediaQuery.of(context).size.height/1.45,
             child: TabBarView(
               physics: NeverScrollableScrollPhysics(),
               children: controller.tabViews,

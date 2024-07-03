@@ -78,16 +78,16 @@ class OnboardingGeneral extends StatelessWidget {
                                      // crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         CircleAvatar(
-                                          radius: 28,
+                                          radius: MediaQuery.of(context).size.width/50,
                                           child:
                                               Image.asset('images/profile.png'),
                                         ),
-                                        SizedBox(height: 15,),
+                                        SizedBox(height: MediaQuery.of(context).size.width/80,),
                                         Text(
                                          AppString.amogh,
                                           style: CustomTextStylesCommon.commonStyle(
                                               color: ColorManager.black,
-                                              fontSize: MediaQuery.of(context).size.width / 99,
+                                              fontSize: FontSize.s12,
                                               fontWeight: FontWeightManager.bold
                                           )
                                         )
