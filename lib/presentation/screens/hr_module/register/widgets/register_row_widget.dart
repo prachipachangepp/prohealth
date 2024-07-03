@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomRow extends StatelessWidget {
   final IconData icon;
@@ -20,9 +21,9 @@ class CustomRow extends StatelessWidget {
         SizedBox(width: 8),
         Text(
           text1,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400),
         ),
-        SizedBox(width: 8),
+        SizedBox(width: 87),
         Text(
           text2,
           style: TextStyle(fontSize: 16),

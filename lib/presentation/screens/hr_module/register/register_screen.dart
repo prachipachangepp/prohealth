@@ -126,7 +126,7 @@ class RegisterScreen extends StatelessWidget {
                                 width: 1.0,
                               ),
                               ///update here
-                              color: Colors.red,
+                              color: Colors.white,
                               borderRadius: BorderRadius.all(Radius.circular(12)),
                             ),
                             height: 179,
@@ -180,20 +180,43 @@ class RegisterScreen extends StatelessWidget {
                                   Column(
                                     children: [
                                       CustomRow(
-                                        icon: Icons.person,
-                                        text1: 'User 1:',
-                                        text2: 'John Doe',
+                                        icon: Icons.person_2_outlined,
+                                        text1: 'Code',
+                                        text2: '351631',
                                       ),
                                       CustomRow(
-                                        icon: Icons.person,
-                                        text1: 'User 1:',
-                                        text2: 'John Doe',
+                                        icon: Icons.phone_outlined,
+                                        text1: 'Phone',
+                                        text2: '+13473522252',
                                       ),
                                       CustomRow(
-                                        icon: Icons.person,
-                                        text1: 'User 1:',
-                                        text2: 'John Doe',
+                                        icon: Icons.email_outlined,
+                                        text1: 'Email',
+                                        text2: 'ace@dpblr.com',
                                       ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.link),
+                                          SizedBox(width: 8),
+                                          Text(
+                                              'Link',
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w400
+                                            ),
+                                          ),
+                                          SizedBox(width: 80),
+                                          TextButton(
+                                              onPressed: () {},
+                                              child: Text('https://prohealth.symmetry.care/register',
+                                              style: TextStyle(
+                                                color: Color(0xff51B5E6),
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w400,
+                                              )),
+                                          )
+                                        ],
+                                      )
                                     ],
                                   )
                                 ],
@@ -203,12 +226,13 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 50),
                         Expanded(
-                          child:  Container(
+                          child: Container(
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: Colors.blue,
                                 width: 1.0,
                               ),
+                              ///update here
                               color: Colors.white,
                               borderRadius: BorderRadius.all(Radius.circular(12)),
                             ),
@@ -229,7 +253,79 @@ class RegisterScreen extends StatelessWidget {
                                         fontSize: FontSize.s13,
                                       ),),
                                     Row(children: [],)
-                                  ],)
+                                  ],),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text('Status',
+                                        style: GoogleFonts.firaSans(
+                                          fontWeight: FontWeightManager.medium,
+                                          // color: ColorManager.mediumgrey,
+                                          color: Color(0xff333333),
+                                          fontSize: FontSize.s13,
+                                        ),),
+                                      SizedBox(width: MediaQuery.of(context).size.width/50,),
+                                      Container(
+                                        width: 10.0,
+                                        height: 10.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xff51B5E6),
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      SizedBox(width: MediaQuery.of(context).size.width/100,),
+                                      Text(
+                                        'Opened',
+                                        style: GoogleFonts.firaSans(
+                                          fontWeight: FontWeightManager.medium,
+                                          color: Color(0xff51B5E6),
+                                          fontSize: FontSize.s13,
+                                        ),
+                                      ),
+                                    ],),
+                                  Column(
+                                    children: [
+                                      CustomRow(
+                                        icon: Icons.person_2_outlined,
+                                        text1: 'Code',
+                                        text2: '351631',
+                                      ),
+                                      CustomRow(
+                                        icon: Icons.phone_outlined,
+                                        text1: 'Phone',
+                                        text2: '+13473522252',
+                                      ),
+                                      CustomRow(
+                                        icon: Icons.email_outlined,
+                                        text1: 'Email',
+                                        text2: 'ace@dpblr.com',
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.link),
+                                          SizedBox(width: 8),
+                                          Text(
+                                            'Link',
+                                            style: GoogleFonts.firaSans(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400
+                                            ),
+                                          ),
+                                          SizedBox(width: 80),
+                                          TextButton(
+                                            onPressed: () {},
+                                            child: Text('https://prohealth.symmetry.care/register',
+                                                style: TextStyle(
+                                                  color: Color(0xff51B5E6),
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w400,
+                                                )),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
