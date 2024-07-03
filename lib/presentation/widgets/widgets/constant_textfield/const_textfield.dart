@@ -33,7 +33,8 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return Expanded(
+      flex: 2,
       child: SizedBox(
         width: AppSize.s250,
         height: AppSize.s40,
@@ -106,7 +107,8 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return Expanded(
+      flex: 1,
       child: SizedBox(
         width: AppSize.s250,
         height: AppSize.s40,
