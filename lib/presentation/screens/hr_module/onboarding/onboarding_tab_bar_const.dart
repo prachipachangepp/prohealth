@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
@@ -33,7 +32,7 @@ class OnboardingTabBar extends StatelessWidget {
               ],
             ),
             height: AppSize.s30,
-            width: controller.tabBarViewWidth,
+            width: MediaQuery.of(context).size.width/2.2,
             child: TabBar(
               isScrollable: false,
               tabs: controller.tabs,
@@ -54,7 +53,7 @@ class OnboardingTabBar extends StatelessWidget {
           ),
           SizedBox(height: AppSize.s10),
           Container(
-            height: controller.tabBarViewHeight,
+            height: MediaQuery.of(context).size.height/1.3,
             child: TabBarView(
               physics: NeverScrollableScrollPhysics(),
               children: controller.tabViews,
@@ -62,6 +61,36 @@ class OnboardingTabBar extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// Define a custom widget for the repeated Column structure
+class CustomTextColumn extends StatelessWidget {
+  final String text;
+  final TextStyle textStyle;
+  final double spacing;
+
+  const CustomTextColumn({
+    Key? key,
+    required this.text,
+    required this.textStyle,
+    this.spacing = 5.0,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(text, style: textStyle),
+        SizedBox(height: spacing),
+        Text(text, style: textStyle),
+        SizedBox(height: spacing),
+        Text(text, style: textStyle),
+        SizedBox(height: spacing),
+        Text(text, style: textStyle),
+      ],
     );
   }
 }

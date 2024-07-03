@@ -24,10 +24,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       /// green blue container
-      ProfileBar(),
-      SizedBox(
-        height: MediaQuery.of(context).size.width / 88,
-      ),
+      // ProfileBar(),
+      // SizedBox(
+      //   height: MediaQuery.of(context).size.width / 88,
+      // ),
       OnboardingTabBar(OnboardingController(tabs: [
         Tab(text: AppString.general),
         Tab(text: AppString.qualification),
