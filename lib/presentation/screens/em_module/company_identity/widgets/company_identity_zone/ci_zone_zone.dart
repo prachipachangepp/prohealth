@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/widgets/zone_widgets_constants.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
@@ -30,7 +32,8 @@ class _CIZoneZoneState extends State<CIZoneZone> {
   TextEditingController zipcodeController = TextEditingController();
   TextEditingController mapController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
-  final StreamController<List<AllZipCodeGet>> _zoneController = StreamController<List<AllZipCodeGet>>();
+  TextEditingController zoneNumberController = TextEditingController();
+  final StreamController<List<AllCountyZoneGet>> _zoneController = StreamController<List<AllCountyZoneGet>>();
 
   @override
   void initState() {
@@ -38,13 +41,14 @@ class _CIZoneZoneState extends State<CIZoneZone> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
+    getZoneByCounty
+      (context, "8",1,20, 1, 15).then((data){
       _zoneController.add(data);
     }).catchError((error){
 
     });
   }
-
+ int countyId = 0;
   @override
   Widget build(BuildContext context) {
     List<String> currentPageItems = items.sublist(
@@ -135,7 +139,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
         ),
         Expanded(
           child:
-          StreamBuilder<List<AllZipCodeGet>>(
+          StreamBuilder<List<AllCountyZoneGet>>(
             stream: _zoneController.stream,
             builder: (context, snapshot) {
               print('1111111');
@@ -210,7 +214,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                   flex: 3,
                                   child: Text(
                                     textAlign: TextAlign.center,
-                                    snapshot.data![index].zipcode.toString(),
+                                    snapshot.data![index].zipcodes.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
@@ -236,7 +240,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                   flex: 3,
                                   child: Text(
                                     textAlign: TextAlign.center,
-                                    snapshot.data![index].city.toString(),
+                                    snapshot.data![index].cities.toString(),
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
@@ -252,13 +256,64 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                     children: [
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
-                                          return CIZoneAddPopup(
-                                              onSavePressed: ()async{},
-                                            title: 'Edit Zone',
-                                            title1: 'Zone Number',
-                                            countynameController: countynameController,
-                                            title2: 'Zip Codes',
-                                            zipcodeController: landmarkController, );
+                                          return AddZonePopup(zoneNumberController: zoneNumberController, title: 'Edit Zone', onSavePressed: () async{  },
+                                            child: FutureBuilder<List<AllCountyGetList>>(
+                                                future: getCountyZoneList(context),
+                                                builder: (context,snapshotZone) {
+                                                  if(snapshotZone.connectionState == ConnectionState.waiting){
+                                                    return Shimmer.fromColors(
+                                                        baseColor: Colors.grey[300]!,
+                                                        highlightColor: Colors.grey[100]!,
+                                                        child: Container(
+                                                          width: 354,
+                                                          height: 30,
+                                                          decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                        )
+                                                    );
+                                                  }
+                                                  if (snapshotZone.data!.isEmpty) {
+                                                    return Center(
+                                                      child: Text(
+                                                        AppString.dataNotFound,
+                                                        style: CustomTextStylesCommon.commonStyle(
+                                                          fontWeight: FontWeightManager.medium,
+                                                          fontSize: FontSize.s12,
+                                                          color: ColorManager.mediumgrey,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  if(snapshotZone.hasData){
+                                                    List dropDown = [];
+                                                    int docType = 0;
+                                                    List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                                    for(var i in snapshotZone.data!){
+                                                      dropDownTypesList.add(
+                                                        DropdownMenuItem<String>(
+                                                          value: i.countyName,
+                                                          child: Text(i.countyName),
+                                                        ),
+                                                      );
+                                                    }
+                                                    return CICCDropdown(
+                                                        initialValue: dropDownTypesList[0].value,
+                                                        onChange: (val){
+                                                          for(var a in snapshotZone.data!){
+                                                            if(a.countyName == val){
+                                                              docType = a.countyId;
+                                                              print("County id :: ${a.companyId}");
+                                                              countyId = docType;
+                                                            }
+                                                          }
+                                                          print(":::${docType}");
+                                                          print(":::<>${countyId}");
+                                                        },
+                                                        items:dropDownTypesList
+                                                    );
+                                                  }
+                                                  return const SizedBox();
+                                                }
+                                            ),);
                                           //   CIZoneEditPopup(
                                           //   onSavePressed: (){},
                                           //   title: 'Edit Zone',
@@ -273,8 +328,8 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                         showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
                                           Navigator.pop(context);
                                         }, onDelete: ()async{
-                                          await deleteZipCodeSetup(context, snapshot.data![index].zipcodeSetupId!);
-                                          getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
+                                          await deleteZoneCountyData(context, snapshot.data![index].zoneId);
+                                          getZoneByCounty(context, "8",1,20, 1, 15).then((data){
                                             _zoneController.add(data);
                                           }).catchError((error){
                                           });

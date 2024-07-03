@@ -19,6 +19,20 @@ class AllCountyGet {
   AllCountyGet({required this.countyName,required this.state,required this.country,required this.zipcodes,required this.sucess,required this.message,});
 }
 
+/// County zone get
+class AllCountyZoneGet {
+  final String countyName;
+  final int countyId;
+  final int zoneId;
+  final String zoneName;
+  final String zipcodes;
+  final String cities;
+  final bool sucess;
+  final String message;
+  AllCountyZoneGet({required this.countyName, required this.countyId, required this.zoneId,
+    required this.zoneName, required this.zipcodes, required this.cities, required this.sucess, required this.message});
+}
+
 /// County List Data
 class AllCountyGetList {
   final String countyName;

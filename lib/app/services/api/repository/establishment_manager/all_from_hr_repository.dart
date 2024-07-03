@@ -25,6 +25,8 @@ class AllFromHrRepository{
 class AllZoneRepository{
   static String zone = "/zone";
   static String county = "/county";
+  static String zoneCounty = "/zone-county";
+  static String add = "/add";
   static String zipcodesetup = "/zipcode-setup";
 
   static String zoneGet(){
@@ -48,11 +50,21 @@ class AllZoneRepository{
   static String countyGet({required int companyId,required String officeId,required int pageNo,required int noOfRow}){
     return "$county/$companyId/$officeId/$pageNo/$noOfRow";
   }
+  ///county get list zone
+  static String countyZoneGet({required int companyId,required String officeId,required int countyId,required int pageNo,required int noOfRow}){
+    return "$zone/$companyId/$officeId/$countyId/$pageNo/$noOfRow";
+  }
+  static String countyZoneDelete({required int zoinId}){
+    return "$zone/$zoinId";
+  }
   static String countyListGet(){
     return "$county";
   }
   static String deleteCounty({required int countyId}){
     return "$county/$countyId";
+  }
+  static String zoneCountyPost(){
+    return "$zoneCounty$add";
   }
   ///zipcode,zone get
   static String zipcodeSetupGet({required int companyId,required String officeId,required int pageNo,required int noOfRow}){

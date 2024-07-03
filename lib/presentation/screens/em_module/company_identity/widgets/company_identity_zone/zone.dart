@@ -39,6 +39,8 @@ class _CiOrgDocumentState extends State<CiZone> {
   TextEditingController cityController = TextEditingController();
   TextEditingController zoneController = TextEditingController();
   TextEditingController stateController = TextEditingController();
+  TextEditingController zoneNumberController = TextEditingController();
+
 
   int _selectedIndex = 0;
   int docZoneId = 0;
@@ -245,18 +247,64 @@ class _CiOrgDocumentState extends State<CiZone> {
                   icon: Icons.add,
                   text: AppStringEM.add, onPressed: (){
                 showDialog(context: context, builder: (context){
-                  return CIZoneAddPopup(
-                    title: 'Add Zone',
-                    onSavePressed: ()async{},
-                    title1: 'Zone Number',
-                    countynameController: countynameController,
-                    title2: 'County',
-                    zipcodeController: zipcodeController,
-                    // title3: 'Map',
-                    // mapController: mapController,
-                    // title4:'Cities',
-                    // landmarkController: landmarkController,
-                  );
+                  return AddZonePopup(zoneNumberController: zoneNumberController, title: 'Add Zone', onSavePressed: () async{  },
+                    child: FutureBuilder<List<AllCountyGetList>>(
+                        future: getCountyZoneList(context),
+                        builder: (context,snapshotZone) {
+                          if(snapshotZone.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 354,
+                                  height: 30,
+                                  decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                )
+                            );
+                          }
+                          if (snapshotZone.data!.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppString.dataNotFound,
+                                style: CustomTextStylesCommon.commonStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.mediumgrey,
+                                ),
+                              ),
+                            );
+                          }
+                          if(snapshotZone.hasData){
+                            List dropDown = [];
+                            int docType = 0;
+                            List<DropdownMenuItem<String>> dropDownTypesList = [];
+                            for(var i in snapshotZone.data!){
+                              dropDownTypesList.add(
+                                DropdownMenuItem<String>(
+                                  value: i.countyName,
+                                  child: Text(i.countyName),
+                                ),
+                              );
+                            }
+                            return CICCDropdown(
+                                initialValue: dropDownTypesList[0].value,
+                                onChange: (val){
+                                  for(var a in snapshotZone.data!){
+                                    if(a.countyName == val){
+                                      docType = a.countyId;
+                                      print("County id :: ${a.companyId}");
+                                      countyId = docType;
+                                    }
+                                  }
+                                  print(":::${docType}");
+                                  print(":::<>${countyId}");
+                                },
+                                items:dropDownTypesList
+                            );
+                          }
+                          return const SizedBox();
+                        }
+                    ),);
                 });
               }):
               CustomIconButtonConst(

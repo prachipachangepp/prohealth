@@ -64,13 +64,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   }
 
   List<Widget> selectedChips = [];
+  List<Widget> chipsList = [];
   List<int> selectedChipsId = [];
-  //List<int> selectedChipsEmpId = [];
   String chips = "";
   bool _isLoading = false;
   bool _isDarkColor(Color color) {
-    // Calculate the perceived luminance of the color
-    // Formula: 0.299*R + 0.587*G + 0.114*B (perceived brightness)
     double perceivedBrightness = color.red * 0.299 + color.green * 0.587 + color.blue * 0.114;
     return perceivedBrightness < 128; // If perceived brightness is less than 128, color is considered dark
   }
@@ -78,52 +76,49 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     String chip,
       int chipId
   ) {
-    setState(() {
-      selectedChips.add(StatefulBuilder(
-        builder: (BuildContext context, void Function(void Function()) setState) {
-          return Chip(
-            shape: StadiumBorder(
-                side: BorderSide(
-                    color: ColorManager.blueprime)),
-            //side: BorderSide(color: ColorManager.blueprime),
-            deleteIcon: Icon(
-              Icons.close,
-              color: ColorManager.blueprime,
-              size: 17,
-            ),
-            label: Text(
-              chip,
-              style: CustomTextStylesCommon.commonStyle(
-                  fontWeight: FontWeightManager.medium,
-                  fontSize: FontSize.s10,
-                  color: ColorManager.mediumgrey),
-            ),
+    // setState(() {
+      selectedChips.add(Chip(
+        shape: StadiumBorder(
+            side: BorderSide(
+                color: ColorManager.blueprime)),
+        //side: BorderSide(color: ColorManager.blueprime),
+        deleteIcon: Icon(
+          Icons.close,
+          color: ColorManager.blueprime,
+          size: 17,
+        ),
+        label: Text(
+          chip,
+          style: CustomTextStylesCommon.commonStyle(
+              fontWeight: FontWeightManager.medium,
+              fontSize: FontSize.s10,
+              color: ColorManager.mediumgrey),
+        ),
 
-            onDeleted: () {
-              setState(() {
-                deleteChip(chip,chipId);
-                selectedChips.clear();
-                print(":::Chips name ${selectedChips}");
-                print(":::: Chips Id ${selectedChipsId}");
-              });
-            },
-          );
+        onDeleted: () {
+          setState(() {
+            deleteChip(chip,chipId);
+            selectedChips.clear();
+            selectedChipsId.clear();
+            print(":::Chips name ${selectedChips}");
+            print(":::: Chips Id ${selectedChipsId}");
+          });
         },
-
       ),);
       selectedChipsId.add(chipId);
-    });
+      chipsList = selectedChips;
+    // });
   }
 
   void deleteChip(
     String chip,
       int chipId
   ) {
-    setState(() {
+    //setState(() {
       selectedChips.remove(chip);
       selectedChipsId.remove(chipId);
       //selectedChipsEmpId.remove(chipEmpId);
-    });
+   // });
   }
 
   void _loadColors() async {
@@ -185,7 +180,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 });
                               },
                               child1: Wrap(spacing: 8.0,
-                                  children: selectedChips),
+                                  children: chipsList),
                               child: FutureBuilder<List<HRClinical>>(
                                   future: companyAllHrClinicApi(context),
                                   builder: (context, snapshot) {
