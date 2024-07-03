@@ -42,7 +42,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
     itemsPerPage = 6;
     items = List.generate(60, (index) => 'Item ${index + 1}');
     getZoneByCounty
-      (context, "8",1,20, 1, 15).then((data){
+      (context, widget.officeId,widget.companyID,20, 1, 15).then((data){
       _zoneController.add(data);
     }).catchError((error){
 
@@ -256,7 +256,17 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                     children: [
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
-                                          return AddZonePopup(zoneNumberController: zoneNumberController, title: 'Edit Zone', onSavePressed: () async{  },
+                                          return AddZonePopup(zoneNumberController: zoneNumberController, title: 'Edit Zone',
+                                            onSavePressed: () async{
+                                             await updateZoneCountyData(context, snapshot.data![index].zoneId,zoneNumberController.text,
+                                                 countyId, widget.officeId, widget.companyID);
+                                             getZoneByCounty
+                                               (context, widget.officeId,widget.companyID,20, 1, 15).then((data){
+                                               _zoneController.add(data);
+                                             }).catchError((error){
+
+                                             });
+                                          },
                                             child: FutureBuilder<List<AllCountyGetList>>(
                                                 future: getCountyZoneList(context),
                                                 builder: (context,snapshotZone) {
@@ -329,7 +339,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                           Navigator.pop(context);
                                         }, onDelete: ()async{
                                           await deleteZoneCountyData(context, snapshot.data![index].zoneId);
-                                          getZoneByCounty(context, "8",1,20, 1, 15).then((data){
+                                          getZoneByCounty(context, widget.officeId,widget.companyID,20, 1, 15).then((data){
                                             _zoneController.add(data);
                                           }).catchError((error){
                                           });

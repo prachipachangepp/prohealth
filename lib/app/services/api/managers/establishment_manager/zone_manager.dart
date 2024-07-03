@@ -72,7 +72,7 @@ Future<List<AllCountyGet>> getZoneBYcompOffice(
   }
 }
 
-/// County zone api
+
 ///county get
 Future<List<AllCountyZoneGet>> getZoneByCounty(BuildContext context,
     String officeId, int compId, int countyId, int pageNo, int noOfRow) async {
@@ -144,6 +144,65 @@ Future<List<AllCountyGetList>> getCountyZoneList(BuildContext context) async {
   } catch (e) {
     print("Error $e");
     return itemsList;
+  }
+}
+/// Zone county add
+Future<ApiData> addZoneCountyData(BuildContext context, String zoneName,int countyId,String officeId,int companyId) async {
+  try {
+    var response = await Api(context)
+        .post(path: AllZoneRepository.addCountyZone(), data: {
+      "zoneName": zoneName,
+      "county_id": countyId,
+      "officeId": officeId,
+      "companyId": companyId
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Zone-County record added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Zone county update
+Future<ApiData> updateZoneCountyData(BuildContext context, int zoinId,String zoneName,int countyId,String officeId,int companyId) async {
+  try {
+    var response = await Api(context)
+        .patch(path: AllZoneRepository.updateCountyZone(zoinId:zoinId), data: {
+      "zoneName": zoneName,
+      "county_id": countyId,
+      "officeId": officeId,
+      "companyId": companyId
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Zone-County record updated");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
 

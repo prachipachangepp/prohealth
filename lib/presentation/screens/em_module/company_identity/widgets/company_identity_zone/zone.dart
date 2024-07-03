@@ -247,7 +247,9 @@ class _CiOrgDocumentState extends State<CiZone> {
                   icon: Icons.add,
                   text: AppStringEM.add, onPressed: (){
                 showDialog(context: context, builder: (context){
-                  return AddZonePopup(zoneNumberController: zoneNumberController, title: 'Add Zone', onSavePressed: () async{  },
+                  return AddZonePopup(zoneNumberController: zoneNumberController, title: 'Add Zone', onSavePressed: () async{
+                    await addZoneCountyData(context, zoneNumberController.text, countyId, widget.officeId, widget.companyID);
+                  },
                     child: FutureBuilder<List<AllCountyGetList>>(
                         future: getCountyZoneList(context),
                         builder: (context,snapshotZone) {
