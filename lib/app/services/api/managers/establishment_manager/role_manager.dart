@@ -38,7 +38,7 @@ Future<List<ModuleMetaData>> roleMabagerMetaData(BuildContext context) async {
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         itemsData.add(ModuleMetaData(
-            appModuleMetaDataId: item['appModuleMetaDataId'],
+            appModuleMetaDataId: item['AppModuleMetaDataId'],
             mainModule: item['mainModule'],
             iconUrl: item['iconUrl'],
             sucess: true,

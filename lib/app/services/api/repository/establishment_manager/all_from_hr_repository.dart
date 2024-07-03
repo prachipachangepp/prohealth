@@ -33,6 +33,11 @@ class AllZoneRepository{
   static String deleteZipCodeSetup({required int zipCodeSetupId}){
     return "$zipcodesetup/$zipCodeSetupId";
   }
+  /// Add zipcode setup
+  static String addZipCodeSetupPost(){
+    return "$zipcodesetup/add";
+  }
+
   /// get
   static String zoneBYcompOfficeGet({required int companyId,required String officeId,required int pageNo,required int noOfRow}){
     return "$zone/$companyId/$officeId/$pageNo/$noOfRow";
@@ -40,6 +45,9 @@ class AllZoneRepository{
   ///county get last
   static String countyGet({required int companyId,required String officeId,required int pageNo,required int noOfRow}){
     return "$county/$companyId/$officeId/$pageNo/$noOfRow";
+  }
+  static String countyListGet(){
+    return "$county";
   }
   static String deleteCounty({required int countyId}){
     return "$county/$countyId";

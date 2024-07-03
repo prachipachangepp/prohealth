@@ -69,7 +69,7 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
        itemsList.add(VisitListData(
            sucess: true,
            message: response.statusMessage!,
-           companyId: item['companyId'] == null ? 11 :item['companyId'],
+           companyId: item['companyId'] == null ? 1 :item['companyId'],
            visitId: item['visitId'],
            visitType: item['typeOfVisit']));
       }
@@ -88,7 +88,8 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
 /// post
 Future<ApiData> addVisitPost(BuildContext context,
     String typeOfVisit,
-    List eligibleClinician,
+    int companyId,
+    List<int> eligibleClinician,
     ) async {
   try {
     var response = await Api(context).post(
@@ -96,7 +97,8 @@ Future<ApiData> addVisitPost(BuildContext context,
         postCiVisit(),
         data: {
           "typeOfVisit": typeOfVisit,
-          "employeeTypeId": [eligibleClinician],
+          "companyId":companyId,
+          "employeeTypeId": eligibleClinician,
            });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Added request");
@@ -120,10 +122,11 @@ Future<ApiData> addVisitPost(BuildContext context,
 }
 
 /// patch
-Future<ApiData> updateVisitPatch(BuildContext context, String typeVisist,String visitType, List eligibleClinical) async {
+Future<ApiData> updateVisitPatch(BuildContext context, int typeVisist,String visitType,int companyId, List<int> eligibleClinical) async {
   try {
     var response = await Api(context).patch(path: EstablishmentManagerRepository.updateCiVisit(typeVisit: typeVisist), data: {
       'typeOfVisit':visitType,
+      'companyId':companyId,
       'employeeTypeId':eligibleClinical
     },);
     if (response.statusCode == 200 || response.statusCode == 201) {

@@ -44,7 +44,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
       // Handle error
     });
   }
-
+ bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -306,13 +306,26 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                             },
                                                                         onDelete:
                                                                             () async{
-                                                                          await deleteWorkWeekSchedule(context, snapshot.data![index].weekScheduleId);
-                                                                          workWeekScheduleGet(context).then((data) {
-                                                                            workWeekController.add(data);
-                                                                          }).catchError((error) {
-                                                                            // Handle error
-                                                                          });
-                                                                          Navigator.pop(context);
+                                                                              setState(() {
+                                                                                _isLoading = true;
+                                                                              });
+                                                                              try {
+                                                                                await deleteWorkWeekSchedule(context, snapshot.data![index].weekScheduleId);
+                                                                                setState(() async {
+                                                                                  await workWeekScheduleGet(context).then((data) {
+                                                                                    workWeekController.add(data);
+                                                                                  }).catchError((error) {
+                                                                                    // Handle error
+                                                                                  });
+                                                                                  Navigator.pop(context);
+                                                                                });
+                                                                              } finally {
+                                                                                setState(() {
+                                                                                  _isLoading = false;
+                                                                                });
+                                                                              }
+
+
                                                                             });
                                                                   });
                                                             },

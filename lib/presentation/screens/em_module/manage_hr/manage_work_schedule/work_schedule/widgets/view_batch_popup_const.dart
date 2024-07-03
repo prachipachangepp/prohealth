@@ -51,313 +51,315 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
-                        child: Text("Batches",style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s16,
-                          fontWeight: FontWeightManager.bold,
-                          color: ColorManager.blueprime,
-                          decoration: TextDecoration.none,
-                        ),),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.close),
-                      ),
-                    ],
-                  ),
-                  StreamBuilder<List<ShiftBachesData>>(
-                      stream: workWeekShiftBatchesController.stream,
-                      builder: (context, snapshot) {
-                        if(snapshot.connectionState == ConnectionState.waiting){
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
-                            highlightColor: Colors.grey[100]!,
-                            child:  Container(
-                              height:MediaQuery.of(context).size.height/1.5,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: 10,
-                                  itemBuilder: (context, index) {
-                                    // int serialNumber =
-                                    //     index + 1 + (currentPage - 1) * itemsPerPage;
-                                    return Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        // SizedBox(height: 5),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                color: ColorManager.faintGrey,
-                                                borderRadius: BorderRadius.circular(4),
-                                              ),
-                                              height: 50),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-                            ),
-                          );
-                        }
-                        if (snapshot.data!.isEmpty) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 100),
-                            child: Center(
-                              child: Text(
-                                AppString.dataNotFound,
-                                style: CustomTextStylesCommon.commonStyle(
-                                  fontWeight: FontWeightManager.medium,
-                                  fontSize: FontSize.s12,
-                                  color: ColorManager.mediumgrey,
+        child: SingleChildScrollView(
+          child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                          child: Text("Batches",style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s16,
+                            fontWeight: FontWeightManager.bold,
+                            color: ColorManager.blueprime,
+                            decoration: TextDecoration.none,
+                          ),),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.close),
+                        ),
+                      ],
+                    ),
+                    StreamBuilder<List<ShiftBachesData>>(
+                        stream: workWeekShiftBatchesController.stream,
+                        builder: (context, snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child:  Container(
+                                height:MediaQuery.of(context).size.height/1.5,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: 10,
+                                    itemBuilder: (context, index) {
+                                      // int serialNumber =
+                                      //     index + 1 + (currentPage - 1) * itemsPerPage;
+                                      return Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          // SizedBox(height: 5),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: ColorManager.faintGrey,
+                                                  borderRadius: BorderRadius.circular(4),
+                                                ),
+                                                height: 50),
+                                          ),
+                                        ],
+                                      );
+                                    }),
+                              ),
+                            );
+                          }
+                          if (snapshot.data!.isEmpty) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 100),
+                              child: Center(
+                                child: Text(
+                                  AppString.dataNotFound,
+                                  style: CustomTextStylesCommon.commonStyle(
+                                    fontWeight: FontWeightManager.medium,
+                                    fontSize: FontSize.s12,
+                                    color: ColorManager.mediumgrey,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }
-                        if(snapshot.hasData){
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: AppPadding.p3,
-                              horizontal: AppPadding.p20,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          child: Center(
-                                            child: Text(
-                                              'Sr No.',
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.white,
-                                                decoration: TextDecoration.none,
+                            );
+                          }
+                          if(snapshot.hasData){
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: AppPadding.p3,
+                                horizontal: AppPadding.p20,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Expanded(
+                                            child: Center(
+                                              child: Text(
+                                                'Sr No.',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white,
+                                                  decoration: TextDecoration.none,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                                        Expanded(
-                                          child: Center(
-                                            child: Text('Start Time',textAlign: TextAlign.start,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white,
-                                                  decoration: TextDecoration.none,
-                                                )),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Center(
-                                            child: Text('End Time',textAlign: TextAlign.start,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white,
-                                                  decoration: TextDecoration.none,
-                                                )),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Center(
-                                            child: Text('Actions',
-                                                textAlign: TextAlign.start,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white,
-                                                  decoration: TextDecoration.none,
-                                                )),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  height: MediaQuery.of(context).size.height/1.5,
-                                  child:
-                                  ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: snapshot.data!.length,
-                                      itemBuilder: (context, index) {
-                                        int serialNumber =
-                                            index + 1 + (currentPage - 1) * itemsPerPage;
-                                        String formattedSerialNumber =
-                                        serialNumber.toString().padLeft(2, '0');
-                                        return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            // SizedBox(height: 5),
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                  decoration: BoxDecoration(
+                                          //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                                          Expanded(
+                                            child: Center(
+                                              child: Text('Start Time',textAlign: TextAlign.start,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
                                                     color: Colors.white,
-                                                    borderRadius: BorderRadius.circular(4),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: const Color(0xff000000).withOpacity(0.25),
-                                                        spreadRadius: 0,
-                                                        blurRadius: 4,
-                                                        offset: const Offset(0, 2),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  height: 50,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.spaceAround,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Text(
-                                                              formattedSerialNumber,
-                                                              // formattedSerialNumber,
-                                                              style: GoogleFonts.firaSans(
-                                                                fontSize: 10,
-                                                                fontWeight: FontWeight.w500,
-                                                                color: const Color(0xff686464),
-                                                                decoration: TextDecoration.none,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        // Text(''),
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Text(
-                                                              snapshot.data![index].officeStartTime,textAlign:TextAlign.center,
-                                                              style: GoogleFonts.firaSans(
-                                                                fontSize: 10,
-                                                                fontWeight: FontWeight.w500,
-                                                                color: const Color(0xff686464),
-                                                                decoration: TextDecoration.none,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Text(
-                                                              snapshot.data![index].officeEndTime,textAlign:TextAlign.center,
-                                                              style: GoogleFonts.firaSans(
-                                                                fontSize: 10,
-                                                                fontWeight: FontWeight.w500,
-                                                                color: const Color(0xff686464),
-                                                                decoration: TextDecoration.none,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        //  Text(''),
-                                                        Expanded(
-                                                          child: Center(
-                                                            child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                              children: [
-                                                                IconButton(onPressed: (){
-                                                                  showDialog(
-                                                                      context: context,
-                                                                      builder: (BuildContext context) {
-                                                                        return FutureBuilder<ShiftBachesData>(
-                                                                          future: shiftPrefillBatchesGet(context, snapshot.data![index].shiftBatchScheduleId),
-                                                                          builder: (context,snapshotPrefill) {
-                                                                            var startTime = snapshotPrefill.data?.officeStartTime.toString();
-                                                                            var endTime = snapshotPrefill.data?.officeEndTime.toString();
-                                                                            startTimeController = TextEditingController(text: snapshotPrefill.data?.officeStartTime.toString());
-                                                                            endTimeController = TextEditingController(text: snapshotPrefill.data?.officeEndTime.toString());
-                                                                            return AddBatchPopup(
-                                                                              controller1: startTimeController,
-                                                                              controller2: endTimeController,
-                                                                              onPressed: () async{
-                                                                                await updateShiftBatch(context,
-                                                                                    widget.shiftName, widget.companyId, widget.officeId,widget.weekName,
-                                                                                    startTime == startTimeController.text ? startTime.toString() : startTimeController.text,
-                                                                                    endTime == endTimeController.text ? endTime.toString() : endTimeController.text,
-                                                                                    snapshot.data![index].shiftBatchScheduleId);
-                                                                                shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
-                                                                                  workWeekShiftBatchesController.add(data);
-                                                                                }).catchError((error) {
-                                                                                  // Handle error
-                                                                                });
-                                                                                Navigator.pop(context);
-                                                                              },
-                                                                            );
-                                                                          }
-                                                                        );
-                                                                      });
-                                                                }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                                                IconButton(onPressed: (){
-                                                                  showDialog(
-                                                                      context: context,
-                                                                      builder: (context) =>
-                                                                          DeletePopup(
-                                                                              onCancel: () {
-                                                                                Navigator.pop(
-                                                                                    context);
-                                                                              }, onDelete:
-                                                                              () async {
-                                                                                await deleteShiftBatch(context, snapshot.data![index].shiftBatchScheduleId);
-                                                                                shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
-                                                                                  workWeekShiftBatchesController.add(data);
-                                                                                }).catchError((error) {
-                                                                                  // Handle error
-                                                                                });
-                                                                                //
-                                                                                Navigator.pop(context);
-                                                                          }));
-                                                                }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
+                                                    decoration: TextDecoration.none,
                                                   )),
                                             ),
-                                          ],
-                                        );
-                                      }),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                        else{
-                          return const SizedBox();
-                        }
-
-                    }
-                  ),
-                ],
-              ),
+                                          ),
+                                          Expanded(
+                                            child: Center(
+                                              child: Text('End Time',textAlign: TextAlign.start,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.white,
+                                                    decoration: TextDecoration.none,
+                                                  )),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Center(
+                                              child: Text('Actions',
+                                                  textAlign: TextAlign.start,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.white,
+                                                    decoration: TextDecoration.none,
+                                                  )),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    height: MediaQuery.of(context).size.height/1.5,
+                                    child:
+                                    ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: snapshot.data!.length,
+                                        itemBuilder: (context, index) {
+                                          int serialNumber =
+                                              index + 1 + (currentPage - 1) * itemsPerPage;
+                                          String formattedSerialNumber =
+                                          serialNumber.toString().padLeft(2, '0');
+                                          return Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              // SizedBox(height: 5),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.circular(4),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: const Color(0xff000000).withOpacity(0.25),
+                                                          spreadRadius: 0,
+                                                          blurRadius: 4,
+                                                          offset: const Offset(0, 2),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    height: 50,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.spaceAround,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Center(
+                                                              child: Text(
+                                                                formattedSerialNumber,
+                                                                // formattedSerialNumber,
+                                                                style: GoogleFonts.firaSans(
+                                                                  fontSize: 10,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: const Color(0xff686464),
+                                                                  decoration: TextDecoration.none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          // Text(''),
+                                                          Expanded(
+                                                            child: Center(
+                                                              child: Text(
+                                                                snapshot.data![index].officeStartTime,textAlign:TextAlign.center,
+                                                                style: GoogleFonts.firaSans(
+                                                                  fontSize: 10,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: const Color(0xff686464),
+                                                                  decoration: TextDecoration.none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Center(
+                                                              child: Text(
+                                                                snapshot.data![index].officeEndTime,textAlign:TextAlign.center,
+                                                                style: GoogleFonts.firaSans(
+                                                                  fontSize: 10,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: const Color(0xff686464),
+                                                                  decoration: TextDecoration.none,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          //  Text(''),
+                                                          Expanded(
+                                                            child: Center(
+                                                              child: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  IconButton(onPressed: (){
+                                                                    showDialog(
+                                                                        context: context,
+                                                                        builder: (BuildContext context) {
+                                                                          return FutureBuilder<ShiftBachesData>(
+                                                                            future: shiftPrefillBatchesGet(context, snapshot.data![index].shiftBatchScheduleId),
+                                                                            builder: (context,snapshotPrefill) {
+                                                                              var startTime = snapshotPrefill.data?.officeStartTime.toString();
+                                                                              var endTime = snapshotPrefill.data?.officeEndTime.toString();
+                                                                              startTimeController = TextEditingController(text: snapshotPrefill.data?.officeStartTime.toString());
+                                                                              endTimeController = TextEditingController(text: snapshotPrefill.data?.officeEndTime.toString());
+                                                                              return AddBatchPopup(
+                                                                                controller1: startTimeController,
+                                                                                controller2: endTimeController,
+                                                                                onPressed: () async{
+                                                                                  await updateShiftBatch(context,
+                                                                                      widget.shiftName, widget.companyId, widget.officeId,widget.weekName,
+                                                                                      startTime == startTimeController.text ? startTime.toString() : startTimeController.text,
+                                                                                      endTime == endTimeController.text ? endTime.toString() : endTimeController.text,
+                                                                                      snapshot.data![index].shiftBatchScheduleId);
+                                                                                  shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+                                                                                    workWeekShiftBatchesController.add(data);
+                                                                                  }).catchError((error) {
+                                                                                    // Handle error
+                                                                                  });
+                                                                                  Navigator.pop(context);
+                                                                                },
+                                                                              );
+                                                                            }
+                                                                          );
+                                                                        });
+                                                                  }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                                                  IconButton(onPressed: (){
+                                                                    showDialog(
+                                                                        context: context,
+                                                                        builder: (context) =>
+                                                                            DeletePopup(
+                                                                                onCancel: () {
+                                                                                  Navigator.pop(
+                                                                                      context);
+                                                                                }, onDelete:
+                                                                                () async {
+                                                                                  await deleteShiftBatch(context, snapshot.data![index].shiftBatchScheduleId);
+                                                                                  shiftBatchesGet(context,widget.shiftName,widget.companyId,widget.officeId,widget.weekName).then((data) {
+                                                                                    workWeekShiftBatchesController.add(data);
+                                                                                  }).catchError((error) {
+                                                                                    // Handle error
+                                                                                  });
+                                                                                  //
+                                                                                  Navigator.pop(context);
+                                                                            }));
+                                                                  }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.red,)),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )),
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                          else{
+                            return const SizedBox();
+                          }
+          
+                      }
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }

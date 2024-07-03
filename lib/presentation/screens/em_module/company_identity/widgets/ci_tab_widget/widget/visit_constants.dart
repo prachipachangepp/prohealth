@@ -12,7 +12,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_i
 class AddVisitPopup extends StatefulWidget {
   final TextEditingController nameOfDocumentController;
   final TextEditingController idOfDocumentController;
-  final VoidCallback onSavePressed;
+  final Future<void> Function() onSavePressed;
   final Widget child;
   final Widget child1;
   const AddVisitPopup({super.key, required this.nameOfDocumentController, required this.idOfDocumentController, required this.onSavePressed, required this.child, required this.child1,});
@@ -22,6 +22,7 @@ class AddVisitPopup extends StatefulWidget {
 }
 
 class _AddPoliciesPopupState extends State<AddVisitPopup> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -113,13 +114,26 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Center(
-                child: CustomElevatedButton(
+                child: isLoading
+                    ? CircularProgressIndicator( color: ColorManager.blueprime,)
+                    :CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.add,
-                  onPressed: () {
-                    widget.onSavePressed();
-                    Navigator.pop(context);
+                  onPressed: () async{
+                    setState(() {
+                      isLoading = true;
+                    });
+                    try {
+                      await widget.onSavePressed();
+                    } finally {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      Navigator.pop(context);
+                     widget.idOfDocumentController.clear();
+                     widget.nameOfDocumentController.clear();
+                    }
                   },
                 ),
               ),

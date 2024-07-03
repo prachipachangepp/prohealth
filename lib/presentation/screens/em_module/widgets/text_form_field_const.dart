@@ -15,6 +15,7 @@ class SMTextFConst extends StatefulWidget {
   final bool? readOnly;
   final VoidCallback? onChange;
   final bool ? enable;
+  final Widget? prefixWidget;
   final String? Function(String?)? validator;
 
 
@@ -23,7 +24,7 @@ class SMTextFConst extends StatefulWidget {
     required this.controller,
     required this.keyboardType,
      required this.text,
-     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,  this.validator,
+     this.textColor = const Color(0xff686464), this.icon,  this.onChange, this.readOnly, this.enable,  this.validator, this.prefixWidget,
   }) : super(key: key);
 
   @override
@@ -65,6 +66,13 @@ class _SMTextFConstState extends State<SMTextFConst> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               suffixIcon: widget.icon,
+              prefix: widget.prefixWidget,
+              prefixStyle: GoogleFonts.firaSans(
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xff686464),
+                decoration: TextDecoration.none,
+              ),
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(bottom: AppPadding.p18,left: AppPadding.p15),
             ),

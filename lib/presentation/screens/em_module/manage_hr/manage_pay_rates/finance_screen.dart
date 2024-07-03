@@ -38,6 +38,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController payRatesController = TextEditingController();
+  TextEditingController perMilesController = TextEditingController();
   final StreamController<List<PayRateFinanceData>> _payRatesController = StreamController<List<PayRateFinanceData>>();
 
   String _selectedOption = 'Option 1';
@@ -54,7 +55,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    payRatesDataGet(context,11,1,1,10).then((data) {
+    payRatesDataGet(context,1,1,1,10).then((data) {
       _payRatesController.add(data);
     }).catchError((error) {
       // Handle error
@@ -86,13 +87,13 @@ class _FinanceScreenState extends State<FinanceScreen> {
                   style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xff686464),
+                    color: const Color(0xff686464),
                     decoration: TextDecoration.none,
                   ),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Column(
@@ -106,7 +107,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                       style: GoogleFonts.firaSans(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff686464),
+                        color: const Color(0xff686464),
                         decoration: TextDecoration.none,
                       ),
                     ),
@@ -152,22 +153,22 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   width: 200,
                                   // margin: EdgeInsets.symmetric(horizontal: 20),
                                   padding:
-                                  EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                  const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     border: Border.all(
-                                        color: Color(0xff686464).withOpacity(0.5),
+                                        color: const Color(0xff686464).withOpacity(0.5),
                                         width: 1), // Black border
                                     borderRadius:
                                     BorderRadius.circular(12), // Rounded corners
                                   ),
                                   child: DropdownButtonFormField<String>(
                                     focusColor: Colors.transparent,
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.arrow_drop_down_sharp,
                                       color: Color(0xff686464),
                                     ),
-                                    decoration: InputDecoration.collapsed(hintText: ''),
+                                    decoration: const InputDecoration.collapsed(hintText: ''),
                                     items: dropDownList,
                                     onChanged: (newValue) {
                                       for(var a in snapshot.data!){
@@ -181,13 +182,13 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     style: GoogleFonts.firaSans(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
-                                      color: Color(0xff686464),
+                                      color: const Color(0xff686464),
                                       decoration: TextDecoration.none,
                                     ),
                                   ),
                                 ),
 
-                                SizedBox(
+                                const SizedBox(
                                   width: 20,
                                 ),
                                 /// Abbrevation dropdown
@@ -196,22 +197,22 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   width: 185,
                                   // margin: EdgeInsets.symmetric(horizontal: 20),
                                   padding:
-                                  EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                                  const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     border: Border.all(
-                                        color: Color(0xff686464).withOpacity(0.5),
+                                        color: const Color(0xff686464).withOpacity(0.5),
                                         width: 1), // Black border
                                     borderRadius:
                                     BorderRadius.circular(12), // Rounded corners
                                   ),
                                   child: DropdownButtonFormField<String>(
                                     focusColor: Colors.transparent,
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.arrow_drop_down_sharp,
                                       color: Color(0xff686464),
                                     ),
-                                    decoration: InputDecoration.collapsed(hintText: ''),
+                                    decoration: const InputDecoration.collapsed(hintText: ''),
                                     items: dropDownAbbreviation,
                                     onChanged: (newValue) {
                                       for(var a in snapshot.data!){
@@ -225,7 +226,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                     style: GoogleFonts.firaSans(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
-                                      color: Color(0xff686464),
+                                      color: const Color(0xff686464),
                                       decoration: TextDecoration.none,
                                     ),
                                   ),
@@ -233,7 +234,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                               ],
                             );
                           }else{
-                            return Offstage();
+                            return const Offstage();
                           }
 
                           }
@@ -306,7 +307,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       items:dropDownZoneList
                                   );
                                 }
-                                return SizedBox();
+                                return const SizedBox();
                               }
                             ),
                             child2:  FutureBuilder<List<AllZoneData>>(
@@ -363,24 +364,28 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       items:dropDownTypesList
                                   );
                                 }
-                               return SizedBox();
+                               return const SizedBox();
                               }
                             ),
                             payRatesController: payRatesController,
+                              perMilesController: perMilesController,
                             onPressed: () async{
                               await addPayRatesSetupPost(
                                 context,
                                   1,
                                   1,
+                                  int.parse(perMilesController.text),
                                   docAddVisitTypeId,
                                   docZoneId,
                               int.parse(payRatesController.text),
-                              11);
-                              payRatesDataGet(context,11,1,1,10).then((data) {
+                              1);
+                              payRatesDataGet(context,1,1,1,10).then((data) {
                                 _payRatesController.add(data);
                               }).catchError((error) {
                                 // Handle error
                               });
+                              payRatesController.clear();
+                              perMilesController.clear();
                             },);
                         },
                       );
@@ -390,21 +395,21 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
 
-            TableHeadConstant(
+            const TableHeadConstant(
               items: [
                 TableHeadItem(text: 'Sr No.', textAlign: TextAlign.start),
-                TableHeadItem(
-                    text: 'Type of Visit', textAlign: TextAlign.start),
+                TableHeadItem(text: 'Type of Visit', textAlign: TextAlign.start),
                 TableHeadItem(text: 'Rate', textAlign: TextAlign.start),
+                TableHeadItem(text: 'Permiles', textAlign: TextAlign.start),
                 TableHeadItem(text: 'Zone', textAlign: TextAlign.start),
                 TableHeadItem(text: 'Actions', textAlign: TextAlign.end),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
 
@@ -446,17 +451,17 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(4),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Color(0xff000000).withOpacity(0.25),
+                                  color: const Color(0xff000000).withOpacity(0.25),
                                   spreadRadius: 0,
                                   blurRadius: 4,
-                                  offset: Offset(0, 2),
+                                  offset: const Offset(0, 2),
                                 ),
                               ],
                             ),
@@ -472,7 +477,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w500,
-                                        color: Color(0xff686464),
+                                        color: const Color(0xff686464),
                                         decoration: TextDecoration.none,
                                       ),
                                     ),
@@ -486,7 +491,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w500,
-                                        color: Color(0xff686464),
+                                        color: const Color(0xff686464),
                                         decoration: TextDecoration.none,
                                       ),
                                     ),
@@ -500,7 +505,21 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                       style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w500,
-                                        color: Color(0xff686464),
+                                        color: const Color(0xff686464),
+                                        decoration: TextDecoration.none,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      '${snapshot.data![index].permile}',
+                                      //textAlign: TextAlign.end,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xff686464),
                                         decoration: TextDecoration.none,
                                       ),
                                     ),
@@ -510,11 +529,11 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   child: Center(
                                     child: Text(
                                       '${snapshot.data![index].zone!}' ,
-                                      //textAlign: TextAlign.end,
+                                      textAlign: TextAlign.start,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w500,
-                                        color: Color(0xff686464),
+                                        color: const Color(0xff686464),
                                         decoration: TextDecoration.none,
                                       ),
                                     ),
@@ -540,10 +559,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                     );
                                                   }
                                                   var payRates = snapshotPrefill.data?.payRates;
-                                                  var visitTypeId = snapshotPrefill.data!.typeOfVisitId;
+                                                  var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
+                                                  var perMile = snapshotPrefill.data?.perMiles;
                                                   print(":::PAYRATESTYPE${visitTypeId}");
-                                                  var zoneTypeId = snapshotPrefill.data!.zoneId;
+                                                  var zoneTypeId = snapshotPrefill.data?.zoneId;
                                                   payRatesController = TextEditingController(text: snapshotPrefill.data?.payRates.toString());
+                                                  perMilesController = TextEditingController(text: snapshotPrefill.data?.perMiles.toString());
                                                   return PayRatesPopup(
                                                     title: 'Edit Payrate',
                                                     child1: SMTextFConst(
@@ -592,7 +613,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                               );
                                                             }
                                                             return CICCDropdown(
-                                                                initialValue: dropDownTypesList[zoneTypeId].value,
+                                                                initialValue: dropDownTypesList[0].value,
                                                                 onChange: (val){
                                                                   for(var a in snapshot.data!){
                                                                     if(a.zoneName == val){
@@ -606,22 +627,24 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                                 items:dropDownTypesList
                                                             );
                                                           }
-                                                          return SizedBox();
+                                                          return const SizedBox();
                                                         }
                                                     ),
                                                     payRatesController: payRatesController,
+                                                    perMilesController: perMilesController,
                                                     onPressed: () async{
                                                       await updatePayRatesSetupPost(
                                                           context,
                                                           1,
                                                           1,
-                                                          visitTypeId,
-                                                          zoneTypeId == docZoneId ? zoneTypeId : docZoneId,
+                                                          perMile == int.parse(perMilesController.text) ? perMile! : int.parse(perMilesController.text),
+                                                          visitTypeId!,
+                                                          zoneTypeId == docZoneId ? zoneTypeId! : docZoneId,
                                                            payRates == int.parse(payRatesController.text) ? payRates! : int.parse(payRatesController.text),
-                                                          11,
+                                                          1,
                                                         snapshot.data![index].payRatesSetupId,);
                                                       print("ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
-                                                      payRatesDataGet(context,11,1,1,10).then((data) {
+                                                      payRatesDataGet(context,1,1,1,10).then((data) {
                                                         _payRatesController.add(data);
                                                       }).catchError((error) {
                                                         // Handle error
@@ -690,7 +713,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                     );
                   });
   }
-  return Offstage();
+  return const Offstage();
 },
 ),
             ),
@@ -704,16 +727,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
 Widget buildDropdownButton(BuildContext context) {
   return Container(
     height: 31,
-    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
     decoration: BoxDecoration(
       color: Colors.white,
-      border: Border.all(color: Color(0xff50B5E5), width: 1.2),
+      border: Border.all(color: const Color(0xff50B5E5), width: 1.2),
       borderRadius: BorderRadius.circular(12.0),
       boxShadow: [
         BoxShadow(
-          color: Color(0xff000000).withOpacity(0.25),
+          color: const Color(0xff000000).withOpacity(0.25),
           blurRadius: 2,
-          offset: Offset(0, 2),
+          offset: const Offset(0, 2),
         ),
       ],
     ),
@@ -722,15 +745,15 @@ Widget buildDropdownButton(BuildContext context) {
       style: GoogleFonts.firaSans(
         fontSize: 12,
         fontWeight: FontWeightManager.bold,
-        color: Color(0xff50B5E5),
+        color: const Color(0xff50B5E5),
         decoration: TextDecoration.none,
       ),
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_drop_down,
         color: Color(0xff50B5E5),
       ),
       iconSize: 20,
-      underline: SizedBox(),
+      underline: const SizedBox(),
       onChanged: (String? newValue) {
         // Show popup or AlertDialog
         if (newValue != null) {
@@ -756,7 +779,7 @@ Widget buildDropdownButton(BuildContext context) {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                icon: Icon(Icons.close))
+                                icon: const Icon(Icons.close))
                           ],
                         ),
                         Column(
@@ -767,7 +790,7 @@ Widget buildDropdownButton(BuildContext context) {
                               keyboardType: TextInputType.text,
                               text: 'Type of Visit',
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
                             SMTextFConst(
@@ -775,7 +798,7 @@ Widget buildDropdownButton(BuildContext context) {
                               keyboardType: TextInputType.streetAddress,
                               text: 'Zone',
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
                             SMTextFConst(
@@ -785,7 +808,7 @@ Widget buildDropdownButton(BuildContext context) {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 60,
                         ),
                         CustomElevatedButton(

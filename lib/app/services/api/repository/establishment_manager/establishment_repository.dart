@@ -310,7 +310,7 @@ class EstablishmentManagerRepository {
   static String deleteCiVisit({required int visitId}){
     return "$visit/$visitId";
   }
-  static String updateCiVisit({required String typeVisit}){
+  static String updateCiVisit({required int typeVisit}){
     return "$visit/$typeVisit";
   }
 
