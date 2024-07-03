@@ -64,13 +64,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   }
 
   List<Widget> selectedChips = [];
+  List<Widget> chipsList = [];
   List<int> selectedChipsId = [];
-  //List<int> selectedChipsEmpId = [];
   String chips = "";
   bool _isLoading = false;
   bool _isDarkColor(Color color) {
-    // Calculate the perceived luminance of the color
-    // Formula: 0.299*R + 0.587*G + 0.114*B (perceived brightness)
     double perceivedBrightness = color.red * 0.299 + color.green * 0.587 + color.blue * 0.114;
     return perceivedBrightness < 128; // If perceived brightness is less than 128, color is considered dark
   }
@@ -78,7 +76,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     String chip,
       int chipId
   ) {
-    setState(() {
+    // setState(() {
       selectedChips.add(Chip(
         shape: StadiumBorder(
             side: BorderSide(
@@ -101,24 +99,26 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
           setState(() {
             deleteChip(chip,chipId);
             selectedChips.clear();
+            selectedChipsId.clear();
             print(":::Chips name ${selectedChips}");
             print(":::: Chips Id ${selectedChipsId}");
           });
         },
       ),);
       selectedChipsId.add(chipId);
-    });
+      chipsList = selectedChips;
+    // });
   }
 
   void deleteChip(
     String chip,
       int chipId
   ) {
-    setState(() {
+    //setState(() {
       selectedChips.remove(chip);
       selectedChipsId.remove(chipId);
       //selectedChipsEmpId.remove(chipEmpId);
-    });
+   // });
   }
 
   void _loadColors() async {
@@ -178,10 +178,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 }).catchError((error) {
                                   // Handle error
                                 });
-                                Navigator.pop(context);
                               },
                               child1: Wrap(spacing: 8.0,
-                                  children: selectedChips),
+                                  children: chipsList),
                               child: FutureBuilder<List<HRClinical>>(
                                   future: companyAllHrClinicApi(context),
                                   builder: (context, snapshot) {

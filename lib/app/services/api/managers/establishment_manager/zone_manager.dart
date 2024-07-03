@@ -72,7 +72,47 @@ Future<List<AllCountyGet>> getZoneBYcompOffice(
   }
 }
 
-/// County get
+/// County zone api
+///county get
+Future<List<AllCountyZoneGet>> getZoneByCounty(BuildContext context,
+    String officeId, int compId, int countyId, int pageNo, int noOfRow) async {
+  List<AllCountyZoneGet> itemsList = [];
+  try {
+    final response = await Api(context).get(
+        path: AllZoneRepository.countyZoneGet(
+            companyId: compId,
+            officeId: officeId,
+            pageNo: pageNo,
+            noOfRow: noOfRow,
+            countyId: countyId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1");
+      for (var item in response.data) {
+        itemsList.add(AllCountyZoneGet(
+            countyName: item['countyName']??"--",
+            zipcodes: item['zipcodes']??"--",
+            sucess: true,
+            message: response.statusMessage!,
+            countyId: item['county_id']??0,
+            zoneId: item['zone_id']??0,
+            zoneName: item['zoneName']??"--",
+            cities: item['cities']??"--"));
+      }
+      print("County response:::::${itemsList}");
+    } else {
+      print('County Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
+/// County get List
 Future<List<AllCountyGetList>> getCountyZoneList(BuildContext context) async {
   List<AllCountyGetList> itemsList = [];
   try {
@@ -104,6 +144,58 @@ Future<List<AllCountyGetList>> getCountyZoneList(BuildContext context) async {
   } catch (e) {
     print("Error $e");
     return itemsList;
+  }
+}
+
+/// Zone County Delete
+Future<ApiData> deleteZoneCountyData(BuildContext context, int zoneId) async {
+  try {
+    var response = await Api(context)
+        .delete(path: AllZoneRepository.countyZoneDelete(zoinId: zoneId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Zone-County record added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Zone County add
+Future<ApiData> addZoneCounty(
+    BuildContext context, int zoneId, int countyId) async {
+  try {
+    var response = await Api(context).post(
+        path: AllZoneRepository.zoneCountyPost(),
+        data: {"zone_id": zoneId, "county_id": countyId});
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Zone-County record added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
 
@@ -231,6 +323,56 @@ Future<ApiData> addZipCodeSetup(
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Zip Code record Added");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Uodate zipcode setup
+/// Add zipCode
+Future<ApiData> updateZipCodeSetup(
+  BuildContext context,
+  int zipCodeSetupId,
+  int zoneId,
+  int countyId,
+  int companyId,
+  String officeId,
+  String cityName,
+  String zipCode,
+  String latitude,
+  String longitude,
+  String landmark,
+) async {
+  try {
+    var response = await Api(context).patch(
+        path: AllZoneRepository.updateZipCodeSetup(
+            zipCodeSetupId: zipCodeSetupId),
+        data: {
+          "zoneId": zoneId,
+          "countyId": countyId,
+          "city": cityName,
+          "zipcode": zipCode,
+          "latitude": latitude,
+          "longitude": longitude,
+          "landmark": landmark,
+          "companyId": companyId,
+          "officeId": officeId
+        });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Zip Code record Updated");
       return ApiData(
           statusCode: response.statusCode!,
           success: true,

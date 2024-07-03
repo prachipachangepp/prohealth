@@ -336,3 +336,132 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
     );
   }
 }
+
+
+class AddZonePopup extends StatefulWidget {
+  final TextEditingController zoneNumberController;
+  final Future<void> Function() onSavePressed;
+  final Widget? child;
+  final String title;
+   AddZonePopup({super.key, required this.zoneNumberController, this.child, required this.title, required this.onSavePressed});
+
+  @override
+  State<AddZonePopup> createState() => _AddZonePopupState();
+}
+
+class _AddZonePopupState extends State<AddZonePopup> {
+  bool isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: SingleChildScrollView(
+        child: Container(
+          width: AppSize.s400,
+          decoration: BoxDecoration(
+            color: ColorManager.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: ColorManager.bluebottom,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                ),
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        widget.title,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.semiBold,
+                          color: ColorManager.white,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        color: ColorManager.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppPadding.p3,
+                  horizontal: AppPadding.p20,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SMTextFConst(
+                      controller: widget.zoneNumberController,
+                      keyboardType: TextInputType.text,
+                      text: 'Zone Number',
+                    ),
+                    SizedBox(height: AppSize.s10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('County',
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.mediumgrey,
+                            //decoration: TextDecoration.none,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        widget.child!
+                      ],
+                    ),
+
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    bottom: AppPadding.p24, top: AppPadding.p14),
+                child: isLoading
+                    ? SizedBox(
+                    height: 25,width: 25,
+                    child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                    : Center(
+                  child: CustomElevatedButton(
+                    width: AppSize.s105,
+                    height: AppSize.s30,
+                    text: AppStringEM.save,
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await widget.onSavePressed();
+                      Navigator.pop(context);
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

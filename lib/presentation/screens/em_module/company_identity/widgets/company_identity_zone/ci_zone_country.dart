@@ -55,7 +55,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        SizedBox(
+        const SizedBox(
           height: AppSize.s5,
         ),
         Container(
@@ -105,7 +105,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: AppSize.s10,
         ),
         Expanded(
@@ -158,7 +158,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                 color: ColorManager.black.withOpacity(0.25),
                                 spreadRadius: 0,
                                 blurRadius: 4,
-                                offset: Offset(0, 2),
+                                offset: const Offset(0, 2),
                               ),
                             ],
                           ),
@@ -215,11 +215,11 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
               })
           ;
     }
-  return Offstage();
+  return const Offstage();
 },
 ),
         ),
-        SizedBox(
+        const SizedBox(
           height: AppSize.s10,
         ),
         PaginationControlsWidget(

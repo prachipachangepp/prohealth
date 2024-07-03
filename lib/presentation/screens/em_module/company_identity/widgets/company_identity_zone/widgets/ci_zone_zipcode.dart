@@ -230,14 +230,20 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                 ),
                                 Expanded(
                                   flex: 2,
-                                  child: Text(
-                                    textAlign: TextAlign.center,
-                                    'Map',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorManager.mediumgrey,
-                                      decoration: TextDecoration.none,
+                                  child: InkWell(
+                                    onTap:(){
+
+                                    },
+                                    child: Text(
+                                      textAlign: TextAlign.center,
+                                      'View Map',
+                                      style: GoogleFonts.firaSans(
+                                        decorationStyle: TextDecorationStyle.dashed,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorManager.mediumgrey,
+                                        decoration: TextDecoration.none,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -380,21 +386,35 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                 }
                                             ),
                                             onSavePressed: () async{
+                                            await updateZipCodeSetup(context,
+                                                snapshot.data![index].zipcodeSetupId!,
+                                                docZoneId,
+                                                countyId,
+                                                widget.companyID,
+                                                widget.officeId,
+                                                cityController.text,
+                                                zipcodeController.text,
+                                                "37.0902°",
+                                                "95.7129°",
+                                                landmarkController.text);
+                                            getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
+                                              _zipcodeController.add(data);
+                                            }).catchError((error){
+
+                                            });
                                             }, mapController: mapController, landmarkController: landmarkController,);
                                         });
                                       }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
                                           Navigator.pop(context);
-                                        }, onDelete: ()async{
+                                        }, onDelete: () async{
                                           await deleteZipCodeSetup(context, snapshot.data![index].zipcodeSetupId!);
                                           getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
                                             _zipcodeController.add(data);
                                           }).catchError((error){
-
                                           });
                                           Navigator.pop(context);
-
                                         }));
                                       }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                     ],
@@ -406,8 +426,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                     ),
                   ],
                 );
-              })
-          ;
+              });
   }
   return Offstage();
 },
