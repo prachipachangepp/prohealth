@@ -85,6 +85,29 @@ Future<List<VisitListData>> getVisitList(BuildContext context) async {
   }
 }
 
+/// Get prefill visit
+Future<VisitListDataPrefill> getVisitListPrefill(BuildContext context, int visitId) async {
+var itemsList;
+  try {
+    final response = await Api(context)
+        .get(path: EstablishmentManagerRepository.getCiVisitPrefill(visitId: visitId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+        itemsList = VisitListDataPrefill(
+            sucess: true,
+            message: response.statusMessage!,
+            companyId: response.data['companyId']??1,
+            visitId: response.data['visitId']??0,
+            visitType: response.data['typeOfVisit']??"--");
+    } else {
+      return itemsList;
+    }
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
 /// post
 Future<ApiData> addVisitPost(BuildContext context,
     String typeOfVisit,

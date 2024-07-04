@@ -301,6 +301,9 @@ class EstablishmentManagerRepository {
   static String getCiVisitList(){
     return "$visit$visitList";
   }
+  static String getCiVisitPrefill({required int visitId}){
+    return "$visit/$visitId";
+  }
   static String postCiVisit(){
     return "$visit/$add";
   }
@@ -431,6 +434,9 @@ class EstablishmentManagerRepository {
   }
   static String userGet(){
     return "$user";
+  }
+  static String userPrefillGet({required int userId}){
+    return "$user/$userId";
   }
   static String createUserPost(){
     return "$user$signUp";

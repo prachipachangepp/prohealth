@@ -41,7 +41,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    getZoneBYcompOffice(context, widget.officeId, widget.companyID, 1, 15).then((data){
+    getZoneBYcompOffice(context, "18", 5, 1, 15).then((data){
       _contyController.add(data);
     }).catchError((error){});
   }
@@ -169,42 +169,60 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                               mainAxisAlignment:
                               MainAxisAlignment.spaceAround,
                               children: [
-                                Text(
-                                   formattedSerialNumber,
-                                  style: AllHRTableData.customTextStyle(context)
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                       formattedSerialNumber,
+                                      style: AllHRTableData.customTextStyle(context)
+                                    ),
+                                  ),
                                 ),
                                 // Text(''),
-                                Text(
-                                    snapshot.data![index].countyName.toString(),
-                                textAlign:TextAlign.center,
-                                  style: AllHRTableData.customTextStyle(context)
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                        snapshot.data![index].countyName.toString(),
+                                    textAlign:TextAlign.center,
+                                      style: AllHRTableData.customTextStyle(context)
+                                    ),
+                                  ),
                                 ),
-                                Text(
-                                    snapshot.data![index].zipcodes.toString(),
-                                  style: AllHRTableData.customTextStyle(context)
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                        snapshot.data![index].zoneName.toString(),
+                                      style: AllHRTableData.customTextStyle(context)
+                                    ),
+                                  ),
                                 ),
-                                Row(
-                                  children: [
-                                    IconButton(onPressed: (){
-                                      showDialog(context: context, builder: (context){
-                                        return CIZoneAddPopup(
-                                          onSavePressed: ()async{
-                                          },
-                                          title: 'Edit County',
-                                          title1: AppStringEM.countyName,
-                                          countynameController: countynameController,
-                                          title2:AppStringEM.landmark,
-                                          zipcodeController: landmarkController,  );
-                                      });
-                                    }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
-                                    IconButton(onPressed: (){
-                                      showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
-                                        Navigator.pop(context);
-                                      }, onDelete: (){
-                                        //deleteCounty(context, snapshot.data![index].c)
-                                      }));
-                                    }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
-                                  ],
+                                Expanded(
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        IconButton(onPressed: (){
+                                          showDialog(context: context, builder: (context){
+                                            return CIZoneAddPopup(
+                                              onSavePressed: ()async{
+
+                                              },
+                                              title: 'Edit County',
+                                              title1: AppStringEM.countyName,
+                                              countynameController: countynameController,
+                                              title2:AppStringEM.landmark,
+                                              zipcodeController: landmarkController,  );
+                                          });
+                                        }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
+                                        IconButton(onPressed: (){
+                                          showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                            Navigator.pop(context);
+                                          }, onDelete: ()async{
+                                            // await deleteCounty(context, snapshot.data![index].c)
+                                          }));
+                                        }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
+                                      ],
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -212,8 +230,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                     ),
                   ],
                 );
-              })
-          ;
+              });
     }
   return const Offstage();
 },

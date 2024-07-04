@@ -40,6 +40,37 @@ Future<List<UserModal>> getUser(BuildContext context,) async {
   }
 }
 
+/// Get all prefill user
+Future<UserModalPrefill> getUserPrefill(BuildContext context,int userId) async {
+  var itemsList;
+  try {
+    final response = await Api(context).get(
+        path: EstablishmentManagerRepository.userPrefillGet(userId: userId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+        itemsList =
+            UserModalPrefill(
+                userId: response.data['userId'],
+                firstName: response.data['firstName'],
+                lastName: response.data['lastName']??"--",
+                role: response.data['role'],
+                companyId: response.data['company_id'],
+                email: response.data['email'],
+                sucess: true,
+                message: response.statusMessage!);
+
+      // print("Org Document response:::::${itemsList}");
+    } else {
+      print('User Data Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
+
 /// Create user
 Future<ApiData> createUserPost(
     BuildContext context,

@@ -256,74 +256,88 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                     children: [
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
-                                          return AddZonePopup(zoneNumberController: zoneNumberController, title: 'Edit Zone',
-                                            onSavePressed: () async{
-                                             await updateZoneCountyData(context, snapshot.data![index].zoneId,zoneNumberController.text,
-                                                 countyId, widget.officeId, widget.companyID);
-                                             getZoneByCounty
-                                               (context, widget.officeId,widget.companyID,20, 1, 15).then((data){
-                                               _zoneController.add(data);
-                                             }).catchError((error){
-
-                                             });
-                                          },
-                                            child: FutureBuilder<List<AllCountyGetList>>(
-                                                future: getCountyZoneList(context),
-                                                builder: (context,snapshotZone) {
-                                                  if(snapshotZone.connectionState == ConnectionState.waiting){
-                                                    return Shimmer.fromColors(
-                                                        baseColor: Colors.grey[300]!,
-                                                        highlightColor: Colors.grey[100]!,
-                                                        child: Container(
-                                                          width: 354,
-                                                          height: 30,
-                                                          decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                        )
-                                                    );
-                                                  }
-                                                  if (snapshotZone.data!.isEmpty) {
-                                                    return Center(
-                                                      child: Text(
-                                                        AppString.dataNotFound,
-                                                        style: CustomTextStylesCommon.commonStyle(
-                                                          fontWeight: FontWeightManager.medium,
-                                                          fontSize: FontSize.s12,
-                                                          color: ColorManager.mediumgrey,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  if(snapshotZone.hasData){
-                                                    List dropDown = [];
-                                                    int docType = 0;
-                                                    List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                                    for(var i in snapshotZone.data!){
-                                                      dropDownTypesList.add(
-                                                        DropdownMenuItem<String>(
-                                                          value: i.countyName,
-                                                          child: Text(i.countyName),
-                                                        ),
-                                                      );
+                                          return FutureBuilder<CountyZonePrefillGet>(
+                                            future: getZoneByCountyPrefill(context, snapshot.data![index].zoneId),
+                                            builder: (context,snapshotPrefill) {
+                                              if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                              }
+                                              var zoneNumber = snapshotPrefill.data!.zoneName;
+                                              var countyPreId = snapshotPrefill.data!.countyId;
+                                              countyId = countyPreId;
+                                              zoneNumberController = TextEditingController(text: snapshotPrefill.data!.zoneName);
+                                              return AddZonePopup(zoneNumberController: zoneNumberController, title: 'Edit Zone',
+                                                onSavePressed: () async{
+                                                 await updateZoneCountyData(context, snapshot.data![index].zoneId,
+                                                     zoneNumber == zoneNumberController.text ? zoneNumber.toString() : zoneNumberController.text,
+                                                     countyPreId == countyId ? countyPreId : countyId, widget.officeId, widget.companyID);
+                                                 getZoneByCounty
+                                                   (context, widget.officeId,widget.companyID,20, 1, 15).then((data){
+                                                   _zoneController.add(data);
+                                                 }).catchError((error){
+                                                 });
+                                                 zoneNumberController.clear();
+                                                 countyId = 0;
+                                              },
+                                                child: FutureBuilder<List<AllCountyGetList>>(
+                                                    future: getCountyZoneList(context),
+                                                    builder: (context,snapshotZone) {
+                                                      if(snapshotZone.connectionState == ConnectionState.waiting){
+                                                        return Shimmer.fromColors(
+                                                            baseColor: Colors.grey[300]!,
+                                                            highlightColor: Colors.grey[100]!,
+                                                            child: Container(
+                                                              width: 354,
+                                                              height: 30,
+                                                              decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                            )
+                                                        );
+                                                      }
+                                                      if (snapshotZone.data!.isEmpty) {
+                                                        return Center(
+                                                          child: Text(
+                                                            AppString.dataNotFound,
+                                                            style: CustomTextStylesCommon.commonStyle(
+                                                              fontWeight: FontWeightManager.medium,
+                                                              fontSize: FontSize.s12,
+                                                              color: ColorManager.mediumgrey,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      if(snapshotZone.hasData){
+                                                        List dropDown = [];
+                                                        int docType = 0;
+                                                        List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                                        for(var i in snapshotZone.data!){
+                                                          dropDownTypesList.add(
+                                                            DropdownMenuItem<String>(
+                                                              value: i.countyName,
+                                                              child: Text(i.countyName),
+                                                            ),
+                                                          );
+                                                        }
+                                                        return CICCDropdown(
+                                                            initialValue: dropDownTypesList[countyPreId].value,
+                                                            onChange: (val){
+                                                              for(var a in snapshotZone.data!){
+                                                                if(a.countyName == val){
+                                                                  docType = a.countyId;
+                                                                  print("County id :: ${a.companyId}");
+                                                                  countyId = docType;
+                                                                }
+                                                              }
+                                                              print(":::${docType}");
+                                                              print(":::<>${countyId}");
+                                                            },
+                                                            items:dropDownTypesList
+                                                        );
+                                                      }
+                                                      return const SizedBox();
                                                     }
-                                                    return CICCDropdown(
-                                                        initialValue: dropDownTypesList[0].value,
-                                                        onChange: (val){
-                                                          for(var a in snapshotZone.data!){
-                                                            if(a.countyName == val){
-                                                              docType = a.countyId;
-                                                              print("County id :: ${a.companyId}");
-                                                              countyId = docType;
-                                                            }
-                                                          }
-                                                          print(":::${docType}");
-                                                          print(":::<>${countyId}");
-                                                        },
-                                                        items:dropDownTypesList
-                                                    );
-                                                  }
-                                                  return const SizedBox();
-                                                }
-                                            ),);
+                                                ),);
+                                            }
+                                          );
                                           //   CIZoneEditPopup(
                                           //   onSavePressed: (){},
                                           //   title: 'Edit Zone',

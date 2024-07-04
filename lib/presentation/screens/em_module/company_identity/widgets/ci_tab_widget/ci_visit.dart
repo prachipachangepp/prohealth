@@ -178,6 +178,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 }).catchError((error) {
                                   // Handle error
                                 });
+                                selectedChipsId.clear();
+                                selectedChips.clear();
+                                docNamecontroller.clear();
                               },
                               child1: Wrap(spacing: 8.0,
                                   children: chipsList),
@@ -318,9 +321,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             // style: RegisterTableHead.customTextStyle(context),),),
             Expanded(
               flex: 2,
-              child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
                 child: Text(
                   AppString.actions,
+                  textAlign:TextAlign.start,
                   style: GoogleFonts.firaSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -464,156 +469,167 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   context: context,
                                                   builder:
                                                       (BuildContext context) {
-                                                    return StatefulBuilder(
-                                                      builder: (BuildContext
-                                                              context,
-                                                          void Function(
-                                                                  void Function())
-                                                              setState) {
-                                                        return AddVisitPopup(
-                                                          nameOfDocumentController:
-                                                              docNamecontroller,
-                                                          idOfDocumentController:
-                                                              docIdController,
-                                                          onSavePressed:
-                                                              () async {
-                                                            await updateVisitPatch(
-                                                                context,
-                                                                snapshot
-                                                                    .data![index]
-                                                                    .visitId,
-                                                                docNamecontroller
-                                                                    .text,
-                                                                1,
-                                                                selectedChipsId);
-                                                            getVisit(context, 1,
-                                                                    1, 10)
-                                                                .then((data) {
-                                                              _visitController
-                                                                  .add(data);
-                                                            }).catchError(
-                                                                    (error) {
-                                                              // Handle error
-                                                            });
-                                                            docNamecontroller
-                                                                .clear();
-                                                            _selectedItem =
-                                                                "Select";
-                                                          },
-                                                          child1: Wrap(
-                                                              spacing: 8.0,
-                                                              children: selectedChips),
-                                                          child: FutureBuilder<
-                                                                  List<
-                                                                      HRClinical>>(
-                                                              future:
-                                                                  companyAllHrClinicApi(
-                                                                      context),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                if (snapshot
-                                                                        .connectionState ==
-                                                                    ConnectionState
-                                                                        .waiting) {
-                                                                  return Shimmer
-                                                                      .fromColors(
-                                                                          baseColor:
-                                                                              Colors.grey[
-                                                                                  300]!,
-                                                                          highlightColor:
-                                                                              Colors.grey[
-                                                                                  100]!,
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                354,
-                                                                            height:
-                                                                                30,
-                                                                            decoration: BoxDecoration(
-                                                                                color: ColorManager.faintGrey,
-                                                                                borderRadius: BorderRadius.circular(10)),
-                                                                          ));
-                                                                }
-                                                                if (snapshot.data!
-                                                                    .isEmpty) {
-                                                                  return Center(
-                                                                    child: Text(
-                                                                      AppString
-                                                                          .dataNotFound,
-                                                                      style: CustomTextStylesCommon
-                                                                          .commonStyle(
-                                                                        fontWeight:
-                                                                            FontWeightManager
-                                                                                .medium,
-                                                                        fontSize:
-                                                                            FontSize
-                                                                                .s12,
-                                                                        color: ColorManager
-                                                                            .mediumgrey,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                if (snapshot
-                                                                    .hasData) {
-                                                                  int docType = 0;
-                                                                  List<
-                                                                          DropdownMenuItem<
-                                                                              String>>
-                                                                      dropDownTypesList =
-                                                                      [];
-                                                                  for (var i
-                                                                      in snapshot
-                                                                          .data!) {
-                                                                    dropDownTypesList
-                                                                        .add(
-                                                                      DropdownMenuItem<
-                                                                          String>(
-                                                                        child: Text(
-                                                                            i.abbrivation!),
-                                                                        value: i
-                                                                            .abbrivation,
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                  return CICCDropdown(
-                                                                      initialValue:
-                                                                          dropDownTypesList[0]
-                                                                              .value,
-                                                                      onChange:
-                                                                          (val) {
-                                                                        for (var a
-                                                                            in snapshot
-                                                                                .data!) {
-                                                                          if (a.abbrivation ==
-                                                                              val) {
-                                                                            docType =
-                                                                                a.employeeTypesId;
-                                                                            empTypeId =
-                                                                                docType;
-                                                                            setState(
-                                                                                () {
-                                                                              if (val.isNotEmpty) {
-                                                                                addChip(val.trim(),docType);
-                                                                                print("chipsID:::${selectedChipsId}");
+                                                    return FutureBuilder<VisitListDataPrefill>(
+                                                          future: getVisitListPrefill(context, snapshot.data![index].visitId),
+                                                          builder: (context,snapshotPrefill) {
+                                                            if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                              return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,));
+                                                            }
+                                                            var visitName = snapshotPrefill.data!.visitType;
+                                                            docNamecontroller = TextEditingController(text: snapshotPrefill.data!.visitType.toString());
+                                                            return StatefulBuilder(
+                                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                return AddVisitPopup(
+                                                                  nameOfDocumentController:
+                                                                  docNamecontroller,
+                                                                  idOfDocumentController:
+                                                                  docIdController,
+                                                                  onSavePressed:
+                                                                      () async {
+                                                                    await updateVisitPatch(
+                                                                        context,
+                                                                        snapshot
+                                                                            .data![index]
+                                                                            .visitId,
+                                                                        visitName == docNamecontroller
+                                                                            .text ? visitName.toString() : docNamecontroller.text,
+                                                                        1,
+                                                                        selectedChipsId);
 
-                                                                              }
-                                                                            });
-                                                                          }
+                                                                    getVisit(context, 1,
+                                                                        1, 10)
+                                                                        .then((data) {
+                                                                      _visitController
+                                                                          .add(data);
+                                                                    }).catchError(
+                                                                            (error) {
+                                                                          // Handle error
+                                                                        });
+                                                                    selectedChipsId.clear();
+                                                                    selectedChips.clear();
+                                                                    docNamecontroller
+                                                                        .clear();
+                                                                    _selectedItem =
+                                                                    "Select";
+                                                                  },
+                                                                  child1: Wrap(
+                                                                      spacing: 8.0,
+                                                                      children: selectedChips),
+                                                                  child: FutureBuilder<
+                                                                      List<
+                                                                          HRClinical>>(
+                                                                      future:
+                                                                      companyAllHrClinicApi(
+                                                                          context),
+                                                                      builder: (context,
+                                                                          snapshot) {
+                                                                        if (snapshot
+                                                                            .connectionState ==
+                                                                            ConnectionState
+                                                                                .waiting) {
+                                                                          return Shimmer
+                                                                              .fromColors(
+                                                                              baseColor:
+                                                                              Colors.grey[
+                                                                              300]!,
+                                                                              highlightColor:
+                                                                              Colors.grey[
+                                                                              100]!,
+                                                                              child:
+                                                                              Container(
+                                                                                width:
+                                                                                354,
+                                                                                height:
+                                                                                30,
+                                                                                decoration: BoxDecoration(
+                                                                                    color: ColorManager.faintGrey,
+                                                                                    borderRadius: BorderRadius.circular(10)),
+                                                                              ));
                                                                         }
-                                                                        print(
-                                                                            ":::${docType}");
-                                                                        print(
-                                                                            ":::<>${empTypeId}");
-                                                                      },
-                                                                      items:
-                                                                          dropDownTypesList);
-                                                                }
-                                                                return SizedBox();
-                                                              }),
+                                                                        if (snapshot.data!
+                                                                            .isEmpty) {
+                                                                          return Center(
+                                                                            child: Text(
+                                                                              AppString
+                                                                                  .dataNotFound,
+                                                                              style: CustomTextStylesCommon
+                                                                                  .commonStyle(
+                                                                                fontWeight:
+                                                                                FontWeightManager
+                                                                                    .medium,
+                                                                                fontSize:
+                                                                                FontSize
+                                                                                    .s12,
+                                                                                color: ColorManager
+                                                                                    .mediumgrey,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                        if (snapshot
+                                                                            .hasData) {
+                                                                          int docType = 0;
+                                                                          List<
+                                                                              DropdownMenuItem<
+                                                                                  String>>
+                                                                          dropDownTypesList =
+                                                                          [];
+                                                                          for (var i
+                                                                          in snapshot
+                                                                              .data!) {
+                                                                            dropDownTypesList
+                                                                                .add(
+                                                                              DropdownMenuItem<
+                                                                                  String>(
+                                                                                child: Text(
+                                                                                    i.abbrivation!),
+                                                                                value: i
+                                                                                    .abbrivation,
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                          return CICCDropdown(
+                                                                              initialValue:
+                                                                              dropDownTypesList[0]
+                                                                                  .value,
+                                                                              onChange:
+                                                                                  (val) {
+                                                                                for (var a
+                                                                                in snapshot
+                                                                                    .data!) {
+                                                                                  if (a.abbrivation ==
+                                                                                      val) {
+                                                                                    docType =
+                                                                                        a.employeeTypesId;
+                                                                                    empTypeId =
+                                                                                        docType;
+                                                                                    setState(
+                                                                                            () {
+                                                                                          if (val.isNotEmpty) {
+                                                                                            addChip(val.trim(),docType);
+                                                                                            print("chipsID:::${selectedChipsId}");
+
+                                                                                          }
+                                                                                        });
+                                                                                  }
+                                                                                }
+                                                                                print(
+                                                                                    ":::${docType}");
+                                                                                print(
+                                                                                    ":::<>${empTypeId}");
+                                                                              },
+                                                                              items:
+                                                                              dropDownTypesList);
+                                                                        }
+                                                                        return SizedBox();
+                                                                      }),
+                                                                );
+                                                              },
+
+                                                            );
+                                                          }
                                                         );
-                                                      },
-                                                    );
+
                                                   });
                                             },
                                             icon: Icon(

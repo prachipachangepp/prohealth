@@ -39,6 +39,20 @@ class VisitListData {
       required this.visitType});
 }
 
+/// Get visit prefill
+class VisitListDataPrefill {
+  final String visitType;
+  final int companyId;
+  final int visitId;
+  final bool sucess;
+  final String message;
+  VisitListDataPrefill(
+      {required this.sucess,
+        required this.message,
+        required this.companyId,
+        required this.visitId,
+        required this.visitType});
+}
 class CiVisitAdd {
   final String? visitType;
   final List? eligibleClinician;

@@ -267,142 +267,162 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                     children: [
                                       IconButton(onPressed: (){
                                         showDialog(context: context, builder: (context){
-                                          return AddZipCodePopup(title: 'Add Zip Code',
-                                            countynameController: countynameController,
-                                            cityNameController: cityController,
-                                            zipcodeController: zipcodeController,
-                                            child1: FutureBuilder<List<AllCountyGetList>>(
-                                                future: getCountyZoneList(context),
-                                                builder: (context,snapshotZone) {
-                                                  if(snapshotZone.connectionState == ConnectionState.waiting){
-                                                    return Shimmer.fromColors(
-                                                        baseColor: Colors.grey[300]!,
-                                                        highlightColor: Colors.grey[100]!,
-                                                        child: Container(
-                                                          width: 354,
-                                                          height: 30,
-                                                          decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                        )
-                                                    );
-                                                  }
-                                                  if (snapshotZone.data!.isEmpty) {
-                                                    return Center(
-                                                      child: Text(
-                                                        AppString.dataNotFound,
-                                                        style: CustomTextStylesCommon.commonStyle(
-                                                          fontWeight: FontWeightManager.medium,
-                                                          fontSize: FontSize.s12,
-                                                          color: ColorManager.mediumgrey,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  if(snapshotZone.hasData){
-                                                    List dropDown = [];
-                                                    int docType = 0;
-                                                    List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                                    for(var i in snapshotZone.data!){
-                                                      dropDownTypesList.add(
-                                                        DropdownMenuItem<String>(
-                                                          value: i.countyName,
-                                                          child: Text(i.countyName),
-                                                        ),
-                                                      );
+                                          return FutureBuilder<ZipCodeGetPrefill>(
+                                            future: getZipcodeSetupPrefill(context, snapshot.data![index].zipcodeSetupId!),
+                                            builder: (context,snapshotPrefill) {
+                                              if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                              }
+                                              var countyName = snapshotPrefill.data!.countyName;
+                                              var cityName = snapshotPrefill.data!.city;
+                                              var zipCode = snapshotPrefill.data!.zipcode;
+                                              var landmark = snapshotPrefill.data!.landmark;
+                                              var zoinId = snapshotPrefill.data!.zoneId;
+                                              docZoneId = zoinId!;
+                                              var countyPreId = snapshotPrefill.data!.countyID;
+                                              countyId = countyPreId!;
+                                              landmarkController = TextEditingController(text:snapshotPrefill.data!.landmark.toString());
+                                              countynameController = TextEditingController(text:snapshotPrefill.data!.countyName.toString());
+                                              cityController = TextEditingController(text: snapshotPrefill.data!.city.toString());
+                                              zipcodeController = TextEditingController(text: snapshotPrefill.data!.zipcode.toString());
+                                              return AddZipCodePopup(title: 'Edit Zip Code',
+                                                countynameController: countynameController,
+                                                cityNameController: cityController,
+                                                zipcodeController: zipcodeController,
+                                                child1: FutureBuilder<List<AllCountyGetList>>(
+                                                    future: getCountyZoneList(context),
+                                                    builder: (context,snapshotZone) {
+                                                      if(snapshotZone.connectionState == ConnectionState.waiting){
+                                                        return Shimmer.fromColors(
+                                                            baseColor: Colors.grey[300]!,
+                                                            highlightColor: Colors.grey[100]!,
+                                                            child: Container(
+                                                              width: 354,
+                                                              height: 30,
+                                                              decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                            )
+                                                        );
+                                                      }
+                                                      if (snapshotZone.data!.isEmpty) {
+                                                        return Center(
+                                                          child: Text(
+                                                            AppString.dataNotFound,
+                                                            style: CustomTextStylesCommon.commonStyle(
+                                                              fontWeight: FontWeightManager.medium,
+                                                              fontSize: FontSize.s12,
+                                                              color: ColorManager.mediumgrey,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      if(snapshotZone.hasData){
+                                                        List dropDown = [];
+                                                        int docType = 0;
+                                                        List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                                        for(var i in snapshotZone.data!){
+                                                          dropDownTypesList.add(
+                                                            DropdownMenuItem<String>(
+                                                              value: i.countyName,
+                                                              child: Text(i.countyName),
+                                                            ),
+                                                          );
+                                                        }
+                                                        return CICCDropdown(
+                                                            initialValue: dropDownTypesList[0].value,
+                                                            onChange: (val){
+                                                              for(var a in snapshotZone.data!){
+                                                                if(a.countyName == val){
+                                                                  docType = a.countyId;
+                                                                  print("County id :: ${a.companyId}");
+                                                                  countyId = docType;
+                                                                }
+                                                              }
+                                                              print(":::${docType}");
+                                                              print(":::<>${countyId}");
+                                                            },
+                                                            items:dropDownTypesList
+                                                        );
+                                                      }
+                                                      return const SizedBox();
                                                     }
-                                                    return CICCDropdown(
-                                                        initialValue: dropDownTypesList[0].value,
-                                                        onChange: (val){
-                                                          for(var a in snapshotZone.data!){
-                                                            if(a.countyName == val){
-                                                              docType = a.countyId;
-                                                              print("County id :: ${a.companyId}");
-                                                              countyId = docType;
-                                                            }
-                                                          }
-                                                          print(":::${docType}");
-                                                          print(":::<>${countyId}");
-                                                        },
-                                                        items:dropDownTypesList
-                                                    );
-                                                  }
-                                                  return const SizedBox();
-                                                }
-                                            ),
-                                            child:  FutureBuilder<List<AllZoneData>>(
-                                                future: getAllZone(context),
-                                                builder: (context,snapshotZone) {
-                                                  if(snapshotZone.connectionState == ConnectionState.waiting){
-                                                    return Shimmer.fromColors(
-                                                        baseColor: Colors.grey[300]!,
-                                                        highlightColor: Colors.grey[100]!,
-                                                        child: Container(
-                                                          width: 354,
-                                                          height: 30,
-                                                          decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                        )
-                                                    );
-                                                  }
-                                                  if (snapshotZone.data!.isEmpty) {
-                                                    return Center(
-                                                      child: Text(
-                                                        AppString.dataNotFound,
-                                                        style: CustomTextStylesCommon.commonStyle(
-                                                          fontWeight: FontWeightManager.medium,
-                                                          fontSize: FontSize.s12,
-                                                          color: ColorManager.mediumgrey,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  if(snapshotZone.hasData){
-                                                    List dropDown = [];
-                                                    int docType = 0;
-                                                    List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                                    for(var i in snapshotZone.data!){
-                                                      dropDownTypesList.add(
-                                                        DropdownMenuItem<String>(
-                                                          value: i.zoneName,
-                                                          child: Text(i.zoneName),
-                                                        ),
-                                                      );
+                                                ),
+                                                child:  FutureBuilder<List<AllZoneData>>(
+                                                    future: getAllZone(context),
+                                                    builder: (context,snapshotZone) {
+                                                      if(snapshotZone.connectionState == ConnectionState.waiting){
+                                                        return Shimmer.fromColors(
+                                                            baseColor: Colors.grey[300]!,
+                                                            highlightColor: Colors.grey[100]!,
+                                                            child: Container(
+                                                              width: 354,
+                                                              height: 30,
+                                                              decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                            )
+                                                        );
+                                                      }
+                                                      if (snapshotZone.data!.isEmpty) {
+                                                        return Center(
+                                                          child: Text(
+                                                            AppString.dataNotFound,
+                                                            style: CustomTextStylesCommon.commonStyle(
+                                                              fontWeight: FontWeightManager.medium,
+                                                              fontSize: FontSize.s12,
+                                                              color: ColorManager.mediumgrey,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      if(snapshotZone.hasData){
+                                                        List dropDown = [];
+                                                        int docType = 0;
+                                                        List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                                        for(var i in snapshotZone.data!){
+                                                          dropDownTypesList.add(
+                                                            DropdownMenuItem<String>(
+                                                              value: i.zoneName,
+                                                              child: Text(i.zoneName),
+                                                            ),
+                                                          );
+                                                        }
+                                                        return CICCDropdown(
+                                                            initialValue: dropDownTypesList[0].value,
+                                                            onChange: (val){
+                                                              for(var a in snapshotZone.data!){
+                                                                if(a.zoneName == val){
+                                                                  docType = a.zoneId;
+                                                                  print("ZONE id :: ${a.zoneId}");
+                                                                  docZoneId = docType;
+                                                                }
+                                                              }
+                                                              print(":::${docType}");
+                                                              print(":::<>${docZoneId}");
+                                                            },
+                                                            items:dropDownTypesList
+                                                        );
+                                                      }
+                                                      return const SizedBox();
                                                     }
-                                                    return CICCDropdown(
-                                                        initialValue: dropDownTypesList[0].value,
-                                                        onChange: (val){
-                                                          for(var a in snapshotZone.data!){
-                                                            if(a.zoneName == val){
-                                                              docType = a.zoneId;
-                                                              print("ZONE id :: ${a.zoneId}");
-                                                              docZoneId = docType;
-                                                            }
-                                                          }
-                                                          print(":::${docType}");
-                                                          print(":::<>${docZoneId}");
-                                                        },
-                                                        items:dropDownTypesList
-                                                    );
-                                                  }
-                                                  return const SizedBox();
-                                                }
-                                            ),
-                                            onSavePressed: () async{
-                                            await updateZipCodeSetup(context,
-                                                snapshot.data![index].zipcodeSetupId!,
-                                                docZoneId,
-                                                countyId,
-                                                widget.companyID,
-                                                widget.officeId,
-                                                cityController.text,
-                                                zipcodeController.text,
-                                                "37.0902°",
-                                                "95.7129°",
-                                                landmarkController.text);
-                                            getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
-                                              _zipcodeController.add(data);
-                                            }).catchError((error){
+                                                ),
+                                                onSavePressed: () async{
+                                                await updateZipCodeSetup(context,
+                                                    snapshot.data![index].zipcodeSetupId!,
+                                                    zoinId == docZoneId ? zoinId : docZoneId,
+                                                    countyPreId == countyId ? countyPreId : countyId,
+                                                    widget.companyID,
+                                                    widget.officeId,
+                                                   cityName ==  cityController.text ? cityName.toString() :cityController.text,
+                                                   zipCode == zipcodeController.text ? zipCode.toString() : zipcodeController.text,
+                                                    "37.0902°",
+                                                    "95.7129°",
+                                                    landmark == landmarkController.text ? landmark.toString() :landmarkController.text);
+                                                getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
+                                                  _zipcodeController.add(data);
+                                                }).catchError((error){
 
-                                            });
-                                            }, mapController: mapController, landmarkController: landmarkController,);
+                                                });
+                                                }, mapController: mapController, landmarkController: landmarkController,);
+                                            }
+                                          );
                                         });
                                       }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                       IconButton(onPressed: (){
