@@ -135,91 +135,89 @@ class RegisterScreen extends StatelessWidget {
                                 horizontal: MediaQuery.of(context).size.width / 50,
                                 vertical: MediaQuery.of(context).size.height / 120,
                               ),
-                              child: Column(
-                                children: [
-                                  Row(children: [
-                                    Text('Ace Prabhu',
-                                    style: GoogleFonts.firaSans(
-                                      fontWeight: FontWeightManager.medium,
-                                     // color: ColorManager.mediumgrey,
-                                      color: Color(0xff333333),
-                                      fontSize: FontSize.s13,
-                                    ),),
-                                    Row(children: [],)
-                                  ],),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                    Text('Status',
-                                    style: GoogleFonts.firaSans(
-                                      fontWeight: FontWeightManager.medium,
-                                     // color: ColorManager.mediumgrey,
-                                      color: Color(0xff333333),
-                                      fontSize: FontSize.s13,
-                                    ),),
-                                      SizedBox(width: MediaQuery.of(context).size.width/50,),
-                                      Container(
-                                        width: 10.0, // Adjust the size as needed
-                                        height: 10.0,
-                                        decoration: BoxDecoration(
-                                          color: Colors.yellow,
-                                          shape: BoxShape.circle,
-                                        ),
-                                      ),
-                                      SizedBox(width: MediaQuery.of(context).size.width/50,),
-                                      Text(
-                                        'partial',
-                                        style: GoogleFonts.firaSans(
-                                          fontWeight: FontWeightManager.medium,
-                                          color: Color(0xff333333),
-                                          fontSize: FontSize.s13,
-                                        ),
-                                      ),
-                                  ],),
-                                  Column(
-                                    children: [
-                                      CustomRow(
-                                        icon: Icons.person_2_outlined,
-                                        text1: 'Code',
-                                        text2: '351631',
-                                      ),
-                                      CustomRow(
-                                        icon: Icons.phone_outlined,
-                                        text1: 'Phone',
-                                        text2: '+13473522252',
-                                      ),
-                                      CustomRow(
-                                        icon: Icons.email_outlined,
-                                        text1: 'Email',
-                                        text2: 'ace@dpblr.com',
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.link),
-                                          SizedBox(width: 8),
-                                          Text(
-                                              'Link',
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400
-                                            ),
+                              child: Container(
+                                color: Colors.red,
+                                child: Column(
+
+                                  children: [
+                                    Row(children: [
+                                      Text('Ace Prabhu',
+                                      style: GoogleFonts.firaSans(
+                                        fontWeight: FontWeightManager.medium,
+                                       // color: ColorManager.mediumgrey,
+                                        color: Color(0xff333333),
+                                        fontSize: FontSize.s13,
+                                      ),),
+                                      Row(children: [],)
+                                    ],),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                      Text('Status',
+                                      style: GoogleFonts.firaSans(
+                                        fontWeight: FontWeightManager.medium,
+                                       // color: ColorManager.mediumgrey,
+                                        color: Color(0xff333333),
+                                        fontSize: FontSize.s13,
+                                      ),),
+                                        SizedBox(width: MediaQuery.of(context).size.width/50,),
+                                        Container(
+                                          width: 10.0, // Adjust the size as needed
+                                          height: 10.0,
+                                          decoration: BoxDecoration(
+                                            color: Colors.yellow,
+                                            shape: BoxShape.circle,
                                           ),
-                                          SizedBox(width: 80),
-                                          TextButton(
-                                              onPressed: () {},
-                                              child: Text('https://prohealth.symmetry.care/register',
-                                              style: TextStyle(
-                                                color: Color(0xff51B5E6),
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w400,
-                                              )),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  )
-                                ],
+                                        ),
+                                        SizedBox(width: MediaQuery.of(context).size.width/50,),
+                                        Text(
+                                          'partial',
+                                          style: GoogleFonts.firaSans(
+                                            fontWeight: FontWeightManager.medium,
+                                            color: Color(0xff333333),
+                                            fontSize: FontSize.s13,
+                                          ),
+                                        ),
+                                    ],),
+                                    Column(
+
+                                      children: [
+                                        CustomRow(
+                                          icon: Icons.person_2_outlined,
+                                          text1: 'Code',
+                                          text2: '351631',
+                                        ),
+                                        CustomRow(
+                                          icon: Icons.phone_outlined,
+                                          text1: 'Phone',
+                                          text2: '+13473522252',
+                                        ),
+                                        CustomRow(
+                                          icon: Icons.email_outlined,
+                                          text1: 'Email',
+                                          text2: 'ace@dpblr.com',
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.link, size: 15,color: ColorManager.mediumgrey),
+                                            SizedBox(width: MediaQuery.of(context).size.width/40),
+                                            Text(
+                                                'Link',
+                                              style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400,color: ColorManager.mediumgrey)
+                                            ),
+                                            SizedBox(width: MediaQuery.of(context).size.width/40),
+                                            TextButton(
+                                                onPressed: () {},
+                                                child: Text('https://prohealth.symmetry.care/register',
+                                                style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400,color: ColorManager.blueprime)),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
