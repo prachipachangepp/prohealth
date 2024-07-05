@@ -26,12 +26,14 @@ class McqWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: textFontSize,
-            color: ColorManager.mediumgrey,
-            fontWeight: FontWeightManager.medium,
+        Flexible(
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: textFontSize,
+              color: ColorManager.mediumgrey,
+              fontWeight: FontWeightManager.medium,
+            ),
           ),
         ),
         Padding(
