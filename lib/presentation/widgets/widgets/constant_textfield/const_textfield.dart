@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../app/resources/value_manager.dart';
@@ -120,7 +121,11 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
             items: widget.items.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value),
+                child: Text(value, style: GoogleFonts.firaSans(
+                  fontSize: 12,
+                  color: Color(0xff575757),
+                  fontWeight: FontWeight.w400,
+                ),),
               );
             }).toList(),
             onChanged: (newValue) {

@@ -270,33 +270,33 @@ class SalesTab extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          // McqWidget(
-                          //   title: 'Employment',
-                          //   items: [
-                          //     'Full Time',
-                          //     'Contract',
-                          //     'Part Time',
-                          //     'Per Diem'
-                          //   ],
-                          //   onChanged: (selectedIndex) {
-                          //     print('Selected index: $selectedIndex');
-                          //     _selectedItemIndex = selectedIndex;
-                          //   },
-                          // ),
-                          // McqWidget(
-                          //   title: 'Gender',
-                          //   items: [
-                          //     'Male',
-                          //     'Female',
-                          //     'Other',
-                          //   ],
-                          //   onChanged: (int) {},
-                          // ),
-                          // McqWidget(
-                          //   title: 'Status',
-                          //   items: ['Active', 'Trainee', 'Inactive'],
-                          //   onChanged: (int) {},
-                          // ),
+                          McqWidget(
+                            title: 'Employment',
+                            items: [
+                              'Full Time',
+                              'Contract',
+                              'Part Time',
+                              'Per Diem'
+                            ],
+                            onChanged: (selectedIndex) {
+                              print('Selected index: $selectedIndex');
+                              _selectedItemIndex = selectedIndex;
+                            },
+                          ),
+                          McqWidget(
+                            title: 'Gender',
+                            items: [
+                              'Male',
+                              'Female',
+                              'Other',
+                            ],
+                            onChanged: (int) {},
+                          ),
+                          McqWidget(
+                            title: 'Status',
+                            items: ['Active', 'Trainee', 'Inactive'],
+                            onChanged: (int) {},
+                          ),
                         ],
                       ),
                     ),

@@ -205,7 +205,12 @@ class EstablishmentManagerRepository {
   }
 
   /// Pay Rates get data
-  static String payRatesSetupGet({required int empTypeId,required int companyId,required int pageNo,required int noOfRows}){
+  static String payRatesSetupGet({
+    required int empTypeId,
+    required int companyId,
+    required int pageNo,
+    required int noOfRows
+  }){
     return "$payRatesSetup/$companyId/$empTypeId/$pageNo/$noOfRows";
   }
   static String payRatesSetupPost(){
