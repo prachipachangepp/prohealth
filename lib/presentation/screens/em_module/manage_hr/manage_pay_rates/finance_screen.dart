@@ -401,12 +401,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
             const TableHeadConstant(
               items: [
-                TableHeadItem(text: 'Sr No.', textAlign: TextAlign.start),
-                TableHeadItem(text: 'Type of Visit', textAlign: TextAlign.start),
-                TableHeadItem(text: 'Rate', textAlign: TextAlign.start),
-                TableHeadItem(text: 'Permiles', textAlign: TextAlign.start),
-                TableHeadItem(text: 'Zone', textAlign: TextAlign.start),
-                TableHeadItem(text: 'Actions', textAlign: TextAlign.end),
+                TableHeadItem(text: 'Sr No.', textAlign: TextAlign.center),
+                TableHeadItem(text: 'Type of Visit', textAlign: TextAlign.center),
+                TableHeadItem(text: 'Rate', textAlign: TextAlign.center),
+                TableHeadItem(text: 'Permiles', textAlign: TextAlign.center),
+                TableHeadItem(text: 'Zone', textAlign: TextAlign.center),
+                TableHeadItem(text: 'Actions', textAlign: TextAlign.center),
               ],
             ),
             const SizedBox(
@@ -529,7 +529,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   child: Center(
                                     child: Text(
                                       '${snapshot.data![index].zone!}' ,
-                                      textAlign: TextAlign.start,
+                                     // textAlign: TextAlign.start,
                                       style: GoogleFonts.firaSans(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w500,
@@ -540,173 +540,177 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return FutureBuilder<PayRatePrefillFinanceData>(
-                                                future:payPrefillRatesDataGet(context,snapshot.data![index].payRatesSetupId),
-                                                builder: (context,snapshotPrefill) {
-                                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                    return Center(
-                                                      child: CircularProgressIndicator(
-                                                        color: ColorManager.blueprime,
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return FutureBuilder<PayRatePrefillFinanceData>(
+                                                  future:payPrefillRatesDataGet(context,snapshot.data![index].payRatesSetupId),
+                                                  builder: (context,snapshotPrefill) {
+                                                    if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                      return Center(
+                                                        child: CircularProgressIndicator(
+                                                          color: ColorManager.blueprime,
+                                                        ),
+                                                      );
+                                                    }
+                                                    var payRates = snapshotPrefill.data?.payRates;
+                                                    var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
+                                                    var perMile = snapshotPrefill.data?.perMiles;
+                                                    print(":::PAYRATESTYPE${visitTypeId}");
+                                                    var zoneTypeId = snapshotPrefill.data?.zoneId;
+                                                    payRatesController = TextEditingController(text: snapshotPrefill.data?.payRates.toString());
+                                                    perMilesController = TextEditingController(text: snapshotPrefill.data?.perMiles.toString());
+                                                    return PayRatesPopup(
+                                                      title: 'Edit Payrate',
+                                                      child1: SMTextFConst(
+                                                        enable: false,
+                                                        readOnly: true,
+                                                        controller: TextEditingController(text: visitTypeId.toString(),),
+                                                        keyboardType: TextInputType.number,
+                                                        text: 'Type of Visit',
                                                       ),
-                                                    );
-                                                  }
-                                                  var payRates = snapshotPrefill.data?.payRates;
-                                                  var visitTypeId = snapshotPrefill.data?.typeOfVisitId;
-                                                  var perMile = snapshotPrefill.data?.perMiles;
-                                                  print(":::PAYRATESTYPE${visitTypeId}");
-                                                  var zoneTypeId = snapshotPrefill.data?.zoneId;
-                                                  payRatesController = TextEditingController(text: snapshotPrefill.data?.payRates.toString());
-                                                  perMilesController = TextEditingController(text: snapshotPrefill.data?.perMiles.toString());
-                                                  return PayRatesPopup(
-                                                    title: 'Edit Payrate',
-                                                    child1: SMTextFConst(
-                                                      enable: false,
-                                                      readOnly: true,
-                                                      controller: TextEditingController(text: visitTypeId.toString(),),
-                                                      keyboardType: TextInputType.number,
-                                                      text: 'Type of Visit',
-                                                    ),
-                                                    child2:  FutureBuilder<List<AllZoneData>>(
-                                                        future: getAllZone(context),
-                                                        builder: (context,snapshot) {
-                                                          if(snapshot.connectionState == ConnectionState.waiting){
-                                                            return Shimmer.fromColors(
-                                                                baseColor: Colors.grey[300]!,
-                                                                highlightColor: Colors.grey[100]!,
-                                                                child: Container(
-                                                                  width: 354,
-                                                                  height: 30,
-                                                                  decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                                                )
-                                                            );
-                                                          }
-                                                          if (snapshot.data!.isEmpty) {
-                                                            return Center(
-                                                              child: Text(
-                                                                AppString.dataNotFound,
-                                                                style: CustomTextStylesCommon.commonStyle(
-                                                                  fontWeight: FontWeightManager.medium,
-                                                                  fontSize: FontSize.s12,
-                                                                  color: ColorManager.mediumgrey,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          if(snapshot.hasData){
-                                                            List dropDown = [];
-                                                            int docType = 0;
-                                                            List<DropdownMenuItem<String>> dropDownTypesList = [];
-                                                            for(var i in snapshot.data!){
-                                                              dropDownTypesList.add(
-                                                                DropdownMenuItem<String>(
-                                                                  child: Text(i.zoneName),
-                                                                  value: i.zoneName,
+                                                      child2:  FutureBuilder<List<AllZoneData>>(
+                                                          future: getAllZone(context),
+                                                          builder: (context,snapshot) {
+                                                            if(snapshot.connectionState == ConnectionState.waiting){
+                                                              return Shimmer.fromColors(
+                                                                  baseColor: Colors.grey[300]!,
+                                                                  highlightColor: Colors.grey[100]!,
+                                                                  child: Container(
+                                                                    width: 354,
+                                                                    height: 30,
+                                                                    decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                                                  )
+                                                              );
+                                                            }
+                                                            if (snapshot.data!.isEmpty) {
+                                                              return Center(
+                                                                child: Text(
+                                                                  AppString.dataNotFound,
+                                                                  style: CustomTextStylesCommon.commonStyle(
+                                                                    fontWeight: FontWeightManager.medium,
+                                                                    fontSize: FontSize.s12,
+                                                                    color: ColorManager.mediumgrey,
+                                                                  ),
                                                                 ),
                                                               );
                                                             }
-                                                            return CICCDropdown(
-                                                                initialValue: dropDownTypesList[0].value,
-                                                                onChange: (val){
-                                                                  for(var a in snapshot.data!){
-                                                                    if(a.zoneName == val){
-                                                                      docType = a.zoneId;
-                                                                      docZoneId = docType;
+                                                            if(snapshot.hasData){
+                                                              List dropDown = [];
+                                                              int docType = 0;
+                                                              List<DropdownMenuItem<String>> dropDownTypesList = [];
+                                                              for(var i in snapshot.data!){
+                                                                dropDownTypesList.add(
+                                                                  DropdownMenuItem<String>(
+                                                                    child: Text(i.zoneName),
+                                                                    value: i.zoneName,
+                                                                  ),
+                                                                );
+                                                              }
+                                                              return CICCDropdown(
+                                                                  initialValue: dropDownTypesList[0].value,
+                                                                  onChange: (val){
+                                                                    for(var a in snapshot.data!){
+                                                                      if(a.zoneName == val){
+                                                                        docType = a.zoneId;
+                                                                        docZoneId = docType;
+                                                                      }
                                                                     }
-                                                                  }
-                                                                  print(":::${docType}");
-                                                                  print(":::<>${docZoneId}");
-                                                                },
-                                                                items:dropDownTypesList
-                                                            );
+                                                                    print(":::${docType}");
+                                                                    print(":::<>${docZoneId}");
+                                                                  },
+                                                                  items:dropDownTypesList
+                                                              );
+                                                            }
+                                                            return const SizedBox();
                                                           }
-                                                          return const SizedBox();
-                                                        }
-                                                    ),
-                                                    payRatesController: payRatesController,
-                                                    perMilesController: perMilesController,
-                                                    onPressed: () async{
-                                                      await updatePayRatesSetupPost(
-                                                          context,
-                                                          1,
-                                                          1,
-                                                          perMile == int.parse(perMilesController.text) ? perMile! : int.parse(perMilesController.text),
-                                                          visitTypeId!,
-                                                          zoneTypeId == docZoneId ? zoneTypeId! : docZoneId,
-                                                           payRates == int.parse(payRatesController.text) ? payRates! : int.parse(payRatesController.text),
-                                                          1,
-                                                        snapshot.data![index].payRatesSetupId,);
-                                                      print("ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
-                                                      payRatesDataGet(context,1,1,1,10).then((data) {
-                                                        _payRatesController.add(data);
-                                                      }).catchError((error) {
-                                                        // Handle error
-                                                      });
-                                                      docZoneId = 0;
-                                                      zoneTypeId = 0;
-                                                      visitTypeId = 0;
-                                                      payRatesController.clear();
-                                                    },);
-                                                }
-                                              );
-                                            },
-                                          );
-                                        },
-                                        icon: Icon(
-                                          Icons.edit_outlined,size: 18,
-                                          color: ColorManager.blueprime,
+                                                      ),
+                                                      payRatesController: payRatesController,
+                                                      perMilesController: perMilesController,
+                                                      onPressed: () async{
+                                                        await updatePayRatesSetupPost(
+                                                            context,
+                                                            1,
+                                                            1,
+                                                            perMile == int.parse(perMilesController.text) ? perMile! : int.parse(perMilesController.text),
+                                                            visitTypeId!,
+                                                            zoneTypeId == docZoneId ? zoneTypeId! : docZoneId,
+                                                             payRates == int.parse(payRatesController.text) ? payRates! : int.parse(payRatesController.text),
+                                                            1,
+                                                          snapshot.data![index].payRatesSetupId,);
+                                                        print("ALL::${visitTypeId}+${docVisitTypeId}+Zone${zoneTypeId}+${docZoneId}");
+                                                        payRatesDataGet(context,1,1,1,10).then((data) {
+                                                          _payRatesController.add(data);
+                                                        }).catchError((error) {
+                                                          // Handle error
+                                                        });
+                                                        docZoneId = 0;
+                                                        zoneTypeId = 0;
+                                                        visitTypeId = 0;
+                                                        payRatesController.clear();
+                                                        perMilesController.clear();
+                                                      },);
+                                                  }
+                                                );
+                                              },
+                                            );
+                                          },
+                                          icon: Icon(
+                                            Icons.edit_outlined,size: 18,
+                                            color: ColorManager.blueprime,
+                                          ),
                                         ),
-                                      ),
-                                      IconButton(onPressed: (){
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                StatefulBuilder(
-                                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                                    return  DeletePopup(
-                                                        loadingDuration: _isLoading,
-                                                        onCancel: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        }, onDelete: () async {
-                                                      setState(() {
-                                                        _isLoading = true;
-                                                      });
-                                                      try {
-                                                        await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
-                                                        setState(() async {
-                                                          await payRatesDataGet(context,1,1,1,10).then((data) {
-                                                            _payRatesController.add(data);
-                                                          }).catchError((error) {
-                                                            // Handle error
-                                                          });
-                                                          Navigator.pop(context);
-                                                        });
-                                                      } finally {
+                                        IconButton(onPressed: (){
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  StatefulBuilder(
+                                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                                      return  DeletePopup(
+                                                          loadingDuration: _isLoading,
+                                                          onCancel: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          }, onDelete: () async {
                                                         setState(() {
-                                                          _isLoading = false;
+                                                          _isLoading = true;
                                                         });
-                                                      }
+                                                        try {
+                                                          await deletePayRatesSetupPost(context, snapshot.data![index].payRatesSetupId);
+                                                          setState(() async {
+                                                            await payRatesDataGet(context,1,1,1,10).then((data) {
+                                                              _payRatesController.add(data);
+                                                            }).catchError((error) {
+                                                              // Handle error
+                                                            });
+                                                            Navigator.pop(context);
+                                                          });
+                                                        } finally {
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                        }
 
 
 
-                                                    });
-                                                  },
+                                                      });
+                                                    },
 
-                                                ));
-                                      }, icon: Icon(
-                                        Icons.delete_outline_outlined,
-                                        size: 18,color: ColorManager.red,))
-                                    ],
+                                                  ));
+                                        }, icon: Icon(
+                                          Icons.delete_outline_outlined,
+                                          size: 18,color: ColorManager.red,))
+                                      ],
+                                    ),
                                   ),
                                 ),
+                                SizedBox(width: 30,)
                               ],
                             )),
                       ],

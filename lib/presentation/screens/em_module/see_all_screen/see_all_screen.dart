@@ -139,7 +139,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   @override
   Widget build(BuildContext context) {
     int currentPage = 1;
-    final int itemsPerPage = 10;
+    final int itemsPerPage = 20;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
