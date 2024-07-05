@@ -57,8 +57,19 @@ class AllZoneRepository{
   static String countyZoneDelete({required int zoinId}){
     return "$zone/$zoinId";
   }
+
+
+  static String addCountyZone(){
+    return "$zone$add";
+  }
+  static String updateCountyZone({required int zoinId}){
+    return "$zone/$zoinId";
+  }
   static String countyListGet(){
     return "$county";
+  }
+  static String addCounty(){
+    return "$county$add";
   }
   static String deleteCounty({required int countyId}){
     return "$county/$countyId";

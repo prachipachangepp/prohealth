@@ -139,7 +139,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
   @override
   Widget build(BuildContext context) {
     int currentPage = 1;
-    final int itemsPerPage = 10;
+    final int itemsPerPage = 20;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -506,65 +506,87 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return EditUserPopUp(
-                                                title: "Edit User ",
-                                                userIdController: userIdController,
-                                                lastNameController: lastNameController,
-                                                emailController: emailController,
-                                                firstNameController: firstNameController,
-                                                roleController: roleController,
-                                                // passwordController: passwordController,
-                                                companyIdController: companyIdController,
-                                                onSubmit:() async
-                                                {
-                                                  await updateUserPatch(
-                                                    context,
-                                                    snapshot
-                                                        .data![
-                                                    index]
-                                                        .userId,
-                                                    firstNameController
-                                                        .text,
-                                                    lastNameController
-                                                        .text,
-                                                    roleController
-                                                        .text,
-                                                    emailController
-                                                        .text,
-                                                    int.parse(
-                                                        companyIdController
-                                                            .text),
-                                                  );
-                                                  getUser(context)
-                                                      .then((data) {
-                                                    _companyUsersList
-                                                        .add(data);
-                                                  }).catchError(
-                                                          (error) {
-                                                        // Handle error
-                                                      });
-                                                  firstNameController
-                                                      .clear();
-                                                  lastNameController
-                                                      .clear();
-                                                  roleController
-                                                      .clear();
-                                                  emailController
-                                                      .clear();
-                                                  companyIdController
-                                                      .clear();
-                                                  Future.delayed(
-                                                      Duration(
-                                                          seconds:
-                                                          2),
-                                                          () {
-                                                        print(
-                                                            'Submit action completed!');
-                                                      });
-                                                  Navigator.pop(
-                                                      context);
-                                                },
+                                              return FutureBuilder<UserModalPrefill>(
+                                                future: getUserPrefill(context,snapshot.data![index].userId),
+                                                builder: (context,snapshotPrefill) {
+                                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                    return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                  }
+                                                  var firstName = snapshotPrefill.data!.firstName;
+                                                  var lastName = snapshotPrefill.data!.lastName;
+                                                  //var userID = snapshotPrefill.data!.userId;
+                                                  var role = snapshotPrefill.data!.role;
+                                                  var email = snapshotPrefill.data!.email;
+                                                  var companyId = snapshotPrefill.data!.companyId;
+                                                  userIdController = TextEditingController(text:snapshotPrefill.data!.userId.toString());
+                                                  firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName.toString());
+                                                  lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName.toString());
+                                                  roleController = TextEditingController(text: snapshotPrefill.data!.role.toString());
+                                                  emailController = TextEditingController(text: snapshotPrefill.data!.email.toString());
+                                                  companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString());
+                                                  return EditUserPopUp(
+                                                    title: "Edit User ",
+                                                    userIdController: userIdController,
+                                                    lastNameController: lastNameController,
+                                                    emailController: emailController,
+                                                    firstNameController: firstNameController,
+                                                    roleController: roleController,
+                                                    // passwordController: passwordController,
+                                                    companyIdController: companyIdController,
+                                                    onSubmit:() async
+                                                    {
+                                                      await updateUserPatch(
+                                                        context,
+                                                        snapshot
+                                                            .data![
+                                                        index]
+                                                            .userId,
+                                                       firstName == firstNameController
+                                                            .text ? firstName.toString() : firstNameController.text,
+                                                       lastName == lastNameController
+                                                            .text ? lastName.toString() : lastNameController.text,
+                                                       role == roleController
+                                                            .text ? role.toString() : roleController.text,
+                                                       email == emailController
+                                                            .text ? email.toString():emailController.text,
+                                                       companyId == int.parse(
+                                                            companyIdController
+                                                                .text) ? companyId : int.parse(
+                                                           companyIdController
+                                                               .text),
+                                                      );
+                                                      getUser(context)
+                                                          .then((data) {
+                                                        _companyUsersList
+                                                            .add(data);
+                                                      }).catchError(
+                                                              (error) {
+                                                            // Handle error
+                                                          });
+                                                      firstNameController
+                                                          .clear();
+                                                      lastNameController
+                                                          .clear();
+                                                      roleController
+                                                          .clear();
+                                                      emailController
+                                                          .clear();
+                                                      companyIdController
+                                                          .clear();
+                                                      Future.delayed(
+                                                          Duration(
+                                                              seconds:
+                                                              2),
+                                                              () {
+                                                            print(
+                                                                'Submit action completed!');
+                                                          });
+                                                      Navigator.pop(
+                                                          context);
+                                                    },
 
+                                                  );
+                                                }
                                               );
                                             },
                                           );

@@ -290,6 +290,9 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                           return FutureBuilder<ShiftBachesData>(
                                                                             future: shiftPrefillBatchesGet(context, snapshot.data![index].shiftBatchScheduleId),
                                                                             builder: (context,snapshotPrefill) {
+                                                                              if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                                                return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                                                              }
                                                                               var startTime = snapshotPrefill.data?.officeStartTime.toString();
                                                                               var endTime = snapshotPrefill.data?.officeEndTime.toString();
                                                                               startTimeController = TextEditingController(text: snapshotPrefill.data?.officeStartTime.toString());
@@ -308,6 +311,8 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                                   }).catchError((error) {
                                                                                     // Handle error
                                                                                   });
+                                                                                  startTimeController.clear();
+                                                                                  endTimeController.clear();
                                                                                   Navigator.pop(context);
                                                                                 },
                                                                               );

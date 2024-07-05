@@ -216,7 +216,8 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           textAlign: TextAlign.start,
           style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
           textAlignVertical: TextAlignVertical.center,
-          cursorHeight: widget.cursorHeight,
+          cursorColor: ColorManager.black,
+          // cursorHeight: widget.cursorHeight,
           // validator: validator,
           // validator: (value) {
           //   if (value == null || value.isEmpty) {

@@ -285,6 +285,9 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                           return FutureBuilder<DefinePrefillHolidayData>(
                                                             future: holidaysPrefillGet(context, snapshot.data![index].holidayId),
                                                             builder: (context, snapshotPrefill) {
+                                                              if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                                return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                                              }
                                                               var holidayName = snapshotPrefill.data?.holidayName.toString();
                                                               var date = snapshotPrefill.data?.date.toString();
                                                               holidayNameController = TextEditingController(text:  snapshotPrefill.data?.holidayName.toString());
@@ -308,6 +311,8 @@ class _DefineHolidaysState extends State<DefineHolidays> {
                                                                           (error) {
                                                                         // Handle error
                                                                       });
+                                                                  holidayNameController.clear();
+                                                                  calenderController.clear();
                                                                   Navigator.pop(context);
                                                                 },
 

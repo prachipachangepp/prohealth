@@ -218,19 +218,19 @@ class EditUserPopUp extends StatefulWidget {
   final TextEditingController lastNameController;
   final TextEditingController emailController;
   final TextEditingController firstNameController;
-  final TextEditingController roleController;
+   TextEditingController? roleController;
   // final TextEditingController passwordController;
   final TextEditingController companyIdController ;
 
 
-  const EditUserPopUp({
+   EditUserPopUp({
     required this.title,
     required this.onSubmit,
     required this.userIdController,
     required this.lastNameController,
     required this.emailController,
     required this.firstNameController,
-    required this.roleController,
+     this.roleController,
     required this.companyIdController});
 
 
@@ -347,7 +347,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                         ),
                       ),
                       HRManageDropdown(
-                        controller: widget.roleController,
+                        controller: widget.roleController!,
                         labelText: 'Role',
                         labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
                         labelFontSize: 12,
