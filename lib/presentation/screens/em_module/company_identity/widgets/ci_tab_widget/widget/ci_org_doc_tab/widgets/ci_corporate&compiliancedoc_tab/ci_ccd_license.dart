@@ -92,7 +92,6 @@ class _CICcdLicenseState extends State<CICcdLicense> {
           CircularProgressIndicator(color: ColorManager.blueprime,);
           orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
             _controller.add(data);
-
           }).catchError((error) {
             // Handle error
           });

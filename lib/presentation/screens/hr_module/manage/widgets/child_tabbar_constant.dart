@@ -51,11 +51,14 @@ class CenteredTabBarChild extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
-          Container(
-            height: controller.tabBarViewHeight,
-            child: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
-              children: controller.tabViews,
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              height: controller.tabBarViewHeight,
+              child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                children: controller.tabViews,
+              ),
             ),
           ),
         ],

@@ -11,13 +11,14 @@ import '../../../../../app/resources/theme_manager.dart';
 class CustomIconButton extends StatelessWidget {
   final String text;
   final IconData? icon;
+  final Color? color;
   final VoidCallback onPressed;
 
   const CustomIconButton({
     required this.text,
     this.icon,
     required this.onPressed,
-    Key? key,
+    Key? key,  this.color,
   }) : super(key: key);
 
   @override
@@ -35,7 +36,7 @@ class CustomIconButton extends StatelessWidget {
               color: ColorManager.white)),
       style: ElevatedButton.styleFrom(
         padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        backgroundColor:  Color(0xFF50B5E5),
+        backgroundColor:  color == null ? Color(0xFF50B5E5) : color,
         // shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
