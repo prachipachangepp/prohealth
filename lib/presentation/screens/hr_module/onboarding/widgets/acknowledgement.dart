@@ -21,7 +21,7 @@ class AcknowledgementTab extends StatelessWidget {
           width: MediaQuery.of(context).size.width / 70,
           padding: EdgeInsets.symmetric(vertical: AppPadding.p10),
           decoration: BoxDecoration(
-            color: ColorManager.red,
+            color: ColorManager.black,
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Row(
