@@ -75,7 +75,7 @@ class _DeletePopupState extends State<DeletePopup> {
                   child: Center(
                     child: CustomButtonTransparent(
                       text: AppStringEM.cancel,
-                      onPressed: () {
+                      onPressed: () async{
                        // widget.onCancel();
                         Navigator.pop(context);
                       },

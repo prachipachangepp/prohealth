@@ -171,7 +171,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                       child: CustomIconButton(
                           icon: Icons.edit_outlined,
                           text: "Edit Details",
-                          onPressed: () {
+                          onPressed: () async{
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {

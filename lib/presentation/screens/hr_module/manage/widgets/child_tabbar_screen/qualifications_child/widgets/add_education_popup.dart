@@ -66,7 +66,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomIconButton(icon: Icons.add,text: 'Add Edication', onPressed: (){
+                    CustomIconButton(icon: Icons.add,text: 'Add Edication', onPressed: ()async{
                     }),
 
                   ],
@@ -249,7 +249,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomButtonTransparent(text: "Cancel", onPressed: (){
+                    CustomButtonTransparent(text: "Cancel", onPressed: () async{
                       widget.onpressedClose;
                     }),
                     const SizedBox(width: 10,),

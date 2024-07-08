@@ -173,13 +173,13 @@ class OnboardingEmployement extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButtonTransparent(
-                      onPressed: () {},
+                      onPressed: () async{},
                       text: AppString.reject,
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 99,
                     ),
-                    CustomIconButton(text: AppString.approve, onPressed: () {}),
+                    CustomIconButton(text: AppString.approve, onPressed: () async{}),
                   ],
                 ),
               )
@@ -339,13 +339,13 @@ class OnboardingEmployement extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButtonTransparent(
-                      onPressed: () {},
+                      onPressed: () async{},
                       text: AppString.reject,
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 99,
                     ),
-                    CustomIconButton(text: AppString.approve, onPressed: () {}),
+                    CustomIconButton(text: AppString.approve, onPressed: () async{}),
                   ],
                 ),
               )
