@@ -29,6 +29,7 @@ class RegisterEnrollAlertDialog {
               color: ColorManager.white),
               child: Column(
                 children: [
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
