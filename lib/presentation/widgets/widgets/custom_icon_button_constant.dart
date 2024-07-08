@@ -22,6 +22,7 @@ class CustomIconButtonConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 200,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
