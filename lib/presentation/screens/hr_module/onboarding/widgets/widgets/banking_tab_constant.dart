@@ -55,37 +55,37 @@ class BankDetailsSection extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InfoText('Type', ThemeManager.customTextStyle(context)),
-                InfoText('Effective Date', ThemeManager.customTextStyle(context)),
-                InfoText('Bank Name', ThemeManager.customTextStyle(context)),
-                InfoText('Routing/Transit No.', ThemeManager.customTextStyle(context)),
+                InfoText('Type',),
+                InfoText('Effective Date', ),
+                InfoText('Bank Name',),
+                InfoText('Routing/Transit No.',),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InfoData('Checking', ThemeManagerDark.customTextStyle(context)),
-                InfoData('24-03-23', ThemeManagerDark.customTextStyle(context)),
-                InfoData('SBI', ThemeManagerDark.customTextStyle(context)),
-                InfoData('123456789', ThemeManagerDark.customTextStyle(context)),
+                InfoData('Checking',),
+                InfoData('24-03-23', ),
+                InfoData('SBI', ),
+                InfoData('123456789',),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InfoText('Account No.', ThemeManager.customTextStyle(context)),
-                InfoText('Requested amount', ThemeManager.customTextStyle(context)),
-                InfoText('', ThemeManager.customTextStyle(context)),
-                InfoText('', ThemeManager.customTextStyle(context)),
+                InfoText('Account No.', ),
+                InfoText('Requested amount',),
+                InfoText('', ),
+                InfoText('',),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InfoData('1234567797', ThemeManagerDark.customTextStyle(context)),
-                InfoData('30,000/-', ThemeManagerDark.customTextStyle(context)),
-                InfoData('', ThemeManager.customTextStyle(context)),
-                InfoData('', ThemeManager.customTextStyle(context)),
+                InfoData('1234567797', ),
+                InfoData('30,000/-',),
+                InfoData('',),
+                InfoData('',),
               ],
             ),
           ],
@@ -103,15 +103,14 @@ class BankDetailsSection extends StatelessWidget {
 
 class InfoText extends StatelessWidget {
   final String text;
-  final TextStyle style;
 
-  const InfoText(this.text, this.style);
+  const InfoText(this.text);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style: style),
+        Text(text, style:  ThemeManager.customTextStyle(context)),
         const SizedBox(height: 10),
       ],
     );
@@ -120,15 +119,14 @@ class InfoText extends StatelessWidget {
 
 class InfoData extends StatelessWidget {
   final String text;
-  final TextStyle style;
 
-  const InfoData(this.text, this.style);
+  const InfoData(this.text);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style: style),
+        Text(text, style: ThemeManagerDark.customTextStyle(context)),
         const SizedBox(height: 10),
       ],
     );

@@ -9,7 +9,7 @@ static String getEmpEmploymentHistories({required int employeeid}){
 
 /// /employee-educations/ByemployeeId/{employeeId}
 static String getEmpEducation({required int employeeid}){
-  return "$emp_employment$byEmpId/$employeeid";
+  return "$emp_employment/ByemployeeId/$employeeid";
 }
 /// /reference/ByemployeeId/{employeeId}
 static String getEmpReference({required int employeeid}){

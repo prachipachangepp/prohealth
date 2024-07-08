@@ -17,19 +17,19 @@ class QualificationEmployment extends StatefulWidget {
 }
 
 class _BankingTabContainerConstantState extends State<QualificationEmployment> {
-  final StreamController<List<OnboardingQualificationData>> qualificationempStreamController = StreamController<List<OnboardingQualificationData>>();
+  final StreamController<List<OnboardingQualificationEmploymentData>> qualificationempStreamController = StreamController<List<OnboardingQualificationEmploymentData>>();
 
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationEmp(context, 1).then((data){
+    getOnboardingQualificationEmp(context, 2).then((data){
       qualificationempStreamController.add(data);
     }).catchError((error){});
   }
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return StreamBuilder<List<OnboardingQualificationData>>(
+    return StreamBuilder<List<OnboardingQualificationEmploymentData>>(
         stream: qualificationempStreamController.stream,
         builder: (context,snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -50,7 +50,8 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                 ));
           }
           if(snapshot.hasData){
-            return WrapWidget(childern: List.generate(snapshot.data!.length, (index){
+            return WrapWidget(childern:
+            List.generate(snapshot.data!.length, (index){
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
                 child: Container(
