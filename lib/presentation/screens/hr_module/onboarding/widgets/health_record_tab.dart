@@ -119,7 +119,9 @@
 
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/widgets/health_record_tab_constant.dart';
 
@@ -134,7 +136,7 @@ class HealthRecordTab extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80, vertical: AppPadding.p40),
+          padding: EdgeInsets.symmetric(horizontal: AppPadding.p80, vertical: AppPadding.p40),
           child: Material(
             elevation: 5,
             borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -144,54 +146,52 @@ class HealthRecordTab extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 81.0),
-                            child: buildHealthRecordContainer(
+                  Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/50),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            buildHealthRecordContainer(
                               'Physical Exam',
                               '2023-08-17',
                               Icons.description_outlined,
                               Color(0xff008000),
                             ),
-                          ),
-                          SizedBox(width: MediaQuery.of(context).size.width / 30),
-                          buildHealthRecordContainer(
-                            'TB',
-                            '2023-08-17',
-                            Icons.description_outlined,
-                            Color(0xff008000),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 81.0),
-                            child: buildHealthRecordContainer(
+                            SizedBox(width: MediaQuery.of(context).size.width / 30),
+                            buildHealthRecordContainer(
+                              'TB',
+                              '2023-08-17',
+                              Icons.description_outlined,
+                              Color(0xff008000),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height / 60),
+                        Row(
+                          children: [
+                            buildHealthRecordContainer(
                               'MMR Vaccine',
                               '2023-08-17',
                               Icons.description_outlined,
                               Color(0xff008000),
                             ),
-                          ),
-                          SizedBox(width: MediaQuery.of(context).size.width / 30),
-                          buildHealthRecordContainer(
-                            'Covid Vaccine',
-                            '2023-08-17',
-                            Icons.description_outlined,
-                            Color(0xff008000),
-                          ),
-                        ],
-                      ),
-                    ],
+                            SizedBox(width: MediaQuery.of(context).size.width / 30),
+                            buildHealthRecordContainer(
+                              'Covid Vaccine',
+                              '2023-08-17',
+                              Icons.description_outlined,
+                              Color(0xff008000),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
+
                   Padding(
-                    padding: const EdgeInsets.only(right: 81.0),
+                    padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/50),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -240,7 +240,7 @@ class HealthRecordTab extends StatelessWidget {
         ),
         SizedBox(height: MediaQuery.of(context).size.height/100),
         Padding(
-          padding: const EdgeInsets.only(right: 81.0),
+          padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
