@@ -70,6 +70,7 @@ class AppString {
   static const String palliative = "Palliative Care";
   static const String selectIndex = "Selected index";
 
+
   ///Onboarding
   static const String onboarding = "Onboarding";
   static const String general = "General";
