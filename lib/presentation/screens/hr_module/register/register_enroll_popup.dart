@@ -7,8 +7,6 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import 'widgets/mcq_widget_register.dart';
-///saloni
-
 class RegisterEnrollAlertDialog {
   final TextEditingController controller = TextEditingController();
   final TextEditingController firstName = TextEditingController();
