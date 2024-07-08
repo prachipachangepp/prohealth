@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
@@ -128,10 +129,16 @@ class _ManageScreenState extends State<ManageScreen> {
                                 supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController, employeerController: employeerController,
                                 emergencyMobileNumber: emergencyMobileNumber, onpressedClose: () {
                                   Navigator.pop(context);
-                                }, onpressedSave: () {  },
+                                }, onpressedSave: () async{
+                                  await addEmployeement(context, 'USA', 2, employeerController.text,
+                                      cityNameController.text, leavingResonController.text, lastSupervisorNameController.text,
+                                      supervisorMobileNumber.text, positionTitleController.text, startDateContoller.text, endDateController.text);
+                                },
                                 checkBoxTile: Container(
                                   width: 300,
-                                    child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){},)),
+                                    child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
+
+                                    },)),
                               );
                             },
                           );
