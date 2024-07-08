@@ -79,7 +79,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
-        color: Colors.green,
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
