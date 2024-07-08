@@ -17,6 +17,8 @@ class CustomRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(icon, size: 15,color: ColorManager.mediumgrey),
         SizedBox(width: MediaQuery.of(context).size.width/40),
@@ -24,9 +26,10 @@ class CustomRow extends StatelessWidget {
           text1,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400,color: ColorManager.mediumgrey),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width/40),
+        SizedBox(width: MediaQuery.of(context).size.width/20),
         Text(
           text2,
+          textAlign: TextAlign.start,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400,color: ColorManager.mediumgrey),
         ),
       ],
