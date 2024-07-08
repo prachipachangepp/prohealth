@@ -8,6 +8,7 @@ import '../../../../../../app/resources/value_manager.dart';
 class AcknowledgementTab extends StatelessWidget {
   const AcknowledgementTab({Key? key}) : super(key: key);
 
+//////////
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,7 +62,7 @@ class AcknowledgementTab extends StatelessWidget {
                           iconSize: AppSize.s24,
                         ),
                       ),
-                      SizedBox(width: AppSize.s10),
+                      const SizedBox(width: AppSize.s10),
                       Text(AppString.ackConfidential,
                           style:
                               AknowledgementStyleConst.customTextStyle(context))
@@ -113,10 +114,13 @@ class AcknowledgementTab extends StatelessWidget {
                   ),
                 ],
               ),
+
             ],
           ),
         ),
+
       ),
+
     );
   }
 }
