@@ -3,10 +3,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_education_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_employeement_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_licences_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/hr_resources/string_manager.dart';
@@ -39,16 +44,37 @@ class _ManageScreenState extends State<ManageScreen> {
   late CenteredTabBarChildController childController;
   late CenteredTabBarChildController childControlleOne;
   late CenteredTabBarController centeredTabBarController;
-  TextEditingController nameController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController secNumberController = TextEditingController();
-  TextEditingController primNumController = TextEditingController();
-  TextEditingController altNumController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController hcoNumController = TextEditingController();
-  TextEditingController medicareController = TextEditingController();
-  TextEditingController npiNumController = TextEditingController();
-  TextEditingController faxontroller = TextEditingController();
+  /// Add employee
+  TextEditingController positionTitleController = TextEditingController();
+  TextEditingController leavingResonController = TextEditingController();
+  TextEditingController startDateContoller = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
+  TextEditingController lastSupervisorNameController = TextEditingController();
+  TextEditingController supervisorMobileNumber = TextEditingController();
+  TextEditingController cityNameController = TextEditingController();
+  TextEditingController employeerController = TextEditingController();
+  TextEditingController emergencyMobileNumber = TextEditingController();
+  // TextEditingController nameController = TextEditingController();
+  // TextEditingController addressController = TextEditingController();
+  // TextEditingController secNumberController = TextEditingController();
+  // TextEditingController primNumController = TextEditingController();
+  // TextEditingController altNumController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController hcoNumController = TextEditingController();
+  // TextEditingController medicareController = TextEditingController();
+  // TextEditingController npiNumController = TextEditingController();
+  // TextEditingController faxontroller = TextEditingController();
+
+  TextEditingController livensureController = TextEditingController();
+  /// Add Education
+   TextEditingController collegeUniversityController = TextEditingController();
+   TextEditingController phoneController = TextEditingController();
+   TextEditingController calenderController = TextEditingController();
+   TextEditingController cityController = TextEditingController();
+   TextEditingController degreeController = TextEditingController();
+   TextEditingController stateController = TextEditingController();
+   TextEditingController majorSubjectController = TextEditingController();
+   TextEditingController countryNameController = TextEditingController();
   ///
   TextEditingController addressCtlr = TextEditingController();
   TextEditingController nameCtlr = TextEditingController();
@@ -63,6 +89,12 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController otherAddIdController = TextEditingController();
   TextEditingController otherAddNameController = TextEditingController();
 
+  TextEditingController issueDateController = TextEditingController();
+  TextEditingController expiryDateController = TextEditingController();
+  TextEditingController issuingOrganizationController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController numberIDController = TextEditingController();
+  String expiryType = '';
   @override
   void initState() {
     childController = CenteredTabBarChildController(
@@ -74,364 +106,179 @@ class _ManageScreenState extends State<ManageScreen> {
       ],
       tabViews: [
         ///employment
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.only(right: 40),
-                  child: CustomIconButtonConst(
-                      text: AppStringHr.add, icon: Icons.add, onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          backgroundColor: Colors.white,
-                          content: Container(
-                            height: 320,
-                            width: 900,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Add Employee",
-                                      style: GoogleFonts.firaSans(
-                                      color: ColorManager.primary,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.none,
-                                    ), ),
-                                    IconButton(
-                                      icon: Icon(Icons.close),
-                                      onPressed: (){},
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10,),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: Container(
-                                    height: 30,
-                                    width: 160,
-                                    child: CustomIconButtonConst(
-                                      text: 'Add Employment',
-                                      icon: Icons.add,
-                                      onPressed: () {  },),
-                                  ),
-                                ),
-                                SizedBox(height: 10,),
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        HRManageTextField(
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'Final Position Title',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                        SizedBox(height: AppSize.s4),
-                                        HRManageTextField(
-
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'End Date',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                        SizedBox(height: AppSize.s4),
-                                        Text("Current work here",
-                                            style: GoogleFonts.firaSans(
-                                          color: ColorManager.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          decoration: TextDecoration.none,
-                                        ), ),
-                                        SizedBox(height: AppSize.s4),
-                                        HRManageTextField(
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'City',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        HRManageTextField(
-
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'Final Position Title',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                        SizedBox(height: AppSize.s4),
-                                        HRManageTextField(
-
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'Final Position Title',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                        SizedBox(height: AppSize.s4),
-                                        HRManageTextField(
-
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'Final Position Title',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                        SizedBox(height: AppSize.s4),
-                                        HRManageTextField(
-
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'Final Position Title',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        HRManageTextField(
-
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'Final Position Title',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                        SizedBox(height: AppSize.s4),
-                                        HRManageTextField(
-
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'Final Position Title',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                        SizedBox(height: AppSize.s4),
-                                        HRManageTextField(
-
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'Final Position Title',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                        SizedBox(height: AppSize.s4),
-                                        HRManageTextField(
-
-                                          controller: nameController,
-                                          keyboardType: TextInputType.text,
-                                          text: AppStringEM.companyName,
-                                          cursorHeight: 9,
-                                          labelText: 'Final Position Title',
-                                          labelStyle: GoogleFonts.firaSans(
-                                            color: ColorManager.greylight,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            decoration: TextDecoration.none,
-                                          ),
-                                          labelFontSize: 12,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          actions: [
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: CustomElevatedButton(
-                                  width: 105,
-                                  height: 31,
-                                  text: 'Submit',
-                                  onPressed: () async {
-                                    Navigator.pop(context);
-                                  }),
-                            )
-                          ],
-                        );
-                      },
-                    );
-                  }),
-                ),
-              ],
-            ),
-            EmploymentContainerConstant(),
-          ],
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 100,
+                    margin: EdgeInsets.only(right: 40),
+                    child: CustomIconButtonConst(
+                        text: AppStringHr.add, icon: Icons.add, onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return StatefulBuilder(
+                            builder: (BuildContext context, void Function(void Function()) setState) {
+                              return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController,
+                                startDateContoller: startDateContoller, endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
+                                supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController, employeerController: employeerController,
+                                emergencyMobileNumber: emergencyMobileNumber, onpressedClose: () {
+                                  Navigator.pop(context);
+                                }, onpressedSave: () {  },
+                                checkBoxTile: Container(
+                                  width: 300,
+                                    child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){},)),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    }),
+                  ),
+                ],
+              ),
+              EmploymentContainerConstant(),
+            ],
+          ),
         ),
         ///education
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButtonConst(
-                      text: AppStringHr.add, icon: Icons.add, onPressed: () {}),
-                ),
-              ],
-            ),
-            EducationChildTabbar(),
-          ],
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 100,
+                    margin: EdgeInsets.only(right: 20),
+                    child: CustomIconButtonConst(
+                        text: AppStringHr.add, icon: Icons.add, onPressed: () {
+                          showDialog(context: context, builder: (BuildContext context){
+                            return StatefulBuilder(
+                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                return AddEducationPopup(collegeUniversityController: collegeUniversityController,
+                                  phoneController: phoneController,
+                                  calenderController: calenderController, cityController: cityController,
+                                  degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
+                                  countryNameController: countryNameController, onpressedClose: (){
+                                    Navigator.pop(context);
+                                  }, onpressedSave: (){},
+                                  radioButton:Container(
+                                    width: 280,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: CustomRadioListTile(
+                                            value: "Yes",
+                                            groupValue: expiryType.toString(),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                expiryType = value!;
+                                              });
+                                            },
+                                            title: "Yes",
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: CustomRadioListTile(
+                                            value: "No",
+                                            groupValue: expiryType.toString(),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                expiryType = value!;
+                                              });
+                                            },
+                                            title: "No",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),);
+                              },
+                            );
+                          });
+                    }),
+                  ),
+                ],
+              ),
+              EducationChildTabbar(),
+            ],
+          ),
         ),
         ///reference
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButtonConst(
-                      text: AppStringHr.add, icon: Icons.add, onPressed: () {}),
-                ),
-              ],
-            ),
-            SizedBox(height: 1,),
-            ReferencesChildTabbar(),
-          ],
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 100,
+                    margin: EdgeInsets.only(right: 20),
+                    child: CustomIconButtonConst(
+                        text: AppStringHr.add, icon: Icons.add, onPressed: () {}),
+                  ),
+                ],
+              ),
+              SizedBox(height: 1,),
+              ReferencesChildTabbar(),
+            ],
+          ),
         ),
         ///license
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  height: 27,
-                  width: 250,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                    border: Border.all(color: Color(0xffB1B1B1)), // Black border
-                    borderRadius: BorderRadius.circular(5), // Rounded corners
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 27,
+                    width: 250,
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                      border: Border.all(color: Color(0xffB1B1B1)), // Black border
+                      borderRadius: BorderRadius.circular(5), // Rounded corners
+                    ),
+                    child: DropdownButtonFormField<String>(
+                      focusColor: Colors.transparent,
+                      icon: Icon(Icons.arrow_drop_down_sharp,color: Color(0xff50B5E5),),
+                      decoration: InputDecoration.collapsed(hintText: ''),
+                      items: <String>['Select Document', 'Drivers License', 'CPR', 'Liability Insurence']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                      },
+                      value: 'Select Document',style: TextStyle(color: Color(0xff686464),fontSize: 12),
+                    ),
                   ),
-                  child: DropdownButtonFormField<String>(
-                    focusColor: Colors.transparent,
-                    icon: Icon(Icons.arrow_drop_down_sharp,color: Color(0xff50B5E5),),
-                    decoration: InputDecoration.collapsed(hintText: ''),
-                    items: <String>['Select Document', 'Drivers License', 'CPR', 'Liability Insurence']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                    },
-                    value: 'Select Document',style: TextStyle(color: Color(0xff686464),fontSize: 12),
+                  Container(
+                    width: 100,
+                    margin: EdgeInsets.only(right: 20),
+                    child: CustomIconButtonConst(
+                        text: AppStringHr.add, icon: Icons.add, onPressed: () {
+                          showDialog(context: context, builder: (BuildContext context){
+                            return AddLicencesPopup(LivensureController: livensureController,
+                              issueDateController: issueDateController, expiryDateController: expiryDateController, issuingOrganizationController: issuingOrganizationController,
+                              countryController: countryController, numberIDController: numberIDController, onpressedClose: () {  }, onpressedSave: () {  },);
+                          });
+                    }),
                   ),
-                ),
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButtonConst(
-                      text: AppStringHr.add, icon: Icons.add, onPressed: () {}),
-                ),
-              ],
-            ),
-            SizedBox(height: 1,),
-            LicensesChildTabbar(),
-          ],
+                ],
+              ),
+              SizedBox(height: 1,),
+              LicensesChildTabbar(),
+            ],
+          ),
         ),
       ],
     );
