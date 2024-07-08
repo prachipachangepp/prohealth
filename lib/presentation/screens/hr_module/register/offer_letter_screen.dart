@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
 
-const List<Map<String, dynamic>> checkboxData = [
+ List<Map<String, dynamic>> checkboxData = [
   {'title': '95673', 'value': false},
   {'title': '95673', 'value': false},
   {'title': '95673', 'value': false},
@@ -14,6 +14,15 @@ const List<Map<String, dynamic>> checkboxData = [
   {'title': '56866', 'value': false},
   {'title': '56866', 'value': false},
   {'title': '56866', 'value': false},
+];
+
+List<Map<String, dynamic>> checkboxDataCity = [
+  {'title': 'RioLinda', 'value': false},
+  {'title': 'Antelope', 'value': false},
+  {'title': 'PleasantGrove', 'value': false},
+  {'title': 'Elverta', 'value': false},
+  {'title': 'Natomas', 'value': false},
+  {'title': 'Nicolaus', 'value': false},
 ];
 
 class OfferLetterScreen extends StatefulWidget {
@@ -32,12 +41,15 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
 
   String selectedDropdownValue = 'Per day';
   late List<Map<String, dynamic>> checkboxStates;
+  late List<Map<String, dynamic>> checkboxStatesCity;
 
   @override
   void initState() {
     super.initState();
     checkboxStates = List.from(checkboxData);
+    checkboxStatesCity = List.from(checkboxDataCity);
   }
+
 
   List<Widget> _buildCheckboxes() {
     return checkboxStates.map((data) {
@@ -47,6 +59,25 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
             fontSize: 10.0,
             fontWeight: FontWeight.w500
         ),),
+        value: data['value'],
+        onChanged: (bool? value) {
+          setState(() {
+            data['value'] = value ?? false;
+          });
+        },
+      );
+    }).toList();
+  }
+
+
+  List<Widget> _buildCheckboxesCity() {
+    return checkboxStatesCity.map((data) {
+      return CheckboxListTile(
+        title: Text(data['title'],
+          style: GoogleFonts.firaSans(
+              fontSize: 10.0,
+              fontWeight: FontWeight.w500
+          ),),
         value: data['value'],
         onChanged: (bool? value) {
           setState(() {
@@ -181,37 +212,40 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Column(
-                          children: [
-                            DropdownTextFormField(
-                              labelText: 'City',
-                              hintText: 'Select a City',
-                              dropdownItems: [
-                                'ProHealth San Jose',
-                                'ProHealth Sacramento',
-                                'ProHealth Walnut Creek',
-                                'ProHealth Stockton',
-                              ],
-                              onChanged: (String) {},
-                            ),
-                            SizedBox(height: MediaQuery.of(context).size.height / 30),
-                            DropdownTextFormField(
-                              labelText: 'Country',
-                              hintText: 'Select a County',
-                              dropdownItems: [
-                                'Alameda',
-                                'San Joaquin',
-                              ],
-                              onChanged: (String) {},
-                            ),
-                            SizedBox(height: MediaQuery.of(context).size.height / 30),
-                            DropdownTextFormField(
-                              labelText: 'Zone',
-                              hintText: 'Select a Zone',
-                              dropdownItems: ['1', '2', '3', '4'],
-                              onChanged: (String) {},
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 71.0, top: 50),
+                          child: Column(
+                            children: [
+                              DropdownTextFormField(
+                                labelText: 'City',
+                                hintText: 'Select a City',
+                                dropdownItems: [
+                                  'ProHealth San Jose',
+                                  'ProHealth Sacramento',
+                                  'ProHealth Walnut Creek',
+                                  'ProHealth Stockton',
+                                ],
+                                onChanged: (String) {},
+                              ),
+                              SizedBox(height: MediaQuery.of(context).size.height / 30),
+                              DropdownTextFormField(
+                                labelText: 'Country',
+                                hintText: 'Select a County',
+                                dropdownItems: [
+                                  'Alameda',
+                                  'San Joaquin',
+                                ],
+                                onChanged: (String) {},
+                              ),
+                              SizedBox(height: MediaQuery.of(context).size.height / 30),
+                              DropdownTextFormField(
+                                labelText: 'Zone',
+                                hintText: 'Select a Zone',
+                                dropdownItems: ['1', '2', '3', '4'],
+                                onChanged: (String) {},
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width / 10),
@@ -255,8 +289,19 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       ],
                                     ),
                                     // Tab 2 content: Cities
-                                    Center(
-                                      child: Text('Cities content here'),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: ListView(
+                                            children: _buildCheckboxesCity().sublist(0, 3),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: ListView(
+                                            children: _buildCheckboxesCity().sublist(3, 6),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
