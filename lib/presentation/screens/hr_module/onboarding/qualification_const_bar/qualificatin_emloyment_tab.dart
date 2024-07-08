@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/constant_employment.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/employment_constant.dart';
 import '../../../../../../app/resources/value_manager.dart';
 
 
@@ -17,7 +18,8 @@ class QualificationEmployment extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      OnboardingEmployement(),
+                      // OnboardingEmployement(),
+                      QualificationEmploymentConstant(),
                       SizedBox(
                         height: AppSize.s8,
                       )

@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../../../app/resources/font_manager.dart';
+import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../widgets/button_constant.dart';
 import '../../widgets/text_form_field_const.dart';
 
@@ -18,21 +19,238 @@ class EditPopupController extends GetxController {
   }
 }
 
+// class EditPopupWidget extends StatefulWidget {
+//   final int? id;
+//   final TextEditingController typeController;
+//   final TextEditingController shorthandController;
+//   final TextEditingController? emailController;
+//   final VoidCallback onSavePressed;
+//   final Color containerColor;
+//   final Widget child;
+//   final Function(Color)? onColorChanged;
+//
+//   EditPopupWidget({
+//     required this.typeController,
+//     required this.shorthandController,
+//      this.emailController,
+//     required this.containerColor,
+//     required this.onSavePressed,
+//      this.onColorChanged,
+//     this.id, required this.child
+//   });
+//
+//   @override
+//   State<EditPopupWidget> createState() => _EditPopupWidgetState();
+// }
+//
+// class _EditPopupWidgetState extends State<EditPopupWidget> {
+//   int index = 0;
+//
+//   // List<Color> _selectedColors = List.filled(2, Color(0xffE8A87D));
+//   List<String> _selectedColorCodes = List.filled(2, '');
+//   late List<Color> _selectedColors;
+//   // late List<Color> _selectedColors;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     // Initialize _selectedColors with the initial color passed from the parent widget
+//     _selectedColors = [widget.containerColor];
+//   }
+//
+//   void _openColorPicker() async {
+//     Color? pickedColor = await showDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return AlertDialog(
+//           title: Text('Pick a color'),
+//           content: SingleChildScrollView(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.stretch,
+//               children: [
+//                 ColorPicker(
+//                   borderColor: _selectedColors[0],
+//                   onColorChanged: (Color color) {
+//                     setState(() {
+//                       _selectedColors[0] = color;
+//                     });
+//                   },
+//                 ),
+//               ],
+//             ),
+//           ),
+//           actions: <Widget>[
+//             TextButton(
+//               child: Text('OK'),
+//               onPressed: () {
+//                 Navigator.of(context).pop(_selectedColors[0]);
+//               },
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//
+//     if (pickedColor != null) {
+//       setState(() {
+//         _selectedColors[0] = pickedColor;
+//         // Update container color by calling the function passed from HrSalesScreen
+//         widget.onColorChanged!(pickedColor);
+//       });
+//     }
+//   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Dialog(
+//       backgroundColor: Colors.transparent,
+//       child: Container(
+//         height: AppSize.s400,
+//         width: AppSize.s350,
+//         decoration: BoxDecoration(
+//           color: ColorManager.white,
+//           borderRadius: BorderRadius.circular(8),
+//         ),
+//         child: Column(
+//           children: [
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.end,
+//               children: [
+//                 IconButton(
+//                   onPressed: () {
+//                     Navigator.pop(context);
+//                   },
+//                   icon: Icon(Icons.close),
+//                 ),
+//               ],
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.symmetric(
+//                   vertical: AppPadding.p3, horizontal: AppPadding.p20),
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   SMTextFConst(
+//                     controller: widget.typeController,
+//                     keyboardType: TextInputType.text,
+//                     text: 'Type',
+//                   ),
+//                   SizedBox(
+//                     height: AppSize.s16,
+//                   ),
+//                   SMTextFConst(
+//                     controller: widget.shorthandController,
+//                     keyboardType: TextInputType.streetAddress,
+//                     text: 'Abbreviation',
+//                   ),
+//                   SizedBox(
+//                     height: AppSize.s16,
+//                   ),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text('Type of Employee',
+//                         style: GoogleFonts.firaSans(
+//                           fontSize: 12,
+//                           fontWeight: FontWeight.w700,
+//                           color: const Color(0xff686464),
+//                           decoration: TextDecoration.none,
+//                         ),),
+//                       SizedBox(height: 2),
+//                       widget.child,
+//                     ],
+//                   ),
+//                   SizedBox(
+//                     height: AppSize.s16,
+//                   ),
+//                   Row(
+//                     children: [
+//                       Text('Color',
+//                       style: GoogleFonts.firaSans(
+//                         fontSize: FontSize.s12,
+//                         fontWeight: FontWeight.w700,
+//                         color: ColorManager.mediumgrey,
+//                         decoration: TextDecoration.none,
+//                       ),),
+//                       SizedBox(width: 10),
+//                       Container(
+//                         padding: EdgeInsets.all(2),
+//                         width: 62,
+//                         height: 22,
+//                         decoration: BoxDecoration(
+//                           borderRadius: BorderRadius.circular(2),
+//                           border: Border.all(width: 1, color: Color(0xffE9E9E9),
+//                           ),
+//                         ),
+//                         child: GestureDetector(
+//                           onTap:
+//                           _openColorPicker, // Call _openColorPicker directly
+//                           child: Container(
+//                             width: 60,
+//                             height: 20,
+//                             decoration: BoxDecoration(
+//                               color: _selectedColors[0],
+//                               border: Border.all(
+//                                 width: 1,
+//                                 color: _selectedColors[0],
+//                               ),
+//                               // GestureDetector(
+//                               //   onTap: () => _openColorPicker(index),
+//                               //   child: Container(
+//                               //     width: 60,
+//                               //     height: 20,
+//                               //     decoration: BoxDecoration(
+//                               //       color: _selectedColors[index],
+//                               //       border: Border.all(
+//                               //         width: 1,
+//                               //         color: _selectedColors[index],
+//                               //       ),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   SizedBox(
+//                     height: MediaQuery.of(context).size.width / 22,
+//                   ),
+//                   Center(
+//                     child: CustomElevatedButton(
+//                         width: AppSize.s105,
+//                         height: AppSize.s30,
+//                         text: 'Save',
+//                         onPressed: widget.onSavePressed,
+//                         ),
+//                   )
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class EditPopupWidget extends StatefulWidget {
+  final int? id;
   final TextEditingController typeController;
   final TextEditingController shorthandController;
-  final TextEditingController emailController;
-  final VoidCallback onSavePressed;
+  final TextEditingController? emailController;
+  final Future<void> Function() onSavePressed;
   final Color containerColor;
+  final Widget child;
+  final Function(Color)? onColorChanged;
+  final String title;
 
-  final Function(Color) onColorChanged;
   EditPopupWidget({
     required this.typeController,
     required this.shorthandController,
-    required this.emailController,
+    this.emailController,
     required this.containerColor,
     required this.onSavePressed,
-    required this.onColorChanged,
+    this.onColorChanged,
+    this.id,
+    required this.child, required this.title,
   });
 
   @override
@@ -41,16 +259,13 @@ class EditPopupWidget extends StatefulWidget {
 
 class _EditPopupWidgetState extends State<EditPopupWidget> {
   int index = 0;
-
-  // List<Color> _selectedColors = List.filled(2, Color(0xffE8A87D));
   List<String> _selectedColorCodes = List.filled(2, '');
   late List<Color> _selectedColors;
-  // late List<Color> _selectedColors;
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    // Initialize _selectedColors with the initial color passed from the parent widget
     _selectedColors = [widget.containerColor];
   }
 
@@ -90,11 +305,11 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
     if (pickedColor != null) {
       setState(() {
         _selectedColors[0] = pickedColor;
-        // Update container color by calling the function passed from HrSalesScreen
-        widget.onColorChanged(pickedColor);
+        widget.onColorChanged!(pickedColor);
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -108,16 +323,38 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -125,6 +362,7 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SizedBox(height: AppSize.s10,),
                   SMTextFConst(
                     controller: widget.typeController,
                     keyboardType: TextInputType.text,
@@ -136,52 +374,65 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                   SMTextFConst(
                     controller: widget.shorthandController,
                     keyboardType: TextInputType.streetAddress,
-                    text: 'Shorthand',
+                    text: 'Abbreviation',
                   ),
                   SizedBox(
                     height: AppSize.s16,
                   ),
-                  SMTextFConst(
-                    controller: widget.emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    text: 'Type of Employee',
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Type of Employee',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xff686464),
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      SizedBox(height: 2),
+                      widget.child,
+                    ],
                   ),
                   SizedBox(
                     height: AppSize.s16,
                   ),
                   Row(
                     children: [
-                      Text('Color',
-                      style: GoogleFonts.firaSans(
-                        fontSize: FontSize.s12,
-                        fontWeight: FontWeight.w700,
-                        color: ColorManager.mediumgrey,
-                        decoration: TextDecoration.none,
-                      ),),
+                      Text(
+                        'Color',
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
                       SizedBox(width: 10),
-                      GestureDetector(
-                        onTap:
-                        _openColorPicker, // Call _openColorPicker directly
-                        child: Container(
-                          width: 60,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            color: _selectedColors[0],
-                            border: Border.all(
-                              width: 1,
+                      Container(
+                        padding: EdgeInsets.all(2),
+                        width: 62,
+                        height: 22,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          border: Border.all(
+                            width: 1,
+                            color: Color(0xffE9E9E9),
+                          ),
+                        ),
+                        child: GestureDetector(
+                          onTap: _openColorPicker,
+                          child: Container(
+                            width: 60,
+                            height: 20,
+                            decoration: BoxDecoration(
                               color: _selectedColors[0],
+                              border: Border.all(
+                                width: 1,
+                                color: _selectedColors[0],
+                              ),
                             ),
-                            // GestureDetector(
-                            //   onTap: () => _openColorPicker(index),
-                            //   child: Container(
-                            //     width: 60,
-                            //     height: 20,
-                            //     decoration: BoxDecoration(
-                            //       color: _selectedColors[index],
-                            //       border: Border.all(
-                            //         width: 1,
-                            //         color: _selectedColors[index],
-                            //       ),
                           ),
                         ),
                       ),
@@ -191,15 +442,25 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
                     height: MediaQuery.of(context).size.width / 22,
                   ),
                   Center(
-                    child: CustomElevatedButton(
-                        width: AppSize.s105,
-                        height: AppSize.s30,
-                        text: 'Save',
-                        onPressed: () {
-                          widget.onSavePressed;
-                          Navigator.pop(context);
-                        }),
-                  )
+                    child: isLoading
+                        ? SizedBox(
+                        height: 25,width: 25,
+                        child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                        : CustomElevatedButton(
+                      width: AppSize.s105,
+                      height: AppSize.s30,
+                      text: AppStringEM.save,
+                      onPressed: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        await widget.onSavePressed();
+                        setState(() {
+                          isLoading = false;
+                        });
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -209,79 +470,3 @@ class _EditPopupWidgetState extends State<EditPopupWidget> {
     );
   }
 }
-
-///
-// void _openColorPicker(BuildContext context) {
-//   Color selectedColor = widget.containerColor;
-//   showDialog(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return AlertDialog(
-//         title: Text('Pick a color'),
-//         content: SingleChildScrollView(
-//           child: ColorPicker(
-//             borderColor: widget.containerColor,
-//             onColorChanged: (Color color) {
-//               selectedColor = color; // Update selectedColor
-//             },
-//             // enableAlpha: false,
-//             // displayThumbColor: true,
-//             // showLabel: false,
-//             // pickerAreaHeightPercent: 0.8,
-//           ),
-//         ),
-//         actions: <Widget>[
-//           TextButton(
-//             onPressed: () {
-//               Navigator.of(context).pop();
-//               // Update the containerColor with the selectedColor
-//               widget.onColorChanged(selectedColor);
-//             },
-//             child: Text('Close'),
-//           ),
-//         ],
-//       );
-//     },
-//   );
-// }
-///   // Row(
-//                   //   children: [
-//                   //     Text(
-//                   //       'Color',
-//                   //       style: GoogleFonts.firaSans(
-//                   //         fontSize: 12,
-//                   //         fontWeight: FontWeight.w700,
-//                   //         color: Color(0xff686464),
-//                   //         decoration: TextDecoration.none,
-//                   //       ),
-//                   //     ),
-//                   //     SizedBox(
-//                   //       width: AppSize.s25,
-//                   //     ),
-//                   //     GestureDetector(
-//                   //       onTap: () {
-//                   //         onColorChanged(containerColor);
-//                   //       },
-//                   //       child: Container(
-//                   //         padding: EdgeInsets.all(2),
-//                   //         width: 61,
-//                   //         height: 22,
-//                   //         decoration: BoxDecoration(
-//                   //           borderRadius: BorderRadius.circular(2),
-//                   //           border: Border.all(
-//                   //             width: 1,
-//                   //             color: Color(0xffE9E9E9),
-//                   //           ),
-//                   //         ),
-//                   //         child: Container(
-//                   //           width: 57,
-//                   //           height: 16,
-//                   //           decoration: BoxDecoration(
-//                   //             borderRadius: BorderRadius.circular(2),
-//                   //             color: containerColor,
-//                   //           ),
-//                   //         ),
-//                   //       ),
-//                   //     ),
-//                   //   ],
-//                   // ),

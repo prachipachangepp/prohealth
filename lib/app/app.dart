@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/routes_manager.dart';
+import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/hr_home_screen.dart';
 
 
 class App extends StatelessWidget {
@@ -11,9 +12,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-    //  home:  SMDesktop(),
-      initialRoute: "/home",
-      routes: RoutesManager().getRoutes(token: signedIn),
+        home:  HRHomeScreen(),
+      // initialRoute: "/",
+      // routes: RoutesManager().getRoutes(token: signedIn),
     );
   }
 }

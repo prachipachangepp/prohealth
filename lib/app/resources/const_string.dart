@@ -116,7 +116,8 @@ class AppString {
   //static const String = "";
 
   ///common
-  static const String srNo = "Sr. No";
+  static const String znNo = "Zn. No.";
+  static const String srNo = "Sr No.";
   static const String name = "Name";
   static const String code = "Code";
   static const String phone = "Phone No.";
@@ -196,17 +197,20 @@ class AppString {
   static const String addemployeetype = 'Add Employee Type';
   static const String employeetype = 'Employee Type';
   static const String addnewvisit = "Add New Visit";
-  static const String visit = "Visit";
+  static const String visit = "Type of Visit";
   static const String actions = "Actions";
   static const String eligibleClinician = "Eligible Clinicians";
   static const String notapplicable = "Not Applicable";
   static const String expiry = "Expiry";
-  static const String clinician = "Clinician";
+  static const String clinician = "Clinicians";
   static const String sales = "Sales";
   static const String roles= "Roles";
   static const String ruleroles= "Rule Roles";
   static const String administration = "Administration";
   static const String reminderthershold= "Reminder Threshold";
+
+  /// Api 404 Error
+ static const String dataNotFound= "No Data!";
 
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -13,17 +14,27 @@ class CiVendorContractEditPopup extends StatefulWidget {
   final VoidCallback onSavePressed;
   final Widget child;
   final Widget child1;
-  const CiVendorContractEditPopup({super.key, required this.idDocController, required this.nameDocController, required this.onSavePressed, required this.child, required this.child1});
+  const CiVendorContractEditPopup(
+      {super.key,
+      required this.idDocController,
+      required this.nameDocController,
+      required this.onSavePressed,
+      required this.child,
+      required this.child1});
 
   @override
-  State<CiVendorContractEditPopup> createState() => _CiVendorContractEditPopupState();
+  State<CiVendorContractEditPopup> createState() =>
+      _CiVendorContractEditPopupState();
 }
 
 class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
   String? _expiryType;
   TextEditingController birthdayController = TextEditingController();
+  final DateTime _selectedDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
+    final DateFormat dateFormat = DateFormat('dd-MM-yy');
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -59,7 +70,8 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
-                  ), SizedBox(height: AppSize.s8),
+                  ),
+                  SizedBox(height: AppSize.s8),
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
@@ -102,6 +114,7 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
                 ],
               ),
             ),
+
             ///radio
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -125,13 +138,15 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RadioListTile<String>(
-                        title: Text('Not Applicable',
+                        title: Text(
+                          'Not Applicable',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.medium,
                             color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
-                          ),),
+                          ),
+                        ),
                         value: 'type1',
                         groupValue: _expiryType,
                         onChanged: (value) {
@@ -141,13 +156,15 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
                         },
                       ),
                       RadioListTile<String>(
-                        title: Text('Scheduled',
+                        title: Text(
+                          'Scheduled',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.medium,
                             color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
-                          ),),
+                          ),
+                        ),
                         value: 'type2',
                         groupValue: _expiryType,
                         onChanged: (value) {
@@ -157,13 +174,15 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
                         },
                       ),
                       RadioListTile<String>(
-                        title:  Text('Issuer Expiry',
+                        title: Text(
+                          'Issuer Expiry',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.medium,
                             color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
-                          ),),
+                          ),
+                        ),
                         value: 'type3',
                         groupValue: _expiryType,
                         onChanged: (value) {
@@ -202,27 +221,41 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
                         child: TextFormField(
                           controller: birthdayController,
                           decoration: InputDecoration(
-                            hintText: 'dd-mm-yyyy',
+                            hintText: 'mm-dd-yyyy',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,
+                              //decoration: TextDecoration.none,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(width: 1),
                             ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 16),
+                            suffixIcon: Icon(
+                              Icons.calendar_month_outlined,
+                              color: ColorManager.blueprime,
+                            ),
                             errorText: field.errorText,
                           ),
                           readOnly: true,
                           onTap: () async {
                             DateTime? date = await showDatePicker(
                               context: context,
-                              initialDate: DateTime.now(),
+                              initialDate: _selectedDate,
                               firstDate: DateTime(1100),
-                              lastDate: DateTime.now(),
+                              lastDate: DateTime(2026),
                             );
                             if (date != null) {
-                              birthdayController.text =
-                              date.toLocal().toString().split(' ')[0];
-                              field.didChange(date.toLocal().toString().split(' ')[0]);
+                              String formattedDate =
+                              DateFormat('mm-dd-yyyy').format(date);
+                              birthdayController.text = formattedDate;
+                              field.didChange(formattedDate);
+                              // birthdayController.text =DateFormat('mm-dd-yyyy').format(_selectedDate);
+                              // field.didChange(
+                              //     date.toLocal().toString().split(' ')[0]);
                             }
                           },
                           validator: (value) {

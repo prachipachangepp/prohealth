@@ -140,7 +140,8 @@ class _CIDetailsDropdownState extends State<CIDetailsDropdown> {
           IconButton(
             icon: Icon(
               Icons.edit_outlined,
-              size: 20,
+              size: 18,
+              color: ColorManager.blueprime,
             ),
             onPressed: widget.onEditIconTap,
             padding: EdgeInsets.zero,

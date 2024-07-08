@@ -1,13 +1,16 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_administration.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_clinician.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/role_manager_sales.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_role_manager_tab/rolemanager_role_rules.dart';
 
+import '../../../../../../../../app/dummy.dart';
 import '../../../../../../../../app/resources/color.dart';
+import '../../../../../../../../app/resources/font_manager.dart';
 import '../../../../company_identity_screen.dart';
 
 class RoleManagerRoles extends StatefulWidget {
@@ -43,7 +46,7 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 400,
+              width: 410,
               height: 30,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -54,15 +57,20 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                           AppString.clinician,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.grey,
+                          style:  GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: _selectedIndex == 0?
+                            FontWeightManager.bold
+                                :FontWeightManager.semiBold,
+                            color: _selectedIndex == 0
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
                           ),
                         ),
+                        SizedBox(height: 2,),
                         Container(
                           height: 2,
-                          width: 40,
+                          width: MediaQuery.of(context).size.width / 14,
                           color: _selectedIndex == 0 ?  ColorManager.blueprime : Colors.transparent,
                         ),
                       ],
@@ -74,15 +82,20 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                          AppString.sales,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.grey,
+                          style:  GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: _selectedIndex == 1?
+                            FontWeightManager.bold
+                                :FontWeightManager.semiBold,
+                            color: _selectedIndex == 1
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
                           ),
                         ),
+                        SizedBox(height: 2,),
                         Container(
                           height: 2,
-                          width: 60,
+                          width: MediaQuery.of(context).size.width / 13,
                           color: _selectedIndex == 1 ?  ColorManager.blueprime : Colors.transparent,
                         ),
                       ],
@@ -94,15 +107,20 @@ class _RoleManagerRolesState extends State<RoleManagerRoles> {
                       children: [
                         Text(
                           AppString.administration,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _selectedIndex == 2 ? ColorManager.blueprime : Colors.grey,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: _selectedIndex == 2?
+                            FontWeightManager.bold
+                                :FontWeightManager.semiBold,
+                            color: _selectedIndex == 2
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
                           ),
                         ),
+                        SizedBox(height: 2,),
                         Container(
                           height: 2,
-                          width: 60,
+                          width: MediaQuery.of(context).size.width / 13,
                           color: _selectedIndex == 2 ? ColorManager.blueprime: Colors.transparent,
                         ),
                       ],

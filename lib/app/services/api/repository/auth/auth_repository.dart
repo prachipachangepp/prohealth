@@ -10,4 +10,5 @@ class AuthenticationRepository {
   static String userById({required int userId}) {
     return "$users/$userId";
   }
+
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../controller/controller.dart';
 
@@ -6,7 +8,7 @@ import '../controller/controller.dart';
 class AppBarTabBarConstant extends StatelessWidget {
   final MyAppTabBarController controller;
 
-  AppBarTabBarConstant(this.controller);
+  const AppBarTabBarConstant(this.controller);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class AppBarTabBarConstant extends StatelessWidget {
                       // onTap: (_){},
                     ),
                   ),
-                  const SizedBox(width: 30), // Add space between tabs and TextField
+                  const SizedBox(width: 30),
                   Expanded(
                     child: Row(
                       children: [
@@ -140,7 +142,9 @@ class AppBarTabBarConstant extends StatelessWidget {
                           width: 40,
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+
+                          },
                           child: const Text(
                             'See All',
                             style: TextStyle(
@@ -170,6 +174,7 @@ class AppBarTabBarConstant extends StatelessWidget {
               //color: Colors.grey,
               height: controller.tabBarViewHeight,
               child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 children: controller.tabViews,
               ),
             ),
