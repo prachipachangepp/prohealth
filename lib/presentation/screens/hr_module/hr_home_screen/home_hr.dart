@@ -44,6 +44,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ApplicationAppBar(headingText: "Human Resource Manager"),
           ///appbar titles
           Container(
+            // color: Colors.pink,
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,18 +169,21 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ///page view
           Expanded(
             flex: 8,
-            child: PageView(
-              controller: _pageController,
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-               DashBoardScreen(),
-                ManageScreen(),
-                AddEmployeeHomeScreen(),
-                RegisterScreen(),
-                OnBoardingScreen(),
-               SeeAllScreen()
-                // WhitelabellingScreen()
-              ],
+            child: Container(
+              color: Colors.grey,
+              child: PageView(
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                 DashBoardScreen(),
+                  ManageScreen(),
+                  AddEmployeeHomeScreen(),
+                  RegisterScreen(),
+                  OnBoardingScreen(),
+                 SeeAllScreen()
+                  // WhitelabellingScreen()
+                ],
+              ),
             ),
           ),
           // BottomAppBar()
