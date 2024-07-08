@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
@@ -13,6 +15,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_education_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_employeement_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_licences_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_reference_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
@@ -56,16 +59,15 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController cityNameController = TextEditingController();
   TextEditingController employeerController = TextEditingController();
   TextEditingController emergencyMobileNumber = TextEditingController();
-  // TextEditingController nameController = TextEditingController();
-  // TextEditingController addressController = TextEditingController();
-  // TextEditingController secNumberController = TextEditingController();
-  // TextEditingController primNumController = TextEditingController();
-  // TextEditingController altNumController = TextEditingController();
-  // TextEditingController emailController = TextEditingController();
-  // TextEditingController hcoNumController = TextEditingController();
-  // TextEditingController medicareController = TextEditingController();
-  // TextEditingController npiNumController = TextEditingController();
-  // TextEditingController faxontroller = TextEditingController();
+
+  /// Add Reference
+   TextEditingController nameController = TextEditingController();
+   TextEditingController emailController = TextEditingController();
+   TextEditingController titlePositionController = TextEditingController();
+   TextEditingController knowPersonController = TextEditingController();
+   TextEditingController companyNameController = TextEditingController();
+   TextEditingController associationLengthController = TextEditingController();
+   TextEditingController mobileNumberController = TextEditingController();
 
   TextEditingController livensureController = TextEditingController();
   /// Add Education
@@ -128,7 +130,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                 startDateContoller: startDateContoller, endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
                                 supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController, employeerController: employeerController,
                                 emergencyMobileNumber: emergencyMobileNumber, onpressedClose: () {
-                                  Navigator.pop(context);
+                                  //Navigator.pop(context);
                                 }, onpressedSave: () async{
                                   await addEmployeement(context, 'USA', 2, employeerController.text,
                                       cityNameController.text, leavingResonController.text, lastSupervisorNameController.text,
@@ -137,8 +139,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                 checkBoxTile: Container(
                                   width: 300,
                                     child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
-
-                                    },)),
+                                    },)), tite: 'Edit Employeement',
                               );
                             },
                           );
@@ -173,7 +174,10 @@ class _ManageScreenState extends State<ManageScreen> {
                                   degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
                                   countryNameController: countryNameController, onpressedClose: (){
                                     Navigator.pop(context);
-                                  }, onpressedSave: (){},
+                                  }, onpressedSave: () async{
+                                    await addEmployeeEducation(context, 2, expiryType.toString(), degreeController.text, majorSubjectController.text, cityController.text,
+                                        collegeUniversityController.text, phoneController.text, stateController.text);
+                                  },
                                   radioButton:Container(
                                     width: 280,
                                     child: Row(
@@ -227,7 +231,17 @@ class _ManageScreenState extends State<ManageScreen> {
                     width: 100,
                     margin: EdgeInsets.only(right: 20),
                     child: CustomIconButtonConst(
-                        text: AppStringHr.add, icon: Icons.add, onPressed: () {}),
+                        text: AppStringHr.add, icon: Icons.add, onPressed: () {
+                          showDialog(context: context, builder: (BuildContext context){
+                            return AddReferencePopup(nameController: nameController, emailController: emailController, titlePositionController: titlePositionController,
+                              knowPersonController: knowPersonController, companyNameController: companyNameController, associationLengthController: associationLengthController, mobileNumberController: mobileNumberController,
+                              onpressedClose: () {  }, onpressedSave: () async{
+                              await addReferencePost(context, associationLengthController.text, 'Reference', companyNameController.text, emailController.text,
+                                  5, mobileNumberController.text, nameController.text, knowPersonController.text, titlePositionController.text);
+                              },);
+                          });
+
+                    }),
                   ),
                 ],
               ),

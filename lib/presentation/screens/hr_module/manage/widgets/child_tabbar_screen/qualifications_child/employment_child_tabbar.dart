@@ -8,6 +8,8 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp
 import 'package:prohealth/data/api_data/hr_module_data/manage/employeement_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/add_employee_popup_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_employeement_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
@@ -20,6 +22,15 @@ class EmploymentContainerConstant extends StatefulWidget {
 
 class _EmploymentContainerConstantState extends State<EmploymentContainerConstant> {
   final StreamController<List<EmployeementData>> employeementStreamController = StreamController<List<EmployeementData>>();
+  TextEditingController positionTitleController = TextEditingController();
+  TextEditingController leavingResonController = TextEditingController();
+  TextEditingController startDateContoller = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
+  TextEditingController lastSupervisorNameController = TextEditingController();
+  TextEditingController supervisorMobileNumber = TextEditingController();
+  TextEditingController cityNameController = TextEditingController();
+  TextEditingController employeerController = TextEditingController();
+  TextEditingController emergencyMobileNumber = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -229,7 +240,22 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       onPressed: () {
                                         setState(() {
                                           showDialog(context: context, builder: (BuildContext context){
-                                            return CustomPopupConst();
+                                            return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
+                                                endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
+                                                supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
+                                                employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
+                                                onpressedClose: (){}, onpressedSave: ()async{
+                                              await updateEmployeement(context, 'USA', snapshot.data![index].employeeId, 2,employeerController.text, cityNameController.text, leavingResonController.text, lastSupervisorNameController.text,
+                                                  supervisorMobileNumber.text, positionTitleController.text, startDateContoller.text, endDateController.text);
+                                              getEmployeement(context,2).then((data) {
+                                                employeementStreamController.add(data);
+                                              }).catchError((error) {
+                                                // Handle error
+                                              });
+                                              }, checkBoxTile:  Container(
+                                                  width: 300,
+                                                  child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
+                                                  },)), tite: 'Edit Employeement',);
                                           });
                                         });
 

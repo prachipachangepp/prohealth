@@ -70,7 +70,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
 ///button constant with white bg, colored text
 class CustomButtonTransparent extends StatefulWidget {
   final String text;
-  final Future<void> Function() onPressed;
+  final VoidCallback onPressed;
 
    CustomButtonTransparent({
     required this.text,
@@ -95,12 +95,11 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
           isLoading = true;
         });
         try {
-          await widget.onPressed();
+          await widget.onPressed;
         } finally {
           setState(() {
             isLoading = false;
           });
-
         }
         },
       style: ElevatedButton.styleFrom(

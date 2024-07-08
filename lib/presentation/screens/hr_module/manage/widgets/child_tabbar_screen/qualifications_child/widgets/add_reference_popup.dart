@@ -1,44 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 
-class AddEmployeementPopup extends StatefulWidget {
-  final TextEditingController positionTitleController;
-  final TextEditingController leavingResonController;
-  final TextEditingController startDateContoller;
-  final TextEditingController endDateController;
-  final TextEditingController lastSupervisorNameController;
-  final TextEditingController supervisorMobileNumber;
-  final TextEditingController cityNameController;
-  final TextEditingController employeerController;
-  final TextEditingController emergencyMobileNumber;
-  final String tite;
+class AddReferencePopup extends StatefulWidget {
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController titlePositionController;
+  final TextEditingController knowPersonController;
+  final TextEditingController companyNameController;
+  final TextEditingController associationLengthController;
+  final TextEditingController mobileNumberController;
   final VoidCallback onpressedClose;
-   Future<void> Function() onpressedSave;
-  final Widget checkBoxTile;
-   AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedClose, required this.onpressedSave, required this.checkBoxTile, required this.tite});
+  Future<void> Function() onpressedSave;
+   AddReferencePopup({super.key, required this.nameController, required this.emailController, required this.titlePositionController, required this.knowPersonController, required this.companyNameController, required this.associationLengthController, required this.mobileNumberController, required this.onpressedClose, required this.onpressedSave});
 
   @override
-  State<AddEmployeementPopup> createState() => _AddEmployeementPopupState();
+  State<AddReferencePopup> createState() => _AddReferencePopupState();
 }
 
-class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
-  final DateTime _selectedStartDate = DateTime.now();
-  final DateTime _selectedEndDate = DateTime.now();
+class _AddReferencePopupState extends State<AddReferencePopup> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return Dialog(
+    return  Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s900,
-        height: AppSize.s400,
+        height: AppSize.s420,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -51,7 +45,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text(widget.tite,style: GoogleFonts.firaSans(
+                    child: Text("Add Reference",style: GoogleFonts.firaSans(
                       fontSize: FontSize.s16,
                       fontWeight: FontWeightManager.bold,
                       color: ColorManager.blueprime,
@@ -71,7 +65,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: () async{
+                    CustomIconButton(icon: Icons.add,text: 'Add Reference', onPressed: ()async{
                     }),
 
                   ],
@@ -84,8 +78,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   CustomTextFieldRegister(
                     height: AppSize.s30,
                     width: MediaQuery.of(context).size.width/6,
-                    controller: widget.positionTitleController,
-                    labelText: "Final Position Title",
+                    controller: widget.nameController,
+                    labelText: "Name",
                     keyboardType: TextInputType.text,
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                     onChanged: (value) {
@@ -101,8 +95,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   CustomTextFieldRegister(
                     height: AppSize.s30,
                     width: MediaQuery.of(context).size.width/6,
-                    controller: widget.leavingResonController,
-                    labelText: "Reason For Leaving",
+                    controller: widget.emailController,
+                    labelText: "Email",
                     keyboardType: TextInputType.text,
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                     onChanged: (value) {
@@ -118,23 +112,12 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   CustomTextFieldRegister(
                     height: AppSize.s30,
                     width: MediaQuery.of(context).size.width/6,
-                    controller: widget.startDateContoller,
-                    labelText: "Start Date",
+                    controller: widget.titlePositionController,
+                    labelText: "Title/Position",
                     keyboardType: TextInputType.text,
                     suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onTap: () async{
-                      DateTime? date = await showDatePicker(
-                        context: context,
-                        initialDate: _selectedStartDate,
-                        firstDate: DateTime(1100),
-                        lastDate: DateTime(2025),
-                      );
-                      if (date != null) {
-                        String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                        widget.startDateContoller.text = formattedDate;
-                        //field.didChange(formattedDate);
-                      }
+                    onChanged: (value) {
 
                     },
                     validator: (value) {
@@ -144,7 +127,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                       return null;
                     },
                   ),
-               ],
+
+                ],
               ),
               SizedBox(height:MediaQuery.of(context).size.height/20),
               Row(
@@ -153,36 +137,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   CustomTextFieldRegister(
                     height: AppSize.s30,
                     width: MediaQuery.of(context).size.width/6,
-                    controller: widget.endDateController,
-                    labelText: "End Date",
-                    keyboardType: TextInputType.text,
-                    suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
-                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onTap: () async{
-                      DateTime? date = await showDatePicker(
-                        context: context,
-                        initialDate: _selectedEndDate,
-                        firstDate: DateTime(1100),
-                        lastDate: DateTime(2025),
-                      );
-                      if (date != null) {
-                        String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                        widget.endDateController.text = formattedDate;
-                        //field.didChange(formattedDate);
-                      }
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return AppString.enterText;
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextFieldRegister(
-                    height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width/6,
-                    controller: widget.lastSupervisorNameController,
-                    labelText: "Last Supervisor’s Name",
+                    controller: widget.knowPersonController,
+                    labelText: "How do you know this person ?",
                     keyboardType: TextInputType.text,
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                     onChanged: (value) {
@@ -198,8 +154,25 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   CustomTextFieldRegister(
                     height: AppSize.s30,
                     width: MediaQuery.of(context).size.width/6,
-                    controller: widget.supervisorMobileNumber,
-                    labelText: "Supervisor’s Mobile Number",
+                    controller: widget.companyNameController,
+                    labelText: "Company",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.associationLengthController,
+                    labelText: "Length of Association",
                     keyboardType: TextInputType.text,
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                     onChanged: (value) {
@@ -215,22 +188,15 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
 
                 ],
               ),
-              //SizedBox(height:MediaQuery.of(context).size.height/50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  widget.checkBoxTile,
-                ],
-              ),
-             // SizedBox(height:MediaQuery.of(context).size.height/50),
+              SizedBox(height:MediaQuery.of(context).size.height/20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   CustomTextFieldRegister(
                     height: AppSize.s30,
                     width: MediaQuery.of(context).size.width/6,
-                    controller: widget.cityNameController,
-                    labelText: "City",
+                    controller: widget.mobileNumberController,
+                    labelText: "Mobile Number",
                     keyboardType: TextInputType.text,
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                     onChanged: (value) {
@@ -243,41 +209,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                       return null;
                     },
                   ),
-                  CustomTextFieldRegister(
-                    height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width/6,
-                    controller: widget.employeerController,
-                    labelText: "Employer",
-                    keyboardType: TextInputType.text,
-                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onChanged: (value) {
-
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return AppString.enterText;
-                      }
-                      return null;
-                    },
-                  ),
-                  CustomTextFieldRegister(
-                    height: AppSize.s30,
-                    width: MediaQuery.of(context).size.width/6,
-                    controller: widget.emergencyMobileNumber,
-                    labelText: "Emergency Mobile Number",
-                    keyboardType: TextInputType.text,
-                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onChanged: (value) {
-
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return AppString.enterText;
-                      }
-                      return null;
-                    },
-                  ),
-
+                  SizedBox(width: MediaQuery.of(context).size.width/6,),
+                  SizedBox(width: MediaQuery.of(context).size.width/6,),
                 ],
               ),
               SizedBox(height:MediaQuery.of(context).size.height/15),
@@ -286,39 +219,36 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomButtonTransparent(text: "Cancel", onPressed: () {
+                    CustomButtonTransparent(text: "Cancel", onPressed: () async{
                       widget.onpressedClose;
-                      Navigator.pop(context);
                     }),
-                    SizedBox(width: 10,),
-                    isLoading
-                        ? SizedBox(
-                      height: 25,
-                        width: 25,
-                        child: CircularProgressIndicator( color: ColorManager.blueprime,))
-                        : CustomElevatedButton(text: "Save",onPressed: () async{
-                      setState(() {
-                        isLoading = true;
-                      });
-                      try {
-                        await widget.onpressedSave();
-                      } finally {
-                        setState(() {
-                          isLoading = false;
-                        });
-                        Navigator.pop(context);
-                        widget.startDateContoller.clear();
-                        widget.endDateController.clear();
-                        widget.leavingResonController.clear();
-                        widget.cityNameController.clear();
-                        widget.lastSupervisorNameController.clear();
-                        widget.supervisorMobileNumber.clear();
-                        widget.employeerController.clear();
-                        widget.positionTitleController.clear();
-                        widget.emergencyMobileNumber.clear();
-                      }
+                    const SizedBox(width: 10,),
+                   isLoading ? SizedBox(
+                     height: 25,
+                       width: 25,
+                       child: CircularProgressIndicator(color: ColorManager.blueprime,))
+                       : CustomElevatedButton(text: "Save",onPressed: () async{
+                     setState(() {
+                       isLoading = true;
+                     });
+                     try {
+                       await widget.onpressedSave();
+                     } finally {
+                       setState(() {
+                         isLoading = false;
+                       });
+                       Navigator.pop(context);
+                       widget.nameController.clear();
+                       widget.emailController.clear();
+                       widget.companyNameController.clear();
+                       widget.titlePositionController.clear();
+                       widget.mobileNumberController.clear();
+                       widget.associationLengthController.clear();
+                       widget.knowPersonController.clear();
+                     }
 
                     }),
+
                   ],
                 ),
               )

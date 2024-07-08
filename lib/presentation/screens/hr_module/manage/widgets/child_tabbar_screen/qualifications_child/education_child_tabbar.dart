@@ -10,7 +10,6 @@ import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widge
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
-///done by saloni
 class EducationChildTabbar extends StatefulWidget {
   const EducationChildTabbar({super.key});
 

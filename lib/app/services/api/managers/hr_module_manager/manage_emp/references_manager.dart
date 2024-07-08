@@ -25,7 +25,7 @@ Future<List<ReferenceData>> getReferences(
             name: item['name'],
             references: item['references'],
             title: item['title'],
-            approve: item['approve']));
+            approve: item['approve']??false));
       }
     } else {
       print("References List");
@@ -36,7 +36,41 @@ Future<List<ReferenceData>> getReferences(
     return itemsData;
   }
 }
-
+/// Add reference
+Future<ApiData> addReferencePost(BuildContext context,String association,String comment,String company,
+    String email,int employeeId,String mob,String name,String references,String title) async {
+  try {
+    var response = await Api(context).post(path: ManageReposotory.addReferences(), data: {
+      "association": association,
+      "comment": comment,
+      "company": company,
+      "email": email,
+      "employeeId": employeeId,
+      "mob": mob,
+      "name": name,
+      "references": references,
+      "title": title
+    },);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("reference Added");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
 
 
 /// Reject reference

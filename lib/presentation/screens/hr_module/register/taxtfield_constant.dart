@@ -73,6 +73,7 @@ class CustomTextFieldRegister extends StatelessWidget {
           obscureText: obscureText,
           autofocus: autofocus,
           enabled: enabled,
+          onTap: onTap,
           onChanged: onChanged,
           validator: validator,
           focusNode: focusNode,
