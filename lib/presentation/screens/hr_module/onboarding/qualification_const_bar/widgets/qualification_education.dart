@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/education_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_qualification_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/qualification_tab_constant.dart';
@@ -22,19 +24,19 @@ class QualificationEducation extends StatefulWidget {
 }
 
 class _QualificationEducationState extends State<QualificationEducation> {
-  final StreamController<List<OnboardingQualificationEducationData>> educationStreamController = StreamController<List<OnboardingQualificationEducationData>>();
+  final StreamController<List<EducationData>> educationStreamController = StreamController<List<EducationData>>();
 
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationEducation(context, 2).then((data){
+    getEmployeeEducation(context, 2).then((data){
       educationStreamController.add(data);
     }).catchError((error){});
   }
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return StreamBuilder<List<OnboardingQualificationEducationData>>(
+    return StreamBuilder<List<EducationData>>(
         stream: educationStreamController.stream,
         builder: (context,snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -83,7 +85,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      snapshot.data![index].empId.toString(),
+                      snapshot.data![index].employeeID.toString(),
                       style: GoogleFonts.firaSans(
                         fontSize: 13,
                         color: Color(0xFF333333),

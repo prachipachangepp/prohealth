@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/qualification_bar_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/references_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/qualificatin_emloyment_tab.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/qualification_const_bar/widgets/qualification_tab_constant.dart';
 import '../../../../../app/resources/color.dart';
@@ -20,19 +22,19 @@ class QualificationReferance extends StatefulWidget {
 }
 
 class _QualificationReferanceState extends State<QualificationReferance> {
-  final StreamController<List<OnboardingQualificationReferanceData>> referenceStreamController = StreamController<List<OnboardingQualificationReferanceData>>();
+  final StreamController<List<ReferenceData>> referenceStreamController = StreamController<List<ReferenceData>>();
 
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationReference(context, 2).then((data){
+    getReferences(context, 5).then((data){
       referenceStreamController.add(data);
     }).catchError((error){});
   }
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return StreamBuilder<List<OnboardingQualificationReferanceData>>(
+    return StreamBuilder<List<ReferenceData>>(
         stream: referenceStreamController.stream,
         builder: (context,snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -81,7 +83,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          snapshot.data![index].empId.toString(),
+                          snapshot.data![index].employeeId.toString(),
                           style: GoogleFonts.firaSans(
                             fontSize: 13,
                             color: Color(0xFF333333),
@@ -107,7 +109,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                                 InfoData(snapshot.data![index].name),
                                 InfoData(snapshot.data![index].title),
                                 InfoData(snapshot.data![index].company),
-                                InfoData(snapshot.data![index].mob),
+                                InfoData(snapshot.data![index].mobNumber),
                               ],
                             ),
                             Column(
