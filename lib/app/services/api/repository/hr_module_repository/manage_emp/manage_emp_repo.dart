@@ -2,7 +2,21 @@ class ManageReposotory{
   static String employee_licenses = "/employee-licenses";
   static String references = "/reference";
   static String add = "/add";
+  static String education = "/employee-educations";
+  static String byemployeeId = "ByemployeeId";
+  static String employement = "/employee-employment-histories";
 
+  /// Employeement
+  static String getEmployeement({required int employeeId}){
+    return "$employement/$byemployeeId/$employeeId";
+  }
+  static String addEmployeement(){
+    return "$employement$add";
+  }
+  /// Education
+  static String getEmployeeDucation({required int employeeId}){
+    return "$education/$byemployeeId/$employeeId";
+  }
   /// Employee licences
   static String getEmployeeLicenses({required int employeeid}){
     return "$employee_licenses/ByemployeeId/$employeeid";
