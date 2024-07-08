@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import '../../../../../app/resources/color.dart';
@@ -341,7 +342,9 @@ class RegisterEnrollAlertDialog {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomIconButtonConst(
-                          text: AppString.next, onPressed: () {}),
+                          text: AppString.next, onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                      }),
                     ],
                   ),
                 ],

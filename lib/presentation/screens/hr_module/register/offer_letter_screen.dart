@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
 
  List<Map<String, dynamic>> checkboxData = [
@@ -40,6 +41,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   TextEditingController patientsController = TextEditingController();
 
   String selectedDropdownValue = 'Per day';
+  String dropdownValue = 'Salaried';
   late List<Map<String, dynamic>> checkboxStates;
   late List<Map<String, dynamic>> checkboxStatesCity;
 
@@ -48,6 +50,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     super.initState();
     checkboxStates = List.from(checkboxData);
     checkboxStatesCity = List.from(checkboxDataCity);
+  }
+
+  void handleDropdownChange(String? newValue) {
+    setState(() {
+      dropdownValue = newValue ?? 'Salaried';
+    });
   }
 
 
@@ -150,13 +158,26 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           cursorColor: Colors.black,
                           controller: patientsController,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
                             labelText: 'No. of Patients',
                             labelStyle: GoogleFonts.firaSans(
                                 fontSize: 10.0,
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xff575757)),
                             suffixIcon: Container(
+                              // padding: EdgeInsets.only(right: 10),
+                              margin: EdgeInsets.only(right: 10, top: 6, bottom: 6),
+                              height: 5,
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(5.0),
@@ -216,33 +237,36 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           padding:  EdgeInsets.only(left: 71.0),
                           child: Column(
                             children: [
-                              DropdownTextFormField(
-                                labelText: 'City',
-                                hintText: 'Select a City',
-                                dropdownItems: [
-                                  'ProHealth San Jose',
-                                  'ProHealth Sacramento',
-                                  'ProHealth Walnut Creek',
-                                  'ProHealth Stockton',
-                                ],
-                                onChanged: (String) {},
+                              CustomDropdownFormField(
+                                  hintText: 'Select a City',
+                                  labelText: 'City',
+                                  items: [
+                                    'ProHealth San Jose',
+                                    'ProHealth Sacramento',
+                                    'ProHealth Walnut Creek',
+                                    'ProHealth Stockton',],
+                                  onChanged: (String) {}
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height / 30),
+                              CustomDropdownFormField(
+                                  hintText: 'Select a Country',
+                                  labelText: 'Country',
+                                  items: [
+                                    'Alameida',
+                                    'San Joachim'],
+                                  onChanged: (String) {}
                               ),
                               SizedBox(height: MediaQuery.of(context).size.height / 30),
-                              DropdownTextFormField(
-                                labelText: 'Country',
-                                hintText: 'Select a County',
-                                dropdownItems: [
-                                  'Alameda',
-                                  'San Joaquin',
-                                ],
-                                onChanged: (String) {},
-                              ),
-                              SizedBox(height: MediaQuery.of(context).size.height / 30),
-                              DropdownTextFormField(
-                                labelText: 'Zone',
-                                hintText: 'Select a Zone',
-                                dropdownItems: ['1', '2', '3', '4'],
-                                onChanged: (String) {},
+                              CustomDropdownFormField(
+                                  hintText: 'Select a Zone',
+                                  labelText: 'Zone',
+                                  items: [
+                                    '1',
+                                    '2',
+                                  '3',
+                                  '4'],
+                                  onChanged: (String) {}
                               ),
                             ],
                           ),
@@ -273,6 +297,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               ),
                               Expanded(
                                 child: TabBarView(
+                                  physics: NeverScrollableScrollPhysics(),
                                   children: [
                                     Row(
                                       children: [
@@ -341,19 +366,16 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
+                    child: CustomDropdownFormField(
                         hintText: 'Salaried',
-                        hintStyle: GoogleFonts.firaSans(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                    ),
+                        items: ['Salaried', 'Per Visit'],
+                        value: dropdownValue,
+                        onChanged: handleDropdownChange
+                    )
                   ),
                 ],
               ),
+
 
               SizedBox(height: MediaQuery.of(context).size.height/30),
               Row(
@@ -463,3 +485,5 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
     );
   }
 }
+
+
