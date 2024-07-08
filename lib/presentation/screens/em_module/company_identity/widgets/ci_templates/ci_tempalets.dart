@@ -12,14 +12,18 @@ class _CiTempaletsState extends State<CiTempalets> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          CustomIconButtonConst(
-              icon: Icons.add,
-              text: "Add Doctype", onPressed: (){
+          Padding(
+            padding: const EdgeInsets.only(top: 10,right: 30),
+            child: CustomIconButtonConst(
+                icon: Icons.add,
+                text: "Add Doctype", onPressed: (){
 
-          }),
+            }),
+          ),
         ],),
     );
   }

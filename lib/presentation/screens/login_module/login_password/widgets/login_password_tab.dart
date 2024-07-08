@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
 import '../../../../../app/resources/font_manager.dart';
@@ -135,6 +136,12 @@ class _LoginPassswordTabState extends State<LoginPassswordTab> {
                 height: MediaQuery.of(context).size.height / 18,
                 width: MediaQuery.of(context).size.height / 4,
                 text: AppString.loginbtn,
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeightManager.semiBold,
+                    color: ColorManager.white,
+                    decoration: TextDecoration.none,
+                  ),
                 onPressed: _isLoading ? () {} : _login,
               ),
               if (_errorMessage != null)

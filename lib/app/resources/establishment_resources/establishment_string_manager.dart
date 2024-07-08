@@ -9,11 +9,12 @@ class AppStringEM{
   static const String secNum = "Secondary Number";
   static const String address = "Address";
   static const String primNum = "Primary Number";
-  static const String alternatephone = "Alternative Phone";
+  static const String alternatephone = "Alternative Number";
   static const String primarymail = "Primary Email";
   static const String services = "Services";
   static const String save = "Save";
   static const String add = "Add";
+  static const String addShift = "Add Shift";
   static const String submit = "Submit";
   static const String roleManager =  "Role Manager";
   static const String orgdoc =   "Org Document";
@@ -30,6 +31,8 @@ class AppStringEM{
   // static const String landmark = "Landmark";
   // static const String landmark = "Landmark";
   ///all hr screen
+  static const String cancel = 'Cancel';
+  static const String delete = 'Delete';
   ///hr screen
   static const String srno = 'Sr No.';
   static const String employee = 'Employee Type';

@@ -4,7 +4,6 @@ import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/auth/auth_repository.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
-import 'package:prohealth/presentation/screens/home_module/home_screen.dart';
 
 import '../../../../resources/const_string.dart';
 
@@ -21,12 +20,12 @@ class AuthManager {
         TokenManager.setAccessToken(token: access ?? "");
         return ApiData(
             success: true,
-            message: response.statusMessage!,
+            message: response.statusMessage ?? "",
             statusCode: response.statusCode!);
       } else {
         return ApiData(
             success: false,
-            message: response.data["message"]!,
+            message: response.data["message"] ?? "",
             statusCode: response.statusCode!);
       }
     } catch (e) {
@@ -49,15 +48,14 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data["message"]!);
+            message: response.data["message"] ?? "");
       }
     } catch (e) {
-      print('Error occurred: $e');
       return ApiData(
           statusCode: 404,
           success: false,
@@ -76,12 +74,12 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data["message"]!);
+            message: response.data["message"] ?? "");
       }
     } catch (e) {
       return ApiData(
@@ -103,12 +101,12 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data["message"]!);
+            message: response.data["message"] ?? "");
       }
     } catch (e) {
       print(e);
@@ -128,22 +126,21 @@ class AuthManager {
       var response = await Api(context).post(
           path: AuthenticationRepository.verifyOtpMail,
           data: {"email": email, "otp": int.parse(otp)});
-      print(response.data["accessToken"]);
-      print(response.statusCode);
+      print(response);
       if (response.statusCode == 201 || response.statusCode == 200) {
-        String accessToken = response.data["accessToken"];
+        String accessToken = response.data["accessToken"] ?? "";
         TokenManager.setAccessToken(token: accessToken);
         // Navigator.pushNamed(context, HomeScreen.routeName);
 
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.data['message']);
+            message: response.data['message'] ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.data['message']);
+            message: response.data['message'] ?? "");
       }
     } catch (e) {
       return ApiData(statusCode: 404, success: false, message: e.toString());
@@ -165,12 +162,12 @@ class AuthManager {
         return ApiData(
             statusCode: response.statusCode!,
             success: true,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       } else {
         return ApiData(
             statusCode: response.statusCode!,
             success: false,
-            message: response.statusMessage!);
+            message: response.statusMessage ?? "");
       }
     } catch (e) {
       return ApiData(

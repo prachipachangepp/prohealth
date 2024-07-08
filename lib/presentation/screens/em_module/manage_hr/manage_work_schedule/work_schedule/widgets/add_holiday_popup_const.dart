@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -9,8 +10,15 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 
 class AddHolidayPopup extends StatefulWidget {
   final TextEditingController controller;
-  final VoidCallback onPressed;
-  const AddHolidayPopup({super.key, required this.controller, required this.onPressed});
+  final TextEditingController calenderDateController;
+  final Future<void> Function() onPressed; // Changed to Future<void> for async operations
+ final String title;
+  const AddHolidayPopup({
+    super.key,
+    required this.controller,
+    required this.calenderDateController,
+    required this.onPressed, required this.title,
+  });
 
   @override
   State<AddHolidayPopup> createState() => _AddHolidayPopupState();
@@ -18,7 +26,8 @@ class AddHolidayPopup extends StatefulWidget {
 
 class _AddHolidayPopupState extends State<AddHolidayPopup> {
   String? _expiryType;
-  TextEditingController birthdayController = TextEditingController();
+  final DateTime _selectedDate = DateTime.now();
+  bool isLoading = false; // Added loading state
 
   @override
   Widget build(BuildContext context) {
@@ -26,23 +35,45 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s210,
+        height: AppSize.s250,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
-                ),
-              ],
+            Container(
+              decoration: BoxDecoration(
+        color: ColorManager.bluebottom,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+          ),
+        ),
+          height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                    widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -61,6 +92,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                 ],
               ),
             ),
+            SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -84,34 +116,44 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                         width: 354,
                         height: 30,
                         child: TextFormField(
-                          controller: birthdayController,
+                          controller: widget.calenderDateController,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.mediumgrey,
+                          ),
                           decoration: InputDecoration(
-                            hintText: 'dd-mm-yyyy',
+                            hintText: 'mm-dd-yyyy',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: FontSize.s12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.mediumgrey,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(width: 1),
                             ),
                             contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                            suffixIcon: Icon(Icons.calendar_month_outlined, color: ColorManager.blueprime,),
                             errorText: field.errorText,
                           ),
                           readOnly: true,
                           onTap: () async {
                             DateTime? date = await showDatePicker(
                               context: context,
-                              initialDate: DateTime.now(),
+                              initialDate: _selectedDate,
                               firstDate: DateTime(1100),
-                              lastDate: DateTime.now(),
+                              lastDate: DateTime(2025),
                             );
                             if (date != null) {
-                              birthdayController.text =
-                              date.toLocal().toString().split(' ')[0];
-                              field.didChange(date.toLocal().toString().split(' ')[0]);
+                              String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                              widget.calenderDateController.text = formattedDate;
+                              field.didChange(formattedDate);
                             }
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'please select birth date';
+                              return 'Please select date';
                             }
                             return null;
                           },
@@ -126,13 +168,26 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Center(
-                child: CustomElevatedButton(
+                child: isLoading
+                    ? CircularProgressIndicator( color: ColorManager.blueprime,)
+                    : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.add,
-                  onPressed: () {
-                    widget.onPressed();
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    try {
+                      await widget.onPressed();
+                    } finally {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      Navigator.pop(context);
+                      widget.calenderDateController.clear();
+                      widget.controller.clear();
+                    }
                   },
                 ),
               ),

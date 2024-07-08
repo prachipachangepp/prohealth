@@ -2,72 +2,52 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_adr.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_cap_reports.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_licence.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_medical_cost_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/ci_cc_quaterly_bal_report.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/ci_insurance_vendor.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/ci_cc_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_insurance/widgets/ci_insurance.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_templates/ci_tempalets.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_details.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_country.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/ci_zone_zone.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/company_identity_zone/zone.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/policies_procedures/policies_procedures.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/dme.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/leasas_services.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/md.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/misc.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/snf.dart';
-import 'package:prohealth/presentation/screens/em_module/em_desktop_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/vendor_contract/widgets/ci_cc_vendor_contract_screen.dart';
 
 import '../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
-import 'widgets/ci_insurance/ci_insurance_contract.dart';
 import 'widgets/ci_insurance/ci_insurance_pageview.dart';
-import 'widgets/policies_procedures/policies_procedures.dart';
+import 'widgets/company_identity_zone/ci_zone_country.dart';
+import 'widgets/company_identity_zone/ci_zone_zone.dart';
+import 'widgets/policies_procedures/document_detail_page_view.dart';
 
-class ManagePopUpScreen extends StatefulWidget {
-  const ManagePopUpScreen({Key? key}) : super(key: key);
-
-  @override
-  State<ManagePopUpScreen> createState() => _ManagePopUpScreenState();
-}
-
-class _ManagePopUpScreenState extends State<ManagePopUpScreen> {
-  final PageController _managePageController = PageController();
-  int _selectedIndex = 0;
-
-  void _selectButton(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    _managePageController.animateToPage(
-      index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ManageWidget(
-      managePageController: _managePageController,
-      selectedIndex: _selectedIndex,
-      selectButton: _selectButton,
-    );
-  }
-}
+typedef BackButtonCallBack = void Function(bool val);
 
 class ManageWidget extends StatefulWidget {
-  final PageController managePageController;
-  final int selectedIndex;
-  final Function(int) selectButton;
-
+  // final PageController managePageController;
+  // final int selectedIndex;
+  // final Function(int) selectButton;
+  final String officeID;
+  final int companyID;
+  final String officeName;
+  final BackButtonCallBack backButtonCallBack;
   ManageWidget({
     Key? key,
-    required this.managePageController,
-    required this.selectedIndex,
-    required this.selectButton,
+    required this.officeID,
+    required this.officeName,
+    required this.backButtonCallBack,
+    required this.companyID,
+    // required this.managePageController,
+    // required this.selectedIndex,
+    // required this.selectButton,
   }) : super(key: key);
 
   @override
@@ -77,12 +57,15 @@ class ManageWidget extends StatefulWidget {
 class _ManageWidgetState extends State<ManageWidget> {
   final List<String> _categories = [
     'Details',
-    'Zone',
-    'Corporate & Compliance Documents',
+    'Zones',
     'Insurance',
-    'Vendor Contract',
-    'Policies & Procedure',
     'Templates'
+  ];
+  final List<int> _categoriesInt = [
+    0,
+    1,
+    2,
+    3
   ];
 
   final PageController _managePageController = PageController();
@@ -96,141 +79,590 @@ class _ManageWidgetState extends State<ManageWidget> {
 
     _managePageController.animateToPage(
       index,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
+int listIndex = 0 ;
+  void _listButton(int index) {
+    setState(() {
+      listIndex = index;
+    });
+
+    _managePageController.animateToPage(
+      index,
       duration: Duration(milliseconds: 500),
       curve: Curves.ease,
     );
   }
+  @override
+  void initState() {
+    super.initState();
+    // currentPage = 1;
+    // itemsPerPage = 5;
+    // items = List.generate(20, (index) => 'Item ${index + 1}');
+    documentTypeGet(context);
+    //_companyManager = CompanyIdentityManager();
+    // companyAllApi(context);
+  }
+
+
+  int docID = 1;
 
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: Column(
         children: [
+          _selectedIndex != 0
+              ? Container(height: 57)
+              : Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p160, vertical: AppPadding.p20),
+                  child: Row(
+                    children: [
+                      Text(
+                        widget.officeName,
+                        style: CompanyIdentityManageHeadings.customTextStyle(
+                            context),
+                      ),
+                    ],
+                  ),
+                ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p150,vertical: AppPadding.p20),
-            child: Row(
-              children: [
-                Text('ProHealth San Jose',
-                  style: CompanyIdentityManageHeadings.customTextStyle(context),),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 35),
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(children: [
-                  IconButton(icon: Icon(Icons.arrow_back_outlined,size: 15),color: ColorManager.mediumgrey, onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> SMDesktop()));
-                  }, ),
-                  Text(
-                    'Go Back',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.underline, // Remove underline from the text
+                Row(
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          widget.backButtonCallBack(true);
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: 15,
+                          color: ColorManager.mediumgrey,
+                        )),
+                    Text(
+                      'Go Back',
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration
+                            .underline, // Remove underline from the text
+                      ),
                     ),
-                  ),
-                ],),
-                SizedBox(width: MediaQuery.of(context).size.width/30,),
+                  ],
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 34,
+                ),
                 Material(
                   elevation: 4,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(14),
                   child: Container(
-                    height: 28,
-                    width: MediaQuery.of(context).size.width / 1.2,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                    width: MediaQuery.of(context).size.width/1.2,height: 30,
+                  decoration: BoxDecoration(
                       color: ColorManager.blueprime,
-                    ),
+                    borderRadius: BorderRadius.circular(14)
+                  ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: _categories
-                          .asMap()
-                          .entries
-                          .map(
-                            (entry) => InkWell(
-                              child: Container(
-                                height: 30,
-                                width: MediaQuery.of(context).size.width / 8.42,
-                                padding: EdgeInsets.symmetric(vertical: 6),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: widget.selectedIndex == entry.key
-                                      ? Colors.white
-                                      : null,
-                                ),
-                                child: Text(
-                                  entry.value,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeightManager.semiBold,
-                                    color: widget.selectedIndex == entry.key
-                                        ? ColorManager.mediumgrey
-                                        : Colors.white,
+                      children: [
+                        InkWell(
+                          child: Container(
+                                        height: 30,
+                                        width: MediaQuery.of(context).size.width / 8.62,
+                                        padding: EdgeInsets.symmetric(vertical: 6),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: _selectedIndex == 0
+                                              ? Colors.white
+                                              : null,
+                                        ),
+                                        child: Text(
+                                          'Details',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeightManager.semiBold,
+                                            color: _selectedIndex == 0
+                                                ? ColorManager.mediumgrey
+                                                : Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                          onTap: () => _selectButton(0),
                                   ),
-                                ),
-                              ),
-                              onTap: () => widget.selectButton(entry.key),
+                        InkWell(
+                                      child: Container(
+                                        height: 30,
+                                        width: MediaQuery.of(context).size.width / 8.62,
+                                        padding: EdgeInsets.symmetric(vertical: 6),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: _selectedIndex == 1
+                                              ? Colors.white
+                                              : null,
+                                        ),
+                                        child: Text(
+                                          'Zone',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeightManager.semiBold,
+                                            color: _selectedIndex == 1
+                                                ? ColorManager.mediumgrey
+                                                : Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                          onTap: () => _selectButton(1),
+                                  ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 2
+                                  ? Colors.white
+                                  : null,
                             ),
-                          )
-                          .toList(),
+                            child: Text(
+                              'Corporate & Compliance Documents',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 2
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(2),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 3
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Insurance',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 3
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(3),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 4
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Vendor Contracts',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 4
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(4),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 5
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Policies & Procedures',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 5
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(5),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 30,
+                            width: MediaQuery.of(context).size.width / 8.62,
+                            padding: EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: _selectedIndex == 6
+                                  ? Colors.white
+                                  : null,
+                            ),
+                            child: Text(
+                              'Templates',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeightManager.semiBold,
+                                color: _selectedIndex == 6
+                                    ? ColorManager.mediumgrey
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                          onTap: () => _selectButton(6),
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                )
+                // FutureBuilder<List<DocumentTypeData>>(
+                //     future: documentTypeGet(context),
+                //     builder: (context, snapshot) {
+                //       if (snapshot.hasData) {
+                //         List<Widget> docList = [
+                //           CustomButtonList(
+                //             buttonText: 'Details',
+                //             isSelected: _selectedIndex,
+                //             docID: 4,
+                //             onTap: () {
+                //               _selectButton(4);
+                //               docID = 4;
+                //             },
+                //           ),
+                //           CustomButtonList(
+                //             buttonText: 'Zones',
+                //             isSelected: _selectedIndex,
+                //             docID: 5,
+                //             onTap: () {
+                //               _selectButton(5);
+                //               docID = 6;
+                //             },
+                //           ),
+                //           CustomButtonList(
+                //             buttonText: 'Insurance',
+                //             isSelected: _selectedIndex,
+                //             docID: 6,
+                //             onTap: () {
+                //               _selectButton(6);
+                //               docID = 6;
+                //             },
+                //           ),
+                //           CustomButtonList(
+                //             buttonText: 'Templates',
+                //             isSelected: _selectedIndex,
+                //             docID: 7,
+                //             onTap: () {
+                //               _selectButton(7);
+                //               docID = 7;
+                //             },
+                //           )
+                //           // InkWell(
+                //           //     child: Container(
+                //           //       height: 30,
+                //           //       width: MediaQuery.of(context).size.width / 8.62,
+                //           //       padding: EdgeInsets.symmetric(vertical: 6),
+                //           //       decoration: BoxDecoration(
+                //           //         borderRadius: BorderRadius.circular(20),
+                //           //         color: widget.selectedIndex == snapshot.data![index].docID
+                //           //             ? Colors.white
+                //           //             : null,
+                //           //       ),
+                //           //       child: Text(
+                //           //         snapshot.data![index].docType,
+                //           //         textAlign: TextAlign.center,
+                //           //         style: GoogleFonts.firaSans(
+                //           //           fontSize: 12,
+                //           //           fontWeight: FontWeightManager.semiBold,
+                //           //           color: widget.selectedIndex == snapshot.data![index].docID
+                //           //               ? ColorManager.mediumgrey
+                //           //               : Colors.white,
+                //           //         ),
+                //           //       ),
+                //           //     ),
+                //           //     onTap: (){widget.selectButton(snapshot.data![index].docID);
+                //           //     docID = snapshot.data![index].docID;}
+                //           // );
+                //         ];
+                //
+                //         for (var a in snapshot.data!) {
+                //           docList.add(CustomButtonList(
+                //             buttonText: a.docType,
+                //             isSelected: _selectedIndex,
+                //             docID: a.docID,
+                //             onTap: () {
+                //               _selectButton(a.docID);
+                //               docID = a.docID;
+                //             },
+                //           ));
+                //         }
+                //         return Material(
+                //           elevation: 4,
+                //           borderRadius: BorderRadius.circular(20),
+                //           child: Container(
+                //               height: 28,
+                //               width: MediaQuery.of(context).size.width / 1.23,
+                //               decoration: BoxDecoration(
+                //                 borderRadius: BorderRadius.circular(20),
+                //                 color: ColorManager.blueprime,
+                //               ),
+                //               child: Row(
+                //                   mainAxisAlignment:
+                //                       MainAxisAlignment.spaceEvenly,
+                //                   children: [
+                //                     // Expanded(
+                //                     //   child: ListView.builder(
+                //                     //     scrollDirection: Axis.horizontal,
+                //                     //     itemCount: docList.length,
+                //                     //     itemBuilder:
+                //                     //         (BuildContext context, index) {
+                //                     //       if (snapshot.hasData) {
+                //                     //         return docList[index];
+                //                     //         //   InkWell(
+                //                     //         //     child: Container(
+                //                     //         //       height: 30,
+                //                     //         //       width: MediaQuery.of(context).size.width / 8.62,
+                //                     //         //       padding: EdgeInsets.symmetric(vertical: 6),
+                //                     //         //       decoration: BoxDecoration(
+                //                     //         //         borderRadius: BorderRadius.circular(20),
+                //                     //         //         color: widget.selectedIndex == snapshot.data![index].docID
+                //                     //         //             ? Colors.white
+                //                     //         //             : null,
+                //                     //         //       ),
+                //                     //         //       child: Text(
+                //                     //         //         snapshot.data![index].docType,
+                //                     //         //         textAlign: TextAlign.center,
+                //                     //         //         style: GoogleFonts.firaSans(
+                //                     //         //           fontSize: 12,
+                //                     //         //           fontWeight: FontWeightManager.semiBold,
+                //                     //         //           color: widget.selectedIndex == snapshot.data![index].docID
+                //                     //         //               ? ColorManager.mediumgrey
+                //                     //         //               : Colors.white,
+                //                     //         //         ),
+                //                     //         //       ),
+                //                     //         //     ),
+                //                     //         //     onTap: (){widget.selectButton(snapshot.data![index].docID);
+                //                     //         //     docID = snapshot.data![index].docID;}
+                //                     //         // );
+                //                     //       }
+                //                     //     },
+                //                     //   ),
+                //                     // ),
+                //                     Expanded(
+                //                       child: ListView.builder(
+                //                         scrollDirection: Axis.horizontal,
+                //                         itemCount: _categories.length,
+                //                         itemBuilder: (BuildContext context, int index) {
+                //                           return InkWell(
+                //                             child: Container(
+                //                               height: 30,
+                //                               width: MediaQuery.of(context).size.width / 8.62,
+                //                               padding: EdgeInsets.symmetric(vertical: 6),
+                //                               decoration: BoxDecoration(
+                //                                 borderRadius: BorderRadius.circular(20),
+                //                                 color: listIndex == _categoriesInt[index]
+                //                                     ? Colors.white
+                //                                     : null,
+                //                               ),
+                //                               child: Text(
+                //                                 _categories[index],
+                //                                 textAlign: TextAlign.start,
+                //                                 style: GoogleFonts.firaSans(
+                //                                   fontSize: 12,
+                //                                   fontWeight: FontWeightManager.semiBold,
+                //                                   color: listIndex == _categoriesInt[index]
+                //                                       ? ColorManager.mediumgrey
+                //                                       : Colors.white,
+                //                                 ),
+                //                               ),
+                //                             ),
+                //                             onTap: () => _listButton(_categoriesInt[index]),
+                //                           );
+                //                         },
+                //
+                //                       ),
+                //                     ),
+                //                   ])
+                //               // .toList(),
+                //               ),
+                //         );
+                //       } else {
+                //         return const SizedBox(
+                //           height: 1,
+                //           width: 1,
+                //         );
+                //       }
+                //     }),
               ],
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(
+            height: 20,
+          ),
           Expanded(
             flex: 10,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 45),
-              child: PageView(
-                  controller: widget.managePageController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    CIDetailsScreen(),
-                    CiPageview(
-                        managePageController: _managePageController,
-                        selectedIndex: _selectedIndex,
-                        selectButton: _selectButton,
-                        nameList: ['County', 'Zone'],
-                        screenList: [CIZoneCountry(), CIZoneZone()],
-                        mediaQueryWidth: 3.5),
-                   CiPageview(
-                       managePageController: _managePageController,
-                       selectedIndex: _selectedIndex,
-                       selectButton: _selectButton,
-                       nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
-                       screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
-                       mediaQueryWidth: 2),
-                    CiPageview(
-                      managePageController: _managePageController,
-                      selectedIndex: _selectedIndex,
-                      selectButton: _selectButton,
-                      mediaQueryWidth: 3,
-                      nameList: ['Vendor', 'Contract'],
-                      screenList: [CiInsuranceVendor(), CiInsuranceContract()],
+            child: Stack(children: [
+              _selectedIndex == 0
+                  ? const Offstage()
+                  : Container(
+                      height: MediaQuery.of(context).size.height / 3,
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFF2F9FC),
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.mediumgrey.withOpacity(0.5),
+                              blurRadius: 2,
+                              spreadRadius: -3,
+                              offset: const Offset(0, -6),
+                            ),
+                          ]),
                     ),
-                    CiPageview(
-                      managePageController: _managePageController,
-                      selectedIndex: _selectedIndex,
-                      selectButton: _selectButton,
-                      mediaQueryWidth: 2,
-                      nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
-                      screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()],
-                    ),
-                    CiPoliciesAndProcedures(),
-                    CiTempalets()
-                  ]),
-            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    //horizontal: MediaQuery.of(context).size.width / 45,
+                    vertical: 5),
+                child: PageView(
+                    controller: _managePageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      // docID == 5 ?
+                      //  CiZone():Offstage(),
+                      // docID == 4 ?
+                      // DocumentPageView(
+                      //   docID: docID,
+                      // ),
+                      // DocumentPageView(
+                      //   docID: docID,
+                      // ),
+                      // DocumentPageView(
+                      //   docID: docID,
+                      // ),
+                      CIDetailsScreen(
+                        companyID: widget.companyID,
+                        officeId: widget.officeID, docTD: docID,
+                        companyId: widget.companyID,
+                      ),
+                      CiZone(companyID: widget.companyID, officeId: widget.officeID, docId: docID,),
+                      // CiPageview(
+                      //   docId: 5,
+                      //     managePageController: _managePageController,
+                      //     selectedIndex: _selectedIndex,
+                      //     selectButton: _selectButton,
+                      //     //child1: Container(color: Colors.grey,width: 200,height: 40,),
+                      //     nameList: ['County', 'Zone'],
+                      //     screenList: [CIZoneCountry(), CIZoneZone()],
+                      //     mediaQueryWidth: 3.5,),
+                      CiCorporateComplianceScreen(),
+                      // CiPageview(
+                      //     managePageController: _managePageController,
+                      //     selectedIndex: _selectedIndex,
+                      //     selectButton: _selectButton,
+                      //     nameList: ['Licenses','ADR','Medical Cost Reports','CAP Reports','Quarterly Balance Reports'],
+                      //     screenList: [CICCLicense(),CICCADR(),CICCMedicalCR(),CICCCAPReports(),CICCQuarterlyBalReport()],
+                      //     mediaQueryWidth: 2, docId: docID,),
+                      CIInsurance(),
+                      // CiPageview(
+                      //   managePageController: _managePageController,
+                      //   selectedIndex: _selectedIndex,
+                      //   selectButton: _selectButton,
+                      //   mediaQueryWidth: 3,
+                      //   nameList: ['Vendor', 'Contracts'],
+                      //   screenList: [CiInsuranceVendor(), CiInsuranceContract()],
+                      // ),
+                      CiCcVendorContractScreen(companyID: widget.companyID, officeId: widget.officeID,),
+                      // CiPageview(
+                      //   managePageController: _managePageController,
+                      //   selectedIndex: _selectedIndex,
+                      //   selectButton: _selectButton,
+                      //   mediaQueryWidth: 2,
+                      //   nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
+                      //   screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()], docId: docID,
+                      // ),
+                      CiPoliciesAndProcedures(docID: docID, subDocID: docID,),
+                      CiTempalets()
+                    ]),
+              ),
+            ]),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomButtonList extends StatelessWidget {
+  final String buttonText;
+  final int isSelected;
+  final int docID;
+  final Function() onTap;
+
+  const CustomButtonList({
+    required this.buttonText,
+    required this.isSelected,
+    required this.onTap,
+    Key? key,
+    required this.docID,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 30,
+        width: MediaQuery.of(context).size.width / 8.62,
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: isSelected == docID ? Colors.white : null,
+        ),
+        child: Text(
+          buttonText,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: isSelected == docID ? Colors.grey[600] : Colors.white,
+          ),
+        ),
       ),
     );
   }

@@ -7,8 +7,6 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import 'widgets/mcq_widget_register.dart';
-///saloni
-
 class RegisterEnrollAlertDialog {
   final TextEditingController controller = TextEditingController();
   final TextEditingController firstName = TextEditingController();
@@ -25,7 +23,8 @@ class RegisterEnrollAlertDialog {
           content: Container(
               width: MediaQuery.of(context).size.width *0.5,
               height: MediaQuery.of(context).size.height * 0.4,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
+              color: ColorManager.white),
               child: Column(
                 children: [
                   Row(

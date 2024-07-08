@@ -7,22 +7,21 @@ import '../../../../app/resources/font_manager.dart';
 
 ///saloni
 class CustomIconButtonConst extends StatelessWidget {
-  final String text;
+  final String? text;
   final IconData? icon;
   final VoidCallback onPressed;
 
-
   const CustomIconButtonConst({
-    required this.text,
+    this.text,
     this.icon,
     required this.onPressed,
     Key? key,
   }) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
-
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -39,7 +38,7 @@ class CustomIconButtonConst extends StatelessWidget {
             ? Icon(icon!, color: ColorManager.white, size: AppSize.s20)
             : SizedBox.shrink(),
         label: Text(
-          text,
+          text!,
           style: GoogleFonts.firaSans(
             fontSize: AppSize.s12,
             fontWeight: FontWeightManager.bold,
