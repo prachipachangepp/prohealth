@@ -5,6 +5,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/register_m
 import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/row_container_widget_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_congratulation.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/mcq_widget_register.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
@@ -1025,7 +1026,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             onPressed: () {
                                               Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => OnBoardingWelcome()),
+                                                MaterialPageRoute(builder: (context) => OnBoardingCongratulation()),
                                               );
                                             },
                                             child: Text(
