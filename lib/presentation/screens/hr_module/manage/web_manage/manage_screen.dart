@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
@@ -269,7 +270,10 @@ class _ManageScreenState extends State<ManageScreen> {
                           showDialog(context: context, builder: (BuildContext context){
                             return AddLicencesPopup(LivensureController: livensureController,
                               issueDateController: issueDateController, expiryDateController: expiryDateController, issuingOrganizationController: issuingOrganizationController,
-                              countryController: countryController, numberIDController: numberIDController, onpressedClose: () {  }, onpressedSave: () {  },);
+                              countryController: countryController, numberIDController: numberIDController, onpressedClose: () {  }, onpressedSave: () async{
+                              // await addLicensePost(context, licenseId, countryNameController.text, 0, expiryDateController.text, issueDateController.text,
+                              //     licenseUrl, licensure, licenseNumber, org, documentType);
+                              },);
                           });
                     }),
                   ),

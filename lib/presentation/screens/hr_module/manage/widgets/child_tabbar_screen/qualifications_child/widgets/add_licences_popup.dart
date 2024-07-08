@@ -16,7 +16,7 @@ class AddLicencesPopup extends StatefulWidget {
   final TextEditingController countryController;
   final TextEditingController numberIDController;
   final VoidCallback onpressedClose;
-  final VoidCallback onpressedSave;
+  final Future<void> Function() onpressedSave;
 
   AddLicencesPopup({super.key, required this.LivensureController, required this.issueDateController, required this.expiryDateController, required this.issuingOrganizationController, required this.countryController, required this.numberIDController, required this.onpressedClose, required this.onpressedSave});
 
@@ -25,6 +25,7 @@ class AddLicencesPopup extends StatefulWidget {
 }
 
 class _AddLicencesPopupState extends State<AddLicencesPopup> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -91,11 +92,11 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                       ),
                     ),
                     SizedBox(width: 10,),
-                    CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: (){
+                    CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: () async{
 
                     }),
                     SizedBox(width: 10,),
-                    CustomIconButton(icon: Icons.add,text: 'Add Reference', onPressed: (){
+                    CustomIconButton(icon: Icons.add,text: 'Add Reference', onPressed: () async{
 
                     }),
 
@@ -226,12 +227,23 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomButtonTransparent(text: "Cancel", onPressed: (){
+                    CustomButtonTransparent(text: "Cancel", onPressed: () async{
                       widget.onpressedClose;
                     }),
                     SizedBox(width: 10,),
-                    CustomElevatedButton(text: "Save",onPressed: (){
-                      widget.onpressedSave;
+                    isLoading
+                        ? CircularProgressIndicator( color: ColorManager.blueprime,)
+                        :CustomElevatedButton(text: "Save",onPressed: () async{
+                      setState(() {
+                        isLoading = true;
+                      });
+                      try {
+                        await widget.onpressedSave;
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
                     }),
 
                   ],

@@ -68,11 +68,11 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 4,
-                          offset: Offset(0, 4),
+                          offset: const Offset(0, 4),
                         ),
                       ],
                       color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
                     height: 200,
                     child: Padding(
@@ -82,7 +82,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                       ),
                       child: Column(
                         children: [
-                          Row(
+                          const Row(
                             children: [
                               Text('License #1',
                                 style: TextStyle(
@@ -102,13 +102,13 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                 children: [
                                   Text('Licensure/Certification',
                                       style: ThemeManager.customTextStyle(context)),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   Text('Issuing Organization',
                                       style: ThemeManager.customTextStyle(context)),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   Text('Country',
                                       style: ThemeManager.customTextStyle(context)),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   Text('Number/ID',
                                       style: ThemeManager.customTextStyle(context)),
                                 ],),
@@ -117,13 +117,13 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                 children: [
                                   Text(snapshot.data![index].licenure,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   Text(snapshot.data![index].org,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   Text(snapshot.data![index].country,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   Text(snapshot.data![index].licenseNumber,
                                     style: ThemeManagerDark.customTextStyle(context),),
                                 ],
@@ -132,10 +132,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                 children: [
                                   Text('Issue Date',
                                       style: ThemeManager.customTextStyle(context)),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   Text('End Date',
                                       style: ThemeManager.customTextStyle(context)),
-                                  SizedBox(height: 50,)
+                                  const SizedBox(height: 50,)
                                 ],
                               ),
                               Column(
@@ -143,10 +143,10 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                 children: [
                                   Text(snapshot.data![index].issueDate,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   Text(snapshot.data![index].expData,
                                     style: ThemeManagerDark.customTextStyle(context),),
-                                  SizedBox(height: 50,)
+                                  const SizedBox(height: 50,)
 
                                 ],
                               ),
@@ -156,14 +156,16 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              CustomButtonTransparent(text: 'Reject', onPressed: (){}),
-                              SizedBox(width: 5,),
-                              snapshot.data![index].approved == true ?
+                              CustomButtonTransparent(text: 'Reject', onPressed: () async{
+                                await rejectLicensePatch(context, snapshot.data![index].licenseId);
+                                Navigator.pop(context);
+                              }),
+                              const SizedBox(width: 5,),
                               CustomIconButton(
-                                  color: ColorManager.mediumgrey,
-                                  text: 'Approved', onPressed: (){}):
-                              CustomIconButton(
-                                  text: 'Approve', onPressed: (){})
+                                  text: 'Approve', onPressed: () async{
+                                await approveLicensePatch(context, snapshot.data![index].licenseId);
+                                Navigator.pop(context);
+                              })
                             ],
                           )
                         ],
@@ -352,7 +354,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
           );
         }
         else{
-          return SizedBox();
+          return const SizedBox();
         }
       }
     );

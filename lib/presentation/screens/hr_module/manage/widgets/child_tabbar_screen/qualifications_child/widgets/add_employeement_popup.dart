@@ -66,7 +66,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: (){
+                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: () async{
                     }),
 
                   ],
@@ -261,7 +261,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomButtonTransparent(text: "Cancel", onPressed: (){
+                    CustomButtonTransparent(text: "Cancel", onPressed: () async{
                       widget.onpressedClose;
                     }),
                     SizedBox(width: 10,),
