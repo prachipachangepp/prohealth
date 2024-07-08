@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -65,6 +66,19 @@ class RegisterEnrollAlertDialog {
                           width: MediaQuery.of(context).size.width/7,
                           controller: controller,
                           labelText: AppString.speciality,
+                          // isDropdown: true,
+                          // dropdownItems: [
+                          //   'Wound Care',
+                          //   'Intravenous Therapy(IV) and Infusion',
+                          //   'Total Parental Nutrition (TPN)',
+                          //   'Osotomy Care',
+                          //   'Diabetes Management',
+                          //   'Pain Management',
+                          //   'Geriatric Care',
+                          //   'Oncology Care',
+                          //   'Infection Control',
+                          //   'Nutrition and Diet Management'
+                          // ],
                           keyboardType: TextInputType.text,
                           suffixIcon: Icon(Icons.arrow_drop_down,
                             color: ColorManager.blueprime,),
@@ -141,6 +155,8 @@ class RegisterEnrollAlertDialog {
                           width: MediaQuery.of(context).size.width/7,
                           controller: controller,
                           labelText: AppString.typeClinician,
+                          // isDropdown: true,
+                          // dropdownItems: ['NC','LVN','COTA','ST','PT','MSW','RN','OT','HHA','PTA'],
                           keyboardType: TextInputType.text,
                           suffixIcon: Icon(Icons.arrow_drop_down,color: ColorManager.blueprime,),
                           padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
@@ -153,6 +169,7 @@ class RegisterEnrollAlertDialog {
                             }
                             return null;
                           },
+
                         ),
                         SizedBox(height: AppSize.s10,),
                         CustomTextFieldRegister(
@@ -160,6 +177,8 @@ class RegisterEnrollAlertDialog {
                           width: MediaQuery.of(context).size.width/7,
                           controller: controller,
                           labelText: AppString.city,
+                          // isDropdown: true,
+                          // dropdownItems: ['ProHealth San Jose','ProHealth Sacramento','ProHealth Walnut Creek','ProHealth Stockton'],
                           keyboardType: TextInputType.text,
                           suffixIcon: Icon(Icons.arrow_drop_down,color: ColorManager.blueprime,),
                           padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
@@ -262,7 +281,9 @@ class RegisterEnrollAlertDialog {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomIconButtonConst(
-                          text: AppString.next, onPressed: (){}),
+                          text: AppString.next, onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                      }),
                     ],),
                 ],
               )

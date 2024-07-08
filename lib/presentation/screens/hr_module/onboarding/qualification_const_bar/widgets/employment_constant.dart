@@ -275,10 +275,10 @@ class EmploymentDetailsSection extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InfoData('123-45-6789', ThemeManagerDark.customTextStyle(context)),
-                InfoData('ST', ThemeManagerDark.customTextStyle(context)),
-                InfoData('1234567890', ThemeManagerDark.customTextStyle(context)),
-                InfoData('abc@gmail.com', ThemeManagerDark.customTextStyle(context)),
+                InfoDataEmployment('123-45-6789', ThemeManagerDark.customTextStyle(context)),
+                InfoDataEmployment('ST', ThemeManagerDark.customTextStyle(context)),
+                InfoDataEmployment('1234567890', ThemeManagerDark.customTextStyle(context)),
+                InfoDataEmployment('abc@gmail.com', ThemeManagerDark.customTextStyle(context)),
               ],
             ),
             Column(
@@ -293,10 +293,10 @@ class EmploymentDetailsSection extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InfoData('1234687654', ThemeManagerDark.customTextStyle(context)),
-                InfoData('TPN', ThemeManagerDark.customTextStyle(context)),
-                InfoData('Hamburg', ThemeManagerDark.customTextStyle(context)),
-                InfoData('02', ThemeManagerDark.customTextStyle(context)),
+                InfoDataEmployment('1234687654', ThemeManagerDark.customTextStyle(context)),
+                InfoDataEmployment('TPN', ThemeManagerDark.customTextStyle(context)),
+                InfoDataEmployment('Hamburg', ThemeManagerDark.customTextStyle(context)),
+                InfoDataEmployment('02', ThemeManagerDark.customTextStyle(context)),
               ],
             ),
           ],
@@ -329,11 +329,11 @@ class InfoText extends StatelessWidget {
   }
 }
 
-class InfoData extends StatelessWidget {
+class InfoDataEmployment extends StatelessWidget {
   final String text;
   final TextStyle style;
 
-  const InfoData(this.text, this.style);
+  const InfoDataEmployment(this.text, this.style);
 
   @override
   Widget build(BuildContext context) {
