@@ -19,7 +19,8 @@ class AddEducationPopup extends StatefulWidget {
   final TextEditingController countryNameController;
   final VoidCallback onpressedClose;
   final VoidCallback onpressedSave;
-   AddEducationPopup({super.key, required this.collegeUniversityController, required this.phoneController, required this.calenderController, required this.cityController, required this.degreeController, required this.stateController, required this.majorSubjectController, required this.countryNameController, required this.onpressedClose, required this.onpressedSave});
+  final Widget? radioButton;
+   AddEducationPopup({super.key, required this.collegeUniversityController, required this.phoneController, required this.calenderController, required this.cityController, required this.degreeController, required this.stateController, required this.majorSubjectController, required this.countryNameController, required this.onpressedClose, required this.onpressedSave, this.radioButton});
 
   @override
   State<AddEducationPopup> createState() => _AddEducationPopupState();
@@ -32,7 +33,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s900,
-        height: AppSize.s400,
+        height: AppSize.s420,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -132,25 +133,21 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
               ),
               SizedBox(height:MediaQuery.of(context).size.height/20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // CustomTextFieldRegister(
-                  //   height: AppSize.s30,
-                  //   width: MediaQuery.of(context).size.width/6,
-                  //   controller: widget.issuingOrganizationController,
-                  //   labelText: "Issuing Organization",
-                  //   keyboardType: TextInputType.text,
-                  //   padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  //   onChanged: (value) {
-                  //
-                  //   },
-                  //   validator: (value) {
-                  //     if (value == null || value.isEmpty) {
-                  //       return AppString.enterText;
-                  //     }
-                  //     return null;
-                  //   },
-                  // ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Graduate',style: TextStyle(
+                          fontSize: FontSize.s10
+                      ),),
+                      Row(
+                        children: [
+                          widget.radioButton!,
+                        ],
+                      ),
+                    ],
+                  ),
                   CustomTextFieldRegister(
                     height: AppSize.s30,
                     width: MediaQuery.of(context).size.width/6,
@@ -255,7 +252,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                     CustomButtonTransparent(text: "Cancel", onPressed: (){
                       widget.onpressedClose;
                     }),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     CustomElevatedButton(text: "Save",onPressed: (){
                       widget.onpressedSave;
                     }),

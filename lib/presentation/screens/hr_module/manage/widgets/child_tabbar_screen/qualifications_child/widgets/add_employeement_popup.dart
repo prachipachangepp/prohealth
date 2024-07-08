@@ -19,7 +19,8 @@ class AddEmployeementPopup extends StatefulWidget {
   final TextEditingController emergencyMobileNumber;
   final VoidCallback onpressedClose;
   final VoidCallback onpressedSave;
-   AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedClose, required this.onpressedSave});
+  final Widget checkBoxTile;
+   AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedClose, required this.onpressedSave, required this.checkBoxTile});
 
   @override
   State<AddEmployeementPopup> createState() => _AddEmployeementPopupState();
@@ -189,7 +190,14 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
 
                 ],
               ),
-              SizedBox(height:MediaQuery.of(context).size.height/20),
+              //SizedBox(height:MediaQuery.of(context).size.height/50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  widget.checkBoxTile,
+                ],
+              ),
+             // SizedBox(height:MediaQuery.of(context).size.height/50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -247,7 +255,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
 
                 ],
               ),
-              SizedBox(height:MediaQuery.of(context).size.height/10),
+              SizedBox(height:MediaQuery.of(context).size.height/15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
@@ -260,7 +268,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     CustomElevatedButton(text: "Save",onPressed: (){
                       widget.onpressedSave;
                     }),
-
                   ],
                 ),
               )
