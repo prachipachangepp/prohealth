@@ -213,7 +213,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 71.0, top: 50),
+                          padding:  EdgeInsets.only(left: 71.0),
                           child: Column(
                             children: [
                               DropdownTextFormField(
@@ -314,6 +314,148 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                   ),
                 ),
               ),
+              SizedBox(height: MediaQuery.of(context).size.height/20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff1696C8),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      'Add New Coverage',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/30),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Salaried',
+                        hintStyle: GoogleFonts.firaSans(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff686464)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: MediaQuery.of(context).size.height/30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff1696C8),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      'Add',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: MediaQuery.of(context).size.height/10),
+              Container(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff1696C8),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    'Compensation',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 5),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'Not Defined',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600
+                  ),)
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/15),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Color(0xff1696C8),
+                      side: BorderSide(color: Color(0xff1696C8)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Back',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width/75),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff1696C8),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Enroll',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
