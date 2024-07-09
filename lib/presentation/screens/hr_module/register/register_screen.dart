@@ -5,6 +5,8 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/register_m
 import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/row_container_widget_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_congratulation.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/mcq_widget_register.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -1021,15 +1023,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       .width /
                                                   20),
                                           TextButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => OnBoardingCongratulation()),
+                                              );
+                                            },
                                             child: Text(
-                                                'https://prohealth.symmetry.care/register',
-                                                style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorManager
-                                                        .blueprime)),
+                                              'https://prohealth.symmetry.care/register',
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorManager.blueprime,
+                                              ),
+                                            ),
                                           )
+
                                         ],
                                       )
                                     ],
@@ -1178,7 +1187,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       .width /
                                                   20),
                                           TextButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+              },
+
                                             child: Text(
                                                 'https://prohealth.symmetry.care/register',
                                                 style: GoogleFonts.firaSans(
