@@ -295,7 +295,7 @@ class _ManageScreenState extends State<ManageScreen> {
                               countryController: countryController, numberIDController: numberIDController, onpressedClose: () {  }, onpressedSave: () async{
                               // await addLicensePost(context, licenseId, countryNameController.text, 0, expiryDateController.text, issueDateController.text,
                               //     licenseUrl, licensure, licenseNumber, org, documentType);
-                              },);
+                              }, title: 'Add Licence',);
                           });
                     }),
                   ),

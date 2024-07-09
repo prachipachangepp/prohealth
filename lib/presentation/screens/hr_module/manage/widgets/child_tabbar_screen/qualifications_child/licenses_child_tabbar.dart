@@ -38,8 +38,11 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
       builder: (context,snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 100),
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
             ),
           );
         }

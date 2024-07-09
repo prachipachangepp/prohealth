@@ -1,4 +1,6 @@
 class EmployeementData {
+  final bool sucess;
+  final String message;
   final int employmentId;
   final int employeeId;
   final String employer;
@@ -10,8 +12,8 @@ class EmployeementData {
   final String dateOfJoining;
   final String endDate;
   bool? approved;
-  EmployeementData(
-      {this.approved,
+  EmployeementData({required this.sucess, required this.message,
+      this.approved,
       required this.employmentId,
       required this.employeeId,
       required this.employer,
@@ -25,6 +27,8 @@ class EmployeementData {
 }
 
 class EmployeementPrefillData {
+  final bool sucess;
+  final String message;
   final int employmentId;
   final int employeeId;
   final String employer;
@@ -36,8 +40,8 @@ class EmployeementPrefillData {
   final String dateOfJoining;
   final String endDate;
   bool? approved;
-  EmployeementPrefillData(
-      {this.approved,
+  EmployeementPrefillData({required this.sucess, required this.message,
+      this.approved,
         required this.employmentId,
         required this.employeeId,
         required this.employer,

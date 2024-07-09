@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -15,16 +16,19 @@ class AddLicencesPopup extends StatefulWidget {
   final TextEditingController issuingOrganizationController;
   final TextEditingController countryController;
   final TextEditingController numberIDController;
+  final String title;
   final VoidCallback onpressedClose;
   final Future<void> Function() onpressedSave;
 
-  AddLicencesPopup({super.key, required this.LivensureController, required this.issueDateController, required this.expiryDateController, required this.issuingOrganizationController, required this.countryController, required this.numberIDController, required this.onpressedClose, required this.onpressedSave});
+  AddLicencesPopup({super.key, required this.LivensureController, required this.issueDateController, required this.expiryDateController, required this.issuingOrganizationController, required this.countryController, required this.numberIDController, required this.onpressedClose, required this.onpressedSave, required this.title});
 
   @override
   State<AddLicencesPopup> createState() => _AddLicencesPopupState();
 }
 
 class _AddLicencesPopupState extends State<AddLicencesPopup> {
+  final DateTime _selectedIssueDate = DateTime.now();
+  final DateTime _selectedExpDate = DateTime.now();
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text("Add License",style: GoogleFonts.firaSans(
+                    child: Text(widget.title,style: GoogleFonts.firaSans(
                       fontSize: FontSize.s16,
                       fontWeight: FontWeightManager.bold,
                       color: ColorManager.blueprime,
@@ -103,7 +107,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   ],
                 ),
               ),
-               SizedBox(height:MediaQuery.of(context).size.height/20),
+               SizedBox(height:MediaQuery.of(context).size.height/10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -132,9 +136,19 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                     keyboardType: TextInputType.text,
                     suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onChanged: (value) {
-
-                    },
+                      onTap: () async{
+                        DateTime? date = await showDatePicker(
+                          context: context,
+                          initialDate: _selectedIssueDate,
+                          firstDate: DateTime(1100),
+                          lastDate: DateTime(2025),
+                        );
+                        if (date != null) {
+                          String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                          widget.issueDateController.text = formattedDate;
+                          //field.didChange(formattedDate);
+                        }
+                      },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return AppString.enterText;
@@ -150,8 +164,18 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                     keyboardType: TextInputType.text,
                     suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onChanged: (value) {
-
+                    onTap: () async{
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedExpDate,
+                        firstDate: DateTime(1100),
+                        lastDate: DateTime(2025),
+                      );
+                      if (date != null) {
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                        widget.expiryDateController.text = formattedDate;
+                        //field.didChange(formattedDate);
+                      }
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {

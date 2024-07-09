@@ -49,8 +49,11 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
       builder: (context,snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime,
+            child: Padding(
+              padding:const EdgeInsets.symmetric(vertical: 100),
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
             ),
           );
         }
@@ -240,22 +243,68 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                       onPressed: () {
                                         setState(() {
                                           showDialog(context: context, builder: (BuildContext context){
-                                            return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
-                                                endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
-                                                supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
-                                                employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
-                                                onpressedClose: (){}, onpressedSave: ()async{
-                                              await updateEmployeement(context, 'USA', snapshot.data![index].employeeId, 2,employeerController.text, cityNameController.text, leavingResonController.text, lastSupervisorNameController.text,
-                                                  supervisorMobileNumber.text, positionTitleController.text, startDateContoller.text, endDateController.text);
-                                              getEmployeement(context,2).then((data) {
-                                                employeementStreamController.add(data);
-                                              }).catchError((error) {
-                                                // Handle error
-                                              });
-                                              }, checkBoxTile:  Container(
-                                                  width: 300,
-                                                  child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
-                                                  },)), tite: 'Edit Employeement',);
+                                            return FutureBuilder<EmployeementPrefillData>(
+                                              future: getPrefillEmployeement(context,snapshot.data![index].employmentId),
+                                              builder: (context,snapshotPrefill) {
+                                                if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                  return Center(
+                                                    child: CircularProgressIndicator(
+                                                      color: ColorManager.blueprime,
+                                                    ),
+                                                  );
+                                                }
+                                                var positionTitle = snapshotPrefill.data!.title;
+                                                positionTitleController = TextEditingController(text: snapshotPrefill.data!.title);
+
+                                                var leavingReason = snapshotPrefill.data!.reason;
+                                                leavingResonController = TextEditingController(text: snapshotPrefill.data!.reason);
+
+                                                var startDate = snapshotPrefill.data!.dateOfJoining;
+                                                startDateContoller = TextEditingController(text: snapshotPrefill.data!.dateOfJoining);
+
+                                                var endDate = snapshotPrefill.data!.endDate;
+                                                endDateController = TextEditingController(text: snapshotPrefill.data!.endDate);
+
+                                                var supervisorName = snapshotPrefill.data!.supervisor;
+                                                lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);
+
+                                                var supervisorMob = snapshotPrefill.data!.supMobile;
+                                                supervisorMobileNumber = TextEditingController(text: snapshotPrefill.data!.supMobile);
+
+                                                var cityName = snapshotPrefill.data!.city;
+                                                cityNameController = TextEditingController(text: snapshotPrefill.data!.city);
+
+                                                var employeer = snapshotPrefill.data!.employer;
+                                                employeerController = TextEditingController(text: snapshotPrefill.data!.employer);
+
+
+                                                return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
+                                                    endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
+                                                    supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
+                                                    employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
+                                                    onpressedClose: (){}, onpressedSave: ()async{
+                                                  await updateEmployeement(context, 'USA',
+                                                      snapshot.data![index].employmentId,
+                                                      2,
+                                                     employeer == employeerController.text ? employeer.toString() : employeerController.text,
+                                                      cityName == cityNameController.text ? cityName.toString() : cityNameController.text,
+                                                      leavingReason == leavingResonController.text ? leavingReason.toString() : leavingResonController.text,
+                                                      supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
+                                                      supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
+                                                      positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
+                                                      startDate == startDateContoller.text ? startDate.toString() : startDateContoller.text,
+                                                      endDate == endDateController.text ? endDate.toString() : endDateController.text);
+                                                  getEmployeement(context,2).then((data) {
+                                                    employeementStreamController.add(data);
+                                                  }).catchError((error) {
+                                                    // Handle error
+                                                  });
+                                                  }, checkBoxTile:  Container(
+                                                      width: 300,
+                                                      child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
+                                                      },)), tite: 'Edit Employeement',);
+                                              }
+                                            );
                                           });
                                         });
 

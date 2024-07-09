@@ -25,7 +25,7 @@ Future<List<ReferenceData>> getReferences(
             name: item['name'],
             references: item['references'],
             title: item['title'],
-            approve: item['approve']??false));
+            approve: item['approve']??false, sucess: true, message: response.statusMessage!));
       }
     } else {
       print("References List");
@@ -36,6 +36,7 @@ Future<List<ReferenceData>> getReferences(
     return itemsData;
   }
 }
+
 /// Add reference
 Future<ApiData> addReferencePost(BuildContext context,String association,String comment,String company,
     String email,int employeeId,String mob,String name,String references,String title) async {
@@ -105,6 +106,37 @@ Future<ApiData> updateReferencePatch(BuildContext context,int referenceId,String
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Get prefill
+Future<ReferencePrefillData> getPrefillReferences(
+    BuildContext context, int referenceId) async {
+  var itemsData;
+  try {
+    final response = await Api(context).get(
+        path:
+        ManageReposotory.updateReferences(referenceId: referenceId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+        itemsData = ReferencePrefillData(
+            referenceId: response.data['referenceId'],
+            association: response.data['association'],
+            comment: response.data['comment'],
+            company: response.data['company'],
+            email: response.data['email'],
+            mobNumber: response.data['mob'],
+            employeeId: response.data['employeeId'],
+            name: response.data['name'],
+            references: response.data['references'],
+            title: response.data['title'],
+            approve: response.data['approve']??false, sucess: true, message: response.statusMessage!);
+    } else {
+      print("References Prefill data");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
   }
 }
 /// Reject reference

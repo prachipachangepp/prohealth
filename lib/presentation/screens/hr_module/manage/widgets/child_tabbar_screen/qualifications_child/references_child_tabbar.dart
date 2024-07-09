@@ -47,8 +47,11 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
       builder: (context,snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime,
+            child: Padding(
+              padding:const EdgeInsets.symmetric(vertical: 100),
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
             ),
           );
         }
@@ -177,22 +180,64 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                           IconButtonWidget(iconData: Icons.edit_outlined,
                               buttonText: 'Edit', onPressed: (){
                             showDialog(context: context, builder: (BuildContext context){
-                              return StatefulBuilder(
-                                builder: (BuildContext context, void Function(void Function()) setState) {
-                                  return AddReferencePopup(nameController: nameController, emailController: emailController, titlePositionController: titlePositionController, knowPersonController: knowPersonController, companyNameController: companyNameController,
-                                      associationLengthController: associationLengthController, mobileNumberController: mobileNumberController,
-                                      onpressedClose: (){
-                                        Navigator.pop(context);
-                                      }, onpressedSave: () async{
-                                        await updateReferencePatch(context, snapshot.data![index].referenceId, associationLengthController.text, 'Reference', companyNameController.text, emailController.text,
-                                            5, mobileNumberController.text, nameController.text, 'Smith', titlePositionController.text);
-                                        getReferences(context,5).then((data) {
-                                          referenceStreamController.add(data);
-                                        }).catchError((error) {
-                                          // Handle error
-                                        });
-                                      }, title: 'Edit Reference');
-                                },
+                              return FutureBuilder<ReferencePrefillData>(
+                                future: getPrefillReferences(context,snapshot.data![index].referenceId),
+                                builder: (context,snapshotPrefill) {
+                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                    return Center(
+                                      child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                    );
+                                  }
+                                  var name = snapshotPrefill.data!.name;
+                                  nameController = TextEditingController(text: snapshotPrefill.data!.name);
+
+                                  var comment = snapshotPrefill.data!.comment;
+
+                                  var email = snapshotPrefill.data!.email;
+                                  emailController = TextEditingController(text: snapshotPrefill.data!.email);
+
+                                  var title = snapshotPrefill.data!.title;
+                                  titlePositionController = TextEditingController(text: snapshotPrefill.data!.title);
+
+                                  var knowPerson = "LinkedIn";
+                                  knowPersonController = TextEditingController(text:"LinkedIn");
+
+                                  var companyName = snapshotPrefill.data!.company;
+                                  companyNameController = TextEditingController(text: snapshotPrefill.data!.company);
+
+                                  var association = snapshotPrefill.data!.association;
+                                  associationLengthController = TextEditingController(text: snapshotPrefill.data!.association);
+
+                                  var references = snapshotPrefill.data!.references;
+                                  var mobileNumber = snapshotPrefill.data!.mobNumber;
+                                  mobileNumberController = TextEditingController(text: snapshotPrefill.data!.mobNumber);
+                                  return StatefulBuilder(
+                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                      return AddReferencePopup(nameController: nameController, emailController: emailController, titlePositionController: titlePositionController, knowPersonController: knowPersonController, companyNameController: companyNameController,
+                                          associationLengthController: associationLengthController, mobileNumberController: mobileNumberController,
+                                          onpressedClose: (){
+                                            Navigator.pop(context);
+                                          }, onpressedSave: () async{
+                                            await updateReferencePatch(context,
+                                                snapshot.data![index].referenceId,
+                                                association == associationLengthController.text ? association.toString() : associationLengthController.text,
+                                                comment.toString(),
+                                                companyName == companyNameController.text ? companyName.toString() : companyNameController.text,
+                                                email == emailController.text ? email.toString() : emailController.text,
+                                                5,
+                                                mobileNumber == mobileNumberController.text ? mobileNumber.toString() : mobileNumberController.text,
+                                                name == nameController.text ? name.toString() : nameController.text,
+                                                references.toString(),
+                                                title == titlePositionController.text ? title.toString() : titlePositionController.text);
+                                            getReferences(context,5).then((data) {
+                                              referenceStreamController.add(data);
+                                            }).catchError((error) {
+                                              // Handle error
+                                            });
+                                          }, title: 'Edit Reference');
+                                    },
+                                  );
+                                }
                               );
                             });
                               })
