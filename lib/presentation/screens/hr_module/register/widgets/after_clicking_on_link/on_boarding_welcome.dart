@@ -1,7 +1,10 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
-
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_screen.dart';
+import '../../../manage/widgets/top_row.dart';
 
 class OnBoardingWelcome extends StatelessWidget {
   const OnBoardingWelcome({Key? key}) : super(key: key);
@@ -9,10 +12,14 @@ class OnBoardingWelcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: TopRowConstant(),
+      ),
       body: Center(
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
           width: 1202,
           height: 626,
@@ -42,9 +49,9 @@ class OnBoardingWelcome extends StatelessWidget {
                             Text(
                               'Welcome to Prohealth Onboarding Wizard',
                               style: GoogleFonts.firaSans(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff686464)
+                                fontSize: 30,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff686464),
                               ),
                             ),
                             SizedBox(height: 16),
@@ -71,7 +78,8 @@ class OnBoardingWelcome extends StatelessWidget {
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xff50B5E5),
-                                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 32, vertical: 16),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -101,7 +109,7 @@ class OnBoardingWelcome extends StatelessWidget {
 }
 
 
-
+////////////////////////////////////////popup////////////////////////
 
 
 class VerifyUserPopup extends StatelessWidget {
@@ -128,7 +136,7 @@ class VerifyUserPopup extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                    left: 16,
+                    left: 450,
                     top: 16,
                     child: IconButton(
                       icon: Icon(Icons.close, color: Colors.white),
@@ -143,7 +151,8 @@ class VerifyUserPopup extends StatelessWidget {
                       children: [
                         Icon(Icons.verified_user, color: Colors.white),
                         SizedBox(width: 8),
-                        Text(AppString.verify_user,
+                        Text(
+                          AppString.verify_user,
                           style: GoogleFonts.firaSans(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
@@ -164,10 +173,11 @@ class VerifyUserPopup extends StatelessWidget {
                     labelWidget: Row(
                       children: [
                         Icon(Icons.security),
-                        Text(AppString.security_code)
+                        SizedBox(width: 8),
+                        Text(AppString.security_code),
                       ],
                     ),
-                    labelText:AppString.security_code,
+                    labelText: AppString.security_code,
                     icon: Icons.security,
                   ),
                   SizedBox(height: 16),
@@ -175,7 +185,8 @@ class VerifyUserPopup extends StatelessWidget {
                     labelWidget: Row(
                       children: [
                         Icon(Icons.phone),
-                        Text(AppString.phone_number)
+                        SizedBox(width: 8),
+                        Text(AppString.phone_number),
                       ],
                     ),
                     labelText: AppString.phone_number,
@@ -183,25 +194,35 @@ class VerifyUserPopup extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   CustomTextField(
-
                     labelWidget: Row(
                       children: [
                         Icon(Icons.email),
-                        Text(AppString.email)
+                        SizedBox(width: 8),
+                        Text(AppString.email),
                       ],
                     ),
-
                     labelText: AppString.email,
                     icon: Icons.email,
                   ),
                   SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
-                      // Add your onPressed code here!
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: OnBoardingCongratulation(),
+                          );
+                        },
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff50B5E5),
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -232,7 +253,8 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
     required this.labelText,
-    required this.icon,  this.labelWidget,
+    required this.icon,
+    this.labelWidget,
   }) : super(key: key);
 
   @override
@@ -240,8 +262,6 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       decoration: InputDecoration(
         label: labelWidget,
-        // labelText: labelText,
-        //  prefixIcon: Icon(icon, color: Color(0xff50B5E5)),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -256,8 +276,125 @@ class CustomTextField extends StatelessWidget {
         filled: true,
         fillColor: Colors.white,
         labelStyle: TextStyle(color: Colors.grey),
-        //floatingLabelBehavior: FloatingLabelBehavior.never,
-        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        contentPadding:
+        EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      ),
+    );
+  }
+}
+
+
+////////////////////////////////////congratulation/////////////////////////////////////
+
+
+class OnBoardingCongratulation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'images/single_doctor.png',
+                height: 277.0,
+                width: 372.0,
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                'Congratulations!',
+                style: GoogleFonts.firaSans(
+                    color: Color(0xFF686464),
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                'You are a part of ProHealth family',
+                style: GoogleFonts.firaSans(
+                    color: Color(0xFF686464),
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                'Please fill the information and provide necessary documents for the upcoming sections',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.firaSans(
+                    color: Color(0xFF686464),
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+              SizedBox(height: 20.0),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => CertificateScreen(),
+                  //   ),
+                  // );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF50B5E5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6.0),
+                  ),
+                ),
+                child: Text(
+                  'Continue',
+                  style: GoogleFonts.firaSans(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              SizedBox(height: 30.0),
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 5.0,
+                runSpacing: 5.0,
+                children: [
+                  SvgPicture.asset(
+                    'images/face_man.svg',
+                    height: 24.0,
+                    width: 24.0,
+                  ),
+                  Text(
+                    'For any assistance please call:',
+                    style: GoogleFonts.firaSans(
+                        color: Color(0xFF686464),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    '(4088) 555-1234',
+                    style: GoogleFonts.firaSans(
+                        color: Color(0xFF50B5E5),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    'or email:',
+                    style: GoogleFonts.firaSans(
+                        color: Color(0xFF686464),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    'support@symmetry.com',
+                    style: GoogleFonts.firaSans(
+                        color: Color(0xFF50B5E5),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
