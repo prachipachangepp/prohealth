@@ -82,7 +82,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          snapshot.data![index].empId.toString(),
+                          'Reference #${snapshot.data![index].empId.toString()}',
                           style: GoogleFonts.firaSans(
                             fontSize: 13,
                             color: Color(0xFF333333),

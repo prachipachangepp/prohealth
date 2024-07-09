@@ -85,7 +85,7 @@ class _QualificationEducationState extends State<QualificationEducation> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          snapshot.data![index].empId.toString(),
+                          'Education #${snapshot.data![index].empId.toString()}',
                           style: GoogleFonts.firaSans(
                             fontSize: 13,
                             color: Color(0xFF333333),

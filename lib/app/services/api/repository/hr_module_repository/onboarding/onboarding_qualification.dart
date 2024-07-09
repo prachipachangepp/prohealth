@@ -4,6 +4,8 @@ class OnboardingQualificationRepo{
   static String byemployeeId = "ByemployeeId";
   static String references = "/reference";
   static String employee_licenses = "/employee-licenses";
+  static String employee_banking = "/employee-bankings";
+
 
   ///onboarding qualification
 /// /employee-employment-histories
@@ -25,5 +27,7 @@ static String getEmpLicense({required int employeeid}){
 }
 
 ///onboarding Banking
-
+static String getOnboardBanking({required int employeeid}){
+  return "$employee_banking/ByemployeeId/$employeeid";
+  }
 }
