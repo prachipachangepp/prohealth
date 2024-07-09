@@ -37,7 +37,6 @@ class OnboardingQualificationEducationData {
   final String phone;
   final String state;
   bool? approved;
-
   OnboardingQualificationEducationData(
       {required this.educationId,
         required this.empId,
