@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -18,7 +19,7 @@ class AddEmployeementPopup extends StatefulWidget {
   final TextEditingController employeerController;
   final TextEditingController emergencyMobileNumber;
   final VoidCallback onpressedClose;
-  final VoidCallback onpressedSave;
+   Future<void> Function() onpressedSave;
   final Widget checkBoxTile;
    AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedClose, required this.onpressedSave, required this.checkBoxTile});
 
@@ -27,6 +28,9 @@ class AddEmployeementPopup extends StatefulWidget {
 }
 
 class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
+  final DateTime _selectedStartDate = DateTime.now();
+  final DateTime _selectedEndDate = DateTime.now();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -46,7 +50,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text("Add Education",style: GoogleFonts.firaSans(
+                    child: Text("Add Employeement",style: GoogleFonts.firaSans(
                       fontSize: FontSize.s16,
                       fontWeight: FontWeightManager.bold,
                       color: ColorManager.blueprime,
@@ -66,7 +70,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: (){
+                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: () async{
                     }),
 
                   ],
@@ -118,7 +122,18 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     keyboardType: TextInputType.text,
                     suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onChanged: (value) {
+                    onTap: ()async{
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedStartDate,
+                        firstDate: DateTime(1100),
+                        lastDate: DateTime(2025),
+                      );
+                      if (date != null) {
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                        widget.startDateContoller.text = formattedDate;
+                        //field.didChange(formattedDate);
+                      }
 
                     },
                     validator: (value) {
@@ -128,8 +143,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                       return null;
                     },
                   ),
-
-                ],
+               ],
               ),
               SizedBox(height:MediaQuery.of(context).size.height/20),
               Row(
@@ -143,8 +157,18 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     keyboardType: TextInputType.text,
                     suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onChanged: (value) {
-
+                    onTap: () async{
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedEndDate,
+                        firstDate: DateTime(1100),
+                        lastDate: DateTime(2025),
+                      );
+                      if (date != null) {
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                        widget.endDateController.text = formattedDate;
+                        //field.didChange(formattedDate);
+                      }
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -261,12 +285,37 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomButtonTransparent(text: "Cancel", onPressed: (){
+                    CustomButtonTransparent(text: "Cancel", onPressed: () async{
                       widget.onpressedClose;
                     }),
                     SizedBox(width: 10,),
-                    CustomElevatedButton(text: "Save",onPressed: (){
-                      widget.onpressedSave;
+                    isLoading
+                        ? SizedBox(
+                      height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                        : CustomElevatedButton(text: "Save",onPressed: () async{
+                      setState(() {
+                        isLoading = true;
+                      });
+                      try {
+                        await widget.onpressedSave();
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.pop(context);
+                        widget.startDateContoller.clear();
+                        widget.endDateController.clear();
+                        widget.leavingResonController.clear();
+                        widget.cityNameController.clear();
+                        widget.lastSupervisorNameController.clear();
+                        widget.supervisorMobileNumber.clear();
+                        widget.employeerController.clear();
+                        widget.positionTitleController.clear();
+                        widget.emergencyMobileNumber.clear();
+                      }
+
                     }),
                   ],
                 ),

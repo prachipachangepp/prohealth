@@ -3,7 +3,7 @@ class AppStringHr{
   static String employment = "Employment";
   static String education = "Education";
   static String referance = "References";
-  static String license = "Licenses";
+  static String license = "Professional Licenses";
   static String acknowledgement = "Acknowledgements";
   static String compensation = "Compensation";
   static String addVaccination = "Health Record";

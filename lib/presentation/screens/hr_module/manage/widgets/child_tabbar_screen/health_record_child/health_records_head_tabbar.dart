@@ -27,7 +27,7 @@ class _HealthRecordsHeadTabbarState extends State<HealthRecordsHeadTabbar> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: CustomIconButton(text: AppStringHr.edit, onPressed: (){
+          child: CustomIconButton(text: AppStringHr.edit, onPressed: () async{
           setState(() {
             isSelect = !isSelect;
           });
