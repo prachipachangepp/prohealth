@@ -69,6 +69,11 @@ class AppString {
   static const String homeCare = "Home Care";
   static const String palliative = "Palliative Care";
   static const String selectIndex = "Selected index";
+  static const String security_code = "Security Code";
+  static const String phone_number ="Phone Number";
+  static const String verify_user = "Verify User";
+
+
 
 
   ///Onboarding
