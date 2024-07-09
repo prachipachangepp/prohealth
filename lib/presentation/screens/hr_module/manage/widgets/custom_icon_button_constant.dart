@@ -8,13 +8,13 @@ import '../../../../../app/resources/theme_manager.dart';
 
 ///done by saloni
 ///button constant for circularborder with text and with/without icon
-class CustomIconButton extends StatelessWidget {
+class CustomIconButton extends StatefulWidget {
   final String text;
   final IconData? icon;
   final Color? color;
-  final VoidCallback onPressed;
+  final Future<void> Function() onPressed;
 
-  const CustomIconButton({
+   CustomIconButton({
     required this.text,
     this.icon,
     required this.onPressed,
@@ -22,13 +22,33 @@ class CustomIconButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<CustomIconButton> createState() => _CustomIconButtonState();
+}
+
+class _CustomIconButtonState extends State<CustomIconButton> {
+  bool isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: icon != null
-          ? Icon(icon!, color: Colors.white, size: 20)
+    return isLoading
+        ? CircularProgressIndicator( color: ColorManager.blueprime,)
+        :ElevatedButton.icon(
+      onPressed: () async{
+        setState(() {
+          isLoading = true;
+        });
+        try {
+          await widget.onPressed();
+        } finally {
+          setState(() {
+            isLoading = false;
+          });
+        }
+      },
+      icon: widget.icon != null
+          ? Icon(widget.icon!, color: Colors.white, size: 20)
           : const SizedBox.shrink(),
-      label: Text(text,
+      label: Text(widget.text,
           textAlign: TextAlign.center,
           style: CustomTextStylesCommon.commonStyle(
               fontSize: FontSize.s12,
@@ -36,7 +56,7 @@ class CustomIconButton extends StatelessWidget {
               color: ColorManager.white)),
       style: ElevatedButton.styleFrom(
         padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        backgroundColor:  color == null ? Color(0xFF50B5E5) : color,
+        backgroundColor:  widget.color == null ? Color(0xFF50B5E5) : widget.color,
         // shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -48,35 +68,56 @@ class CustomIconButton extends StatelessWidget {
 }
 
 ///button constant with white bg, colored text
-class CustomButtonTransparent extends StatelessWidget {
+class CustomButtonTransparent extends StatefulWidget {
   final String text;
-  final VoidCallback onPressed;
+  final Future<void> Function() onPressed;
 
-  const CustomButtonTransparent({
+   CustomButtonTransparent({
     required this.text,
     required this.onPressed,
     Key? key,
   }) : super(key: key);
 
   @override
+  State<CustomButtonTransparent> createState() => _CustomButtonTransparentState();
+}
+
+class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
+  bool isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontFamily: 'FiraSans',
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
-          color: Color(0xFF50B5E5),
-        ),
-      ),
+    return isLoading
+        ? CircularProgressIndicator( color: ColorManager.blueprime,)
+        :ElevatedButton(
+      onPressed: () async{
+        setState(() {
+          isLoading = true;
+        });
+        try {
+          await widget.onPressed();
+        } finally {
+          setState(() {
+            isLoading = false;
+          });
+
+        }
+        },
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: const BorderSide(color: Color(0xFF50B5E5)),
+        ),
+      ),
+      child: Text(
+        widget.text,
+        style: const TextStyle(
+          fontFamily: 'FiraSans',
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: Color(0xFF50B5E5),
         ),
       ),
     );

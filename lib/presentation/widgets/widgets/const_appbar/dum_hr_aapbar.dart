@@ -8,7 +8,7 @@ import '../../../screens/hr_module/manage/widgets/custom_icon_button_constant.da
 import '../../../screens/hr_module/onboarding/onboarding_screen.dart';
 import '../../../screens/hr_module/register/register_screen.dart';
 
-
+///not in use
 class HrAppBar extends StatelessWidget {
   final HRController hrController = Get.put(HRController());
   final PageController _pageController = PageController();

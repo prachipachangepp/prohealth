@@ -13,6 +13,7 @@ class CustomTextFieldRegister extends StatelessWidget {
   final Widget? suffixIcon;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
+  final VoidCallback? onTap;
   final FocusNode? focusNode;
   final ValueChanged<String>? onFieldSubmitted;
   final EdgeInsetsGeometry? padding;
@@ -38,7 +39,7 @@ class CustomTextFieldRegister extends StatelessWidget {
     this.padding,
     this.width,
     this.height,
-    this.cursorHeight,
+    this.cursorHeight, this.onTap,
   }) : super(key: key);
 
   @override

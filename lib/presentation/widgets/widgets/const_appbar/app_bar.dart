@@ -10,7 +10,7 @@ import '../../../screens/hr_module/manage/widgets/app_bar_tabbar_constant.dart';
 import '../../../screens/hr_module/onboarding/onboarding_screen.dart';
 import '../../../screens/hr_module/register/register_screen.dart';
 import 'controller.dart';
-
+///not in use
 class MyAppBar extends StatelessWidget {
   final HRController hrController = Get.put(HRController());
   final CustomButtonController customController =

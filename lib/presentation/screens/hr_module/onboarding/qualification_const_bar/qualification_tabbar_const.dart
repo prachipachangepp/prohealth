@@ -35,7 +35,7 @@ class QualificationTabarConstant extends StatelessWidget {
           ),
           SizedBox(height: AppSize.s30),
           Container(
-            height: controller.tabBarViewHeight,
+            height: MediaQuery.of(context).size.height/1.65,
             child: TabBarView(
               children: controller.tabViews,
             ),
