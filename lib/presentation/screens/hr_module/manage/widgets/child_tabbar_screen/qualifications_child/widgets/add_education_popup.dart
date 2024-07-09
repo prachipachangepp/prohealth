@@ -36,7 +36,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s900,
+        width: MediaQuery.of(context).size.width/1.5,
         height: AppSize.s420,
         decoration: BoxDecoration(
           color: ColorManager.white,

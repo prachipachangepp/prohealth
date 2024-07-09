@@ -77,7 +77,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                       color: Colors.white,
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
-                    height: 200,
+                    height:  MediaQuery.of(context).size.height/3.3,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 80,

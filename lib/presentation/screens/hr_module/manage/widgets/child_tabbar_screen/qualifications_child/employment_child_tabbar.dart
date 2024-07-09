@@ -86,7 +86,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    height: 200,
+                    height: MediaQuery.of(context).size.height/3.3,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 80,
