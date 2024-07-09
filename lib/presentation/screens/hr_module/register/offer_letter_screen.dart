@@ -73,6 +73,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
             data['value'] = value ?? false;
           });
         },
+        // dense: true,
+        // contentPadding: EdgeInsets.zero,
+        // controlAffinity: ListTileControlAffinity.trailing,
       );
     }).toList();
   }
@@ -92,6 +95,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
             data['value'] = value ?? false;
           });
         },
+        // dense: true,
+        // contentPadding: EdgeInsets.zero,
+        // controlAffinity: ListTileControlAffinity.trailing,
       );
     }).toList();
   }
@@ -278,57 +284,63 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           length: 2,
                           child: Column(
                             children: [
-                              TabBar(
-                                indicatorColor: Color(0xff1696C8),
-                                labelColor: Color(0xff686464),
-                                unselectedLabelColor: Color(0xff686464),
-                                labelStyle: GoogleFonts.firaSans(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w500,
+                              Padding(
+                                padding: EdgeInsets.only(left: 170.0, right: 170),
+                                child: TabBar(
+                                  indicatorColor: Color(0xff1696C8),
+                                  labelColor: Color(0xff686464),
+                                  unselectedLabelColor: Color(0xff686464),
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  unselectedLabelStyle: GoogleFonts.firaSans(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  tabs: [
+                                    Tab(text: 'Zip Codes'),
+                                    Tab(text: 'Cities'),
+                                  ],
                                 ),
-                                unselectedLabelStyle: GoogleFonts.firaSans(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                tabs: [
-                                  Tab(text: 'Zip Codes'),
-                                  Tab(text: 'Cities'),
-                                ],
                               ),
                               Expanded(
-                                child: TabBarView(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: ListView(
-                                            children: _buildCheckboxes().sublist(0, 5),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 170.0, right: 170.0),
+                                  child: TabBarView(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: ListView(
+                                              children: _buildCheckboxes().sublist(0, 5),
+                                            ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          child: ListView(
-                                            children: _buildCheckboxes().sublist(5, 10),
+                                          Expanded(
+                                            child: ListView(
+                                              children: _buildCheckboxes().sublist(5, 10),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    // Tab 2 content: Cities
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: ListView(
-                                            children: _buildCheckboxesCity().sublist(0, 3),
+                                        ],
+                                      ),
+                                      // Tab 2 content: Cities
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: ListView(
+                                              children: _buildCheckboxesCity().sublist(0, 3),
+                                            ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          child: ListView(
-                                            children: _buildCheckboxesCity().sublist(3, 6),
+                                          Expanded(
+                                            child: ListView(
+                                              children: _buildCheckboxesCity().sublist(3, 6),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -441,7 +453,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: Color(0xff1696C8),
