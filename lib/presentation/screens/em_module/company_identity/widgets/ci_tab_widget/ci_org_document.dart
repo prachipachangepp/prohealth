@@ -194,7 +194,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                     child: CustomIconButton(
                             icon: CupertinoIcons.plus,
                             text: "Add Document",
-                            onPressed: () {
+                            onPressed: () async{
                               showDialog(
                                   context: context,
                                   builder: (context) {

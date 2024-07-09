@@ -158,7 +158,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   child: CustomIconButton(
                     icon: Icons.add,
                     text: 'Create User',
-                    onPressed: () {
+                    onPressed: () async{
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
