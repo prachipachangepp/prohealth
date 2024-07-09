@@ -10,24 +10,18 @@ class Banking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      // EmploymentContainerConstant(),
-                      BankingTabContainerConstant(),
-                      SizedBox(
-                        height: AppSize.s8,
-                      )
-                    ],
-                  );
-                }))
-      ],
-    );
+    return ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              BankingTabContainerConstant(),
+              SizedBox(
+                height: AppSize.s8,
+              )
+            ],
+          );
+        });
   }
 }

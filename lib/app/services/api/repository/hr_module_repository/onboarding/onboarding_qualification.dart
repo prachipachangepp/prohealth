@@ -1,22 +1,33 @@
 class OnboardingQualificationRepo{
   static String emp_employment = "/employee-employment-histories";
-  static String byEmpId = "/ByemployeeId";
+  static String education = "/employee-educations";
+  static String byemployeeId = "ByemployeeId";
+  static String references = "/reference";
+  static String employee_licenses = "/employee-licenses";
+  static String employee_banking = "/employee-bankings";
 
-/// /employee-employment-histories/ByemployeeId/{employeeId}
+
+  ///onboarding qualification
+/// /employee-employment-histories
 static String getEmpEmploymentHistories({required int employeeid}){
   return "$emp_employment/ByemployeeId/$employeeid";
 }
 
-/// /employee-educations/ByemployeeId/{employeeId}
+/// /employee-educations
 static String getEmpEducation({required int employeeid}){
-  return "$emp_employment/ByemployeeId/$employeeid";
+  return "$education/$byemployeeId/$employeeid";
 }
-/// /reference/ByemployeeId/{employeeId}
+/// /reference
 static String getEmpReference({required int employeeid}){
-  return "$emp_employment$byEmpId/$employeeid";
+  return "$references/ByemployeeId/$employeeid";
 }
-/// /employee-licenses/ByemployeeId/{employeeId}
+/// /employee-licenses
 static String getEmpLicense({required int employeeid}){
-  return "$emp_employment$byEmpId/$employeeid";
+  return "$employee_licenses/ByemployeeId/$employeeid";
 }
+
+///onboarding Banking
+static String getOnboardBanking({required int employeeid}){
+  return "$employee_banking/ByemployeeId/$employeeid";
+  }
 }
