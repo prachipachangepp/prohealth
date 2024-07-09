@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_r
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_screen.dart';
 
 import '../../../../../../app/resources/color.dart';
 
@@ -261,7 +262,12 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CertificateOfCompletion()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff50B5E5),
                     foregroundColor: Colors.white,
