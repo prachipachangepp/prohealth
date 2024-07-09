@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/references_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_reference_popup.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
@@ -20,6 +21,13 @@ class ReferencesChildTabbar extends StatefulWidget {
 
 class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
   final StreamController<List<ReferenceData>> referenceStreamController = StreamController<List<ReferenceData>>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController titlePositionController = TextEditingController();
+  TextEditingController knowPersonController = TextEditingController();
+  TextEditingController companyNameController = TextEditingController();
+  TextEditingController associationLengthController = TextEditingController();
+  TextEditingController mobileNumberController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -167,7 +175,27 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButtonWidget(iconData: Icons.edit_outlined,
-                              buttonText: 'Edit', onPressed: (){})
+                              buttonText: 'Edit', onPressed: (){
+                            showDialog(context: context, builder: (BuildContext context){
+                              return StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return AddReferencePopup(nameController: nameController, emailController: emailController, titlePositionController: titlePositionController, knowPersonController: knowPersonController, companyNameController: companyNameController,
+                                      associationLengthController: associationLengthController, mobileNumberController: mobileNumberController,
+                                      onpressedClose: (){
+                                        Navigator.pop(context);
+                                      }, onpressedSave: () async{
+                                        await updateReferencePatch(context, snapshot.data![index].referenceId, associationLengthController.text, 'Reference', companyNameController.text, emailController.text,
+                                            5, mobileNumberController.text, nameController.text, 'Smith', titlePositionController.text);
+                                        getReferences(context,5).then((data) {
+                                          referenceStreamController.add(data);
+                                        }).catchError((error) {
+                                          // Handle error
+                                        });
+                                      }, title: 'Edit Reference');
+                                },
+                              );
+                            });
+                              })
                         ],
                       )
                     ],
