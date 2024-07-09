@@ -283,7 +283,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                     supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
                                                     employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
                                                     onpressedClose: (){}, onpressedSave: ()async{
-                                                  await updateEmployeement(context, 'USA',
+                                                  await updateEmployeementPatch(context,
                                                       snapshot.data![index].employmentId,
                                                       2,
                                                      employeer == employeerController.text ? employeer.toString() : employeerController.text,
@@ -292,8 +292,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                       supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
                                                       supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
                                                       positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
-                                                      startDate == startDateContoller.text ? startDate.toString() : startDateContoller.text,
-                                                      endDate == endDateController.text ? endDate.toString() : endDateController.text);
+                                                      startDate == startDateContoller.text ? startDate : startDateContoller.text,
+                                                      endDate == endDateController.text ? endDate : endDateController.text);
                                                   getEmployeement(context,2).then((data) {
                                                     employeementStreamController.add(data);
                                                   }).catchError((error) {

@@ -133,7 +133,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                 emergencyMobileNumber: emergencyMobileNumber, onpressedClose: () {
                                   //Navigator.pop(context);
                                 }, onpressedSave: () async{
-                                  await addEmployeement(context, 'USA', 2, employeerController.text,
+                                  await addEmployeement(context,2, employeerController.text,
                                       cityNameController.text, leavingResonController.text, lastSupervisorNameController.text,
                                       supervisorMobileNumber.text, positionTitleController.text, startDateContoller.text, endDateController.text);
                                 },

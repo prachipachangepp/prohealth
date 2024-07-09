@@ -13,8 +13,8 @@ class ManageReposotory{
   static String addEmployeement(){
     return "$employement$add";
   }
-  static String updateEmployeement({required int employeeId}){
-    return "$employement/$employeeId";
+  static String updateEmployeement({required int employeementId}){
+    return "$employement/$employeementId";
   }
   /// Education
   static String getEmployeeDucation({required int employeeId}){
