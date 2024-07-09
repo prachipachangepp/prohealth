@@ -1,6 +1,9 @@
 class OnboardingQualificationRepo{
   static String emp_employment = "/employee-employment-histories";
-  static String byEmpId = "/ByemployeeId";
+  static String education = "/employee-educations";
+  static String byemployeeId = "ByemployeeId";
+  static String references = "/reference";
+  static String employee_licenses = "/employee-licenses";
 
 /// /employee-employment-histories/ByemployeeId/{employeeId}
 static String getEmpEmploymentHistories({required int employeeid}){
@@ -9,14 +12,14 @@ static String getEmpEmploymentHistories({required int employeeid}){
 
 /// /employee-educations/ByemployeeId/{employeeId}
 static String getEmpEducation({required int employeeid}){
-  return "$emp_employment/ByemployeeId/$employeeid";
+  return "$education/$byemployeeId/$employeeid";
 }
 /// /reference/ByemployeeId/{employeeId}
 static String getEmpReference({required int employeeid}){
-  return "$emp_employment$byEmpId/$employeeid";
+  return "$references/ByemployeeId/$employeeid";
 }
 /// /employee-licenses/ByemployeeId/{employeeId}
 static String getEmpLicense({required int employeeid}){
-  return "$emp_employment$byEmpId/$employeeid";
+  return "$employee_licenses/ByemployeeId/$employeeid";
 }
 }

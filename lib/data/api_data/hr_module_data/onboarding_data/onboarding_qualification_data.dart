@@ -36,7 +36,7 @@ class OnboardingQualificationEducationData {
   final String college;
   final String phone;
   final String state;
-  bool approve;
+  bool? approved;
 
   OnboardingQualificationEducationData(
       {required this.educationId,
@@ -48,7 +48,7 @@ class OnboardingQualificationEducationData {
         required this.college,
         required this.phone,
         required this.state,
-        required this.approve});
+         this.approved});
 }
 
 ///onboarding-qualification-referance
@@ -63,7 +63,7 @@ class OnboardingQualificationReferanceData {
   final String name;
   final String references;
   final String title;
-  bool approve;
+  final bool approve;
 
   OnboardingQualificationReferanceData(
       {required this.referenceId,
@@ -82,8 +82,8 @@ class OnboardingQualificationReferanceData {
 ///onboarding-qualification-licence
 class OnboardingQualificationLicenseData {
   final int licenseId;
-  final int empId;
   final String country;
+  final int employeeId;
   final String expDate;
   final String issueDate;
   final String licenseUrl;
@@ -91,11 +91,13 @@ class OnboardingQualificationLicenseData {
   final String licenseNumber;
   final String org;
   final String documentType;
-  bool approve;
+  final bool approve;
+  final bool sucess;
+  final String message;
 
   OnboardingQualificationLicenseData(
       {required this.licenseId,
-        required this.empId,
+        required this.employeeId,
         required this.country,
         required this.expDate,
         required this.issueDate,
@@ -104,5 +106,8 @@ class OnboardingQualificationLicenseData {
         required this.licenseNumber,
         required this.org,
         required this.documentType,
-        required this.approve});
+        required this.approve,
+        required this.sucess,
+        required this.message
+      });
 }

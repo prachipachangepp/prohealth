@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/onboarding/onboarding_qualification.dart';
 import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_qualification_data.dart';
@@ -55,7 +56,7 @@ Future<List<OnboardingQualificationEducationData>> getOnboardingQualificationEdu
             college: item['college'],
             phone: item['phone'],
             state: item['state'],
-            approve: item['approved'] ?? false,));
+            approved: item['approved'] ?? false,));
       }
     }else {
       print("Education List");
@@ -105,24 +106,40 @@ Future<List<OnboardingQualificationReferanceData>> getOnboardingQualificationRef
 ///get onboarding qualification license
 Future<List<OnboardingQualificationLicenseData>> getOnboardingQualificationLicense(
     BuildContext context, int employeeId) async{
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('dd MMM yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
   List<OnboardingQualificationLicenseData> itemData = [];
   try{
     final response = await Api(context).get(path:
     OnboardingQualificationRepo.getEmpLicense(employeeid: employeeId));
     if(response.statusCode == 200 || response.statusCode == 201){
       for(var item in response.data){
+        String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
+        String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
         itemData.add(OnboardingQualificationLicenseData(
             licenseId: item['licenseId'],
-            empId: item['employeeId'],
-            country: item['employeeId'],
-            expDate: item['employeeId'],
-            issueDate: item['employeeId'],
-            licenseUrl: item['employeeId'],
-            licensure: item['employeeId'],
-            licenseNumber: item['employeeId'],
-            org: item['employeeId'],
-            documentType: item['employeeId'],
-            approve: item['approved'] ?? false));
+            employeeId: item['employeeId'],
+            country: item['country'],
+            expDate: item['expDate'],
+            issueDate: item['issueDate'],
+            licenseUrl: item['licenseUrl'],
+            licensure: item['licensure'],
+            licenseNumber: item['licenseNumber'],
+            org: item['org'],
+            documentType: item['documentType'],
+            approve: item['approved'] ?? false,
+          sucess: true, message: response.statusMessage!,
+           ));
       }
     }else {
       print("License List");

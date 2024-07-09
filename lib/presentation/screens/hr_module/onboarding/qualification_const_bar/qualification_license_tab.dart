@@ -81,7 +81,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          snapshot.data![index].empId.toString(),
+                          snapshot.data![index].employeeId.toString(),
                           style: GoogleFonts.firaSans(
                             fontSize: 13,
                             color: Color(0xFF333333),
@@ -115,6 +115,8 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                               children: [
                                 InfoText('Issue Date',),
                                 InfoText('End Date',),
+                                InfoText('',),
+                                InfoText('',),
                               ],
                             ),
                             Column(
@@ -122,6 +124,8 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                               children: [
                                 InfoData(snapshot.data![index].issueDate),
                                 InfoData(snapshot.data![index].expDate),
+                                InfoData(''),
+                                InfoData(''),
                               ],
                             ),
                           ],
