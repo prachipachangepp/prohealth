@@ -79,6 +79,7 @@ class _ManageScreenState extends State<ManageScreen> {
    TextEditingController stateController = TextEditingController();
    TextEditingController majorSubjectController = TextEditingController();
    TextEditingController countryNameController = TextEditingController();
+  String expiryType = '';
   ///
   TextEditingController addressCtlr = TextEditingController();
   TextEditingController nameCtlr = TextEditingController();
@@ -98,7 +99,7 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController issuingOrganizationController = TextEditingController();
   TextEditingController countryController = TextEditingController();
   TextEditingController numberIDController = TextEditingController();
-  String expiryType = '';
+
   @override
   void initState() {
     childController = CenteredTabBarChildController(
@@ -208,7 +209,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                         ),
                                       ],
                                     ),
-                                  ),);
+                                  ), title: 'Add Education',);
                               },
                             );
                           });
@@ -238,7 +239,7 @@ class _ManageScreenState extends State<ManageScreen> {
                               onpressedClose: () {  }, onpressedSave: () async{
                               await addReferencePost(context, associationLengthController.text, 'Reference', companyNameController.text, emailController.text,
                                   5, mobileNumberController.text, nameController.text, knowPersonController.text, titlePositionController.text);
-                              },);
+                              }, title: 'Add Reference',);
                           });
 
                     }),

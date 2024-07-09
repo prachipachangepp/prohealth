@@ -42,10 +42,10 @@ Future<List<EducationData>> getEmployeeEducation(
 }
 
 /// Add Education
-Future<ApiData> addEmployeeEducation(BuildContext context,int employeeId,String graduate,String degree,
+Future<ApiData> addEmployeeEducation(BuildContext context, int employeeId,String graduate,String degree,
     String major,String city,String college,String phone,String state) async {
   try {
-    var response = await Api(context).patch(path: ManageReposotory.addEmployeeDucation(), data: {
+    var response = await Api(context).post(path: ManageReposotory.addEmployeeDucation(), data: {
       "employeeId": employeeId,
       "graduate": graduate,
       "degree": degree,
@@ -57,6 +57,41 @@ Future<ApiData> addEmployeeEducation(BuildContext context,int employeeId,String 
     },);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Education added");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Patch education
+Future<ApiData> updateEmployeeEducation(BuildContext context,int educationId,int employeeId,String graduate,String degree,
+    String major,String city,String college,String phone,String state) async {
+  try {
+    var response = await Api(context).patch(path: ManageReposotory.patchEmployeeDucation(educationId: educationId), data: {
+      "employeeId": employeeId,
+      "graduate": graduate,
+      "degree": degree,
+      "major": major,
+      "city": city,
+      "college": college,
+      "phone": phone,
+      "state": state
+    },);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Education updates");
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,

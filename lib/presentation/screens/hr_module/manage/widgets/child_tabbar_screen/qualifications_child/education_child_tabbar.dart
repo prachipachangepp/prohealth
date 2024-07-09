@@ -6,7 +6,9 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/education_data.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_education_popup.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
@@ -19,6 +21,15 @@ class EducationChildTabbar extends StatefulWidget {
 
 class _EducationChildTabbarState extends State<EducationChildTabbar> {
   final StreamController<List<EducationData>> educationStreamController = StreamController<List<EducationData>>();
+  TextEditingController collegeUniversityController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController degreeController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController majorSubjectController = TextEditingController();
+  TextEditingController countryNameController = TextEditingController();
+  String expiryType = '';
   @override
   void initState() {
     // TODO: implement initState
@@ -164,7 +175,61 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButtonWidget(iconData: Icons.edit_outlined,
-                              buttonText: 'Edit', onPressed: (){})
+                              buttonText: 'Edit', onPressed: (){
+                            showDialog(context: context, builder: (BuildContext context){
+                              return StatefulBuilder(
+                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                  return  AddEducationPopup(collegeUniversityController: collegeUniversityController,
+                                    phoneController: phoneController,
+                                    calenderController: calenderController, cityController: cityController,
+                                    degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
+                                    countryNameController: countryNameController, onpressedClose: (){
+                                      Navigator.pop(context);
+                                    }, onpressedSave: () async{
+                                      await updateEmployeeEducation(context, snapshot.data![index].educationId,2, expiryType.toString(), degreeController.text, majorSubjectController.text, cityController.text,
+                                          collegeUniversityController.text, phoneController.text, stateController.text);
+                                      getEmployeeEducation(context,2).then((data) {
+                                        educationStreamController.add(data);
+                                      }).catchError((error) {
+                                        // Handle error
+                                      });
+                                      expiryType = '';
+                                    },
+                                    radioButton:Container(
+                                      width: 280,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: CustomRadioListTile(
+                                              value: "Yes",
+                                              groupValue: expiryType.toString(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  expiryType = value!;
+                                                });
+                                              },
+                                              title: "Yes",
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: CustomRadioListTile(
+                                              value: "No",
+                                              groupValue: expiryType.toString(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  expiryType = value!;
+                                                });
+                                              },
+                                              title: "No",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ), title: 'Add Education',);
+                                },
+                              );
+                            });
+                              })
                         ],
                       )
                     ],

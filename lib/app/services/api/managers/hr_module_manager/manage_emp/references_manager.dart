@@ -72,7 +72,41 @@ Future<ApiData> addReferencePost(BuildContext context,String association,String 
   }
 }
 
-
+/// Update rference
+Future<ApiData> updateReferencePatch(BuildContext context,int referenceId,String association,String comment,String company,
+    String email,int employeeId,String mob,String name,String references,String title) async {
+  try {
+    var response = await Api(context).patch(path: ManageReposotory.updateReferences(referenceId: referenceId), data: {
+      "association": association,
+      "comment": comment,
+      "company": company,
+      "email": email,
+      "employeeId": employeeId,
+      "mob": mob,
+      "name": name,
+      "references": references,
+      "title": title
+    },);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("reference updated");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
 /// Reject reference
 Future<ApiData> rejectReferencePatch(BuildContext context, int referenceId) async {
   try {

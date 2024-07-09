@@ -159,7 +159,6 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                               snapshot.data![index].approved == false ?
                               CustomButtonTransparent(text: 'Reject', onPressed: () async{
                                 await rejectLicensePatch(context, snapshot.data![index].licenseId);
-                                Navigator.pop(context);
                               }) :SizedBox() ,
                               const SizedBox(width: 5,),
                               snapshot.data![index].approved == true ?
@@ -171,7 +170,6 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                                       color: ColorManager.blueprime)) :  CustomIconButton(
                                   text: 'Approve', onPressed: () async{
                                 await approveLicensePatch(context, snapshot.data![index].licenseId);
-                                Navigator.pop(context);
                               })
                             ],
                           )

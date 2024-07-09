@@ -16,9 +16,10 @@ class AddReferencePopup extends StatefulWidget {
   final TextEditingController companyNameController;
   final TextEditingController associationLengthController;
   final TextEditingController mobileNumberController;
+  final String title;
   final VoidCallback onpressedClose;
   Future<void> Function() onpressedSave;
-   AddReferencePopup({super.key, required this.nameController, required this.emailController, required this.titlePositionController, required this.knowPersonController, required this.companyNameController, required this.associationLengthController, required this.mobileNumberController, required this.onpressedClose, required this.onpressedSave});
+   AddReferencePopup({super.key, required this.nameController, required this.emailController, required this.titlePositionController, required this.knowPersonController, required this.companyNameController, required this.associationLengthController, required this.mobileNumberController, required this.onpressedClose, required this.onpressedSave, required this.title});
 
   @override
   State<AddReferencePopup> createState() => _AddReferencePopupState();
@@ -45,7 +46,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text("Add Reference",style: GoogleFonts.firaSans(
+                    child: Text(widget.title,style: GoogleFonts.firaSans(
                       fontSize: FontSize.s16,
                       fontWeight: FontWeightManager.bold,
                       color: ColorManager.blueprime,
@@ -115,7 +116,6 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                     controller: widget.titlePositionController,
                     labelText: "Title/Position",
                     keyboardType: TextInputType.text,
-                    suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                     onChanged: (value) {
 

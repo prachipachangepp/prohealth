@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -18,15 +19,18 @@ class AddEducationPopup extends StatefulWidget {
   final TextEditingController majorSubjectController;
   final TextEditingController countryNameController;
   final VoidCallback onpressedClose;
-  final VoidCallback onpressedSave;
+  Future<void> Function() onpressedSave;
+  final String title;
   final Widget? radioButton;
-   AddEducationPopup({super.key, required this.collegeUniversityController, required this.phoneController, required this.calenderController, required this.cityController, required this.degreeController, required this.stateController, required this.majorSubjectController, required this.countryNameController, required this.onpressedClose, required this.onpressedSave, this.radioButton});
+   AddEducationPopup({super.key, required this.collegeUniversityController, required this.phoneController, required this.calenderController, required this.cityController, required this.degreeController, required this.stateController, required this.majorSubjectController, required this.countryNameController, required this.onpressedClose, required this.onpressedSave, this.radioButton, required this.title});
 
   @override
   State<AddEducationPopup> createState() => _AddEducationPopupState();
 }
 
 class _AddEducationPopupState extends State<AddEducationPopup> {
+  final DateTime _selectedStartDate = DateTime.now();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -46,7 +50,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text("Add Education",style: GoogleFonts.firaSans(
+                    child: Text(widget.title,style: GoogleFonts.firaSans(
                       fontSize: FontSize.s16,
                       fontWeight: FontWeightManager.bold,
                       color: ColorManager.blueprime,
@@ -118,8 +122,18 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                     keyboardType: TextInputType.text,
                     suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onChanged: (value) {
-
+                    onTap: () async{
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedStartDate,
+                        firstDate: DateTime(1100),
+                        lastDate: DateTime(2025),
+                      );
+                      if (date != null) {
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                        widget.calenderController.text = formattedDate;
+                        //field.didChange(formattedDate);
+                      }
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -253,8 +267,30 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       widget.onpressedClose;
                     }),
                     const SizedBox(width: 10,),
-                    CustomElevatedButton(text: "Save",onPressed: (){
-                      widget.onpressedSave;
+                    isLoading ? SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(color: ColorManager.blueprime,))
+                        : CustomElevatedButton(text: "Save",onPressed: () async{
+                      setState(() {
+                        isLoading = true;
+                      });
+                      try {
+                        await widget.onpressedSave();
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.pop(context);
+                        widget.countryNameController.clear();
+                        widget.degreeController.clear();
+                        widget.majorSubjectController.clear();
+                        widget.stateController.clear();
+                        widget.cityController.clear();
+                        widget.phoneController.clear();
+                        widget.countryNameController.clear();
+                        widget.collegeUniversityController.clear();
+                      }
                     }),
 
                   ],
