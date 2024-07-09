@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../manage/controller/controller.dart';
-import '../qualification_const_bar/qualification_education_tab.dart';
 import '../qualification_const_bar/qualification_tabbar_const.dart';
+import '../qualification_const_bar/widgets/onboarding_qualification.dart';
 
 /// to do saloni
 class OnboardingQualification extends StatefulWidget {
