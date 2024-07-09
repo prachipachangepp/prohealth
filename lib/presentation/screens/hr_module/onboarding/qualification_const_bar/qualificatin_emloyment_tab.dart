@@ -17,21 +17,24 @@ class QualificationEmployment extends StatefulWidget {
 }
 
 class _BankingTabContainerConstantState extends State<QualificationEmployment> {
-  final StreamController<List<OnboardingQualificationEmploymentData>> qualificationempStreamController = StreamController<List<OnboardingQualificationEmploymentData>>();
+  final StreamController<List<OnboardingQualificationEmploymentData>>
+      qualificationempStreamController =
+      StreamController<List<OnboardingQualificationEmploymentData>>();
 
   @override
   void initState() {
     super.initState();
-    getOnboardingQualificationEmp(context, 2).then((data){
+    getOnboardingQualificationEmp(context, 2).then((data) {
       qualificationempStreamController.add(data);
-    }).catchError((error){});
+    }).catchError((error) {});
   }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     return StreamBuilder<List<OnboardingQualificationEmploymentData>>(
         stream: qualificationempStreamController.stream,
-        builder: (context,snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
@@ -42,20 +45,21 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
           if (snapshot.data!.isEmpty) {
             return Center(
                 child: Text(
-                  AppString.dataNotFound,
-                  style: CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: FontSize.s12,
-                      color: ColorManager.mediumgrey),
-                ));
+              AppString.dataNotFound,
+              style: CustomTextStylesCommon.commonStyle(
+                  fontWeight: FontWeightManager.medium,
+                  fontSize: FontSize.s12,
+                  color: ColorManager.mediumgrey),
+            ));
           }
-          if(snapshot.hasData){
-            return WrapWidget(childern:
-            List.generate(snapshot.data!.length, (index){
+          if (snapshot.hasData) {
+            return WrapWidget(
+                childern: List.generate(snapshot.data!.length, (index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 child: Container(
-                  width: MediaQuery.of(context).size.width/2.5,
+                  width: MediaQuery.of(context).size.width / 2.5,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -74,7 +78,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                       horizontal: MediaQuery.of(context).size.width / 80,
                       vertical: MediaQuery.of(context).size.height / 120,
                     ),
-                    child:Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -108,13 +112,21 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                 InfoData(snapshot.data![index].employer),
                               ],
                             ),
-                             Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                InfoText('Reason of Leaving',),
-                                InfoText('Last Supervisor’s Name',),
-                                InfoText('Supervisor’s Phone No.',),
-                                InfoText('City',),
+                                InfoText(
+                                  'Reason of Leaving',
+                                ),
+                                InfoText(
+                                  'Last Supervisor’s Name',
+                                ),
+                                InfoText(
+                                  'Supervisor’s Phone No.',
+                                ),
+                                InfoText(
+                                  'City',
+                                ),
                               ],
                             ),
                             Column(
@@ -132,8 +144,235 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             QualificationActionButtons(
-                                onRejectPressed: (){},
-                                onApprovePressed: (){}),
+                                onRejectPressed: () {},
+                                onApprovePressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        child: Container(
+
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          height: 300.0,
+                                          width: 300.0,
+                                          child: Stack(children: <Widget>[
+                                            // Container(
+                                            //   width: double.infinity,
+                                            //   height: 300,
+                                            //   decoration: BoxDecoration(
+                                            //     color: Colors.grey[100],
+                                            //     borderRadius:
+                                            //         BorderRadius.circular(12.0),
+                                            //   ),
+                                            // ),
+                                            Container(
+                                              width: double.infinity,
+                                              height: 50,
+                                              alignment: Alignment.bottomCenter,
+                                              decoration: BoxDecoration(
+                                                color:  Color(0xff1696C8),
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(12),
+                                                  topRight: Radius.circular(12),
+                                                ),
+                                              ),
+                                              child: Align(
+                                                alignment: Alignment.topRight,
+                                                child: IconButton( onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                }, icon: Icon(Icons.close,color: Colors.white,))
+                                              ),
+
+                                            ),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text("Do yor really want to approve this ?"),
+                                            ),
+
+                                            Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Align(
+                                                alignment: Alignment.bottomCenter,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor: Colors.white,
+                                                        foregroundColor:
+                                                        Color(0xff1696C8),
+                                                        side: BorderSide(
+                                                            color: Color(0xff1696C8)),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'Cancle',
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10.0,
+                                                          fontWeight: FontWeight.w700,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                        width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                            75),
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor:
+                                                        Color(0xff1696C8),
+                                                        foregroundColor: Colors.white,
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'Yes',
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 10.0,
+                                                          fontWeight: FontWeight.w700,
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ]),
+                                        ),
+                                      );
+                                      // AlertDialog(
+                                      //   //backgroundColor: Colors.indigo,
+                                      //
+                                      //   title: Container(
+                                      //     color: Colors.blue,
+                                      //     width: double.infinity,
+                                      //     child: Row(
+                                      //
+                                      //       mainAxisAlignment: MainAxisAlignment.end,
+                                      //       children: [
+                                      //         IconButton( onPressed: () {
+                                      //           Navigator.of(context).pop();
+                                      //         }, icon: Icon(Icons.close))
+                                      //       ],
+                                      //     ),
+                                      //   ),
+                                      //   content: Text(
+                                      //       "Do yor really want to approve this ?"),
+                                      //   actions: <Widget>[
+                                      //     // Button 1
+                                      //     Row(
+                                      //       mainAxisAlignment: MainAxisAlignment.end,
+                                      //       children: [
+                                      //         ElevatedButton(
+                                      //           onPressed: () {
+                                      //             Navigator.of(context).pop();
+                                      //           },
+                                      //           style: ElevatedButton.styleFrom(
+                                      //             backgroundColor: Colors.white,
+                                      //             foregroundColor:
+                                      //                 Color(0xff1696C8),
+                                      //             side: BorderSide(
+                                      //                 color: Color(0xff1696C8)),
+                                      //             shape: RoundedRectangleBorder(
+                                      //               borderRadius:
+                                      //                   BorderRadius.circular(
+                                      //                       8),
+                                      //             ),
+                                      //           ),
+                                      //           child: Text(
+                                      //             'Cancle',
+                                      //             style: GoogleFonts.firaSans(
+                                      //               fontSize: 10.0,
+                                      //               fontWeight: FontWeight.w700,
+                                      //             ),
+                                      //           ),
+                                      //         ),
+                                      //         SizedBox(
+                                      //             width: MediaQuery.of(context)
+                                      //                     .size
+                                      //                     .width /
+                                      //                 75),
+                                      //         ElevatedButton(
+                                      //           onPressed: () {
+                                      //             Navigator.of(context).pop();
+                                      //           },
+                                      //           style: ElevatedButton.styleFrom(
+                                      //             backgroundColor:
+                                      //                 Color(0xff1696C8),
+                                      //             foregroundColor: Colors.white,
+                                      //             shape: RoundedRectangleBorder(
+                                      //               borderRadius:
+                                      //                   BorderRadius.circular(
+                                      //                       8),
+                                      //             ),
+                                      //           ),
+                                      //           child: Text(
+                                      //             'Yes',
+                                      //             style: GoogleFonts.firaSans(
+                                      //               fontSize: 10.0,
+                                      //               fontWeight: FontWeight.w700,
+                                      //             ),
+                                      //           ),
+                                      //         ),
+                                      //       ],
+                                      //     ),
+                                      //   ],
+                                      // );
+                                    },
+                                  );
+
+                                  // showDialog(
+                                  //     context: context,
+                                  //     builder: (BuildContext context) {
+                                  //       return AlertDialog(
+                                  //         title: Text("Dialog Title"),
+                                  //         content: Text(
+                                  //             "This is the content of the dialog."),
+                                  //         actions: <Widget>[
+                                  //           // Button 1
+                                  //           TextButton(
+                                  //             child: Text("Button 1"),
+                                  //             onPressed: () {
+                                  //               // Action to perform when Button 1 is pressed
+                                  //               // For example, close the dialog
+                                  //               Navigator.of(context).pop();
+                                  //             },
+                                  //           ),
+                                  //           // Button 2
+                                  //           TextButton(
+                                  //             child: Text("Button 2"),
+                                  //             onPressed: () {
+                                  //               // Action to perform when Button 2 is pressed
+                                  //               // For example, close the dialog
+                                  //               Navigator.of(context).pop();
+                                  //             },
+                                  //           ),
+                                  //         ],
+                                  //       );
+                                  //     });
+                                }),
                           ],
                         )
                       ],
@@ -142,11 +381,10 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                 ),
               );
             }));
-          }else{
+          } else {
             return const SizedBox();
           }
-        }
-    );
+        });
   }
 }
 
@@ -159,7 +397,7 @@ class InfoText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style:  ThemeManager.customTextStyle(context)),
+        Text(text, style: ThemeManager.customTextStyle(context)),
         const SizedBox(height: 10),
       ],
     );
@@ -169,13 +407,15 @@ class InfoText extends StatelessWidget {
 class InfoData extends StatelessWidget {
   final String text;
 
-  const InfoData(this.text,);
+  const InfoData(
+    this.text,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text, style:  ThemeManagerDark.customTextStyle(context)),
+        Text(text, style: ThemeManagerDark.customTextStyle(context)),
         const SizedBox(height: 10),
       ],
     );
