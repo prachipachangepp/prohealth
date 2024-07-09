@@ -119,6 +119,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                                 InfoText('',),
                               ],
                             ),
+
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
