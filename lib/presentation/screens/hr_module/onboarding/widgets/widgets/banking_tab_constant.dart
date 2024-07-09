@@ -64,10 +64,10 @@ class BankDetailsSection extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InfoData('Checking', ThemeManagerDark.customTextStyle(context)),
-                InfoData('24-03-23', ThemeManagerDark.customTextStyle(context)),
-                InfoData('SBI', ThemeManagerDark.customTextStyle(context)),
-                InfoData('123456789', ThemeManagerDark.customTextStyle(context)),
+                InfoDataBanking('Checking', ThemeManagerDark.customTextStyle(context)),
+                InfoDataBanking('24-03-23', ThemeManagerDark.customTextStyle(context)),
+                InfoDataBanking('SBI', ThemeManagerDark.customTextStyle(context)),
+                InfoDataBanking('123456789', ThemeManagerDark.customTextStyle(context)),
               ],
             ),
             Column(
@@ -82,10 +82,10 @@ class BankDetailsSection extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InfoData('1234567797', ThemeManagerDark.customTextStyle(context)),
-                InfoData('30,000/-', ThemeManagerDark.customTextStyle(context)),
-                InfoData('', ThemeManager.customTextStyle(context)),
-                InfoData('', ThemeManager.customTextStyle(context)),
+                InfoDataBanking('1234567797', ThemeManagerDark.customTextStyle(context)),
+                InfoDataBanking('30,000/-', ThemeManagerDark.customTextStyle(context)),
+                InfoDataBanking('', ThemeManager.customTextStyle(context)),
+                InfoDataBanking('', ThemeManager.customTextStyle(context)),
               ],
             ),
           ],
@@ -118,11 +118,11 @@ class InfoText extends StatelessWidget {
   }
 }
 
-class InfoData extends StatelessWidget {
+class InfoDataBanking extends StatelessWidget {
   final String text;
   final TextStyle style;
 
-  const InfoData(this.text, this.style);
+  const InfoDataBanking(this.text, this.style);
 
   @override
   Widget build(BuildContext context) {
