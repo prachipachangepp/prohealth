@@ -11,7 +11,6 @@ class OnboardingQualificationEmploymentData {
   final String dateOfJoin;
   final String endDate;
   bool approve;
-
   OnboardingQualificationEmploymentData(
       {required this.employmentId,
       required this.empId,

@@ -5,7 +5,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 
 import '../../../../app/resources/font_manager.dart';
 
-///saloni
+///saloni///
 class CustomIconButtonConst extends StatelessWidget {
   final String? text;
   final IconData? icon;
@@ -22,6 +22,7 @@ class CustomIconButtonConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 200,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
