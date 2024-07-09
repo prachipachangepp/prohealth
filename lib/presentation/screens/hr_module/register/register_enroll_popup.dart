@@ -335,6 +335,7 @@ class RegisterEnrollAlertDialog {
                       ],
                     ),
                   ),
+                  ///////////////////////////////
                   SizedBox(
                     height: AppSize.s6,
                   ),
