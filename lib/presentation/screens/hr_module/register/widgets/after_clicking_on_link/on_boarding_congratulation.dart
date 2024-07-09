@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_screen.dart';
 
 
 class OnBoardingCongratulation extends StatefulWidget {
@@ -55,10 +56,10 @@ class _OnBoardingCongratulationState extends State<OnBoardingCongratulation> {
               SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => OfferLetterScreen()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CertificateOfCompletion()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF50B5E5),

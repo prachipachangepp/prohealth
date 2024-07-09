@@ -251,6 +251,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_congratulation.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -340,7 +341,10 @@ class OnBoardingWelcome extends StatelessWidget {
                             Center(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // Add your onPressed code here!
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => OnBoardingCongratulation()),
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xff50B5E5),
