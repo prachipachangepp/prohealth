@@ -41,7 +41,7 @@ Future<List<EmployeementData>> getEmployeement(
             title: item['title'],
             dateOfJoining: joiningFormattedDate,
             endDate: endFormattedDate,
-            approved: item['approved']));
+            approved: item['approved'], sucess: true, message: response.statusMessage!));
       }
     } else {
       print("Employee Employeement");
@@ -91,6 +91,7 @@ Future<ApiData> addEmployeement(BuildContext context,
   }
 }
 
+
 /// Patch employeement
 Future<ApiData> updateEmployeement(BuildContext context,
     String country,int employeeIdupdate,int employeeId,String employer,String city,String reason,String supervisor,String supMobile,
@@ -131,7 +132,7 @@ Future<ApiData> updateEmployeement(BuildContext context,
 
 /// Prefill get employeement
 Future<EmployeementPrefillData> getPrefillEmployeement(
-    BuildContext context, int employeeId) async {
+    BuildContext context, int employeementId) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -147,7 +148,7 @@ Future<EmployeementPrefillData> getPrefillEmployeement(
   var itemsData;
   try {
     final response = await Api(context)
-        .get(path: ManageReposotory.updateEmployeement(employeeId: employeeId));
+        .get(path: ManageReposotory.updateEmployeement(employeeId: employeementId));
     if (response.statusCode == 200 || response.statusCode == 201) {
         String joiningFormattedDate =
         convertIsoToDayMonthYear(response.data['dateOfJoining']);
@@ -163,7 +164,9 @@ Future<EmployeementPrefillData> getPrefillEmployeement(
             title: response.data['title'],
             dateOfJoining: joiningFormattedDate,
             endDate: endFormattedDate,
-            approved: response.data['approved']);
+            approved: response.data['approved'],
+            sucess: true,
+            message: response.statusMessage!);
     } else {
       print("Employee Employeement");
     }
