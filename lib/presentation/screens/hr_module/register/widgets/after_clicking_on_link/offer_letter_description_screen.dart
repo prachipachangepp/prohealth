@@ -8,6 +8,8 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 
+import '../../../../../../app/resources/color.dart';
+
 class OfferLetterDescriptionScreen extends StatefulWidget {
   const OfferLetterDescriptionScreen({super.key});
 
@@ -206,6 +208,7 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
                       Row(
                         children: [
                           Checkbox(
+                            activeColor: ColorManager.blueprime,
                             value: _isChecked,
                             onChanged: (bool? value) {
                               setState(() {
@@ -277,6 +280,11 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
               ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height/8),
+            Row(
+              children: [
+                BottomBarRow()
+              ],
+            )
           ],
         ),
       ),
