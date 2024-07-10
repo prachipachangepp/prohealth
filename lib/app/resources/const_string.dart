@@ -75,7 +75,7 @@ class AppString {
   static const String upload_signature = "Upload Signature";
   static const String draw = "Draw";
   static const String upload ="Upload";
-  static const String cancle ="Cancle";
+  static const String cancel ="Cancel";
   static const String reset ="Reset";
   static const String save ="Save";
 
