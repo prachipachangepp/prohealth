@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -21,6 +22,8 @@ class EmploymentContainerConstant extends StatefulWidget {
 }
 
 class _EmploymentContainerConstantState extends State<EmploymentContainerConstant> {
+   int currentPage = 0;
+   int itemsPerPage = 0;
   final StreamController<List<EmployeementData>> employeementStreamController = StreamController<List<EmployeementData>>();
   TextEditingController positionTitleController = TextEditingController();
   TextEditingController leavingResonController = TextEditingController();
@@ -68,8 +71,19 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
               ));
         }
         if(snapshot.hasData){
+          int totalItems = snapshot.data!.length;
+          List<EmployeementData> currentPageItems = snapshot.data!.sublist(
+            (currentPage - 1) * itemsPerPage,
+            (currentPage * itemsPerPage) > totalItems
+                ? totalItems
+                : (currentPage * itemsPerPage),
+          );
           return WrapWidget(
               childern:List.generate(snapshot.data!.length, (index){
+                int serialNumber =
+                    index + 1 + (currentPage - 1) * itemsPerPage;
+                String formattedSerialNumber =
+                serialNumber.toString().padLeft(2, '0');
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
                   child: Container(
@@ -86,7 +100,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
-                    height: 200,
+                    height: MediaQuery.of(context).size.height/3.3,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 80,
@@ -260,10 +274,12 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                 leavingResonController = TextEditingController(text: snapshotPrefill.data!.reason);
 
                                                 var startDate = snapshotPrefill.data!.dateOfJoining;
-                                                startDateContoller = TextEditingController(text: snapshotPrefill.data!.dateOfJoining);
+                                                startDateContoller = TextEditingController(text: snapshotPrefill.data?.dateOfJoining);
 
-                                                var endDate = snapshotPrefill.data!.endDate;
-                                                endDateController = TextEditingController(text: snapshotPrefill.data!.endDate);
+                                                String endDate = snapshotPrefill.data!.endDate;
+                                                endDateController = TextEditingController(text: snapshotPrefill.data?.endDate);
+                                                DateTime.tryParse(endDate.toString());
+                                                print("Date ${endDate}");
 
                                                 var supervisorName = snapshotPrefill.data!.supervisor;
                                                 lastSupervisorNameController = TextEditingController(text: snapshotPrefill.data!.supervisor);
@@ -283,7 +299,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                     supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
                                                     employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
                                                     onpressedClose: (){}, onpressedSave: ()async{
-                                                  await updateEmployeement(context, 'USA',
+                                                  await updateEmployeementPatch(context,
                                                       snapshot.data![index].employmentId,
                                                       2,
                                                      employeer == employeerController.text ? employeer.toString() : employeerController.text,
@@ -292,8 +308,8 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                       supervisorName == lastSupervisorNameController.text ? supervisorName.toString() : lastSupervisorNameController.text,
                                                       supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
                                                       positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
-                                                      startDate == startDateContoller.text ? startDate.toString() : startDateContoller.text,
-                                                      endDate == endDateController.text ? endDate.toString() : endDateController.text);
+                                                      startDate == startDateContoller.text ? startDate  : startDateContoller.text,
+                                                      endDate == endDateController.text ? endDate : endDateController.text);
                                                   getEmployeement(context,2).then((data) {
                                                     employeementStreamController.add(data);
                                                   }).catchError((error) {

@@ -217,6 +217,7 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
           style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
           textAlignVertical: TextAlignVertical.center,
           cursorColor: ColorManager.black,
+          textInputAction: TextInputAction.next,
           // cursorHeight: widget.cursorHeight,
           // validator: validator,
           // validator: (value) {
@@ -229,10 +230,13 @@ class _HRManageTextFieldState extends State<HRManageTextField> {
             contentPadding: EdgeInsets.only(bottom: AppPadding.p3,
                 top: AppPadding.p5, left: AppPadding.p5),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.black),
+              borderSide: BorderSide(color: ColorManager.mediumgrey),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.mediumgrey),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorManager.black),
+              borderSide: BorderSide(color: ColorManager.mediumgrey),
             ),
             labelText: widget.labelText,
             labelStyle: widget.labelStyle.copyWith(fontSize: widget.labelFontSize),

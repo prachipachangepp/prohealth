@@ -137,6 +137,9 @@ class EstablishmentManagerRepository {
   static String addCorporateDocumentPost(){
     return "$addCorporateDocument";
   }
+  static String getPrefillCorporateDocument({required int documentId}){
+    return "$CorporateDocument/$documentId";
+  }
   static String updateCorporateDocumentPost({required int docID}){
     return "$CorporateDocument/$docID";
   }

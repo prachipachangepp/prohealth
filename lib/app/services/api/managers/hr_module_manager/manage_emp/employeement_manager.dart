@@ -55,7 +55,7 @@ Future<List<EmployeementData>> getEmployeement(
 
 /// Add employeement
 Future<ApiData> addEmployeement(BuildContext context,
-    String country,int employeeId,String employer,String city,String reason,String supervisor,String supMobile,
+    int employeeId,String employer,String city,String reason,String supervisor,String supMobile,
     String title,String dateOfJoining,String endDate
     ) async {
   try {
@@ -93,12 +93,12 @@ Future<ApiData> addEmployeement(BuildContext context,
 
 
 /// Patch employeement
-Future<ApiData> updateEmployeement(BuildContext context,
-    String country,int employeeIdupdate,int employeeId,String employer,String city,String reason,String supervisor,String supMobile,
+Future<ApiData> updateEmployeementPatch(BuildContext context,
+    int employeeIdupdate,int employeeId,String employer,String city,String reason,String supervisor,String supMobile,
     String title,String dateOfJoining,String endDate
     ) async {
   try {
-    var response = await Api(context).patch(path: ManageReposotory.updateEmployeement(employeeId: employeeIdupdate), data: {
+    var response = await Api(context).patch(path: ManageReposotory.updateEmployeement(employeementId: employeeIdupdate), data: {
       "employeeId": employeeId,
       "employer": employer,
       "city": city,
@@ -107,7 +107,7 @@ Future<ApiData> updateEmployeement(BuildContext context,
       "supMobile": supMobile,
       "title": title,
       "dateOfJoining": "${dateOfJoining}T00:00:00Z",
-      "endDate":"${endDate}T00:00:00Z"
+      "endDate": "${endDate}T00:00:00Z"
     },);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employeement Added");
@@ -138,7 +138,7 @@ Future<EmployeementPrefillData> getPrefillEmployeement(
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('dd MMM yyyy');
+    DateFormat dateFormat = DateFormat('yyyy-dd-MM');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
@@ -148,7 +148,7 @@ Future<EmployeementPrefillData> getPrefillEmployeement(
   var itemsData;
   try {
     final response = await Api(context)
-        .get(path: ManageReposotory.updateEmployeement(employeeId: employeementId));
+        .get(path: ManageReposotory.updateEmployeement(employeementId: employeementId));
     if (response.statusCode == 200 || response.statusCode == 201) {
         String joiningFormattedDate =
         convertIsoToDayMonthYear(response.data['dateOfJoining']);
