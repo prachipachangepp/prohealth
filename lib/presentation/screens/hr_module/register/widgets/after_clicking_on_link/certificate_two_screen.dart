@@ -115,7 +115,7 @@ class CertificateOfCompletionScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 30),
-              buildActionButtons(),
+              buildActionButtons(context),
               SizedBox(height: 30),
               Row(
                 children: [
@@ -242,7 +242,7 @@ class CertificateOfCompletionScreen extends StatelessWidget {
     );
   }
 
-  Widget buildActionButtons() {
+  Widget buildActionButtons(BuildContext context) {
     return Column(
       children: [
         Row(
@@ -250,7 +250,7 @@ class CertificateOfCompletionScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
+                Navigator.push(context , MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -278,7 +278,7 @@ class CertificateOfCompletionScreen extends StatelessWidget {
             SizedBox(width: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => OnBoardingThankYou()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => OnBoardingThankYou()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF50B5E5),

@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Make sure to import flutter_svg package
 import 'package:google_fonts/google_fonts.dart';
@@ -87,7 +85,7 @@ class CertificateOfCompletion extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 30),
-              buildActionButtons(),
+              buildActionButtons(context),
               SizedBox(height: 30),
              Row(
                children: [
@@ -214,7 +212,7 @@ class CertificateOfCompletion extends StatelessWidget {
     );
   }
 
-  Widget buildActionButtons() {
+  Widget buildActionButtons(BuildContext context) {
     return Column(
       children: [
         Row(
@@ -222,7 +220,8 @@ class CertificateOfCompletion extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => FormNineScreen()));
+                // Navigator.push(context , MaterialPageRoute(builder: (context) => FormNineScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => FormNineScreen()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -241,7 +240,7 @@ class CertificateOfCompletion extends StatelessWidget {
             SizedBox(width: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => CertificateOfCompletionScreen()));
+                Navigator.push(context , MaterialPageRoute(builder: (context) => CertificateOfCompletionScreen()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF50B5E5),
