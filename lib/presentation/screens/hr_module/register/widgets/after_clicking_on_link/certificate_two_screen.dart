@@ -1,15 +1,11 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Make sure to import flutter_svg package
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_two_screen.dart';
 import '../../../manage/widgets/top_row.dart';
-import 'offer_letter_description_screen.dart';
 
-class CertificateOfCompletion extends StatelessWidget {
+class CertificateOfCompletionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +25,35 @@ class CertificateOfCompletion extends StatelessWidget {
                   color: Colors.blue,
                   fontWeight: FontWeight.w400,
                 ),
+              ),
+              SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.greenAccent,
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        height: 50.0,
+                        width: 404.0,
+                        child: Center(
+                          child: Text(
+                            'Document Signed Successfully!',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: Color(0xFF686464),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
               SizedBox(height: 20),
               Stack(
@@ -88,11 +113,11 @@ class CertificateOfCompletion extends StatelessWidget {
               SizedBox(height: 30),
               buildActionButtons(),
               SizedBox(height: 30),
-             Row(
-               children: [
-                 BottomBarRow()
-               ],
-             )
+              Row(
+                children: [
+                  BottomBarRow()
+                ],
+              )
             ],
           ),
         ),
@@ -229,18 +254,27 @@ class CertificateOfCompletion extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6.0),
                 ),
               ),
-              child: Text(
-                'Cancel',
-                style: GoogleFonts.firaSans(
-                  color: Color((0xFF50B5E5)),
-                  fontWeight: FontWeight.w600,
-                ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.arrow_back,
+                    color: Color((0xFF50B5E5)),
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    'Cancel',
+                    style: GoogleFonts.firaSans(
+                      color: Color((0xFF50B5E5)),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(width: 10),
             ElevatedButton(
               onPressed: () {
-
+                // Implement action for sign button
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF50B5E5),
@@ -248,16 +282,26 @@ class CertificateOfCompletion extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6.0),
                 ),
               ),
-              child: Text(
-                'Sign',
-                style: GoogleFonts.firaSans(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
+              child: Row(
+                children: [
+                  Text(
+                    'Continue',
+                    style: GoogleFonts.firaSans(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                  ),
+                ],
               ),
             ),
           ],
-        ),
+        )
+
       ],
     );
   }

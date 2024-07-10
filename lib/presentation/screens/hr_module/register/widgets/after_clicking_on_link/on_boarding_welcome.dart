@@ -287,12 +287,16 @@ class CustomTextField extends StatelessWidget {
 
 ////////////////////////////////////congratulation/////////////////////////////////////
 
-
 class OnBoardingCongratulation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Container(
+        height: 750.0,
+        width: 900.0,
         child: SingleChildScrollView(
           padding: EdgeInsets.all(20.0),
           child: Column(

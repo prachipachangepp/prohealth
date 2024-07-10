@@ -8,6 +8,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_two_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_nine_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
 
 import '../../../../../../app/resources/color.dart';
 
@@ -265,7 +268,7 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CertificateOfCompletion()),
+                      MaterialPageRoute(builder: (context) => FormNineScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
