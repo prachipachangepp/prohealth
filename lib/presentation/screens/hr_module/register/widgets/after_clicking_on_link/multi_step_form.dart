@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../../app/resources/color.dart';
 import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
 
@@ -31,76 +32,92 @@ class _MultiStepFormState extends State<MultiStepForm> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: TopRowConstant(),
       ),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text("Details")],
-          ),
-          Expanded(
-            child: Stepper(
-                type: StepperType.horizontal,
-                steps: steps(),
-                currentStep: _currentStep,
-                onStepContinue: () {
-                  if (isLastStep) {
-                    setState(() => isCompleted =true);
-                  } else {
-                    setState(() => _currentStep += 1);
-                  }
-                },
-                onStepCancel: isFirstStep
-                    ? null
-                    : () => setState(() => _currentStep -= 1),
-                controlsBuilder: (context, details) => Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff1696C8),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              onPressed: details.onStepContinue,
-                              label: Text(isLastStep ? 'Conform' : 'Continue'),
-                              icon: Icon(Icons.arrow_forward),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          if (!isFirstStep) ...[
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Expanded(
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  foregroundColor: Color(0xff1696C8),
-                                  side: BorderSide(color: Color(0xff1696C8)),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
+      body: Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text("Details",
+                style: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorManager.grey,
+                decoration: TextDecoration.none,
+              ),)],
+            ),
+            Expanded(
+              child: Container(
+                // height: MediaQuery.of(context).size.height / 4,
+                // width: MediaQuery.of(context).size.width / 1.1,
+                // color: Colors.yellow,
+                child: Stepper(
+
+
+                    type: StepperType.horizontal,
+                    steps: steps(),
+                    currentStep: _currentStep,
+                    onStepContinue: () {
+                      if (isLastStep) {
+                        setState(() => isCompleted =true);
+                      } else {
+                        setState(() => _currentStep += 1);
+                      }
+                    },
+                    onStepCancel: isFirstStep
+                        ? null
+                        : () => setState(() => _currentStep -= 1),
+                    controlsBuilder: (context, details) => Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff1696C8),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
                                   ),
+                                  onPressed: details.onStepContinue,
+                                  label: Text(isLastStep ? 'Conform' : 'Continue'),
+                                  icon: const Icon(Icons.arrow_forward),
                                 ),
-                                onPressed: details.onStepCancel,
-                                label: Text("Back"),
-                                icon: Icon(Icons.arrow_back),
                               ),
-                            )
-                          ]
-                        ],
-                      ),
-                    )),
-          ),
-          const Row(
-            children: [BottomBarRow()],
-          )
-        ],
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              if (!isFirstStep) ...[
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: ElevatedButton.icon(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      foregroundColor: const Color(0xff1696C8),
+                                      side: const BorderSide(color: Color(0xff1696C8)),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    onPressed: details.onStepCancel,
+                                    label: const Text("Back"),
+                                    icon: const Icon(Icons.arrow_back),
+                                  ),
+                                )
+                              ]
+                            ],
+                          ),
+                        )),
+              ),
+            ),
+            const Row(
+              children: [BottomBarRow()],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -109,38 +126,43 @@ class _MultiStepFormState extends State<MultiStepForm> {
         Step(
             state: _currentStep <= 0 ? StepState.editing : StepState.complete,
             isActive: _currentStep >= 0,
-            title: const Text('General'),
+            title:  Text('General',style: GoogleFonts.firaSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: ColorManager.grey,
+              decoration: TextDecoration.none,
+            ),),
             content: Container(
               color: Colors.grey,
               height: 500,
               width: 100,
               child: Column(
                 children: [
-                  Center(
+                  const Center(
                     child: Align(
                       alignment: Alignment.topCenter,
-                      child: Text("General"),
+                      child: Text("General",),
                     ),
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                          const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                       decoration: BoxDecoration(
-                        color: Color(0xFFE6F7FF),
+                        color: const Color(0xFFE6F7FF),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
                         style: GoogleFonts.firaSans(
-                          color: Color(0xFF686464),
+                          color: const Color(0xFF686464),
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   ]),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Column(
@@ -159,7 +181,12 @@ class _MultiStepFormState extends State<MultiStepForm> {
         Step(
             state: _currentStep <= 1 ? StepState.editing : StepState.complete,
            isActive: _currentStep == 1,
-            title: const Text('Employment'),
+            title: Text('Employment',style: GoogleFonts.firaSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: ColorManager.grey,
+              decoration: TextDecoration.none,
+            ),),
             content: Container(
               height: 100,
               color: Colors.yellow,
@@ -167,7 +194,12 @@ class _MultiStepFormState extends State<MultiStepForm> {
         Step(
           state: _currentStep <= 2 ? StepState.editing : StepState.complete,
           isActive: _currentStep == 2,
-          title: const Text('Education'),
+          title: Text('Education',style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorManager.grey,
+            decoration: TextDecoration.none,
+          ),),
           content: Container(
             height: 100,
             color: Colors.red,
@@ -176,7 +208,12 @@ class _MultiStepFormState extends State<MultiStepForm> {
         Step(
           state: _currentStep <= 3 ? StepState.editing : StepState.complete,
           isActive: _currentStep == 3,
-          title: const Text('References'),
+          title:  Text('References',style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorManager.grey,
+            decoration: TextDecoration.none,
+          ),),
           content: Container(
             height: 100,
             color: Colors.pink,
@@ -185,7 +222,12 @@ class _MultiStepFormState extends State<MultiStepForm> {
         Step(
           state: _currentStep <= 4 ? StepState.editing : StepState.complete,
           isActive: _currentStep == 4,
-          title: const Text('Licenses'),
+          title:  Text('Licenses',style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorManager.grey,
+            decoration: TextDecoration.none,
+          ),),
           content: Container(
             height: 100,
             color: Colors.orange,
@@ -194,7 +236,12 @@ class _MultiStepFormState extends State<MultiStepForm> {
         Step(
           state: _currentStep <= 5 ? StepState.editing : StepState.complete,
           isActive: _currentStep == 5,
-          title: const Text('Banking'),
+          title: Text('Banking',style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorManager.grey,
+            decoration: TextDecoration.none,
+          ),),
           content: Container(
             height: 100,
             color: Colors.purple,
@@ -203,7 +250,12 @@ class _MultiStepFormState extends State<MultiStepForm> {
         Step(
           state: _currentStep <= 6 ? StepState.editing : StepState.complete,
           isActive: _currentStep == 6,
-          title: const Text('Health Records'),
+          title:  Text('Health \nRecords',style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorManager.grey,
+            decoration: TextDecoration.none,
+          ),),
           content: Container(
             height: 100,
             color: Colors.grey,
@@ -212,7 +264,12 @@ class _MultiStepFormState extends State<MultiStepForm> {
         Step(
           state: _currentStep <= 7 ? StepState.editing : StepState.complete,
           isActive: _currentStep == 7,
-          title: const Text('Acknowledgements'),
+          title:  Text('Acknowledgements',style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorManager.grey,
+            decoration: TextDecoration.none,
+          ),),
           content: Container(
             height: 100,
             color: Colors.brown,
@@ -221,7 +278,12 @@ class _MultiStepFormState extends State<MultiStepForm> {
         Step(
           state: _currentStep <= 8 ? StepState.editing : StepState.complete,
           isActive: _currentStep == 8,
-          title: const Text('Legal Documents'),
+          title:  Text('Legal \nDocuments',style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorManager.grey,
+            decoration: TextDecoration.none,
+          ),),
           content: Container(
             height: 100,
             color: Colors.green,
