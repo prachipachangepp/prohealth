@@ -1,17 +1,43 @@
 class CiOrgDocumentCC {
-  final int? docId;
+  final int docId;
+  final int documentTypeId;
+  final int documentSubTypeId;
   final String? name;
+  final String createdAt;
+  final String url;
   final String? expiry;
   final String? reminderThreshold;
-  final String? createdAt;
+  final String? calenderData;
+  final String expirtReminder;
+  final int companyId;
+  final String officeId;
   final bool sucess;
   final String message;
 
+  // "document_id": 32,
+  // "document_type_id": 8,
+  // "document_subtype_id": 12,
+  // "doc_name": "Document ADR",
+  // "doc_created_at": "2024-06-26T09:33:06.778Z",
+  // "url": "",
+  // "expiry_type": "Issuer Expiry",
+  // "expiry_date": "00-09-2024",
+  // "expiry_reminder": "Schedule",
+  // "company_id": 11,
+  // "office_id": "Office 1"
+
   CiOrgDocumentCC(
-      {required this.sucess,
+      {required this.documentTypeId,
+      required this.documentSubTypeId,
+      required this.url,
+      this.calenderData,
+      required this.expirtReminder,
+      required this.companyId,
+      required this.officeId,
+      required this.sucess,
       required this.message,
-      this.createdAt,
-      this.docId,
+      required this.createdAt,
+      required this.docId,
       this.name,
       this.expiry,
       this.reminderThreshold});
@@ -45,7 +71,9 @@ class IdentityData {
   final bool sucess;
   final String message;
 
-  IdentityData({required this.sucess, required this.message,
+  IdentityData({
+    required this.sucess,
+    required this.message,
     required this.companyId,
     required this.docId,
     required this.docSubId,
@@ -55,21 +83,77 @@ class IdentityData {
 }
 
 /// document type
-class DocumentTypeData{
+class DocumentTypeData {
   final int docID;
   final String docType;
   final bool sucess;
   final String message;
-  DocumentTypeData({required this.docID, required this.docType, required this.sucess, required this.message,});
+  DocumentTypeData({
+    required this.docID,
+    required this.docType,
+    required this.sucess,
+    required this.message,
+  });
+}
+
+/// Get prefill corporate document
+class CorporatePrefillDocumentData {
+  final int documentId;
+  final int documentTypeId;
+  final int documentSubTypeId;
+  final String docName;
+  final String docCreated;
+  final String url;
+  final String expiryType;
+  final String expiryDate;
+  final String expiryReminder;
+  final int companyId;
+  final String officeId;
+  final bool sucess;
+  final String message;
+  CorporatePrefillDocumentData({
+    required this.documentId,
+    required this.documentTypeId,
+    required this.documentSubTypeId,
+    required this.docName,
+    required this.docCreated,
+    required this.url,
+    required this.expiryType,
+    required this.expiryDate,
+    required this.expiryReminder,
+    required this.companyId,
+    required this.officeId,
+    required this.sucess,
+    required this.message,
+  });
+
+  // "document_id": 9,
+  // "document_type_id": 1,
+  // "document_subtype_id": 0,
+  // "doc_name": "OTP",
+  // "doc_created_at": "2024-06-21T06:38:52.239Z",
+  // "url": "",
+  // "expiry_type": "Not Applicable",
+  // "expiry_date": "00-21-2024",
+  // "expiry_reminder": "Schedule",
+  // "company_id": 11,
+  // "office_id": "1"
 }
 
 /// identity document type
-class IdentityDocumentIdData{
+class IdentityDocumentIdData {
   final int docID;
   final String docType;
   final int subDocID;
   final String subDocType;
   final bool sucess;
   final String message;
-  IdentityDocumentIdData({required this.docID, required this.docType, required this.subDocID, required this.subDocType, required this.sucess, required this.message,});
+  IdentityDocumentIdData({
+    required this.docID,
+    required this.docType,
+    required this.subDocID,
+    required this.subDocType,
+    required this.sucess,
+    required this.message,
+  });
 }

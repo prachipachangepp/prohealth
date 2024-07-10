@@ -138,7 +138,7 @@ Future<EmployeementPrefillData> getPrefillEmployeement(
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('dd MMM yyyy');
+    DateFormat dateFormat = DateFormat('yyyy-dd-MM');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
