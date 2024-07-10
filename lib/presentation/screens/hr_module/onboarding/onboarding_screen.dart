@@ -9,7 +9,7 @@ import '../manage/controller/controller.dart';
 import 'onboarding_tab_bar_const.dart';
 
 
-///prachi
+///saloni
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
 
