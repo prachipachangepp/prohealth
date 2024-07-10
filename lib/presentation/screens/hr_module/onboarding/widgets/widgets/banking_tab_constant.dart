@@ -103,7 +103,7 @@ class BankDetailsSection extends StatelessWidget {
 
 class InfoText extends StatelessWidget {
   final String text;
-  final TextStyle style;
+  final TextStyle? style;
 
   const InfoText(this.text, this.style);
 
