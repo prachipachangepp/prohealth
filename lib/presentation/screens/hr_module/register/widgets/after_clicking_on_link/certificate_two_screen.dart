@@ -1,9 +1,13 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Make sure to import flutter_svg package
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
 import '../../../manage/widgets/top_row.dart';
+import 'certificate_screen.dart';
 
 class CertificateOfCompletionScreen extends StatelessWidget {
   @override
@@ -246,7 +250,7 @@ class CertificateOfCompletionScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                // Implement action for cancel button
+                Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -262,7 +266,7 @@ class CertificateOfCompletionScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 5),
                   Text(
-                    'Cancel',
+                    'Back',
                     style: GoogleFonts.firaSans(
                       color: Color((0xFF50B5E5)),
                       fontWeight: FontWeight.w600,
@@ -274,7 +278,7 @@ class CertificateOfCompletionScreen extends StatelessWidget {
             SizedBox(width: 10),
             ElevatedButton(
               onPressed: () {
-                // Implement action for sign button
+                Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => OnBoardingThankYou()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF50B5E5),

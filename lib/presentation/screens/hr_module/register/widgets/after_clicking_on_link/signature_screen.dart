@@ -7,6 +7,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_r
 import 'dart:typed_data';
 
 import '../../../manage/widgets/top_row.dart';
+import 'form_nine_screen.dart';
 
 class SignaturePage extends StatefulWidget {
   @override
@@ -375,7 +376,7 @@ class _SignaturePageState extends State<SignaturePage> {
                       ],
                     ),
                     onPressed: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => FormNineScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff50B5E5),

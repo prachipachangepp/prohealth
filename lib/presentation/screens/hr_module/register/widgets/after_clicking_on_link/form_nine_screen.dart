@@ -7,6 +7,7 @@ import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../manage/widgets/top_row.dart';
 import '../../taxtfield_constant.dart';
+import 'certificate_screen.dart';
 import 'offer_letter_description_screen.dart';
 
 class FormNineScreen extends StatefulWidget {
@@ -463,7 +464,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => OnBoardingThankYou()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CertificateOfCompletion()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF50B5E5),

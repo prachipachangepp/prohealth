@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_two_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/form_nine_screen.dart';
 import '../../../manage/widgets/top_row.dart';
 import 'offer_letter_description_screen.dart';
 
@@ -221,7 +222,7 @@ class CertificateOfCompletion extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                // Implement action for cancel button
+                Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => FormNineScreen()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -240,7 +241,7 @@ class CertificateOfCompletion extends StatelessWidget {
             SizedBox(width: 10),
             ElevatedButton(
               onPressed: () {
-
+                Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => CertificateOfCompletionScreen()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF50B5E5),
