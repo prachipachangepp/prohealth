@@ -61,6 +61,10 @@ dependencies:
   amplify_auth_cognito: ^1.8.0
   permission_handler: ^11.3.1
   flutter_dotenv: ^5.0.2
+  flutter_html: ^3.0.0-beta.2
+
+  signature: ^5.0.0
+
 
 
 
