@@ -489,3 +489,34 @@ class _QualificationEducationState extends State<QualificationEducation> {
     );
   }
 }
+class InfoText extends StatelessWidget {
+  final String text;
+
+  const InfoText(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(text),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+}
+
+class InfoData extends StatelessWidget {
+  final String text;
+
+  const InfoData(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(text),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+}
