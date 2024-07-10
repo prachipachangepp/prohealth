@@ -95,7 +95,6 @@ Future<ApiData> approveOnboardQualifyEmploymentPatch(BuildContext context, int e
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
-
 ///get onboarding qualification education
 Future<List<OnboardingQualificationEducationData>> getOnboardingQualificationEducation(
     BuildContext context, int employeeId) async{
