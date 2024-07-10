@@ -155,7 +155,6 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                               BorderRadius.circular(12.0),
                                         ),
                                         child: Container(
-
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(20.0),
@@ -163,98 +162,108 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                           height: 300.0,
                                           width: 300.0,
                                           child: Stack(children: <Widget>[
-                                            // Container(
-                                            //   width: double.infinity,
-                                            //   height: 300,
-                                            //   decoration: BoxDecoration(
-                                            //     color: Colors.grey[100],
-                                            //     borderRadius:
-                                            //         BorderRadius.circular(12.0),
-                                            //   ),
-                                            // ),
                                             Container(
                                               width: double.infinity,
                                               height: 50,
                                               alignment: Alignment.bottomCenter,
-                                              decoration: BoxDecoration(
-                                                color:  Color(0xff1696C8),
+                                              decoration: const BoxDecoration(
+                                                color: Color(0xff1696C8),
                                                 borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(12),
                                                   topRight: Radius.circular(12),
                                                 ),
                                               ),
                                               child: Align(
-                                                alignment: Alignment.topRight,
-                                                child: IconButton( onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                }, icon: Icon(Icons.close,color: Colors.white,))
-                                              ),
-
+                                                  alignment: Alignment.topRight,
+                                                  child: IconButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.close,
+                                                        color: Colors.white,
+                                                      ))),
                                             ),
                                             Align(
                                               alignment: Alignment.center,
-                                              child: Text("Do yor really want to approve this ?"),
+                                              child: Text(
+                                                  "Do yor really want to approve this ?"),
                                             ),
-
                                             Padding(
                                               padding: const EdgeInsets.all(10),
                                               child: Align(
-                                                alignment: Alignment.bottomCenter,
+                                                alignment:
+                                                    Alignment.bottomCenter,
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     ElevatedButton(
                                                       onPressed: () {
-                                                        Navigator.of(context).pop();
+                                                        Navigator.of(context)
+                                                            .pop();
                                                       },
-                                                      style: ElevatedButton.styleFrom(
-                                                        backgroundColor: Colors.white,
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            Colors.white,
                                                         foregroundColor:
-                                                        Color(0xff1696C8),
+                                                            Color(0xff1696C8),
                                                         side: BorderSide(
-                                                            color: Color(0xff1696C8)),
-                                                        shape: RoundedRectangleBorder(
+                                                            color: Color(
+                                                                0xff1696C8)),
+                                                        shape:
+                                                            RoundedRectangleBorder(
                                                           borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
+                                                              BorderRadius
+                                                                  .circular(8),
                                                         ),
                                                       ),
                                                       child: Text(
                                                         'Cancle',
-                                                        style: GoogleFonts.firaSans(
+                                                        style: GoogleFonts
+                                                            .firaSans(
                                                           fontSize: 10.0,
-                                                          fontWeight: FontWeight.w700,
+                                                          fontWeight:
+                                                              FontWeight.w700,
                                                         ),
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                        width: MediaQuery.of(context)
-                                                            .size
-                                                            .width /
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
                                                             75),
                                                     ElevatedButton(
                                                       onPressed: () {
-                                                        Navigator.of(context).pop();
+                                                        Navigator.of(context)
+                                                            .pop();
                                                       },
-                                                      style: ElevatedButton.styleFrom(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
                                                         backgroundColor:
-                                                        Color(0xff1696C8),
-                                                        foregroundColor: Colors.white,
-                                                        shape: RoundedRectangleBorder(
+                                                            Color(0xff1696C8),
+                                                        foregroundColor:
+                                                            Colors.white,
+                                                        shape:
+                                                            RoundedRectangleBorder(
                                                           borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
+                                                              BorderRadius
+                                                                  .circular(8),
                                                         ),
                                                       ),
                                                       child: Text(
                                                         'Yes',
-                                                        style: GoogleFonts.firaSans(
+                                                        style: GoogleFonts
+                                                            .firaSans(
                                                           fontSize: 10.0,
-                                                          fontWeight: FontWeight.w700,
+                                                          fontWeight:
+                                                              FontWeight.w700,
                                                         ),
                                                       ),
                                                     ),
-
                                                   ],
                                                 ),
                                               ),
@@ -262,116 +271,8 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                           ]),
                                         ),
                                       );
-                                      // AlertDialog(
-                                      //   //backgroundColor: Colors.indigo,
-                                      //
-                                      //   title: Container(
-                                      //     color: Colors.blue,
-                                      //     width: double.infinity,
-                                      //     child: Row(
-                                      //
-                                      //       mainAxisAlignment: MainAxisAlignment.end,
-                                      //       children: [
-                                      //         IconButton( onPressed: () {
-                                      //           Navigator.of(context).pop();
-                                      //         }, icon: Icon(Icons.close))
-                                      //       ],
-                                      //     ),
-                                      //   ),
-                                      //   content: Text(
-                                      //       "Do yor really want to approve this ?"),
-                                      //   actions: <Widget>[
-                                      //     // Button 1
-                                      //     Row(
-                                      //       mainAxisAlignment: MainAxisAlignment.end,
-                                      //       children: [
-                                      //         ElevatedButton(
-                                      //           onPressed: () {
-                                      //             Navigator.of(context).pop();
-                                      //           },
-                                      //           style: ElevatedButton.styleFrom(
-                                      //             backgroundColor: Colors.white,
-                                      //             foregroundColor:
-                                      //                 Color(0xff1696C8),
-                                      //             side: BorderSide(
-                                      //                 color: Color(0xff1696C8)),
-                                      //             shape: RoundedRectangleBorder(
-                                      //               borderRadius:
-                                      //                   BorderRadius.circular(
-                                      //                       8),
-                                      //             ),
-                                      //           ),
-                                      //           child: Text(
-                                      //             'Cancle',
-                                      //             style: GoogleFonts.firaSans(
-                                      //               fontSize: 10.0,
-                                      //               fontWeight: FontWeight.w700,
-                                      //             ),
-                                      //           ),
-                                      //         ),
-                                      //         SizedBox(
-                                      //             width: MediaQuery.of(context)
-                                      //                     .size
-                                      //                     .width /
-                                      //                 75),
-                                      //         ElevatedButton(
-                                      //           onPressed: () {
-                                      //             Navigator.of(context).pop();
-                                      //           },
-                                      //           style: ElevatedButton.styleFrom(
-                                      //             backgroundColor:
-                                      //                 Color(0xff1696C8),
-                                      //             foregroundColor: Colors.white,
-                                      //             shape: RoundedRectangleBorder(
-                                      //               borderRadius:
-                                      //                   BorderRadius.circular(
-                                      //                       8),
-                                      //             ),
-                                      //           ),
-                                      //           child: Text(
-                                      //             'Yes',
-                                      //             style: GoogleFonts.firaSans(
-                                      //               fontSize: 10.0,
-                                      //               fontWeight: FontWeight.w700,
-                                      //             ),
-                                      //           ),
-                                      //         ),
-                                      //       ],
-                                      //     ),
-                                      //   ],
-                                      // );
                                     },
                                   );
-
-                                  // showDialog(
-                                  //     context: context,
-                                  //     builder: (BuildContext context) {
-                                  //       return AlertDialog(
-                                  //         title: Text("Dialog Title"),
-                                  //         content: Text(
-                                  //             "This is the content of the dialog."),
-                                  //         actions: <Widget>[
-                                  //           // Button 1
-                                  //           TextButton(
-                                  //             child: Text("Button 1"),
-                                  //             onPressed: () {
-                                  //               // Action to perform when Button 1 is pressed
-                                  //               // For example, close the dialog
-                                  //               Navigator.of(context).pop();
-                                  //             },
-                                  //           ),
-                                  //           // Button 2
-                                  //           TextButton(
-                                  //             child: Text("Button 2"),
-                                  //             onPressed: () {
-                                  //               // Action to perform when Button 2 is pressed
-                                  //               // For example, close the dialog
-                                  //               Navigator.of(context).pop();
-                                  //             },
-                                  //           ),
-                                  //         ],
-                                  //       );
-                                  //     });
                                 }),
                           ],
                         )
