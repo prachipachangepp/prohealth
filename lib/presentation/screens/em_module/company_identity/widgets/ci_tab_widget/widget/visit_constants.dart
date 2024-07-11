@@ -35,7 +35,6 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
-
           children: [
             Container(
           height: 40,
@@ -73,6 +72,7 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
                 ],
               ),
             ),
+            SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,

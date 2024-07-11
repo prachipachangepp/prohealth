@@ -18,10 +18,11 @@ class AddEmployeementPopup extends StatefulWidget {
   final TextEditingController cityNameController;
   final TextEditingController employeerController;
   final TextEditingController emergencyMobileNumber;
+  final String tite;
   final VoidCallback onpressedClose;
    Future<void> Function() onpressedSave;
   final Widget checkBoxTile;
-   AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedClose, required this.onpressedSave, required this.checkBoxTile});
+   AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedClose, required this.onpressedSave, required this.checkBoxTile, required this.tite});
 
   @override
   State<AddEmployeementPopup> createState() => _AddEmployeementPopupState();
@@ -36,7 +37,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s900,
+        width: MediaQuery.of(context).size.width/1.5,
         height: AppSize.s400,
         decoration: BoxDecoration(
           color: ColorManager.white,
@@ -50,7 +51,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text("Add Employeement",style: GoogleFonts.firaSans(
+                    child: Text(widget.tite,style: GoogleFonts.firaSans(
                       fontSize: FontSize.s16,
                       fontWeight: FontWeightManager.bold,
                       color: ColorManager.blueprime,
@@ -122,7 +123,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     keyboardType: TextInputType.text,
                     suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
                     padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                    onTap: ()async{
+                    onTap: () async{
                       DateTime? date = await showDatePicker(
                         context: context,
                         initialDate: _selectedStartDate,
@@ -285,8 +286,9 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    CustomButtonTransparent(text: "Cancel", onPressed: () async{
+                    CustomButtonTransparent(text: "Cancel", onPressed: () {
                       widget.onpressedClose;
+                      Navigator.pop(context);
                     }),
                     SizedBox(width: 10,),
                     isLoading

@@ -6,11 +6,12 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/education_data.dart';
+import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_education_popup.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
-///done by saloni
 class EducationChildTabbar extends StatefulWidget {
   const EducationChildTabbar({super.key});
 
@@ -20,6 +21,15 @@ class EducationChildTabbar extends StatefulWidget {
 
 class _EducationChildTabbarState extends State<EducationChildTabbar> {
   final StreamController<List<EducationData>> educationStreamController = StreamController<List<EducationData>>();
+  TextEditingController collegeUniversityController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController degreeController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController majorSubjectController = TextEditingController();
+  TextEditingController countryNameController = TextEditingController();
+  String expiryType = '';
   @override
   void initState() {
     // TODO: implement initState
@@ -38,8 +48,11 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
       builder: (context,snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime,
+            child: Padding(
+              padding:const EdgeInsets.symmetric(vertical: 100),
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
             ),
           );
         }
@@ -71,7 +84,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                height: 200,
+                height:  MediaQuery.of(context).size.height/3.3,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width / 120,
@@ -165,7 +178,103 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButtonWidget(iconData: Icons.edit_outlined,
-                              buttonText: 'Edit', onPressed: (){})
+                              buttonText: 'Edit', onPressed: (){
+                            showDialog(context: context, builder: (BuildContext context){
+                              return FutureBuilder<EducationPrefillData>(
+                                future: getPrefillEmployeeEducation(context,snapshot.data![index].educationId),
+                                builder: (context, snapshotPrefill) {
+                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        color: ColorManager.blueprime,
+                                      ),
+                                    );
+                                  }
+                                  var college = snapshotPrefill.data!.college;
+                                  collegeUniversityController = TextEditingController(text: snapshotPrefill.data!.college);
+
+                                  var phone = snapshotPrefill.data!.phone;
+                                  phoneController = TextEditingController(text: snapshotPrefill.data!.phone);
+
+                                  var city = snapshotPrefill.data!.city;
+                                  cityController = TextEditingController(text: snapshotPrefill.data!.city);
+
+                                  var degree = snapshotPrefill.data!.degree;
+                                  degreeController = TextEditingController(text: snapshotPrefill.data!.degree);
+
+                                  var state = snapshotPrefill.data!.state;
+                                  stateController = TextEditingController(text: snapshotPrefill.data!.state);
+
+                                  var majorSubject = snapshotPrefill.data!.major;
+                                  majorSubjectController = TextEditingController(text: snapshotPrefill.data!.major);
+
+                                  var graduate = snapshotPrefill.data!.graduate;
+                                  expiryType = snapshotPrefill.data!.graduate.toString();
+                                  //countryNameController = TextEditingController(text: "")
+
+                                  return StatefulBuilder(
+                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                      return  AddEducationPopup(collegeUniversityController: collegeUniversityController,
+                                        phoneController: phoneController,
+                                        calenderController: calenderController, cityController: cityController,
+                                        degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
+                                        countryNameController: countryNameController, onpressedClose: (){
+                                          Navigator.pop(context);
+                                        }, onpressedSave: () async{
+                                          await updateEmployeeEducation(context,
+                                              snapshot.data![index].educationId,
+                                              2,
+                                             graduate == expiryType.toString() ? graduate.toString() : expiryType.toString(),
+                                              degree == degreeController.text ? degree.toString() : degreeController.text,
+                                             majorSubject == majorSubjectController.text ? majorSubject.toString() : majorSubjectController.text,
+                                              city == cityController.text ? city.toString() : cityController.text,
+                                              college == collegeUniversityController.text ? college.toString() : collegeUniversityController.text,
+                                              phone == phoneController.text ? phone.toString() : phoneController.text,
+                                              state == stateController.text ? state.toString() : stateController.text);
+                                          getEmployeeEducation(context,2).then((data) {
+                                            educationStreamController.add(data);
+                                          }).catchError((error) {
+                                            // Handle error
+                                          });
+                                          expiryType = '';
+                                        },
+                                        radioButton:Container(
+                                          width: 280,
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: CustomRadioListTile(
+                                                  value: "Yes",
+                                                  groupValue: expiryType.toString(),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      expiryType = value!;
+                                                    });
+                                                  },
+                                                  title: "Yes",
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: CustomRadioListTile(
+                                                  value: "No",
+                                                  groupValue: expiryType.toString(),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      expiryType = value!;
+                                                    });
+                                                  },
+                                                  title: "No",
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ), title: 'Add Education',);
+                                    },
+                                  );
+                                }
+                              );
+                            });
+                              })
                         ],
                       )
                     ],
