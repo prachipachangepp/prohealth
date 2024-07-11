@@ -510,8 +510,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                             (error) {
                                                                           // Handle error
                                                                         });
-                                                                    selectedChipsId.clear();
-                                                                    selectedChips.clear();
+                                                                    selectedEditChipsId.clear();
+                                                                    selectedEditChips.clear();
                                                                     docNamecontroller
                                                                         .clear();
                                                                     _selectedItem =
