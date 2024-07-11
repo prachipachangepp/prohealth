@@ -61,11 +61,11 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     });
    // orgDocumentGet(context);
     _loadColors();
-    // orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
-    //   _controller.add(data);
-    // }).catchError((error) {
-    //   // Handle error
-    // });
+    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 15).then((data) {
+      _controller.add(data);
+    }).catchError((error) {
+      // Handle error
+    });
   }
 
 
@@ -88,15 +88,11 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       stream: _controller.stream,
       builder: (context, snapshot) {
         snapData.clear();
-        Future.delayed(Duration(milliseconds: 1000), () {
-          CircularProgressIndicator(color: ColorManager.blueprime,);
-          orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
-            _controller.add(data);
-          }).catchError((error) {
-            // Handle error
-          });
-
-        });
+        // Future.delayed(Duration(milliseconds: 1000), () {
+        //   CircularProgressIndicator(color: ColorManager.blueprime,);
+        //
+        //
+        // });
         print('1111111');
         print(":::SUBDOCID${widget.subDocID} + ${widget.docID}");
         if (snapshot.connectionState == ConnectionState.waiting) {

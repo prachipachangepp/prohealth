@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/app.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_adr.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_cap_report.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/widgets/ci_corporate&compiliancedoc_tab/ci_ccd_license.dart';
@@ -15,7 +17,8 @@ import '../../../../../../../../app/resources/color.dart';
 import '../../../../company_identity_screen.dart';
 
 class CIVendorContract extends StatefulWidget {
-  const CIVendorContract({super.key});
+  final int docId;
+  const CIVendorContract({super.key, required this.docId});
 
   @override
   State<CIVendorContract> createState() => _CIVendorContractState();
@@ -60,7 +63,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     child: Column(
                       children: [
                         Text(
-                          "License",
+                          "Leases & Services",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 0 ? FontWeight.w700 : FontWeight.normal,
@@ -79,7 +82,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     child: Column(
                       children: [
                         Text(
-                          "ADR",
+                          "SNF",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                               fontWeight: _selectedIndex == 1 ? FontWeight.w700 : FontWeight.normal,
@@ -99,7 +102,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     child: Column(
                       children: [
                         Text(
-                          "Medical Cost Reporter",
+                          "DME",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                               fontWeight: _selectedIndex == 2 ? FontWeight.w700 : FontWeight.normal,
@@ -119,7 +122,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     child: Column(
                       children: [
                         Text(
-                          "CAP Report",
+                          "MD",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: _selectedIndex == 3 ? FontWeight.w700 : FontWeight.normal,
@@ -139,7 +142,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     child: Column(
                       children: [
                         Text(
-                          "Quarterly Balance Report",
+                          "MISC",
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                               fontWeight: _selectedIndex == 4 ? FontWeight.w700 : FontWeight.normal,
@@ -169,11 +172,11 @@ class _CIVendorContractState extends State<CIVendorContract> {
               });
             },
             children: [
-              VendorContractLicense(),
-              VendorContractADR(),
-             VendorContractMedicalCostReport(),
-              VendorContractCapReport(),
-              VendorContractQuarterlyBalanceReport()
+              VendorContractLicense(docId: widget.docId, subDocID: AppConfig.subDocId6,),
+              VendorContractADR(docId: widget.docId, subDocId:  AppConfig.subDocId7,),
+             VendorContractMedicalCostReport(docId: widget.docId, subDocId: AppConfig.subDocId8,),
+              VendorContractCapReport(docId: widget.docId, subDocId: AppConfig.subDocId9,),
+              VendorContractQuarterlyBalanceReport(docId: widget.docId, subDocId: AppConfig.subDocId10)
             ],
           ),
 

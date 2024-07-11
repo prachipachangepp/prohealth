@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
@@ -27,7 +28,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
   late int itemsPerPage;
   late List<String> items;
 
-  int _selectedIndex = 11;
+  int _selectedIndex = 0;
 
 
   void _selectButton(int index) {
@@ -61,18 +62,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
     return Column(
       children: [
         SizedBox(height: 20,),
-    FutureBuilder<List<IdentityDocumentIdData>>(
-    future: identityDocumentTypeGet(context, widget.docID),
-    builder: (context,snapshot) {
-      if(snapshot.hasData){
-        if(docSubTypeData.isEmpty){
-          for(var a in snapshot.data!){
-            docSubTypeData.add(
-                a
-            );
-          }
-        }
-        return  Center(
+          Center(
           child: Container(
             width: 750,
             height: 50,
@@ -80,17 +70,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-               Container(
-              width: 750,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                  }
-                  if(snapshot.hasData){
-
-                    return InkWell(
+                InkWell(
                       //splashColor: Colors.white,
                       highlightColor: Color(0xFFF2F9FC),
                       hoverColor: Color(0xFFF2F9FC),
@@ -100,39 +80,159 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
                         child: Column(
                           children: [
                             Text(
-                              snapshot.data![index].subDocType,
+                              'Licenses',
                               // textAlign: TextAlign.center,
                               style: GoogleFonts.firaSans(
                                 fontSize: FontSize.s12,
-                                fontWeight: _selectedIndex == snapshot.data![index].subDocID
+                                fontWeight: _selectedIndex == 0
                                     ? FontWeightManager.bold
                                     : FontWeightManager.regular,
-                                color:_selectedIndex == snapshot.data![index].subDocID
+                                color:_selectedIndex == 0
                                     ? ColorManager.blueprime
                                     : ColorManager.mediumgrey,
                               ),
                             ),
-                            _selectedIndex == snapshot.data![index].subDocID?
+                            _selectedIndex == 0?
                             Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
                           ],
                         ),
                       ),
                       onTap: () {
-                        _selectButton(snapshot.data![index].subDocID);
-                        subDocId = snapshot.data![index].subDocID;},
-                    );
-                  }
-
-                },
-              ),
-            ),
-
-            ],
+                        _selectButton(0);
+                        //subDocId = snapshot.data![index].subDocID;
+                        },
+                    ),
+                InkWell(
+                  //splashColor: Colors.white,
+                  highlightColor: Color(0xFFF2F9FC),
+                  hoverColor: Color(0xFFF2F9FC),
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width/10,
+                    child: Column(
+                      children: [
+                        Text(
+                          'ADR',
+                          // textAlign: TextAlign.center,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: _selectedIndex == 1
+                                ? FontWeightManager.bold
+                                : FontWeightManager.regular,
+                            color:_selectedIndex == 1
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
+                          ),
                         ),
-        ));
-      }else{
-        return SizedBox(height:1,width:1);
-      }}),
+                        _selectedIndex == 1?
+                        Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    _selectButton(1);
+                    //subDocId = snapshot.data![index].subDocID;
+                    },
+                ),
+                InkWell(
+                  //splashColor: Colors.white,
+                  highlightColor: Color(0xFFF2F9FC),
+                  hoverColor: Color(0xFFF2F9FC),
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width/10,
+                    child: Column(
+                      children: [
+                        Text(
+                          "Medical Cost Reports",
+                          // textAlign: TextAlign.center,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: _selectedIndex == 2
+                                ? FontWeightManager.bold
+                                : FontWeightManager.regular,
+                            color:_selectedIndex == 2
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
+                          ),
+                        ),
+                        _selectedIndex == 2?
+                        Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    _selectButton(2);
+                    //subDocId = snapshot.data![index].subDocID;
+                    },
+                ),
+                InkWell(
+                  //splashColor: Colors.white,
+                  highlightColor: Color(0xFFF2F9FC),
+                  hoverColor: Color(0xFFF2F9FC),
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width/10,
+                    child: Column(
+                      children: [
+                        Text(
+                         "Cap Reports",
+                          // textAlign: TextAlign.center,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: _selectedIndex == 3
+                                ? FontWeightManager.bold
+                                : FontWeightManager.regular,
+                            color:_selectedIndex == 3
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
+                          ),
+                        ),
+                        _selectedIndex == 3?
+                        Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    _selectButton(3);
+                    //subDocId = snapshot.data![index].subDocID;
+                    },
+                ),
+                InkWell(
+                  //splashColor: Colors.white,
+                  highlightColor: Color(0xFFF2F9FC),
+                  hoverColor: Color(0xFFF2F9FC),
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width/10,
+                    child: Column(
+                      children: [
+                        Text(
+                          "Quarterly Balance Reports",
+                          // textAlign: TextAlign.center,
+                          style: GoogleFonts.firaSans(
+                            fontSize: FontSize.s12,
+                            fontWeight: _selectedIndex == 4
+                                ? FontWeightManager.bold
+                                : FontWeightManager.regular,
+                            color:_selectedIndex == 4
+                                ? ColorManager.blueprime
+                                : ColorManager.mediumgrey,
+                          ),
+                        ),
+                        _selectedIndex == 4?
+                        Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    _selectButton(4);
+                   //subDocId = snapshot.data![index].subDocID;
+                    },
+                ),
+            ],),
+        )),
+
         Expanded(
           child:
           NonScrollablePageView(
@@ -143,16 +243,16 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
               // });
             },
             children: [
-              CICcdLicense(subDocID: subDocId, docID: widget.docID,),
-              CICcdLicense(subDocID: subDocId, docID: widget.docID,),
-              CICcdLicense(subDocID: subDocId, docID: widget.docID,),
-              CICcdLicense(subDocID: subDocId, docID: widget.docID,),
-              CICcdLicense(subDocID: subDocId, docID: widget.docID,),
-              CICcdLicense(subDocID: subDocId, docID: widget.docID,),
-              // CICcdADR(),
-              // CiCcdMedicalCostReport(),
-              // CiCcdCapReports(),
-              // CICcdQuarteryBalanceReport()
+              CICcdLicense(subDocID: AppConfig.subDocId1, docID: widget.docID,),
+              // CICcdLicense(subDocID: subDocId, docID: widget.docID,),
+              // CICcdLicense(subDocID: subDocId, docID: widget.docID,),
+              // CICcdLicense(subDocID: subDocId, docID: widget.docID,),
+              // CICcdLicense(subDocID: subDocId, docID: widget.docID,),
+              // CICcdLicense(subDocID: subDocId, docID: widget.docID,),
+              CICcdADR(subDocID: AppConfig.subDocId2, docID: widget.docID,),
+              CiCcdMedicalCostReport(subDocID: AppConfig.subDocId3, docID: widget.docID,),
+              CiCcdCapReports(docID: widget.docID, subDocId:  AppConfig.subDocId4,),
+              CICcdQuarteryBalanceReport(docId: widget.docID, subDocID:  AppConfig.subDocId5,)
             ],
           ),
         ),
