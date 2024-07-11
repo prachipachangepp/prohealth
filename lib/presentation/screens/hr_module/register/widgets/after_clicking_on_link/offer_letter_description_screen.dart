@@ -11,6 +11,7 @@ import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/signature_screen.dart';
 
 import '../../../../../../app/resources/color.dart';
+import 'multi_step_form.dart';
 
 class OfferLetterDescriptionScreen extends StatefulWidget {
   const OfferLetterDescriptionScreen({super.key});
