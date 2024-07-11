@@ -32,12 +32,13 @@ class _FormNineScreenState extends State<FormNineScreen> {
   TextEditingController state = TextEditingController();
   TextEditingController zipCode = TextEditingController();
   TextEditingController alienRegistrationNumber = TextEditingController();
-  TextEditingController workAuthorizationExpirationDate =
-  TextEditingController();
+  TextEditingController workAuthorizationExpirationDate = TextEditingController();
   TextEditingController uscisNumber = TextEditingController();
   TextEditingController formI94AdmissionNumber = TextEditingController();
   TextEditingController foreignPassportNumber = TextEditingController();
   TextEditingController countryOfIssuance = TextEditingController();
+
+  List<bool> _checkboxValues = List<bool>.generate(4, (index) => false);
 
   Widget _buildLabeledTextField(String label, TextEditingController controller,
       String hintText, TextInputType keyboardType,
@@ -75,13 +76,15 @@ class _FormNineScreenState extends State<FormNineScreen> {
     );
   }
 
-  Widget _buildCheckboxItem(String text) {
+  Widget _buildCheckboxItem(String text, int index) {
     return Row(
       children: [
         Checkbox(
-          value: false,
+          value: _checkboxValues[index],
           onChanged: (bool? value) {
-            // Handle checkbox state
+            setState(() {
+              _checkboxValues[index] = value!;
+            });
           },
         ),
         Expanded(
@@ -100,6 +103,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: TopRowConstant(),
@@ -257,15 +261,15 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            _buildCheckboxItem('A citizen of the United States'),
-            _buildCheckboxItem('A noncitizen national of the United States'),
+            _buildCheckboxItem('A citizen of the United States', 0),
+            _buildCheckboxItem('A noncitizen national of the United States', 1),
             SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: _buildCheckboxItem(
-                      'A lawful permanent resident (Alien Registration Number/USCIS Number):'),
+                      'A lawful permanent resident (Alien Registration Number/USCIS Number):', 2),
                 ),
                 SizedBox(width: 20),
                 Expanded(
@@ -284,7 +288,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
               children: [
                 Expanded(
                   child: _buildCheckboxItem(
-                      'An alien authorized to work until (expiration date, if applicable, mm/dd/yyyy):'),
+                      'An alien authorized to work until (expiration date, if applicable, mm/dd/yyyy):', 3),
                 ),
                 SizedBox(width: 20),
                 Expanded(
@@ -306,31 +310,31 @@ class _FormNineScreenState extends State<FormNineScreen> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-           SizedBox(height: 20),
-           Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Text(
-              'Alien Registration Number or USCIS Number:',
-              style: GoogleFonts.firaSans(
-                fontSize: 12,
-                color: Color(0xFF686464).withOpacity(0.50),
-                fontWeight: FontWeight.w400,
-              ),
+            SizedBox(height: 20),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    'Alien Registration Number or USCIS Number:',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      color: Color(0xFF686464).withOpacity(0.50),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: _buildLabeledTextField(
+                    '',
+                    uscisNumber,
+                    'Enter Text',
+                    TextInputType.text,
+                  ),
+                ),
+              ],
             ),
-            ),
-            SizedBox(width: 20),
-            Expanded(
-              child: _buildLabeledTextField(
-                '',
-                uscisNumber,
-                'Enter Text',
-                TextInputType.text,
-              ),
-            ),
-          ],
-        ),
             SizedBox(height: 20),
             Padding(
               padding:  EdgeInsets.only(left: 280),
@@ -503,4 +507,3 @@ class _FormNineScreenState extends State<FormNineScreen> {
     );
   }
 }
-
