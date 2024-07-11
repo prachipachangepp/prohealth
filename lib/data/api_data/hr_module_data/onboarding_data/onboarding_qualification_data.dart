@@ -10,7 +10,7 @@ class OnboardingQualificationEmploymentData {
   final String title;
   final String dateOfJoin;
   final String endDate;
-  bool approve;
+  final bool? approve;
   OnboardingQualificationEmploymentData(
       {required this.employmentId,
       required this.empId,
@@ -62,7 +62,7 @@ class OnboardingQualificationReferanceData {
   final String name;
   final String references;
   final String title;
-  final bool approve;
+  final bool? approve;
 
   OnboardingQualificationReferanceData(
       {required this.referenceId,
@@ -90,7 +90,7 @@ class OnboardingQualificationLicenseData {
   final String licenseNumber;
   final String org;
   final String documentType;
-  final bool approve;
+  final bool? approve;
   final bool sucess;
   final String message;
 

@@ -21,7 +21,7 @@ class QualificationReferance extends StatefulWidget {
 }
 
 class _QualificationReferanceState extends State<QualificationReferance> {
-  final StreamController<List<OnboardingQualificationReferanceData>> referenceStreamController = StreamController<List<OnboardingQualificationReferanceData>>();
+  final StreamController<List<OnboardingQualificationReferanceData>> referenceStreamController = StreamController<List<OnboardingQualificationReferanceData>>.broadcast();
 
   @override
   void initState() {
@@ -29,6 +29,11 @@ class _QualificationReferanceState extends State<QualificationReferance> {
     getOnboardingQualificationReference(context, 5).then((data){
       referenceStreamController.add(data);
     }).catchError((error){});
+  }
+  @override
+  void dispose() {
+    referenceStreamController.close();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -56,9 +61,9 @@ class _QualificationReferanceState extends State<QualificationReferance> {
           if(snapshot.hasData){
             return WrapWidget(childern: List.generate(snapshot.data!.length, (index){
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
                 child: Container(
-                  width: MediaQuery.of(context).size.width/2.5,
+                  width: MediaQuery.of(context).size.width/2.3,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -82,7 +87,7 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Reference #${snapshot.data![index].empId.toString()}',
+                          'Reference #${snapshot.data![index].referenceId.toString()}',
                           style: GoogleFonts.firaSans(
                             fontSize: 13,
                             color: Color(0xFF333333),
@@ -133,8 +138,124 @@ class _QualificationReferanceState extends State<QualificationReferance> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             QualificationActionButtons(
-                                onRejectPressed: (){},
-                                onApprovePressed: (){}),
+                                approve: snapshot.data![index].approve,
+                                onRejectPressed: ()async{
+                                  await rejectOnboardQualifyReferencePatch(context, snapshot.data![index].referenceId);
+                                  getOnboardingQualificationReference(context, 5).then((data){
+                                    referenceStreamController.add(data);
+                                  }).catchError((error){});
+                                },
+                                onApprovePressed: ()async{
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20.0),
+                                          ),
+                                          height: 200.0,
+                                          width: 300.0,
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                width: double.infinity,
+                                                height: 50,
+                                                alignment: Alignment.bottomCenter,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xff1696C8),
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(12),
+                                                    topRight: Radius.circular(12),
+                                                  ),
+                                                ),
+                                                child: Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    icon: Icon(Icons.close, color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  "Do you really want to,\napprove this?",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeightManager.regular,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(10),
+                                                child: Align(
+                                                  alignment: Alignment.bottomCenter,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          backgroundColor: Colors.white,
+                                                          foregroundColor: Color(0xff1696C8),
+                                                          side: BorderSide(color: Color(0xff1696C8)),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          'Cancel',
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10.0,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: MediaQuery.of(context).size.width / 75),
+                                                      ElevatedButton(
+                                                        onPressed: () async {
+                                                          await approveOnboardQualifyReferencePatch(context, snapshot.data![index].referenceId);
+                                                          getOnboardingQualificationReference(context, 5).then((data){
+                                                            referenceStreamController.add(data);
+                                                          }).catchError((error){});
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          backgroundColor: Color(0xff1696C8),
+                                                          foregroundColor: Colors.white,
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          'Yes',
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10.0,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }),
                           ],
                         )
                       ],

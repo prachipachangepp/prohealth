@@ -45,7 +45,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ///appbar titles
           Container(
             // color: Colors.pink,
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -167,6 +167,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
             ),
           ),
           ///page view
+
           Expanded(
             flex: 8,
             child: PageView(
