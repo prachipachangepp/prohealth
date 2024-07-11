@@ -57,6 +57,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                     type: StepperType.horizontal,
                     steps: steps(),
                     currentStep: _currentStep,
+                    // onStepTapped: ,
                     onStepContinue: () {
                       if (isLastStep) {
                         setState(() => isCompleted =true);
