@@ -161,7 +161,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
             content: Container(
-             color: Colors.grey,
+             //color: Colors.grey,
               height:MediaQuery.of(context).size.height / 1,
               width: 100,
               child: Column(
@@ -209,329 +209,466 @@ class _MultiStepFormState extends State<MultiStepForm> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          Text("Upload Photo"),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xff1696C8),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
+                      Expanded(
+
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: AppSize.s5,
                             ),
-                            onPressed: () {},
-                            label: const Text("Choose File"),
-                            icon: const Icon(Icons.file_upload_outlined),
-                          ),
-                          const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Text("Legal First Name"),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          FormTextField(
-                            width:  MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            hintText: 'first Name',
-                            controller: firstName,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Text("Legal Last Name"),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          FormTextField(
-                            width:  MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            hintText: 'first Name',
-                            controller: firstName,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Text("Social Security Number"),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          FormTextField(
-                            width:  MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            hintText: 'first Name',
-                            controller: firstName,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Text("Personal Mobile Number"),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          FormTextField(
-                            width:  MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            hintText: 'first Name',
-                            controller: firstName,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Text("Personal Email"),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          FormTextField(
-                            width:  MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            hintText: 'first Name',
-                            controller: firstName,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Text("Driver’s License Number"),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          FormTextField(
-                            width:  MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            hintText: 'first Name',
-                            controller: firstName,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                          // SizedBox(
-                          //   height: 100,
-                          //
-                          //   child: CustomTextField(
-                          //     cursorHeight: 10,
-                          //     labelText: 'First Name',
-                          //     labelStyle:
-                          //         TextStyle(fontWeight: FontWeight.normal),
-                          //     controller: firstName,
-                          //     labelFontSize: 10,
-                          //   ),
-                          // )
-                        ],
+                            Text("Upload Photo"),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xff1696C8),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              onPressed: () {},
+                              label: const Text("Choose File"),
+                              icon: const Icon(Icons.file_upload_outlined),
+                            ),
+                            const SizedBox(
+                              height: AppSize.s10,
+                            ),
+                            Text("Legal First Name"),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            FormTextField(
+                              width:  MediaQuery.of(context).size.width/4,
+                              height: textFieldHeight,
+                              hintText: 'first Name',
+                              controller: firstName,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: AppSize.s10,
+                            ),
+                            Text("Legal Last Name"),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            FormTextField(
+                              width:  MediaQuery.of(context).size.width/4,
+                              height: textFieldHeight,
+                              hintText: 'first Name',
+                              controller: firstName,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: AppSize.s10,
+                            ),
+                            Text("Social Security Number"),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            FormTextField(
+                              width:  MediaQuery.of(context).size.width/4,
+                              height: textFieldHeight,
+                              hintText: 'first Name',
+                              controller: firstName,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: AppSize.s10,
+                            ),
+                            Text("Personal Mobile Number"),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            FormTextField(
+                              width:  MediaQuery.of(context).size.width/4,
+                              height: textFieldHeight,
+                              hintText: 'first Name',
+                              controller: firstName,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: AppSize.s10,
+                            ),
+                            Text("Personal Email"),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            FormTextField(
+                              width:  MediaQuery.of(context).size.width/4,
+                              height: textFieldHeight,
+                              hintText: 'first Name',
+                              controller: firstName,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: AppSize.s10,
+                            ),
+                            Text("Driver’s License Number"),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            FormTextField(
+                              width:  MediaQuery.of(context).size.width/4,
+                              height: textFieldHeight,
+                              hintText: 'first Name',
+                              controller: firstName,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                            // SizedBox(
+                            //   height: 100,
+                            //
+                            //   child: CustomTextField(
+                            //     cursorHeight: 10,
+                            //     labelText: 'First Name',
+                            //     labelStyle:
+                            //         TextStyle(fontWeight: FontWeight.normal),
+                            //     controller: firstName,
+                            //     labelFontSize: 10,
+                            //   ),
+                            // )
+                          ],
+                        ),
                       ),
                      SizedBox(width: 5,),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text("Gender"),
-                          SizedBox(
-                            height: 50,
-                            child: McqWidget(
-                              title: 'Gender',
-                              items: [
-                                'Male',
-                                'Female',
-                                'Other',
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+
+
+                             Text("Gender"),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: CustomRadioListTile(
+                                      title: 'Male',
+                                      value: 'male',
+                                      groupValue: _selectedType,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedType = value;
+                                        });
+                                      },
+                                    )
+                                ),
+                                Expanded(
+                                    child: CustomRadioListTile(
+                                      title: 'Female',
+                                      value: 'Female',
+                                      groupValue: _selectedType,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedType = value;
+                                        });
+                                      },
+                                    )
+                                ),
+                                Expanded(
+                                    child: CustomRadioListTile(
+                                      title: 'Other',
+                                      value: 'Other',
+                                      groupValue: _selectedType,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedType = value;
+                                        });
+                                      },
+                                    )
+                                ),
+
                               ],
                             ),
-                          ),
-                          Text("DOB"),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          FormTextField(
-                            width:  MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            hintText: 'first Name',
-                            controller: firstName,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Text("Address"),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          FormTextField(
-                            width:    MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            hintText: 'first Name',
-                            controller: firstName,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                          ),
+                            // SizedBox(
+                            //   height: 50,
+                            //   child: McqWidget(
+                            //     title: 'Gender',
+                            //     items: [
+                            //       'Male',
+                            //       'Female',
+                            //       'Other',
+                            //     ],
+                            //   ),
+                            // ),
+                            Text("DOB"),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            FormTextField(
+                              width:  MediaQuery.of(context).size.width/4,
+                              height: textFieldHeight,
+                              hintText: 'first Name',
+                              controller: firstName,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                            // SizedBox(height: MediaQuery.of(context).size.height/30),
+                            // Text(
+                            //   'Address',
+                            //   style: GoogleFonts.firaSans(
+                            //       fontSize: 10.0,
+                            //       fontWeight: FontWeight.w400,
+                            //       color: Color(0xff686464)
+                            //   ),),
+                            // SizedBox(height: MediaQuery.of(context).size.height/60),
+                            // CustomTextFieldRegister(
+                            //   hintText: 'Enter Text',
+                            //   hintStyle: GoogleFonts.firaSans(
+                            //     fontSize: 10.0,
+                            //     fontWeight: FontWeight.w400,
+                            //     color: Color(0xff9B9B9B),
+                            //   ),
+                            //   height: 32,
+                            // ),
+
+                            const SizedBox(
+                              height: AppSize.s10,
+                            ),
+                            Text("Address"),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            FormTextField(
+                              width:    MediaQuery.of(context).size.width/4,
+                              height: textFieldHeight,
+                              hintText: 'first Name',
+                              controller: firstName,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
 
 
-                          Container(
-                            color: Colors.redAccent,
-                            height: 100,
-                            width: MediaQuery.of(context).size.width / 4,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                            Text("Race"),
+
+
+                            Row(
                               children: [
-                                Flexible(
-                                  flex: 2,
-                                  child: McqWidget(
-                                    title: 'Race',
-                                    items: const [
-                                      'Asian',
-                                      //'Black or African American',
-                                      'White',
-                                      //'Hispanic or Latino',
-                                      'Other'
-                                    ],
+
+                                Expanded(
+                                    child: CustomRadioListTile(
+                                      title: 'Asian',
+                                      value: 'Asian',
+                                      groupValue: _selectedType,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedType = value;
+                                        });
+                                      },
+                                    )
+                                ),
+                                Expanded(
+                                  child: CustomRadioListTile(
+                                    title: 'Black or African American',
+                                    value: 'Black or African American',
+                                    groupValue: _selectedType,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedType = value;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: CustomRadioListTile(
+                                    title: 'White',
+                                    value: 'White',
+                                    groupValue: _selectedType,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedType = value;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: CustomRadioListTile(
+                                    title: 'Hispanic or Latino',
+                                    value: 'Hispanic or Latino',
+                                    groupValue: _selectedType,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedType = value;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: CustomRadioListTile(
+                                    title: 'Other',
+                                    value: 'Other',
+                                    groupValue: _selectedType,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedType = value;
+                                      });
+                                    },
                                   ),
                                 ),
                               ],
                             ),
-                          ),
+
+
+                            // Container(
+                            //   color: Colors.redAccent,
+                            //   height: 100,
+                            //   width: MediaQuery.of(context).size.width / 4,
+                            //   child: Row(
+                            //     children: [
+                            //       Flexible(
+                            //         flex: 2,
+                            //         child: McqWidget(
+                            //           title: 'Race',
+                            //           items: const [
+                            //             'Asian',
+                            //             'Black or African American',
+                            //             'White',
+                            //             'Hispanic or Latino',
+                            //             'Other'
+                            //           ],
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
 
 
 
 
-                          // Container(
-                          //   color: Colors.redAccent,
-                          //   height: 100,
-                          //   width: MediaQuery.of(context).size.width / 4,
-                          //   child: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.stretch,
-                          //     children: [
-                          //       Expanded(
-                          //         flex: 2,
-                          //         child: McqWidget(
-                          //           title: 'Race',
-                          //           items: const [
-                          //             'Asian',
-                          //             'Black or African American',
-                          //             'White',
-                          //             'Hispanic or Latino',
-                          //             'Other'
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
+                            // Container(
+                            //   color: Colors.redAccent,
+                            //   height: 100,
+                            //   width: MediaQuery.of(context).size.width / 4,
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.stretch,
+                            //     children: [
+                            //       Expanded(
+                            //         flex: 2,
+                            //         child: McqWidget(
+                            //           title: 'Race',
+                            //           items: const [
+                            //             'Asian',
+                            //             'Black or African American',
+                            //             'White',
+                            //             'Hispanic or Latino',
+                            //             'Other'
+                            //           ],
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
 
 
-                          // Container(
-                          //   color: Colors.redAccent,
-                          //   height: 100,
-                          //   width:  MediaQuery.of(context).size.width/4,
-                          //   child: Expanded(
-                          //     flex: 2,
-                          //     child: McqWidget(
-                          //       title: 'Race',
-                          //       items: const [
-                          //         'Asian',
-                          //         'Black or African American',
-                          //         'White',
-                          //         'Hispanic or Latino',
-                          //       'Other'
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
-                          const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Text('Type of Clinician'),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-
-                          SizedBox(
-                            width:  MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            //alignment: Alignment.center,
-                            //color: Colors.cyan,
-
-                            child: MyDropdownTextField(
-                              hint: 'Select',
-
-                              //width: MediaQuery.of(context).size.width/7,
-                              // height: AppSize.s25,
-                              items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                              onChanged: (String? newValue) {
-                                print('Selected item: $newValue');
-                              },
+                            // Container(
+                            //   color: Colors.redAccent,
+                            //   height: 100,
+                            //   width:  MediaQuery.of(context).size.width/4,
+                            //   child: Expanded(
+                            //     flex: 2,
+                            //     child: McqWidget(
+                            //       title: 'Race',
+                            //       items: const [
+                            //         'Asian',
+                            //         'Black or African American',
+                            //         'White',
+                            //         'Hispanic or Latino',
+                            //       'Other'
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                            const SizedBox(
+                              height: AppSize.s10,
                             ),
-                          ),
-                          const SizedBox(
-                            height: AppSize.s10,
-                          ),
-                          Text('Speciality'),
-                          const SizedBox(
-                            height: AppSize.s5,
-                          ),
-                          SizedBox(
+                            Text('Type of Clinician'),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+
+                            SizedBox(
                               width:  MediaQuery.of(context).size.width/4,
-                            height: textFieldHeight,
-                            //alignment: Alignment.center,
-                            //color: Colors.cyan,
+                              height: textFieldHeight,
+                              //alignment: Alignment.center,
+                              //color: Colors.cyan,
 
-                            child: MyDropdownTextField(
-                              hint: 'select',
+                              child: MyDropdownTextField(
+                                hint: 'Select',
 
-                              //width: MediaQuery.of(context).size.width/7,
-                              // height: AppSize.s25,
-                              items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                              onChanged: (String? newValue) {
-                                print('Selected item: $newValue');
-                              },
+                                //width: MediaQuery.of(context).size.width/7,
+                                // height: AppSize.s25,
+                                items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                                onChanged: (String? newValue) {
+                                  print('Selected item: $newValue');
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              height: AppSize.s10,
+                            ),
+                            Text('Speciality'),
+                            const SizedBox(
+                              height: AppSize.s5,
+                            ),
+                            SizedBox(
+                                width:  MediaQuery.of(context).size.width/4,
+                              height: textFieldHeight,
+                              //alignment: Alignment.center,
+                              //color: Colors.cyan,
+
+                              child: MyDropdownTextField(
+                                hint: 'select',
+
+                                //width: MediaQuery.of(context).size.width/7,
+                                // height: AppSize.s25,
+                                items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                                onChanged: (String? newValue) {
+                                  print('Selected item: $newValue');
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   )
@@ -1347,6 +1484,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height / 60),
                 Container(
+                  //color: Colors.redAccent,
                   height: 50,
                   width: 940,
                   padding:
