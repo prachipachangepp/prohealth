@@ -280,7 +280,7 @@ class _VendorContractMedicalCostReportState extends State<VendorContractMedicalC
                                                 return StatefulBuilder(
                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                     return CCScreenEditPopup(
-                                                      title: 'Edit License',
+                                                      title: 'Edit DME',
                                                       id: documentPreId,
                                                       idDocController: docIdController,
                                                       nameDocController: docNameController,

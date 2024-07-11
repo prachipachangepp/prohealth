@@ -275,7 +275,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                                 return StatefulBuilder(
                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                     return CCScreenEditPopup(
-                                                      title: 'Edit License',
+                                                      title: 'Edit SNF',
                                                       id: documentPreId,
                                                       idDocController: docIdController,
                                                       nameDocController: docNameController,

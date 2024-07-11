@@ -302,7 +302,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                               return StatefulBuilder(
                                                 builder: (BuildContext context, void Function(void Function()) setState) {
                                                   return CCScreenEditPopup(
-                                                    title: 'Edit License',
+                                                    title: 'Edit Cap Report',
                                                     id: documentPreId,
                                                     idDocController: docIdController,
                                                     nameDocController: docNameController,

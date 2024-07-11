@@ -303,7 +303,7 @@ class _CiCcdMedicalCostReportState extends State<CiCcdMedicalCostReport> {
                                               return StatefulBuilder(
                                                 builder: (BuildContext context, void Function(void Function()) setState) {
                                                   return CCScreenEditPopup(
-                                                    title: 'Edit License',
+                                                    title: 'Edit Medical Cost Report',
                                                     id: documentPreId,
                                                     idDocController: docIdController,
                                                     nameDocController: docNameController,

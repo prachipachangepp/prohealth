@@ -275,7 +275,7 @@ class _VendorContractQuarterlyBalanceReportState extends State<VendorContractQua
                                                 return StatefulBuilder(
                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                     return CCScreenEditPopup(
-                                                      title: 'Edit License',
+                                                      title: 'Edit MISC',
                                                       id: documentPreId,
                                                       idDocController: docIdController,
                                                       nameDocController: docNameController,

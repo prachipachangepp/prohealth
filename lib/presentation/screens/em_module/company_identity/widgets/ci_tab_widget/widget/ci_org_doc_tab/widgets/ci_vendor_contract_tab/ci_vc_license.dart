@@ -303,7 +303,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                                 return StatefulBuilder(
                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                     return CCScreenEditPopup(
-                                                      title: 'Edit License',
+                                                      title: 'Edit Leases & Services',
                                                       id: documentPreId,
                                                       idDocController: docIdController,
                                                       nameDocController: docNameController,

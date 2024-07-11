@@ -143,6 +143,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               void Function(void Function()) setState) {
                             List<Widget> listWidget = selectedChips;
                             return AddVisitPopup(
+                              title: 'Add New Visit',
                               nameOfDocumentController: docNamecontroller,
                               idOfDocumentController: docIdController,
                               onSavePressed: () async {
@@ -520,6 +521,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                   child1: Wrap(
                                                                       spacing: 8.0,
                                                                       children: selectedEditChips),
+                                                                  title: 'Edit Visit',
                                                                   child: FutureBuilder<
                                                                       List<
                                                                           HRClinical>>(
