@@ -64,7 +64,7 @@ class _CICorporateCompilianceDocumentState extends State<CICorporateCompilianceD
         SizedBox(height: 20,),
           Center(
           child: Container(
-            width: 750,
+            width: MediaQuery.of(context).size.width/2,
             height: 50,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
