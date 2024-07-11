@@ -20,6 +20,7 @@ class CustomTextFieldRegister extends StatelessWidget {
   final double? width;
   final double? height;
   final double? cursorHeight;
+  final String? hintText;
 
   const CustomTextFieldRegister({
     Key? key,
@@ -39,7 +40,9 @@ class CustomTextFieldRegister extends StatelessWidget {
     this.padding,
     this.width,
     this.height,
-    this.cursorHeight, this.onTap,
+    this.cursorHeight,
+    this.onTap,
+    this.hintText,
   }) : super(key: key);
 
   @override
@@ -60,6 +63,7 @@ class CustomTextFieldRegister extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.0),
               ),
               labelText: labelText,
+              hintText: hintText,
               labelStyle: TextStyle(
                 fontSize: FontSize.s10
               ),

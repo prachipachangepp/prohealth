@@ -12,6 +12,7 @@ class OnBoardingWelcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: TopRowConstant(),
@@ -285,15 +286,22 @@ class CustomTextField extends StatelessWidget {
 
 
 ////////////////////////////////////congratulation/////////////////////////////////////
-
-
 class OnBoardingCongratulation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.0),
+        color: Colors.white,
+        border: Border.all(
+          color: Colors.white.withOpacity(0.5),
+          width: 1.0,
+        ),
+      ),
+      child: Container(
+        width: 900.0,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(20.0), // Adjust padding as needed
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
