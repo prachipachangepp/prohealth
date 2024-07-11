@@ -48,6 +48,7 @@ class AllCountyZoneGet {
   AllCountyZoneGet({required this.countyName, required this.countyId, required this.zoneId,
     required this.zoneName, required this.zipcodes, required this.cities, required this.sucess, required this.message});
 }
+
 /// prefill county zone
 class CountyZonePrefillGet {
   final String countyName;
