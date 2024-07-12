@@ -25,17 +25,17 @@ class ObGeneralHeadingConstant extends StatelessWidget {
           text1,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff686464)),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width/40),
+        SizedBox(height: MediaQuery.of(context).size.height/40),
         Text(
           text2,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff686464)),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width/40),
+        SizedBox(height: MediaQuery.of(context).size.height/40),
         Text(
           text3,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff686464)),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width/40),
+        SizedBox(height: MediaQuery.of(context).size.height/40),
         Text(
             text4,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff686464)),
@@ -75,17 +75,17 @@ class ObGeneralDataConstant extends StatelessWidget {
           text1,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width/40),
+        SizedBox(height: MediaQuery.of(context).size.height/40),
         Text(
           text2,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width/40),
+        SizedBox(height: MediaQuery.of(context).size.height/40),
         Text(
           text3,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width/40),
+        SizedBox(height: MediaQuery.of(context).size.height/40),
         Text(
           text4,
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),
