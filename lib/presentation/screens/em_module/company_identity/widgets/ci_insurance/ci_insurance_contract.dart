@@ -37,7 +37,7 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
     currentPage = 1;
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
+    orgSubDocumentGet(context, 11, 9, 16, 1, 15).then((data) {
       _controller.add(data);
     }).catchError((error) {
       // Handle error
@@ -218,27 +218,6 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                         //  Text(''),
                                         Row(
                                           children: [
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Icon(
-                                                  Icons.history,
-                                                  size:18,
-                                                  color: ColorManager.blueprime,
-                                                )),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Icon(
-                                                  Icons.print_outlined,
-                                                  size:18,
-                                                  color: ColorManager.blueprime,
-                                                )),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Icon(
-                                                  Icons.file_download_outlined,
-                                                  size:18,
-                                                  color: ColorManager.blueprime,
-                                                )),
                                             IconButton(
                                                 onPressed: () {
                                                   // showDialog(context: context, builder: (BuildContext context){

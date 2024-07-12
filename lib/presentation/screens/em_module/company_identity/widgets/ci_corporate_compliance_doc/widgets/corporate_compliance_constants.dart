@@ -267,6 +267,7 @@ class CCScreenEditPopup extends StatefulWidget {
   final VoidCallback? onSavePressed;
   final Widget child;
   final Widget child1;
+  final double? height;
   final Widget? radioButton;
    bool? loadingDuration;
    final String title;
@@ -279,7 +280,7 @@ class CCScreenEditPopup extends StatefulWidget {
     required this.child,
     required this.child1,
     this.id,
-    this.radioButton,  this.calenderController, this.loadingDuration, required this.title,
+    this.radioButton,  this.calenderController, this.loadingDuration, required this.title, this.height,
   });
 
   @override
@@ -296,7 +297,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: AppSize.s550,
+        height: widget.height == null ?AppSize.s550 : widget.height,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -352,13 +353,13 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
+                  SizedBox(height: AppSize.s10),
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
                     text: 'Name of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
+                  SizedBox(height: AppSize.s10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -421,6 +422,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                       ],
                     ),
                   ),
+            widget.calenderController == null ? Offstage() :
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p8,
