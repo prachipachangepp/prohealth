@@ -17,7 +17,6 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
   final _verifyAccountController = TextEditingController();
   final _routingNumberController = TextEditingController();
   final _specificAmountController = TextEditingController();
-  TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
