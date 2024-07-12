@@ -7,7 +7,7 @@ import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/qualification_licenses.dart';
 
 Future<List<QulificationLicensesData>> getEmployeeLicenses(
-    BuildContext context,int employeeId  ) async {
+    BuildContext context, int employeeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -20,21 +20,30 @@ Future<List<QulificationLicensesData>> getEmployeeLicenses(
 
     return formattedDate;
   }
+
   List<QulificationLicensesData> itemsData = [];
   try {
-    final response = await Api(context)
-        .get(path: ManageReposotory.getEmployeeLicenses(employeeid: employeeId));
+    final response = await Api(context).get(
+        path: ManageReposotory.getEmployeeLicenses(employeeid: employeeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
         String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
-        itemsData.add(
-            QulificationLicensesData(licenseId: item['licenseId'],
-                country: item['country'], employeeId: item['employeeId'], expData: expFormattedDate,
-              issueDate: issueFormattedDate, licenseUrl: item['licenseUrl'], licenure: item['licensure'],
-              licenseNumber: item['licenseNumber'], org: item['org'], documentType: item['documentType'],
-              approved: item['approved']??false, sucess: true, message: response.statusMessage!,
-            ));
+        itemsData.add(QulificationLicensesData(
+          licenseId: item['licenseId'],
+          country: item['country'],
+          employeeId: item['employeeId'],
+          expData: expFormattedDate,
+          issueDate: issueFormattedDate,
+          licenseUrl: item['licenseUrl'],
+          licenure: item['licensure'],
+          licenseNumber: item['licenseNumber'],
+          org: item['org'],
+          documentType: item['documentType'],
+          approved: item['approved'] ?? false,
+          sucess: true,
+          message: response.statusMessage!,
+        ));
       }
     } else {
       print("Employee Licenses");
@@ -48,22 +57,33 @@ Future<List<QulificationLicensesData>> getEmployeeLicenses(
 
 /// Add License
 
-Future<ApiData> addLicensePost(BuildContext context, int licenseId,
-    String country,int employeeId,String expDate,String issueDate,String licenseUrl,String licensure,String licenseNumber,
-    String org,String documentType
-    ) async {
+Future<ApiData> addLicensePost(
+    BuildContext context,
+    int licenseId,
+    String country,
+    int employeeId,
+    String expDate,
+    String issueDate,
+    String licenseUrl,
+    String licensure,
+    String licenseNumber,
+    String org,
+    String documentType) async {
   try {
-    var response = await Api(context).post(path: ManageReposotory.addEmployeeLicenses(), data: {
-      "country": country,
-      "employeeId": employeeId,
-      "expDate": expDate,
-      "issueDate": issueDate,
-      "licenseUrl": licenseUrl,
-      "licensure": licensure,
-      "licenseNumber": licenseNumber,
-      "org": org,
-      "documentType": documentType
-    },);
+    var response = await Api(context).post(
+      path: ManageReposotory.addEmployeeLicenses(),
+      data: {
+        "country": country,
+        "employeeId": employeeId,
+        "expDate": expDate,
+        "issueDate": issueDate,
+        "licenseUrl": licenseUrl,
+        "licensure": licensure,
+        "licenseNumber": licenseNumber,
+        "org": org,
+        "documentType": documentType
+      },
+    );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("License Added");
       // orgDocumentGet(context);
@@ -84,23 +104,35 @@ Future<ApiData> addLicensePost(BuildContext context, int licenseId,
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
 /// Update license
-Future<ApiData> updateLicensePatch(BuildContext context, int licenseId,
-    String country,int employeeId,String expDate,String issueDate,String licenseUrl,String licensure,String licenseNumber,
-    String org,String documentType
-    ) async {
+Future<ApiData> updateLicensePatch(
+    BuildContext context,
+    int licenseId,
+    String country,
+    int employeeId,
+    String expDate,
+    String issueDate,
+    String licenseUrl,
+    String licensure,
+    String licenseNumber,
+    String org,
+    String documentType) async {
   try {
-    var response = await Api(context).patch(path: ManageReposotory.updateEmployeeLicenses(licensedId: licenseId), data: {
-      "country": country,
-      "employeeId": employeeId,
-      "expDate": expDate,
-      "issueDate": issueDate,
-      "licenseUrl": licenseUrl,
-      "licensure": licensure,
-      "licenseNumber": licenseNumber,
-      "org": org,
-      "documentType": documentType
-    },);
+    var response = await Api(context).patch(
+      path: ManageReposotory.updateEmployeeLicenses(licensedId: licenseId),
+      data: {
+        "country": country,
+        "employeeId": employeeId,
+        "expDate": expDate,
+        "issueDate": issueDate,
+        "licenseUrl": licenseUrl,
+        "licensure": licensure,
+        "licenseNumber": licenseNumber,
+        "org": org,
+        "documentType": documentType
+      },
+    );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("License Updated");
       // orgDocumentGet(context);
@@ -125,7 +157,10 @@ Future<ApiData> updateLicensePatch(BuildContext context, int licenseId,
 /// Reject license
 Future<ApiData> rejectLicensePatch(BuildContext context, int licenseId) async {
   try {
-    var response = await Api(context).patch(path: ManageReposotory.rejectEmployeeLicenses(licensedId: licenseId), data: {},);
+    var response = await Api(context).patch(
+      path: ManageReposotory.rejectEmployeeLicenses(licensedId: licenseId),
+      data: {},
+    );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("License rejected");
       // orgDocumentGet(context);
@@ -150,7 +185,10 @@ Future<ApiData> rejectLicensePatch(BuildContext context, int licenseId) async {
 /// Approve license
 Future<ApiData> approveLicensePatch(BuildContext context, int licenseId) async {
   try {
-    var response = await Api(context).patch(path: ManageReposotory.approveEmployeeLicenses(licensedId: licenseId), data: {},);
+    var response = await Api(context).patch(
+      path: ManageReposotory.approveEmployeeLicenses(licensedId: licenseId),
+      data: {},
+    );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("License Approved");
       // orgDocumentGet(context);

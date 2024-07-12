@@ -13,9 +13,18 @@ class ManageReposotory{
   static String addEmployeement(){
     return "$employement$add";
   }
+  static String updateEmployeement({required int employeementId}){
+    return "$employement/$employeementId";
+  }
   /// Education
   static String getEmployeeDucation({required int employeeId}){
     return "$education/$byemployeeId/$employeeId";
+  }
+  static String addEmployeeDucation(){
+    return "$education$add";
+  }
+  static String patchEmployeeDucation({required int educationId}){
+    return "$education/$educationId";
   }
   /// Employee licences
   static String getEmployeeLicenses({required int employeeid}){
@@ -41,6 +50,12 @@ class ManageReposotory{
   /// References
   static String referenceByemployeeIdGet({required int employeeId}){
     return "$references/ByemployeeId/$employeeId";
+  }
+  static String addReferences(){
+    return "$references$add";
+  }
+  static String updateReferences({required int referenceId}){
+    return "$references/$referenceId";
   }
   static String rejectReferences({required int referenceId}){
     return "$references/reject/$referenceId";

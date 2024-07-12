@@ -346,6 +346,8 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
+                    enable: false,
+                    // readOnly: true,
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',

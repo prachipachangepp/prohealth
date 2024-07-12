@@ -66,6 +66,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   List<Widget> selectedChips = [];
   List<Widget> chipsList = [];
   List<int> selectedChipsId = [];
+  List<Widget> selectedEditChips = [];
+  List<int> selectedEditChipsId = [];
   String chips = "";
   bool _isLoading = false;
   bool _isDarkColor(Color color) {
@@ -77,36 +79,9 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       int chipId
   ) {
     // setState(() {
-      selectedChips.add(Chip(
-        shape: StadiumBorder(
-            side: BorderSide(
-                color: ColorManager.blueprime)),
-        //side: BorderSide(color: ColorManager.blueprime),
-        deleteIcon: Icon(
-          Icons.close,
-          color: ColorManager.blueprime,
-          size: 17,
-        ),
-        label: Text(
-          chip,
-          style: CustomTextStylesCommon.commonStyle(
-              fontWeight: FontWeightManager.medium,
-              fontSize: FontSize.s10,
-              color: ColorManager.mediumgrey),
-        ),
 
-        onDeleted: () {
-          setState(() {
-            deleteChip(chip,chipId);
-            selectedChips.clear();
-            selectedChipsId.clear();
-            print(":::Chips name ${selectedChips}");
-            print(":::: Chips Id ${selectedChipsId}");
-          });
-        },
-      ),);
-      selectedChipsId.add(chipId);
-      chipsList = selectedChips;
+
+     // chipsList = selectedChips;
     // });
   }
 
@@ -166,6 +141,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                         return StatefulBuilder(
                           builder: (BuildContext context,
                               void Function(void Function()) setState) {
+                            List<Widget> listWidget = selectedChips;
                             return AddVisitPopup(
                               nameOfDocumentController: docNamecontroller,
                               idOfDocumentController: docIdController,
@@ -183,7 +159,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 docNamecontroller.clear();
                               },
                               child1: Wrap(spacing: 8.0,
-                                  children: chipsList),
+                                  children: listWidget),
                               child: FutureBuilder<List<HRClinical>>(
                                   future: companyAllHrClinicApi(context),
                                   builder: (context, snapshot) {
@@ -237,7 +213,36 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                 empTypeId = docType;
                                                 setState(() {
                                                   if (val.isNotEmpty) {
-                                                    addChip(val.trim(),docType);
+
+                                                    selectedChips.add(Chip(
+                                                      shape: StadiumBorder(
+                                                          side: BorderSide(
+                                                              color: ColorManager.blueprime)),
+                                                      //side: BorderSide(color: ColorManager.blueprime),
+                                                      deleteIcon: Icon(
+                                                        Icons.close,
+                                                        color: ColorManager.blueprime,
+                                                        size: 17,
+                                                      ),
+                                                      label: Text(
+                                                        val,
+                                                        style: CustomTextStylesCommon.commonStyle(
+                                                            fontWeight: FontWeightManager.medium,
+                                                            fontSize: FontSize.s10,
+                                                            color: ColorManager.mediumgrey),
+                                                      ),
+
+                                                      onDeleted: () {
+                                                        setState(() {
+                                                          deleteChip(val,docType);
+                                                          selectedChips.clear();
+                                                          selectedChipsId.clear();
+                                                          print(":::Chips name ${selectedChips}");
+                                                          print(":::: Chips Id ${selectedChipsId}");
+                                                        });
+                                                      },
+                                                    ),);
+                                                    selectedChipsId.add(docType);
                                                     print("::${selectedChipsId}");
                                                     print("::${selectedChips}");
                                                   }
@@ -494,7 +499,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                         visitName == docNamecontroller
                                                                             .text ? visitName.toString() : docNamecontroller.text,
                                                                         1,
-                                                                        selectedChipsId);
+                                                                        selectedEditChipsId);
 
                                                                     getVisit(context, 1,
                                                                         1, 10)
@@ -514,7 +519,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                   },
                                                                   child1: Wrap(
                                                                       spacing: 8.0,
-                                                                      children: selectedChips),
+                                                                      children: selectedEditChips),
                                                                   child: FutureBuilder<
                                                                       List<
                                                                           HRClinical>>(
@@ -606,7 +611,36 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                                                     setState(
                                                                                             () {
                                                                                           if (val.isNotEmpty) {
-                                                                                            addChip(val.trim(),docType);
+                                                                                            selectedEditChips.add(Chip(
+                                                                                              shape: StadiumBorder(
+                                                                                                  side: BorderSide(
+                                                                                                      color: ColorManager.blueprime)),
+                                                                                              //side: BorderSide(color: ColorManager.blueprime),
+                                                                                              deleteIcon: Icon(
+                                                                                                Icons.close,
+                                                                                                color: ColorManager.blueprime,
+                                                                                                size: 17,
+                                                                                              ),
+                                                                                              label: Text(
+                                                                                                val,
+                                                                                                style: CustomTextStylesCommon.commonStyle(
+                                                                                                    fontWeight: FontWeightManager.medium,
+                                                                                                    fontSize: FontSize.s10,
+                                                                                                    color: ColorManager.mediumgrey),
+                                                                                              ),
+
+                                                                                              onDeleted: () {
+                                                                                                setState(() {
+                                                                                                 // deleteChip(val,docType);
+                                                                                                  selectedEditChips.clear();
+                                                                                                  selectedEditChipsId.clear();
+                                                                                                  print(":::Chips name ${selectedChips}");
+                                                                                                  print(":::: Chips Id ${selectedChipsId}");
+                                                                                                });
+                                                                                              },
+                                                                                            ),);
+                                                                                            //addChip(val.trim(),docType);
+                                                                                            selectedEditChipsId.add(docType);
                                                                                             print("chipsID:::${selectedChipsId}");
 
                                                                                           }
