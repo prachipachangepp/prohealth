@@ -72,6 +72,12 @@ class AppString {
   static const String security_code = "Security Code";
   static const String phone_number ="Phone Number";
   static const String verify_user = "Verify User";
+  static const String upload_signature = "Upload Signature";
+  static const String draw = "Draw";
+  static const String upload ="Upload";
+  static const String cancel ="Cancel";
+  static const String reset ="Reset";
+  static const String save ="Save";
 
 
 

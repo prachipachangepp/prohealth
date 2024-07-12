@@ -10,6 +10,7 @@ class AllZoneData {
 }
 ///county get last
 class AllCountyGet {
+  final int countyId;
   final String? countyName;
   final int zoinId;
   final String? state;
@@ -18,7 +19,20 @@ class AllCountyGet {
   final String zoneName;
   final bool? sucess;
   final String? message;
-  AllCountyGet({required this.zoinId,required this.zoneName,required this.countyName,required this.state,required this.country,required this.zipcodes,required this.sucess,required this.message,});
+  AllCountyGet({required this.countyId,required this.zoinId,required this.zoneName,required this.countyName,required this.state,required this.country,required this.zipcodes,required this.sucess,required this.message,});
+}
+
+/// County prefill get
+class CountyPrefillGet {
+  final int companyId;
+  final String officeId;
+  final int countyId;
+  final String? countyName;
+  final String? state;
+  final String? country;
+  final bool? sucess;
+  final String? message;
+  CountyPrefillGet({required this.companyId, required this.officeId,required this.countyId,required this.countyName,required this.state,required this.country,required this.sucess,required this.message,});
 }
 
 /// County zone get
@@ -34,6 +48,7 @@ class AllCountyZoneGet {
   AllCountyZoneGet({required this.countyName, required this.countyId, required this.zoneId,
     required this.zoneName, required this.zipcodes, required this.cities, required this.sucess, required this.message});
 }
+
 /// prefill county zone
 class CountyZonePrefillGet {
   final String countyName;

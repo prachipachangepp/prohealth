@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/app.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -12,6 +14,8 @@ import 'package:prohealth/app/services/api/managers/establishment_manager/org_do
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_corporate&compiliance_document.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_policies&procedure.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/widget/ci_org_doc_tab/ci_vendor_contract.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
@@ -35,7 +39,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   TextEditingController calenderController = TextEditingController();
    final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
 
-  int _selectedIndex = 8;
+  int _selectedIndex = 0;
   // String _selectedItem = 'Corporate & Compliance Documents';
   // void _onDropdownItemSelected(String newValue) {
   //   setState(() {
@@ -83,6 +87,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   int docSubTypeMetaId =0;
   String? expiryType;
   bool _isLoading = false;
+  final AppConfig appConfig = AppConfig();
   @override
   Widget build(BuildContext context) {
 
@@ -98,18 +103,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
               height: 20,
               width: 150,
             ),
-    FutureBuilder<List<DocumentTypeData>>(
-    future: documentTypeGet(context),
-    builder:(context,snapshot){
-      if(snapshot.hasData){
-        if(docTypeData.isEmpty){
-          for(var a in snapshot.data!){
-            docTypeData.add(
-                a
-            );
-          }
-        }
-        return Material(
+         Material(
           elevation: 4,
           borderRadius: BorderRadius.all(Radius.circular(20)),
           child: Container(
@@ -122,27 +116,12 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: docTypeData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        // return
-                        //   Center(
-                        //   child: CircularProgressIndicator(
-                        //     color: Colors.blue, // Change according to your theme
-                        //   ),
-                        // );
-                      }
-                      if (snapshot.hasData) {
-                        return InkWell(
+                  child:InkWell(
                           onTap: () {
-                            _selectButton(
-                                docTypeData[index].docID);
-                            identityDocumentTypeGet(
-                                context, docTypeData[index].docID);
-                            docID = docTypeData[index].docID;
+                            _selectButton(0);
+                            // identityDocumentTypeGet(
+                            //     context, docTypeData[index].docID);
+                            // docID = docTypeData[index].docID;
                           },
                           child: Container(
                             height: 30,
@@ -151,37 +130,102 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                               borderRadius: BorderRadius.all(
                                   Radius.circular(20)),
                               color: _selectedIndex ==
-                                  docTypeData[index].docID
+                                  0
                                   ? Colors.white
                                   : Colors.transparent,
                             ),
                             child: Center(
                               child: Text(
-                                docTypeData[index].docType,
+                                'Corporate & Compliance Documents',
                                 style: GoogleFonts.firaSans(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                   color: _selectedIndex ==
-                                      docTypeData[index].docID
+                                      0
                                       ? ColorManager.mediumgrey
                                       : ColorManager.white,
                                 ),
                               ),
                             ),
                           ),
-                        );
-                      }
-                    },
-                  ),
+                        )
+                ),
+                Expanded(
+                    child:InkWell(
+                      onTap: () {
+                        _selectButton(1);
+                        // identityDocumentTypeGet(
+                        //     context, docTypeData[index].docID);
+                        // docID = docTypeData[index].docID;
+                      },
+                      child: Container(
+                        height: 30,
+                        width: 210,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(20)),
+                          color: _selectedIndex ==
+                              1
+                              ? Colors.white
+                              : Colors.transparent,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Vendor Contracts',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: _selectedIndex ==
+                                  1
+                                  ? ColorManager.mediumgrey
+                                  : ColorManager.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                ),
+                Expanded(
+                    child:InkWell(
+                      onTap: () {
+                        _selectButton(2);
+                        // identityDocumentTypeGet(
+                        //     context, docTypeData[index].docID);
+                        // docID = docTypeData[index].docID;
+                      },
+                      child: Container(
+                        height: 30,
+                        width: 210,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(20)),
+                          color: _selectedIndex ==
+                              2
+                              ? Colors.white
+                              : Colors.transparent,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Policies & Procedures',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: _selectedIndex ==
+                                  2
+                                  ? ColorManager.mediumgrey
+                                  : ColorManager.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
                 ),
               ],
             ),
           ),
-        );
-      } else{
-        return SizedBox(height: 1,width: 1,);
-      }
-    }),
+        ),
+
+
             ///button
             Align(
                 alignment: Alignment.bottomRight,
@@ -227,12 +271,13 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                 await orgSubDocumentGet(
                                                   context,
                                                   11,
-                                                  docID,
                                                   docTypeMetaId,
+                                                  docSubTypeMetaId,
                                                   1,
-                                                  6,
+                                                  15,
                                                 );
                                                 Navigator.pop(context);
+                                                expiryType = '';
                                                 calenderController.clear();
                                                 docIdController.clear();
                                                 docNamecontroller.clear();
@@ -444,14 +489,9 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                 },
                 children: [
                   // Page 1
-                  CICorporateCompilianceDocument(docID: docID,),
-                  CICorporateCompilianceDocument(docID: docID,),
-                  CICorporateCompilianceDocument(docID: docID,),
-                  // CICorporateCompilianceDocument(docID: docID,),
-                  // CICorporateCompilianceDocument(docID: docID,),
-                  // CICorporateCompilianceDocument(docID: docID,),
-                  // CIVendorContract(),
-                  // CIPoliciesProcedure()
+                  CICorporateCompilianceDocument(docID: AppConfig.docId8,),
+                  CIVendorContract(docId: AppConfig.docId9,),
+                  CIPoliciesProcedure(docId: AppConfig.docId10,)
                 ],
               ),
             ],

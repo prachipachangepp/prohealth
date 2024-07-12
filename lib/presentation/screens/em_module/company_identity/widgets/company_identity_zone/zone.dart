@@ -262,7 +262,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       "37.0902°",
                                       "95.7129°",
                                       5,
-                                      "18");
+                                     '18');
                                 },
                                 title1: 'State Name',
                                 zipcodeController: stateController,

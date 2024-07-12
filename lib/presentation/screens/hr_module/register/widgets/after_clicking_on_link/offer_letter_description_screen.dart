@@ -8,8 +8,10 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/top_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_screen.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/signature_screen.dart';
 
 import '../../../../../../app/resources/color.dart';
+import 'multi_step_form.dart';
 
 class OfferLetterDescriptionScreen extends StatefulWidget {
   const OfferLetterDescriptionScreen({super.key});
@@ -265,7 +267,7 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CertificateOfCompletion()),
+                      MaterialPageRoute(builder: (context) => SignaturePage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
