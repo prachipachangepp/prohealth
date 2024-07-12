@@ -25,6 +25,7 @@ class AppStringHr{
   static String type = "Type: ";
   static String checking = "Checking";
   static String effectiveDate = "Effective Date: ";
+  static String routingNo = "Routing/Transit No.: ";
   static String bankName = "Bank Name: ";
   static String accNo = "Account No.: ";
   static String requestPercent = "Requested Percentage: ";
