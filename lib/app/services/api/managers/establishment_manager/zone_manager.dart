@@ -59,7 +59,7 @@ Future<List<AllCountyGet>> getZoneBYcompOffice(
             sucess: true,
             message: response.statusMessage,
             zoneName: item['zoneName'],
-            zoinId: item['zoneId']));
+            zoinId: item['zoneId'], countyId: item['county_id']));
       }
       print("County response:::::${itemsList}");
     } else {
@@ -332,6 +332,83 @@ Future<ApiData> addCounty(
     print("Error $e");
     return ApiData(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// County Update
+Future<ApiData> updateCounty(
+    BuildContext context,
+    int countyId,
+    String countyName,
+    String stateName,
+    String countryName,
+    String lat,
+    String long,
+    int companyId,
+    String officeId) async {
+  try {
+    var response =
+    await Api(context).patch(path: AllZoneRepository.updateCounty(countyId: countyId), data: {
+      "countyName": countyName,
+      "state": stateName,
+      "Country": countryName,
+      "latitude": lat,
+      "longitude": long,
+      "companyId": companyId,
+      "officeId": officeId
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("County updates");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// County prefill Get
+Future<CountyPrefillGet> countyPrefillGet(
+    BuildContext context, int countyId) async {
+  var itemsList;
+  try {
+    final response = await Api(context).get(
+        path: AllZoneRepository.updateCounty(countyId: countyId));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // print("Org Document response:::::${itemsList}");
+      print("1");
+
+       itemsList =  CountyPrefillGet(
+            countyName: response.data['countyName'],
+            state: response.data['state'],
+            country: response.data['Country'],
+            sucess: true,
+            message: response.statusMessage,
+           // zoneName: response.data['zoneName'],
+            //zoinId: response.data['zoneId'],
+           countyId: response.data['county_id'],
+           companyId: response.data['companyId'],
+           officeId: response.data['officeId']);
+
+    } else {
+      print('County prefill Api Error');
+      return itemsList;
+    }
+    // print("Org response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
   }
 }
 

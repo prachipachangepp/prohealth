@@ -39,9 +39,9 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 15;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    getZoneBYcompOffice(context, "18", 5, 1, 15).then((data){
+    getZoneBYcompOffice(context, '18', 5, 1, 15).then((data){
       _contyController.add(data);
     }).catchError((error){});
   }
@@ -202,22 +202,47 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                       children: [
                                         IconButton(onPressed: (){
                                           showDialog(context: context, builder: (context){
-                                            return CIZoneAddPopup(
-                                              onSavePressed: ()async{
+                                            return FutureBuilder<CountyPrefillGet>(
+                                              future: countyPrefillGet(context,snapshot.data![index].countyId),
+                                              builder: (context,snapshotPrefill) {
+                                                if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                  return Center(
+                                                    child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                                                  );
+                                                }
+                                                var countyName = snapshotPrefill.data!.countyName;
+                                                countynameController = TextEditingController(text:snapshotPrefill.data!.countyName );
 
-                                              },
-                                              title: 'Edit County',
-                                              title1: AppStringEM.countyName,
-                                              countynameController: countynameController,
-                                              title2:AppStringEM.landmark,
-                                              zipcodeController: landmarkController,  );
+
+                                                return CIZoneAddPopup(
+                                                  onSavePressed: ()async{
+                                                    await updateCounty(context, snapshot.data![index].countyId,
+                                                        countyName == countynameController.text ? countyName.toString() : countynameController.text,
+                                                        snapshot.data![index].state.toString(),
+                                                        snapshot.data![index].country.toString(),
+                                                        "37.0902°",
+                                                        "95.7129°", 5, '18');
+                                                    getZoneBYcompOffice(context, '18', 5, 1, 15).then((data){
+                                                      _contyController.add(data);
+                                                    }).catchError((error){});
+                                                  },
+                                                  title: 'Edit County',
+                                                  title1: AppStringEM.countyName,
+                                                  countynameController: countynameController,
+                                                  title2:AppStringEM.landmark,
+                                                  zipcodeController: landmarkController,  );
+                                              }
+                                            );
                                           });
                                         }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                         IconButton(onPressed: (){
                                           showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
                                             Navigator.pop(context);
                                           }, onDelete: ()async{
-                                            // await deleteCounty(context, snapshot.data![index].c)
+                                            await deleteCounty(context, snapshot.data![index].countyId);
+                                            getZoneBYcompOffice(context, '18', 5, 1, 15).then((data){
+                                              _contyController.add(data);
+                                            }).catchError((error){});
                                           }));
                                         }, icon: Icon(Icons.delete_outline,size:18,color: ColorManager.faintOrange,)),
                                       ],

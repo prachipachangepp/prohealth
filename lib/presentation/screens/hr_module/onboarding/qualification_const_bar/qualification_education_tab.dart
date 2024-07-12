@@ -104,19 +104,19 @@ class _QualificationEducationState extends State<QualificationEducation> {
                             const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                InfoText('College/ University'),
-                                InfoText('Graduate'),
-                                InfoText('Degree'),
-                                InfoText('Major Subject'),
+                                InfoText('College/ University',),
+                                InfoText('Graduate',),
+                                InfoText('Degree',),
+                                InfoText('Major Subject',),
                               ],
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                InfoData(snapshot.data![index].college),
-                                InfoData(snapshot.data![index].graduate),
-                                InfoData(snapshot.data![index].degree),
-                                InfoData(snapshot.data![index].major),
+                                InfoData(snapshot.data![index].college,),
+                                InfoData(snapshot.data![index].graduate,),
+                                InfoData(snapshot.data![index].degree,),
+                                InfoData(snapshot.data![index].major,),
                               ],
                             ),
                             Column(
@@ -130,9 +130,9 @@ class _QualificationEducationState extends State<QualificationEducation> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                InfoData(snapshot.data![index].phone),
-                                InfoData(snapshot.data![index].city),
-                                InfoData(snapshot.data![index].state),
+                                InfoData(snapshot.data![index].phone,),
+                                InfoData(snapshot.data![index].city,),
+                                InfoData(snapshot.data![index].state,),
                               ],
                             ),
                           ],

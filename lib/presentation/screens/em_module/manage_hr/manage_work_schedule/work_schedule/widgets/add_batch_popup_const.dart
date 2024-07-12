@@ -11,7 +11,7 @@ import '../../../../../../../app/resources/font_manager.dart';
 class AddBatchPopup extends StatefulWidget {
   final TextEditingController controller1;
   final TextEditingController controller2;
-  VoidCallback onPressed;
+  Future<void> Function() onPressed;
    AddBatchPopup({super.key, required this.controller1, required this.controller2,  required this.onPressed});
 
   @override
@@ -20,6 +20,7 @@ class AddBatchPopup extends StatefulWidget {
 
 class _AddBatchPopupState extends State<AddBatchPopup> {
   TimeOfDay _selectedTime = TimeOfDay.now();
+  bool isLoading = false;
 
  // TextEditingController _timeController = TextEditingController();
   Future<void> _selectStartTime(BuildContext context) async {
@@ -135,12 +136,28 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Center(
-                child: CustomElevatedButton(
+                child: isLoading ? SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: CircularProgressIndicator(color: ColorManager.blueprime,))
+                    : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.add,
-                  onPressed:
-                    widget.onPressed,
+                  onPressed:() async{
+                    setState(() {
+                      isLoading = true;
+                    });
+                    try {
+                      await widget.onPressed();
+                    } finally {
+                      setState(() {
+                        isLoading = false;
+                      });
+
+                    }
+                  }
+
 
                 ),
               ),

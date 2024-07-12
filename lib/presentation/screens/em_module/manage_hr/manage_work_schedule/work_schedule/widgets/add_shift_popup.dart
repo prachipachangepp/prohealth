@@ -12,8 +12,8 @@ class AddShiftPopup extends StatefulWidget {
   final TextEditingController controller1;
   final TextEditingController controller2;
   final TextEditingController shiftNameController;
-  final VoidCallback onPressed;
-  const AddShiftPopup({super.key, required this.controller1, required this.controller2, required this.onPressed, required this.shiftNameController});
+  final Future<void> Function() onPressed;
+   AddShiftPopup({super.key, required this.controller1, required this.controller2, required this.onPressed, required this.shiftNameController});
 
   @override
   State<AddShiftPopup> createState() => _AddShiftPopupState();
@@ -21,6 +21,7 @@ class AddShiftPopup extends StatefulWidget {
 
 class _AddShiftPopupState extends State<AddShiftPopup> {
   TimeOfDay _selectedTime = TimeOfDay.now();
+  bool isLoading = false;
 
   // TextEditingController _timeController = TextEditingController();
   Future<void> _selectStartTime(BuildContext context) async {
@@ -142,12 +143,26 @@ class _AddShiftPopupState extends State<AddShiftPopup> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Center(
-                child: CustomElevatedButton(
+                child: isLoading ? SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: CircularProgressIndicator(color: ColorManager.blueprime,))
+                    : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.addShift,
-                  onPressed: () {
-                    widget.onPressed();
+                  onPressed: () async{
+                    setState(() {
+                      isLoading = true;
+                    });
+                    try {
+                      await widget.onPressed();
+                    } finally {
+                      setState(() {
+                        isLoading = false;
+                      });
+
+                    }
                     Navigator.pop(context);
                     widget.controller1.clear();
                     widget.controller2.clear();

@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/dashoboard_screen.dart';
 
 import '../../../../app/resources/color.dart';
+import '../../../../app/resources/font_manager.dart';
 import '../../../widgets/app_bar/app_bar.dart';
 import '../../../widgets/widgets/const_appbar/controller.dart';
 import '../../em_module/em_desktop_screen.dart';
@@ -14,6 +17,7 @@ import '../manage/web_manage/manage_screen.dart';
 import '../manage/widgets/custom_icon_button_constant.dart';
 import '../onboarding/onboarding_screen.dart';
 import '../register/register_screen.dart';
+import '../see_all_hr/see_all_hr_screen.dart';
 
 class HomeHrScreen extends StatefulWidget {
   const HomeHrScreen({super.key});
@@ -31,8 +35,9 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   late final VoidCallback? onItem2Selected;
   bool showSelectOption = true;
   final ButtonSelectionController myController =
-  Get.put(ButtonSelectionController());
+      Get.put(ButtonSelectionController());
   String selectedOption = 'Select';
+  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +47,11 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
         children: [
           ///log appbar
           ApplicationAppBar(headingText: "Human Resource Manager"),
+
           ///appbar titles
           Container(
             // color: Colors.pink,
-            margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -54,7 +60,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
                         width: 100,
                         onPressed: () {
@@ -69,10 +75,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: MediaQuery.of(context).size.width / 55,
                     ),
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
                         width: 140,
                         onPressed: () {
@@ -86,27 +92,26 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: 15,
+                      width: MediaQuery.of(context).size.width / 55,
                     ),
                     Obx(
-                          () => CustomTitleButton(
-                        height: 30,
-                        width: 140,
-                        onPressed: () {
-                          myController.selectButton(2);
-                          _pageController.animateToPage(2,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease);
-                        },
-                        text: 'Add Employee',
-                        isSelected: myController.selectedIndex.value == 2
-                      ),
+                      () => CustomTitleButton(
+                          height: 30,
+                          width: 140,
+                          onPressed: () {
+                            myController.selectButton(2);
+                            _pageController.animateToPage(2,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease);
+                          },
+                          text: 'Add Employee',
+                          isSelected: myController.selectedIndex.value == 2),
                     ),
                     SizedBox(
-                      width: 15,
+                      width: MediaQuery.of(context).size.width / 55,
                     ),
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
                         width: 140,
                         onPressed: () {
@@ -120,10 +125,10 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: 15,
+                      width: MediaQuery.of(context).size.width / 55,
                     ),
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
                         width: 140,
                         onPressed: () {
@@ -136,19 +141,124 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         isSelected: myController.selectedIndex.value == 4,
                       ),
                     ),
-                    SizedBox(
-                      width: 15,
-                    ),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 70,
+                    // ),
                   ],
                 ),
+                MediaQuery.of(context).size.width >= 1024
+                    ? Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(bottom: 2),
+                            width: 301,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color(0xFF686464), width: 1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: TextFormField(
+                              controller: searchController,
+                              textAlign: TextAlign.start,
+                              cursorHeight: 18,
+                              cursorColor: ColorManager.black,
+                              style: GoogleFonts.firaSans(fontSize: MediaQuery.of(context).size.width / 100),
+                              textAlignVertical: TextAlignVertical.top,
+                              decoration: InputDecoration(
+                                hintText: 'John S',
+                                hintStyle: GoogleFonts.firaSans(
+                                    fontSize: FontSize.s10,
+                                    fontWeight: FontWeightManager.regular,
+                                    color: ColorManager.mediumgrey,
+                                    //decoration: TextDecoration.underline, // Remove underline from the text
+                                  ),
+                                border: InputBorder.none,
+                                suffixIcon: Icon(Icons.search,size: 20,),
+                                contentPadding: EdgeInsets.only(left: 8,right: 8,bottom: 20),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width/70,
+                          ),
+                          MediaQuery.of(context).size.width >=1100 ?
+                          Row(
+                            children: [
+                              Container(
+                                width: 37,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.white,
+                                  borderRadius: BorderRadius.circular(9),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x40000000),
+                                      offset: Offset(0, 4),
+                                      blurRadius: 4,
+                                    ),
+                                  ],
+                                ),
+                                child: InkWell(
+                                  onTap: (){
+
+                                  },
+                                  child: Center(
+                                    child: SvgPicture.asset('images/menu_lines.svg')
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width/90,
+                              ),
+                              Container(
+                                width: 32,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x40000000),
+                                      offset: Offset(0, 4),
+                                      blurRadius: 4,
+                                    ),
+                                  ],
+                                ),
+                                child: InkWell(
+                                  onTap: (){
+
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      'DZ',textAlign: TextAlign.center,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s11,
+                                        fontWeight: FontWeightManager.regular,
+                                        color: ColorManager.black,
+                                        //decoration: TextDecoration.underline, // Remove underline from the text
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ): SizedBox(width: 1,)
+                        ],
+                      )
+                    : SizedBox(
+                        width: 1,
+                      ),
+
+                ///see all
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
-                        width: 100,
+                        width: 140,
                         onPressed: () {
                           //companyAll(context);
                           myController.selectButton(6);
@@ -162,25 +272,23 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                     ),
                   ],
                 )
-
               ],
             ),
           ),
-          ///page view
 
+          ///page view
           Expanded(
             flex: 8,
             child: PageView(
               controller: _pageController,
               physics: NeverScrollableScrollPhysics(),
               children: [
-               DashBoardScreen(),
+                DashBoardScreen(),
                 ManageScreen(),
                 AddEmployeeHomeScreen(),
                 RegisterScreen(),
                 OnBoardingScreen(),
-               SeeAllScreen()
-                // WhitelabellingScreen()
+                SeeAllHrScreen()
               ],
             ),
           ),
