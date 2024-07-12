@@ -345,7 +345,8 @@ class RegisterEnrollAlertDialog {
                       CustomIconButtonConst(
                           text: AppString.next, onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
-                      }),
+
+                          }),
                     ],
                   ),
                 ],

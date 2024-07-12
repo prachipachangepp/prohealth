@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
 
@@ -73,9 +74,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
             data['value'] = value ?? false;
           });
         },
-        // dense: true,
-        // contentPadding: EdgeInsets.zero,
-        // controlAffinity: ListTileControlAffinity.trailing,
       );
     }).toList();
   }
@@ -394,7 +392,131 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(17.0),
+                                  topRight: Radius.circular(17.0),
+                                ),
+                              ),
+                              width: 302,
+                              height: 300,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff1696C8),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(16.0),
+                                        topRight: Radius.circular(16.0),
+                                      ),
+                                    ),
+                                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                                    child: Align(
+                                      alignment: Alignment.topRight,
+                                      child: IconButton(
+                                        icon: Icon(Icons.close, color: Colors.white),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Salary',
+                                          style: GoogleFonts.firaSans(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xff686464)
+                                          ),
+                                        ),
+                                        SizedBox(height: MediaQuery.of(context).size.height/20,),
+                                        TextFormField(
+                                          cursorColor: Colors.black,
+                                          decoration: InputDecoration(
+                                            hintText: '0.00',
+                                            hintStyle: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff686464)
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: BorderSide(
+                                                color: Color(0xff51B5E6),
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: BorderSide(
+                                                color: Color(0xff51B5E6),
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: BorderSide(
+                                                color: Color(0xff51B5E6),
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                                          ),
+                                          keyboardType: TextInputType.number,
+                                        ),
+                                        SizedBox(height: MediaQuery.of(context).size.height/17),
+                                        Center(
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              // Handle the submit action
+                                              Navigator.of(context).pop();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Color(0xff1696C8),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(12),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                                              child: Text(
+                                                'Submit',
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff1696C8),
                       foregroundColor: Colors.white,
