@@ -484,108 +484,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                         }
                                        },
                                      ),),
-                                    ///
-                                   // FutureBuilder<List<AEClinicalCity>>(
-                                  //     future:   HrAddEmplyClinicalCityApi(context),
-                                  //     builder: (context, snapshot) {
-                                  //       if(snapshot.connectionState == ConnectionState.waiting){
-                                  //         return Shimmer.fromColors(
-                                  //             baseColor: Colors.grey[300]!,
-                                  //             highlightColor: Colors.grey[100]!,
-                                  //             child: Padding(
-                                  //               padding: const EdgeInsets.symmetric(horizontal: 7),
-                                  //               child: Container(
-                                  //                 width: 180,
-                                  //                 height: 40,
-                                  //                 decoration: BoxDecoration( color: ColorManager.faintGrey,),
-                                  //               ),
-                                  //             )
-                                  //         );
-                                  //       }
-                                  //       if(snapshot.hasData){
-                                  //         int docType = 0;
-                                  //         List<DropdownMenuItem<String>> dropDownList =[];
-                                  //         List<DropdownMenuItem<String>> dropDownAbbreviation =[];
-                                  //         for(var i in snapshot.data!){
-                                  //           dropDownList.add(DropdownMenuItem<String>(
-                                  //             child: Text(i.cityName!),
-                                  //             value: i.cityName,
-                                  //           ));
-                                  //           dropDownAbbreviation.add(
-                                  //               DropdownMenuItem<String>(
-                                  //                 child: Text(i.cityName!),
-                                  //                 value: i.cityName,
-                                  //               ));
-                                  //         }
-                                  //         return
-                                  //           Padding(
-                                  //             padding: const EdgeInsets.symmetric(horizontal: 7),
-                                  //             child: Container(
-                                  //               height: 30,
-                                  //               width: 180,
-                                  //               // margin: EdgeInsets.symmetric(horizontal: 20),
-                                  //               padding:
-                                  //               const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                  //               decoration: BoxDecoration(
-                                  //                 color: Colors.white,
-                                  //                 border: Border.all(
-                                  //                     color: const Color(0xff686464).withOpacity(0.5),
-                                  //                     width: 1), // Black border
-                                  //                 borderRadius:
-                                  //                 BorderRadius.circular(5), // Rounded corners
-                                  //               ),
-                                  //               child: DropdownButtonFormField<String>(
-                                  //                 focusColor: Colors.transparent,
-                                  //                 icon: const Icon(
-                                  //                   Icons.arrow_drop_down_sharp,
-                                  //                   color: Colors.blue,
-                                  //                 ),
-                                  //                 decoration: const InputDecoration.collapsed(
-                                  //                     hintText: 'Discipline'),
-                                  //                 items: dropDownList,
-                                  //                 onChanged: (newValue) {
-                                  //                   for(var a in snapshot.data!){
-                                  //                     if(a.cityName == newValue){
-                                  //                       // docType = a.employeeTypesId;
-                                  //                       // empTypeId = docType;
-                                  //                     }
-                                  //                   }
-                                  //                 },
-                                  //                 value: dropDownList[0].value,
-                                  //                 style: GoogleFonts.firaSans(
-                                  //                   fontSize: 12,
-                                  //                   fontWeight: FontWeight.w600,
-                                  //                   color: const Color(0xff686464),
-                                  //                   decoration: TextDecoration.none,
-                                  //                 ),
-                                  //               ),
-                                  //             ),
-                                  //           );
-                                  //         //   CustomDropdownTextField(
-                                  //         //   labelText: 'Disciplines',
-                                  //         //   labelStyle: TextStyle(
-                                  //         //       fontSize: 12,
-                                  //         //       color: Color(0xff575757),
-                                  //         //       fontWeight: FontWeight.w400),
-                                  //         //   labelFontSize: 12,
-                                  //         //   items: ['A', 'B', 'C', 'D'],
-                                  //         // );
-                                  //       }else{
-                                  //         return const Offstage();
-                                  //       }
-                                  //     }
-                                  // ),),
-                                  ///
-                                  //   CustomDropdownTextField(
-                                //     labelText: 'City',
-                                //     labelStyle: TextStyle(
-                                //         fontSize: 12,
-                                //         color: Color(0xff575757),
-                                //         fontWeight: FontWeight.w400),
-                                //     labelFontSize: 12,
-                                //     items: ['A', 'B', 'C', 'D'],
-                                //   ),
-                                // ),
                                 Expanded(
                                   flex: 1,
                                   child: CustomDropdownTextField(
@@ -596,74 +494,64 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                   ),
                                 ),
                                 Expanded(
-                          flex: 1,
-                          child: FutureBuilder<List<AEClinicalZone>>(
-                            future: HrAddEmplyClinicalZoneApi(context,),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return CustomDropdownTextField(
-                                  labelText: 'Zone',
-                                  labelStyle: TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
+                                  flex: 1,
+                                  child: FutureBuilder<List<AEClinicalZone>>(
+                                    future: HrAddEmplyClinicalZoneApi(context,),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                        return Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                                            child: Container(
+                                              width: 180,
+                                              height: 40,
+                                              decoration: BoxDecoration(color: Colors.grey[300]),
+                                            ),
+                                          ),
+                                        );
+                                      } else if (snapshot.hasError) {
+                                        return CustomDropdownTextField(
+                                          labelText: 'Zone',
+                                          labelStyle: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelFontSize: 12,
+                                          items: ['Error'],
+                                        );
+                                      } else if (snapshot.hasData) {
+                                        List<String> dropDownList = snapshot.data!.map((zone) => zone.zoneName ?? '').toList();
+                                        return CustomDropdownTextField(
+                                          labelText: 'Zone',
+                                          labelStyle: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelFontSize: 12,
+                                          items: dropDownList,
+                                          onChanged: (newValue) {
+                                            // Handle onChanged here if needed
+                                          },
+                                        );
+                                      } else {
+                                        return CustomDropdownTextField(
+                                          labelText: 'Zone',
+                                          labelStyle: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          labelFontSize: 12,
+                                          items: ['No Data'],
+                                        );
+                                      }
+                                    },
                                   ),
-                                  labelFontSize: 12,
-                                  items: ['Loading...'],
-                                );
-                              } else if (snapshot.hasError) {
-                                return CustomDropdownTextField(
-                                  labelText: 'Zone',
-                                  labelStyle: TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: ['Error'], // Placeholder item for error state
-                                );
-                              } else if (snapshot.hasData) {
-                                List<String> dropDownList = snapshot.data!.map((zone) => zone.zoneName ?? '').toList();
-                                return CustomDropdownTextField(
-                                  labelText: 'Zone',
-                                  labelStyle: TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: dropDownList,
-                                  onChanged: (newValue) {
-                                    // Handle onChanged here if needed
-                                  },
-                                );
-                              } else {
-                                return CustomDropdownTextField(
-                                  labelText: 'Zone',
-                                  labelStyle: TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xff575757),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  labelFontSize: 12,
-                                  items: ['No Data'],
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                                 // Expanded(
-                                //   flex: 1,
-                                //   child: CustomDropdownTextField(
-                                //     labelText: 'Zone',
-                                //     labelStyle: TextStyle(
-                                //         fontSize: 12,
-                                //         color: Color(0xff575757),
-                                //         fontWeight: FontWeight.w400),
-                                //     labelFontSize: 12,
-                                //     items: ['A', 'B', 'C', 'D'],
-                                //   ),
-                                // ),
+                                ),
                                 Expanded(
                                   flex: 1,
                                   child:
