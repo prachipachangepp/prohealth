@@ -25,6 +25,7 @@ class AppBarWeb extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            ///logo
             Container(
               width: 200,
               // color: Colors.white,
@@ -296,7 +297,6 @@ class AppBarWeb extends StatelessWidget {
 
                                 MediaQuery.of(context).size.width >= 1024
                                     ?
-
                                     ///dropdown
                                     Expanded(
                                         flex: 3,
