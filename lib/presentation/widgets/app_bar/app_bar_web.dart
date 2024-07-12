@@ -160,7 +160,7 @@ class AppBarWeb extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'Establishment Manager',
+                                            headingText,
                                             style: GoogleFonts.firaSans(
                                               fontSize: FontSize.s12,
                                               fontWeight: FontWeight.w700,

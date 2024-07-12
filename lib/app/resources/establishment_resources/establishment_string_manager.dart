@@ -1,6 +1,10 @@
 class AppStringEM{
   ///company identity
   static const String hcoNumber = "HCO Number";
+  static const String type = "Type";
+  static const String specialization = "Specialization";
+  static const String location = "Location";
+  static const String edit = "Edit";
   static const String medicareid = "Medicare ID";
   static const String npinum = "NPI Number";
   static const String emabled = "Enabled: ";
