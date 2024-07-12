@@ -40,6 +40,9 @@ class _MultiStepFormState extends State<MultiStepForm> {
   bool get isLastStep => _currentStep == steps().length - 1;
   bool isCompleted = false;
   String? _selectedCountry;
+  String? _selectedSpeciality;
+  String? _selectedClinician;
+  String? _selectedDegree;
 
   String? _selectedType;
   String? _selectedType1;
@@ -716,26 +719,52 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                 height: AppSize.s5,
                               ),
 
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 4,
-                                height: textFieldHeight,
-                                //alignment: Alignment.center,
-                                //color: Colors.cyan,
-
-                                child: MyDropdownTextField(
-                                  hint: 'Select',
-
-                                  //width: MediaQuery.of(context).size.width/7,
-                                  // height: AppSize.s25,
-                                  items: [
-                                    'Item 1',
-                                    'Item 2',
-                                    'Item 3',
-                                    'Item 4'
-                                  ],
+                              Container(
+                                height: 32,
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    hintText: 'Clinician',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      borderSide:
+                                          BorderSide(color: Colors.grey),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 10),
+                                  ),
+                                  value: _selectedClinician,
+                                  icon: Icon(Icons.arrow_drop_down,
+                                      color: Color(0xff9B9B9B)),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff686464),
+                                  ),
                                   onChanged: (String? newValue) {
-                                    print('Selected item: $newValue');
+                                    setState(() {
+                                      _selectedClinician = newValue;
+                                    });
                                   },
+                                  items: <String>[
+                                    'Clinician1',
+                                    'Clinician2',
+                                    'Clinician3',
+                                    'Clinician4'
+                                  ] // List of countries
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                               const SizedBox(
@@ -751,26 +780,51 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               const SizedBox(
                                 height: AppSize.s5,
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 4,
-                                height: textFieldHeight,
-                                //alignment: Alignment.center,
-                                //color: Colors.cyan,
-
-                                child: MyDropdownTextField(
-                                  hint: 'select',
-
-                                  //width: MediaQuery.of(context).size.width/7,
-                                  // height: AppSize.s25,
-                                  items: [
-                                    'Item 1',
-                                    'Item 2',
-                                    'Item 3',
-                                    'Item 4'
-                                  ],
+                              Container(
+                                height: 32,
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    hintText: 'Speciality',
+                                    hintStyle: TextStyle(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      borderSide:
+                                          BorderSide(color: Colors.grey),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 10),
+                                  ),
+                                  value: _selectedSpeciality,
+                                  icon: Icon(Icons.arrow_drop_down,
+                                      color: Color(0xff9B9B9B)),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: TextStyle(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff686464),
+                                  ),
                                   onChanged: (String? newValue) {
-                                    print('Selected item: $newValue');
+                                    setState(() {
+                                      _selectedSpeciality = newValue;
+                                    });
                                   },
+                                  items: <String>[
+                                    'Speciality 1',
+                                    'Speciality 2',
+                                    'Speciality 3',
+                                    'Speciality 4',
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                             ],
@@ -782,6 +836,67 @@ class _MultiStepFormState extends State<MultiStepForm> {
                 ],
               ),
             )),
+        // Text(
+        //   'Country',
+        //   style: GoogleFonts.firaSans(
+        //     fontSize: 10.0,
+        //     fontWeight: FontWeight.w400,
+        //     color: Color(0xff686464),
+        //   ),
+        // ),
+        // SizedBox(
+        //     height:
+        //     MediaQuery.of(context).size.height /
+        //         60),
+        // Container(
+        //   height: 32,
+        //   child: DropdownButtonFormField<String>(
+        //     decoration: InputDecoration(
+        //       hintText: 'Select Country',
+        //       hintStyle: GoogleFonts.firaSans(
+        //         fontSize: 10.0,
+        //         fontWeight: FontWeight.w400,
+        //         color: Color(0xff9B9B9B),
+        //       ),
+        //       border: OutlineInputBorder(
+        //         borderRadius:
+        //         BorderRadius.circular(4.0),
+        //         borderSide:
+        //         BorderSide(color: Colors.grey),
+        //       ),
+        //       contentPadding: EdgeInsets.symmetric(
+        //           vertical: 10, horizontal: 10),
+        //     ),
+        //     value: _selectedCountry,
+        //     icon: Icon(Icons.arrow_drop_down,
+        //         color: Color(0xff9B9B9B)),
+        //     iconSize: 24,
+        //     elevation: 16,
+        //     style: GoogleFonts.firaSans(
+        //       fontSize: 10.0,
+        //       fontWeight: FontWeight.w400,
+        //       color: Color(0xff686464),
+        //     ),
+        //     onChanged: (String? newValue) {
+        //       setState(() {
+        //         _selectedCountry = newValue;
+        //       });
+        //     },
+        //     items: <String>[
+        //       'Country1',
+        //       'Country2',
+        //       'Country3',
+        //       'Country4'
+        //     ] // List of countries
+        //         .map<DropdownMenuItem<String>>(
+        //             (String value) {
+        //           return DropdownMenuItem<String>(
+        //             value: value,
+        //             child: Text(value),
+        //           );
+        //         }).toList(),
+        //   ),
+        // ),
         /////////////////////////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 1 ? StepState.editing : StepState.complete,
@@ -1315,16 +1430,51 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                 SizedBox(
                                     height: MediaQuery.of(context).size.height /
                                         60),
-                                CustomTextFieldRegister(
-                                  hintText: 'Enter Text',
-                                  hintStyle: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff9B9B9B),
-                                  ),
-                                  height: 32,
-                                ),
-                                SizedBox(
+                    Container(
+                      height: 32,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          hintText: 'Degree',
+                          hintStyle: TextStyle(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff9B9B9B),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        ),
+                        value: _selectedDegree,
+                        icon: Icon(Icons.arrow_drop_down, color: Color(0xff9B9B9B)),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464),
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedDegree = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'Degree 1',
+                          'Degree 2',
+                          'Degree 3',
+                          'Degree 4',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+
+                    SizedBox(
                                     height: MediaQuery.of(context).size.height /
                                         30),
                                 Text(
@@ -2640,7 +2790,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             color: Colors.grey,
           ),
         ),
-    //////////////////////////////////
+        //////////////////////////////////
         Step(
           state: _currentStep <= 7 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 7,
