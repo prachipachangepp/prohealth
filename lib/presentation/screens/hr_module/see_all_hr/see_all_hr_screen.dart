@@ -207,204 +207,206 @@ class _PopUpState extends State<PopUp> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: Container(
-        height: 350,
-        width: 350,
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                'Patient Profile',
-                style: GoogleFonts.firaSans(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xff2C535F)
+      title: Expanded(
+        child: Container(
+          height: 350,
+          width: 350,
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Patient Profile',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff2C535F)
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/60),
-            Row(
-              children: [
-                ConstantContainerWithText(
-                    text: 'RN'
-                ),
-
-                SizedBox(width: MediaQuery.of(context).size.width/90),
-                ConstantContainerWithText(
-                    text: 'LVN'
-                ),
-
-                SizedBox(width: MediaQuery.of(context).size.width/90),
-                ConstantContainerWithText(
-                    text: 'PT'
-                ),
-
-                SizedBox(width: MediaQuery.of(context).size.width/90),
-                ConstantContainerWithText(
-                    text: 'PTA'
-                ),
-
-                SizedBox(width: MediaQuery.of(context).size.width/90),
-                ConstantContainerWithText(
-                    text: 'HHA'
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/45),
-            Row(
-              children: [
-                ConstantContainerWithText(
-                    text: 'COTA'
-                ),
-
-                SizedBox(width: MediaQuery.of(context).size.width/90),
-                ConstantContainerWithText(
-                    text: 'ST'
-                ),
-
-                SizedBox(width: MediaQuery.of(context).size.width/90),
-                ConstantContainerWithText(
-                    text: 'MSW'
-                ),
-
-                SizedBox(width: MediaQuery.of(context).size.width/90),
-                ConstantContainerWithText(
-                    text: 'OT'
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/60),
-            Row(
-              children: [
-                Text('Office Location',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff737373)
+              SizedBox(height: MediaQuery.of(context).size.height/60),
+              Row(
+                children: [
+                  ConstantContainerWithText(
+                      text: 'RN'
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/60),
-            Row(
-              children: [
-                Container(
-                  height: 27,
-                  width: 96,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    border: Border.all(
-                      color: Colors.black,
-                    ),
+        
+                  SizedBox(width: MediaQuery.of(context).size.width/90),
+                  ConstantContainerWithText(
+                      text: 'LVN'
                   ),
-                  child: Center(
-                    child: Text(
-                      'San Jose',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+        
+                  SizedBox(width: MediaQuery.of(context).size.width/90),
+                  ConstantContainerWithText(
+                      text: 'PT'
                   ),
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width/20),
-                Container(
-                  height: 27,
-                  width: 96,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    border: Border.all(
-                      color: Colors.black,
-                    ),
+        
+                  SizedBox(width: MediaQuery.of(context).size.width/90),
+                  ConstantContainerWithText(
+                      text: 'PTA'
                   ),
-                  child: Center(
-                    child: Text(
-                      'Zone 1',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+        
+                  SizedBox(width: MediaQuery.of(context).size.width/90),
+                  ConstantContainerWithText(
+                      text: 'HHA'
                   ),
-                )
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/25),
-            Row(
-              children: [
-                Text(
-                  'License status',
-                  style: GoogleFonts.firaSans(
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/45),
+              Row(
+                children: [
+                  ConstantContainerWithText(
+                      text: 'COTA'
+                  ),
+        
+                  SizedBox(width: MediaQuery.of(context).size.width/90),
+                  ConstantContainerWithText(
+                      text: 'ST'
+                  ),
+        
+                  SizedBox(width: MediaQuery.of(context).size.width/90),
+                  ConstantContainerWithText(
+                      text: 'MSW'
+                  ),
+        
+                  SizedBox(width: MediaQuery.of(context).size.width/90),
+                  ConstantContainerWithText(
+                      text: 'OT'
+                  ),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/60),
+              Row(
+                children: [
+                  Text('Office Location',
+                    style: GoogleFonts.firaSans(
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
                       color: Color(0xff737373)
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/60),
-            Row(
-              children: [
-                Container(
-                  height: 27,
-                  width: 96,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    border: Border.all(
-                      color: Colors.black,
                     ),
                   ),
-                  child: Center(
-                    child: Text(
-                      'Expired',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/60),
+              Row(
+                children: [
+                  Container(
+                    height: 27,
+                    width: 96,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'San Jose',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/25),
-            Row(
-              children: [
-                Text(
-                  'Availability',
-                  style: GoogleFonts.firaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff737373)
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/60),
-            Row(
-              children: [
-                Container(
-                  height: 27,
-                  width: 96,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    border: Border.all(
-                      color: Colors.black,
+                  SizedBox(width: MediaQuery.of(context).size.width/20),
+                  Container(
+                    height: 27,
+                    width: 96,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Zone 1',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/25),
+              Row(
+                children: [
+                  Text(
+                    'License status',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff737373)
                     ),
                   ),
-                  child: Center(
-                    child: Text(
-                      'Full-Time',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/60),
+              Row(
+                children: [
+                  Container(
+                    height: 27,
+                    width: 96,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Expired',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/25),
+              Row(
+                children: [
+                  Text(
+                    'Availability',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff737373)
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/60),
+              Row(
+                children: [
+                  Container(
+                    height: 27,
+                    width: 96,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Full-Time',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

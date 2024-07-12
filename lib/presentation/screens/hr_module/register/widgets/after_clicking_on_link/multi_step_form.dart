@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/widgets/container_constant.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -476,17 +477,6 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   ],
                                 ),
                               ),
-                              // SizedBox(
-                              //   height: 50,
-                              //   child: McqWidget(
-                              //     title: 'Gender',
-                              //     items: [
-                              //       'Male',
-                              //       'Female',
-                              //       'Other',
-                              //     ],
-                              //   ),
-                              // ),
                               SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 30),
@@ -2606,40 +2596,133 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        // Step(
-        //   state: _currentStep <= 5 ? StepState.editing : StepState.complete,
-        //   isActive: _currentStep == 5,
-        //   title: Text(
-        //     'Banking',
-        //     style: GoogleFonts.firaSans(
-        //       fontSize: 12,
-        //       fontWeight: FontWeight.w400,
-        //       color: ColorManager.grey,
-        //       decoration: TextDecoration.none,
-        //     ),
-        //   ),
-        //   content: Container(
-        //     height: 100,
-        //     color: Colors.purple,
-        //   ),
-        // ),
-        Step(
-          state: _currentStep <= 6 ? StepState.editing : StepState.complete,
-          isActive: _currentStep >= 6,
-          title: Text(
-            'Health \nRecords',
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: ColorManager.grey,
-              decoration: TextDecoration.none,
+
+    Step(
+      state: _currentStep <= 6 ? StepState.editing : StepState.complete,
+      isActive: _currentStep == 6,
+      title:  Text('Health \nRecords',style: GoogleFonts.firaSans(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: ColorManager.grey,
+        decoration: TextDecoration.none,
+      ),),
+      content: Container(
+        height: 1500,
+        width: 1200,
+        child: Column(
+          children: [
+            Center(
+              child: Text(
+                'Health Records',
+                style: GoogleFonts.firaSans(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff50B5E5)
+                ),
+              ),
             ),
-          ),
-          content: Container(
-            height: 100,
-            color: Colors.grey,
-          ),
+            SizedBox(height: MediaQuery.of(context).size.height/60),
+            Container(
+              width: 952,
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              decoration: BoxDecoration(
+                color: Color(0xFFE6F7FF),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '• ',
+                        style: GoogleFonts.firaSans(
+                          color: Color(0xFF686464),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Instructions: This section is designed to capture and document your health and immunization records as part of your onboarding process. Please enter the required information accurately.',
+                          style: GoogleFonts.firaSans(
+                            color: Color(0xFF686464),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height/100),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '• ',
+                        style: GoogleFonts.firaSans(
+                          color: Color(0xFF686464),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
+                          style: GoogleFonts.firaSans(
+                            color: Color(0xFF686464),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: MediaQuery.of(context).size.height/20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return PhysicalExamContainer();
+                },
+              ),
+            ),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return VaccineContainer();
+                },
+              ),
+            ),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return PhysicalExamContainer();
+                },
+              ),
+            ),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return VaccineContainer();
+                },
+              ),
+            ),
+
+          ],
         ),
+      ),
+    ),
     //////////////////////////////////
         Step(
           state: _currentStep <= 7 ? StepState.editing : StepState.complete,

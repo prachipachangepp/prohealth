@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomDropdown extends StatelessWidget {
   final String labelText;
+  final String? hintText;
+  final hintStyle;
   final List<String> items;
   final String? value;
   final ValueChanged<String?> onChanged;
@@ -11,6 +13,8 @@ class CustomDropdown extends StatelessWidget {
     Key? key,
     required this.labelText,
     required this.items,
+    this.hintText,
+    this.hintStyle,
     required this.onChanged,
     this.value,
   }) : super(key: key);
@@ -19,8 +23,13 @@ class CustomDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: DropdownButtonFormField<String>(
+        iconEnabledColor: Color(0xff50B5E5),
+        iconDisabledColor: Color(0xff50B5E5),
+        dropdownColor: Colors.white,
         decoration: InputDecoration(
           labelText: labelText,
+          hintText: hintText,
+          hintStyle: hintStyle,
           labelStyle: GoogleFonts.firaSans(
             fontSize: 10,
             fontWeight: FontWeight.w400,
