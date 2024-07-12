@@ -27,10 +27,15 @@ class _ClinicalTabState extends State<ClinicalTab> {
   final TextEditingController _controller8 = TextEditingController();
   final TextEditingController _controller9 = TextEditingController();
   final TextEditingController _controller10 = TextEditingController();
-  final StreamController<List<AEClinicalDiscipline>> _hrdisciplineController = StreamController<List<AEClinicalDiscipline>>();
-  final StreamController<List<AEClinicalCity>> _hrCityController = StreamController<List<AEClinicalCity>>();
-  final StreamController<List<AEClinicalReportingOffice>> _hrReportingOfficeController = StreamController<List<AEClinicalReportingOffice>>();
-  final StreamController<List<AEClinicalZone>> _hrZoneController = StreamController<List<AEClinicalZone>>();
+  final StreamController<List<AEClinicalDiscipline>> _hrdisciplineController =
+      StreamController<List<AEClinicalDiscipline>>();
+  final StreamController<List<AEClinicalCity>> _hrCityController =
+      StreamController<List<AEClinicalCity>>();
+  final StreamController<List<AEClinicalReportingOffice>>
+      _hrReportingOfficeController =
+      StreamController<List<AEClinicalReportingOffice>>();
+  final StreamController<List<AEClinicalZone>> _hrZoneController =
+      StreamController<List<AEClinicalZone>>();
 
   String _selectedOption = 'Option 1';
 
@@ -46,22 +51,24 @@ class _ClinicalTabState extends State<ClinicalTab> {
 
   int docAddVisitTypeId = 0;
 
-  int docVisitTypeId =0;
+  int docVisitTypeId = 0;
 
-  int empTypeId =0;
+  int empTypeId = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    HrAddEmplyClinicalDisciplinApi(context, 1).then((data){
+    HrAddEmplyClinicalDisciplinApi(context, 1).then((data) {
       _hrdisciplineController.add(data);
     });
     HrAddEmplyClinicalCityApi(context);
-    HrAddEmplyClinicalReportingOfficeApi(context, 11).then((data){
+    HrAddEmplyClinicalReportingOfficeApi(context, 11).then((data) {
       _hrReportingOfficeController.add(data);
     });
-    HrAddEmplyClinicalZoneApi(context, ).then((data){
+    HrAddEmplyClinicalZoneApi(
+      context,
+    ).then((data) {
       _hrZoneController.add(data);
     });
   }
@@ -75,15 +82,13 @@ class _ClinicalTabState extends State<ClinicalTab> {
     double textFieldHeight = 38;
     // FocusNode _focusNode = FocusNode();
 
-
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-
+          child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
             ///upload photo
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
@@ -91,8 +96,11 @@ class _ClinicalTabState extends State<ClinicalTab> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: (){},
-                    icon: Icon(Icons.file_upload_outlined,color: Colors.white,),
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.file_upload_outlined,
+                      color: Colors.white,
+                    ),
                     label: Text(
                       'Upload Photo',
                       textAlign: TextAlign.center,
@@ -114,6 +122,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
               ),
             ),
             SizedBox(height: 10),
+
             /// first container
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -147,19 +156,24 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 Expanded(
                                   flex: 1,
                                   child:
-                                  FutureBuilder<List<AEClinicalDiscipline>>(
-                                    future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                                      FutureBuilder<List<AEClinicalDiscipline>>(
+                                    future: HrAddEmplyClinicalDisciplinApi(
+                                        context, 1),
                                     builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
                                         return Shimmer.fromColors(
                                           baseColor: Colors.grey[300]!,
                                           highlightColor: Colors.grey[100]!,
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 7),
                                             child: Container(
                                               width: 180,
                                               height: 40,
-                                              decoration: BoxDecoration(color: ColorManager.faintGrey),
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      ColorManager.faintGrey),
                                             ),
                                           ),
                                         );
@@ -192,6 +206,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                       }
                                     },
                                   ),
+
                                   ///
                                   // FutureBuilder<List<AEClinicalDiscipline>>(
                                   //   future:  HrAddEmplyClinicalDisciplinApi(context, 1),
@@ -319,19 +334,25 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 ),
                                 Expanded(
                                   flex: 1,
-                                  child: FutureBuilder<List<AEClinicalDiscipline>>(
-                                    future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                                  child:
+                                      FutureBuilder<List<AEClinicalDiscipline>>(
+                                    future: HrAddEmplyClinicalDisciplinApi(
+                                        context, 1),
                                     builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
                                         return Shimmer.fromColors(
                                           baseColor: Colors.grey[300]!,
                                           highlightColor: Colors.grey[100]!,
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 7),
                                             child: Container(
                                               width: 180,
                                               height: 40,
-                                              decoration: BoxDecoration(color: ColorManager.faintGrey),
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      ColorManager.faintGrey),
                                             ),
                                           ),
                                         );
@@ -446,20 +467,23 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               children: [
                                 Expanded(
                                   flex: 1,
-                                  child:
-                                  FutureBuilder<List<AEClinicalCity>>(
+                                  child: FutureBuilder<List<AEClinicalCity>>(
                                     future: HrAddEmplyClinicalCityApi(context),
                                     builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
                                         return Shimmer.fromColors(
                                           baseColor: Colors.grey[300]!,
                                           highlightColor: Colors.grey[100]!,
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 7),
                                             child: Container(
                                               width: 180,
                                               height: 40,
-                                              decoration: BoxDecoration(color: ColorManager.faintGrey),
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      ColorManager.faintGrey),
                                             ),
                                           ),
                                         );
@@ -479,11 +503,12 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                           labelFontSize: 12,
                                           items: dropDownList,
                                         );
-                                        } else {
+                                      } else {
                                         return const Offstage();
-                                        }
-                                       },
-                                     ),),
+                                      }
+                                    },
+                                  ),
+                                ),
                                 Expanded(
                                   flex: 1,
                                   child: CustomDropdownTextField(
@@ -496,18 +521,23 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 Expanded(
                                   flex: 1,
                                   child: FutureBuilder<List<AEClinicalZone>>(
-                                    future: HrAddEmplyClinicalZoneApi(context,),
+                                    future: HrAddEmplyClinicalZoneApi(
+                                      context,
+                                    ),
                                     builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
                                         return Shimmer.fromColors(
                                           baseColor: Colors.grey[300]!,
                                           highlightColor: Colors.grey[100]!,
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 7),
                                             child: Container(
                                               width: 180,
                                               height: 40,
-                                              decoration: BoxDecoration(color: Colors.grey[300]),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey[300]),
                                             ),
                                           ),
                                         );
@@ -523,7 +553,10 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                           items: ['Error'],
                                         );
                                       } else if (snapshot.hasData) {
-                                        List<String> dropDownList = snapshot.data!.map((zone) => zone.zoneName ?? '').toList();
+                                        List<String> dropDownList = snapshot
+                                            .data!
+                                            .map((zone) => zone.zoneName ?? '')
+                                            .toList();
                                         return CustomDropdownTextField(
                                           labelText: 'Zone',
                                           labelStyle: TextStyle(
@@ -554,20 +587,26 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 ),
                                 Expanded(
                                   flex: 1,
-                                  child:
-                                  FutureBuilder<List<AEClinicalReportingOffice>>(
-                                    future: HrAddEmplyClinicalReportingOfficeApi(context, 11),
+                                  child: FutureBuilder<
+                                      List<AEClinicalReportingOffice>>(
+                                    future:
+                                        HrAddEmplyClinicalReportingOfficeApi(
+                                            context, 11),
                                     builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
                                         return Shimmer.fromColors(
                                           baseColor: Colors.grey[300]!,
                                           highlightColor: Colors.grey[100]!,
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 7),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 7),
                                             child: Container(
                                               width: 180,
                                               height: 40,
-                                              decoration: BoxDecoration(color: ColorManager.faintGrey),
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      ColorManager.faintGrey),
                                             ),
                                           ),
                                         );
@@ -591,8 +630,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                           onChanged: (newValue) {
                                             for (var a in snapshot.data!) {
                                               if (a.name == newValue) {
-                                                 // int? docType = a.companyOfficeID;
-
+                                                // int? docType = a.companyOfficeID;
                                               }
                                             }
                                           },
@@ -602,6 +640,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                       }
                                     },
                                   ),
+
                                   ///
                                   // CustomDropdownTextField(
                                   //   labelText: 'Reporting Office',
@@ -686,29 +725,25 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 ),
                               ],
                             ),
-                            Row(children: [
-                              Expanded(
-                                flex: 1,
-                                child: CustomDropdownTextField(
-                                  labelText: 'Emergency Contact',
-                                  labelStyle: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xff575757),
-                                      fontWeight: FontWeight.w400),
-                                  labelFontSize: 12,
-                                  items: ['A', 'B', 'C', 'D'],
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: CustomDropdownTextField(
+                                    labelText: 'Emergency Contact',
+                                    labelStyle: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400),
+                                    labelFontSize: 12,
+                                    items: ['A', 'B', 'C', 'D'],
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                  flex: 1,
-                                  child: Container()),
-                              Expanded(
-                                  flex: 1,
-                                  child: Container()),
-                              Expanded(
-                                  flex: 1,
-                                  child: Container())
-                            ],)
+                                Expanded(flex: 1, child: Container()),
+                                Expanded(flex: 1, child: Container()),
+                                Expanded(flex: 1, child: Container())
+                              ],
+                            )
                             // Padding(
                             //   padding: EdgeInsets.only(
                             //       left: MediaQuery.of(context).size.width / 24),
@@ -734,6 +769,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
             SizedBox(
               height: 10,
             ),
+
             /// second Container
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -808,16 +844,39 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                   ),
                                   Expanded(
                                     flex: 1,
-                                    child: McqWidget(
-                                      title: 'Service',
-                                      items: [
-                                        'Home Health',
-                                        'Hospice',
-                                        'Home Care',
-                                        'Palliative Care'
-                                      ],
-                                      onChanged: (int) {},
-                                    ),
+                                    child:
+                                    FutureBuilder<
+                                            List<AEClinicalService>>(
+                                        future:
+                                            HrAddEmplyClinicalServiceRadioButtonApi(
+                                                context, 1),
+                                        builder: (context, snap) {
+                                          if (snap.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return Center(
+                                              child: SizedBox(
+                                                  height: 20,
+                                                  width: 20,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color:
+                                                        ColorManager.blueprime,
+                                                  )),
+                                            );
+                                          }
+                                          if (snap.hasData) {
+                                            List<String> serviceName = [];
+                                            for (var i in snap.data!) {
+                                              serviceName.add(i.serviceName!);
+                                            }
+                                            return McqWidget(
+                                              title: 'Service',
+                                              items: serviceName,
+                                              onChanged: (int) {},
+                                            );
+                                          }
+                                          return SizedBox();
+                                        }),
                                   ),
                                 ],
                               ),
@@ -827,17 +886,11 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                     flex: 1,
                                     child: McqWidget(
                                       title: 'Gender',
-                                      items: [
-                                        'Male',
-                                        'Female',
-                                        'Other',
-                                      ],
+                                      items: ['Male, Female, Other'],
                                       onChanged: (int) {},
                                     ),
                                   ),
-                                  Expanded(
-                                      flex: 1,
-                                      child: Container())
+                                  Expanded(flex: 1, child: Container())
                                 ],
                               ),
                             ],
@@ -862,17 +915,13 @@ class _ClinicalTabState extends State<ClinicalTab> {
                       style: TextStyle(
                           fontFamily: 'FiraSans',
                           fontSize: 12,
-                          fontWeight: FontWeight.w700
-                      ),
+                          fontWeight: FontWeight.w700),
                       borderRadius: 12,
-                      onPressed: (){})
-
-
-                        ],
-                      ),
+                      onPressed: () {})
+                ],
+              ),
             ),
-          ])
-      ),
+          ])),
     );
   }
 }
