@@ -2723,7 +2723,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
         ),
       ),
     ),
-    //////////////////////////////////
+    ////////////////////////////////////
         Step(
           state: _currentStep <= 7 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 7,
