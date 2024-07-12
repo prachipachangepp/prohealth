@@ -14,6 +14,7 @@ import '../manage/web_manage/manage_screen.dart';
 import '../manage/widgets/custom_icon_button_constant.dart';
 import '../onboarding/onboarding_screen.dart';
 import '../register/register_screen.dart';
+import '../see_all_hr/see_all_hr_screen.dart';
 
 class HomeHrScreen extends StatefulWidget {
   const HomeHrScreen({super.key});
@@ -167,7 +168,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
             ),
           ),
           ///page view
-
           Expanded(
             flex: 8,
             child: PageView(
@@ -179,8 +179,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                 AddEmployeeHomeScreen(),
                 RegisterScreen(),
                 OnBoardingScreen(),
-               SeeAllScreen()
-                // WhitelabellingScreen()
+               SeeAllHrScreen()
               ],
             ),
           ),
