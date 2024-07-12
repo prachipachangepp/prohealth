@@ -12,7 +12,7 @@ class AppStringHr{
   static String documents = "Documents";
   static String bankings = "Banking";
   static String healthRcord = "Health Records";
-  static String inventory = "Inventory";
+  static String inventory = "Equipment";
   static String payRate = "Pay Rates";
   static String termination = "Termination";
   static String timeOff = "Time Off";
