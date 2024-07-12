@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
@@ -145,8 +146,27 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
       body: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Padding(
+                padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width/25,
+                  bottom: MediaQuery.of(context).size.width/120,),
+                child: InkWell(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.arrow_back,size: 15,),
+                      Text('Go Back',style: GoogleFonts.firaSans(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.mediumgrey),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               ///Create USer
               Padding(
                 padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/25,
@@ -521,7 +541,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                                   userIdController = TextEditingController(text:snapshotPrefill.data!.userId.toString());
                                                   firstNameController = TextEditingController(text: snapshotPrefill.data!.firstName.toString());
                                                   lastNameController = TextEditingController(text: snapshotPrefill.data!.lastName.toString());
-                                                  roleController = TextEditingController(text: snapshotPrefill.data!.role.toString());
+                                                  //roleController = TextEditingController(text: snapshotPrefill.data!.role.toString());
                                                   emailController = TextEditingController(text: snapshotPrefill.data!.email.toString());
                                                   companyIdController = TextEditingController(text: snapshotPrefill.data!.companyId.toString());
                                                   return EditUserPopUp(

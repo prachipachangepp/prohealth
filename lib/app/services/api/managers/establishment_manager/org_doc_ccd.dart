@@ -81,7 +81,9 @@ Future<List<CiOrgDocumentCC>> orgSubDocumentGet(BuildContext context,
               name: item["doc_name"],
               expiry: item["expiry_date"],
               reminderThreshold: item["expiry_reminder"],
-              sucess: true, message: response.statusMessage!
+              sucess: true, message: response.statusMessage!, documentTypeId: item['document_type_id'],
+              documentSubTypeId: item['document_subtype_id'], url: item['url'], expirtReminder: item['expiry_reminder'],
+              companyId: item['company_id'], officeId: item['office_id']
           ),
         );
       }

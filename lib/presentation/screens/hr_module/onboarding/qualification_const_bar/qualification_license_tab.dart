@@ -20,7 +20,7 @@ class QualificationLicense extends StatefulWidget {
 }
 
 class _QualificationLicenseState extends State<QualificationLicense> {
-  final StreamController<List<OnboardingQualificationLicenseData>> licenseStreamController = StreamController<List<OnboardingQualificationLicenseData>>();
+  final StreamController<List<OnboardingQualificationLicenseData>> licenseStreamController = StreamController<List<OnboardingQualificationLicenseData>>.broadcast();
 
   @override
   void initState() {
@@ -28,6 +28,11 @@ class _QualificationLicenseState extends State<QualificationLicense> {
     getOnboardingQualificationLicense(context, 2).then((data){
       licenseStreamController.add(data);
     }).catchError((error){});
+  }
+  @override
+  void dispose() {
+    licenseStreamController.close();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -55,9 +60,9 @@ class _QualificationLicenseState extends State<QualificationLicense> {
           if(snapshot.hasData){
             return WrapWidget(childern: List.generate(snapshot.data!.length, (index){
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
                 child: Container(
-                  width: MediaQuery.of(context).size.width/2.5,
+                  width: MediaQuery.of(context).size.width/2.3,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -81,7 +86,7 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          snapshot.data![index].empId.toString(),
+                          'License #${snapshot.data![index].licenseId.toString()}',
                           style: GoogleFonts.firaSans(
                             fontSize: 13,
                             color: Color(0xFF333333),
@@ -115,13 +120,18 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                               children: [
                                 InfoText('Issue Date',),
                                 InfoText('End Date',),
+                                InfoText('',),
+                                InfoText('',),
                               ],
                             ),
+
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 InfoData(snapshot.data![index].issueDate),
                                 InfoData(snapshot.data![index].expDate),
+                                InfoData(''),
+                                InfoData(''),
                               ],
                             ),
                           ],
@@ -130,8 +140,124 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             QualificationActionButtons(
-                                onRejectPressed: (){},
-                                onApprovePressed: (){}),
+                                approve: snapshot.data![index].approve,
+                                onRejectPressed: () async {
+                                  await rejectOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
+                                  getOnboardingQualificationLicense(context, 2).then((data){
+                                    licenseStreamController.add(data);
+                                  }).catchError((error){});
+                                },
+                                onApprovePressed: ()async{
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20.0),
+                                          ),
+                                          height: 200.0,
+                                          width: 300.0,
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Container(
+                                                width: double.infinity,
+                                                height: 50,
+                                                alignment: Alignment.bottomCenter,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xff1696C8),
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(12),
+                                                    topRight: Radius.circular(12),
+                                                  ),
+                                                ),
+                                                child: Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    icon: Icon(Icons.close, color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  "Do you really want to,\napprove this?",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeightManager.regular,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(10),
+                                                child: Align(
+                                                  alignment: Alignment.bottomCenter,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          backgroundColor: Colors.white,
+                                                          foregroundColor: Color(0xff1696C8),
+                                                          side: BorderSide(color: Color(0xff1696C8)),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          'Cancel',
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10.0,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: MediaQuery.of(context).size.width / 75),
+                                                      ElevatedButton(
+                                                        onPressed: () async {
+                                                          await approveOnboardQualifyLicensePatch(context, snapshot.data![index].licenseId);
+                                                          getOnboardingQualificationLicense(context, 2).then((data){
+                                                            licenseStreamController.add(data);
+                                                          }).catchError((error){});
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          backgroundColor: Color(0xff1696C8),
+                                                          foregroundColor: Colors.white,
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          'Yes',
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10.0,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }),
                           ],
                         )
                       ],
@@ -140,344 +266,6 @@ class _QualificationLicenseState extends State<QualificationLicense> {
                 ),
               );
             }));
-            // Padding(
-            //   padding: EdgeInsets.symmetric(
-            //       horizontal: MediaQuery.of(context).size.width / 80,
-            //       vertical: MediaQuery.of(context).size.height / 100),
-            //   child: TwoContainersRow(
-            //     child1: Column(
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       children: [
-            //          Row(
-            //           children: [
-            //             Text(
-            //               AppString.emp1,
-            //               style: CustomTextStylesCommon.commonStyle(
-            //                   color: ColorManager.blackfaint,
-            //                   fontSize: FontSize.s13,
-            //                   fontWeight: FontWeightManager.medium
-            //               )
-            //             ),
-            //           ],
-            //         ),
-            //         Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //           children: [
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text(AppString.finalposition,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.startdate,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.enddate,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.employer,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.emergencycont,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //               ],
-            //             ),
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text(
-            //                  AppString.developer,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.dateone,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.detetwo,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.johnSmith,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.mobilenum,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //               ],
-            //             ),
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text(AppString.reasonleaving,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.lastSupName,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.supPhone,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.city,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.country,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //               ],
-            //             ),
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text(
-            //                   AppString.personal,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.jerrychrist,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.tnum,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.hamburg,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.germany,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //               ],
-            //             ),
-            //           ],
-            //         ),
-            //         Padding(
-            //           padding: const EdgeInsets.all(AppPadding.p8),
-            //           child: Row(
-            //             mainAxisAlignment: MainAxisAlignment.end,
-            //             children: [
-            //               CustomButtonTransparent(
-            //                 onPressed: () async{},
-            //                 text: AppString.reject,
-            //               ),
-            //               SizedBox(
-            //                 width: MediaQuery.of(context).size.width / 99,
-            //               ),
-            //               CustomIconButton(text: AppString.approve, onPressed: () async{}),
-            //             ],
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //     child2: Column(
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       children: [
-            //         Row(
-            //           children: [
-            //             Text(
-            //                 AppString.emp2,
-            //                 style: CustomTextStylesCommon.commonStyle(
-            //                     color: ColorManager.blackfaint,
-            //                     fontSize: FontSize.s13,
-            //                     fontWeight: FontWeightManager.medium
-            //                 )
-            //             ),
-            //           ],
-            //         ),
-            //         Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //           children: [
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text(AppString.finalposition,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.startdate,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.enddate,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.employer,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.emergencycont,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //               ],
-            //             ),
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text(
-            //                   AppString.developer,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.dateone,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.detetwo,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.johnSmith,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.mobilenum,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //               ],
-            //             ),
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text(AppString.reasonleaving,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.lastSupName,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.supPhone,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.city,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(AppString.country,
-            //                     style: ThemeManager.customTextStyle(context)),
-            //               ],
-            //             ),
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text(
-            //                   AppString.personal,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.jerrychrist,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.tnum,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.hamburg,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //                 const SizedBox(
-            //                   height: AppSize.s10,
-            //                 ),
-            //                 Text(
-            //                   AppString.germany,
-            //                   style: ThemeManagerDark.customTextStyle(context),
-            //                 ),
-            //               ],
-            //             ),
-            //           ],
-            //         ),
-            //         Padding(
-            //           padding: const EdgeInsets.all(AppPadding.p8),
-            //           child: Row(
-            //             mainAxisAlignment: MainAxisAlignment.end,
-            //             children: [
-            //               CustomButtonTransparent(
-            //                 onPressed: () async{},
-            //                 text: AppString.reject,
-            //               ),
-            //               SizedBox(
-            //                 width: MediaQuery.of(context).size.width / 99,
-            //               ),
-            //               CustomIconButton(text: AppString.approve, onPressed: () async{}),
-            //             ],
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //   ));
           }else{
             return const SizedBox();
           }

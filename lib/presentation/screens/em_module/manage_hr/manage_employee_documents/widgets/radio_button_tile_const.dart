@@ -5,7 +5,7 @@ import 'package:prohealth/app/resources/font_manager.dart';
 
 class CustomRadioListTile extends StatefulWidget {
   final String value;
-  final String groupValue;
+  final String? groupValue;
   final ValueChanged onChanged;
   final String title;
 

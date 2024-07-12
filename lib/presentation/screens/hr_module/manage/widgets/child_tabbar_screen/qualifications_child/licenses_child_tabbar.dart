@@ -38,8 +38,11 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
       builder: (context,snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(
-              color: ColorManager.blueprime,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 100),
+              child: CircularProgressIndicator(
+                color: ColorManager.blueprime,
+              ),
             ),
           );
         }
@@ -74,7 +77,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                       color: Colors.white,
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
-                    height: 200,
+                    height:  MediaQuery.of(context).size.height/3.3,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 80,
@@ -156,15 +159,20 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
+                              snapshot.data![index].approved == false ?
                               CustomButtonTransparent(text: 'Reject', onPressed: () async{
                                 await rejectLicensePatch(context, snapshot.data![index].licenseId);
-                                Navigator.pop(context);
-                              }),
+                              }) :SizedBox() ,
                               const SizedBox(width: 5,),
-                              CustomIconButton(
+                              snapshot.data![index].approved == true ?
+                              Text('Approved',
+                                  textAlign: TextAlign.center,
+                                  style: CustomTextStylesCommon.commonStyle(
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeightManager.bold,
+                                      color: ColorManager.blueprime)) :  CustomIconButton(
                                   text: 'Approve', onPressed: () async{
                                 await approveLicensePatch(context, snapshot.data![index].licenseId);
-                                Navigator.pop(context);
                               })
                             ],
                           )
