@@ -1,8 +1,6 @@
 
 
 class HRModuleAEClinicalRepository {
-
-
       ///employee type department
       static String emplyType = "/employee-types/";
       static String dept =  "Department/";
@@ -10,7 +8,12 @@ class HRModuleAEClinicalRepository {
       static String city = "/city";
       ///Reporting office
       static String companyOffice = "/company-office/";
+      ///zone
       static String zone = "/zone/";
+      ///service
+      static String service = "company-office-service";
+          // "/company-office-service/";
+
 
   static String getEmployeeTypeDept(int deptId){
     return "$emplyType$dept$deptId";
@@ -21,13 +24,20 @@ class HRModuleAEClinicalRepository {
   static String getAddEmplyReportingOffice(int companyID){
     return "$companyOffice$companyID";
   }
-  static String getAddEmplyZone(
-      // { required int companyID,
-      //   required int officeID,
-      //   required int countyID,
-      //   required int pageNo,
-      //   required int rowsNo}
-      ){
+  static String getAddEmplyZone(){
     return "$zone";
   }
+  static String getAddEmplyService(
+      // {required int companyID}
+      ){
+    return "$service";
+  }
+
 }
+
+
+// { required int companyID,
+//   required int officeID,
+//   required int countyID,
+//   required int pageNo,
+//   required int rowsNo}

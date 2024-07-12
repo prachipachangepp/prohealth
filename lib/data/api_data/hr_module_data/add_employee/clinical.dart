@@ -1,4 +1,3 @@
-
 /// discipline dropdown
 class AEClinicalDiscipline {
   final bool? success;
@@ -89,4 +88,31 @@ class AEClinicalZone {
       this.zoneName,
       this.zipCode,
       this.cities});
+}
+
+class AEClinicalService {
+  final int? officeServiceID;
+  final int? companyID;
+  final String? officeID;
+  final String? serviceName;
+  final String? npiNo;
+  final String? medicareProviderID;
+  final String? hecoNoID;
+
+  AEClinicalService({
+       this.officeServiceID,
+       this.companyID,
+       this.officeID,
+       this.serviceName,
+       this.npiNo,
+       this.medicareProviderID,
+       this.hecoNoID});
+  // "Office_service_id": 1,
+  // "company_id": 1,
+  // "office_id": "Office NY",
+  // "service_name": "Home Health",
+  // "service_id": "Ser1",
+  // "npi_number": "45555E",
+  // "medicare_provider_id": "455EE",
+  // "hco_num_id": "dkkkd444"
 }
