@@ -37,6 +37,7 @@ class _FormNineScreenState extends State<FormNineScreen> {
   TextEditingController formI94AdmissionNumber = TextEditingController();
   TextEditingController foreignPassportNumber = TextEditingController();
   TextEditingController countryOfIssuance = TextEditingController();
+  TextEditingController _controller = TextEditingController();
 
   List<bool> _checkboxValues = List<bool>.generate(4, (index) => false);
 
@@ -249,7 +250,21 @@ class _FormNineScreenState extends State<FormNineScreen> {
                     dob,
                     "dd-mm-yyyy",
                     TextInputType.datetime,
-                    suffixIcon: Icon(Icons.calendar_today)),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.calendar_month_outlined, color: Color(0xff50B5E5), size: 16,),
+                      onPressed: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2101),
+                        );
+                        if (pickedDate != null) {
+                          _controller.text = "${pickedDate.toLocal()}".split(' ')[0];
+                        }
+                      },
+                    ),
+                ),
               ],
             ),
             SizedBox(height: 20),
