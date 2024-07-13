@@ -53,7 +53,7 @@ Future<List<EmployeeBankingData>> getEmployeeBanking(
 }
 
 /// Banking employee prefill Get
-Future<EmployeeBankingData> getPrefillEmployeeEducation(
+Future<EmployeeBankingData> getPrefillEmployeeBancking(
     BuildContext context, int employeeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
@@ -86,8 +86,7 @@ Future<EmployeeBankingData> getPrefillEmployeeEducation(
             effectiveDate: effectiveFormattedDate,
             routinNumber: response.data['routingNumber'],
             type: response.data['type'],
-            sucess: true,
-            message: response.data['message']);
+            );
 
     } else {
       print("Employee Prefill Bancking");

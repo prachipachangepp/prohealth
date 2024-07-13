@@ -1,22 +1,27 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 class EditBankingPopUp extends StatefulWidget {
-  const EditBankingPopUp({Key? key}) : super(key: key);
+  String? selectedType;
+  final TextEditingController effectiveDateController;
+  final TextEditingController bankNameController;
+  final TextEditingController accountNumberController;
+  final TextEditingController verifyAccountController;
+  final TextEditingController routingNumberController;
+  final TextEditingController specificAmountController;
+  Future<void> Function() onPressed;
+   EditBankingPopUp({super.key, required this.onPressed,this.selectedType,required this.effectiveDateController, required this.bankNameController,
+     required this.accountNumberController, required this.verifyAccountController,
+     required this.routingNumberController, required this.specificAmountController});
 
   @override
   State<EditBankingPopUp> createState() => _EditBankingPopUpState();
 }
 
 class _EditBankingPopUpState extends State<EditBankingPopUp> {
-  String _selectedType = 'Checking';
-  final _effectiveDateController = TextEditingController();
-  final _bankNameController = TextEditingController();
-  final _accountNumberController = TextEditingController();
-  final _verifyAccountController = TextEditingController();
-  final _routingNumberController = TextEditingController();
-  final _specificAmountController = TextEditingController();
+bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -138,20 +143,20 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           children: [
             Radio(
               value: 'Checking',
-              groupValue: _selectedType,
+              groupValue: widget.selectedType,
               onChanged: (value) {
                 setState(() {
-                  _selectedType = value.toString();
+                  widget.selectedType = value.toString();
                 });
               },
             ),
             Text('Checking'),
             Radio(
               value: 'Savings',
-              groupValue: _selectedType,
+              groupValue: widget.selectedType,
               onChanged: (value) {
                 setState(() {
-                  _selectedType = value.toString();
+                  widget.selectedType = value.toString();
                 });
               },
             ),
@@ -159,7 +164,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           ],
         ),
         SizedBox(height: 10),
-        _buildTextField(_routingNumberController, 'Routing Number/ Transit Number'),
+        _buildTextField(widget.routingNumberController, 'Routing Number/ Transit Number'),
         SizedBox(height: 10),
         Text('Requested Amount for this Account (select one)', style: _labelStyle()),
         Row(
@@ -175,12 +180,12 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
         Row(
           children: [
             Expanded(
-              child: _buildTextField(_specificAmountController, '', prefixText: '\$'),
+              child: _buildTextField(widget.specificAmountController, '', prefixText: '\$'),
             ),
             SizedBox(width: 10),
             ElevatedButton(
               onPressed: () {
-                _specificAmountController.clear();
+                widget.specificAmountController.clear();
               },
               child: Text(
                 'Reset',
@@ -208,7 +213,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildTextField(
-          _effectiveDateController,
+          widget.effectiveDateController,
           'Effective Date',
           suffixIcon: IconButton(
             icon: Icon(
@@ -220,7 +225,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           ),
         ),
         SizedBox(height: 10),
-        _buildTextField(_accountNumberController, 'Account Number'),
+        _buildTextField(widget.accountNumberController, 'Account Number'),
       ],
     );
   }
@@ -233,7 +238,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       lastDate: DateTime(2101),
     );
     if (pickedDate != null) {
-      _effectiveDateController.text = "${pickedDate.toLocal()}".split(' ')[0];
+      widget.effectiveDateController.text = "${pickedDate.toLocal()}".split(' ')[0];
     }
   }
 
@@ -241,9 +246,9 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTextField(_bankNameController, 'Bank Name'),
+        _buildTextField(widget.bankNameController, 'Bank Name'),
         SizedBox(height: 10),
-        _buildTextField(_verifyAccountController, 'Verify Account Number'),
+        _buildTextField(widget.verifyAccountController, 'Verify Account Number'),
       ],
     );
   }
@@ -297,14 +302,36 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           ),
         ),
       ),
-      ElevatedButton(
+      isLoading ? SizedBox(
+          height: 25,
+          width: 25,
+          child: CircularProgressIndicator(color: ColorManager.blueprime,))
+          : ElevatedButton(
         child: Text('Save',
             style: GoogleFonts.firaSans(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
                 fontSize: 12)),
-        onPressed: () {
-          // Handle save action
+        onPressed: () async{
+          setState(() {
+            isLoading = true;
+          });
+          try {
+            await widget.onPressed();
+          } finally {
+            setState(() {
+              isLoading = false;
+            });
+            Navigator.pop(context);
+            widget.effectiveDateController.clear();
+            widget.specificAmountController.clear();
+            widget.bankNameController.clear();
+            widget.routingNumberController.clear();
+            widget.accountNumberController.clear();
+            widget.verifyAccountController.clear();
+            widget.selectedType = '';
+          }
+
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Color(0xFF27A3E0),

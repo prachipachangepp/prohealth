@@ -39,8 +39,6 @@ class EmployeeBankingPrefillData {
   final String routinNumber;
   final String type;
   final bool? approve;
-  final bool sucess;
-  final String message;
 
   EmployeeBankingPrefillData({
     required this.empBankingId,
@@ -53,8 +51,7 @@ class EmployeeBankingPrefillData {
     required this.routinNumber,
     required this.type,
     this.approve,
-    required this.sucess,
-    required this.message,
+
   });
 }
 
