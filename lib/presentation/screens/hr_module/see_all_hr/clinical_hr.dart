@@ -567,10 +567,10 @@ class _EditPopUpState extends State<EditPopUp> {
                 children: [
                   Container(
                     height: 72,
-                    width: 360,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.black12)),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.black12),
+                    ),
                     child: Column(
                       children: [
                         Padding(
@@ -586,59 +586,56 @@ class _EditPopUpState extends State<EditPopUp> {
                             ),
                           ),
                         ),
-                        Row(
+                        Wrap(
                           children: [
-                            Expanded(
-                              child: CustomRadioListTile(
-                                  value: 'Male',
-                                  groupValue: _selectedType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType = value;
-                                    });
-                                  },
-                                  title: 'Male'),
+                            CustomRadioListTile(
+                              value: 'Male',
+                              groupValue: _selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                });
+                              },
+                              title: 'Male',
                             ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                  value: 'Female',
-                                  groupValue: _selectedType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType = value;
-                                    });
-                                  },
-                                  title: 'Female'),
+                            CustomRadioListTile(
+                              value: 'Female',
+                              groupValue: _selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                });
+                              },
+                              title: 'Female',
                             ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                  value: 'Other',
-                                  groupValue: _selectedType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType = value;
-                                    });
-                                  },
-                                  title: 'Other'),
-                            )
+                            CustomRadioListTile(
+                              value: 'Other',
+                              groupValue: _selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                });
+                              },
+                              title: 'Other',
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: MediaQuery.of(context).size.width/120,
                   ),
                   Container(
                     height: 72,
-                    width: 780,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.black12)),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.black12),
+                    ),
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 18.0, top: 10),
+                          padding: EdgeInsets.only(left: 2.0, top: 10),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -650,68 +647,64 @@ class _EditPopUpState extends State<EditPopUp> {
                             ),
                           ),
                         ),
-                        Row(
+                        Wrap(
                           children: [
-                            Expanded(
-                              child: CustomRadioListTile(
-                                  value: 'Asian',
-                                  groupValue: _selectedType1,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType1 = value;
-                                    });
-                                  },
-                                  title: 'Asian'),
+                            CustomRadioListTile(
+                              value: 'Asian',
+                              groupValue: _selectedType1,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType1 = value;
+                                });
+                              },
+                              title: 'Asian',
                             ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                  value: 'Black or African American',
-                                  groupValue: _selectedType1,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType1 = value;
-                                    });
-                                  },
-                                  title: 'Black or African American'),
+                            CustomRadioListTile(
+                              value: 'Black or African American',
+                              groupValue: _selectedType1,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType1 = value;
+                                });
+                              },
+                              title: 'Black or African American',
                             ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                  value: 'White',
-                                  groupValue: _selectedType1,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType1 = value;
-                                    });
-                                  },
-                                  title: 'White'),
+                            CustomRadioListTile(
+                              value: 'White',
+                              groupValue: _selectedType1,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType1 = value;
+                                });
+                              },
+                              title: 'White',
                             ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                  value: 'Hispanic or Latino',
-                                  groupValue: _selectedType1,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType1 = value;
-                                    });
-                                  },
-                                  title: 'Hispanic or Latino'),
+                            CustomRadioListTile(
+                              value: 'Hispanic or Latino',
+                              groupValue: _selectedType1,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType1 = value;
+                                });
+                              },
+                              title: 'Hispanic or Latino',
                             ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                  value: 'Other',
-                                  groupValue: _selectedType1,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType1 = value;
-                                    });
-                                  },
-                                  title: 'Other'),
-                            )
+                            CustomRadioListTile(
+                              value: 'Other',
+                              groupValue: _selectedType1,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType1 = value;
+                                });
+                              },
+                              title: 'Other',
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
+
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 40),

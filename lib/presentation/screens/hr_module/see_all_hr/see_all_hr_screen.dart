@@ -1,18 +1,113 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
-import 'package:prohealth/presentation/screens/hr_module/see_all_hr/administration_hr.dart';
-import 'package:prohealth/presentation/screens/hr_module/see_all_hr/clinical_hr.dart';
-import 'package:prohealth/presentation/screens/hr_module/see_all_hr/sales_hr.dart';
-import 'package:prohealth/presentation/screens/hr_module/see_all_hr/widgets/drop_down.dart';
-import 'package:prohealth/presentation/screens/hr_module/see_all_hr/widgets/see_all_tab_bar_constant.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:prohealth/presentation/screens/hr_module/see_all_hr/administration_hr.dart';
+// import 'package:prohealth/presentation/screens/hr_module/see_all_hr/clinical_hr.dart';
+// import 'package:prohealth/presentation/screens/hr_module/see_all_hr/sales_hr.dart';
+//
+// import '../../../../app/resources/color.dart';
+//
+// class SeeAllHrScreen extends StatefulWidget {
+//   const SeeAllHrScreen({super.key});
+//
+//   @override
+//   State<SeeAllHrScreen> createState() => _SeeAllHrScreenState();
+// }
+//
+// class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProviderStateMixin {
+//   late TabController _tabController;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _tabController = TabController(length: 3, vsync: this);
+//     _tabController.addListener(() {
+//       setState(() {});
+//     });
+//   }
+//
+//   @override
+//   void dispose() {
+//     _tabController.dispose();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.only(left: 49.0, right: 49.0),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             children: [
+//               InkWell(
+//                 onTap: (){Navigator.pop(context);},
+//                 child: Text(
+//                   'Go Back',
+//                   style: GoogleFonts.firaSans(
+//                     fontSize: 12,
+//                     fontWeight: FontWeight.bold,
+//                     color: ColorManager.mediumgrey,
+//                     decoration: TextDecoration.underline,
+//                   ),
+//                 ),
+//               ),
+//               Expanded(
+//                 child: TabBar(
+//                   controller: _tabController,
+//                   tabs: [
+//                     _buildTabWithCircle('Clinical', '1,366', _tabController.index == 0),
+//                     _buildTabWithCircle('Sales', '1,234', _tabController.index == 1),
+//                     _buildTabWithCircle('Administration', '567', _tabController.index == 2),
+//                   ],
+//                 ),
+//               ),
+//               ElevatedButton(
+//                 onPressed: () {
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) {
+//                       return PopUp();
+//                     },
+//                   );
+//                 },
+//                 child: SvgPicture.asset('images/menu_lines.svg'),
+//                 style: ElevatedButton.styleFrom(
+//                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+//                   backgroundColor: Color(0xff50B5E5),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(9),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//           Expanded(
+//             child: TabBarView(
+//               controller: _tabController,
+//               children: [
+//                 ClinicalHrScreen(),
+//                 SalesHrScreen(),
+//                 AdministrationHrScreen(),
+//               ],
+//             ),
+//           ),
+//         ],
+//       )
+//
+//     );
+//   }
 
-import '../../../../app/resources/color.dart';
-import '../../../../app/resources/const_string.dart';
-import '../../../../app/resources/font_manager.dart';
-import '../manage/controller/controller.dart';
+
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prohealth/presentation/screens/hr_module/see_all_hr/sales_hr.dart';
+
+import 'administration_hr.dart';
+import 'clinical_hr.dart';
 
 class SeeAllHrScreen extends StatefulWidget {
   const SeeAllHrScreen({super.key});
@@ -39,6 +134,111 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
     super.dispose();
   }
 
+  Widget _buildTabWithCircle(int selectedIndex) {
+    return Padding(
+      padding: EdgeInsets.only(left: 180.0, right: 180.0),
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+          color: Color(0xff50B5E5),
+          borderRadius: BorderRadius.circular(40),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            _buildSingleTab('Clinical', '1,366', selectedIndex == 0, true, false),
+            _buildSingleTab('Sales', '1,234', selectedIndex == 1, false, false),
+            _buildSingleTab('Administration', '567', selectedIndex == 2, false, true),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSingleTab(String text, String number, bool isSelected, bool isLeft, bool isRight) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          int index = isLeft ? 0 : (isRight ? 2 : 1);
+          setState(() {
+            _tabController.index = index;
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 5),
+          decoration: BoxDecoration(
+            color: isSelected ? Colors.white : Color(0xff50B5E5),
+            borderRadius: BorderRadius.only(
+              topLeft:  Radius.circular(40) ,
+              bottomLeft: Radius.circular(40) ,
+              topRight:  Radius.circular(40) ,
+              bottomRight: Radius.circular(40) ,
+            ),
+            boxShadow: isSelected
+                ? [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: Offset(0, 3),
+              ),
+            ]
+                : [],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                style: TextStyle(
+                  color: isSelected ? Color(0xff686464) : Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                ),
+              ),
+              if (isSelected && number.isNotEmpty)
+                Container(
+                  height: 31,
+                  width: 31,
+                  margin: EdgeInsets.only(left: 24),
+                  // padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Color(0xff50B5E5),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      number,
+                      style: GoogleFonts.firaSans(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -55,20 +255,13 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
                   style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: ColorManager.mediumgrey,
+                    color: Color(0xFF686464),
                     decoration: TextDecoration.underline,
                   ),
                 ),
               ),
               Expanded(
-                child: TabBar(
-                  controller: _tabController,
-                  tabs: [
-                    _buildTabWithCircle('Clinical', '1,366', _tabController.index == 0),
-                    _buildTabWithCircle('Sales', '1,234', _tabController.index == 1),
-                    _buildTabWithCircle('Administration', '567', _tabController.index == 2),
-                  ],
-                ),
+                child: _buildTabWithCircle(_tabController.index),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -100,47 +293,6 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
               ],
             ),
           ),
-        ],
-      )
-
-    );
-  }
-
-  Widget _buildTabWithCircle(String text, String number, bool isSelected) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      decoration: BoxDecoration(
-        color: isSelected ? Colors.white : Colors.blue[400],
-        borderRadius: BorderRadius.circular(26),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            text,
-            style: TextStyle(
-              color: isSelected ? Colors.blue[400] : Colors.white,
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-            ),
-          ),
-          if (isSelected && number.isNotEmpty)
-            Container(
-              margin: EdgeInsets.only(left: 8),
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.blue[400],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                number,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
-              ),
-            ),
         ],
       ),
     );
