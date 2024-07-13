@@ -7,6 +7,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employee_banking_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employee_banking_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/bancking_child/widget/edit_banking_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
@@ -22,6 +23,13 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
   bool checkBox2 = false;
   bool checkBox3 = false;
   bool checkBox4 = false;
+  String? selectedType;
+  TextEditingController effectiveDateController = TextEditingController();
+  TextEditingController bankNameController = TextEditingController();
+  TextEditingController  accountNumberController = TextEditingController();
+  TextEditingController verifyAccountController = TextEditingController();
+  TextEditingController routingNumberController = TextEditingController();
+  TextEditingController specificAmountController = TextEditingController();
   final StreamController<List<EmployeeBankingData>> bankingStreamController = StreamController<List<EmployeeBankingData>>();
   @override
   void initState() {
@@ -78,46 +86,53 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                             ),
                             const SizedBox(width: 8),
                              BankingContainerConst(typeName: snapshot.data![index].type, acNumber: snapshot.data![index].accountNumber,
-                               effectiveDate: snapshot.data![index].effectiveDate, requestPercentage: '30%', bankName: snapshot.data![index].bankName, routinNo: snapshot.data![index].routinNumber,),
+                               effectiveDate: snapshot.data![index].effectiveDate,
+                               requestPercentage: '30%', bankName: snapshot.data![index].bankName,
+                               routinNo: snapshot.data![index].routinNumber,
+                               selectedType: selectedType,
+                               effectiveDateController: effectiveDateController,
+                               bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
+                               routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () {
+                               showDialog(context: context, builder: (_) => FutureBuilder<EmployeeBankingData>(
+                                 future: getPrefillEmployeeBancking(context,snapshot.data![index].empBankingId),
+                                 builder: (context,snapshotPrefill) {
+                                   if(snapshot.connectionState == ConnectionState.waiting){
+                                     return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                   }
+                                   var bankName = snapshotPrefill.data!.bankName;
+                                   bankNameController = TextEditingController(text:snapshotPrefill.data!.bankName);
+
+                                   var effectiveDate = snapshotPrefill.data!.effectiveDate;
+                                   effectiveDateController = TextEditingController(text:snapshotPrefill.data!.effectiveDate);
+
+                                   var accountNumber = snapshotPrefill.data!.accountNumber;
+                                   accountNumberController = TextEditingController(text:snapshotPrefill.data!.accountNumber);
+
+                                   //var verifyAcNumber = snapshotPrefill.data.
+                                   var routingNumber = snapshotPrefill.data!.routinNumber;
+                                   routingNumberController = TextEditingController(text:snapshotPrefill.data!.routinNumber.toString());
+
+                                   var amount = snapshotPrefill.data!.amountRequested;
+                                   specificAmountController = TextEditingController(text: snapshotPrefill.data!.amountRequested.toString());
+                                   return EditBankingPopUp(effectiveDateController: effectiveDateController,
+                                     bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
+                                     routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () async{
+                                     await PatchEmployeeBanking(context, snapshot.data![index].empBankingId, snapshotPrefill.data!.employeeId,
+                                         accountNumber == accountNumberController.text ? accountNumber.toString() : accountNumberController.text,
+                                         bankName == bankNameController.text ? bankName.toString() : bankNameController.text,
+                                         amount == int.parse(specificAmountController.text) ? amount : int.parse(specificAmountController.text),
+                                         snapshotPrefill.data!.checkUrl,
+                                         effectiveDate == effectiveDateController.text ? effectiveDate.toString() : effectiveDateController.text,
+                                         routingNumber == routingNumberController.text ? routingNumber.toString() : routingNumberController.text,
+                                         snapshotPrefill.data!.type);
+                                     },);
+                                 }
+                               )); },),
                           ],
                         ),
                       ),
                     );
                   })
-              
-                // const SizedBox(height: 16),
-                // Row(
-                //   children: [
-                //     Checkbox(
-                //       activeColor: const Color(0xff50B5E5),
-                //       hoverColor: Colors.transparent,
-                //       focusColor: Colors.transparent,
-                //       value: checkBox3,
-                //       onChanged: (value) {
-                //         setState(() {
-                //           checkBox3 = value!;
-                //         });
-                //       },
-                //     ),
-                //     const SizedBox(width: 8),
-                //     const BankingContainerConst(),
-                //     const SizedBox(width: 16),
-                //     Checkbox(
-                //       activeColor: const Color(0xff50B5E5),
-                //       hoverColor: Colors.transparent,
-                //       focusColor: Colors.transparent,
-                //       value: checkBox4,
-                //       onChanged: (value) {
-                //         setState(() {
-                //           checkBox4 = value!;
-                //         });
-                //       },
-                //     ),
-                //     const SizedBox(width: 8),
-                //     const BankingContainerConst(),
-                //   ],
-                // ),
-              
               ),
             ),
           );
@@ -136,8 +151,17 @@ class BankingContainerConst extends StatelessWidget {
    String requestPercentage;
    String bankName;
    String routinNo;
+   String? selectedType;
+   final VoidCallback onPressed;
+   final TextEditingController effectiveDateController;
+   final TextEditingController bankNameController;
+   final TextEditingController accountNumberController;
+   final TextEditingController verifyAccountController;
+   final TextEditingController routingNumberController;
+   final TextEditingController specificAmountController;
 
-   BankingContainerConst({Key? key, required this.typeName, required this.acNumber, required this.effectiveDate, required this.requestPercentage, required this.bankName, required this.routinNo,}) : super(key: key);
+   BankingContainerConst({Key? key, this.selectedType,required this.typeName, required this.acNumber, required this.effectiveDate, required this.requestPercentage, required this.bankName, required this.routinNo,
+     required this.effectiveDateController, required this.bankNameController, required this.accountNumberController, required this.verifyAccountController, required this.routingNumberController, required this.specificAmountController, required this.onPressed,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -181,8 +205,7 @@ class BankingContainerConst extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 35,
                   width: MediaQuery.of(context).size.width / 20,
                   child: ElevatedButton(
-                    onPressed:
-                        () {},
+                    onPressed:onPressed,
                     child:  Text(
                       AppStringHr.edit,
                       style: GoogleFonts.firaSans(
