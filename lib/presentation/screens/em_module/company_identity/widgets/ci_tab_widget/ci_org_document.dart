@@ -381,6 +381,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                               ),
                                             ],
                                           ),
+                                          title: 'Add Document',
                                           child:  FutureBuilder<List<DocumentTypeData>>(
                                               future: documentTypeGet(context),
                                               builder: (context,snapshot) {
