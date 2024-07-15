@@ -136,7 +136,7 @@ class HealthRecordTab extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppPadding.p80, vertical: AppPadding.p40),
+          padding: EdgeInsets.symmetric(horizontal: AppPadding.p80,),
           child: Material(
             elevation: 5,
             borderRadius: BorderRadius.all(Radius.circular(12)),

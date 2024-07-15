@@ -314,7 +314,7 @@ class AcknowledgementTab extends StatelessWidget {
     return  Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80, vertical: AppPadding.p40),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80,),
             child: Material(
               elevation: 5,
               borderRadius: BorderRadius.circular(12),

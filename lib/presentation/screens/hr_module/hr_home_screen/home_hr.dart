@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/presentation/screens/em_module/see_all_screen/see_all_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/dashoboard_screen.dart';
-
+import 'package:prohealth/presentation/screens/hr_module/onboarding/new_onboard_screen.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../widgets/app_bar/app_bar.dart';
@@ -15,7 +12,6 @@ import '../../em_module/em_desktop_screen.dart';
 import '../add_employee/add_employee_screen.dart';
 import '../manage/web_manage/manage_screen.dart';
 import '../manage/widgets/custom_icon_button_constant.dart';
-import '../onboarding/onboarding_screen.dart';
 import '../register/register_screen.dart';
 import '../see_all_hr/see_all_hr_screen.dart';
 
@@ -141,9 +137,6 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         isSelected: myController.selectedIndex.value == 4,
                       ),
                     ),
-                    // SizedBox(
-                    //   width: MediaQuery.of(context).size.width / 70,
-                    // ),
                   ],
                 ),
                 MediaQuery.of(context).size.width >= 1024
@@ -287,7 +280,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                 ManageScreen(),
                 AddEmployeeHomeScreen(),
                 RegisterScreen(),
-                OnBoardingScreen(),
+                NewOnboardScreen(),
                 SeeAllHrScreen()
               ],
             ),
