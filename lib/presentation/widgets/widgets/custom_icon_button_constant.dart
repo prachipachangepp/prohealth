@@ -22,7 +22,7 @@ class CustomIconButtonConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
+      width: MediaQuery.of(context).size.width/9,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(

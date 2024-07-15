@@ -32,7 +32,7 @@ class OnboardingGeneral extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                           width: containerWidth,
-                          height: containerHeight,
+                          height: 150,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(

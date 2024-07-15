@@ -288,10 +288,15 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                               return FutureBuilder<GetEmployeeSetupPrefillData>(
                                                 future: getPrefillEmployeeDocTab(context,snapshot.data![index].employeeDocTypesetupId),
                                                 builder: (context,snapshotPrefill) {
+                                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                    return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                  }
                                                   var expiry = snapshotPrefill.data?.expiry.toString();
                                                   var docName = snapshotPrefill.data?.docName.toString();
+                                                  var empSetupId = snapshotPrefill.data?.employeeDocTypesetupId;
                                                   var calender = snapshotPrefill.data?.reminderThreshold.toString();
                                                   var empDocType = snapshotPrefill.data?.employeeDocTypesetupId;
+                                                  idDocController = TextEditingController(text: snapshotPrefill.data?.employeeDocTypesetupId.toString());
                                                   docNamecontroller = TextEditingController(text:  snapshotPrefill.data?.docName.toString());
                                                   dateController = TextEditingController(text: snapshotPrefill.data?.reminderThreshold.toString());
                                                   expiryType = snapshotPrefill.data?.expiry.toString();
@@ -306,7 +311,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                     onSavePredded: () async{
                                                       await editEmployeeDocTypeSetupId(context,
                                                           docName == docNamecontroller ? docName.toString() : docNamecontroller.text,
-                                                        expiry != expiryType.toString() ? expiry.toString() : expiryType.toString(),
+                                                        expiry == expiryType.toString() ? expiry.toString() : expiryType.toString(),
                                                         calender == dateController.text ? calender.toString() : dateController.text,
                                                             snapshot.data![index].employeeDocTypesetupId,
                                                         empDocType == docMetaId ? empDocType! : docMetaId,

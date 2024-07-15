@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/declination_form_screen.dart';
 import 'dart:typed_data';
 
 import '../../../manage/widgets/top_row.dart';
@@ -255,7 +256,8 @@ class _SignaturePageState extends State<SignaturePage> {
                                     fontWeight: FontWeight.w700
                                 ),),
                               onPressed: () {
-                                _showSaveConfirmationDialog();
+                                // _showSaveConfirmationDialog();
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => DeclinationPageScreen()));
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xff50B5E5),
@@ -376,7 +378,7 @@ class _SignaturePageState extends State<SignaturePage> {
                       ],
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => FormNineScreen()));
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => DeclinationPageScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff50B5E5),

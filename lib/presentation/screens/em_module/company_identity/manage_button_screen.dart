@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/constants/app_config.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
@@ -590,7 +591,7 @@ int listIndex = 0 ;
                       //     nameList: ['County', 'Zone'],
                       //     screenList: [CIZoneCountry(), CIZoneZone()],
                       //     mediaQueryWidth: 3.5,),
-                      CiCorporateComplianceScreen(),
+                      CiCorporateComplianceScreen(docId: AppConfig.docId8,),
                       // CiPageview(
                       //     managePageController: _managePageController,
                       //     selectedIndex: _selectedIndex,
@@ -607,7 +608,7 @@ int listIndex = 0 ;
                       //   nameList: ['Vendor', 'Contracts'],
                       //   screenList: [CiInsuranceVendor(), CiInsuranceContract()],
                       // ),
-                      CiCcVendorContractScreen(companyID: widget.companyID, officeId: widget.officeID,),
+                      CiCcVendorContractScreen(companyID: widget.companyID, officeId: widget.officeID, docId: AppConfig.docId9,),
                       // CiPageview(
                       //   managePageController: _managePageController,
                       //   selectedIndex: _selectedIndex,
@@ -616,7 +617,7 @@ int listIndex = 0 ;
                       //   nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
                       //   screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()], docId: docID,
                       // ),
-                      CiPoliciesAndProcedures(docID: docID, subDocID: docID,),
+                      CiPoliciesAndProcedures(docID: AppConfig.docId10, subDocID: docID,),
                       CiTempalets()
                     ]),
               ),

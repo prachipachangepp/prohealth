@@ -407,8 +407,8 @@ class _ManageScreenState extends State<ManageScreen> {
         Tab(text: AppStringHr.qualification),
         Tab(text: AppStringHr.documents),
         Tab(text: AppStringHr.bankings),
-        Tab(text: AppStringHr.healthRcord),
-        Tab(text: AppStringHr.inventory),
+        // Tab(text: AppStringHr.healthRcord),
+         Tab(text: AppStringHr.inventory),
         Tab(text: AppStringHr.payRate),
         Tab(text: AppStringHr.termination),
         Tab(text: AppStringHr.timeOff),
@@ -417,7 +417,7 @@ class _ManageScreenState extends State<ManageScreen> {
         CenteredTabBarChild(childController),
         CenteredTabBarChild(childControlleOne),
         BankingHeadTabbar(),
-        HealthRecordsHeadTabbar(),
+       // HealthRecordsHeadTabbar(),
         Column(
           children: [
             Row(

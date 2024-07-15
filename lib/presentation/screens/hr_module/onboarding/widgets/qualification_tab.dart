@@ -4,6 +4,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/widg
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../em_module/company_identity/company_identity_screen.dart';
+import '../../../em_module/company_identity/widgets/ci_tab_widget/widget/upper_menu_buttons.dart';
 import '../../manage/controller/controller.dart';
 import '../qualification_const_bar/widgets/onboarding_qualification.dart';
 
@@ -32,215 +33,114 @@ class _OnboardingQualificationState extends State<OnboardingQualification> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width / 50.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              SizedBox(width: 50,),
-              ///tabbar
-              Container(
-                //color: Colors.greenAccent,
-                width: MediaQuery.of(context).size.width / 3,
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => _selectButton(0),
-                      child: Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width / 20,
-                        child: Column(
-                          children: [
-                            Text(
-                              "Employment",
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: _selectedIndex == 0
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 0
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
-                            ),
-                            _selectedIndex == 0
-                                ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 4,
-                                  )
-                                : Offstage()
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _selectButton(1),
-                      child: Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width / 20, //80,
-                        child: Column(
-                          children: [
-                            Text(
-                              "Education",
-                              style: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                fontWeight: _selectedIndex == 1
-                                    ? FontWeightManager.bold
-                                    : FontWeightManager.regular,
-                                color: _selectedIndex == 1
-                                    ? ColorManager.blueprime
-                                    : ColorManager.mediumgrey,
-                              ),
-                            ),
-                            _selectedIndex == 1
-                                ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 4,
-                                  )
-                                : Offstage()
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _selectButton(2),
-                      child: Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width / 20, // 80,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "Reference",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: _selectedIndex == 2
-                                      ? FontWeightManager.bold
-                                      : FontWeightManager.regular,
-                                  color: _selectedIndex == 2
-                                      ? ColorManager.blueprime
-                                      : ColorManager.mediumgrey,
-                                ),
-                              ),
-                            ),
-                            _selectedIndex == 2
-                                ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 4,
-                                  )
-                                : Offstage()
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => _selectButton(3),
-                      child: Container(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width / 20, // 80,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "License",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: _selectedIndex == 3
-                                      ? FontWeightManager.bold
-                                      : FontWeightManager.regular,
-                                  color: _selectedIndex == 3
-                                      ? ColorManager.blueprime
-                                      : ColorManager.mediumgrey,
-                                ),
-                              ),
-                            ),
-                            _selectedIndex == 3
-                                ? Divider(
-                                    color: ColorManager.blueprime,
-                                    thickness: 4,
-                                  )
-                                : Offstage()
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ///button
-              _selectedIndex == 0
-                  ? CustomElevatedButton(
-                      icon: Icons.save_alt_outlined,
-                      label: "Resume",
-                      iconPosition: IconPosition.right,
-                      onPressed: () {})
-                  : _selectedIndex == 3
-                      ? ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: ColorManager.bluebottom,
-                            //foregroundColor: Color(0xff1696C8),
-                            side: BorderSide(color: Color(0xff1696C8)),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "Li-censure",
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorManager.white
-                                ),
-                              ),
-                              SizedBox(width: 6.0),
-                              Icon(
-                                Icons.file_copy,
-                                size: 16.0,
-                                color: ColorManager.white,
-                              ),
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(children: [
+          Padding(
+            padding: EdgeInsets.only(right:  MediaQuery.of(context).size.width/65),
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 14,),
+              //padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/65),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(width: MediaQuery.of(context).size.width/50,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      UpperMenuButtons(
+                          onTap: (int index) {
+                            _selectButton(index);
+                          },
+                          index: 0,
+                          grpIndex: _selectedIndex,
+                          heading: "Employment"),
+                      UpperMenuButtons(
+                          onTap: (int index) {
+                            _selectButton(index);
+                          },
+                          index: 1,
+                          grpIndex: _selectedIndex,
+                          heading: "Education"),
+                      UpperMenuButtons(
+                          onTap: (int index) {
+                            _selectButton(index);
+                          },
+                          index: 2,
+                          grpIndex: _selectedIndex,
+                          heading: "Reference"),
+                      UpperMenuButtons(
+                          onTap: (int index) {
+                            _selectButton(index);
+                          },
+                          index: 3,
+                          grpIndex: _selectedIndex,
+                          heading: "License"),
+                    ],
+                  ),
+                  _selectedIndex == 0
+                                  ? CustomElevatedButton(
+                                      icon: Icons.save_alt_outlined,
+                                      label: "Resume",
+                                      iconPosition: IconPosition.right,
+                                      onPressed: () {})
+                                  : _selectedIndex == 3
+                                      ? ElevatedButton(
+                                          onPressed: () {},
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: ColorManager.bluebottom,
+                                            //foregroundColor: Color(0xff1696C8),
+                                            side: BorderSide(color: Color(0xff1696C8)),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                "Li-censure",
+                                                style: GoogleFonts.firaSans(
+                                                  fontSize: 10.0,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: ColorManager.white
+                                                ),
+                                              ),
+                                              SizedBox(width: 6.0),
+                                              Icon(
+                                                Icons.file_copy,
+                                                size: 16.0,
+                                                color: ColorManager.white,
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : SizedBox(width: 100,),
+
                             ],
                           ),
-                        )
-                      : SizedBox(
-                          width: 100,
                         ),
-            ],
           ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 50),
+          Expanded(
+            flex: 1,
             child: NonScrollablePageView(
               controller: _tabPageController,
               onPageChanged: (index) {
                 setState(() {
                   _selectedIndex = index;
+                  // documentTypeGet(context);
                 });
               },
-              children: [
+              children: const [
                 OnBoardingQualificationEmployment(),
-                OnBoardingQualificationEducation(),
-                OnBoardingQualificationReference(),
-                OnBoardingQualificationLicense(),
+                              OnBoardingQualificationEducation(),
+                              OnBoardingQualificationReference(),
+                              OnBoardingQualificationLicense(),
               ],
             ),
           ),
-        )
-      ],
-    );
+
+        ]));
   }
 }

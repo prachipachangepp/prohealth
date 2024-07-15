@@ -17,7 +17,7 @@ import '../../../../../../../../app/services/api/managers/establishment_manager/
 import '../../../../../../../../app/services/api/managers/establishment_manager/pay_rates_manager.dart';
 import '../../../../../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../../../../../../../../data/api_data/establishment_data/pay_rates/pay_rates_finance_data.dart';
-import '../../../../../../../widgets/widgets/login_screen/desk_dashboard_hrm.dart';
+import '../../../../../../hr_module/hr_home_screen/desk_dashboard_hrm.dart';
 import '../../../../../responsive_screen_sm.dart';
 import '../../../../../widgets/button_constant.dart';
 

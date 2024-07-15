@@ -15,7 +15,8 @@ class AddVisitPopup extends StatefulWidget {
   final Future<void> Function() onSavePressed;
   final Widget child;
   final Widget child1;
-  const AddVisitPopup({super.key, required this.nameOfDocumentController, required this.idOfDocumentController, required this.onSavePressed, required this.child, required this.child1,});
+  final String title;
+  const AddVisitPopup({super.key, required this.nameOfDocumentController, required this.idOfDocumentController, required this.onSavePressed, required this.child, required this.child1, required this.title,});
 
   @override
   State<AddVisitPopup> createState() => _AddPoliciesPopupState();
@@ -52,7 +53,7 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Add New Visit',
+                   widget.title,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
                       fontSize: 13,

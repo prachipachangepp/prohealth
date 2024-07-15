@@ -386,6 +386,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
+                    enable: false,
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',

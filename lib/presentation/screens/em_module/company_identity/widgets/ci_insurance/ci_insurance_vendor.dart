@@ -179,7 +179,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Text(
-                                            "01",
+                                            formattedSerialNumber,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w500,
