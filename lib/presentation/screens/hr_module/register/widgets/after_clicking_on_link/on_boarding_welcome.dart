@@ -300,43 +300,71 @@ class OnBoardingCongratulation extends StatelessWidget {
       ),
       child: Container(
         width: 900.0,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(20.0), // Adjust padding as needed
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'images/single_doctor.png',
-                height: 277.0,
-                width: 372.0,
+        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 4,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Padding(
+                  padding:  EdgeInsets.only(top: 20.0),
+                  child: Image.asset(
+                    'images/single_doctor.png',
+                    height: 277.0,
+                    width: 372.0,
+                  ),
+                ),
               ),
-              SizedBox(height: 20.0),
-              Text(
-                'Congratulations!',
-                style: GoogleFonts.firaSans(
+            ),
+            Expanded(
+              flex: 1,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  'Congratulations!',
+                  style: GoogleFonts.firaSans(
                     color: Color(0xFF686464),
                     fontSize: 30.0,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
-              SizedBox(height: 20.0),
-              Text(
-                'You are a part of ProHealth family',
-                style: GoogleFonts.firaSans(
-                    color: Color(0xFF686464),
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w400),
+            ),
+            Expanded(
+              flex: 3,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'You are a part of ProHealth family',
+                      style: GoogleFonts.firaSans(
+                        color: Color(0xFF686464),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Text(
+                      'Please fill the information and provide necessary documents for the upcoming sections',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.firaSans(
+                        color: Color(0xFF686464),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 20.0),
-              Text(
-                'Please fill the information and provide necessary documents for the upcoming sections',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.firaSans(
-                    color: Color(0xFF686464),
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w400),
-              ),
-              SizedBox(height: 20.0),
-              ElevatedButton(
+            ),
+            Expanded(
+              flex: 1,
+              child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
                 },
@@ -349,54 +377,70 @@ class OnBoardingCongratulation extends StatelessWidget {
                 child: Text(
                   'Continue',
                   style: GoogleFonts.firaSans(
+                    fontSize: 20,
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
-              SizedBox(height: 30.0),
-              Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 5.0,
-                runSpacing: 5.0,
-                children: [
-                  SvgPicture.asset(
-                    'images/face_man.svg',
-                    height: 24.0,
-                    width: 24.0,
-                  ),
-                  Text(
-                    'For any assistance please call:',
-                    style: GoogleFonts.firaSans(
+            ),
+            Expanded(
+              flex: 2,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 5.0,
+                  runSpacing: 5.0,
+                  children: [
+                    SvgPicture.asset(
+                      'images/face_man.svg',
+                      height: 24.0,
+                      width: 24.0,
+                    ),
+                    Text(
+                      'For any assistance please call:',
+                      style: GoogleFonts.firaSans(
                         color: Color(0xFF686464),
                         fontSize: 20.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    '(4088) 555-1234',
-                    style: GoogleFonts.firaSans(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Text(
+                      '(4088) 555-1234',
+                      style: GoogleFonts.firaSans(
                         color: Color(0xFF50B5E5),
                         fontSize: 20.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    'or email:',
-                    style: GoogleFonts.firaSans(
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFF50B5E5),
+                      ),
+                    ),
+                    Text(
+                      'or email:',
+                      style: GoogleFonts.firaSans(
                         color: Color(0xFF686464),
                         fontSize: 20.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    'support@symmetry.com',
-                    style: GoogleFonts.firaSans(
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFF686464),
+                      ),
+                    ),
+                    Text(
+                      'support@symmetry.com',
+                      style: GoogleFonts.firaSans(
                         color: Color(0xFF50B5E5),
                         fontSize: 20.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ],
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFF50B5E5),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

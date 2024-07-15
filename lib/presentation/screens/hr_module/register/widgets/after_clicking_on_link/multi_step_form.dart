@@ -2780,7 +2780,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           'List Of Documents',
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                             color: Color(0xff686464),
                           ),
                         ),
@@ -2794,7 +2794,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           'Canditate Release Form (Background Check)',
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: Color(0xff686464),
                           ),
                         ),
@@ -2818,7 +2818,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           'On - call',
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: Color(0xff686464),
                           ),
                         ),
@@ -2857,7 +2857,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           'Confidentiality Statement HIPAA',
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: Color(0xff686464),
                           ),
                         ),
@@ -2896,7 +2896,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           'Policy Concerning 3 RD Party',
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: Color(0xff686464),
                           ),
                         ),
@@ -2935,7 +2935,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           'Standards Of Conduct',
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: Color(0xff686464),
                           ),
                         ),
@@ -2974,7 +2974,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           'California Sexual Harassment Training',
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: Color(0xff686464),
                           ),
                         ),
@@ -3013,7 +3013,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           'Prop65',
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: Color(0xff686464),
                           ),
                         ),
@@ -3052,7 +3052,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           'Return Of Company Policy',
                           style: GoogleFonts.firaSans(
                             fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             color: Color(0xff686464),
                           ),
                         ),
