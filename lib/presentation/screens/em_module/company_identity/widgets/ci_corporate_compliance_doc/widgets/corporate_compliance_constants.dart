@@ -802,10 +802,9 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
-            // SizedBox(
-            //   height: AppSize.s30,
-            // ),
-            Spacer(),
+            SizedBox(
+              height: AppSize.s15,
+            ),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(

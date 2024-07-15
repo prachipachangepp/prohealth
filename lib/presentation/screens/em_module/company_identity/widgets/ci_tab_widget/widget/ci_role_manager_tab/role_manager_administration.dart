@@ -124,23 +124,6 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                           color: Color(0xff686464),
                                         ),
                                         decoration: InputDecoration.collapsed(hintText: ''),
-                                        // items: <String>[
-                                        //   'Pick Office',
-                                        //   'RN',
-                                        //   'LVN',
-                                        //   'PT',
-                                        //   'PTA',
-                                        //   'OT',
-                                        //   'COTA',
-                                        //   'ST',
-                                        //   'MSW',
-                                        //   'HHA',
-                                        // ].map<DropdownMenuItem<String>>((String value) {
-                                        //   return DropdownMenuItem<String>(
-                                        //     value: value,
-                                        //     child: Text(value),
-                                        //   );
-                                        // }).toList(),
                                         items: dropDownList.map<DropdownMenuItem<String>>((String value) {
                                           return DropdownMenuItem<String>(
                                             value: value == null ? "1" : value,
