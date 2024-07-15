@@ -79,6 +79,15 @@ class AppString {
   static const String reset ="Reset";
   static const String save ="Save";
 
+  static const String references ="References";
+  static const String add_education ="Add Education";
+  static const String title_position ="Title/Position";
+  static const String company_organization ="Company/ Organization";
+  static const String mobile_number ="Mobile Number";
+  static const String length_of_association ="Length of Association";
+  static const String how_do_you_know_this_person = "How do you know this person ?";
+
+
 
 
 

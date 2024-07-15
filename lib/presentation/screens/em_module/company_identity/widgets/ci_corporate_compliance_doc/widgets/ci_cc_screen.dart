@@ -37,9 +37,11 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
+  // final StreamController<List<IdentityDocumentIdData>> _identityDropDownDataController = StreamController<List<IdentityDocumentIdData>>();
 
   int _selectedIndex = 0;
   int docTypeMetaId = 8;
+  // int docTypeDropMetaId = 0;
   int docSubTypeMetaId =0;
   String? expiryType;
   bool _isLoading = false;
@@ -262,7 +264,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                       context: context,
                                       name: docNamecontroller.text,
                                       docTypeID: docTypeMetaId,
-                                      docSubTypeID: docSubTypeMetaId,
+                                      docSubTypeID: docTypeMetaId == 10 ?0:docSubTypeMetaId,
                                       docCreated: DateTime.now().toString(),
                                       url: "url",
                                       expiryType: expiryType.toString(),
@@ -385,6 +387,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                     ),
                                   ],
                                 ),
+                                title: 'Add Corporate & Compliance',
                                 child:  FutureBuilder<List<DocumentTypeData>>(
                                     future: documentTypeGet(context),
                                     builder: (context,snapshot) {

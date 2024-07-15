@@ -302,7 +302,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: ListView(
+        child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -312,7 +312,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: 35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -522,7 +522,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                 ],
               ),
             ),
-            Spacer(),
+            SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(
@@ -560,6 +560,7 @@ class AddOrgDocButton extends StatefulWidget {
   final VoidCallback onPressed;
    Widget? child;
    Widget? child1;
+  final String title;
   final Widget? radioButton;
   final bool? loadingDuration;
    AddOrgDocButton(
@@ -571,7 +572,7 @@ class AddOrgDocButton extends StatefulWidget {
       required this.onPressed,
       required this.calenderController,
       this.radioButton,
-      this.loadingDuration});
+      this.loadingDuration, required this.title});
 
   @override
   State<AddOrgDocButton> createState() => _AddOrgDocButtonState();
@@ -588,23 +589,48 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: AppSize.s550,
+       // height: AppSize.s550,
+        height: MediaQuery.of(context).size.height/1.4,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: ListView(
+        child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              height: 40,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.title,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 13,
+                      fontWeight:
+                      FontWeightManager.semiBold,
+                      color: ColorManager.white,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,
+                      color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -664,13 +690,11 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               ),
             ),
             SizedBox(
-              height: AppSize.s10,
+              height: AppSize.s5,
             ),
-
             ///radio
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
@@ -690,9 +714,10 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
+              padding: const EdgeInsets.only(
+                top: AppPadding.p3,
+                left: AppPadding.p20,
+                right: AppPadding.p20,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -712,6 +737,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                         width: 354,
                         height: 30,
                         child: TextFormField(
+                          cursorColor: ColorManager.black,
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeight.w700,
@@ -720,6 +746,14 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                           ),
                           controller: widget.calenderController,
                           decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorManager.fmediumgrey, width: 1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                             hintText: 'mm-dd-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: FontSize.s12,
@@ -729,7 +763,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(width: 1),
+                              borderSide: BorderSide(width: 1,color: ColorManager.fmediumgrey),
                             ),
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 16),
@@ -769,9 +803,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               ),
             ),
             SizedBox(
-              height: AppSize.s30,
+              height: AppSize.s15,
             ),
-            Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(

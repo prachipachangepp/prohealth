@@ -17,11 +17,13 @@ class AuthManager {
           data: {"email": email, "password": password});
       if (response.statusCode == 201) {
         String? access = response.data['accessToken'];
-        TokenManager.setAccessToken(token: access ?? "");
+        String userName = response.data['user']['firstName'] + response.data['user']['lastName'];
+        TokenManager.setAccessToken(token: access ?? "",username: userName);
         return ApiData(
             success: true,
             message: response.statusMessage ?? "",
-            statusCode: response.statusCode!);
+            statusCode: response.statusCode!,
+            data: userName);
       } else {
         return ApiData(
             success: false,
@@ -129,7 +131,8 @@ class AuthManager {
       print(response);
       if (response.statusCode == 201 || response.statusCode == 200) {
         String accessToken = response.data["accessToken"] ?? "";
-        TokenManager.setAccessToken(token: accessToken);
+        String userName = response.data['user']['firstName'] + response.data['user']['lastName'];
+        TokenManager.setAccessToken(token: accessToken, username: userName);
         // Navigator.pushNamed(context, HomeScreen.routeName);
 
         return ApiData(
