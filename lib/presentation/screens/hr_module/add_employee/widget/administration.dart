@@ -472,7 +472,26 @@ class AdministartionTab extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomButton(
+                    width: 125,
+                    height: 33,
+                    text: 'Add Employee',
+                    style: TextStyle(
+                        fontFamily: 'FiraSans',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700),
+                    borderRadius: 12,
+                    onPressed: () {})
+              ],
+            ),
+          ),
         ]),
       ),
     );
