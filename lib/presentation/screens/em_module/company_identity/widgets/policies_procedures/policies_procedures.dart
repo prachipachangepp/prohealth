@@ -216,6 +216,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       ),
                                     ],
                                   ),
+                                  title: 'Add Policies & Procedure',
                                   child:  FutureBuilder<List<DocumentTypeData>>(
                                       future: documentTypeGet(context),
                                       builder: (context,snapshot) {

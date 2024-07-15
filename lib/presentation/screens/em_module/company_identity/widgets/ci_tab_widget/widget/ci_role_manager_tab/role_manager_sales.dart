@@ -35,7 +35,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
       selectedContainers[index] = !selectedContainers[index];
     });
   }
-
+  String? selectedValue;
   @override
   void initState() {
     super.initState();
@@ -71,7 +71,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s10,
                         fontWeight: FontWeightManager.bold,
-                        color: ColorManager.fmediumgrey,
+                        color: ColorManager.mediumgrey,
                         decoration: TextDecoration.none,
                       ),),
                     SizedBox(height: AppSize.s4,),
@@ -230,19 +230,32 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                         child: Wrap(
                             children: List.generate(snapshot.data!.length, (index){
                               var metaModule = snapshot.data![index];
+                              bool isSelected = selectedContainers[metaModule.appModuleMetaDataId] ?? false;
+
                               return Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 10),
                                 child: InkWell(
                                   onTap: () {
                                     toggleSelection(metaModule.appModuleMetaDataId);
                                   },
-                                  child: CIRoleContainerConstant(
-                                    metaModule.mainModule,
-                                   //metaModule.iconUrl.toString(),
-                                    AssetImage('images/other.png'),
-                                    borderColor: selectedContainers[metaModule.appModuleMetaDataId]
-                                        ? ColorManager.blueprime
-                                        : Colors.white,
+                                  child: Stack(
+                                    children: [CIRoleContainerConstant(
+                                      metaModule.mainModule,
+                                     //metaModule.iconUrl.toString(),
+                                      AssetImage('images/other.png'),
+                                      borderColor: selectedContainers[metaModule.appModuleMetaDataId]
+                                          ? ColorManager.blueprime
+                                          : Colors.white,
+                                    ),
+                                      if (isSelected)
+                                        Positioned(
+                                          top: 3,
+                                          right: 5,
+                                          child: Icon(
+                                            Icons.check_circle,
+                                            color: ColorManager.blueprime,
+                                          ),
+                                        ),]
                                   ),
                                 ),
                               );

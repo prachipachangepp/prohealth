@@ -35,7 +35,7 @@ class _CiRoleManagerState extends State<CiRoleManager> {
     return Column(
       children: [
         SizedBox(
-          height: 20,
+          height: 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
+import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
 
 class CustomPopup extends StatelessWidget {
    final TextEditingController controller;
    final VoidCallback onPressed;
-   const CustomPopup({Key? key,required this.controller, required this.onPressed}) : super(key: key);
+   final String title;
+   const CustomPopup({Key? key,required this.controller, required this.onPressed, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +29,41 @@ class CustomPopup extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              height: 40,
+              width: AppSize.s400,
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 13,
+                      fontWeight:
+                      FontWeightManager.semiBold,
+                      color: ColorManager.white,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,
+                      color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
