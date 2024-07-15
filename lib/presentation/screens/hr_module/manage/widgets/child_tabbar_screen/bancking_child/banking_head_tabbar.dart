@@ -93,41 +93,42 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                effectiveDateController: effectiveDateController,
                                bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
                                routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () {
-                               showDialog(context: context, builder: (_) => FutureBuilder<EmployeeBankingData>(
-                                 future: getPrefillEmployeeBancking(context,snapshot.data![index].empBankingId),
-                                 builder: (context,snapshotPrefill) {
-                                   if(snapshot.connectionState == ConnectionState.waiting){
-                                     return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                   }
-                                   var bankName = snapshotPrefill.data!.bankName;
-                                   bankNameController = TextEditingController(text:snapshotPrefill.data!.bankName);
-
-                                   var effectiveDate = snapshotPrefill.data!.effectiveDate;
-                                   effectiveDateController = TextEditingController(text:snapshotPrefill.data!.effectiveDate);
-
-                                   var accountNumber = snapshotPrefill.data!.accountNumber;
-                                   accountNumberController = TextEditingController(text:snapshotPrefill.data!.accountNumber);
-
-                                   //var verifyAcNumber = snapshotPrefill.data.
-                                   var routingNumber = snapshotPrefill.data!.routinNumber;
-                                   routingNumberController = TextEditingController(text:snapshotPrefill.data!.routinNumber.toString());
-
-                                   var amount = snapshotPrefill.data!.amountRequested;
-                                   specificAmountController = TextEditingController(text: snapshotPrefill.data!.amountRequested.toString());
-                                   return EditBankingPopUp(effectiveDateController: effectiveDateController,
-                                     bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
-                                     routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () async{
-                                     await PatchEmployeeBanking(context, snapshot.data![index].empBankingId, snapshotPrefill.data!.employeeId,
-                                         accountNumber == accountNumberController.text ? accountNumber.toString() : accountNumberController.text,
-                                         bankName == bankNameController.text ? bankName.toString() : bankNameController.text,
-                                         amount == int.parse(specificAmountController.text) ? amount : int.parse(specificAmountController.text),
-                                         snapshotPrefill.data!.checkUrl,
-                                         effectiveDate == effectiveDateController.text ? effectiveDate.toString() : effectiveDateController.text,
-                                         routingNumber == routingNumberController.text ? routingNumber.toString() : routingNumberController.text,
-                                         snapshotPrefill.data!.type);
-                                     },);
-                                 }
-                               )); },),
+                               // showDialog(context: context, builder: (_) => FutureBuilder<EmployeeBankingData>(
+                               //   future: getPrefillEmployeeBancking(context,snapshot.data![index].empBankingId),
+                               //   builder: (context,snapshotPrefill) {
+                               //     if(snapshot.connectionState == ConnectionState.waiting){
+                               //       return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                               //     }
+                               //     var bankName = snapshotPrefill.data!.bankName;
+                               //     bankNameController = TextEditingController(text:snapshotPrefill.data!.bankName);
+                               //
+                               //     var effectiveDate = snapshotPrefill.data!.effectiveDate;
+                               //     effectiveDateController = TextEditingController(text:snapshotPrefill.data!.effectiveDate);
+                               //
+                               //     var accountNumber = snapshotPrefill.data!.accountNumber;
+                               //     accountNumberController = TextEditingController(text:snapshotPrefill.data!.accountNumber);
+                               //
+                               //     //var verifyAcNumber = snapshotPrefill.data.
+                               //     var routingNumber = snapshotPrefill.data!.routinNumber;
+                               //     routingNumberController = TextEditingController(text:snapshotPrefill.data!.routinNumber);
+                               //
+                               //     var amount = snapshotPrefill.data!.amountRequested;
+                               //     specificAmountController = TextEditingController(text: snapshotPrefill.data!.amountRequested.toString());
+                               //     return EditBankingPopUp(effectiveDateController: effectiveDateController,
+                               //       bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
+                               //       routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () async{
+                               //       await PatchEmployeeBanking(context, snapshot.data![index].empBankingId, snapshotPrefill.data!.employeeId,
+                               //           accountNumber == accountNumberController.text ? accountNumber.toString() : accountNumberController.text,
+                               //           bankName == bankNameController.text ? bankName.toString() : bankNameController.text,
+                               //           amount == int.parse(specificAmountController.text) ? amount : int.parse(specificAmountController.text),
+                               //           snapshotPrefill.data!.checkUrl,
+                               //           effectiveDate == effectiveDateController.text ? effectiveDate.toString() : effectiveDateController.text,
+                               //           routingNumber == routingNumberController.text ? routingNumber.toString() : routingNumberController.text,
+                               //           snapshotPrefill.data!.type);
+                               //       },);
+                               //   }
+                               // ));
+                               },),
                           ],
                         ),
                       ),
