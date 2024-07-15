@@ -590,7 +590,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       child: Container(
         width: AppSize.s420,
        // height: AppSize.s550,
-        height: MediaQuery.of(context).size.height/1.4,
+        height: MediaQuery.of(context).size.height/1.2,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
