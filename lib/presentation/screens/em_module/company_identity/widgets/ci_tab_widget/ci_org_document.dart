@@ -37,7 +37,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
   TextEditingController docNamecontroller = TextEditingController();
   TextEditingController docIdController = TextEditingController();
   TextEditingController calenderController = TextEditingController();
-   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>.broadcast();
+   final StreamController<List<IdentityDocumentIdData>> _identityDataController = StreamController<List<IdentityDocumentIdData>>();
+  final StreamController<List<IdentityDocumentIdData>> _identityDropDownDataController = StreamController<List<IdentityDocumentIdData>>();
 
   int _selectedIndex = 0;
   // String _selectedItem = 'Corporate & Compliance Documents';
@@ -258,7 +259,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                 context: context,
                                                 name: docNamecontroller.text,
                                                 docTypeID: docTypeMetaId,
-                                                docSubTypeID: docSubTypeMetaId,
+                                                docSubTypeID: docTypeMetaId == 10 ? 0:
+                                                docSubTypeMetaId,
                                                 docCreated: DateTime.now().toString(),
                                                 url: "url",
                                                 expiryType: expiryType.toString(),
@@ -289,7 +291,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                             }
                                           },
                                           child1: StreamBuilder<List<IdentityDocumentIdData>>(
-                                              stream: _identityDataController.stream,
+                                              stream: _identityDropDownDataController.stream,
                                               builder: (context,snapshot) {
                                                 if(snapshot.connectionState == ConnectionState.waiting){
                                                   return Shimmer.fromColors(
@@ -430,7 +432,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                           }
                                                         }
                                                         identityDocumentTypeGet(context,docTypeMetaId).then((data) {
-                                                          _identityDataController.add(data);
+                                                          _identityDropDownDataController.add(data);
                                                         }).catchError((error) {
                                                           // Handle error
                                                         });
