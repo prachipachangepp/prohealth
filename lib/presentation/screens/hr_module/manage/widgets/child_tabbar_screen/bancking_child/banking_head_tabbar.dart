@@ -85,7 +85,9 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                               },
                             ),
                             const SizedBox(width: 8),
-                             BankingContainerConst(typeName: snapshot.data![index].type, acNumber: snapshot.data![index].accountNumber,
+                             BankingContainerConst(
+                               bankId: snapshot.data![index].empBankingId,
+                               typeName: snapshot.data![index].type, acNumber: snapshot.data![index].accountNumber,
                                effectiveDate: snapshot.data![index].effectiveDate,
                                requestPercentage: '30%', bankName: snapshot.data![index].bankName,
                                routinNo: snapshot.data![index].routinNumber,
@@ -93,9 +95,12 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                effectiveDateController: effectiveDateController,
                                bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
                                routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () {
-                               showDialog(context: context, builder: (_) => FutureBuilder<EmployeeBankingData>(
+                               showDialog(context: context, builder: (_) => FutureBuilder<EmployeeBankingPrefillData>(
                                  future: getPrefillEmployeeBancking(context,snapshot.data![index].empBankingId),
                                  builder: (context,snapshotPrefill) {
+                                   if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                     return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
+                                   }
                                    if(snapshot.connectionState == ConnectionState.waiting){
                                      return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
                                    }
@@ -146,6 +151,7 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
 
 ///Container Constant
 class BankingContainerConst extends StatelessWidget {
+  int bankId;
    String typeName;
    String acNumber;
    String effectiveDate;
@@ -161,7 +167,7 @@ class BankingContainerConst extends StatelessWidget {
    final TextEditingController routingNumberController;
    final TextEditingController specificAmountController;
 
-   BankingContainerConst({Key? key, this.selectedType,required this.typeName, required this.acNumber, required this.effectiveDate, required this.requestPercentage, required this.bankName, required this.routinNo,
+   BankingContainerConst({Key? key,required this.bankId, this.selectedType,required this.typeName, required this.acNumber, required this.effectiveDate, required this.requestPercentage, required this.bankName, required this.routinNo,
      required this.effectiveDateController, required this.bankNameController, required this.accountNumberController, required this.verifyAccountController, required this.routingNumberController, required this.specificAmountController, required this.onPressed,}) : super(key: key);
 
   @override
@@ -187,7 +193,7 @@ class BankingContainerConst extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(AppStringHr.bankone,
+                 Text("Bank #${bankId.toString()}",
                   style: GoogleFonts.firaSans(
                     fontSize: 13,
                     color: Color(0xFF333333),

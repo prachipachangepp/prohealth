@@ -53,8 +53,8 @@ Future<List<EmployeeBankingData>> getEmployeeBanking(
 }
 
 /// Banking employee prefill Get
-Future<EmployeeBankingData> getPrefillEmployeeBancking(
-    BuildContext context, int employeeId) async {
+Future<EmployeeBankingPrefillData> getPrefillEmployeeBancking(
+    BuildContext context, int empBankingId) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -71,7 +71,7 @@ Future<EmployeeBankingData> getPrefillEmployeeBancking(
   var itemsData;
   try {
     final response = await Api(context)
-        .get(path: ManageReposotory.getBankingEmployee(employeeId: employeeId));
+        .get(path: ManageReposotory.getPrefillBankingEmployee(empBankingId: empBankingId));
     if (response.statusCode == 200 || response.statusCode == 201) {
 
         String effectiveFormattedDate = convertIsoToDayMonthYear(response.data['effectiveDate']);
@@ -86,7 +86,9 @@ Future<EmployeeBankingData> getPrefillEmployeeBancking(
             effectiveDate: effectiveFormattedDate,
             routinNumber: response.data['routingNumber'],
             type: response.data['type'],
+           // approve: response.data['approve'] ?? true
             );
+        print("ItemData${itemsData.toString()}");
 
     } else {
       print("Employee Prefill Bancking");
