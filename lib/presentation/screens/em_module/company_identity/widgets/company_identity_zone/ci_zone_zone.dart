@@ -16,9 +16,10 @@ import '../../../../../widgets/widgets/profile_bar/widget/pagination_widget.dart
 import '../../../manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class CIZoneZone extends StatefulWidget {
+  final int countyId;
   final int companyID;
   final String officeId;
-  const CIZoneZone({super.key, required this.companyID, required this.officeId});
+  const CIZoneZone({super.key, required this.companyID, required this.officeId, required this.countyId});
 
   @override
   State<CIZoneZone> createState() => _CIZoneZoneState();
@@ -39,14 +40,8 @@ class _CIZoneZoneState extends State<CIZoneZone> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 20;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    getZoneByCounty
-      (context, widget.officeId,widget.companyID,15, 1, 15).then((data){
-      _zoneController.add(data);
-    }).catchError((error){
-
-    });
   }
  int countyId = 0;
   @override
@@ -142,6 +137,11 @@ class _CIZoneZoneState extends State<CIZoneZone> {
           StreamBuilder<List<AllCountyZoneGet>>(
             stream: _zoneController.stream,
             builder: (context, snapshot) {
+              getZoneByCounty
+                (context, widget.officeId,widget.companyID,25, 1, 20).then((data){
+                _zoneController.add(data);
+              }).catchError((error){
+              });
               print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -262,17 +262,18 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                               if(snapshotPrefill.connectionState == ConnectionState.waiting){
                                                 return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
                                               }
-                                              var zoneNumber = snapshotPrefill.data!.zoneName;
+                                              var zoneNumber = snapshotPrefill.data!.zoneName.toString();
                                               var countyPreId = snapshotPrefill.data!.countyId;
                                               countyId = countyPreId;
-                                              zoneNumberController = TextEditingController(text: snapshotPrefill.data!.zoneName);
+                                              zoneNumberController = TextEditingController(text: snapshotPrefill.data!.zoneName.toString());
                                               return AddZonePopup(zoneNumberController: zoneNumberController, title: 'Edit Zone',
                                                 onSavePressed: () async{
                                                  await updateZoneCountyData(context, snapshot.data![index].zoneId,
                                                      zoneNumber == zoneNumberController.text ? zoneNumber.toString() : zoneNumberController.text,
+                                                    // 25,widget.officeId, widget.companyID);
                                                      countyPreId == countyId ? countyPreId : countyId, widget.officeId, widget.companyID);
                                                  getZoneByCounty
-                                                   (context, widget.officeId,widget.companyID,15, 1, 15).then((data){
+                                                   (context, widget.officeId,widget.companyID,25, 1, 20).then((data){
                                                    _zoneController.add(data);
                                                  }).catchError((error){
                                                  });
@@ -318,7 +319,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                           );
                                                         }
                                                         return CICCDropdown(
-                                                            initialValue: dropDownTypesList[countyPreId].value,
+                                                            initialValue: dropDownTypesList[0].value,
                                                             onChange: (val){
                                                               for(var a in snapshotZone.data!){
                                                                 if(a.countyName == val){
@@ -353,7 +354,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                           Navigator.pop(context);
                                         }, onDelete: ()async{
                                           await deleteZoneCountyData(context, snapshot.data![index].zoneId);
-                                          getZoneByCounty(context, widget.officeId,widget.companyID,20, 1, 15).then((data){
+                                          getZoneByCounty(context, widget.officeId,widget.companyID,25, 1, 20).then((data){
                                             _zoneController.add(data);
                                           }).catchError((error){
                                           });

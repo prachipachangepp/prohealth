@@ -41,13 +41,9 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 20;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
-      _zipcodeController.add(data);
-    }).catchError((error){
 
-    });
   }
   int docZoneId =0;
   int countyId =0;
@@ -147,6 +143,10 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
           StreamBuilder<List<AllZipCodeGet>>(
             stream: _zipcodeController.stream,
             builder: (context, snapshot) {
+              getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 20).then((data){
+                _zipcodeController.add(data);
+              }).catchError((error){
+              });
               print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -415,7 +415,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                                     "37.0902°",
                                                     "95.7129°",
                                                     landmark == landmarkController.text ? landmark.toString() :landmarkController.text);
-                                                getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
+                                                getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 20).then((data){
                                                   _zipcodeController.add(data);
                                                 }).catchError((error){
 
@@ -430,7 +430,7 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                           Navigator.pop(context);
                                         }, onDelete: () async{
                                           await deleteZipCodeSetup(context, snapshot.data![index].zipcodeSetupId!);
-                                          getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 15).then((data){
+                                          getZipcodeSetup(context, widget.officeId, widget.companyID, 1, 20).then((data){
                                             _zipcodeController.add(data);
                                           }).catchError((error){
                                           });
