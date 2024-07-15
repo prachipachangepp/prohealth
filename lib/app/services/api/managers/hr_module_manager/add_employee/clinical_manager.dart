@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../api.dart';
-import '../../../repository/establishment_manager/all_from_hr_repository.dart';
+
 import '../../../repository/hr_module_repository/add_employee/clinical.dart';
 
 ///Discipline dropdown get Api
