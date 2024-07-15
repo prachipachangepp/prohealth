@@ -211,7 +211,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
                                                           return CustomPopup(
                                                             controller:
                                                                 vendorName,
-                                                            onPressed: () {},
+                                                            onPressed: () {}, title: 'Edit Vendor',
                                                           );
                                                         });
                                                   },

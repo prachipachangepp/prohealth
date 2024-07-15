@@ -40,7 +40,10 @@ class _LoginPasswordWebState extends State<LoginPasswordWeb> {
       ApiData apiData = await AuthManager.signInWithEmail(
           email, _passwordController.text, context);
       if (apiData.success) {
-        Navigator.pushNamed(context, HomeScreen.routeName);
+        Navigator.pushNamed(context, HomeScreen.routeName,);
+        String userName = apiData.data.toString();
+        print('user Date ${apiData.data.toString()}');
+       //Navigator.push(context, MaterialPageRoute(builder: (_)=>HomeScreen()));
       } else {
         setState(() {
           _isLoading = false;

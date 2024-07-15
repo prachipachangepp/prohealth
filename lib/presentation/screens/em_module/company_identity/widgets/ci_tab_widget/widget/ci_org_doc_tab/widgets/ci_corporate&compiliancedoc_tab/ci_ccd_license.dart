@@ -61,11 +61,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
     });
    // orgDocumentGet(context);
     _loadColors();
-    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 15).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
   }
 
 
@@ -88,6 +84,11 @@ class _CICcdLicenseState extends State<CICcdLicense> {
       stream: _controller.stream,
       builder: (context, snapshot) {
         snapData.clear();
+        orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 15).then((data) {
+          _controller.add(data);
+        }).catchError((error) {
+          // Handle error
+        });
         // Future.delayed(Duration(milliseconds: 1000), () {
         //   CircularProgressIndicator(color: ColorManager.blueprime,);
         //
