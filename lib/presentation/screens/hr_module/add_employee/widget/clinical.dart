@@ -826,21 +826,21 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                           return SizedBox();
                                         }),
                                   ),
+                                  // Expanded(
+                                  //   flex: 2,
+                                  //   child:McqWidget(
+                                  //     title: 'Gender',
+                                  //     items: [
+                                  //       'Male',
+                                  //       'Female',
+                                  //       'Other'
+                                  //     ],
+                                  //     onChanged: (int) {},
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                               ///
-                              // Expanded(
-                              //   flex: 2,
-                              //   child:McqWidget(
-                              //     title: 'Gender',
-                              //     items: [
-                              //       'Male',
-                              //       'Female',
-                              //       'Other'
-                              //     ],
-                              //     onChanged: (int) {},
-                              //   ),
-                              // ),
                               ///
                               // Column(
                               //   // crossAxisAlignment: CrossAxisAlignment.start,
@@ -864,6 +864,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                             ],
                           ),
                         ),
+
                       ),
                     ),
                   ),
