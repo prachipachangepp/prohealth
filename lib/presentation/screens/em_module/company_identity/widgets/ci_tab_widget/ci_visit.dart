@@ -216,10 +216,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   if (val.isNotEmpty) {
 
                                                     selectedChips.add(Chip(
+                                                      backgroundColor: ColorManager.white,
                                                       shape: StadiumBorder(
                                                           side: BorderSide(
                                                               color: ColorManager.blueprime)),
-                                                      //side: BorderSide(color: ColorManager.blueprime),
                                                       deleteIcon: Icon(
                                                         Icons.close,
                                                         color: ColorManager.blueprime,
