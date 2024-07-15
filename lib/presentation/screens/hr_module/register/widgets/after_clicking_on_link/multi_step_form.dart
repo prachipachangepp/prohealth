@@ -84,7 +84,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
                 // color: Colors.yellow,
                 child: Flexible(
                   child: Stepper(
-                      type: StepperType.horizontal,
+                    type: StepperType.horizontal,
+                      physics: const ScrollPhysics(),
                       steps: steps(),
                       currentStep: _currentStep,
                       onStepContinue: () {
@@ -758,7 +759,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             )),
 
-        /////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////// 'Employment',///////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 1 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 1,
@@ -1160,7 +1161,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////// 'Education',///////////////////////////////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 2 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 2,
@@ -1521,7 +1522,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////'References'/////////////////////////////////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 3 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 3,
@@ -1536,7 +1537,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           ),
           content: ReferencesIndicator(context: context),
         ),
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// 'Licenses',/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 4 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 4,
@@ -2010,7 +2011,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
           ),
         ),
 
-        ///////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////  'Banking',////////////////////////////////////////////
         Step(
           state: _currentStep <= 5 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 5,
@@ -2366,7 +2367,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        ///////////////////////////////////////////////////////
+        ////////////////////////  'Health \nRecords',///////////////////////////////
         Step(
           state: _currentStep <= 6 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 6,
@@ -2457,53 +2458,92 @@ class _MultiStepFormState extends State<MultiStepForm> {
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height / 20),
-                Container(
-                  height: 500,
-                  color: Colors.red,
-                  child: SingleChildScrollView(
-                    child: Expanded(
-                      child: ListView.builder(
-                        itemCount: 1,
-                        itemBuilder: (context, index) {
-                          return PhysicalExamContainer();
-                        },
-                      ),
-                    ),
 
-                    // Expanded(
-                    //   child: ListView.builder(
-                    //     itemCount: 1,
-                    //     itemBuilder: (context, index) {
-                    //       return VaccineContainer();
-                    //     },
-                    //   ),
-                    // ),
-                    //
-                    // Expanded(
-                    //   child: ListView.builder(
-                    //     itemCount: 1,
-                    //     itemBuilder: (context, index) {
-                    //       return PhysicalExamContainer();
-                    //     },
-                    //   ),
-                    // ),
-                    //
-                    // Expanded(
-                    //   child: ListView.builder(
-                    //     itemCount: 1,
-                    //     itemBuilder: (context, index) {
-                    //       return VaccineContainer();
-                    //     },
-                    //   ),
-                    // ),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      PhysicalExamContainer(),
+                      VaccineContainer(),
+                      PhysicalExamContainer(),
+                  VaccineContainer(),
+                    ],
                   ),
                 ),
+                // Expanded(
+                //   child: Container(
+                //     //height: 500,
+                //     color: Colors.red,
+                //     child:SingleChildScrollView (
+                //       child: Column(
+                //           children: [
+                //         ListView.builder(
+                //               itemCount: 1,
+                //               itemBuilder: (context, index) {
+                //                 return PhysicalExamContainer();
+                //               },
+                //             ),
+                //             ListView.builder(
+                //               itemCount: 1,
+                //               itemBuilder: (context, index) {
+                //                 return VaccineContainer();
+                //               },
+                //             ),
+                //             ListView.builder(
+                //               itemCount: 1,
+                //               itemBuilder: (context, index) {
+                //                 return PhysicalExamContainer();
+                //               },
+                //             ),
+                //
+                //           ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                    // child: SingleChildScrollView(
+                    //   child: Expanded(
+                    //     child: ListView.builder(
+                    //       itemCount: 1,
+                    //       itemBuilder: (context, index) {
+                    //         return PhysicalExamContainer();
+                    //       },
+                    //     ),
+                    //   ),
+
+                      // Expanded(
+                      //   child: ListView.builder(
+                      //     itemCount: 1,
+                      //     itemBuilder: (context, index) {
+                      //       return VaccineContainer();
+                      //     },
+                      //   ),
+                      // ),
+                      //
+                      // Expanded(
+                      //   child: ListView.builder(
+                      //     itemCount: 1,
+                      //     itemBuilder: (context, index) {
+                      //       return PhysicalExamContainer();
+                      //     },
+                      //   ),
+                      // ),
+                      //
+                      // Expanded(
+                      //   child: ListView.builder(
+                      //     itemCount: 1,
+                      //     itemBuilder: (context, index) {
+                      //       return VaccineContainer();
+                      //     },
+                      //   ),
+                      // ),
+                    //),
+
               ],
             ),
           ),
         ),
 
-        //////////////////////////////////
+        //////////////////'Acknowledgements',////////////////
         Step(
           state: _currentStep <= 7 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 7,
@@ -2853,7 +2893,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////  'Legal \nDocuments',////////////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 8 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 8,
@@ -3049,7 +3089,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
         ),
       ];
 }
-
+////////////////////////////////////////////
 class ReferencesIndicator extends StatelessWidget {
   const ReferencesIndicator({
     super.key,
