@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/widgets/container_constant.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -32,6 +33,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
   TextEditingController firstName = TextEditingController();
   /////
   TextEditingController _controller = TextEditingController();
+  TextEditingController _controllerEffectiveDate = TextEditingController();
 
   // Current step in the stepper
   int _currentStep = 0;
@@ -2389,7 +2391,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     height: MediaQuery.of(context).size.height /
                                         60),
                                 CustomTextFieldRegister(
-                                  controller: _controller,
+                                  controller: _controllerEffectiveDate,
                                   hintText: 'dd-mm-yyyy',
                                   hintStyle: GoogleFonts.firaSans(
                                     fontSize: 10.0,
@@ -2412,9 +2414,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                         lastDate: DateTime(2101),
                                       );
                                       if (pickedDate != null) {
-                                        _controller.text =
-                                            "${pickedDate.toLocal()}"
-                                                .split(' ')[0];
+                                        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                                        _controllerEffectiveDate.text = formattedDate;
                                       }
                                     },
                                   ),
@@ -2602,32 +2603,32 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ],
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              // Handle add education action
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff50B5E5),
-                              // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            icon: Icon(Icons.add, color: Colors.white),
-                            label: Text(
-                              'Add Education',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     ElevatedButton.icon(
+                      //       onPressed: () {
+                      //         // Handle add education action
+                      //       },
+                      //       style: ElevatedButton.styleFrom(
+                      //         backgroundColor: Color(0xff50B5E5),
+                      //         // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                      //         shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(8.0),
+                      //         ),
+                      //       ),
+                      //       icon: Icon(Icons.add, color: Colors.white),
+                      //       label: Text(
+                      //         'Add Education',
+                      //         style: GoogleFonts.firaSans(
+                      //           fontSize: 14.0,
+                      //           fontWeight: FontWeight.w700,
+                      //           color: Colors.white,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
@@ -2723,40 +2724,28 @@ class _MultiStepFormState extends State<MultiStepForm> {
 
             SizedBox(height: MediaQuery.of(context).size.height/20),
             Expanded(
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  return PhysicalExamContainer();
-                },
+              child: Column(
+                children: [
+                  PhysicalExamContainer(),
+                  SizedBox(height: 16), // Add some spacing between containers
+                  VaccineContainer(),
+                  SizedBox(height: 16),
+                  PhysicalExamContainer(),
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 16),
+                          child: VaccineContainer(),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  return VaccineContainer();
-                },
-              ),
-            ),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  return PhysicalExamContainer();
-                },
-              ),
-            ),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return VaccineContainer();
-                },
-              ),
-            ),
+            )
 
           ],
         ),
