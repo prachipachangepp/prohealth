@@ -26,47 +26,71 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
             color: ColorManager.fmediumgrey,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Text(''),
-                Text(AppStringEM.srno,
-                    style: AllHRTableHeading.customTextStyle(context)),
-//SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(AppStringEM.type,
-                      textAlign: TextAlign.start,
-                      style: AllHRTableHeading.customTextStyle(context)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0),
+                child: Expanded(
+                  flex: 1,
+                  child: Text(
+                    AppStringEM.srno,
+                    style: AllHRTableHeading.customTextStyle(context),
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 70),
-                  child: Text(AppStringEM.name,
-                      style: AllHRTableHeading.customTextStyle(context)),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40.0),
+                  child: Text(
+                    AppStringEM.type,
+                    style: AllHRTableHeading.customTextStyle(context),
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: Text(AppStringEM.location,
-                      style: AllHRTableHeading.customTextStyle(context)),
+              ),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40.0),
+                  child: Text(
+                    AppStringEM.name,
+                    style: AllHRTableHeading.customTextStyle(context),
+                  ),
                 ),
-
-                Padding(
-                  padding: const EdgeInsets.only(right: 50),
-                  child: Text(AppStringEM.specialization,
-                      textAlign: TextAlign.start,
-                      style: AllHRTableHeading.customTextStyle(context)),
+              ),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40.0),
+                  child: Text(
+                    AppStringEM.location,
+                    style: AllHRTableHeading.customTextStyle(context),
+                  ),
                 ),
-
-                Padding(
-                  padding: const EdgeInsets.only(right: 50),
-                  child: Text(AppStringEM.edit,
-                      textAlign: TextAlign.start,
-                      style: AllHRTableHeading.customTextStyle(context)),
+              ),
+              // SizedBox(width: MediaQuery.of(context).size.width/20,),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 75.0),
+                  child: Text(
+                    AppStringEM.specialization,
+                    style: AllHRTableHeading.customTextStyle(context),
+                  ),
                 ),
-              ],
-            ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 60.0),
+                  child: Text(
+                    AppStringEM.edit,
+                    style: AllHRTableHeading.customTextStyle(context),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         SizedBox(

@@ -4,6 +4,7 @@ import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/establishment_resources/establish_theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../clinical_hr.dart';
+import 'edit_pop_up.dart';
 
 class SeeAllContainerConstant extends StatefulWidget {
   const SeeAllContainerConstant({super.key});
@@ -44,6 +45,7 @@ class _SeeAllContainerConstantState extends State<SeeAllContainerConstant> {
                   style: AllHRTableData.customTextStyle(context)),
             ),
           ),
+
           Expanded(
             flex: 1,
             child: Text(
@@ -53,7 +55,7 @@ class _SeeAllContainerConstantState extends State<SeeAllContainerConstant> {
                 style: AllHRTableData.customTextStyle(context)),
           ),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Text(
               // snapshot.data![index].abbrivation.toString(),
                 'Dhillon Amarpreet',
@@ -75,8 +77,7 @@ class _SeeAllContainerConstantState extends State<SeeAllContainerConstant> {
                 'Infection control',
                 textAlign: TextAlign.center,
                 style: AllHRTableData.customTextStyle(context)),
-          ),
-          Expanded(
+          ), Expanded(
             flex: 2,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
