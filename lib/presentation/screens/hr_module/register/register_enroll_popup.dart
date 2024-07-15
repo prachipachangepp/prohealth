@@ -365,40 +365,48 @@ class RegisterEnrollAlertDialog {
                       thickness: 4,
                     ),
                     SizedBox(
-                      height: AppSize.s10,
+                      height: AppSize.s30,
                     ),
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          RegisterPopupMcq(
-                            title: AppString.employment,
-                            items: [
-                              AppString.fullTime,
-                              AppString.partTime,
-                              AppString.perDiem
+                          Column(
+                            children: [
+                              RegisterPopupMcq(
+                                title: AppString.employment,
+                                items: [
+                                  AppString.fullTime,
+                                  AppString.partTime,
+                                  AppString.perDiem
+                                ],
+                                onChanged: (selectedIndex) {
+                                  print(AppString.selectIndex + '$selectedIndex');
+                                  _selectedItemIndex = selectedIndex;
+                                },
+                              ),
                             ],
-                            onChanged: (selectedIndex) {
-                              print(AppString.selectIndex + '$selectedIndex');
-                              _selectedItemIndex = selectedIndex;
-                            },
                           ),
-                          RegisterPopupMcq(
-                            title: AppString.service,
-                            items: [
-                              AppString.homeHealth,
-                              AppString.hospice,
-                              AppString.homeCare,
-                              AppString.palliative
+                          Column(
+                            children: [
+                              RegisterPopupMcq(
+                                title: AppString.service,
+                                items: [
+                                  AppString.homeHealth,
+                                  AppString.hospice,
+                                  AppString.homeCare,
+                                  AppString.palliative
+                                ],
+                              ),
                             ],
                           )
                         ],
                       ),
                     ),
                     ///////////////////////////////
-                    SizedBox(
-                      height: AppSize.s15,
-                    ),
+                    // SizedBox(
+                    //   height: AppSize.s15,
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
