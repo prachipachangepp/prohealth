@@ -91,6 +91,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                 child: Center(
                     child: Text(
                         AppString.srNo,
+                        textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
