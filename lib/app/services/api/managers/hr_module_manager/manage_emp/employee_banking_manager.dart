@@ -121,7 +121,7 @@ Future<ApiData> PatchEmployeeBanking(
         "bankName": bankName,
         "amountRequested": amountRequested,
         "checkUrl": checkUrl,
-        "effectiveDate": effectiveDate,
+        "effectiveDate": "${effectiveDate}T00:00:00Z",
         "routingNumber": routingNumber,
         "type": type
       },
