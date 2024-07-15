@@ -55,11 +55,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
     // companyAllApi(context);
   }
   @override
@@ -299,6 +295,11 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
             StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context,snapshot) {
+                orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                  _controller.add(data);
+                }).catchError((error) {
+                  // Handle error
+                });
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(
