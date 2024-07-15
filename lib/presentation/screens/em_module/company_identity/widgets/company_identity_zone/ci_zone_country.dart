@@ -43,7 +43,7 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
     currentPage = 1;
     itemsPerPage = 15;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    getZoneBYcompOffice(context, '18', 5, 1, 15).then((data){
+    getZoneBYcompOffice(context, widget.officeId,widget.companyID, 1, 15).then((data){
       _contyController.add(data);
     }).catchError((error){});
   }

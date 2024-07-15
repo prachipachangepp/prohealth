@@ -42,7 +42,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
     itemsPerPage = 6;
     items = List.generate(60, (index) => 'Item ${index + 1}');
     getZoneByCounty
-      (context, widget.officeId,widget.companyID,20, 1, 15).then((data){
+      (context, widget.officeId,widget.companyID,15, 1, 15).then((data){
       _zoneController.add(data);
     }).catchError((error){
 
@@ -272,7 +272,7 @@ class _CIZoneZoneState extends State<CIZoneZone> {
                                                      zoneNumber == zoneNumberController.text ? zoneNumber.toString() : zoneNumberController.text,
                                                      countyPreId == countyId ? countyPreId : countyId, widget.officeId, widget.companyID);
                                                  getZoneByCounty
-                                                   (context, widget.officeId,widget.companyID,20, 1, 15).then((data){
+                                                   (context, widget.officeId,widget.companyID,15, 1, 15).then((data){
                                                    _zoneController.add(data);
                                                  }).catchError((error){
                                                  });

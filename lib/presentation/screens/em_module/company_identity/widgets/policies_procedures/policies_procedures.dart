@@ -93,7 +93,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                         context: context,
                                         name: docNamecontroller.text,
                                         docTypeID: docTypeMetaId,
-                                        docSubTypeID: docTypeMetaId == 10 ? 0 :docSubTypeMetaId,
+                                        docSubTypeID: docSubTypeMetaId,
                                         docCreated: DateTime.now().toString(),
                                         url: "url",
                                         expiryType: expiryType.toString(),
@@ -216,7 +216,6 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       ),
                                     ],
                                   ),
-                                  title: 'Add Policies & Procedure',
                                   child:  FutureBuilder<List<DocumentTypeData>>(
                                       future: documentTypeGet(context),
                                       builder: (context,snapshot) {
@@ -296,7 +295,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
             StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context,snapshot) {
-                orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 15).then((data) {
+                orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
                   _controller.add(data);
                 }).catchError((error) {
                   // Handle error
