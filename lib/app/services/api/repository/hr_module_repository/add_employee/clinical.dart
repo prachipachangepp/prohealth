@@ -29,19 +29,11 @@ class HRModuleAEClinicalRepository {
   }
   static String getAddEmplyService(
       //{required int companyID}
-      ){
-    return "$service";
-  }
-
-      static String getEmplyServiceRadiobutton(
-          {required int companyID}
-          ){
+      ){return "$service";}
+  static String getEmplyServiceRadiobutton({required int companyID}){
         return "/$service/$companyID";
       }
-
 }
-
-
 // { required int companyID,
 //   required int officeID,
 //   required int countyID,
