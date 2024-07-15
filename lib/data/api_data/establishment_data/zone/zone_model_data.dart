@@ -51,16 +51,21 @@ class AllCountyZoneGet {
 
 /// prefill county zone
 class CountyZonePrefillGet {
-  final String countyName;
+  // "zone_id": 44,
+  // "county_id": 25,
+  // "zoneName": "23",
+  // "companyId": 11,
+  // "officeId": "2"
+
   final int countyId;
   final int zoneId;
   final String zoneName;
-  final String zipcodes;
-  final String cities;
-  final bool sucess;
-  final String message;
-  CountyZonePrefillGet({required this.countyName, required this.countyId, required this.zoneId,
-    required this.zoneName, required this.zipcodes, required this.cities, required this.sucess, required this.message});
+  final int companyId;
+  final String officeId;
+
+
+  CountyZonePrefillGet({required this.companyId, required this.officeId,required this.countyId, required this.zoneId,
+    required this.zoneName,  });
 }
 
 /// County List Data
