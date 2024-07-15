@@ -242,18 +242,21 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 1),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
                         flex: 2,
-                        child: Text(
-                          AppString.srNo,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: const Text(
+                            AppString.srNo,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -281,7 +284,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         flex: 2,
                         child: Text(
                           "Last Name",
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -324,7 +327,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                         flex: 2,
                         child: Text(
                           "Actions",
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: GoogleFonts.firaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -381,7 +384,6 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                       children: [
                         SizedBox(height: 5),
                         Container(
-                          padding: EdgeInsets.only(bottom: 5),
                           margin: EdgeInsets.symmetric(horizontal: 50),
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -407,10 +409,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 horizontal:
                                     MediaQuery.of(context).size.width / 50),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Text(
                                     formattedSerialNumber,
                                     style: GoogleFonts.firaSans(
@@ -422,9 +424,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Text(
                                     snapshot.data![index].userId.toString(),
+                                    textAlign: TextAlign.start,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -433,7 +436,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Text(
                                     snapshot.data![index].firstName,
                                     textAlign: TextAlign.start,
@@ -448,10 +451,10 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                 //     flex: 1,
                                 //     child: Container()),
                                 Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Text(
                                     snapshot.data![index].lastName,
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.start,
                                     style: GoogleFonts.firaSans(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
@@ -460,7 +463,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Text(
                                     snapshot.data![index].role,
                                     textAlign: TextAlign.start,
@@ -472,7 +475,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Text(
                                     snapshot.data![index].email,
                                     textAlign: TextAlign.center,
@@ -484,7 +487,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Text(
                                     snapshot.data![index].companyId.toString(),
                                     textAlign: TextAlign.center,
@@ -496,7 +499,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  // flex: 1,
+                                  flex: 2,
                                   child: Row(
                                     children: [
                                       ///edit
@@ -514,7 +517,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
-                                                  color: Colors.blueAccent)),
+                                                  color: ColorManager.bluebottom)),
                                           child: Center(
                                             child: Text(
                                               "Edit",
@@ -851,9 +854,8 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                         // },
                                       ),
                                       SizedBox(
-                                        width: 20,
+                                        width: 10,
                                       ),
-
                                       ///delete
                                       InkWell(
                                         onTap: () async {
@@ -892,7 +894,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
-                                                  color: Colors.blueAccent)),
+                                                  color:ColorManager.bluebottom)),
                                           child: Center(
                                             child: Text(
                                               "Delete",
