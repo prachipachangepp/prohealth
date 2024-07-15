@@ -302,7 +302,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: ListView(
+        child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -312,7 +312,7 @@ class _CCScreenEditPopupState extends State<CCScreenEditPopup> {
                   topRight: Radius.circular(8),
                 ),
               ),
-              height: 40,
+              height: 35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -589,16 +589,16 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-        height: AppSize.s550,
+       // height: AppSize.s550,
+        height: MediaQuery.of(context).size.height/1.4,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: ListView(
+        child: Column(
           children: [
             Container(
               height: 40,
-              width: AppSize.s400,
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: ColorManager.bluebottom,
@@ -690,13 +690,11 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               ),
             ),
             SizedBox(
-              height: AppSize.s10,
+              height: AppSize.s5,
             ),
-
             ///radio
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
@@ -716,9 +714,10 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
+              padding: const EdgeInsets.only(
+                top: AppPadding.p3,
+                left: AppPadding.p20,
+                right: AppPadding.p20,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -803,9 +802,9 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
-            SizedBox(
-              height: AppSize.s30,
-            ),
+            // SizedBox(
+            //   height: AppSize.s30,
+            // ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),

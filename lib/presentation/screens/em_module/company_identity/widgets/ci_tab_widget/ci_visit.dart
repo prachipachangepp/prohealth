@@ -52,11 +52,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 10;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    getVisit(context, 1, 1, 15).then((data) {
+    getVisit(context, 1, 1, 20).then((data) {
       _visitController.add(data);
     }).catchError((error) {
       // Handle error
@@ -694,7 +694,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                           await deleteVisitPatch(context,
                                                               snapshot.data![index].visitId);
                                                           setState(() async {
-                                                            await getVisit(context, 1, 1, 10)
+                                                            await getVisit(context, 1, 1, 20)
                                                                 .then((data) {
                                                               _visitController.add(data);
                                                             }).catchError((error) {
