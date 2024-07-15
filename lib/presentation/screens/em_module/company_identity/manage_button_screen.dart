@@ -117,10 +117,10 @@ int listIndex = 0 ;
       child: Column(
         children: [
           _selectedIndex != 0
-              ? Container(height: 57)
+              ? Container(height: 15)
               : Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: AppPadding.p160, vertical: AppPadding.p20),
+                      horizontal: AppPadding.p160, vertical: AppPadding.p10),
                   child: Row(
                     children: [
                       Text(
@@ -166,7 +166,7 @@ int listIndex = 0 ;
                   elevation: 4,
                   borderRadius: BorderRadius.circular(14),
                   child: Container(
-                    width: MediaQuery.of(context).size.width/1.2,height: 30,
+                    width: MediaQuery.of(context).size.width/1.23,height: 30,
                   decoration: BoxDecoration(
                       color: ColorManager.blueprime,
                     borderRadius: BorderRadius.circular(14)
@@ -533,7 +533,7 @@ int listIndex = 0 ;
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           Expanded(
             flex: 10,
@@ -617,7 +617,7 @@ int listIndex = 0 ;
                       //   nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
                       //   screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()], docId: docID,
                       // ),
-                      CiPoliciesAndProcedures(docID: AppConfig.docId10, subDocID: docID,),
+                      CiPoliciesAndProcedures(docID: AppConfig.docId10, subDocID: AppConfig.subDocId0,),
                       CiTempalets()
                     ]),
               ),

@@ -307,69 +307,34 @@ class RegisterEnrollAlertDialog {
                     color: ColorManager.cream,
                     thickness: 4,
                   ),
-                  // Expanded(
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //     children: [
-                  //       RegisterPopupMcq(
-                  //         title: AppString.employment,
-                  //         items: [
-                  //           AppString.fullTime,
-                  //           AppString.partTime,
-                  //           AppString.perDiem
-                  //         ],
-                  //         onChanged: (selectedIndex) {
-                  //           print(AppString.selectIndex + '$selectedIndex');
-                  //           _selectedItemIndex = selectedIndex;
-                  //         },
-                  //       ),
-                  //       RegisterPopupMcq(
-                  //         title: AppString.service,
-                  //         items: [
-                  //           AppString.homeHealth,
-                  //           AppString.hospice,
-                  //           AppString.homeCare,
-                  //           AppString.palliative
-                  //         ],
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-
                   Expanded(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          RegisterPopupMcq(
-                            title: AppString.employment,
-                            items: [
-                              AppString.fullTime,
-                              AppString.partTime,
-                              AppString.perDiem
-                            ],
-                            onChanged: (selectedIndex) {
-                              print(AppString.selectIndex + '$selectedIndex');
-                              _selectedItemIndex = selectedIndex;
-                            },
-                          ),
-                          RegisterPopupMcq(
-                            title: AppString.service,
-                            items: [
-                              AppString.homeHealth,
-                              AppString.hospice,
-                              AppString.homeCare,
-                              AppString.palliative
-                            ],
-                          )
-                        ],
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        RegisterPopupMcq(
+                          title: AppString.employment,
+                          items: [
+                            AppString.fullTime,
+                            AppString.partTime,
+                            AppString.perDiem
+                          ],
+                          onChanged: (selectedIndex) {
+                            print(AppString.selectIndex + '$selectedIndex');
+                            _selectedItemIndex = selectedIndex;
+                          },
+                        ),
+                        RegisterPopupMcq(
+                          title: AppString.service,
+                          items: [
+                            AppString.homeHealth,
+                            AppString.hospice,
+                            AppString.homeCare,
+                            AppString.palliative
+                          ],
+                        )
+                      ],
                     ),
                   ),
-
-
-
                   ///////////////////////////////
                   SizedBox(
                     height: AppSize.s6,
@@ -379,8 +344,12 @@ class RegisterEnrollAlertDialog {
                     children: [
                       CustomIconButtonConst(
                           text: AppString.next, onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                            // Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
 
+                        showDialog(
+                            context: context, builder: (BuildContext context){
+                              return OfferLetterScreen();
+                        },);
                           }),
                     ],
                   ),

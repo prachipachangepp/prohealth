@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import '../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../manage/widgets/custom_icon_button_constant.dart';
@@ -37,7 +38,19 @@ class AdministartionTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+                    FilePickerResult? result = await FilePicker.platform.pickFiles(
+                      type: FileType.image,
+                      allowMultiple: false,
+                    );
+
+                    if (result != null) {
+                      PlatformFile file = result.files.first;
+                      print('File path: ${file.path}');
+                    } else {
+
+                    }
+                  },
                   icon: Icon(
                     Icons.file_upload_outlined,
                     color: Colors.white,
@@ -417,7 +430,8 @@ class AdministartionTab extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height / 70),
+                      horizontal: MediaQuery.of(context).size.height / 70,
+                   vertical: 20),
                   child: Material(
                     elevation: 4,
                     borderRadius: BorderRadius.circular(20),
@@ -471,7 +485,26 @@ class AdministartionTab extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomButton(
+                    width: 125,
+                    height: 33,
+                    text: 'Add Employee',
+                    style: TextStyle(
+                        fontFamily: 'FiraSans',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700),
+                    borderRadius: 12,
+                    onPressed: () {})
+              ],
+            ),
+          ),
         ]),
       ),
     );

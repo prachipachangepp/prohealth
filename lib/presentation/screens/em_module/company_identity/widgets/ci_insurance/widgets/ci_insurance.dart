@@ -28,7 +28,6 @@ class _CiOrgDocumentState extends State<CIInsurance> {
   TextEditingController contractNameController = TextEditingController();
   TextEditingController contractIdController = TextEditingController();
 
-
   int _selectedIndex = 0;
 
   void _selectButton(int index) {
@@ -184,86 +183,24 @@ class _CiOrgDocumentState extends State<CIInsurance> {
                             builder: (BuildContext context) {
                               return CustomPopup(
                                 controller: vendorName,
-                                onPressed: () {},
+                                onPressed: () {}, title: 'Add Vendor',
                               );
                             });
                       })
-                  :  CustomIconButtonConst(
-    icon: Icons.add,
-    text: "Add Doctype",
-    onPressed: () {
-    showDialog(
-    context: context,
-    builder: (BuildContext context) {
-    return ContractAddDialog(
-    contractNmaeController: contractNameController,
-    onSubmitPressed: () {},
-    contractIdController: contractIdController,
-
-    );
-    });
-    }),
-              // Align(
-              //     alignment: Alignment.bottomRight,
-              //     child: Material(
-              //       elevation: 3,
-              //       borderRadius: BorderRadius.circular(20),
-              //       child: Container(
-              //         height: 30,
-              //         width: 150,
-              //         child: CustomIconButton(
-              //             icon: CupertinoIcons.plus,
-              //             text: "Add Document",
-              //             onPressed: () {
-              //               showDialog(
-              //                   context: context,
-              //                   builder: (context) {
-              //                     return AddOrgDocButton(
-              //                       idDocController: docIdController,
-              //                       nameDocController: docNamecontroller,
-              //
-              //                       child: CICCDropdown(
-              //                         initialValue:
-              //                         'Corporate & Compliance Documents',
-              //                         items: [
-              //                           DropdownMenuItem(
-              //                               value:
-              //                               'Corporate & Compliance Documents',
-              //                               child: Text(
-              //                                   'Corporate & Compliance Documents')),
-              //                           DropdownMenuItem(
-              //                               value: 'HCO Number      254612',
-              //                               child: Text('HCO Number  254612')),
-              //                           DropdownMenuItem(
-              //                               value: 'Medicare ID      MPID123',
-              //                               child: Text('Medicare ID  MPID123')),
-              //                           DropdownMenuItem(
-              //                               value: 'NPI Number     1234567890',
-              //                               child: Text('NPI Number 1234567890')),
-              //                         ],
-              //                       ),
-              //                       child1: CICCDropdown(
-              //                         initialValue: 'Licenses',
-              //                         items: [
-              //                           DropdownMenuItem(
-              //                               value: 'Licenses',
-              //                               child: Text('Licenses')),
-              //                           DropdownMenuItem(
-              //                               value: 'HCO Number      254612',
-              //                               child: Text('HCO Number  254612')),
-              //                           DropdownMenuItem(
-              //                               value: 'Medicare ID      MPID123',
-              //                               child: Text('Medicare ID  MPID123')),
-              //                           DropdownMenuItem(
-              //                               value: 'NPI Number     1234567890',
-              //                               child: Text('NPI Number 1234567890')),
-              //                         ],
-              //                       ),
-              //                     );
-              //                   });
-              //             }),
-              //       ),
-              //     )),
+                  : CustomIconButtonConst(
+                      icon: Icons.add,
+                      text: "Add Doctype",
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ContractAddDialog(
+                                contractNmaeController: contractNameController,
+                                onSubmitPressed: () {},
+                                contractIdController: contractIdController, title: 'Add Contract',
+                              );
+                            });
+                      }),
             ],
           ),
         ),

@@ -272,7 +272,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                       context: context,
                                       name: docNamecontroller.text,
                                       docTypeID: docTypeMetaId,
-                                      docSubTypeID: docSubTypeMetaId,
+                                      docSubTypeID: docTypeMetaId == 10 ? 0:docSubTypeMetaId,
                                       docCreated: DateTime.now().toString(),
                                       url: "url",
                                       expiryType: expiryType.toString(),
@@ -395,6 +395,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                     ),
                                   ],
                                 ),
+                                title: 'Add Vendor Contract',
                                 child:  FutureBuilder<List<DocumentTypeData>>(
                                     future: documentTypeGet(context),
                                     builder: (context,snapshot) {

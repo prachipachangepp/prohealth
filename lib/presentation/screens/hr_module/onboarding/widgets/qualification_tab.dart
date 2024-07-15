@@ -42,10 +42,10 @@ class _OnboardingQualificationState extends State<OnboardingQualification> {
               margin: const EdgeInsets.symmetric(vertical: 14,),
               //padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/65),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(width: MediaQuery.of(context).size.width/50,),
+                  // SizedBox(width: MediaQuery.of(context).size.width/50,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -79,44 +79,44 @@ class _OnboardingQualificationState extends State<OnboardingQualification> {
                           heading: "License"),
                     ],
                   ),
-                  _selectedIndex == 0
-                                  ? CustomElevatedButton(
-                                      icon: Icons.save_alt_outlined,
-                                      label: "Resume",
-                                      iconPosition: IconPosition.right,
-                                      onPressed: () {})
-                                  : _selectedIndex == 3
-                                      ? ElevatedButton(
-                                          onPressed: () {},
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: ColorManager.bluebottom,
-                                            //foregroundColor: Color(0xff1696C8),
-                                            side: BorderSide(color: Color(0xff1696C8)),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                "Li-censure",
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10.0,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: ColorManager.white
-                                                ),
-                                              ),
-                                              SizedBox(width: 6.0),
-                                              Icon(
-                                                Icons.file_copy,
-                                                size: 16.0,
-                                                color: ColorManager.white,
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      : SizedBox(width: 100,),
+                  // _selectedIndex == 0
+                  //                 ? CustomElevatedButton(
+                  //                     icon: Icons.save_alt_outlined,
+                  //                     label: "Resume",
+                  //                     iconPosition: IconPosition.right,
+                  //                     onPressed: () {})
+                  //                 : _selectedIndex == 3
+                  //                     ? ElevatedButton(
+                  //                         onPressed: () {},
+                  //                         style: ElevatedButton.styleFrom(
+                  //                           backgroundColor: ColorManager.bluebottom,
+                  //                           //foregroundColor: Color(0xff1696C8),
+                  //                           side: BorderSide(color: Color(0xff1696C8)),
+                  //                           shape: RoundedRectangleBorder(
+                  //                             borderRadius: BorderRadius.circular(8),
+                  //                           ),
+                  //                         ),
+                  //                         child: Row(
+                  //                           mainAxisSize: MainAxisSize.min,
+                  //                           children: [
+                  //                             Text(
+                  //                               "Li-censure",
+                  //                               style: GoogleFonts.firaSans(
+                  //                                 fontSize: 10.0,
+                  //                                 fontWeight: FontWeight.w700,
+                  //                                 color: ColorManager.white
+                  //                               ),
+                  //                             ),
+                  //                             SizedBox(width: 6.0),
+                  //                             Icon(
+                  //                               Icons.file_copy,
+                  //                               size: 16.0,
+                  //                               color: ColorManager.white,
+                  //                             ),
+                  //                           ],
+                  //                         ),
+                  //                       )
+                  //                     : SizedBox(width: 100,),
 
                             ],
                           ),

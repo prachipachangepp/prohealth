@@ -43,7 +43,7 @@ class MyDropdownTextFieldState extends State<MyDropdownTextField> {
       decoration: BoxDecoration(
 
         borderRadius: BorderRadius.all(Radius.circular(4.0)),
-        border: Border.all(color: Color(0xff575757)),
+        border: Border.all(color: Color(0xffB1B1B1)),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),

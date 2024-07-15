@@ -55,11 +55,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
     currentPage = 1;
     itemsPerPage = 6;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
-      _ccAdrController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
 
   }
   @override
@@ -103,6 +99,11 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
             StreamBuilder<List<CiOrgDocumentCC>>(
                 stream : _ccAdrController.stream,
                 builder: (context, snapshot) {
+                  orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                    _ccAdrController.add(data);
+                  }).catchError((error) {
+                    // Handle error
+                  });
                   print('55555555');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(

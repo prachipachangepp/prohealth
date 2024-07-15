@@ -33,7 +33,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: ListView(
+        child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -90,7 +90,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       // SizedBox(height: 2,),
                        widget.child1,
                       SizedBox(
-                        height: 17,
+                        height: 10,
                       ),
                       Text('Zone',
                         style: GoogleFonts.firaSans(
@@ -102,7 +102,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                       widget.child2,
 
                       SizedBox(
-                        height: 17,
+                        height: 10,
                       ),
                       SMTextFConst(
                         prefixWidget: Text("\$ "),
@@ -111,7 +111,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                         text: 'Rate',
                       ),
                       SizedBox(
-                        height: 17,
+                        height: 10,
                       ),
                       SMTextFConst(
                         controller: widget.perMilesController,
@@ -124,8 +124,7 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
                 ],
               ),
             ),
-            ///radio
-            SizedBox(height: 20,),
+            Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
               child: Center(

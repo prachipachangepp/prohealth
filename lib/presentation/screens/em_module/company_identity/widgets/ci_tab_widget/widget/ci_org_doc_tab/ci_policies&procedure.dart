@@ -54,13 +54,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
     _loadColors();
-    orgSubDocumentGet(context,
-    11,widget.docId,21,1,15
-    ).then((data) {
-      _policiesandprocedureController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
   }
 
   void _loadColors() async {
@@ -81,6 +75,13 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
       StreamBuilder<List<CiOrgDocumentCC>>(
         stream: _policiesandprocedureController.stream,
         builder: (context, snapshot) {
+          orgSubDocumentGet(context,
+              11,widget.docId,0,1,15
+          ).then((data) {
+            _policiesandprocedureController.add(data);
+          }).catchError((error) {
+            // Handle error
+          });
           print('1111111');
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
