@@ -232,19 +232,32 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                             child: Wrap(
                                 children: List.generate(snapshot.data!.length, (index){
                                   var metaModule = snapshot.data![index];
+                                  bool isSelected = selectedContainers[metaModule.appModuleMetaDataId] ?? false;
+
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 10),
                                     child: InkWell(
                                       onTap: () {
                                         toggleSelection(metaModule.appModuleMetaDataId);
                                       },
-                                      child: CIRoleContainerConstant(
-                                        metaModule.mainModule,
-                                      // metaModule.iconUrl.toString(),
-                                        AssetImage('images/i_s.png'),
-                                        borderColor: selectedContainers[metaModule.appModuleMetaDataId]
-                                            ? ColorManager.blueprime
-                                            : Colors.white,
+                                      child: Stack(
+                                        children: [CIRoleContainerConstant(
+                                          metaModule.mainModule,
+                                        // metaModule.iconUrl.toString(),
+                                          AssetImage('images/i_s.png'),
+                                          borderColor: selectedContainers[metaModule.appModuleMetaDataId]
+                                              ? ColorManager.blueprime
+                                              : Colors.white,
+                                        ),
+                                          if (isSelected)
+                                            Positioned(
+                                              top: 3,
+                                              right: 5,
+                                              child: Icon(
+                                                Icons.check_circle,
+                                                color: ColorManager.blueprime,
+                                              ),
+                                            ),]
                                       ),
                                     ),
                                   );

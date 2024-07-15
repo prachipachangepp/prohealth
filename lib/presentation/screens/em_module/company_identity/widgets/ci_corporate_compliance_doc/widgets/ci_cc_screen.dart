@@ -385,6 +385,7 @@ class _CiCorporateComplianceScreenState extends State<CiCorporateComplianceScree
                                     ),
                                   ],
                                 ),
+                                title: 'Add Corporate & Compliance',
                                 child:  FutureBuilder<List<DocumentTypeData>>(
                                     future: documentTypeGet(context),
                                     builder: (context,snapshot) {

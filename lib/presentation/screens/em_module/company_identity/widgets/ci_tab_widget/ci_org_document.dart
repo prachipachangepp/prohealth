@@ -19,6 +19,7 @@ import 'package:prohealth/presentation/screens/em_module/company_identity/widget
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../../../app/resources/value_manager.dart';
 import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
 import '../../../../hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
@@ -94,7 +95,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
     return Column(
       children: [
         SizedBox(
-          height: 20,
+          height: AppSize.s10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -224,8 +225,6 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
             ),
           ),
         ),
-
-
             ///button
             Align(
                 alignment: Alignment.bottomRight,
@@ -381,6 +380,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                               ),
                                             ],
                                           ),
+                                          title: 'Add Document',
                                           child:  FutureBuilder<List<DocumentTypeData>>(
                                               future: documentTypeGet(context),
                                               builder: (context,snapshot) {
@@ -457,29 +457,30 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
           ],
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         Expanded(
-          child: Stack(
-            children: [
-              _selectedIndex != 0
-                  ? Container(
-                height: MediaQuery.of(context).size.height / 3.5,
-                decoration: BoxDecoration(
-                    color: Color(0xFFF2F9FC),
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: ColorManager.faintGrey,
-                        blurRadius: 2,
-                        spreadRadius: -2,
-                        offset: Offset(0, -4),
-                      ),
-                    ]),
-              )
-                  : Offstage(),
+          child:
+          // Stack(
+          //   children: [
+          //     _selectedIndex != 0
+          //         ? Container(
+          //       height: MediaQuery.of(context).size.height / 3.5,
+          //       decoration: BoxDecoration(
+          //           color: Color(0xFFF2F9FC),
+          //           borderRadius: BorderRadius.only(
+          //               topLeft: Radius.circular(20),
+          //               topRight: Radius.circular(20)),
+          //           boxShadow: [
+          //             BoxShadow(
+          //               color: ColorManager.faintGrey,
+          //               blurRadius: 2,
+          //               spreadRadius: -2,
+          //               offset: Offset(0, -4),
+          //             ),
+          //           ]),
+          //     )
+          //         : Offstage(),
               NonScrollablePageView(
                 controller: _tabPageController,
                 onPageChanged: (index) {
@@ -494,8 +495,8 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   CIPoliciesProcedure(docId: AppConfig.docId10,)
                 ],
               ),
-            ],
-          ),
+          //   ],
+          // ),
         )
       ],
     );

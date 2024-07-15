@@ -395,6 +395,7 @@ class _CiCcVendorContractScreenState extends State<CiCcVendorContractScreen> {
                                     ),
                                   ],
                                 ),
+                                title: 'Add Vendor Contract',
                                 child:  FutureBuilder<List<DocumentTypeData>>(
                                     future: documentTypeGet(context),
                                     builder: (context,snapshot) {

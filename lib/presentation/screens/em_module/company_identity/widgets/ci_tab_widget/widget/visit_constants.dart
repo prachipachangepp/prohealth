@@ -42,7 +42,7 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
               width: AppSize.s400,
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: ColorManager.bluebottom,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
