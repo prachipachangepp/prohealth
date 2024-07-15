@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
@@ -54,6 +55,20 @@ class _ClinicalTabState extends State<ClinicalTab> {
   int docVisitTypeId = 0;
 
   int empTypeId = 0;
+  // Country? _selectedCountry;
+  String _selectedCountry = ''; // To store selected country
+
+  void _openCountryPicker() {
+    showCountryPicker(
+      context: context,
+      showPhoneCode: false, // optional. Shows phone code before the country name.
+      onSelect: (Country country) {
+        setState(() {
+          _selectedCountry = country.displayNameNoCountryCode;
+        });
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -206,99 +221,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                       }
                                     },
                                   ),
-
-                                  ///
-                                  // FutureBuilder<List<AEClinicalDiscipline>>(
-                                  //   future:  HrAddEmplyClinicalDisciplinApi(context, 1),
-                                  //   builder: (context, snapshot) {
-                                  //     if(snapshot.connectionState == ConnectionState.waiting){
-                                  //       return Shimmer.fromColors(
-                                  //           baseColor: Colors.grey[300]!,
-                                  //           highlightColor: Colors.grey[100]!,
-                                  //           child: Padding(
-                                  //             padding: const EdgeInsets.symmetric(horizontal: 7),
-                                  //             child: Container(
-                                  //               width: 180,
-                                  //               height: 40,
-                                  //               decoration: BoxDecoration( color: ColorManager.faintGrey,),
-                                  //
-                                  //             ),
-                                  //           )
-                                  //       );
-                                  //     }
-                                  //     if(snapshot.hasData){
-                                  //       int docType = 0;
-                                  //       List<DropdownMenuItem<String>> dropDownList =[];
-                                  //       List<DropdownMenuItem<String>> dropDownAbbreviation =[];
-                                  //       for(var i in snapshot.data!){
-                                  //         dropDownList.add(DropdownMenuItem<String>(
-                                  //           child: Text(i.empType!),
-                                  //           value: i.empType,
-                                  //         ));
-                                  //         dropDownAbbreviation.add(
-                                  //             DropdownMenuItem<String>(
-                                  //               child: Text(i.abbrivation!),
-                                  //               value: i.abbrivation,
-                                  //             ));
-                                  //       }
-                                  //       return
-                                  //         Padding(
-                                  //           padding: const EdgeInsets.symmetric(horizontal: 7),
-                                  //           child: Container(
-                                  //             height: 30,
-                                  //             width: 180,
-                                  //             // margin: EdgeInsets.symmetric(horizontal: 20),
-                                  //             padding:
-                                  //             const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                                  //             decoration: BoxDecoration(
-                                  //               color: Colors.white,
-                                  //               border: Border.all(
-                                  //                   color: const Color(0xff686464).withOpacity(0.5),
-                                  //                   width: 1), // Black border
-                                  //                borderRadius:
-                                  //                BorderRadius.circular(5), // Rounded corners
-                                  //             ),
-                                  //             child: DropdownButtonFormField<String>(
-                                  //               focusColor: Colors.transparent,
-                                  //               icon: const Icon(
-                                  //                 Icons.arrow_drop_down_sharp,
-                                  //                 color: Colors.blue,
-                                  //               ),
-                                  //               decoration: const InputDecoration.collapsed(
-                                  //                   hintText: 'Discipline'),
-                                  //               items: dropDownList,
-                                  //               onChanged: (newValue) {
-                                  //                 for(var a in snapshot.data!){
-                                  //                   if(a.empType == newValue){
-                                  //                     docType = a.employeeTypesId;
-                                  //                     empTypeId = docType;
-                                  //                   }
-                                  //                 }
-                                  //               },
-                                  //               value: dropDownList[0].value,
-                                  //               style: GoogleFonts.firaSans(
-                                  //                 fontSize: 12,
-                                  //                 fontWeight: FontWeight.w600,
-                                  //                 color: const Color(0xff686464),
-                                  //                 decoration: TextDecoration.none,
-                                  //               ),
-                                  //             ),
-                                  //           ),
-                                  //         );
-                                  //       //   CustomDropdownTextField(
-                                  //       //   labelText: 'Disciplines',
-                                  //       //   labelStyle: TextStyle(
-                                  //       //       fontSize: 12,
-                                  //       //       color: Color(0xff575757),
-                                  //       //       fontWeight: FontWeight.w400),
-                                  //       //   labelFontSize: 12,
-                                  //       //   items: ['A', 'B', 'C', 'D'],
-                                  //       // );
-                                  //     }else{
-                                  //       return const Offstage();
-                                  //     }
-                                  //   }
-                                  // ),
                                 ),
                                 Expanded(
                                   flex: 1,
@@ -509,13 +431,37 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                     },
                                   ),
                                 ),
+                                // Column(
+                                //   mainAxisAlignment: MainAxisAlignment.center,
+                                //   children: <Widget>[
+                                //     Text('$_selectedCountry'),
+                                //     SizedBox(height: 20),
+                                //     ElevatedButton(
+                                //       onPressed: _openCountryPicker,
+                                //       child: Text('Select Country'),
+                                //     ),
+                                //   ],
+                                // ),
+                                // Expanded(
+                                //   flex: 1,
+                                //   child: CustomDropdownTextField(
+                                //     labelText: '$_selectedCountry',
+                                //     labelStyle: TextStyle(),
+                                //     labelFontSize: 12,
+                                //     items: _openCountryPicker,
+                                //   ),
+                                // ),
                                 Expanded(
                                   flex: 1,
-                                  child: CustomDropdownTextField(
-                                    labelText: 'Country',
-                                    labelStyle: TextStyle(),
-                                    labelFontSize: 12,
-                                    items: ['A', 'B', 'C', 'D'],
+                                  child: GestureDetector(
+                                    onTap: _openCountryPicker,
+                                    child: CustomDropdownTextField(
+                                      hintText: "Country",
+                                      labelText: _selectedCountry,
+                                      labelStyle: TextStyle(),
+                                      labelFontSize: 12,
+                                      items: [],
+                                    ),
                                   ),
                                 ),
                                 Expanded(
@@ -777,7 +723,9 @@ class _ClinicalTabState extends State<ClinicalTab> {
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height / 70),
+                        horizontal: 20
+                        // MediaQuery.of(context).size.height / 70
+                    ),
                     child: Material(
                       elevation: 4,
                       borderRadius: BorderRadius.circular(20),
@@ -794,7 +742,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
                           color: Colors.white,
                         ),
                         child: Expanded(
-                          child: Row(
+                          child:
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Column(
@@ -845,8 +794,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                   Expanded(
                                     flex: 1,
                                     child:
-                                    FutureBuilder<
-                                            List<AEClinicalService>>(
+                                    FutureBuilder<List<AEClinicalService>>(
                                         future:
                                             HrAddEmplyClinicalServiceRadioButtonApi(
                                                 context, 1),
@@ -880,19 +828,39 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                   ),
                                 ],
                               ),
-                              Column(
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: McqWidget(
-                                      title: 'Gender',
-                                      items: ['Male, Female, Other'],
-                                      onChanged: (int) {},
-                                    ),
-                                  ),
-                                  Expanded(flex: 1, child: Container())
-                                ],
-                              ),
+                              ///
+                              // Expanded(
+                              //   flex: 2,
+                              //   child:McqWidget(
+                              //     title: 'Gender',
+                              //     items: [
+                              //       'Male',
+                              //       'Female',
+                              //       'Other'
+                              //     ],
+                              //     onChanged: (int) {},
+                              //   ),
+                              // ),
+                              ///
+                              // Column(
+                              //   // crossAxisAlignment: CrossAxisAlignment.start,
+                              //   mainAxisAlignment: MainAxisAlignment.start,
+                              //   children: [
+                              //     Expanded(
+                              //        flex: 1,
+                              //       child:McqWidget(
+                              //         title: 'Gender',
+                              //         items: [
+                              //           'Male',
+                              //           'Female',
+                              //           'Other'
+                              //         ],
+                              //         onChanged: (int) {},
+                              //       ),
+                              //     ),
+                              //     // Expanded(flex: 1, child: Container())
+                              //   ],
+                              // ),
                             ],
                           ),
                         ),
