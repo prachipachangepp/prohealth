@@ -293,7 +293,6 @@
 // }
 
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -303,145 +302,203 @@ import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
 
-class AcknowledgementTab extends StatelessWidget {
+class AcknowledgementTab extends StatefulWidget {
   const AcknowledgementTab({Key? key}) : super(key: key);
+
+  @override
+  _AcknowledgementTabState createState() => _AcknowledgementTabState();
+}
+
+class _AcknowledgementTabState extends State<AcknowledgementTab> {
+  bool isChecked1 = false;
+  bool isChecked2 = false;
+  bool isChecked3 = false;
+  bool isChecked4 = false;
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return  Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80,),
-            child: Material(
-              elevation: 5,
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: screenHeight / 14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: screenWidth / 21),
-                                child: AcknowledgementConstant(
-                                  'Candidate Release Authorization Form',
-                                  Icons.description_outlined,
-                                  Color(0xff50B5E5),
-                                ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80),
+          child: Material(
+            elevation: 5,
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: screenHeight / 14),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: screenWidth / 21),
+                              child: Row(
+                                children: [
+                                  Checkbox(
+                                    value: isChecked1,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        isChecked1 = value!;
+                                      });
+                                    },
+                                  ),
+                                  AcknowledgementConstant(
+                                    'Candidate Release Authorization Form',
+                                    Icons.description_outlined,
+                                    Color(0xff50B5E5),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight / 60),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: screenWidth / 21),
-                                child: AcknowledgementConstant(
-                                  'Confidentiality Statement',
-                                  Icons.description_outlined,
-                                  Color(0xff50B5E5),
-                                ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight / 60),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: screenWidth / 21),
+                              child: Row(
+                                children: [
+                                  Checkbox(
+                                    value: isChecked2,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        isChecked2 = value!;
+                                      });
+                                    },
+                                  ),
+                                  AcknowledgementConstant(
+                                    'Confidentiality Statement',
+                                    Icons.description_outlined,
+                                    Color(0xff50B5E5),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Flexible(
-                      flex: 1,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(right: screenWidth / 13), //6.6
-                                child: AcknowledgementConstant(
-                                  'On Call',
-                                  Icons.description_outlined,
-                                  Color(0xff50B5E5),
-                                ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: screenWidth / 13), //6.6
+                              child: Row(
+                                children: [
+                                  Checkbox(
+                                    value: isChecked3,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        isChecked3 = value!;
+                                      });
+                                    },
+                                  ),
+                                  AcknowledgementConstant(
+                                    'On Call',
+                                    Icons.description_outlined,
+                                    Color(0xff50B5E5),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight / 60),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(right: 0),
-                                child: AcknowledgementConstant(
-                                  'Policy Concerning 3rd Party',
-                                  Icons.description_outlined,
-                                  Color(0xff50B5E5),
-                                ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight / 60),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 0),
+                              child: Row(
+                                children: [
+                                  Checkbox(
+                                    value: isChecked4,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        isChecked4 = value!;
+                                      });
+                                    },
+                                  ),
+                                  AcknowledgementConstant(
+                                    'Policy Concerning 3rd Party',
+                                    Icons.description_outlined,
+                                    Color(0xff50B5E5),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-          SizedBox(height: screenHeight / 100),
-          Padding(
-            padding: EdgeInsets.only(right: screenWidth / 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Color(0xff1696C8),
-                    side: BorderSide(color: Color(0xff1696C8)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    'Reject',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w700,
-                    ),
+        ),
+        SizedBox(height: screenHeight / 100),
+        Padding(
+          padding: EdgeInsets.only(right: screenWidth / 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Color(0xff1696C8),
+                  side: BorderSide(color: Color(0xff1696C8)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                SizedBox(width: screenWidth / 90),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff1696C8),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    'Approve',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w700,
-                    ),
+                child: Text(
+                  'Reject',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-              ],
-            ),
+              ),
+              SizedBox(width: screenWidth / 90),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff1696C8),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'Approve',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+      ],
     );
   }
 }
