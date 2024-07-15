@@ -12,7 +12,7 @@ class AppStringHr{
   static String documents = "Documents";
   static String bankings = "Banking";
   static String healthRcord = "Health Records";
-  static String inventory = "Inventory";
+  static String inventory = "Equipment";
   static String payRate = "Pay Rates";
   static String termination = "Termination";
   static String timeOff = "Time Off";
@@ -25,6 +25,7 @@ class AppStringHr{
   static String type = "Type: ";
   static String checking = "Checking";
   static String effectiveDate = "Effective Date: ";
+  static String routingNo = "Routing/Transit No.: ";
   static String bankName = "Bank Name: ";
   static String accNo = "Account No.: ";
   static String requestPercent = "Requested Percentage: ";

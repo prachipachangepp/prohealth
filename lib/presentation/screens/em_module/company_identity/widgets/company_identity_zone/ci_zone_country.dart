@@ -33,6 +33,8 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
   TextEditingController zipcodeController = TextEditingController();
   TextEditingController mapController = TextEditingController();
   TextEditingController landmarkController = TextEditingController();
+  TextEditingController countyController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
   final StreamController<List<AllCountyGet>> _contyController = StreamController<List<AllCountyGet>>();
 
   @override
@@ -213,13 +215,19 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                 var countyName = snapshotPrefill.data!.countyName;
                                                 countynameController = TextEditingController(text:snapshotPrefill.data!.countyName );
 
+                                                var stateName = snapshotPrefill.data!.state;
+                                                stateController = TextEditingController(text: snapshotPrefill.data!.state);
+
+                                                var countryName = snapshotPrefill.data!.country;
+                                                countyController = TextEditingController(text:snapshotPrefill.data!.country);
+
 
                                                 return CIZoneAddPopup(
                                                   onSavePressed: ()async{
                                                     await updateCounty(context, snapshot.data![index].countyId,
                                                         countyName == countynameController.text ? countyName.toString() : countynameController.text,
-                                                        snapshot.data![index].state.toString(),
-                                                        snapshot.data![index].country.toString(),
+                                                        stateName == stateController.text ? stateName.toString() :  stateController.text,
+                                                        countryName == countyController.text ? countryName.toString() : countyController.text,
                                                         "37.0902°",
                                                         "95.7129°", 5, '18');
                                                     getZoneBYcompOffice(context, '18', 5, 1, 15).then((data){
@@ -227,10 +235,13 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                                     }).catchError((error){});
                                                   },
                                                   title: 'Edit County',
-                                                  title1: AppStringEM.countyName,
-                                                  countynameController: countynameController,
-                                                  title2:AppStringEM.landmark,
-                                                  zipcodeController: landmarkController,  );
+                                                  title1: 'State Name',
+                                                  countynameController: stateController,
+                                                  title2: 'Country Name',
+                                                  zipcodeController: countyController,
+                                                  title3: 'County Name',
+                                                  mapController: countynameController,
+                                                  );
                                               }
                                             );
                                           });

@@ -6,6 +6,8 @@ class ManageReposotory{
   static String byemployeeId = "ByemployeeId";
   static String employement = "/employee-employment-histories";
 
+  static String banking = "/employee-bankings";
+
   /// Employeement
   static String getEmployeement({required int employeeId}){
     return "$employement/$byemployeeId/$employeeId";
@@ -62,5 +64,22 @@ class ManageReposotory{
   }
   static String approveReferences({required int referenceId}){
     return "$references/approve/$referenceId";
+  }
+
+  /// Employee Banking
+  static String getBankingEmployee({required int employeeId}){
+    return "$banking/$byemployeeId/$employeeId";
+  }
+
+  static String getPrefillBankingEmployee({required int empBankingId}){
+    return "$banking/$empBankingId";
+  }
+
+  static String addBankingEmployee(){
+    return "$banking$add";
+  }
+
+  static String updateBankingEmployee({required int empBankingId}){
+    return "$banking/$empBankingId";
   }
 }

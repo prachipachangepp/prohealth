@@ -58,50 +58,68 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // Text(''),
-                    Text(
-                      AppString.srNo,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          AppString.srNo,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
                       ),
                     ),
       //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                    Text(AppStringHr.inventoryid,
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text(AppStringHr.docName,
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('Device Description',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('Assign Date',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-
-
+                    Expanded(
+                      child: Center(
+                        child: Text(AppStringHr.inventoryid,
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                            )),
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text(AppStringHr.docName,
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                            )),
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text('Device Description',
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                            )),
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text('Assign Date',
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                            )),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -145,54 +163,74 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                           children: [
-                                            Text(
-                                              formattedSerialNumber,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff686464),
-                                                decoration: TextDecoration.none,
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  formattedSerialNumber,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             // Text(''),
-                                            Text(
-                                              "8374682",
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff686464),
-                                                decoration: TextDecoration.none,
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  "8374682",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                            Text(
-                                              "Lorem Ipsum is simply dummy text of the printing",
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff686464),
-                                                decoration: TextDecoration.none,
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  "Lorem Ipsum is simply dummy text of the printing",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                            Text(
-                                              "Cellular",
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff686464),
-                                                decoration: TextDecoration.none,
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  "Cellular",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                            Text(
-                                              "22-03-23",
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff686464),
-                                                decoration: TextDecoration.none,
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  "22-03-23",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             //  Text(''),
