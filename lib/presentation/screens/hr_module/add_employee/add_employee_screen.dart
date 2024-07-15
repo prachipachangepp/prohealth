@@ -184,6 +184,8 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                 controller: widget.addEmplyPageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
+                    // Container(),
+                    ClinicalTab(),
                     ClinicalTab(),
                     SalesTab(),
                     AdministartionTab(),

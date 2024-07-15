@@ -408,7 +408,7 @@ class _ManageScreenState extends State<ManageScreen> {
         Tab(text: AppStringHr.documents),
         Tab(text: AppStringHr.bankings),
         // Tab(text: AppStringHr.healthRcord),
-        // Tab(text: AppStringHr.inventory),
+         Tab(text: AppStringHr.inventory),
         Tab(text: AppStringHr.payRate),
         Tab(text: AppStringHr.termination),
         Tab(text: AppStringHr.timeOff),
@@ -417,38 +417,38 @@ class _ManageScreenState extends State<ManageScreen> {
         CenteredTabBarChild(childController),
         CenteredTabBarChild(childControlleOne),
         BankingHeadTabbar(),
-        // HealthRecordsHeadTabbar(),
-        // Column(
-        //   children: [
-        //     Row(
-        //       mainAxisAlignment: MainAxisAlignment.end,
-        //       children: [
-        //         Container(
-        //           // width: 100,
-        //           decoration: BoxDecoration(
-        //             boxShadow: [
-        //               BoxShadow(
-        //                 color: Colors.grey.withOpacity(0.25),
-        //                 //spreadRadius: 1,
-        //                 blurRadius: 4,
-        //                 offset: Offset(0, 5),
-        //               ),
-        //             ],
-        //           ),
-        //           margin: EdgeInsets.only(right: 10),
-        //           child: CustomIconButtonConst(
-        //               text: AppStringHr.addNew,
-        //               icon: Icons.add,
-        //               onPressed: () {
-        //                 showDialog(context: context, builder: (_) => EquipmentAddPopup());
-        //               }),
-        //         ),
-        //       ],
-        //     ),
-        //     SizedBox(height: 20,),
-        //     InventoryHeadTabbar(),
-        //   ],
-        // ),
+       // HealthRecordsHeadTabbar(),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  // width: 100,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.25),
+                        //spreadRadius: 1,
+                        blurRadius: 4,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  margin: EdgeInsets.only(right: 10),
+                  child: CustomIconButtonConst(
+                      text: AppStringHr.addNew,
+                      icon: Icons.add,
+                      onPressed: () {
+                        showDialog(context: context, builder: (_) => EquipmentAddPopup());
+                      }),
+                ),
+              ],
+            ),
+            SizedBox(height: 20,),
+            InventoryHeadTabbar(),
+          ],
+        ),
         PayRatesHeadTabbar(),
         TerminationHeadTabbar(),
         TimeOffHeadTabbar(),

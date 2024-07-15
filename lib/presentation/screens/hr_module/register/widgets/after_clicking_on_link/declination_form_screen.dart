@@ -4,18 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/declination_form_screen.dart';
 import 'dart:typed_data';
 
 import '../../../manage/widgets/top_row.dart';
 import 'form_nine_screen.dart';
 
-class SignaturePage extends StatefulWidget {
+class DeclinationPageScreen extends StatefulWidget {
   @override
-  _SignaturePageState createState() => _SignaturePageState();
+  _DeclinationPageScreenState createState() => _DeclinationPageScreenState();
 }
 
-class _SignaturePageState extends State<SignaturePage> {
+class _DeclinationPageScreenState extends State<DeclinationPageScreen> {
   bool _isDrawing = true;
   List<Offset?> _points = [];
   Uint8List? _selectedImageBytes;
@@ -41,7 +40,7 @@ class _SignaturePageState extends State<SignaturePage> {
                     children: [
                       Center(
                         child: Text(
-                            'Signature',
+                          'Signature',
                           style: GoogleFonts.firaSans(
                             fontSize: 18,
                             color: Color(0xFF50B5E5),
@@ -49,7 +48,7 @@ class _SignaturePageState extends State<SignaturePage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height/6),
+                      SizedBox(height: MediaQuery.of(context).size.height / 6),
                       Text(
                         AppString.upload_signature,
                         style: GoogleFonts.firaSans(
@@ -88,7 +87,7 @@ class _SignaturePageState extends State<SignaturePage> {
                                   style: GoogleFonts.firaSans(
                                     color: Color(0xFF50B5E5),
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w700
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 onPressed: () {
@@ -120,7 +119,7 @@ class _SignaturePageState extends State<SignaturePage> {
                                   style: GoogleFonts.firaSans(
                                     color: Colors.grey,
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w700
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 onPressed: _pickFile,
@@ -188,7 +187,7 @@ class _SignaturePageState extends State<SignaturePage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height/15),
+                      SizedBox(height: MediaQuery.of(context).size.height / 15),
                       Padding(
                         padding: EdgeInsets.only(left: 110.0),
                         child: Row(
@@ -214,11 +213,10 @@ class _SignaturePageState extends State<SignaturePage> {
                                 foregroundColor: Color(0xff50B5E5),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
-                                    side: BorderSide(color: Color(0xff50B5E5), width: 1.5)
-                                ),
+                                    side: BorderSide(color: Color(0xff50B5E5), width: 1.5)),
                               ),
                             ),
-                            SizedBox(width: MediaQuery.of(context).size.width/5),
+                            SizedBox(width: MediaQuery.of(context).size.width / 5),
                             Row(
                               children: [
                                 ElevatedButton(
@@ -241,23 +239,20 @@ class _SignaturePageState extends State<SignaturePage> {
                                     foregroundColor: Color(0xff50B5E5),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8),
-                                        side: BorderSide(color: Color(0xff50B5E5), width: 1.5)
-                                    ),
+                                        side: BorderSide(color: Color(0xff50B5E5), width: 1.5)),
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(width: MediaQuery.of(context).size.width/80),
+                            SizedBox(width: MediaQuery.of(context).size.width / 80),
                             ElevatedButton(
                               child: Text(
                                 AppString.save,
                                 style: GoogleFonts.firaSans(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700
-                                ),),
+                                    fontSize: 14, fontWeight: FontWeight.w700),
+                              ),
                               onPressed: () {
-                                // _showSaveConfirmationDialog();
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => DeclinationPageScreen()));
+                                _showSaveConfirmationDialog();
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xff50B5E5),
@@ -275,11 +270,9 @@ class _SignaturePageState extends State<SignaturePage> {
                 ),
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height/6),
+            SizedBox(height: MediaQuery.of(context).size.height / 6),
             Row(
-              children: [
-                BottomBarRow()
-              ],
+              children: [BottomBarRow()],
             )
           ],
         ),
@@ -327,19 +320,16 @@ class _SignaturePageState extends State<SignaturePage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SvgPicture.asset(
-                      'images/sign_saving.svg'
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height/20),
+                  SvgPicture.asset('images/sign_saving.svg'),
+                  SizedBox(height: MediaQuery.of(context).size.height / 20),
                   Text(
                     'Successfully saved!',
                     style: GoogleFonts.firaSans(
                         fontWeight: FontWeight.w700,
                         fontSize: 24,
-                        color: Color(0xff686464)
-                    ),
+                        color: Color(0xff686464)),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height/25),
+                  SizedBox(height: MediaQuery.of(context).size.height / 25),
                   Container(
                     width: 120,
                     height: 90,
@@ -359,7 +349,7 @@ class _SignaturePageState extends State<SignaturePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height/25),
+                  SizedBox(height: MediaQuery.of(context).size.height / 25),
                   ElevatedButton(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -367,10 +357,9 @@ class _SignaturePageState extends State<SignaturePage> {
                         Text(
                           'Continue',
                           style: GoogleFonts.firaSans(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700
-                          ),),
-                        SizedBox(width: MediaQuery.of(context).size.width/140),
+                              fontSize: 14, fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width / 140),
                         Icon(
                           Icons.arrow_right_alt_outlined,
                           size: 24,
@@ -378,7 +367,8 @@ class _SignaturePageState extends State<SignaturePage> {
                       ],
                     ),
                     onPressed: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => DeclinationPageScreen()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => FormNineScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff50B5E5),
@@ -388,7 +378,6 @@ class _SignaturePageState extends State<SignaturePage> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),

@@ -310,11 +310,10 @@ class AcknowledgementTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
     return  Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80, vertical: AppPadding.p40),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80,),
             child: Material(
               elevation: 5,
               borderRadius: BorderRadius.circular(12),
