@@ -43,7 +43,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   TextEditingController docIdController = TextEditingController();
   TextEditingController eligibleClinicalController = TextEditingController();
   final StreamController<List<CiVisit>> _visitController =
-      StreamController<List<CiVisit>>();
+  StreamController<List<CiVisit>>();
   late List<Color> hrcontainerColors;
   // FocusNode _focusNode = FocusNode();
   // bool _showList = false;
@@ -52,11 +52,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 10;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();
-    getVisit(context, 1, 1, 15).then((data) {
+    getVisit(context, 1, 1, 20).then((data) {
       _visitController.add(data);
     }).catchError((error) {
       // Handle error
@@ -75,25 +75,25 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
     return perceivedBrightness < 128; // If perceived brightness is less than 128, color is considered dark
   }
   void addChip(
-    String chip,
+      String chip,
       int chipId
-  ) {
+      ) {
     // setState(() {
 
 
-     // chipsList = selectedChips;
+    // chipsList = selectedChips;
     // });
   }
 
   void deleteChip(
-    String chip,
+      String chip,
       int chipId
-  ) {
+      ) {
     //setState(() {
-      selectedChips.remove(chip);
-      selectedChipsId.remove(chipId);
-      //selectedChipsEmpId.remove(chipEmpId);
-   // });
+    selectedChips.remove(chip);
+    selectedChipsId.remove(chipId);
+    //selectedChipsEmpId.remove(chipEmpId);
+    // });
   }
 
   void _loadColors() async {
@@ -114,7 +114,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       _selectedItem = newValue;
     });
   }
- // List<> eligibalClinical =[];
+  // List<> eligibalClinical =[];
   @override
   Widget build(BuildContext context) {
     List<String> currentPageItems = items.sublist(
@@ -130,8 +130,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
             width: AppSize.s150,
             margin: EdgeInsets.only(right: AppMargin.m30),
             child: CustomIconButtonConst(
-                // heightContainer: 30,
-                //   widthContainer: 120,
+              // heightContainer: 30,
+              //   widthContainer: 120,
                 text: AppString.addnewvisit,
                 icon: Icons.add,
                 onPressed: () {
@@ -175,7 +175,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                             decoration: BoxDecoration(
                                                 color: ColorManager.faintGrey,
                                                 borderRadius:
-                                                    BorderRadius.circular(10)),
+                                                BorderRadius.circular(10)),
                                           ));
                                     }
                                     if (snapshot.data!.isEmpty) {
@@ -185,7 +185,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           style: CustomTextStylesCommon
                                               .commonStyle(
                                             fontWeight:
-                                                FontWeightManager.medium,
+                                            FontWeightManager.medium,
                                             fontSize: FontSize.s12,
                                             color: ColorManager.mediumgrey,
                                           ),
@@ -195,7 +195,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                     if (snapshot.hasData) {
                                       int docType = 0;
                                       List<DropdownMenuItem<String>>
-                                          dropDownTypesList = [];
+                                      dropDownTypesList = [];
                                       for (var i in snapshot.data!) {
                                         dropDownTypesList.add(
                                           DropdownMenuItem<String>(
@@ -206,7 +206,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       }
                                       return CICCDropdown(
                                           initialValue:
-                                              dropDownTypesList[0].value,
+                                          dropDownTypesList[0].value,
                                           onChange: (val) {
                                             for (var a in snapshot.data!) {
                                               if (a.abbrivation == val) {
@@ -216,10 +216,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   if (val.isNotEmpty) {
 
                                                     selectedChips.add(Chip(
+                                                      backgroundColor: ColorManager.white,
                                                       shape: StadiumBorder(
                                                           side: BorderSide(
                                                               color: ColorManager.blueprime)),
-                                                      //side: BorderSide(color: ColorManager.blueprime),
                                                       deleteIcon: Icon(
                                                         Icons.close,
                                                         color: ColorManager.blueprime,
@@ -268,6 +268,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       SizedBox(
         height: 10,
       ),
+      ///headings
       Container(
         height: AppSize.s30,
         margin: EdgeInsets.symmetric(horizontal: AppMargin.m35),
@@ -278,71 +279,64 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(flex: 2, child: Container()),
-            Expanded(
-              flex: 2,
+            // Expanded(flex: 2, child: Container()),
+            Padding(
+              padding:  const EdgeInsets.only(left: 50),
               child: Text(
                 AppString.srNo,
+                textAlign: TextAlign.center,
                 // style: RegisterTableHead.customTextStyle(context),
                 style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                     color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                    ),
-              ),
-            ),
-            Expanded(flex: 1, child: Container()),
-
-            ///visit
-            Expanded(
-              flex: 2,
-              child: Text(
-                AppString.visit,
-                style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                    ),
-                // style: RegisterTableHead.customTextStyle(context),
-              ),
-            ),
-            Expanded(flex: 1, child: Container()),
-
-            ///EL clinician
-            Expanded(
-              flex: 2,
-              child: Text(
-                AppString.eligibleClinician,
-                style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.white
-                    // color: isSelected ? Colors.white : Colors.black,
-                    ),
-              ),
-            ),
-            Expanded(flex: 1, child: Container()),
-            // style: RegisterTableHead.customTextStyle(context),),),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Text(
-                  AppString.actions,
-                  textAlign:TextAlign.start,
-                  style: GoogleFonts.firaSans(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.white
-                      // color: isSelected ? Colors.white : Colors.black,
-                      ),
-                  // style: RegisterTableHead.customTextStyle(context),
+                  // color: isSelected ? Colors.white : Colors.black,
                 ),
               ),
             ),
-            Expanded(flex: 2, child: Container())
+            ///visit
+            Padding(
+              padding: const EdgeInsets.only(left: 110),
+              child: Text(
+                AppString.visit,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.white
+                  // color: isSelected ? Colors.white : Colors.black,
+                ),
+              ),
+            ),
+            ///EL clinician
+            Padding(
+              padding:  const EdgeInsets.only(right: 270),
+              child: Text(
+                AppString.eligibleClinician,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.white
+                  // color: isSelected ? Colors.white : Colors.black,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 40.0),
+              child: Text(
+                AppString.actions,
+                textAlign:TextAlign.center,
+                style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.white
+                  // color: isSelected ? Colors.white : Colors.black,
+                ),
+                // style: RegisterTableHead.customTextStyle(context),
+              ),
+            ),
+            // Expanded(flex: 2, child: Container())
           ],
         ),
       ),
@@ -390,27 +384,27 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                       print("Length ::: ${snapshot.data![index].eligibleClinician.toString()}");
                       List<Widget> clinical = [];
                       for(var i in snapshot.data![index].eligibleClinician!){
-                         var hexColor = i.color.replaceAll("#","");
+                        var hexColor = i.color.replaceAll("#","");
                         //var = i.color.trim();
                         clinical.add(Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height:30,
-                            width: 30,
-                            color: Color(int.parse('0xFF$hexColor')),
-                            child:Center(child: Text(i.eligibleClinician,style: GoogleFonts.firaSans(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                              color: _isDarkColor(Color(int.parse('0xFF$hexColor'))) ? ColorManager.white : ColorManager.black,
-                              decoration: TextDecoration.none,
-                            ),))
+                              height:30,
+                              width: 30,
+                              color: Color(int.parse('0xFF$hexColor')),
+                              child:Center(child: Text(i.eligibleClinician,style: GoogleFonts.firaSans(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: _isDarkColor(Color(int.parse('0xFF$hexColor'))) ? ColorManager.white : ColorManager.black,
+                                decoration: TextDecoration.none,
+                              ),))
                           ),
                         ));
                       }
                       int serialNumber =
                           index + 1 + (currentPage - 1) * itemsPerPage;
                       String formattedSerialNumber =
-                          serialNumber.toString().padLeft(2, '0');
+                      serialNumber.toString().padLeft(2, '0');
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Column(children: [
@@ -418,7 +412,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                           Container(
                               padding: EdgeInsets.only(bottom: AppPadding.p5),
                               margin:
-                                  EdgeInsets.symmetric(horizontal: AppMargin.m50),
+                              EdgeInsets.symmetric(horizontal: AppMargin.m50),
                               decoration: BoxDecoration(
                                 color: ColorManager.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -435,7 +429,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Expanded(flex: 2, child: Container()),
+                                  // Expanded(flex: 2, child: Container()),
                                   Expanded(
                                     flex: 2,
                                     child: Text(
@@ -444,38 +438,45 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           fontSize: 10,
                                           fontWeight: FontWeight.w700,
                                           color: Color(0xff686464)),
-                                      textAlign: TextAlign.start,
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
-                                  Expanded(flex: 1, child: Container()),
+                                  // Expanded(flex: 1, child: Container()),
                                   Expanded(
-                                    flex: 2,
+                                    flex: 3,
                                     child: Text(
                                       snapshot.data![index].typeofVisit
                                           .toString(),
+                                      textAlign: TextAlign.center,
                                       style: GoogleFonts.firaSans(
                                           fontSize: 10,
                                           fontWeight: FontWeight.w700,
                                           color: Color(0xff686464)),
                                     ),
                                   ),
-                                  Expanded(flex: 1, child: Container()),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children:clinical
-                                  ),
-                                  Expanded(flex: 2, child: Container()),
-                                  Center(
+                                  // Expanded(flex: 1, child: Container()),
+                                  Expanded(
+                                    flex: 3,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return FutureBuilder<VisitListDataPrefill>(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children:clinical
+                                    ),
+                                  ),
+                                  // Expanded(flex: 2, child: Container()),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return FutureBuilder<VisitListDataPrefill>(
                                                           future: getVisitListPrefill(context, snapshot.data![index].visitId),
                                                           builder: (context,snapshotPrefill) {
                                                             if(snapshotPrefill.connectionState == ConnectionState.waiting){
@@ -633,7 +634,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
                                                                                               onDeleted: () {
                                                                                                 setState(() {
-                                                                                                 // deleteChip(val,docType);
+                                                                                                  // deleteChip(val,docType);
                                                                                                   selectedEditChips.clear();
                                                                                                   selectedEditChipsId.clear();
                                                                                                   print(":::Chips name ${selectedChips}");
@@ -664,64 +665,62 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
 
                                                             );
                                                           }
-                                                        );
-
-                                                  });
-                                            },
-                                            icon: Icon(
-                                              Icons.edit_outlined,
-                                              color: ColorManager.bluebottom,
-                                            )),
-                                        SizedBox(
-                                          width: 3,
-                                        ),
-                                        IconButton(
-                                          onPressed: () async {
-                                            showDialog(context: context,
-                                                builder: (context) => StatefulBuilder(
-                                                  builder: (BuildContext context, void Function(void Function()) setState) {
-                                                    return  DeletePopup(
-                                                        loadingDuration: _isLoading,
-                                                        onCancel: (){
-                                                          Navigator.pop(context);
-                                                        }, onDelete: () async{
-                                                      setState(() {
-                                                        _isLoading = true;
-                                                      });
-                                                      try {
-                                                        await deleteVisitPatch(context,
-                                                            snapshot.data![index].visitId);
-                                                        setState(() async {
-                                                          await getVisit(context, 1, 1, 10)
-                                                              .then((data) {
-                                                            _visitController.add(data);
-                                                          }).catchError((error) {
-                                                            // Handle error
-                                                          });
-                                                          Navigator.pop(context);
-                                                        });
-                                                      } finally {
-                                                        setState(() {
-                                                          _isLoading = false;
-                                                        });
-                                                      }
+                                                      );
 
                                                     });
-                                                  },
-
-                                                ));
-
-                                            //
-                                          },
-                                          icon: Icon(
-                                              Icons.delete_outline_outlined,
-                                              size: 20,
-                                              color: Color(0xffF6928A)),
-                                        ),
-                                      ],
+                                              },
+                                              icon: Icon(
+                                                Icons.edit_outlined,
+                                                size: 20,
+                                                color: ColorManager.bluebottom,
+                                              )),
+                                          SizedBox(
+                                            width: 3,
+                                          ),
+                                          IconButton(
+                                            onPressed: () async {
+                                              showDialog(context: context,
+                                                  builder: (context) => StatefulBuilder(
+                                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                                      return  DeletePopup(
+                                                          loadingDuration: _isLoading,
+                                                          onCancel: (){
+                                                            Navigator.pop(context);
+                                                          }, onDelete: () async{
+                                                        setState(() {
+                                                          _isLoading = true;
+                                                        });
+                                                        try {
+                                                          await deleteVisitPatch(context,
+                                                              snapshot.data![index].visitId);
+                                                          setState(() async {
+                                                            await getVisit(context, 1, 1, 20)
+                                                                .then((data) {
+                                                              _visitController.add(data);
+                                                            }).catchError((error) {
+                                                              // Handle error
+                                                            });
+                                                            Navigator.pop(context);
+                                                          });
+                                                        } finally {
+                                                          setState(() {
+                                                            _isLoading = false;
+                                                          });
+                                                        }
+                                                      });
+                                                    },
+                                                  ));
+                                            },
+                                            icon: Icon(
+                                                Icons.delete_outline_outlined,
+                                                size: 20,
+                                                color: Color(0xffF6928A)),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  Expanded(flex: 3, child: Container())
+                                  // Expanded(flex: 3, child: Container())
                                 ],
                               ))
                         ]),

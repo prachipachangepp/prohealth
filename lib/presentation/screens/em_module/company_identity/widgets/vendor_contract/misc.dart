@@ -53,7 +53,7 @@ class _CiMiscState extends State<CiMisc> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 20;
     items = List.generate(60, (index) => 'Item ${index + 1}');
 
 
