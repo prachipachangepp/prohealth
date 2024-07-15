@@ -23,7 +23,8 @@ import '../../../ci_corporate_compliance_doc/widgets/corporate_compliance_consta
 
 class CIPoliciesProcedure extends StatefulWidget {
   final int docId;
-  const CIPoliciesProcedure({super.key, required this.docId,});
+  final int subDocId;
+  const CIPoliciesProcedure({super.key, required this.docId, required this.subDocId,});
 
   @override
   State<CIPoliciesProcedure> createState() => _CIPoliciesProcedureState();
@@ -49,18 +50,12 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 3;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
     _loadColors();
-    orgSubDocumentGet(context,
-    11,widget.docId,21,1,15
-    ).then((data) {
-      _policiesandprocedureController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
   }
 
   void _loadColors() async {
@@ -81,6 +76,13 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
       StreamBuilder<List<CiOrgDocumentCC>>(
         stream: _policiesandprocedureController.stream,
         builder: (context, snapshot) {
+          orgSubDocumentGet(context,
+              11,widget.docId,widget.subDocId,1,15
+          ).then((data) {
+            _policiesandprocedureController.add(data);
+          }).catchError((error) {
+            // Handle error
+          });
           print('1111111');
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -329,7 +331,7 @@ class _CIPoliciesProcedureState extends State<CIPoliciesProcedure> {
                                                             officeId: "Office 1",
                                                           );
                                                           setState(() async {
-                                                            await orgSubDocumentGet(context, 11, widget.docId, 21, 1, 15).then((data) {
+                                                            await orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
                                                               _policiesandprocedureController.add(data);
                                                             }).catchError((error) {
                                                               // Handle error

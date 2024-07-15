@@ -257,7 +257,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                                                 context: context,
                                                 name: docNamecontroller.text,
                                                 docTypeID: docTypeMetaId,
-                                                docSubTypeID: docSubTypeMetaId,
+                                                docSubTypeID: docTypeMetaId == 10 ? 0: docSubTypeMetaId,
                                                 docCreated: DateTime.now().toString(),
                                                 url: "url",
                                                 expiryType: expiryType.toString(),
@@ -492,7 +492,7 @@ class _CiOrgDocumentState extends State<CiOrgDocument> {
                   // Page 1
                   CICorporateCompilianceDocument(docID: AppConfig.docId8,),
                   CIVendorContract(docId: AppConfig.docId9,),
-                  CIPoliciesProcedure(docId: AppConfig.docId10,)
+                  CIPoliciesProcedure(docId: AppConfig.docId10, subDocId: AppConfig.subDocId0,)
                 ],
               ),
           //   ],

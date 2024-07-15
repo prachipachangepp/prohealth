@@ -53,13 +53,9 @@ class _CiDmeState extends State<CiDme> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 20;
     items = List.generate(60, (index) => 'Item ${index + 1}');
-    orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
-      _ccAdrController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
 
   }
 
@@ -104,6 +100,11 @@ class _CiDmeState extends State<CiDme> {
             StreamBuilder<List<CiOrgDocumentCC>>(
                 stream : _ccAdrController.stream,
                 builder: (context, snapshot) {
+                  orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                    _ccAdrController.add(data);
+                  }).catchError((error) {
+                    // Handle error
+                  });
                   print('55555555');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
