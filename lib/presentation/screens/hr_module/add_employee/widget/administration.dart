@@ -417,7 +417,8 @@ class AdministartionTab extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height / 70),
+                      horizontal: MediaQuery.of(context).size.height / 70,
+                   vertical: 20),
                   child: Material(
                     elevation: 4,
                     borderRadius: BorderRadius.circular(20),

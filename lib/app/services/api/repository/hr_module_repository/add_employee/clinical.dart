@@ -12,6 +12,7 @@ class HRModuleAEClinicalRepository {
       static String zone = "/zone/";
       ///service
       static String service = "company-office-service";
+      static String addEmployees = "/employees-add/";
           // "/company-office-service/";
 
 
@@ -33,6 +34,9 @@ class HRModuleAEClinicalRepository {
   static String getEmplyServiceRadiobutton({required int companyID}){
         return "/$service/$companyID";
       }
+      static String postAddEmployeeClinical(){
+    return "$addEmployees";
+}
 }
 // { required int companyID,
 //   required int officeID,
