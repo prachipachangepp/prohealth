@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/widgets/container_constant.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -32,6 +33,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
   TextEditingController firstName = TextEditingController();
   /////
   TextEditingController _controller = TextEditingController();
+  TextEditingController _controllerEffectiveDate = TextEditingController();
 
   // Current step in the stepper
   int _currentStep = 0;
@@ -109,7 +111,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   ),
                                   onPressed: details.onStepContinue,
                                   label:
-                                      Text(isLastStep ? 'Conform' : 'Continue'),
+                                      Text(isLastStep ? 'Confirm' : 'Continue'),
                                   icon: const Icon(Icons.arrow_forward),
                                 ),
                                 const SizedBox(
@@ -2350,7 +2352,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     height: MediaQuery.of(context).size.height /
                                         60),
                                 CustomTextFieldRegister(
-                                  controller: _controller,
+                                  controller: _controllerEffectiveDate,
                                   hintText: 'dd-mm-yyyy',
                                   hintStyle: GoogleFonts.firaSans(
                                     fontSize: 10.0,
@@ -2373,9 +2375,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                         lastDate: DateTime(2101),
                                       );
                                       if (pickedDate != null) {
-                                        _controller.text =
-                                            "${pickedDate.toLocal()}"
-                                                .split(' ')[0];
+                                        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                                        _controllerEffectiveDate.text = formattedDate;
                                       }
                                     },
                                   ),
