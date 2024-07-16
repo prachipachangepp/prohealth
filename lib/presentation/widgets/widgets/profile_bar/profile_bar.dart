@@ -220,14 +220,17 @@ class ProfileBar extends StatelessWidget {
                         ],
                       ),
                       Text(
-                       AppString.phone,
-                        style: ThemeManagerDark.customTextStyle(context),
-                      ),
-                      Text(
                         AppString.physical,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
                       Text(
+                        AppString.na,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),
+                      Text(
+                        AppString.na,
+                        style: ThemeManagerDark.customTextStyle(context),
+                      ),Text(
                         AppString.na,
                         style: ThemeManagerDark.customTextStyle(context),
                       ),
@@ -262,12 +265,15 @@ class ProfileBar extends StatelessWidget {
                               text: AppString.expiredlicense,
                               containerColor: ColorManager.rednew,
                               textOval: AppString.zero),
+
+                          SizedBox(height: MediaQuery.of(context).size.height/120),
                           ///"About To Expired License"
                           ProfileBarClipConst(
                               text: AppString.abouttoexpire,
                               containerColor: Colors.green,
                               textOval: AppString.two),
 
+                          SizedBox(height: MediaQuery.of(context).size.height/120),
                           ///"Up To Date License"
                           ProfileBarClipConst(
                               text: AppString.uptodate,
@@ -286,3 +292,4 @@ class ProfileBar extends StatelessWidget {
     );
   }
 }
+

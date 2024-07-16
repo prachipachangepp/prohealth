@@ -7,6 +7,7 @@ class AppString {
   static const String employmentType = "Employment Type";
   static const String saanJoes = "San joes.24";
   static const String address = "Address";
+  static const String summary = "Summary";
   static const String houseaddress =
       "House No., Street No. Area City, Zip\nCode";
   static const String dateprofile = "05-03-1997(27)";
