@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import '../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../manage/widgets/custom_icon_button_constant.dart';
@@ -37,7 +38,19 @@ class AdministartionTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+                    FilePickerResult? result = await FilePicker.platform.pickFiles(
+                      type: FileType.image,
+                      allowMultiple: false,
+                    );
+
+                    if (result != null) {
+                      PlatformFile file = result.files.first;
+                      print('File path: ${file.path}');
+                    } else {
+
+                    }
+                  },
                   icon: Icon(
                     Icons.file_upload_outlined,
                     color: Colors.white,
@@ -250,155 +263,6 @@ class AdministartionTab extends StatelessWidget {
                               ),
                             ],
                           ),
-
-                          ///1st column
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     CustomDropdownTextField(
-                          //       labelText: 'Position',
-                          //       labelStyle: TextStyle(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //       items: ['A', 'B', 'C', 'D'],
-                          //     ),
-                          //     CustomTextField(
-                          //       width: textFieldWidth,
-                          //       height: textFieldHeight,
-                          //       cursorHeight: 22,
-                          //       labelText: 'Social Security Number',
-                          //       labelStyle: TextStyle(),
-                          //       suffixIcon: Icon(
-                          //         Icons.remove_red_eye_sharp,
-                          //         color: Color(0xff50B5E5),
-                          //         size: MediaQuery.of(context).size.width / 99,
-                          //       ),
-                          //       controller: _sale1Controller,
-                          //       focusNode: FocusNode(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //     ),
-                          //     CustomTextField(
-                          //       width: textFieldWidth,
-                          //       height: textFieldHeight,
-                          //       cursorHeight: 22,
-                          //       labelText: 'Work Email',
-                          //       labelStyle: TextStyle(),
-                          //       controller: _workemailController,
-                          //       focusNode: FocusNode(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //     ),
-                          //   ],
-                          // ),
-                          // Column(
-                          //   // crossAxisAlignment: CrossAxisAlignment.start,
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   // crossAxisAlignment: CrossAxisAlignment.start,
-                          //   children: [
-                          //     CustomTextField(
-                          //       width: textFieldWidth,
-                          //       height: textFieldHeight,
-                          //       cursorHeight: 22,
-                          //       labelText: 'First Name',
-                          //       labelStyle: TextStyle(),
-                          //       controller: _addressController,
-                          //       focusNode: FocusNode(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //     ),
-                          //     CustomTextField(
-                          //       width: textFieldWidth,
-                          //       height: textFieldHeight,
-                          //       cursorHeight: 22,
-                          //       labelText: 'Personal Phone Number',
-                          //       labelStyle: TextStyle(),
-                          //       controller: _firstnameController,
-                          //       focusNode: FocusNode(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //     ),
-                          //     CustomTextField(
-                          //         width: textFieldWidth,
-                          //         height: textFieldHeight,
-                          //         cursorHeight: 22,
-                          //         labelText: 'Address',
-                          //         labelStyle: TextStyle(),
-                          //         controller: _personalnoController,
-                          //         focusNode: FocusNode(),
-                          //         labelFontSize:
-                          //         MediaQuery.of(context).size.width / 99),
-                          //   ],
-                          // ),
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     CustomTextField(
-                          //       width: textFieldWidth,
-                          //       height: textFieldHeight,
-                          //       cursorHeight: 22,
-                          //       labelText: 'Last Name',
-                          //       labelStyle: TextStyle(),
-                          //       controller: _dateofbirthController,
-                          //       focusNode: FocusNode(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //     ),
-                          //     CustomDropdownTextField(
-                          //       labelText: 'Work Phone No.',
-                          //       labelStyle: TextStyle(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //       items: ['A', 'B', 'C', 'D'],
-                          //     ),
-                          //     CustomTextField(
-                          //       width: textFieldWidth,
-                          //       height: textFieldHeight,
-                          //       cursorHeight: 22,
-                          //       labelText: 'Date of Birth',
-                          //       labelStyle: TextStyle(),
-                          //       controller: _personalemailController,
-                          //       focusNode: FocusNode(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //     ),
-                          //   ],
-                          // ),
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   // crossAxisAlignment: CrossAxisAlignment.start,
-                          //   children: [
-                          //     CustomDropdownTextField(
-                          //       labelText: 'Home Office',
-                          //       labelStyle: TextStyle(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //       items: ['A', 'B', 'C', 'D'],
-                          //     ),
-                          //     CustomTextField(
-                          //       width: textFieldWidth,
-                          //       height: textFieldHeight,
-                          //       cursorHeight: 22,
-                          //       labelText: 'Personal Email',
-                          //       labelStyle: TextStyle(),
-                          //       controller: _lastnameController,
-                          //       focusNode: FocusNode(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //     ),
-                          //     CustomTextField(
-                          //       width: textFieldWidth,
-                          //       height: textFieldHeight,
-                          //       cursorHeight: 22,
-                          //       labelText: 'Emergency Contact No.',
-                          //       labelStyle: TextStyle(),
-                          //       controller: _worknoController,
-                          //       focusNode: FocusNode(),
-                          //       labelFontSize:
-                          //       MediaQuery.of(context).size.width / 99,
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
                     ),
@@ -408,7 +272,6 @@ class AdministartionTab extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10),
-
           /// second Container
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -417,7 +280,8 @@ class AdministartionTab extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height / 70),
+                      horizontal: MediaQuery.of(context).size.height / 70,
+                   vertical: 20),
                   child: Material(
                     elevation: 4,
                     borderRadius: BorderRadius.circular(20),
@@ -471,7 +335,26 @@ class AdministartionTab extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomButton(
+                    width: 125,
+                    height: 33,
+                    text: 'Add Employee',
+                    style: TextStyle(
+                        fontFamily: 'FiraSans',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700),
+                    borderRadius: 12,
+                    onPressed: () {})
+              ],
+            ),
+          ),
         ]),
       ),
     );

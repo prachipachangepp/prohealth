@@ -53,6 +53,7 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
       // Handle error
     });
   }
+  int varDropdown = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,7 +74,7 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.bold,
-                            color: ColorManager.fmediumgrey,
+                            color: ColorManager.mediumgrey,
                             decoration: TextDecoration.none,
                           ),),
                         SizedBox(height: AppSize.s4,),
@@ -96,13 +97,13 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                 List<String> dropDownAbbreviation = [];
                                 for (var i in snapshot.data!) {
                                   dropDownList.add(i.empType!,);
-                                  dropDownAbbreviation.add(i.abbrivation!);
+                                //  dropDownAbbreviation.add(i.abbrivation!);
                                 }
                                 // for(var i in snapshot.data!){
                                 //
                                 // }
                                 print("::::::${dropDownList}");
-                                print("::::::${dropDownAbbreviation}");
+                               // print("::::::${dropDownAbbreviation}");
                                 return Row(
                                   children: [
                                     Container(
@@ -124,23 +125,6 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                           color: Color(0xff686464),
                                         ),
                                         decoration: InputDecoration.collapsed(hintText: ''),
-                                        // items: <String>[
-                                        //   'Pick Office',
-                                        //   'RN',
-                                        //   'LVN',
-                                        //   'PT',
-                                        //   'PTA',
-                                        //   'OT',
-                                        //   'COTA',
-                                        //   'ST',
-                                        //   'MSW',
-                                        //   'HHA',
-                                        // ].map<DropdownMenuItem<String>>((String value) {
-                                        //   return DropdownMenuItem<String>(
-                                        //     value: value,
-                                        //     child: Text(value),
-                                        //   );
-                                        // }).toList(),
                                         items: dropDownList.map<DropdownMenuItem<String>>((String value) {
                                           return DropdownMenuItem<String>(
                                             value: value == null ? "1" : value,
@@ -156,7 +140,11 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                             // ),
                                           );
                                         }).toList(),
-                                        onChanged: (String? newValue) {},
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            varDropdown = 1;
+                                          });
+                                        },
                                         value:  dropDownList[0],
                                         style: GoogleFonts.firaSans(
                                           fontSize: 12,
@@ -224,7 +212,7 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                       );
                     }
                     if(snapshot.hasData){
-                      return Padding(
+                      return varDropdown == 0 ? Offstage() : Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Container(
                           width: MediaQuery.of(context).size.width / 1,
@@ -232,19 +220,32 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                             child: Wrap(
                                 children: List.generate(snapshot.data!.length, (index){
                                   var metaModule = snapshot.data![index];
+                                  bool isSelected = selectedContainers[metaModule.appModuleMetaDataId] ?? false;
+
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 40,vertical: 10),
                                     child: InkWell(
                                       onTap: () {
                                         toggleSelection(metaModule.appModuleMetaDataId);
                                       },
-                                      child: CIRoleContainerConstant(
-                                        metaModule.mainModule,
-                                      // metaModule.iconUrl.toString(),
-                                        AssetImage('images/i_s.png'),
-                                        borderColor: selectedContainers[metaModule.appModuleMetaDataId]
-                                            ? ColorManager.blueprime
-                                            : Colors.white,
+                                      child: Stack(
+                                        children: [CIRoleContainerConstant(
+                                          metaModule.mainModule,
+                                        // metaModule.iconUrl.toString(),
+                                          AssetImage('images/i_s.png'),
+                                          borderColor: selectedContainers[metaModule.appModuleMetaDataId]
+                                              ? ColorManager.blueprime
+                                              : Colors.white,
+                                        ),
+                                          if (isSelected)
+                                            Positioned(
+                                              top: 3,
+                                              right: 5,
+                                              child: Icon(
+                                                Icons.check_circle,
+                                                color: ColorManager.blueprime,
+                                              ),
+                                            ),]
                                       ),
                                     ),
                                   );

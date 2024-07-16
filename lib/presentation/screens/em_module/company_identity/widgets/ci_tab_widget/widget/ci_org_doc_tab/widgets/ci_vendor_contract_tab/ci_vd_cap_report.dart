@@ -48,16 +48,12 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
     _loadColors();
-    orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
   }
   void _loadColors() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -131,6 +127,11 @@ class _VendorContractCapReportState extends State<VendorContractCapReport> {
           child:StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context, snapshot) {
+                orgSubDocumentGet(context, 11, widget.docId, widget.subDocId, 1, 15).then((data) {
+                  _controller.add(data);
+                }).catchError((error) {
+                  // Handle error
+                });
                 print('1111111');
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(

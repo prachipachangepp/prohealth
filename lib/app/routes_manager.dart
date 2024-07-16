@@ -19,7 +19,7 @@ class RoutesManager {
     }
   }
 
-  Map<String, Widget Function(BuildContext)> getRoutes({required bool token}) {
+  Map<String, Widget Function(BuildContext)> getRoutes({required bool token, String? userName}) {
     return {
       ///Home
       '/': (context) => token ? const HomeScreen() : const LoginScreen(),

@@ -55,11 +55,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
     itemsPerPage = 5;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
-    orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
     // companyAllApi(context);
   }
   @override
@@ -220,6 +216,7 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                       ),
                                     ],
                                   ),
+                                  title: '',
                                   child:  FutureBuilder<List<DocumentTypeData>>(
                                       future: documentTypeGet(context),
                                       builder: (context,snapshot) {
@@ -299,6 +296,11 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
             StreamBuilder<List<CiOrgDocumentCC>>(
               stream: _controller.stream,
               builder: (context,snapshot) {
+                orgSubDocumentGet(context, 11, widget.docID, widget.subDocID, 1, 6).then((data) {
+                  _controller.add(data);
+                }).catchError((error) {
+                  // Handle error
+                });
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(
@@ -441,34 +443,34 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
               }
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          PaginationControlsWidget(
-            currentPage: currentPage,
-            items: items,
-            itemsPerPage: itemsPerPage,
-            onPreviousPagePressed: () {
-              /// Handle previous page button press
-              setState(() {
-                currentPage = currentPage > 1 ? currentPage - 1 : 1;
-              });
-            },
-            onPageNumberPressed: (pageNumber) {
-              /// Handle page number tap
-              setState(() {
-                currentPage = pageNumber;
-              });
-            },
-            onNextPagePressed: () {
-              /// Handle next page button press
-              setState(() {
-                currentPage = currentPage < (items.length / itemsPerPage).ceil()
-                    ? currentPage + 1
-                    : (items.length / itemsPerPage).ceil();
-              });
-            },
-          ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // PaginationControlsWidget(
+          //   currentPage: currentPage,
+          //   items: items,
+          //   itemsPerPage: itemsPerPage,
+          //   onPreviousPagePressed: () {
+          //     /// Handle previous page button press
+          //     setState(() {
+          //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+          //     });
+          //   },
+          //   onPageNumberPressed: (pageNumber) {
+          //     /// Handle page number tap
+          //     setState(() {
+          //       currentPage = pageNumber;
+          //     });
+          //   },
+          //   onNextPagePressed: () {
+          //     /// Handle next page button press
+          //     setState(() {
+          //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
+          //           ? currentPage + 1
+          //           : (items.length / itemsPerPage).ceil();
+          //     });
+          //   },
+          // ),
         ],),
       ),
     );

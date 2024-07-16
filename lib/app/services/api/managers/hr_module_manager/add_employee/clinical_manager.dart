@@ -1,9 +1,96 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../api.dart';
 
 import '../../../repository/hr_module_repository/add_employee/clinical.dart';
+
+
+
+///ADD Employee Post API
+// Future<ApiData> addEmployeeClinical(
+//     BuildContext context,
+//     String code,
+//     int userId,
+//     String firstName,
+//     String lastName,
+//     int dptID,
+//     int emplyID,
+//     String expritise,
+//     int cityID,
+//     int countryID,
+//     int zoneID,
+//     String ssnnBr,
+//     String primeNo,
+//     String secNo,
+//     String workNo,
+//     String regOfficeId,
+//     String personalEmail,
+//     String workEmail,
+//     String address,
+//     String dob,
+//     String emgContact,
+//     String coverage,
+//     String employment,
+//     String gender,
+//     String status,
+//     String service,
+//     String imgUrl,
+//     String resumeUrl,
+//     int companyID,
+//     String onboardingStatus,
+//     String dateofTermination,
+//     String
+//
+//
+//
+//
+//
+//     // int employeeId,
+//     // String graduate,
+//     // String degree,
+//     // String major,
+//     // String city,
+//     // String college,
+//     // String phone,
+//     // String state
+//     ) async {
+//   try {
+//     var response = await Api(context).post(
+//       path: HRModuleAEClinicalRepository.postAddEmployeeClinical(),
+//       data: {
+//         "employeeId": employeeId,
+//         "graduate": graduate,
+//         "degree": degree,
+//         "major": major,
+//         "city": city,
+//         "college": college,
+//         "phone": phone,
+//         "state": state
+//       },
+//     );
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print("Education added");
+//       // orgDocumentGet(context);
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: true,
+//           message: response.statusMessage!);
+//     } else {
+//       print("Error 1");
+//       return ApiData(
+//           statusCode: response.statusCode!,
+//           success: false,
+//           message: response.data['message']);
+//     }
+//   } catch (e) {
+//     print("Error $e");
+//     return ApiData(
+//         statusCode: 404, success: false, message: AppString.somethingWentWrong);
+//   }
+// }
+
 
 ///Discipline dropdown get Api
 Future<List<AEClinicalDiscipline>> HrAddEmplyClinicalDisciplinApi(

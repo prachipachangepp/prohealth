@@ -41,9 +41,6 @@ class _MultiStepFormState extends State<MultiStepForm> {
   bool get isLastStep => _currentStep == steps().length - 1;
   bool isCompleted = false;
   String? _selectedCountry;
-  String? _selectedSpeciality;
-  String? _selectedClinician;
-  String? _selectedDegree;
 
   String? _selectedType;
   String? _selectedType1;
@@ -84,8 +81,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                 // color: Colors.yellow,
                 child: Flexible(
                   child: Stepper(
-                    type: StepperType.horizontal,
-                      physics: const ScrollPhysics(),
+                      type: StepperType.horizontal,
                       steps: steps(),
                       currentStep: _currentStep,
                       onStepContinue: () {
@@ -564,6 +560,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 60),
+
                               Text(
                                 "Race",
                                 style: GoogleFonts.firaSans(
@@ -571,6 +568,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xff686464)),
                               ),
+
                               Container(
                                 //width: 550,
                                 child: Row(
@@ -643,6 +641,72 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   ),
                                 ],
                               ),
+
+                              // Container(
+                              //   color: Colors.redAccent,
+                              //   height: 100,
+                              //   width: MediaQuery.of(context).size.width / 4,
+                              //   child: Row(
+                              //     children: [
+                              //       Flexible(
+                              //         flex: 2,
+                              //         child: McqWidget(
+                              //           title: 'Race',
+                              //           items: const [
+                              //             'Asian',
+                              //             'Black or African American',
+                              //             'White',
+                              //             'Hispanic or Latino',
+                              //             'Other'
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+
+                              // Container(
+                              //   color: Colors.redAccent,
+                              //   height: 100,
+                              //   width: MediaQuery.of(context).size.width / 4,
+                              //   child: Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.stretch,
+                              //     children: [
+                              //       Expanded(
+                              //         flex: 2,
+                              //         child: McqWidget(
+                              //           title: 'Race',
+                              //           items: const [
+                              //             'Asian',
+                              //             'Black or African American',
+                              //             'White',
+                              //             'Hispanic or Latino',
+                              //             'Other'
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+
+                              // Container(
+                              //   color: Colors.redAccent,
+                              //   height: 100,
+                              //   width:  MediaQuery.of(context).size.width/4,
+                              //   child: Expanded(
+                              //     flex: 2,
+                              //     child: McqWidget(
+                              //       title: 'Race',
+                              //       items: const [
+                              //         'Asian',
+                              //         'Black or African American',
+                              //         'White',
+                              //         'Hispanic or Latino',
+                              //       'Other'
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
                               const SizedBox(
                                 height: AppSize.s10,
                               ),
@@ -656,52 +720,27 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               const SizedBox(
                                 height: AppSize.s5,
                               ),
-                              Container(
-                                height: 32,
-                                child: DropdownButtonFormField<String>(
-                                  decoration: InputDecoration(
-                                    hintText: 'Clinician',
-                                    hintStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      borderSide:
-                                          BorderSide(color: Colors.grey),
-                                    ),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 10),
-                                  ),
-                                  value: _selectedClinician,
-                                  icon: Icon(Icons.arrow_drop_down,
-                                      color: Color(0xff9B9B9B)),
-                                  iconSize: 24,
-                                  elevation: 16,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff686464),
-                                  ),
+
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 4,
+                                height: textFieldHeight,
+                                //alignment: Alignment.center,
+                                //color: Colors.cyan,
+
+                                child: MyDropdownTextField(
+                                  hint: 'Select',
+
+                                  //width: MediaQuery.of(context).size.width/7,
+                                  // height: AppSize.s25,
+                                  items: [
+                                    'Item 1',
+                                    'Item 2',
+                                    'Item 3',
+                                    'Item 4'
+                                  ],
                                   onChanged: (String? newValue) {
-                                    setState(() {
-                                      _selectedClinician = newValue;
-                                    });
+                                    print('Selected item: $newValue');
                                   },
-                                  items: <String>[
-                                    'Clinician1',
-                                    'Clinician2',
-                                    'Clinician3',
-                                    'Clinician4'
-                                  ] // List of countries
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
                                 ),
                               ),
                               const SizedBox(
@@ -717,51 +756,26 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               const SizedBox(
                                 height: AppSize.s5,
                               ),
-                              Container(
-                                height: 32,
-                                child: DropdownButtonFormField<String>(
-                                  decoration: InputDecoration(
-                                    hintText: 'Speciality',
-                                    hintStyle: TextStyle(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff9B9B9B),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      borderSide:
-                                          BorderSide(color: Colors.grey),
-                                    ),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 10),
-                                  ),
-                                  value: _selectedSpeciality,
-                                  icon: Icon(Icons.arrow_drop_down,
-                                      color: Color(0xff9B9B9B)),
-                                  iconSize: 24,
-                                  elevation: 16,
-                                  style: TextStyle(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff686464),
-                                  ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 4,
+                                height: textFieldHeight,
+                                //alignment: Alignment.center,
+                                //color: Colors.cyan,
+
+                                child: MyDropdownTextField(
+                                  hint: 'select',
+
+                                  //width: MediaQuery.of(context).size.width/7,
+                                  // height: AppSize.s25,
+                                  items: [
+                                    'Item 1',
+                                    'Item 2',
+                                    'Item 3',
+                                    'Item 4'
+                                  ],
                                   onChanged: (String? newValue) {
-                                    setState(() {
-                                      _selectedSpeciality = newValue;
-                                    });
+                                    print('Selected item: $newValue');
                                   },
-                                  items: <String>[
-                                    'Speciality 1',
-                                    'Speciality 2',
-                                    'Speciality 3',
-                                    'Speciality 4',
-                                  ].map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
                                 ),
                               ),
                             ],
@@ -773,8 +787,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                 ],
               ),
             )),
-
-        ////////////////////////////// 'Employment',///////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 1 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 1,
@@ -1176,7 +1189,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        ///////////////////////////////// 'Education',///////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 2 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 2,
@@ -1307,53 +1320,14 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                 SizedBox(
                                     height: MediaQuery.of(context).size.height /
                                         60),
-                                Container(
-                                  height: 32,
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: InputDecoration(
-                                      hintText: 'Degree',
-                                      hintStyle: TextStyle(
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff9B9B9B),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 10),
-                                    ),
-                                    value: _selectedDegree,
-                                    icon: Icon(Icons.arrow_drop_down,
-                                        color: Color(0xff9B9B9B)),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff686464),
-                                    ),
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        _selectedDegree = newValue;
-                                      });
-                                    },
-                                    items: <String>[
-                                      'Degree 1',
-                                      'Degree 2',
-                                      'Degree 3',
-                                      'Degree 4',
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
                                   ),
+                                  height: 32,
                                 ),
                                 SizedBox(
                                     height: MediaQuery.of(context).size.height /
@@ -1537,22 +1511,300 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        ////////////////////////'References'/////////////////////////////////////////////////////////////////////////////////////////////////////
-        Step(
-          state: _currentStep <= 3 ? StepState.editing : StepState.complete,
-          isActive: _currentStep >= 3,
-          title: Text(
-            'References',
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: ColorManager.grey,
-              decoration: TextDecoration.none,
-            ),
-          ),
-          content: ReferencesIndicator(context: context),
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Step(
+      state: _currentStep <= 3 ? StepState.editing : StepState.complete,
+      isActive: _currentStep == 3,
+      title: Text(
+        'References',
+        style: GoogleFonts.firaSans(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: ColorManager.grey,
+          decoration: TextDecoration.none,
         ),
-        /////////////////////////////// 'Licenses',/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ),
+      content: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              Center(
+                child: Text(AppString.references,
+                  style: GoogleFonts.firaSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff50B5E5)),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              Container(
+                width: 952,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                decoration: BoxDecoration(
+                  color: Color(0xFFE6F7FF),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications. For each\n reference, Kindly include the following information:',
+                          style: GoogleFonts.firaSans(
+                            color: Color(0xFF686464),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height / 20),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 166.0, right: 166),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'References # 1',
+                        style: GoogleFonts.firaSans(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xff686464)),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height / 20),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppString.name,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        40),
+                                Text(
+                                  AppString.title_position,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        30),
+                                Text(
+                                  AppString.company_organization,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        30),
+                                Text(
+                                  AppString.mobile_number,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                              width:
+                              MediaQuery.of(context).size.width / 15),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppString.email,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                Text(
+                                  AppString.how_do_you_know_this_person,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                Text(
+                                  AppString.length_of_association,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      Text(
+                        'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
+                        style: GoogleFonts.firaSans(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff686464)),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              // Handle add education action
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xff50B5E5),
+                              // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            icon: Icon(Icons.add, color: Colors.white),
+                            label: Text(AppString.add_education,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 4 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 4,
@@ -2025,8 +2277,24 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-
-        ///////////////////////////////  'Banking',////////////////////////////////////////////
+        // Step(
+        //   state: _currentStep <= 4 ? StepState.editing : StepState.complete,
+        //   isActive: _currentStep >= 4,
+        //   title: Text(
+        //     'Licenses',
+        //     style: GoogleFonts.firaSans(
+        //       fontSize: 12,
+        //       fontWeight: FontWeight.w400,
+        //       color: ColorManager.grey,
+        //       decoration: TextDecoration.none,
+        //     ),
+        //   ),
+        //   content: Container(
+        //     height: 100,
+        //     color: Colors.orange,
+        //   ),
+        // ),
+        ///////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 5 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 5,
@@ -2382,183 +2650,134 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        ////////////////////////  'Health \nRecords',///////////////////////////////
-        Step(
-          state: _currentStep <= 6 ? StepState.editing : StepState.complete,
-          isActive: _currentStep >= 6,
-          title: Text(
-            'Health \nRecords',
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: ColorManager.grey,
-              decoration: TextDecoration.none,
-            ),
-          ),
-          content: Container(
-            //color:Colors.red,
-            // height: 1500,
-            // width: 1200,
-            child: Column(
-              children: [
-                Center(
-                  child: Text(
-                    'Health Records',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff50B5E5)),
-                  ),
+
+    Step(
+      state: _currentStep <= 6 ? StepState.editing : StepState.complete,
+      isActive: _currentStep == 6,
+      title:  Text('Health \nRecords',style: GoogleFonts.firaSans(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: ColorManager.grey,
+        decoration: TextDecoration.none,
+      ),),
+      content: Container(
+        height: 1500,
+        width: 1200,
+        child: Column(
+          children: [
+            Center(
+              child: Text(
+                'Health Records',
+                style: GoogleFonts.firaSans(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff50B5E5)
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 60),
-                Container(
-                  // color:Colors.green,
-                  // width: 952,
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE6F7FF),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height/60),
+            Container(
+              width: 952,
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              decoration: BoxDecoration(
+                color: Color(0xFFE6F7FF),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '• ',
-                            style: GoogleFonts.firaSans(
-                              color: Color(0xFF686464),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              'Instructions: This section is designed to capture and document your health and immunization records as part of your onboarding process. Please enter the required information accurately.',
-                              style: GoogleFonts.firaSans(
-                                color: Color(0xFF686464),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        '• ',
+                        style: GoogleFonts.firaSans(
+                          color: Color(0xFF686464),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height / 100),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '• ',
-                            style: GoogleFonts.firaSans(
-                              color: Color(0xFF686464),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
+                      Expanded(
+                        child: Text(
+                          'Instructions: This section is designed to capture and document your health and immunization records as part of your onboarding process. Please enter the required information accurately.',
+                          style: GoogleFonts.firaSans(
+                            color: Color(0xFF686464),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
                           ),
-                          Expanded(
-                            child: Text(
-                              'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
-                              style: GoogleFonts.firaSans(
-                                color: Color(0xFF686464),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 20),
-
-                SingleChildScrollView(
-                  child: Column(
+                  SizedBox(height: MediaQuery.of(context).size.height/100),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      PhysicalExamContainer(),
-                      VaccineContainer(),
-                      PhysicalExamContainer(),
-                  VaccineContainer(),
+                      Text(
+                        '• ',
+                        style: GoogleFonts.firaSans(
+                          color: Color(0xFF686464),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
+                          style: GoogleFonts.firaSans(
+                            color: Color(0xFF686464),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                // Expanded(
-                //   child: Container(
-                //     //height: 500,
-                //     color: Colors.red,
-                //     child:SingleChildScrollView (
-                //       child: Column(
-                //           children: [
-                //         ListView.builder(
-                //               itemCount: 1,
-                //               itemBuilder: (context, index) {
-                //                 return PhysicalExamContainer();
-                //               },
-                //             ),
-                //             ListView.builder(
-                //               itemCount: 1,
-                //               itemBuilder: (context, index) {
-                //                 return VaccineContainer();
-                //               },
-                //             ),
-                //             ListView.builder(
-                //               itemCount: 1,
-                //               itemBuilder: (context, index) {
-                //                 return PhysicalExamContainer();
-                //               },
-                //             ),
-                //
-                //           ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                    // child: SingleChildScrollView(
-                    //   child: Expanded(
-                    //     child: ListView.builder(
-                    //       itemCount: 1,
-                    //       itemBuilder: (context, index) {
-                    //         return PhysicalExamContainer();
-                    //       },
-                    //     ),
-                    //   ),
-
-                      // Expanded(
-                      //   child: ListView.builder(
-                      //     itemCount: 1,
-                      //     itemBuilder: (context, index) {
-                      //       return VaccineContainer();
-                      //     },
-                      //   ),
-                      // ),
-                      //
-                      // Expanded(
-                      //   child: ListView.builder(
-                      //     itemCount: 1,
-                      //     itemBuilder: (context, index) {
-                      //       return PhysicalExamContainer();
-                      //     },
-                      //   ),
-                      // ),
-                      //
-                      // Expanded(
-                      //   child: ListView.builder(
-                      //     itemCount: 1,
-                      //     itemBuilder: (context, index) {
-                      //       return VaccineContainer();
-                      //     },
-                      //   ),
-                      // ),
-                    //),
-
-              ],
+                ],
+              ),
             ),
-          ),
+
+            SizedBox(height: MediaQuery.of(context).size.height/20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return PhysicalExamContainer();
+                },
+              ),
+            ),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return VaccineContainer();
+                },
+              ),
+            ),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return PhysicalExamContainer();
+                },
+              ),
+            ),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return VaccineContainer();
+                },
+              ),
+            ),
+
+          ],
         ),
-
-        //////////////////'Acknowledgements',////////////////
+      ),
+    ),
+    ////////////////////////////////////
         Step(
           state: _currentStep <= 7 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 7,
@@ -2908,7 +3127,24 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        /////////////////////////  'Legal \nDocuments',////////////////////////////////////////////////////////////////////////////////
+        // Step(
+        //   state: _currentStep <= 7 ? StepState.editing : StepState.complete,
+        //   isActive: _currentStep == 7,
+        //   title: Text(
+        //     'Acknowledgements',
+        //     style: GoogleFonts.firaSans(
+        //       fontSize: 12,
+        //       fontWeight: FontWeight.w400,
+        //       color: ColorManager.grey,
+        //       decoration: TextDecoration.none,
+        //     ),
+        //   ),
+        //   content: Container(
+        //     height: 100,
+        //     color: Colors.brown,
+        //   ),
+        // ),
+
         Step(
           state: _currentStep <= 8 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 8,
@@ -3102,16 +3338,245 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
+
+        // Step(
+        //   state: _currentStep <= 8 ? StepState.editing : StepState.complete,
+        //   isActive: _currentStep == 8,
+        //   title: Text(
+        //     'Legal \nDocuments',
+        //     style: GoogleFonts.firaSans(
+        //       fontSize: 12,
+        //       fontWeight: FontWeight.w400,
+        //       color: ColorManager.grey,
+        //       decoration: TextDecoration.none,
+        //     ),
+        //   ),
+        //   content: Container(
+        //     height: 100,
+        //     color: Colors.green,
+        //   ),
+        // ),
       ];
 }
-////////////////////////////////////////////
-class ReferencesIndicator extends StatelessWidget {
-  const ReferencesIndicator({
-    super.key,
-    required this.context,
-  });
 
-  final BuildContext context;
+//
+//
+// Form(
+// key: _formKey,
+// child: Stepper(
+// type: StepperType.horizontal,
+// currentStep: _currentStep,
+// onStepContinue: () {
+// if(_currentStep== 8){
+// setState(() => isCompleted =true);
+// }else{
+//
+// }
+//
+// setState(() {
+// if (_currentStep < 8) {
+// _currentStep += 1;
+// } else {
+// // Validate the form fields before proceeding
+// if (_formKey.currentState!.validate()) {
+// // All validations pass
+// // Submit your form or save data here
+// // For demonstration, let's just show a snackbar
+// ScaffoldMessenger.of(context).showSnackBar(
+// const SnackBar(
+// content: Text('Form Submitted!'),
+// ),
+// );
+// }
+// }
+// });
+// },
+// onStepCancel: () {
+// setState(() {
+// if (_currentStep > 0) {
+// _currentStep -= 1;
+// } else {
+// _currentStep = 0;
+// }
+// });
+// },
+// steps: [
+// Step(
+// state:
+// _currentStep <= 0 ? StepState.editing : StepState.complete,
+//
+// // isActive: true,
+// title: const Text('General'),
+// content: Container(
+// height: 700,
+// width: 100,
+// child: Column(
+// children: [
+// Center(
+// child: Align(
+// alignment: Alignment.topCenter,
+// child: Text("Details"),
+// ),
+// ),
+// Row(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// Container(
+// padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+// decoration: BoxDecoration(
+// color: Color(0xFFE6F7FF),
+// borderRadius: BorderRadius.circular(12),
+// ),
+// child: Text(
+// 'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
+// style: GoogleFonts.firaSans(
+// color: Color(0xFF686464),
+// fontSize: 12,
+// fontWeight: FontWeight.w500,
+// ),
+// ),
+// ),
+//
+// ]
+// ),
+// Row(
+// mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+// children: [
+// Column(
+// mainAxisAlignment: MainAxisAlignment.start,
+// children: [
+// Text("Upload Photo")
+// ],
+// ),
+// Column(
+// mainAxisAlignment: MainAxisAlignment.start,
+// children: [
+// Text("Gender")
+// ],
+// ),
+// ],
+// )
+// ],
+// ),
+// color: Colors.black26)),
+// Step(
+// state: _currentStep <= 1 ? StepState.editing : StepState.complete,
+// isActive: _currentStep == 1,
+// title: const Text('Employment'),
+// content: TextFormField(
+// //controller: _employmentController,
+// validator: (value) {
+// if (value!.isEmpty) {
+// return 'Please enter Employment details';
+// }
+// return null;
+// }),
+// ),
+//
+// // Add more steps for other form fields as needed
+// // Example:
+// Step(
+// state: _currentStep <= 2 ? StepState.editing : StepState.complete,
+// isActive: _currentStep == 2,
+// title: const Text('Education'),
+// content: TextFormField(
+// // controller: _educationController,
+// validator: (value) {
+// if (value!.isEmpty) {
+// return 'Please enter education details';
+// }
+// return null;
+// },
+// ),
+// ),
+// Step(
+// state: _currentStep <= 3 ? StepState.editing : StepState.complete,
+// isActive: _currentStep == 3,
+// title: const Text('References'),
+// content: TextFormField(
+// //controller: _educationController,
+// validator: (value) {
+// if (value!.isEmpty) {
+// return 'Please enter References details';
+// }
+// return null;
+// },
+// ),
+// ),
+// Step(
+// state: _currentStep <= 4 ? StepState.editing : StepState.complete,
+// isActive: _currentStep == 4,
+// title: const Text('Licenses'),
+// content: TextFormField(
+// //controller: _educationController,
+// validator: (value) {
+// if (value!.isEmpty) {
+// return 'Please enter Licenses details';
+// }
+// return null;
+// },
+// ),
+// ),
+// Step(
+// state: _currentStep <= 5 ? StepState.editing : StepState.complete,
+// isActive: _currentStep == 5,
+// title: const Text('Banking'),
+// content: TextFormField(
+// //controller: _educationController,
+// validator: (value) {
+// if (value!.isEmpty) {
+// return 'Please enter Banking details';
+// }
+// return null;
+// },
+// ),
+// ),
+// Step(
+// state: _currentStep <= 6 ? StepState.editing : StepState.complete,
+// isActive: _currentStep == 6,
+// title: const Text('Health Records'),
+// content: TextFormField(
+// //controller: _educationController,
+// validator: (value) {
+// if (value!.isEmpty) {
+// return 'Please enter Health Records details';
+// }
+// return null;
+// },
+// ),
+// ),
+// Step(
+// state: _currentStep <= 7 ? StepState.editing : StepState.complete,
+// isActive: _currentStep == 7,
+// title: const Text('Acknowledgements'),
+// content: TextFormField(
+// // controller: _educationController,
+// validator: (value) {
+// if (value!.isEmpty) {
+// return 'Please enter Acknowledgements details';
+// }
+// return null;
+// },
+// ),
+// ),
+// Step(
+// state: _currentStep <= 8 ? StepState.editing : StepState.complete,
+// isActive: _currentStep == 8,
+// title: const Text('Legal Documents'),
+// content: TextFormField(
+// // controller: _educationController,
+// validator: (value) {
+// if (value!.isEmpty) {
+// return 'Please enter Legal Documents details';
+// }
+// return null;
+// },
+// ),
+// ),
+// ],
+//
+// ),
+// ),
 
   @override
   Widget build(BuildContext context) {
@@ -3147,240 +3612,221 @@ class ReferencesIndicator extends StatelessWidget {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 166.0, right: 166),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'References # 1',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(
-                      height: MediaQuery.of(context).size.height / 20),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppString.name,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464)),
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    60),
-                            CustomTextFieldRegister(
-                              hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
+          Padding(
+            padding: const EdgeInsets.only(left: 166.0, right: 166),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Employment #1',
+                      style: GoogleFonts.firaSans(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xff686464)),
+                    ),
+                  ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height / 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Name',
+                            style: GoogleFonts.firaSans(
                                 fontSize: 10.0,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0xff9B9B9B),
-                              ),
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    40),
-                            Text(
-                              AppString.title_position,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464)),
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    60),
-                            CustomTextFieldRegister(
-                              hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff9B9B9B),
-                              ),
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    30),
-                            Text(
-                              AppString.company_organization,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464)),
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    60),
-                            CustomTextFieldRegister(
-                              hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff9B9B9B),
-                              ),
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    30),
-                            Text(
-                              AppString.mobile_number,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464)),
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    60),
-                            CustomTextFieldRegister(
-                              hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff9B9B9B),
-                              ),
-                              height: 32,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                          width:
-                          MediaQuery.of(context).size.width / 15),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppString.email,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464)),
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    60),
-                            CustomTextFieldRegister(
-                              hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff9B9B9B),
-                              ),
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    60),
-                            Text(
-                              AppString.how_do_you_know_this_person,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464)),
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    60),
-                            CustomTextFieldRegister(
-                              hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff9B9B9B),
-                              ),
-                              height: 32,
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    60),
-                            Text(
-                              AppString.length_of_association,
-                              style: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464)),
-                            ),
-                            SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height /
-                                    60),
-                            CustomTextFieldRegister(
-                              hintText: 'Enter Text',
-                              hintStyle: GoogleFonts.firaSans(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff9B9B9B),
-                              ),
-                              height: 32,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 20),
-                  Text(
-                    'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff686464)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          // Handle add education action
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff50B5E5),
-                          // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(8.0),
+                                color: Color(0xff686464)),
                           ),
-                        ),
-                        icon: Icon(Icons.add, color: Colors.white),
-                        label: Text(AppString.add_education,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height /
+                                  60),
+                          CustomTextFieldRegister(
+                            hintText: 'Enter Text',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff9B9B9B),
+                            ),
+                            height: 32,
                           ),
+                          Text(
+                            'Title/Position',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff686464)),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height /
+                                  60),
+                          CustomTextFieldRegister(
+                            hintText: 'Enter Text',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff9B9B9B),
+                            ),
+                            height: 32,
+                          ),
+                          Text(
+                            'Company/ Organization',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff686464)),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height /
+                                  60),
+                          CustomTextFieldRegister(
+                            hintText: 'Enter Text',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff9B9B9B),
+                            ),
+                            height: 32,
+                          ),
+                          Text(
+                            'Mobile Number',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff686464)),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height /
+                                  60),
+                          CustomTextFieldRegister(
+                            hintText: 'Enter Text',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff9B9B9B),
+                            ),
+                            height: 32,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width / 20),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Email',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff686464)),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height /
+                                  60),
+                          CustomTextFieldRegister(
+                            hintText: 'Enter Text',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff9B9B9B),
+                            ),
+                            height: 32,
+                          ),
+                          Text(
+                            'How do you know this person ?',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff686464)),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height /
+                                  60),
+                          CustomTextFieldRegister(
+                            hintText: 'Enter Text',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff9B9B9B),
+                            ),
+                            height: 32,
+                          ),
+                          Text(
+                            'Length of Association',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff686464)),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height /
+                                  60),
+                          CustomTextFieldRegister(
+                            //controller:,
+                            hintText: 'Enter Text',
+                            hintStyle: GoogleFonts.firaSans(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff9B9B9B),
+                            ),
+                            height: 32,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height / 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "Please ensure that the references you provide are professional contacts who can provide insight into your skills, work ethic, and character ",
+                        style: GoogleFonts.firaSans(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff686464),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height / 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        // Handle add education action
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff50B5E5),
+                        // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      icon: Icon(Icons.add, color: Colors.white),
+                      label: Text(
+                        'Add Education',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ]),

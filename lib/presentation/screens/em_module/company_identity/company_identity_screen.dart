@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_org_document.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_role_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_tab_widget/ci_visit.dart';
@@ -34,7 +35,7 @@ class _CompanyIdentityScreenState extends State<CompanyIdentityScreen> {
         body: Column(children: [
           /// visit , org , Document tab bar
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 14),
+            margin: const EdgeInsets.symmetric(vertical: AppPadding.p8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

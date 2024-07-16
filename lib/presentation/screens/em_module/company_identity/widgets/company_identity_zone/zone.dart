@@ -261,17 +261,15 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       countyController.text,
                                       "37.0902°",
                                       "95.7129°",
-                                      5,
-                                     '18');
+                                      widget.companyID,
+                                      widget.officeId);
                                 },
                                 title1: 'State Name',
-                                zipcodeController: stateController,
+                                countynameController: stateController,
                                 title2: 'Country Name',
-                                countryController: countyController,
+                                zipcodeController: countyController,
                                 title3: 'County Name',
-                                countynameController: countynameController,
-                                title4: 'Map',
-                                mapController: mapController,
+                                mapController: countynameController,
                               );
                             });
                       })
@@ -290,7 +288,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                       await addZoneCountyData(
                                           context,
                                           zoneNumberController.text,
-                                          countyId,
+                                          25,
                                           widget.officeId,
                                           widget.companyID);
                                     },
@@ -557,6 +555,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                   officeId: widget.officeId,
                 ),
                 CIZoneZone(
+                  countyId: countySortId,
                   companyID: widget.companyID,
                   officeId: widget.officeId,
                 ),

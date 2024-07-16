@@ -7,6 +7,8 @@ import 'package:prohealth/presentation/widgets/app_bar/responsive_app_bar.dart';
 class ApplicationAppBar extends StatelessWidget {
   const ApplicationAppBar({super.key, required this.headingText});
   final String headingText;
+
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveAppBar(

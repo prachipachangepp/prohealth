@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:country_picker/country_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
@@ -111,7 +112,19 @@ class _ClinicalTabState extends State<ClinicalTab> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () async {
+                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                        type: FileType.image,
+                        allowMultiple: false,
+                      );
+
+                      if (result != null) {
+                        PlatformFile file = result.files.first;
+                        print('File path: ${file.path}');
+                      } else {
+
+                      }
+                    },
                     icon: Icon(
                       Icons.file_upload_outlined,
                       color: Colors.white,
@@ -133,6 +146,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                       ),
                     ),
                   )
+
                 ],
               ),
             ),
@@ -826,21 +840,21 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                           return SizedBox();
                                         }),
                                   ),
+                                  // Expanded(
+                                  //   flex: 2,
+                                  //   child:McqWidget(
+                                  //     title: 'Gender',
+                                  //     items: [
+                                  //       'Male',
+                                  //       'Female',
+                                  //       'Other'
+                                  //     ],
+                                  //     onChanged: (int) {},
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                               ///
-                              // Expanded(
-                              //   flex: 2,
-                              //   child:McqWidget(
-                              //     title: 'Gender',
-                              //     items: [
-                              //       'Male',
-                              //       'Female',
-                              //       'Other'
-                              //     ],
-                              //     onChanged: (int) {},
-                              //   ),
-                              // ),
                               ///
                               // Column(
                               //   // crossAxisAlignment: CrossAxisAlignment.start,
@@ -864,6 +878,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                             ],
                           ),
                         ),
+
                       ),
                     ),
                   ),
