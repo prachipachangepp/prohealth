@@ -248,7 +248,9 @@ class _CIZoneCountryState extends State<CIZoneCountry> {
                                           });
                                         }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                         IconButton(onPressed: (){
-                                          showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                          showDialog(context: context, builder: (context) => DeletePopup(
+                                              title: 'Delete Country',
+                                              onCancel: (){
                                             Navigator.pop(context);
                                           }, onDelete: ()async{
                                             await deleteCounty(context, snapshot.data![index].countyId);

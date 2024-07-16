@@ -470,6 +470,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
                                 onPressed: () {
                                   showDialog(context: context,
                                       builder: (context) => DeletePopup(
+                                          title: 'Delete Administration',
                                           onCancel: (){
                                             Navigator.pop(context);
                                           }, onDelete: () async {

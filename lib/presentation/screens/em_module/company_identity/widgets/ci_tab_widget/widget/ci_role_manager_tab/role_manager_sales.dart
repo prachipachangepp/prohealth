@@ -71,7 +71,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s10,
                         fontWeight: FontWeightManager.bold,
-                        color: ColorManager.mediumgrey,
+                        color: ColorManager.fmediumgrey,
                         decoration: TextDecoration.none,
                       ),),
                     SizedBox(height: AppSize.s4,),

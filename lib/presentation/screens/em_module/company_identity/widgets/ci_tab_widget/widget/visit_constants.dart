@@ -30,7 +30,8 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s330,
+        height: AppSize.s350,
+       //  height: MediaQuery.of(context).size.height/1.5,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),

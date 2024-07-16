@@ -74,7 +74,7 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s10,
                             fontWeight: FontWeightManager.bold,
-                            color: ColorManager.mediumgrey,
+                            color: ColorManager.fmediumgrey,
                             decoration: TextDecoration.none,
                           ),),
                         SizedBox(height: AppSize.s4,),

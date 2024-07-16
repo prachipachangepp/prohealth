@@ -437,6 +437,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                             onPressed: () async {
                                             await showDialog(context: context,
                                                   builder: (context) => DeletePopup(
+                                                      title: 'Delete Health Doc',
                                                       onCancel: (){
                                                     Navigator.pop(context);
                                                   }, onDelete: (){

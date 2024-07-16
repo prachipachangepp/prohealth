@@ -673,6 +673,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
                                                   StatefulBuilder(
                                                     builder: (BuildContext context, void Function(void Function()) setState) {
                                                       return  DeletePopup(
+                                                          title: 'Delete Pay Rates',
                                                           loadingDuration: _isLoading,
                                                           onCancel: () {
                                                             Navigator.pop(

@@ -103,7 +103,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p3,
+                  vertical: AppPadding.p6,
                   horizontal: AppPadding.p20,
                 ),
                 child: Column(
@@ -114,14 +114,14 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                       keyboardType: TextInputType.text,
                       text: widget.title1,
                     ),
-                    SizedBox(height: AppSize.s10),
+                    SizedBox(height: AppSize.s15),
                     SMTextFConst(
                       controller: widget.zipcodeController,
                       keyboardType: TextInputType.text,
                       text: widget.title2,
                     ),
                     if (widget.title3 != null) ...[
-                      SizedBox(height: AppSize.s10),
+                      SizedBox(height: AppSize.s15),
                       SMTextFConst(
                         controller: widget.mapController!,
                         keyboardType: TextInputType.text,
@@ -130,7 +130,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                     ],
                     if (widget.title4 != null &&
                         widget.landmarkController != null) ...[
-                      SizedBox(height: AppSize.s10),
+                      SizedBox(height: AppSize.s15),
                       SMTextFConst(
                         controller: widget.landmarkController!,
                         keyboardType: TextInputType.text,

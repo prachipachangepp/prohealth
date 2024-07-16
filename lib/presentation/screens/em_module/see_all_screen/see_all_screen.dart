@@ -862,7 +862,9 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
                                           await showDialog(
                                               context: context,
                                               builder: (context) =>
-                                                  DeletePopup(onCancel: () {
+                                                  DeletePopup(
+                                                      title: 'Delete User',
+                                                      onCancel: () {
                                                     Navigator.pop(context);
                                                   }, onDelete: () {
                                                     setState(() async {
