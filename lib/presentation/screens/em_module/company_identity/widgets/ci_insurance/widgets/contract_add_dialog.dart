@@ -18,7 +18,6 @@ class ContractAddDialog extends StatefulWidget {
   @override
   State<ContractAddDialog> createState() => _ContractAddDialogState();
 }
-
 class _ContractAddDialogState extends State<ContractAddDialog> {
   String? _expiryType;
   TextEditingController birthdayController = TextEditingController();
