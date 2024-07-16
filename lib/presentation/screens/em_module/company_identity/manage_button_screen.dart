@@ -210,7 +210,7 @@ int listIndex = 0 ;
                                               : null,
                                         ),
                                         child: Text(
-                                          'Zone',
+                                          'Zones',
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.firaSans(
                                             fontSize: 12,

@@ -30,7 +30,7 @@ bool isLoading = false;
       child: AlertDialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(12.0),topRight: Radius.circular(12.0),),
         ),
         titlePadding: EdgeInsets.zero,
         title: _buildDialogTitle(context),

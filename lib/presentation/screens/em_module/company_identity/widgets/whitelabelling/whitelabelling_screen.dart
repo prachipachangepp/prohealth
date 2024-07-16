@@ -562,25 +562,40 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                             alignment: Alignment.bottomRight,
                                             child: Padding(
                                               padding: const EdgeInsets.all(15.0),
-                                              child: CustomElevatedButton(
-                                                  width: 105,
-                                                  height: 31,
-                                                  text: 'Submit',
-                                                  onPressed: () async {
-                                                    await postWhitelabellingAdd(
-                                                      context,
-                                                      0,
-                                                      '',
-                                                      primNumController.text,
-                                                      secNumberController.text,
-                                                      faxController.text,
-                                                      emailController.text,
-                                                      altNumController.text,
-                                                      nameController.text,
-                                                      addressController.text,
-                                                    );
-                                                    Navigator.pop(context);
-                                                  }),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  CustomElevatedButton(
+                                                    width: 105,
+                                                    height: 31,
+                                                    text: 'Cancel',
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  CustomElevatedButton(
+                                                    width: 105,
+                                                    height: 31,
+                                                    text: 'Submit',
+                                                    onPressed: () async {
+                                                      await postWhitelabellingAdd(
+                                                        context,
+                                                        0,
+                                                        '',
+                                                        primNumController.text,
+                                                        secNumberController.text,
+                                                        faxController.text,
+                                                        emailController.text,
+                                                        altNumController.text,
+                                                        nameController.text,
+                                                        addressController.text,
+                                                      );
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           )
                                         ],
