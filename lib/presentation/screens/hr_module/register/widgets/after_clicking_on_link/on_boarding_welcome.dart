@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +6,7 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
+
 class OnBoardingWelcome extends StatelessWidget {
   const OnBoardingWelcome({Key? key}) : super(key: key);
 
@@ -31,8 +31,8 @@ class OnBoardingWelcome extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),                    // shadow color
-                      offset: Offset(0, 5),                               // horizontal and vertical offset
+                      color: Colors.black.withOpacity(0.2), // shadow color
+                      offset: Offset(0, 5), // horizontal and vertical offset
                       blurRadius: 5,
                       spreadRadius: 1,
                     ),
@@ -70,8 +70,8 @@ class OnBoardingWelcome extends StatelessWidget {
                                   Center(
                                     child: Text(
                                       'Please go through each section and fill valid information',
-                                      style: TextStyle(
-                                        fontSize: 20,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         color: Color(0xff686464),
                                       ),
@@ -93,7 +93,8 @@ class OnBoardingWelcome extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 32, vertical: 16),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                       ),
                                       child: Text(
@@ -115,11 +116,9 @@ class OnBoardingWelcome extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height/80),
+              SizedBox(height: MediaQuery.of(context).size.height / 80),
               Row(
-                children: [
-                  BottomBarRow()
-                ],
+                children: [BottomBarRow()],
               )
             ],
           ),
@@ -141,8 +140,8 @@ class VerifyUserPopup extends StatelessWidget {
       // ),
       title: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
-          color: Colors.white,                                                         //background colour pf screen
+          borderRadius: BorderRadius.circular(0),
+          color: Colors.white, //background colour pf screen
         ),
         width: 500,
         height: 450,
@@ -153,8 +152,8 @@ class VerifyUserPopup extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
+                  topLeft: Radius.circular(13),
+                  topRight: Radius.circular(13),
                 ),
               ),
               child: Row(
@@ -303,6 +302,181 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
+
+//
+// class VerifyUserPopup extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       backgroundColor: Colors.white,
+//       titlePadding: EdgeInsets.zero,
+//       title: Container(
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(12.0),
+//           color: Colors.white,
+//         ),
+//         width: 500,
+//         height: 450,
+//         child: Column(
+//           children: [
+//             Container(
+//               height: 60,
+//               decoration: BoxDecoration(
+//                 color: Color(0xff50B5E5),
+//                 borderRadius: BorderRadius.only(
+//                   topLeft: Radius.circular(13),
+//                   topRight: Radius.circular(13),
+//                 ),
+//               ),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Padding(
+//                     padding: EdgeInsets.only(left: 16),
+//                     child: Row(
+//                       children: [
+//                         Image.asset('images/verify_user.png', width: 20, height: 20),
+//                         SizedBox(width: 8),
+//                         Text(
+//                           AppString.verify_user,
+//                           style: GoogleFonts.firaSans(
+//                             fontSize: 24,
+//                             fontWeight: FontWeight.w600,
+//                             color: Colors.white,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   IconButton(
+//                     icon: Image.asset('images/cancle_button.png', width: 20, height: 20),
+//                     onPressed: () {
+//                       Navigator.of(context).pop();
+//                     },
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             Padding(
+//               padding: EdgeInsets.all(24),
+//               child: Column(
+//                 children: [
+//                   CustomTextField(
+//                     labelWidget: Row(
+//                       children: [
+//                         Image.asset('images/security_code.png'),
+//                         // SizedBox(width: 8),
+//                         Text(AppString.security_code),
+//                       ],
+//                     ),
+//                     labelText: AppString.security_code,
+//                     iconPath: 'images/security_code.png',
+//                   ),
+//                   SizedBox(height: 16),
+//                   CustomTextField(
+//                     labelWidget: Row(
+//                       children: [
+//                         Image.asset('images/phone_number.png', width: 0, height: 0),
+//                         SizedBox(width: 8),
+//                         Text(AppString.phone_number),
+//                       ],
+//                     ),
+//                     labelText: AppString.phone_number,
+//                     iconPath: 'images/phone_number.png',
+//                   ),
+//                   SizedBox(height: 16),
+//                   CustomTextField(
+//                     labelWidget: Row(
+//                       children: [
+//                         Image.asset('images/email.png', width: 20, height: 20),
+//                         SizedBox(width: 8),
+//                         Text(AppString.email),
+//                       ],
+//                     ),
+//                     labelText: AppString.email,
+//                     iconPath: 'images/email.png',
+//                   ),
+//                   SizedBox(height: 24),
+//                   ElevatedButton(
+//                     onPressed: () {
+//                       showDialog(
+//                         context: context,
+//                         builder: (BuildContext context) {
+//                           return Dialog(
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius: BorderRadius.circular(20.0),
+//                             ),
+//                             child: OnBoardingCongratulation(),
+//                           );
+//                         },
+//                       );
+//                     },
+//                     style: ElevatedButton.styleFrom(
+//                       backgroundColor: Color(0xff50B5E5),
+//                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+//                       shape: RoundedRectangleBorder(
+//                         borderRadius: BorderRadius.circular(8),
+//                       ),
+//                     ),
+//                     child: Text(
+//                       'Continue',
+//                       style: GoogleFonts.firaSans(
+//                         fontSize: 20,
+//                         fontWeight: FontWeight.w700,
+//                         color: Colors.white,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class CustomTextField extends StatelessWidget {
+//   final String labelText;
+//   final Widget? labelWidget;
+//   final String iconPath;
+//
+//   const CustomTextField({
+//     Key? key,
+//     required this.labelText,
+//     this.labelWidget,
+//     required this.iconPath,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextFormField(
+//       decoration: InputDecoration(
+//         label: labelWidget,
+//         border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8),
+//         ),
+//         enabledBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8),
+//           borderSide: BorderSide(color: Colors.grey.shade300),
+//         ),
+//         focusedBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8),
+//           borderSide: BorderSide(color: Color(0xffB1B1B1)),
+//         ),
+//         filled: true,
+//         fillColor: Colors.white,
+//         labelStyle: TextStyle(color: Colors.grey),
+//         contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+//         prefixIcon: Padding(
+//           padding: EdgeInsets.all(12.0),
+//           child: Image.asset(iconPath, width: 20, height: 20),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 ////////////////////////////////////congratulation/////////////////////////////////////
 class OnBoardingCongratulation extends StatelessWidget {
