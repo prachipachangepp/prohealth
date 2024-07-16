@@ -61,7 +61,10 @@ class MyConstantsColumn {
         style: textStyle,
       ),
       Text(
-        AppString.workno,
+        AppString.reportingOffice,
+        style: textStyle,
+      ),Text(
+        AppString.summary,
         style: textStyle,
       ),];
   }

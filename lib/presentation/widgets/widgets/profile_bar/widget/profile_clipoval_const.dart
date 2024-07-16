@@ -26,6 +26,7 @@ class ProfileBarClipConst extends StatelessWidget {
           text,
           style: ProfileBarLastColText.profileTextStyle(context),
         ),
+        SizedBox(width: MediaQuery.of(context).size.width/160),
         ClipOval(
           child: Container(
             height: MediaQuery.of(context).size.height / 55,
