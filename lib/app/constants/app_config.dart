@@ -20,10 +20,8 @@ class AppConfig {
   static const int subDocId8 = 18;
   static const int subDocId9 = 19;
   static const int subDocId10 = 20;
-
-  /// Police & Procedure
-  static const int subDocId0 = 0;
-
+  /// Policies & procedures
+  static const int subDocId0= 0;
 
 
 

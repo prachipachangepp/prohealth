@@ -52,7 +52,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 3;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);

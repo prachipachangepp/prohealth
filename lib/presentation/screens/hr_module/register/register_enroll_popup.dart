@@ -135,7 +135,7 @@ class RegisterEnrollAlertDialog {
 
                         ],
                       ),
-                      ///////////////////
+                      ///
                       Column(
                         children: [
                           CustomTextFieldRegister(
@@ -196,42 +196,12 @@ class RegisterEnrollAlertDialog {
                               },
                             ),
                           ),
-
-                          // MyDropdownButton(
-                          //   width: MediaQuery.of(context).size.width/7,
-                          //   height: AppSize.s25,
-                          //
-                          //   items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                          //  onChanged: (String? newValue) {
-                          //    print('Selected item: $newValue');
-                          //
-                          //  },),
-                          //
-                          //
-                          //
-                          // CustomTextFieldRegister(
-                          //
-                          //   height: AppSize.s25,
-                          //   width: MediaQuery.of(context).size.width/7,
-                          //   controller: controller,
-                          //   labelText: AppString.city,
-                          //   keyboardType: TextInputType.text,
-                          //   suffixIcon: Icon(Icons.arrow_drop_down,color: ColorManager.blueprime,),
-                          //   padding: EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                          //   onChanged: (value) {                          },
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return AppString.enterText;
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
                           SizedBox(
                             height: AppSize.s35,
                           ),
                         ],
                       ),
-                      //////////////////////////
+                      ///
                       Column(
                         children: [
                           CustomTextFieldRegister(
@@ -299,7 +269,7 @@ class RegisterEnrollAlertDialog {
                       ),
                     ],
                   ),
-                  ///////////////////////////////////////
+                  ///
                   SizedBox(
                     height: AppSize.s5,
                   ),
@@ -335,7 +305,7 @@ class RegisterEnrollAlertDialog {
                       ],
                     ),
                   ),
-                  ///////////////////////////////
+                  ///
                   SizedBox(
                     height: AppSize.s6,
                   ),

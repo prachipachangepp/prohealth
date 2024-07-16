@@ -50,7 +50,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 20;
     items = List.generate(60, (index) => 'Item ${index + 1}');
 
 
@@ -450,34 +450,34 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                 }
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          PaginationControlsWidget(
-            currentPage: currentPage,
-            items: items,
-            itemsPerPage: itemsPerPage,
-            onPreviousPagePressed: () {
-              /// Handle previous page button press
-              setState(() {
-                currentPage = currentPage > 1 ? currentPage - 1 : 1;
-              });
-            },
-            onPageNumberPressed: (pageNumber) {
-              /// Handle page number tap
-              setState(() {
-                currentPage = pageNumber;
-              });
-            },
-            onNextPagePressed: () {
-              /// Handle next page button press
-              setState(() {
-                currentPage = currentPage < (items.length / itemsPerPage).ceil()
-                    ? currentPage + 1
-                    : (items.length / itemsPerPage).ceil();
-              });
-            },
-          ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // PaginationControlsWidget(
+          //   currentPage: currentPage,
+          //   items: items,
+          //   itemsPerPage: itemsPerPage,
+          //   onPreviousPagePressed: () {
+          //     /// Handle previous page button press
+          //     setState(() {
+          //       currentPage = currentPage > 1 ? currentPage - 1 : 1;
+          //     });
+          //   },
+          //   onPageNumberPressed: (pageNumber) {
+          //     /// Handle page number tap
+          //     setState(() {
+          //       currentPage = pageNumber;
+          //     });
+          //   },
+          //   onNextPagePressed: () {
+          //     /// Handle next page button press
+          //     setState(() {
+          //       currentPage = currentPage < (items.length / itemsPerPage).ceil()
+          //           ? currentPage + 1
+          //           : (items.length / itemsPerPage).ceil();
+          //     });
+          //   },
+          // ),
         ],),
     );
   }
