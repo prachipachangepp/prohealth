@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/widgets/container_constant.dart';
 
 import '../../../../../../app/resources/color.dart';
@@ -33,6 +34,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
 
   /////
   TextEditingController _controller = TextEditingController();
+  TextEditingController _controllerIssueDate = TextEditingController();
+  TextEditingController _controllerExpirationDate = TextEditingController();
 
   // Current step in the stepper
   int _currentStep = 0;
@@ -2463,7 +2466,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                             .height /
                                             100),
                                     CustomTextFieldRegister(
-                                      controller: _controller,
+                                      controller: _controllerIssueDate,
                                       hintText: 'dd-mm-yyyy',
                                       hintStyle: GoogleFonts.firaSans(
                                         fontSize: 10.0,
@@ -2486,9 +2489,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                             lastDate: DateTime(2101),
                                           );
                                           if (pickedDate != null) {
-                                            _controller.text =
-                                            "${pickedDate.toLocal()}"
-                                                .split(' ')[0];
+                                            String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                                            _controllerIssueDate.text = formattedDate;
                                           }
                                         },
                                       ),
@@ -2521,7 +2523,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                             .height /
                                             100),
                                     Text(
-                                      'Issue Date',
+                                      'Expiration Date',
                                       style: GoogleFonts.firaSans(
                                           fontSize: 10.0,
                                           fontWeight: FontWeight.w400,
@@ -2535,7 +2537,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                             .height /
                                             100),
                                     CustomTextFieldRegister(
-                                      controller: _controller,
+                                      controller: _controllerExpirationDate,
                                       hintText: 'dd-mm-yyyy',
                                       hintStyle: GoogleFonts.firaSans(
                                         fontSize: 10.0,
@@ -2558,9 +2560,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                             lastDate: DateTime(2101),
                                           );
                                           if (pickedDate != null) {
-                                            _controller.text =
-                                            "${pickedDate.toLocal()}"
-                                                .split(' ')[0];
+                                            String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                                            _controllerExpirationDate.text = formattedDate;
                                           }
                                         },
                                       ),
