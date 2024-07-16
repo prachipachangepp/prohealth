@@ -386,6 +386,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     text: AppStringEM.fax,
                                                   ),
                                                   SizedBox(height: AppSize.s15),
+
                                                   SMTextFConst(
                                                     controller: emailController,
                                                     keyboardType:
@@ -772,6 +773,7 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         text: AppStringEM.alternatephone,
                                       ),
                                       SizedBox(height: AppSize.s9),
+
                                       EditTextField(
                                         controller: addressController,
                                         keyboardType: TextInputType.text,
