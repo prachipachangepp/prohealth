@@ -499,6 +499,7 @@ class _CICcdADRState extends State<CICcdADR> {
                                               builder: (context) => StatefulBuilder(
                                                 builder: (BuildContext context, void Function(void Function()) setState) {
                                                   return  DeletePopup(
+                                                      title: 'Delete ADR',
                                                       loadingDuration: _isLoading,
                                                       onCancel: (){
                                                         Navigator.pop(context);

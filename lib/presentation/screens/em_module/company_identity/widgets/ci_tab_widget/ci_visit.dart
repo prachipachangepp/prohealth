@@ -683,6 +683,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   builder: (context) => StatefulBuilder(
                                                     builder: (BuildContext context, void Function(void Function()) setState) {
                                                       return  DeletePopup(
+                                                          title: 'Delete Visit',
                                                           loadingDuration: _isLoading,
                                                           onCancel: (){
                                                             Navigator.pop(context);

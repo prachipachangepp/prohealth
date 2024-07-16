@@ -300,6 +300,7 @@ class _DefineWorkWeekState extends State<DefineWorkWeek> {
                                                                       (BuildContext
                                                                           context) {
                                                                     return DeletePopup(
+                                                                        title: 'Delete Work Weeks',
                                                                         onCancel:
                                                                             () {
                                                                           Navigator.pop(context);
