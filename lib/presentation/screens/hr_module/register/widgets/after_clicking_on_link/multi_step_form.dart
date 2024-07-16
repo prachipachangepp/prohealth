@@ -98,20 +98,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                 ],
               ),
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text(
-            //       "Details",
-            //       style: GoogleFonts.firaSans(
-            //         fontSize: 18,
-            //         fontWeight: FontWeight.w700,
-            //         color: ColorManager.blueprime,
-            //         decoration: TextDecoration.none,
-            //       ),
-            //     ),
-            //   ],
-            // ),
+
             const SizedBox(
               height: AppSize.s5,
             ),
@@ -179,7 +166,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   ),
                                   onPressed: details.onStepContinue,
                                   label:
-                                  Text(isLastStep ? 'Conform' : 'Continue',
+                                  Text(isLastStep ? 'Confirm' : 'Continue',
                                     style: GoogleFonts.firaSans(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w700,
