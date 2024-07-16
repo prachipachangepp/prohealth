@@ -197,7 +197,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 
                                   },
                                   child: Center(
-                                    child: SvgPicture.asset('images/menu_lines.svg')
+                                    child: SvgPicture.asset('images/menuLines.svg')
                                   ),
                                 ),
                               ),

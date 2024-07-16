@@ -386,11 +386,12 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                     text: AppStringEM.fax,
                                                   ),
                                                   SizedBox(height: AppSize.s15),
+
                                                   SMTextFConst(
-                                                    controller: addressController,
+                                                    controller: emailController,
                                                     keyboardType:
-                                                        TextInputType.text,
-                                                    text: AppStringEM.address,
+                                                    TextInputType.text,
+                                                    text: AppStringEM.primarymail,
                                                   ),
                                                 ],
                                               ),
@@ -540,10 +541,10 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                   ),
                                                   SizedBox(height: AppSize.s15),
                                                   SMTextFConst(
-                                                    controller: emailController,
+                                                    controller: addressController,
                                                     keyboardType:
-                                                        TextInputType.text,
-                                                    text: AppStringEM.primarymail,
+                                                    TextInputType.text,
+                                                    text: AppStringEM.address,
                                                   ),
                                                   SizedBox(
                                                     width: 354,
@@ -749,9 +750,9 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                       ),
                                       SizedBox(height: AppSize.s9),
                                       EditTextField(
-                                        controller: addressController,
+                                        controller: emailController,
                                         keyboardType: TextInputType.text,
-                                        text: "Street Address",
+                                        text: AppStringEM.primarymail,
                                       ),
                                     ],
                                   ),
@@ -770,10 +771,11 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                         text: AppStringEM.alternatephone,
                                       ),
                                       SizedBox(height: AppSize.s9),
+
                                       EditTextField(
-                                        controller: emailController,
+                                        controller: addressController,
                                         keyboardType: TextInputType.text,
-                                        text: AppStringEM.primarymail,
+                                        text: "Street Address",
                                       ),
                                       SizedBox(
                                         width: 354,
