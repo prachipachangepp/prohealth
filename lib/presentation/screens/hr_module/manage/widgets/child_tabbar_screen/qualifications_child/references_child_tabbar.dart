@@ -93,9 +93,9 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Row(
+                       Row(
                         children: [
-                          Text('References #1',
+                          Text('References #${snapshot.data![index].referenceId}',
                             style: TextStyle(
                               fontFamily: 'FiraSans',
                               fontSize: 13,

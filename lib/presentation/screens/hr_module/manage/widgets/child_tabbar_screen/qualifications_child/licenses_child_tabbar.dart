@@ -85,9 +85,9 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                       ),
                       child: Column(
                         children: [
-                          const Row(
+                           Row(
                             children: [
-                              Text('License #1',
+                              Text('License #${snapshot.data![index].licenseId}',
                                 style: TextStyle(
                                   fontFamily: 'FiraSans',
                                   fontSize: 13,

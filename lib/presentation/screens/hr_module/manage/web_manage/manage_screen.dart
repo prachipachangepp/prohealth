@@ -140,7 +140,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                 checkBoxTile: Container(
                                   width: 300,
                                     child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
-                                    },)), tite: 'Edit Employeement',
+                                    },)), tite: 'Add Employeement',
                               );
                             },
                           );

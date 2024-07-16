@@ -56,19 +56,15 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
+    itemsPerPage = 20;
+    items = List.generate(60, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgSubDocumentGet(context, 1, 1, 1, 2, 3).then((data) {
     //   _controller.add(data);
     // }).catchError((error) {
     //   // Handle error
     // });
-    getEmployeeDoc(context, widget.metaDocID,1,10).then((data) {
-      _controller.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
     _loadColors();
   }
   void _loadColors() async {
@@ -177,6 +173,11 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
             child: StreamBuilder<List<EmployeeDocumentModal>>(
                 stream: _controller.stream,
                 builder: (context, snapshot) {
+                  getEmployeeDoc(context, widget.metaDocID,1,20).then((data) {
+                    _controller.add(data);
+                  }).catchError((error) {
+                    // Handle error
+                  });
                   print('1111111');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -316,7 +317,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                             snapshot.data![index].employeeDocTypesetupId,
                                                         empDocType == docMetaId ? empDocType! : docMetaId,
                                                           );
-                                                      getEmployeeDoc(context, widget.metaDocID,1,10).then((data) {
+                                                      getEmployeeDoc(context, widget.metaDocID,1,20).then((data) {
                                                         _controller.add(data);
                                                       }).catchError((error) {
                                                         // Handle error
@@ -443,7 +444,7 @@ class _HealthEmpDocState extends State<HealthEmpDoc> {
                                                       await employeedoctypeSetupIdDelete(
                                                           context,
                                                           snapshot.data![index].employeeDocTypesetupId);
-                                                      getEmployeeDoc(context, widget.metaDocID,1,10).then((data) {
+                                                      getEmployeeDoc(context, widget.metaDocID,1,20).then((data) {
                                                         _controller.add(data);
                                                       }).catchError((error) {
                                                         // Handle error
