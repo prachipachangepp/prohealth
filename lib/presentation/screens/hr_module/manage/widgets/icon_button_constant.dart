@@ -21,7 +21,8 @@ class IconButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 25,
+      height: 30,
+      width: 100,
       child: IconButton(
         style: IconButton.styleFrom(
           padding: EdgeInsets.symmetric(

@@ -617,7 +617,7 @@ int listIndex = 0 ;
                       //   nameList: ['Leases & Services', 'SNF','DME','MD','MISC'],
                       //   screenList: [CiLeasesAndServices(),CiSnf(),CiDme(),CiMd(),CiMisc()], docId: docID,
                       // ),
-                      CiPoliciesAndProcedures(docID: AppConfig.docId10, subDocID: docID,),
+                      CiPoliciesAndProcedures(docID: AppConfig.docId10, subDocID: AppConfig.subDocId0,),
                       CiTempalets()
                     ]),
               ),

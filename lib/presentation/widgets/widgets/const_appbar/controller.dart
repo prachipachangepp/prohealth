@@ -6,6 +6,7 @@ class HRController extends GetxController {
   void changeSelectedItem(String newItem) {
     selectedItem.value = newItem;
   }
+
 }
 
 class CustomButtonController extends GetxController {}

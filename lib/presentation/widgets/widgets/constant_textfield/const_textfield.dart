@@ -74,6 +74,7 @@ class CustomDropdownTextField extends StatefulWidget {
   final String? value;
   final List<String> items;
   final String labelText;
+  final String? hintText;
   final TextStyle? labelStyle;
   final double? labelFontSize;
   final void Function(String?)? onChanged;
@@ -90,7 +91,7 @@ class CustomDropdownTextField extends StatefulWidget {
     this.labelFontSize,
     this.onChanged,
     this.width,
-    this.height, this.initialValue,
+    this.height, this.initialValue, this.hintText,
   }) : super(key: key);
 
   @override

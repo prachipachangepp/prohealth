@@ -30,6 +30,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
   double textFieldHeight = 38;
 
   TextEditingController firstName = TextEditingController();
+
   /////
   TextEditingController _controller = TextEditingController();
 
@@ -37,10 +38,15 @@ class _MultiStepFormState extends State<MultiStepForm> {
   int _currentStep = 0;
 
   bool isChecked = false;
+
   bool get isFirstStep => _currentStep == 0;
+
   bool get isLastStep => _currentStep == steps().length - 1;
   bool isCompleted = false;
   String? _selectedCountry;
+  String?  _selectedClinician;
+  String?  _selectedSpeciality;
+  String? _selectedDegree;
 
   String? _selectedType;
   String? _selectedType1;
@@ -57,20 +63,55 @@ class _MultiStepFormState extends State<MultiStepForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Details",
-                  style: GoogleFonts.firaSans(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.blueprime,
-                    decoration: TextDecoration.none,
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("     "),
+                  Text(
+                    "Details",
+                    style: GoogleFonts.firaSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.blueprime,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
-                )
-              ],
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff50B5E5),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onPressed: () {
+                      // Add functionality for save and continue here
+                    },
+                    child: Text("Save Progress",style: GoogleFonts.firaSans(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),),
+                  ),
+                ],
+              ),
             ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Text(
+            //       "Details",
+            //       style: GoogleFonts.firaSans(
+            //         fontSize: 18,
+            //         fontWeight: FontWeight.w700,
+            //         color: ColorManager.blueprime,
+            //         decoration: TextDecoration.none,
+            //       ),
+            //     ),
+            //   ],
+            // ),
             const SizedBox(
               height: AppSize.s5,
             ),
@@ -94,27 +135,13 @@ class _MultiStepFormState extends State<MultiStepForm> {
                       onStepCancel: isFirstStep
                           ? null
                           : () => setState(() => _currentStep -= 1),
-                      controlsBuilder: (context, details) => Padding(
+                      controlsBuilder: (context, details) =>
+                          Padding(
                             padding: const EdgeInsets.only(top: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xff1696C8),
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  onPressed: details.onStepContinue,
-                                  label:
-                                      Text(isLastStep ? 'Conform' : 'Continue'),
-                                  icon: const Icon(Icons.arrow_forward),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
+
                                 if (!isFirstStep) ...[
                                   const SizedBox(
                                     width: 20,
@@ -130,10 +157,38 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       ),
                                     ),
                                     onPressed: details.onStepCancel,
-                                    label: const Text("Back"),
+                                    label: Text(
+                                      "Back", style: GoogleFonts.firaSans(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w700,
+                                      //color: Colors.white,
+                                    ),),
                                     icon: const Icon(Icons.arrow_back),
                                   )
-                                ]
+                                ],
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff1696C8),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  onPressed: details.onStepContinue,
+                                  label:
+                                  Text(isLastStep ? 'Conform' : 'Continue',
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),),
+                                  icon: const Icon(Icons.arrow_forward),
+                                ),
+
+
                               ],
                             ),
                           )),
@@ -149,7 +204,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
     );
   }
 
-  List<Step> steps() => [
+  List<Step> steps() =>
+      [
         Step(
             state: _currentStep <= 0 ? StepState.editing : StepState.complete,
             isActive: _currentStep >= 0,
@@ -187,7 +243,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Container(
-                      width: MediaQuery.of(context).size.width / 3,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 3,
                       padding: const EdgeInsets.symmetric(
                           vertical: 12, horizontal: 16),
                       decoration: BoxDecoration(
@@ -209,7 +268,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 140, right: 140, top: 20),
+                    const EdgeInsets.only(left: 140, right: 140, top: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -230,7 +289,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
                               ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xff1696C8),
@@ -241,7 +303,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                 ),
                                 onPressed: () async {
                                   FilePickerResult? result =
-                                      await FilePicker.platform.pickFiles(
+                                  await FilePicker.platform.pickFiles(
                                     allowMultiple: false,
                                   );
                                   if (result != null) {
@@ -251,12 +313,20 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     // User canceled the picker
                                   }
                                 },
-                                label: const Text("Choose File"),
+                                label: Text("Choose File", style: GoogleFonts
+                                    .firaSans(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),),
                                 icon: const Icon(Icons.file_upload_outlined),
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 30),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
                               Text(
                                 'Legal First Name',
                                 style: GoogleFonts.firaSans(
@@ -266,7 +336,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
                               CustomTextFieldRegister(
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
@@ -284,7 +357,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 30),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
                               Text(
                                 'Legal Last Name',
                                 style: GoogleFonts.firaSans(
@@ -294,7 +370,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
                               CustomTextFieldRegister(
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
@@ -312,7 +391,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 30),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
                               Text(
                                 'Social Security Number',
                                 style: GoogleFonts.firaSans(
@@ -322,7 +404,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
                               CustomTextFieldRegister(
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
@@ -340,7 +425,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 30),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
                               Text(
                                 'Personal Mobile Number',
                                 style: GoogleFonts.firaSans(
@@ -350,7 +438,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
                               CustomTextFieldRegister(
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
@@ -368,7 +459,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 30),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
                               Text(
                                 'Personal Email',
                                 style: GoogleFonts.firaSans(
@@ -378,7 +472,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
                               CustomTextFieldRegister(
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
@@ -396,7 +493,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 30),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
                               Text(
                                 'Driver’s License Number',
                                 style: GoogleFonts.firaSans(
@@ -406,7 +506,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
                               CustomTextFieldRegister(
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
@@ -425,7 +528,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ],
                           ),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width / 15),
+                        SizedBox(width: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 15),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -443,43 +549,46 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   children: [
                                     Expanded(
                                         child: CustomRadioListTile(
-                                      title: 'Male',
-                                      value: 'male',
-                                      groupValue: _selectedType,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _selectedType = value;
-                                        });
-                                      },
-                                    )),
+                                          title: 'Male',
+                                          value: 'male',
+                                          groupValue: _selectedType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _selectedType = value;
+                                            });
+                                          },
+                                        )),
                                     Expanded(
                                         child: CustomRadioListTile(
-                                      title: 'Female',
-                                      value: 'Female',
-                                      groupValue: _selectedType,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _selectedType = value;
-                                        });
-                                      },
-                                    )),
+                                          title: 'Female',
+                                          value: 'Female',
+                                          groupValue: _selectedType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _selectedType = value;
+                                            });
+                                          },
+                                        )),
                                     Expanded(
                                         child: CustomRadioListTile(
-                                      title: 'Other',
-                                      value: 'Other',
-                                      groupValue: _selectedType,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _selectedType = value;
-                                        });
-                                      },
-                                    )),
+                                          title: 'Other',
+                                          value: 'Other',
+                                          groupValue: _selectedType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _selectedType = value;
+                                            });
+                                          },
+                                        )),
                                   ],
                                 ),
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 30),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
                               Text(
                                 'DOB',
                                 style: GoogleFonts.firaSans(
@@ -489,7 +598,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
                               CustomTextFieldRegister(
                                 controller: _controller,
                                 hintText: 'dd-mm-yyyy',
@@ -514,15 +626,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     );
                                     if (pickedDate != null) {
                                       _controller.text =
-                                          "${pickedDate.toLocal()}"
-                                              .split(' ')[0];
+                                      "${pickedDate.toLocal()}"
+                                          .split(' ')[0];
                                     }
                                   },
                                 ),
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 30),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
                               Text(
                                 'Address',
                                 style: GoogleFonts.firaSans(
@@ -532,7 +647,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
                               CustomTextFieldRegister(
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
@@ -544,7 +662,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 60),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
 
                               Text(
                                 "Race",
@@ -626,75 +747,15 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   ),
                                 ],
                               ),
+                              SizedBox(
+                                  height:
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
 
-                              // Container(
-                              //   color: Colors.redAccent,
-                              //   height: 100,
-                              //   width: MediaQuery.of(context).size.width / 4,
-                              //   child: Row(
-                              //     children: [
-                              //       Flexible(
-                              //         flex: 2,
-                              //         child: McqWidget(
-                              //           title: 'Race',
-                              //           items: const [
-                              //             'Asian',
-                              //             'Black or African American',
-                              //             'White',
-                              //             'Hispanic or Latino',
-                              //             'Other'
-                              //           ],
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
 
-                              // Container(
-                              //   color: Colors.redAccent,
-                              //   height: 100,
-                              //   width: MediaQuery.of(context).size.width / 4,
-                              //   child: Column(
-                              //     crossAxisAlignment: CrossAxisAlignment.stretch,
-                              //     children: [
-                              //       Expanded(
-                              //         flex: 2,
-                              //         child: McqWidget(
-                              //           title: 'Race',
-                              //           items: const [
-                              //             'Asian',
-                              //             'Black or African American',
-                              //             'White',
-                              //             'Hispanic or Latino',
-                              //             'Other'
-                              //           ],
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
 
-                              // Container(
-                              //   color: Colors.redAccent,
-                              //   height: 100,
-                              //   width:  MediaQuery.of(context).size.width/4,
-                              //   child: Expanded(
-                              //     flex: 2,
-                              //     child: McqWidget(
-                              //       title: 'Race',
-                              //       items: const [
-                              //         'Asian',
-                              //         'Black or African American',
-                              //         'White',
-                              //         'Hispanic or Latino',
-                              //       'Other'
-                              //       ],
-                              //     ),
-                              //   ),
-                              // ),
-                              const SizedBox(
-                                height: AppSize.s10,
-                              ),
                               Text(
                                 'Type of Clinician',
                                 style: GoogleFonts.firaSans(
@@ -702,35 +763,69 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xff686464)),
                               ),
-                              const SizedBox(
-                                height: AppSize.s5,
-                              ),
-
                               SizedBox(
-                                width: MediaQuery.of(context).size.width / 4,
-                                height: textFieldHeight,
-                                //alignment: Alignment.center,
-                                //color: Colors.cyan,
+                                  height:
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
 
-                                child: MyDropdownTextField(
-                                  hint: 'Select',
 
-                                  //width: MediaQuery.of(context).size.width/7,
-                                  // height: AppSize.s25,
-                                  items: [
-                                    'Item 1',
-                                    'Item 2',
-                                    'Item 3',
-                                    'Item 4'
-                                  ],
+                              Container(
+                                height: 32,
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    hintText: 'Select Clinician',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(4.0),
+                                      borderSide:
+                                      BorderSide(color: Colors.grey),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 10),
+                                  ),
+                                  value: _selectedClinician,
+                                  icon: Icon(Icons.arrow_drop_down,
+                                      color: Color(0xff9B9B9B)),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff686464),
+                                  ),
                                   onChanged: (String? newValue) {
-                                    print('Selected item: $newValue');
+                                    setState(() {
+                                      _selectedClinician = newValue;
+                                    });
                                   },
+                                  items: <String>[
+                                    'Clinician 1',
+                                    'Clinicin ',
+                                    'Clinican',
+                                    'Cliniian'
+                                  ] // List of countries
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
                                 ),
                               ),
-                              const SizedBox(
-                                height: AppSize.s10,
-                              ),
+                              SizedBox(
+                                  height:
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 30),
                               Text(
                                 'Speciality',
                                 style: GoogleFonts.firaSans(
@@ -738,29 +833,59 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xff686464)),
                               ),
-                              const SizedBox(
-                                height: AppSize.s5,
-                              ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width / 4,
-                                height: textFieldHeight,
-                                //alignment: Alignment.center,
-                                //color: Colors.cyan,
-
-                                child: MyDropdownTextField(
-                                  hint: 'select',
-
-                                  //width: MediaQuery.of(context).size.width/7,
-                                  // height: AppSize.s25,
-                                  items: [
-                                    'Item 1',
-                                    'Item 2',
-                                    'Item 3',
-                                    'Item 4'
-                                  ],
+                                  height:
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height / 60),
+                              Container(
+                                height: 32,
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    hintText: 'Select Speciality',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(4.0),
+                                      borderSide:
+                                      BorderSide(color: Colors.grey),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 10),
+                                  ),
+                                  value: _selectedSpeciality,
+                                  icon: Icon(Icons.arrow_drop_down,
+                                      color: Color(0xff9B9B9B)),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff686464),
+                                  ),
                                   onChanged: (String? newValue) {
-                                    print('Selected item: $newValue');
+                                    setState(() {
+                                      _selectedSpeciality = newValue;
+                                    });
                                   },
+                                  items: <String>[
+                                    'Speciality1',
+                                    'Speciality2',
+                                    'CSpeciality',
+                                    'Speciality'
+                                  ] // List of countries
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
                                 ),
                               ),
                             ],
@@ -797,7 +922,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         color: Color(0xff50B5E5)),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 60),
+                SizedBox(height: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 60),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   decoration: BoxDecoration(
@@ -813,7 +941,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                     ),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 20),
+                SizedBox(height: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 166.0, right: 166),
                   child: Column(
@@ -833,11 +964,14 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ),
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width / 20),
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width / 20),
                           ElevatedButton.icon(
                             onPressed: () async {
                               FilePickerResult? result =
-                                  await FilePicker.platform.pickFiles(
+                              await FilePicker.platform.pickFiles(
                                 allowMultiple: false,
                               );
                               if (result != null) {
@@ -867,7 +1001,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 30),
                       Column(
                         children: [
                           Text(
@@ -879,7 +1016,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 20),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -888,7 +1028,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         30),
                                 Text(
                                   'Final Position Title',
@@ -898,7 +1041,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -910,7 +1056,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   height: 32,
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         40),
                                 Text(
                                   'Start Date',
@@ -920,7 +1069,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   controller: _controller,
@@ -939,7 +1091,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     onPressed: () async {
                                       DateTime? pickedDate =
-                                          await showDatePicker(
+                                      await showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(2000),
@@ -947,14 +1099,17 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       );
                                       if (pickedDate != null) {
                                         _controller.text =
-                                            "${pickedDate.toLocal()}"
-                                                .split(' ')[0];
+                                        "${pickedDate.toLocal()}"
+                                            .split(' ')[0];
                                       }
                                     },
                                   ),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         40),
                                 Text(
                                   'End Date',
@@ -964,7 +1119,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   controller: _controller,
@@ -983,7 +1141,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     onPressed: () async {
                                       DateTime? pickedDate =
-                                          await showDatePicker(
+                                      await showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(2000),
@@ -991,8 +1149,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       );
                                       if (pickedDate != null) {
                                         _controller.text =
-                                            "${pickedDate.toLocal()}"
-                                                .split(' ')[0];
+                                        "${pickedDate.toLocal()}"
+                                            .split(' ')[0];
                                       }
                                     },
                                   ),
@@ -1018,7 +1176,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   ],
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         40),
                                 Text(
                                   'Employer',
@@ -1028,7 +1189,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -1043,104 +1207,134 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ),
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width / 20),
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width / 20),
                           Expanded(
                               child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 40),
-                              Text(
-                                'Reason for Leaving',
-                                style: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff686464)),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 60),
-                              CustomTextFieldRegister(
-                                hintText: 'Enter Text',
-                                hintStyle: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff9B9B9B),
-                                ),
-                                height: 32,
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 40),
-                              Text(
-                                'Last Supervisor’s Name',
-                                style: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff686464)),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 60),
-                              CustomTextFieldRegister(
-                                hintText: 'Enter Text',
-                                hintStyle: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff9B9B9B),
-                                ),
-                                height: 32,
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 40),
-                              Text(
-                                'Supervisor’s Mobile Number',
-                                style: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff686464)),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 60),
-                              CustomTextFieldRegister(
-                                hintText: 'Enter Text',
-                                hintStyle: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff9B9B9B),
-                                ),
-                                height: 32,
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 40),
-                              Text(
-                                'City',
-                                style: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff686464)),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 60),
-                              CustomTextFieldRegister(
-                                hintText: 'Enter Text',
-                                hintStyle: GoogleFonts.firaSans(
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff9B9B9B),
-                                ),
-                                height: 32,
-                              ),
-                            ],
-                          )),
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height / 40),
+                                  Text(
+                                    'Reason for Leaving',
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height / 60),
+                                  CustomTextFieldRegister(
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height / 40),
+                                  Text(
+                                    'Last Supervisor’s Name',
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height / 60),
+                                  CustomTextFieldRegister(
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height / 40),
+                                  Text(
+                                    'Supervisor’s Mobile Number',
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height / 60),
+                                  CustomTextFieldRegister(
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height / 40),
+                                  Text(
+                                    'City',
+                                    style: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464)),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height / 60),
+                                  CustomTextFieldRegister(
+                                    hintText: 'Enter Text',
+                                    hintStyle: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff9B9B9B),
+                                    ),
+                                    height: 32,
+                                  ),
+                                ],
+                              )),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1199,7 +1393,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         color: Color(0xff50B5E5)),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 60),
+                SizedBox(height: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 60),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   decoration: BoxDecoration(
@@ -1215,7 +1412,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                     ),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 20),
+                SizedBox(height: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 166.0, right: 166),
                   child: Column(
@@ -1228,7 +1428,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             fontWeight: FontWeight.w700,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 20),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -1244,7 +1447,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -1256,7 +1462,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   height: 32,
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         30),
                                 Text(
                                   'Graduate',
@@ -1269,15 +1478,15 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   children: [
                                     Expanded(
                                         child: CustomRadioListTile(
-                                      title: 'Yes',
-                                      value: 'Yes',
-                                      groupValue: _selectedType,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _selectedType = value;
-                                        });
-                                      },
-                                    )),
+                                          title: 'Yes',
+                                          value: 'Yes',
+                                          groupValue: _selectedType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _selectedType = value;
+                                            });
+                                          },
+                                        )),
                                     Expanded(
                                       child: CustomRadioListTile(
                                         title: 'No',
@@ -1293,7 +1502,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   ],
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         30),
                                 Text(
                                   'Degree',
@@ -1303,19 +1515,65 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
-                                CustomTextFieldRegister(
-                                  hintText: 'Enter Text',
-                                  hintStyle: GoogleFonts.firaSans(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff9B9B9B),
-                                  ),
+                                Container(
                                   height: 32,
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      hintText: 'Select Degree',
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff9B9B9B),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(4.0),
+                                        borderSide:
+                                        BorderSide(color: Colors.grey),
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 10),
+                                    ),
+                                    value: _selectedDegree,
+                                    icon: Icon(Icons.arrow_drop_down,
+                                        color: Color(0xff9B9B9B)),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464),
+                                    ),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        _selectedDegree = newValue;
+                                      });
+                                    },
+                                    items: <String>[
+                                      'Degee',
+                                      'Deree',
+                                      'Dgree',
+                                      'Degre'
+                                    ] // List of countries
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                  ),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         30),
                                 Text(
                                   'Major Subject',
@@ -1325,7 +1583,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -1340,7 +1601,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ),
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width / 15),
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width / 15),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1353,7 +1617,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -1365,7 +1632,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   height: 32,
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         30),
                                 Text(
                                   'City',
@@ -1375,7 +1645,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -1387,7 +1660,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   height: 32,
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         30),
                                 Text(
                                   'State',
@@ -1397,7 +1673,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -1413,7 +1692,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1428,11 +1710,14 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ),
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width / 20),
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width / 20),
                           ElevatedButton.icon(
                             onPressed: () async {
                               FilePickerResult? result =
-                                  await FilePicker.platform.pickFiles(
+                              await FilePicker.platform.pickFiles(
                                 allowMultiple: false,
                               );
                               if (result != null) {
@@ -1462,7 +1747,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1509,245 +1797,338 @@ class _MultiStepFormState extends State<MultiStepForm> {
               decoration: TextDecoration.none,
             ),
           ),
-          content: Container(
-            child: Column(children: [
-              Center(
-                child: Text(
-                  'References',
-                  style: GoogleFonts.firaSans(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff50B5E5)),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Color(0xFFE6F7FF),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Expanded(
-                  child: Text(
-                    'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications. For each reference, Kindly include the following information:',
-                    style: GoogleFonts.firaSans(
-                      color: Color(0xFF686464),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
+          content: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(AppString.references,
+                      style: GoogleFonts.firaSans(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xff50B5E5)),
                     ),
                   ),
-                ),
-              ),
-              // SizedBox(height: MediaQuery.of(context).size.height / 20),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 166.0, right: 166),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         'Employment #1',
-              //         style: GoogleFonts.firaSans(
-              //             fontSize: 14.0,
-              //             fontWeight: FontWeight.w700,
-              //             color: Color(0xff686464)),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Employment #1',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff686464)),
-                  ),
-                  Expanded(
+                  SizedBox(height: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 60),
+                  Container(
+                    width: 952,
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Color(0xFFE6F7FF),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Name',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff686464)),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 60),
-                        CustomTextFieldRegister(
-                          hintText: 'Enter Text',
-                          hintStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff9B9B9B),
-                          ),
-                          height: 32,
-                        ),
-                        Text(
-                          'Title/Position',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff686464)),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 60),
-                        CustomTextFieldRegister(
-                          hintText: 'Enter Text',
-                          hintStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff9B9B9B),
-                          ),
-                          height: 32,
-                        ),
-                        Text(
-                          'Company/ Organization',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff686464)),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 60),
-                        CustomTextFieldRegister(
-                          hintText: 'Enter Text',
-                          hintStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff9B9B9B),
-                          ),
-                          height: 32,
-                        ),
-                        Text(
-                          'Mobile Number',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff686464)),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 60),
-                        CustomTextFieldRegister(
-                          hintText: 'Enter Text',
-                          hintStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff9B9B9B),
-                          ),
-                          height: 32,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications. For each\n reference, Kindly include the following information:',
+                              style: GoogleFonts.firaSans(
+                                color: Color(0xFF686464),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.width / 20),
-                  Expanded(
+                  SizedBox(height: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 20),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 166.0, right: 166),
                       child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Email',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
-                      ),
-                      Text(
-                        'How do you know this person ?',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
-                      ),
-                      Text(
-                        'Length of Association',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        //controller:,
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
-                      ),
-                    ],
-                  )),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      "Please ensure that the references you provide are professional contacts who can provide insight into your skills, work ethic, and character ",
-                      style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff686464),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'References # 1',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xff686464)),
+                          ),
+                          SizedBox(
+                              height: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height / 20),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppString.name,
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
+                                    CustomTextFieldRegister(
+                                      hintText: 'Enter Text',
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff9B9B9B),
+                                      ),
+                                      height: 32,
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            40),
+                                    Text(
+                                      AppString.title_position,
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
+                                    CustomTextFieldRegister(
+                                      hintText: 'Enter Text',
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff9B9B9B),
+                                      ),
+                                      height: 32,
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            30),
+                                    Text(
+                                      AppString.company_organization,
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
+                                    CustomTextFieldRegister(
+                                      hintText: 'Enter Text',
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff9B9B9B),
+                                      ),
+                                      height: 32,
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            30),
+                                    Text(
+                                      AppString.mobile_number,
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
+                                    CustomTextFieldRegister(
+                                      hintText: 'Enter Text',
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff9B9B9B),
+                                      ),
+                                      height: 32,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                  width:
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width / 15),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppString.email,
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
+                                    CustomTextFieldRegister(
+                                      hintText: 'Enter Text',
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff9B9B9B),
+                                      ),
+                                      height: 32,
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
+                                    Text(
+                                      AppString.how_do_you_know_this_person,
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
+                                    CustomTextFieldRegister(
+                                      hintText: 'Enter Text',
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff9B9B9B),
+                                      ),
+                                      height: 32,
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
+                                    Text(
+                                      AppString.length_of_association,
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 10.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
+                                    CustomTextFieldRegister(
+                                      hintText: 'Enter Text',
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff9B9B9B),
+                                      ),
+                                      height: 32,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: MediaQuery
+                              .of(context)
+                              .size
+                              .height / 20),
+                          Text(
+                            'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xff686464)),
+                          ),
+                          SizedBox(height: MediaQuery
+                              .of(context)
+                              .size
+                              .height / 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  // Handle add education action
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xff50B5E5),
+                                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                                icon: Icon(Icons.add, color: Colors.white),
+                                label: Text(AppString.add_education,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // Handle add education action
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff50B5E5),
-                      // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    icon: Icon(Icons.add, color: Colors.white),
-                    label: Text(
-                      'Add Education',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ]),
+            ),
           ),
         ),
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1776,7 +2157,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           color: Color(0xff50B5E5)),
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  SizedBox(height: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 60),
                   Container(
                     width: 952,
                     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -1810,7 +2194,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           ],
                         ),
                         SizedBox(
-                            height: MediaQuery.of(context).size.height / 100),
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height / 100),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -1835,7 +2222,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           ],
                         ),
                         SizedBox(
-                            height: MediaQuery.of(context).size.height / 100),
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height / 100),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -1862,7 +2252,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                       ],
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 20),
+                  SizedBox(height: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 20),
                   Container(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 166.0, right: 166),
@@ -1877,7 +2270,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                 color: Color(0xff686464)),
                           ),
                           SizedBox(
-                              height: MediaQuery.of(context).size.height / 20),
+                              height: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height / 20),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -1894,8 +2290,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                60),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
                                     CustomTextFieldRegister(
                                       hintText: 'Enter Text',
                                       hintStyle: GoogleFonts.firaSans(
@@ -1907,8 +2306,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                40),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            40),
                                     Text(
                                       'Issuing Organization',
                                       style: GoogleFonts.firaSans(
@@ -1918,8 +2320,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                60),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
                                     CustomTextFieldRegister(
                                       hintText: 'Enter Text',
                                       hintStyle: GoogleFonts.firaSans(
@@ -1931,8 +2336,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                30),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            30),
                                     Text(
                                       'Country',
                                       style: GoogleFonts.firaSans(
@@ -1943,8 +2351,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                60),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
                                     Container(
                                       height: 32,
                                       child: DropdownButtonFormField<String>(
@@ -1957,9 +2368,9 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                           ),
                                           border: OutlineInputBorder(
                                             borderRadius:
-                                                BorderRadius.circular(4.0),
+                                            BorderRadius.circular(4.0),
                                             borderSide:
-                                                BorderSide(color: Colors.grey),
+                                            BorderSide(color: Colors.grey),
                                           ),
                                           contentPadding: EdgeInsets.symmetric(
                                               vertical: 10, horizontal: 10),
@@ -1987,17 +2398,20 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                         ] // List of countries
                                             .map<DropdownMenuItem<String>>(
                                                 (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
                                       ),
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                30),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            30),
                                     Text(
                                       'Number / ID',
                                       style: GoogleFonts.firaSans(
@@ -2007,8 +2421,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                60),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            60),
                                     CustomTextFieldRegister(
                                       hintText: 'Enter Text',
                                       hintStyle: GoogleFonts.firaSans(
@@ -2023,7 +2440,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                               ),
                               SizedBox(
                                   width:
-                                      MediaQuery.of(context).size.width / 15),
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width / 15),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -2037,8 +2457,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                100),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            100),
                                     CustomTextFieldRegister(
                                       controller: _controller,
                                       hintText: 'dd-mm-yyyy',
@@ -2056,7 +2479,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                         ),
                                         onPressed: () async {
                                           DateTime? pickedDate =
-                                              await showDatePicker(
+                                          await showDatePicker(
                                             context: context,
                                             initialDate: DateTime.now(),
                                             firstDate: DateTime(2000),
@@ -2064,16 +2487,19 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                           );
                                           if (pickedDate != null) {
                                             _controller.text =
-                                                "${pickedDate.toLocal()}"
-                                                    .split(' ')[0];
+                                            "${pickedDate.toLocal()}"
+                                                .split(' ')[0];
                                           }
                                         },
                                       ),
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                200),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            200),
                                     Row(
                                       children: [
                                         Expanded(
@@ -2089,8 +2515,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                100),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            100),
                                     Text(
                                       'Issue Date',
                                       style: GoogleFonts.firaSans(
@@ -2100,8 +2529,11 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     SizedBox(
                                         height:
-                                            MediaQuery.of(context).size.height /
-                                                100),
+                                        MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height /
+                                            100),
                                     CustomTextFieldRegister(
                                       controller: _controller,
                                       hintText: 'dd-mm-yyyy',
@@ -2119,7 +2551,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                         ),
                                         onPressed: () async {
                                           DateTime? pickedDate =
-                                              await showDatePicker(
+                                          await showDatePicker(
                                             context: context,
                                             initialDate: DateTime.now(),
                                             firstDate: DateTime(2000),
@@ -2127,8 +2559,8 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                           );
                                           if (pickedDate != null) {
                                             _controller.text =
-                                                "${pickedDate.toLocal()}"
-                                                    .split(' ')[0];
+                                            "${pickedDate.toLocal()}"
+                                                .split(' ')[0];
                                           }
                                         },
                                       ),
@@ -2139,7 +2571,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ],
                           ),
                           SizedBox(
-                              height: MediaQuery.of(context).size.height / 20),
+                              height: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height / 20),
                           Row(
                             children: [
                               Expanded(
@@ -2152,11 +2587,14 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                 ),
                               ),
                               SizedBox(
-                                  width: MediaQuery.of(context).size.width / 5),
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width / 5),
                               ElevatedButton.icon(
                                 onPressed: () async {
                                   FilePickerResult? result =
-                                      await FilePicker.platform.pickFiles(
+                                  await FilePicker.platform.pickFiles(
                                     allowMultiple: false,
                                   );
                                   if (result != null) {
@@ -2187,7 +2625,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ],
                           ),
                           SizedBox(
-                              height: MediaQuery.of(context).size.height / 20),
+                              height: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height / 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -2223,23 +2664,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        // Step(
-        //   state: _currentStep <= 4 ? StepState.editing : StepState.complete,
-        //   isActive: _currentStep >= 4,
-        //   title: Text(
-        //     'Licenses',
-        //     style: GoogleFonts.firaSans(
-        //       fontSize: 12,
-        //       fontWeight: FontWeight.w400,
-        //       color: ColorManager.grey,
-        //       decoration: TextDecoration.none,
-        //     ),
-        //   ),
-        //   content: Container(
-        //     height: 100,
-        //     color: Colors.orange,
-        //   ),
-        // ),
+
         ///////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 5 ? StepState.editing : StepState.complete,
@@ -2265,7 +2690,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         color: Color(0xff50B5E5)),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 60),
+                SizedBox(height: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 60),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   decoration: BoxDecoration(
@@ -2281,7 +2709,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                     ),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 20),
+                SizedBox(height: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 166.0, right: 166),
                   child: Column(
@@ -2294,7 +2725,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             fontWeight: FontWeight.w700,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 20),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -2313,15 +2747,15 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   children: [
                                     Expanded(
                                         child: CustomRadioListTile(
-                                      title: 'Checking',
-                                      value: 'Checking',
-                                      groupValue: _selectedType,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _selectedType = value;
-                                        });
-                                      },
-                                    )),
+                                          title: 'Checking',
+                                          value: 'Checking',
+                                          groupValue: _selectedType,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _selectedType = value;
+                                            });
+                                          },
+                                        )),
                                     Expanded(
                                       child: CustomRadioListTile(
                                         title: 'Savings',
@@ -2337,7 +2771,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   ],
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         40),
                                 Text(
                                   'Effective Date',
@@ -2347,7 +2784,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   controller: _controller,
@@ -2366,7 +2806,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                     ),
                                     onPressed: () async {
                                       DateTime? pickedDate =
-                                          await showDatePicker(
+                                      await showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(2000),
@@ -2374,14 +2814,17 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       );
                                       if (pickedDate != null) {
                                         _controller.text =
-                                            "${pickedDate.toLocal()}"
-                                                .split(' ')[0];
+                                        "${pickedDate.toLocal()}"
+                                            .split(' ')[0];
                                       }
                                     },
                                   ),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         30),
                                 Text(
                                   'Bank Name',
@@ -2391,7 +2834,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -2403,7 +2849,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   height: 32,
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         30),
                                 Text(
                                   'Routing/Transit Number ( 9 Digits )',
@@ -2413,7 +2862,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -2428,7 +2880,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ),
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width / 15),
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width / 15),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2441,7 +2896,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -2453,7 +2911,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   height: 32,
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         30),
                                 Text(
                                   'Verify Account Number',
@@ -2463,7 +2924,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       color: Color(0xff686464)),
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         60),
                                 CustomTextFieldRegister(
                                   hintText: 'Enter Text',
@@ -2475,7 +2939,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                   height: 32,
                                 ),
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.height /
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height /
                                         25),
                                 Text(
                                   'Requested amount for this account (select one)',
@@ -2509,7 +2976,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 20),
                       Row(
                         children: [
                           Row(
@@ -2524,13 +2994,16 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ],
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width / 5),
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width / 5),
                           Row(
                             children: [
                               ElevatedButton.icon(
                                 onPressed: () async {
                                   FilePickerResult? result =
-                                      await FilePicker.platform.pickFiles(
+                                  await FilePicker.platform.pickFiles(
                                     allowMultiple: false,
                                   );
                                   if (result != null) {
@@ -2562,7 +3035,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           )
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -2596,134 +3072,122 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-
-    Step(
-      state: _currentStep <= 6 ? StepState.editing : StepState.complete,
-      isActive: _currentStep == 6,
-      title:  Text('Health \nRecords',style: GoogleFonts.firaSans(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        color: ColorManager.grey,
-        decoration: TextDecoration.none,
-      ),),
-      content: Container(
-        height: 1500,
-        width: 1200,
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                'Health Records',
-                style: GoogleFonts.firaSans(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff50B5E5)
+////////////////////////////////////
+        Step(
+          state: _currentStep <= 6 ? StepState.editing : StepState.complete,
+          isActive: _currentStep >= 6,
+          title:  Text('Health \nRecords',style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: ColorManager.grey,
+            decoration: TextDecoration.none,
+          ),),
+          content: Container(
+            height: 1500,
+            width: 1200,
+            child: Column(
+              children: [
+                Center(
+                  child: Text(
+                    'Health Records',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff50B5E5)
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/60),
-            Container(
-              width: 952,
-              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              decoration: BoxDecoration(
-                color: Color(0xFFE6F7FF),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(height: MediaQuery.of(context).size.height/60),
+                Container(
+                  width: 952,
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE6F7FF),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
                     children: [
-                      Text(
-                        '• ',
-                        style: GoogleFonts.firaSans(
-                          color: Color(0xFF686464),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Instructions: This section is designed to capture and document your health and immunization records as part of your onboarding process. Please enter the required information accurately.',
-                          style: GoogleFonts.firaSans(
-                            color: Color(0xFF686464),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '• ',
+                            style: GoogleFonts.firaSans(
+                              color: Color(0xFF686464),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
+                          Expanded(
+                            child: Text(
+                              'Instructions: This section is designed to capture and document your health and immunization records as part of your onboarding process. Please enter the required information accurately.',
+                              style: GoogleFonts.firaSans(
+                                color: Color(0xFF686464),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height/100),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '• ',
+                            style: GoogleFonts.firaSans(
+                              color: Color(0xFF686464),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
+                              style: GoogleFonts.firaSans(
+                                color: Color(0xFF686464),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: MediaQuery.of(context).size.height/20),
+                Expanded(
+                  child: Column(
+                    children: [
+                      PhysicalExamContainer(),
+                      SizedBox(height: 16), // Add some spacing between containers
+                      VaccineContainer(),
+                      SizedBox(height: 16),
+                      PhysicalExamContainer(),
+                      SizedBox(height: 16),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 16),
+                              child: VaccineContainer(),
+                            );
+                          },
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height/100),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '• ',
-                        style: GoogleFonts.firaSans(
-                          color: Color(0xFF686464),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Please ensure that all uploaded immunization records are clear and legible. Accepted file formats for iuploads include PDF, JPG or PNG. In case of declination, please upload a signed copy of the declination form.',
-                          style: GoogleFonts.firaSans(
-                            color: Color(0xFF686464),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+                )
 
-            SizedBox(height: MediaQuery.of(context).size.height/20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  return PhysicalExamContainer();
-                },
-              ),
+              ],
             ),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  return VaccineContainer();
-                },
-              ),
-            ),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  return PhysicalExamContainer();
-                },
-              ),
-            ),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return VaccineContainer();
-                },
-              ),
-            ),
-
-          ],
+          ),
         ),
-      ),
-    ),
-    ////////////////////////////////////
+        ////////////////////////////////////
         Step(
           state: _currentStep <= 7 ? StepState.editing : StepState.complete,
           isActive: _currentStep >= 7,
@@ -2751,12 +3215,15 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             color: Color(0xff50B5E5)),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 60),
                     Container(
                       height: 50,
                       width: 940,
                       padding:
-                          EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                      EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                       decoration: BoxDecoration(
                         color: Color(0xFFE6F7FF),
                         borderRadius: BorderRadius.circular(12),
@@ -2772,7 +3239,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 20),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 20),
                     Row(
                       children: [
                         Text(
@@ -2785,7 +3255,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 10),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -2804,12 +3277,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -2843,12 +3322,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -2882,12 +3367,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -2921,12 +3412,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -2960,12 +3457,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -2999,12 +3502,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -3038,12 +3547,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -3062,7 +3577,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
@@ -3073,23 +3591,7 @@ class _MultiStepFormState extends State<MultiStepForm> {
             ),
           ),
         ),
-        // Step(
-        //   state: _currentStep <= 7 ? StepState.editing : StepState.complete,
-        //   isActive: _currentStep == 7,
-        //   title: Text(
-        //     'Acknowledgements',
-        //     style: GoogleFonts.firaSans(
-        //       fontSize: 12,
-        //       fontWeight: FontWeight.w400,
-        //       color: ColorManager.grey,
-        //       decoration: TextDecoration.none,
-        //     ),
-        //   ),
-        //   content: Container(
-        //     height: 100,
-        //     color: Colors.brown,
-        //   ),
-        // ),
+      ///////////////////////////////////
 
         Step(
           state: _currentStep <= 8 ? StepState.editing : StepState.complete,
@@ -3118,13 +3620,16 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             color: Color(0xff50B5E5)),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 60),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 60),
                     Container(
                       //color: Colors.redAccent,
                       height: 50,
                       width: 940,
                       padding:
-                          EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                      EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                       decoration: BoxDecoration(
                         color: Color(0xFFE6F7FF),
                         borderRadius: BorderRadius.circular(12),
@@ -3140,7 +3645,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 20),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 20),
                     Row(
                       children: [
                         Expanded(
@@ -3153,11 +3661,14 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             ),
                           ),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.width / 10),
+                        SizedBox(width: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 10),
                         ElevatedButton.icon(
                           onPressed: () async {
                             FilePickerResult? result =
-                                await FilePicker.platform.pickFiles(
+                            await FilePicker.platform.pickFiles(
                               allowMultiple: false,
                             );
                             if (result != null) {
@@ -3187,7 +3698,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 30),
                     Row(
                       children: [
                         Text(
@@ -3200,7 +3714,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 10),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -3234,12 +3751,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -3273,7 +3796,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                         ),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 100),
+                    SizedBox(height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 100),
                     Divider(
                       height: 1,
                       color: Color(0xFFD1D1D1),
@@ -3283,604 +3809,265 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
             ),
           ),
-        ),
-
-        // Step(
-        //   state: _currentStep <= 8 ? StepState.editing : StepState.complete,
-        //   isActive: _currentStep == 8,
-        //   title: Text(
-        //     'Legal \nDocuments',
-        //     style: GoogleFonts.firaSans(
-        //       fontSize: 12,
-        //       fontWeight: FontWeight.w400,
-        //       color: ColorManager.grey,
-        //       decoration: TextDecoration.none,
-        //     ),
-        //   ),
-        //   content: Container(
-        //     height: 100,
-        //     color: Colors.green,
-        //   ),
-        // ),
+        )
       ];
 }
 
-//
-//
-// Form(
-// key: _formKey,
-// child: Stepper(
-// type: StepperType.horizontal,
-// currentStep: _currentStep,
-// onStepContinue: () {
-// if(_currentStep== 8){
-// setState(() => isCompleted =true);
-// }else{
-//
-// }
-//
-// setState(() {
-// if (_currentStep < 8) {
-// _currentStep += 1;
-// } else {
-// // Validate the form fields before proceeding
-// if (_formKey.currentState!.validate()) {
-// // All validations pass
-// // Submit your form or save data here
-// // For demonstration, let's just show a snackbar
-// ScaffoldMessenger.of(context).showSnackBar(
-// const SnackBar(
-// content: Text('Form Submitted!'),
-// ),
-// );
-// }
-// }
-// });
-// },
-// onStepCancel: () {
-// setState(() {
-// if (_currentStep > 0) {
-// _currentStep -= 1;
-// } else {
-// _currentStep = 0;
-// }
-// });
-// },
-// steps: [
-// Step(
-// state:
-// _currentStep <= 0 ? StepState.editing : StepState.complete,
-//
-// // isActive: true,
-// title: const Text('General'),
-// content: Container(
-// height: 700,
-// width: 100,
-// child: Column(
-// children: [
-// Center(
-// child: Align(
-// alignment: Alignment.topCenter,
-// child: Text("Details"),
-// ),
-// ),
-// Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// Container(
-// padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-// decoration: BoxDecoration(
-// color: Color(0xFFE6F7FF),
-// borderRadius: BorderRadius.circular(12),
-// ),
-// child: Text(
-// 'Please fill all your personal information below. Your personal details will be required to proceed through the recruitment process.',
-// style: GoogleFonts.firaSans(
-// color: Color(0xFF686464),
-// fontSize: 12,
-// fontWeight: FontWeight.w500,
-// ),
-// ),
-// ),
-//
-// ]
-// ),
-// Row(
-// mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-// children: [
-// Column(
-// mainAxisAlignment: MainAxisAlignment.start,
-// children: [
-// Text("Upload Photo")
-// ],
-// ),
-// Column(
-// mainAxisAlignment: MainAxisAlignment.start,
-// children: [
-// Text("Gender")
-// ],
-// ),
-// ],
-// )
-// ],
-// ),
-// color: Colors.black26)),
-// Step(
-// state: _currentStep <= 1 ? StepState.editing : StepState.complete,
-// isActive: _currentStep == 1,
-// title: const Text('Employment'),
-// content: TextFormField(
-// //controller: _employmentController,
-// validator: (value) {
-// if (value!.isEmpty) {
-// return 'Please enter Employment details';
-// }
-// return null;
-// }),
-// ),
-//
-// // Add more steps for other form fields as needed
-// // Example:
-// Step(
-// state: _currentStep <= 2 ? StepState.editing : StepState.complete,
-// isActive: _currentStep == 2,
-// title: const Text('Education'),
-// content: TextFormField(
-// // controller: _educationController,
-// validator: (value) {
-// if (value!.isEmpty) {
-// return 'Please enter education details';
-// }
-// return null;
-// },
-// ),
-// ),
-// Step(
-// state: _currentStep <= 3 ? StepState.editing : StepState.complete,
-// isActive: _currentStep == 3,
-// title: const Text('References'),
-// content: TextFormField(
-// //controller: _educationController,
-// validator: (value) {
-// if (value!.isEmpty) {
-// return 'Please enter References details';
-// }
-// return null;
-// },
-// ),
-// ),
-// Step(
-// state: _currentStep <= 4 ? StepState.editing : StepState.complete,
-// isActive: _currentStep == 4,
-// title: const Text('Licenses'),
-// content: TextFormField(
-// //controller: _educationController,
-// validator: (value) {
-// if (value!.isEmpty) {
-// return 'Please enter Licenses details';
-// }
-// return null;
-// },
-// ),
-// ),
-// Step(
-// state: _currentStep <= 5 ? StepState.editing : StepState.complete,
-// isActive: _currentStep == 5,
-// title: const Text('Banking'),
-// content: TextFormField(
-// //controller: _educationController,
-// validator: (value) {
-// if (value!.isEmpty) {
-// return 'Please enter Banking details';
-// }
-// return null;
-// },
-// ),
-// ),
-// Step(
-// state: _currentStep <= 6 ? StepState.editing : StepState.complete,
-// isActive: _currentStep == 6,
-// title: const Text('Health Records'),
-// content: TextFormField(
-// //controller: _educationController,
-// validator: (value) {
-// if (value!.isEmpty) {
-// return 'Please enter Health Records details';
-// }
-// return null;
-// },
-// ),
-// ),
-// Step(
-// state: _currentStep <= 7 ? StepState.editing : StepState.complete,
-// isActive: _currentStep == 7,
-// title: const Text('Acknowledgements'),
-// content: TextFormField(
-// // controller: _educationController,
-// validator: (value) {
-// if (value!.isEmpty) {
-// return 'Please enter Acknowledgements details';
-// }
-// return null;
-// },
-// ),
-// ),
-// Step(
-// state: _currentStep <= 8 ? StepState.editing : StepState.complete,
-// isActive: _currentStep == 8,
-// title: const Text('Legal Documents'),
-// content: TextFormField(
-// // controller: _educationController,
-// validator: (value) {
-// if (value!.isEmpty) {
-// return 'Please enter Legal Documents details';
-// }
-// return null;
-// },
-// ),
-// ),
-// ],
-//
-// ),
-// ),
 
-// ////rohit
-
-//
-// import 'package:flutter/material.dart';
-//
-// class ProgressBar extends StatelessWidget {
-//   final List<String> steps = [
-//     "General",
-//     "Employment",
-//     "Education",
-//     "References",
-//     "Licenses",
-//     "Banking",
-//     "Health Records",
-//     "Acknowledgements",
-//     "Legal Documents"
-//   ];
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Column(
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           Text(
-//             'Details',
-//             style: TextStyle(fontSize: 20, color: Colors.blue),
-//           ),
-//           SizedBox(height: 10),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: List.generate(steps.length, (index) {
-//               return Column(
-//                 children: [
-//                   CircleAvatar(
-//                     radius: 12,
-//                     backgroundColor: index == 0 ? Colors.blue : Colors.grey,
-//                     child: CircleAvatar(
-//                       radius: 10,
-//                       backgroundColor: Colors.white,
-//                       child: CircleAvatar(
-//                         radius: 6,
-//                         backgroundColor: index == 0 ? Colors.blue : Colors.grey,
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(height: 5),
-//                   Text(
-//                     steps[index],
-//                     style: TextStyle(
-//                       color: index == 0 ? Colors.blue : Colors.grey,
-//                       fontSize: 12,
-//                     ),
-//                   ),
-//                 ],
-//               );
-//
-//             }),
-//           ),
-//
-//           Expanded(
-//             child: Container(
-//               color: Colors.indigoAccent,
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-//import 'package:flutter/material.dart';
-
-///////////////////////////////////
-//
-// class StepProgressBar extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceAround,
-//             children: [
-//               buildStep(context, isActive: true),
-//               buildConnector(context),
-//               buildStep(context, isActive: false),
-//               buildConnector(context),
-//               buildStep(context, isActive: false),
-//               buildConnector(context),
-//               buildStep(context, isActive: false),
-//               buildConnector(context),
-//               buildStep(context, isActive: false),
-//             ],
-//           ),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceAround,
-//             children: [
-//               Text('Step 1'),
-//               SizedBox(width: 50),
-//               Text('Step 2'),
-//               SizedBox(width: 50),
-//               Text('Step 3'),
-//               SizedBox(width: 50),
-//               Text('Step 4'),
-//               SizedBox(width: 50),
-//               Text('Step 5'),
-//             ],
-//           )
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget buildStep(BuildContext context, {bool isActive = false}) {
-//     return CircleAvatar(
-//       radius: 15,
-//       backgroundColor: isActive ? Colors.blue : Colors.grey,
-//       child: isActive ? Icon(Icons.check, color: Colors.white, size: 20) : null,
-//     );
-//   }
-//
-//   Widget buildConnector(BuildContext context) {
-//     return Expanded(
-//       child: Container(
-//         height: 5,
-//         color: Colors.grey,
-//       ),
-//     );
-//   }
-// }
-
-// //////new///////
-//
-// import 'package:flutter/material.dart';
-//
-// class ProgressBar extends StatefulWidget {
-//   @override
-//   _ProgressBarState createState() => _ProgressBarState();
-// }
-//
-// class _ProgressBarState extends State<ProgressBar> {
-//   int _currentStep = 0;
-//
-//   final List<String> steps = [
-//     "General",
-//     "Employment",
-//     "Education",
-//     "References",
-//     "Licenses",
-//     "Banking",
-//     "Health Records",
-//     "Acknowledgements",
-//     "Legal Documents"
-//   ];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Column(
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           Text(
-//             'Details',
-//             style: TextStyle(fontSize: 20, color: Colors.blue),
-//           ),
-//           SizedBox(height: 10),
-//           SizedBox(
-//             height: 100,
-//             //width: I,
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: List.generate(steps.length, (index) {
-//                 bool isActive = index <= _currentStep;
-//                 bool isLast = index == steps.length - 1;
-//
-//                 return Column(
-//                   children: [
-//                     Container(
-//                       width: 24,
-//                       height: 24,
-//                       decoration: BoxDecoration(
-//                         shape: BoxShape.circle,
-//                         color: isActive ? Colors.blue : Colors.grey,
-//                       ),
-//                       child: Center(
-//                         child: Text(
-//                           (index + 1).toString(),
-//                           style: TextStyle(
-//                             color: Colors.white,
-//                             fontSize: 12,
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                     SizedBox(height: 5),
-//                     Text(
-//                       steps[index],
-//                       style: TextStyle(
-//                         color: isActive ? Colors.blue : Colors.grey,
-//                         fontSize: 12,
-//                       ),
-//                     ),
-//                     if (!isLast)
-//                       Expanded(
-//                         child: Container(
-//                           height: 2,
-//                           color: isActive ? Colors.blue : Colors.grey,
-//                         ),
-//                       ),
-//                   ],
-//                 );
-//               }),
+//     return Container(
+//       child: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Column(children: [
+//           Center(
+//             child: Text(
+//               'References',
+//               style: GoogleFonts.firaSans(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.w700,
+//                   color: Color(0xff50B5E5)),
 //             ),
 //           ),
-//           Expanded(
-//             child: Container(
-//               //height: ,
-//               color: Colors.indigoAccent, // Replace with your main content
-//               child:
-//                 // PageView(
-//                 //   children: [
-//                 //     PageView.custom(childrenDelegate:)
-//                 //   ],
-//
-//                 //)
-//               Center(
-//                 child: ElevatedButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       if (_currentStep < steps.length - 1) {
-//                         _currentStep++;
-//                       }
-//                     });
-//                   },
-//                   child: Text(_currentStep == steps.length - 1 ? 'Finish' : 'Next'),
+//           SizedBox(height: MediaQuery.of(context).size.height / 60),
+//           Container(
+//             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+//             decoration: BoxDecoration(
+//               color: Color(0xFFE6F7FF),
+//               borderRadius: BorderRadius.circular(12),
+//             ),
+//             child: Expanded(
+//               child: Text(
+//                 'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications. For each reference, Kindly include the following information:',
+//                 style: GoogleFonts.firaSans(
+//                   color: Color(0xFF686464),
+//                   fontSize: 12,
+//                   fontWeight: FontWeight.w500,
 //                 ),
 //               ),
 //             ),
 //           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-//
-
-/////////////
-
-/////dummy////
-//
-// import 'package:flutter/material.dart';
-//
-// import '../../../../../../app/resources/const_string.dart';
-//
-// class MyStepperForm extends StatefulWidget {
-//   @override
-//   _MyStepperFormState createState() => _MyStepperFormState();
-// }
-//
-// class _MyStepperFormState extends State<MyStepperForm> {
-//   int _currentStep = 0;
-//   TextEditingController _nameController = TextEditingController();
-//   TextEditingController _emailController = TextEditingController();
-//   TextEditingController _passwordController = TextEditingController();
-//
-//   final List<Step> _steps = [
-//     Step(
-//       title: Center(child: Text('Name')),
-//       content: TextFormField(
-//
-//         decoration: InputDecoration(labelText: 'Enter your name'),
-//       ),
-//       isActive: true,
-//     ),
-//     Step(
-//       title: Text('Email'),
-//       content: TextFormField(
-//         decoration: InputDecoration(labelText: 'Enter your email'),
-//       ),
-//       isActive: true,
-//     ),
-//     Step(
-//       title: Column(
-//         children: [
-//           Text('Password'),
-//         ],
-//       ),
-//       content: TextFormField(
-//
-//         decoration: InputDecoration(labelText: 'Enter your password'),
-//         obscureText: true,
-//         onChanged: (value) {},
-//         validator: (value) {
-//           if (value == null || value.isEmpty) {
-//             return AppString.enterText;
-//           }
-//           return null;
-//         },
-//       ),
-//       isActive: true,
-//     ),
-//   ];
-//
-//   void _submitForm() {
-//     // Handle form submission here
-//     String name = _nameController.text;
-//     String email = _emailController.text;
-//     String password = _passwordController.text;
-//
-//     // Process the data
-//     print('Name: $name, Email: $email, Password: $password');
-//
-//     // Navigate to next screen or perform further actions
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Horizontal Stepper Form'),
-//       ),
-//       body: Column(
-//         children: <Widget>[
-//           Expanded(
-//             child: Stepper(
-//               steps: _steps,
-//               currentStep: _currentStep,
-//               type: StepperType.horizontal, // Set horizontal type
-//               onStepContinue: () {
-//                 setState(() {
-//                   if (_currentStep < _steps.length - 1) {
-//                     _currentStep++;
-//                   } else {
-//                     _submitForm();
-//                     // You can navigate to another screen here
-//                   }
-//                 });
-//               },
-//               onStepCancel: () {
-//                 setState(() {
-//                   if (_currentStep > 0) {
-//                     _currentStep--;
-//                   } else {
-//                     _currentStep = 0;
-//                   }
-//                 });
-//               },
-//               onStepTapped: (step) {
-//                 setState(() {
-//                   _currentStep = step;
-//                 });
-//               },
+//           SizedBox(height: MediaQuery.of(context).size.height / 20),
+//           Padding(
+//             padding: const EdgeInsets.only(left: 166.0, right: 166),
+//             child: Column(
+//               children: [
+//                 Row(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'Employment #1',
+//                       style: GoogleFonts.firaSans(
+//                           fontSize: 14.0,
+//                           fontWeight: FontWeight.w700,
+//                           color: Color(0xff686464)),
+//                     ),
+//                   ],
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 20),
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   children: [
+//                     Expanded(
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           Text(
+//                             'Name',
+//                             style: GoogleFonts.firaSans(
+//                                 fontSize: 10.0,
+//                                 fontWeight: FontWeight.w400,
+//                                 color: Color(0xff686464)),
+//                           ),
+//                           SizedBox(
+//                               height: MediaQuery.of(context).size.height /
+//                                   60),
+//                           CustomTextFieldRegister(
+//                             hintText: 'Enter Text',
+//                             hintStyle: GoogleFonts.firaSans(
+//                               fontSize: 10.0,
+//                               fontWeight: FontWeight.w400,
+//                               color: Color(0xff9B9B9B),
+//                             ),
+//                             height: 32,
+//                           ),
+//                           Text(
+//                             'Title/Position',
+//                             style: GoogleFonts.firaSans(
+//                                 fontSize: 10.0,
+//                                 fontWeight: FontWeight.w400,
+//                                 color: Color(0xff686464)),
+//                           ),
+//                           SizedBox(
+//                               height: MediaQuery.of(context).size.height /
+//                                   60),
+//                           CustomTextFieldRegister(
+//                             hintText: 'Enter Text',
+//                             hintStyle: GoogleFonts.firaSans(
+//                               fontSize: 10.0,
+//                               fontWeight: FontWeight.w400,
+//                               color: Color(0xff9B9B9B),
+//                             ),
+//                             height: 32,
+//                           ),
+//                           Text(
+//                             'Company/ Organization',
+//                             style: GoogleFonts.firaSans(
+//                                 fontSize: 10.0,
+//                                 fontWeight: FontWeight.w400,
+//                                 color: Color(0xff686464)),
+//                           ),
+//                           SizedBox(
+//                               height: MediaQuery.of(context).size.height /
+//                                   60),
+//                           CustomTextFieldRegister(
+//                             hintText: 'Enter Text',
+//                             hintStyle: GoogleFonts.firaSans(
+//                               fontSize: 10.0,
+//                               fontWeight: FontWeight.w400,
+//                               color: Color(0xff9B9B9B),
+//                             ),
+//                             height: 32,
+//                           ),
+//                           Text(
+//                             'Mobile Number',
+//                             style: GoogleFonts.firaSans(
+//                                 fontSize: 10.0,
+//                                 fontWeight: FontWeight.w400,
+//                                 color: Color(0xff686464)),
+//                           ),
+//                           SizedBox(
+//                               height: MediaQuery.of(context).size.height /
+//                                   60),
+//                           CustomTextFieldRegister(
+//                             hintText: 'Enter Text',
+//                             hintStyle: GoogleFonts.firaSans(
+//                               fontSize: 10.0,
+//                               fontWeight: FontWeight.w400,
+//                               color: Color(0xff9B9B9B),
+//                             ),
+//                             height: 32,
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     SizedBox(
+//                         width: MediaQuery.of(context).size.width / 20),
+//                     Expanded(
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           Text(
+//                             'Email',
+//                             style: GoogleFonts.firaSans(
+//                                 fontSize: 10.0,
+//                                 fontWeight: FontWeight.w400,
+//                                 color: Color(0xff686464)),
+//                           ),
+//                           SizedBox(
+//                               height: MediaQuery.of(context).size.height /
+//                                   60),
+//                           CustomTextFieldRegister(
+//                             hintText: 'Enter Text',
+//                             hintStyle: GoogleFonts.firaSans(
+//                               fontSize: 10.0,
+//                               fontWeight: FontWeight.w400,
+//                               color: Color(0xff9B9B9B),
+//                             ),
+//                             height: 32,
+//                           ),
+//                           Text(
+//                             'How do you know this person ?',
+//                             style: GoogleFonts.firaSans(
+//                                 fontSize: 10.0,
+//                                 fontWeight: FontWeight.w400,
+//                                 color: Color(0xff686464)),
+//                           ),
+//                           SizedBox(
+//                               height: MediaQuery.of(context).size.height /
+//                                   60),
+//                           CustomTextFieldRegister(
+//                             hintText: 'Enter Text',
+//                             hintStyle: GoogleFonts.firaSans(
+//                               fontSize: 10.0,
+//                               fontWeight: FontWeight.w400,
+//                               color: Color(0xff9B9B9B),
+//                             ),
+//                             height: 32,
+//                           ),
+//                           Text(
+//                             'Length of Association',
+//                             style: GoogleFonts.firaSans(
+//                                 fontSize: 10.0,
+//                                 fontWeight: FontWeight.w400,
+//                                 color: Color(0xff686464)),
+//                           ),
+//                           SizedBox(
+//                               height: MediaQuery.of(context).size.height /
+//                                   60),
+//                           CustomTextFieldRegister(
+//                             //controller:,
+//                             hintText: 'Enter Text',
+//                             hintStyle: GoogleFonts.firaSans(
+//                               fontSize: 10.0,
+//                               fontWeight: FontWeight.w400,
+//                               color: Color(0xff9B9B9B),
+//                             ),
+//                             height: 32,
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 20),
+//                 Row(
+//                   children: [
+//                     Expanded(
+//                       child: Text(
+//                         "Please ensure that the references you provide are professional contacts who can provide insight into your skills, work ethic, and character ",
+//                         style: GoogleFonts.firaSans(
+//                           fontSize: 14.0,
+//                           fontWeight: FontWeight.w500,
+//                           color: Color(0xff686464),
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 20),
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   children: [
+//                     ElevatedButton.icon(
+//                       onPressed: () {
+//                         // Handle add education action
+//                       },
+//                       style: ElevatedButton.styleFrom(
+//                         backgroundColor: Color(0xff50B5E5),
+//                         // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+//                         shape: RoundedRectangleBorder(
+//                           borderRadius: BorderRadius.circular(8.0),
+//                         ),
+//                       ),
+//                       icon: Icon(Icons.add, color: Colors.white),
+//                       label: Text(
+//                         'Add Education',
+//                         style: GoogleFonts.firaSans(
+//                           fontSize: 14.0,
+//                           fontWeight: FontWeight.w700,
+//                           color: Colors.white,
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ],
 //             ),
 //           ),
-//         ],
+//         ]),
 //       ),
 //     );
 //   }
-// }
+
