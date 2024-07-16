@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/see_all/see_all_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/see_all_hr/sales_hr.dart';
 
+import '../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
 import 'administration_hr.dart';
 import 'clinical_hr.dart';
 
@@ -15,7 +19,6 @@ class SeeAllHrScreen extends StatefulWidget {
 
 class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
   @override
   void initState() {
     super.initState();
@@ -51,16 +54,19 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildSingleTab('Clinical', '1,366', selectedIndex == 0, true, false),
+            _buildSingleTab(
+                'Clinical', '1,366', selectedIndex == 0, true, false),
             _buildSingleTab('Sales', '1,234', selectedIndex == 1, false, false),
-            _buildSingleTab('Administration', '567', selectedIndex == 2, false, true),
+            _buildSingleTab(
+                'Administration', '567', selectedIndex == 2, false, true),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSingleTab(String text, String number, bool isSelected, bool isLeft, bool isRight) {
+  Widget _buildSingleTab(
+      String text, String number, bool isSelected, bool isLeft, bool isRight) {
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -74,20 +80,20 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Color(0xff50B5E5),
             borderRadius: BorderRadius.only(
-              topLeft:  Radius.circular(40) ,
-              bottomLeft: Radius.circular(40) ,
-              topRight:  Radius.circular(40) ,
-              bottomRight: Radius.circular(40) ,
+              topLeft: Radius.circular(40),
+              bottomLeft: Radius.circular(40),
+              topRight: Radius.circular(40),
+              bottomRight: Radius.circular(40),
             ),
             boxShadow: isSelected
                 ? [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: Offset(0, 3),
-              ),
-            ]
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ]
                 : [],
           ),
           child: Row(
@@ -147,7 +153,9 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
           Row(
             children: [
               InkWell(
-                onTap: (){Navigator.pop(context);},
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 child: Text(
                   'Go Back',
                   style: GoogleFonts.firaSans(
@@ -205,20 +213,17 @@ class PopUp extends StatefulWidget {
 }
 
 class _PopUpState extends State<PopUp> {
-
-
   String? dropdownValue;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8.0),
-          topRight: Radius.circular(8.0),
-          bottomLeft: Radius.circular(8.0),
-          bottomRight: Radius.circular(8.0),
-        )
-      ),
+          borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(8.0),
+        topRight: Radius.circular(8.0),
+        bottomLeft: Radius.circular(8.0),
+        bottomRight: Radius.circular(8.0),
+      )),
       titlePadding: EdgeInsets.zero,
       backgroundColor: Colors.white,
       title: Container(
@@ -262,179 +267,176 @@ class _PopUpState extends State<PopUp> {
       //   constraints: BoxConstraints(
       //     maxHeight: MediaQuery.of(context).size.height * 0.8,
       //   ),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Align(
-              //   alignment: Alignment.topLeft,
-              //   child: Text(
-              //     'Patient Profile',
-              //     style: GoogleFonts.firaSans(
-              //       fontSize: 11,
-              //       fontWeight: FontWeight.w700,
-              //       color: Color(0xff2C535F),
-              //     ),
-              //   ),
-              // ),
-              SizedBox(height: MediaQuery.of(context).size.height / 160),
-              Row(
-                children: [
-                  ConstantContainerWithText(text: 'RN'),
-                  SizedBox(width: MediaQuery.of(context).size.width / 90),
-                  ConstantContainerWithText(text: 'LVN'),
-                  SizedBox(width: MediaQuery.of(context).size.width / 90),
-                  ConstantContainerWithText(text: 'PT'),
-                  SizedBox(width: MediaQuery.of(context).size.width / 90),
-                  ConstantContainerWithText(text: 'PTA'),
-                  SizedBox(width: MediaQuery.of(context).size.width / 90),
-                  ConstantContainerWithText(text: 'HHA'),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 45),
-              Row(
-                children: [
-                  ConstantContainerWithText(text: 'COTA'),
-                  SizedBox(width: MediaQuery.of(context).size.width / 90),
-                  ConstantContainerWithText(text: 'ST'),
-                  SizedBox(width: MediaQuery.of(context).size.width / 90),
-                  ConstantContainerWithText(text: 'MSW'),
-                  SizedBox(width: MediaQuery.of(context).size.width / 90),
-                  ConstantContainerWithText(text: 'OT'),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 30),
-              Row(
-                children: [
-                  Text(
-                    'Office Location',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff737373),
-                    ),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Align(
+            //   alignment: Alignment.topLeft,
+            //   child: Text(
+            //     'Patient Profile',
+            //     style: GoogleFonts.firaSans(
+            //       fontSize: 11,
+            //       fontWeight: FontWeight.w700,
+            //       color: Color(0xff2C535F),
+            //     ),
+            //   ),
+            // ),
+            SizedBox(height: MediaQuery.of(context).size.height / 160),
+            Row(
+              children: [
+                ConstantContainerWithText(text: 'RN'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'LVN'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'PT'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'PTA'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'HHA'),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 45),
+            Row(
+              children: [
+                ConstantContainerWithText(text: 'COTA'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'ST'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'MSW'),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                ConstantContainerWithText(text: 'OT'),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
+            Row(
+              children: [
+                Text(
+                  'Office Location',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff737373),
                   ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Row(
-                children: [
-                  Container(
-                    height: 27,
-                    width: 96,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'San Jose',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                        ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 60),
+            Row(
+              children: [
+                Container(
+                  height: 27,
+                  width: 96,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'San Jose',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.width / 20),
-                  Container(
-                    height: 27,
-                    width: 96,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Zone 1',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                        ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 20),
+                Container(
+                  height: 27,
+                  width: 96,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Zone 1',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 25),
-              Row(
-                children: [
-                  Text(
-                    'License status',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff737373),
-                    ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 25),
+            Row(
+              children: [
+                Text(
+                  'License status',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff737373),
                   ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Row(
-                children: [
-                  Container(
-                    height: 27,
-                    width: 96,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Expired',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                        ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 60),
+            Row(
+              children: [
+                Container(
+                  height: 27,
+                  width: 96,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Expired',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 25),
-              Row(
-                children: [
-                  Text(
-                    'Availability',
-                    style: GoogleFonts.firaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff737373),
-                    ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 25),
+            Row(
+              children: [
+                Text(
+                  'Availability',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff737373),
                   ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Row(
-                children: [
-                  Container(
-                    height: 27,
-                    width: 96,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Full-Time',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                        ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 60),
+            Row(
+              children: [
+                Container(
+                  height: 27,
+                  width: 96,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Full-Time',
+                      style: GoogleFonts.firaSans(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
-      );
-
-
+      ),
+    );
   }
 }
-
 
 class ConstantContainerWithText extends StatefulWidget {
   final String text;
@@ -445,7 +447,8 @@ class ConstantContainerWithText extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ConstantContainerWithTextState createState() => _ConstantContainerWithTextState();
+  _ConstantContainerWithTextState createState() =>
+      _ConstantContainerWithTextState();
 }
 
 class _ConstantContainerWithTextState extends State<ConstantContainerWithText> {
@@ -463,7 +466,6 @@ class _ConstantContainerWithTextState extends State<ConstantContainerWithText> {
         decoration: BoxDecoration(
           color: _isSelected ? Color(0xff4FB8EB) : Colors.white,
           borderRadius: BorderRadius.circular(5.0),
-
         ),
         height: 27,
         width: 31,
