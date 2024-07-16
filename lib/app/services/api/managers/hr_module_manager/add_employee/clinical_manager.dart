@@ -8,7 +8,7 @@ import '../../../repository/hr_module_repository/add_employee/clinical.dart';
 
 
 
-// ///ADD Employee Post API
+///ADD Employee Post API
 // Future<ApiData> addEmployeeClinical(
 //     BuildContext context,
 //     String code,
@@ -40,6 +40,7 @@ import '../../../repository/hr_module_repository/add_employee/clinical.dart';
 //     String resumeUrl,
 //     int companyID,
 //     String onboardingStatus,
+//     String dateofTermination,
 //     String
 //
 //

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/user.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
@@ -63,144 +64,145 @@ class _CustomDialogState extends State<CustomDialog> {
                 ),
               ],
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    height: 40,
-                    width: 440,
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        topRight: Radius.circular(12),
-                      ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 40,
+                  width: 440,
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: ColorManager.bluebottom,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
                     ),
-                    child: Form(
-                      key: _formKey,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.title,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          widget.title,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
                           ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.close,
-                              color: Colors.white,
-                            ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.close,
+                            color: Colors.white,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 16.0),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: HRManageTextField(
-                      controller: widget.userIdController,
-                      keyboardType: TextInputType.phone,
-                      text: "User ID",
-                      cursorHeight: 12,
-                      labelText: "User ID",
-                      labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      labelFontSize: 12,
-                      errorText: 'User ID is required',
-                    ),
+                ),
+                SizedBox(height: 16.0),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: HRManageTextField(
+                    controller: widget.userIdController,
+                    keyboardType: TextInputType.phone,
+                    text: "User ID",
+                    cursorHeight: 12,
+                    labelText: "User ID",
+                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelFontSize: 12,
+                    errorText: 'User ID is required',
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: HRManageTextField(
-                      controller: widget.firstNameController,
-                      keyboardType: TextInputType.phone,
-                      text: "First Name",
-                      cursorHeight: 12,
-                      labelText: "First Name",
-                      labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      labelFontSize: 12,
-                      errorText: 'First Name is required',
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: HRManageTextField(
+                    controller: widget.firstNameController,
+                    keyboardType: TextInputType.phone,
+                    text: "First Name",
+                    cursorHeight: 12,
+                    labelText: "First Name",
+                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelFontSize: 12,
+                    errorText: 'First Name is required',
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: HRManageTextField(
-                      controller: widget.lastNameController,
-                      keyboardType: TextInputType.phone,
-                      text: "Last Name",
-                      cursorHeight: 12,
-                      labelText: "Last Name",
-                      labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      labelFontSize: 12,
-                      errorText: 'Last Name is required',
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: HRManageTextField(
+                    controller: widget.lastNameController,
+                    keyboardType: TextInputType.phone,
+                    text: "Last Name",
+                    cursorHeight: 12,
+                    labelText: "Last Name",
+                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelFontSize: 12,
+                    errorText: 'Last Name is required',
                   ),
-                  HRManageDropdown(
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: HRManageDropdown(
                     controller: widget.roleController,
                     labelText: 'Role',
                     labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
                     labelFontSize: 12,
                     items: ['Admin', 'Staff', 'User'],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: HRManageTextField(
-                      controller: widget.emailController,
-                      keyboardType: TextInputType.phone,
-                      text: "Email",
-                      cursorHeight: 12,
-                      labelText: "Email",
-                      labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      labelFontSize: 12,
-                      errorText: 'Email is required',
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: HRManageTextField(
+                    controller: widget.emailController,
+                    keyboardType: TextInputType.phone,
+                    text: "Email",
+                    cursorHeight: 12,
+                    labelText: "Email",
+                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelFontSize: 12,
+                    errorText: 'Email is required',
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: HRManageTextField(
-                      controller: widget.passwordController,
-                      keyboardType: TextInputType.phone,
-                      text: "Password",
-                      cursorHeight: 12,
-                      labelText: "Password",
-                      labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      labelFontSize: 12,
-                      errorText: 'Password is required',
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: HRManageTextField(
+                    controller: widget.passwordController,
+                    keyboardType: TextInputType.phone,
+                    text: "Password",
+                    cursorHeight: 12,
+                    labelText: "Password",
+                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelFontSize: 12,
+                    errorText: 'Password is required',
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: HRManageTextField(
-                      controller: widget.companyIdController,
-                      keyboardType: TextInputType.phone,
-                      text: "Company ID",
-                      cursorHeight: 12,
-                      labelText: "Company ID",
-                      labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
-                      labelFontSize: 12,
-                      errorText: 'Company ID is required',
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: HRManageTextField(
+                    controller: widget.companyIdController,
+                    keyboardType: TextInputType.phone,
+                    text: "Company ID",
+                    cursorHeight: 12,
+                    labelText: "Company ID",
+                    labelStyle: GoogleFonts.firaSans(fontWeight: FontWeight.w500),
+                    labelFontSize: 12,
+                    errorText: 'Company ID is required',
                   ),
-                  SizedBox(height: 24.0),
-                  ReusableLoadingButton(
-                    text: 'Create',
-                    onPressed: (){
-                      widget.onSubmit();
-                    },
-                    loadingDuration: 2,
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(height: 24.0),
+                ReusableLoadingButton(
+                  text: 'Create',
+                  onPressed: (){
+                    widget.onSubmit();
+                  },
+                  loadingDuration: 2,
+                ),
+              ],
             ),
           ),
         ],
@@ -261,7 +263,7 @@ class _EditUserPopUpState extends State<EditUserPopUp> {
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 10.0,
-                    offset: const Offset(0.0, 10.0),
+                    offset: const Offset(0.0,10.0),
                   ),
                 ],
               ),

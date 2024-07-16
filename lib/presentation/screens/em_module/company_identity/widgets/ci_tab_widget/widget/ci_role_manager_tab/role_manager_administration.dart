@@ -53,6 +53,7 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
       // Handle error
     });
   }
+  int varDropdown = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,13 +97,13 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                 List<String> dropDownAbbreviation = [];
                                 for (var i in snapshot.data!) {
                                   dropDownList.add(i.empType!,);
-                                  dropDownAbbreviation.add(i.abbrivation!);
+                                //  dropDownAbbreviation.add(i.abbrivation!);
                                 }
                                 // for(var i in snapshot.data!){
                                 //
                                 // }
                                 print("::::::${dropDownList}");
-                                print("::::::${dropDownAbbreviation}");
+                               // print("::::::${dropDownAbbreviation}");
                                 return Row(
                                   children: [
                                     Container(
@@ -139,7 +140,11 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                             // ),
                                           );
                                         }).toList(),
-                                        onChanged: (String? newValue) {},
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            varDropdown = 1;
+                                          });
+                                        },
                                         value:  dropDownList[0],
                                         style: GoogleFonts.firaSans(
                                           fontSize: 12,
@@ -207,7 +212,7 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                       );
                     }
                     if(snapshot.hasData){
-                      return Padding(
+                      return varDropdown == 0 ? Offstage() : Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Container(
                           width: MediaQuery.of(context).size.width / 1,

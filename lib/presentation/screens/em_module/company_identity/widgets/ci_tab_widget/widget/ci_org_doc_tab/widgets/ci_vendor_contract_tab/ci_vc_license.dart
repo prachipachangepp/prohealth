@@ -51,7 +51,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     hrcontainerColors = List.generate(20, (index) => Color(0xffE8A87D));
     // orgDocumentGet(context);
@@ -91,6 +91,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                 child: Center(
                     child: Text(
                         AppString.srNo,
+                        textAlign: TextAlign.center,
                         style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
