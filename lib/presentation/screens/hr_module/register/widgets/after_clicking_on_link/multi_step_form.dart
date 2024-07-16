@@ -1500,23 +1500,24 @@ class _MultiStepFormState extends State<MultiStepForm> {
           ),
         ),
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Step(
-          state: _currentStep <= 3 ? StepState.editing : StepState.complete,
-          isActive: _currentStep >= 3,
-          title: Text(
-            'References',
-            style: GoogleFonts.firaSans(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: ColorManager.grey,
-              decoration: TextDecoration.none,
-            ),
-          ),
-          content: Container(
-            child: Column(children: [
+    Step(
+      state: _currentStep <= 3 ? StepState.editing : StepState.complete,
+      isActive: _currentStep == 3,
+      title: Text(
+        'References',
+        style: GoogleFonts.firaSans(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: ColorManager.grey,
+          decoration: TextDecoration.none,
+        ),
+      ),
+      content: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
               Center(
-                child: Text(
-                  'References',
+                child: Text(AppString.references,
                   style: GoogleFonts.firaSans(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -1525,234 +1526,272 @@ class _MultiStepFormState extends State<MultiStepForm> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 60),
               Container(
+                width: 952,
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 decoration: BoxDecoration(
                   color: Color(0xFFE6F7FF),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Expanded(
-                  child: Text(
-                    'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications. For each reference, Kindly include the following information:',
-                    style: GoogleFonts.firaSans(
-                      color: Color(0xFF686464),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-              // SizedBox(height: MediaQuery.of(context).size.height / 20),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 166.0, right: 166),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         'Employment #1',
-              //         style: GoogleFonts.firaSans(
-              //             fontSize: 14.0,
-              //             fontWeight: FontWeight.w700,
-              //             color: Color(0xff686464)),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Employment #1',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff686464)),
-                  ),
-                  Expanded(
-                    child: Column(
+                child: Column(
+                  children: [
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Name',
+                          'Please provide the names and contact information of three professional references who can speak to your work experience and qualifications. For each\n reference, Kindly include the following information:',
                           style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff686464)),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 60),
-                        CustomTextFieldRegister(
-                          hintText: 'Enter Text',
-                          hintStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff9B9B9B),
+                            color: Color(0xFF686464),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
                           ),
-                          height: 32,
-                        ),
-                        Text(
-                          'Title/Position',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff686464)),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 60),
-                        CustomTextFieldRegister(
-                          hintText: 'Enter Text',
-                          hintStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff9B9B9B),
-                          ),
-                          height: 32,
-                        ),
-                        Text(
-                          'Company/ Organization',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff686464)),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 60),
-                        CustomTextFieldRegister(
-                          hintText: 'Enter Text',
-                          hintStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff9B9B9B),
-                          ),
-                          height: 32,
-                        ),
-                        Text(
-                          'Mobile Number',
-                          style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff686464)),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 60),
-                        CustomTextFieldRegister(
-                          hintText: 'Enter Text',
-                          hintStyle: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff9B9B9B),
-                          ),
-                          height: 32,
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width / 20),
-                  Expanded(
-                      child: Column(
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height / 20),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 166.0, right: 166),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Email',
+                        'References # 1',
                         style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height / 20),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppString.name,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        40),
+                                Text(
+                                  AppString.title_position,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        30),
+                                Text(
+                                  AppString.company_organization,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        30),
+                                Text(
+                                  AppString.mobile_number,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                              width:
+                              MediaQuery.of(context).size.width / 15),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppString.email,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                Text(
+                                  AppString.how_do_you_know_this_person,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                Text(
+                                  AppString.length_of_association,
+                                  style: GoogleFonts.firaSans(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff686464)),
+                                ),
+                                SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height /
+                                        60),
+                                CustomTextFieldRegister(
+                                  hintText: 'Enter Text',
+                                  hintStyle: GoogleFonts.firaSans(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff9B9B9B),
+                                  ),
+                                  height: 32,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 20),
                       Text(
-                        'How do you know this person ?',
+                        'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
                         style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w500,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
-                      ),
-                      Text(
-                        'Length of Association',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        //controller:,
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
+                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              // Handle add education action
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xff50B5E5),
+                              // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            icon: Icon(Icons.add, color: Colors.white),
+                            label: Text(AppString.add_education,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
-                  )),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      "Please ensure that the references you provide are professional contacts who can provide insight into your skills, work ethic, and character ",
-                      style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff686464),
-                      ),
-                    ),
                   ),
-                ],
+                ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // Handle add education action
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff50B5E5),
-                      // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    icon: Icon(Icons.add, color: Colors.white),
-                    label: Text(
-                      'Add Education',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ]),
+            ],
           ),
         ),
+      ),
+    ),
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Step(
           state: _currentStep <= 4 ? StepState.editing : StepState.complete,

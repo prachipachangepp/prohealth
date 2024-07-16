@@ -49,6 +49,7 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
           ],
         ),
         child: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildSingleTab('Clinical', '1,366', selectedIndex == 0, true, false),
             _buildSingleTab('Sales', '1,234', selectedIndex == 1, false, false),
@@ -104,7 +105,7 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
                 Container(
                   height: 31,
                   width: 31,
-                  margin: EdgeInsets.only(left: 24),
+                  margin: EdgeInsets.only(left: 5),
                   // padding: EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     color: Color(0xff50B5E5),
@@ -210,27 +211,73 @@ class _PopUpState extends State<PopUp> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+          bottomLeft: Radius.circular(8.0),
+          bottomRight: Radius.circular(8.0),
+        )
+      ),
+      titlePadding: EdgeInsets.zero,
       backgroundColor: Colors.white,
       title: Container(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.8,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8.0),
+            topRight: Radius.circular(8.0),
+          ),
+          color: Color(0xff50B5E5),
         ),
-        child: SingleChildScrollView(
+        height: 32,
+        width: double.infinity,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Patient Profile',
+                style: GoogleFonts.firaSans(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Spacer(),
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+
+      // Container(
+      //   constraints: BoxConstraints(
+      //     maxHeight: MediaQuery.of(context).size.height * 0.8,
+      //   ),
+        content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'Patient Profile',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff2C535F),
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Text(
+              //     'Patient Profile',
+              //     style: GoogleFonts.firaSans(
+              //       fontSize: 11,
+              //       fontWeight: FontWeight.w700,
+              //       color: Color(0xff2C535F),
+              //     ),
+              //   ),
+              // ),
+              SizedBox(height: MediaQuery.of(context).size.height / 160),
               Row(
                 children: [
                   ConstantContainerWithText(text: 'RN'),
@@ -256,7 +303,7 @@ class _PopUpState extends State<PopUp> {
                   ConstantContainerWithText(text: 'OT'),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              SizedBox(height: MediaQuery.of(context).size.height / 30),
               Row(
                 children: [
                   Text(
@@ -382,14 +429,13 @@ class _PopUpState extends State<PopUp> {
             ],
           ),
         ),
-      ),
-    );
+      );
 
 
   }
 }
 
-//
+
 class ConstantContainerWithText extends StatefulWidget {
   final String text;
 

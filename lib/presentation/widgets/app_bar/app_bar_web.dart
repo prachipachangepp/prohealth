@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/widgets/app_clickable_widget.dart';
 
 import '../../../app/resources/color.dart';
@@ -14,8 +15,17 @@ class AppBarWeb extends StatelessWidget {
   final HRController hrController = Get.put(HRController());
   final String headingText;
 
+  String? loginName = '';
+  Future<String> user() async{
+    loginName = await TokenManager.getUserName();
+    //loginName = userName;
+    print("UserName login ${loginName}");
+    return loginName!;
+  }
   @override
   Widget build(BuildContext context) {
+    //user();
+    print('user ${loginName}');
     print(MediaQuery.of(context).size.width);
     return Material(
       color: Colors.white,
@@ -442,21 +452,29 @@ class AppBarWeb extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      CircleAvatar(
+                                      const CircleAvatar(
                                         radius: 12,
                                         backgroundColor: Colors.white,
-                                        child: Image.asset(
-                                          "images/profile.png",
-                                        ),
+                                        // child: Image.asset(
+                                        //   "images/profile.png",
+                                        // ),
                                       ),
                                       const SizedBox(height: 2),
-                                      Text(
-                                        "William Christiana",
-                                        style: GoogleFonts.firaSans(
-                                          color: Colors.white,
-                                          fontSize: FontSize.s9,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                      FutureBuilder(
+                                        future: user(),
+                                        builder: (context,snap) {
+                                          if(snap.connectionState == ConnectionState.waiting){
+                                            return SizedBox();
+                                          }
+                                          return Text(
+                                            loginName!,
+                                            style: GoogleFonts.firaSans(
+                                              color: Colors.white,
+                                              fontSize: FontSize.s9,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          );
+                                        }
                                       ),
                                     ],
                                   ),

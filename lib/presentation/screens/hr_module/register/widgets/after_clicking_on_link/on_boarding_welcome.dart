@@ -1,11 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
-
+import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
-
 class OnBoardingWelcome extends StatelessWidget {
   const OnBoardingWelcome({Key? key}) : super(key: key);
 
@@ -17,91 +18,110 @@ class OnBoardingWelcome extends StatelessWidget {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: TopRowConstant(),
       ),
-      body: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          ),
-          width: 1202,
-          height: 626,
-          child: Card(
-            color: Colors.white,
-            margin: EdgeInsets.all(0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        'images/doctors.png',
-                        width: MediaQuery.of(context).size.width / 3,
-                        height: MediaQuery.of(context).size.height / 1.3,
-                      ),
-                      SizedBox(width: 24),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),                    // shadow color
+                      offset: Offset(0, 5),                               // horizontal and vertical offset
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                width: 1202,
+                height: 626,
+                child: Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
-                            Text(
-                              'Welcome to Prohealth Onboarding Wizard',
-                              style: GoogleFonts.firaSans(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff686464),
-                              ),
+                            Image.asset(
+                              'images/doctors.png',
+                              width: MediaQuery.of(context).size.width / 3,
+                              height: MediaQuery.of(context).size.height / 1.3,
                             ),
-                            SizedBox(height: 16),
-                            Center(
-                              child: Text(
-                                'Please go through each section and fill valid information',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 24),
-                            Center(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return VerifyUserPopup();
-                                    },
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xff50B5E5),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 32, vertical: 16),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
+                            SizedBox(width: 24),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Welcome to Prohealth Onboarding Wizard',
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xff686464),
+                                    ),
                                   ),
-                                ),
-                                child: Text(
-                                  'Start',
-                                  style: GoogleFonts.firaSans(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white),
-                                ),
+                                  SizedBox(height: 16),
+                                  Center(
+                                    child: Text(
+                                      'Please go through each section and fill valid information',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff686464),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 24),
+                                  Center(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return VerifyUserPopup();
+                                          },
+                                        );
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color(0xff50B5E5),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 32, vertical: 16),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Start',
+                                        style: GoogleFonts.firaSans(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
+              SizedBox(height: MediaQuery.of(context).size.height/80),
+              Row(
+                children: [
+                  BottomBarRow()
+                ],
+              )
+            ],
           ),
         ),
       ),
@@ -109,18 +129,21 @@ class OnBoardingWelcome extends StatelessWidget {
   }
 }
 
-
-////////////////////////////////////////popup////////////////////////
-
+////////////////////////////////////////VerifyUserPopup////////////////////////
 
 class VerifyUserPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Container(
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      titlePadding: EdgeInsets.zero,
+      // shape: RoundedRectangleBorder(
+      // ),
+      title: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          color: Colors.white,                                                         //background colour pf screen
+        ),
         width: 500,
         height: 450,
         child: Column(
@@ -130,27 +153,19 @@ class VerifyUserPopup extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
                 ),
               ),
-              child: Stack(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Positioned(
-                    left: 450,
-                    top: 16,
-                    child: IconButton(
-                      icon: Icon(Icons.close, color: Colors.white),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                  Center(
+                  Padding(
+                    padding: EdgeInsets.only(left: 16),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.verified_user, color: Colors.white),
+                        Icon(Icons.person_outline,
+                            color: Colors.white, size: 28),
                         SizedBox(width: 8),
                         Text(
                           AppString.verify_user,
@@ -163,6 +178,12 @@ class VerifyUserPopup extends StatelessWidget {
                       ],
                     ),
                   ),
+                  IconButton(
+                    icon: Icon(Icons.close, color: Colors.white),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ],
               ),
             ),
@@ -173,7 +194,7 @@ class VerifyUserPopup extends StatelessWidget {
                   CustomTextField(
                     labelWidget: Row(
                       children: [
-                        Icon(Icons.security),
+                        Icon(Icons.security, color: Color(0xFF50B5E5)),
                         SizedBox(width: 8),
                         Text(AppString.security_code),
                       ],
@@ -185,7 +206,7 @@ class VerifyUserPopup extends StatelessWidget {
                   CustomTextField(
                     labelWidget: Row(
                       children: [
-                        Icon(Icons.phone),
+                        Icon(Icons.phone, color: Color(0xFF50B5E5)),
                         SizedBox(width: 8),
                         Text(AppString.phone_number),
                       ],
@@ -197,7 +218,7 @@ class VerifyUserPopup extends StatelessWidget {
                   CustomTextField(
                     labelWidget: Row(
                       children: [
-                        Icon(Icons.email),
+                        Icon(Icons.email, color: Color(0xFF50B5E5)),
                         SizedBox(width: 8),
                         Text(AppString.email),
                       ],
@@ -272,18 +293,16 @@ class CustomTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(0xff50B5E5)),
+          borderSide: BorderSide(color: Color(0xffB1B1B1)),
         ),
         filled: true,
         fillColor: Colors.white,
         labelStyle: TextStyle(color: Colors.grey),
-        contentPadding:
-        EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       ),
     );
   }
 }
-
 
 ////////////////////////////////////congratulation/////////////////////////////////////
 class OnBoardingCongratulation extends StatelessWidget {
@@ -366,7 +385,11 @@ class OnBoardingCongratulation extends StatelessWidget {
               flex: 1,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterDescriptionScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              OfferLetterDescriptionScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF50B5E5),

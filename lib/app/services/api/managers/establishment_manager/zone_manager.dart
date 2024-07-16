@@ -91,7 +91,7 @@ Future<List<AllCountyZoneGet>> getZoneByCounty(BuildContext context,
       print("1");
       for (var item in response.data) {
         itemsList.add(AllCountyZoneGet(
-            countyName: item['countyName'] ?? "--",
+            countyName: item['county'] ?? "--",
             zipcodes: item['zipcodes'] ?? "--",
             sucess: true,
             message: response.statusMessage!,
@@ -122,15 +122,13 @@ Future<CountyZonePrefillGet> getZoneByCountyPrefill(BuildContext context, int zo
       // print("Org Document response:::::${itemsList}");
       print("1");
 
-        itemsList=AllCountyZoneGet(
-            countyName: response.data['countyName'] ?? "--",
-            zipcodes: response.data['zipcodes'] ?? "--",
-            sucess: true,
-            message: response.statusMessage!,
+        itemsList=CountyZonePrefillGet(
+
             countyId: response.data['county_id'] ?? 0,
             zoneId: response.data['zone_id'] ?? 0,
             zoneName: response.data['zoneName'] ?? "--",
-            cities: response.data['cities'] ?? "--");
+            companyId: response.data['companyId'],
+            officeId: response.data['officeId']);
 
 
     } else {
@@ -316,6 +314,7 @@ Future<ApiData> addCounty(
       "officeId": officeId
     });
     if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Data all added county ${countyName} + ${stateName} + ${countryName} + ${lat} + ${long} + ${companyId} + ${officeId}" );
       print("County added");
       return ApiData(
           statusCode: response.statusCode!,

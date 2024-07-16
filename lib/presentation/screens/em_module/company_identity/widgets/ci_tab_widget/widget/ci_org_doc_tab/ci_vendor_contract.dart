@@ -34,7 +34,6 @@ class _CIVendorContractState extends State<CIVendorContract> {
 
   int _selectedIndex = 0;
 
-
   void _selectButton(int index) {
     setState(() {
       _selectedIndex = index;
@@ -45,16 +44,19 @@ class _CIVendorContractState extends State<CIVendorContract> {
       curve: Curves.ease,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 10,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width:  MediaQuery.of(context).size.width/2,
+              width: MediaQuery.of(context).size.width / 2,
               height: 50,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +68,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
                       height: 50,
-                      width: MediaQuery.of(context).size.width/10,
+                      width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
                           Text(
@@ -77,13 +79,17 @@ class _CIVendorContractState extends State<CIVendorContract> {
                               fontWeight: _selectedIndex == 0
                                   ? FontWeightManager.bold
                                   : FontWeightManager.regular,
-                              color:_selectedIndex == 0
+                              color: _selectedIndex == 0
                                   ? ColorManager.blueprime
                                   : ColorManager.mediumgrey,
                             ),
                           ),
-                          _selectedIndex == 0?
-                          Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                          _selectedIndex == 0
+                              ? Divider(
+                                  color: ColorManager.blueprime,
+                                  thickness: 2,
+                                )
+                              : Offstage()
                         ],
                       ),
                     ),
@@ -98,7 +104,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
                       height: 50,
-                      width: MediaQuery.of(context).size.width/10,
+                      width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
                           Text(
@@ -109,13 +115,17 @@ class _CIVendorContractState extends State<CIVendorContract> {
                               fontWeight: _selectedIndex == 1
                                   ? FontWeightManager.bold
                                   : FontWeightManager.regular,
-                              color:_selectedIndex == 1
+                              color: _selectedIndex == 1
                                   ? ColorManager.blueprime
                                   : ColorManager.mediumgrey,
                             ),
                           ),
-                          _selectedIndex == 1?
-                          Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                          _selectedIndex == 1
+                              ? Divider(
+                                  color: ColorManager.blueprime,
+                                  thickness: 2,
+                                )
+                              : Offstage()
                         ],
                       ),
                     ),
@@ -130,7 +140,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
                       height: 50,
-                      width: MediaQuery.of(context).size.width/10,
+                      width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
                           Text(
@@ -141,13 +151,17 @@ class _CIVendorContractState extends State<CIVendorContract> {
                               fontWeight: _selectedIndex == 2
                                   ? FontWeightManager.bold
                                   : FontWeightManager.regular,
-                              color:_selectedIndex == 2
+                              color: _selectedIndex == 2
                                   ? ColorManager.blueprime
                                   : ColorManager.mediumgrey,
                             ),
                           ),
-                          _selectedIndex == 2?
-                          Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                          _selectedIndex == 2
+                              ? Divider(
+                                  color: ColorManager.blueprime,
+                                  thickness: 2,
+                                )
+                              : Offstage()
                         ],
                       ),
                     ),
@@ -162,7 +176,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
                       height: 50,
-                      width: MediaQuery.of(context).size.width/10,
+                      width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
                           Text(
@@ -173,13 +187,17 @@ class _CIVendorContractState extends State<CIVendorContract> {
                               fontWeight: _selectedIndex == 3
                                   ? FontWeightManager.bold
                                   : FontWeightManager.regular,
-                              color:_selectedIndex == 3
+                              color: _selectedIndex == 3
                                   ? ColorManager.blueprime
                                   : ColorManager.mediumgrey,
                             ),
                           ),
-                          _selectedIndex == 3?
-                          Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                          _selectedIndex == 3
+                              ? Divider(
+                                  color: ColorManager.blueprime,
+                                  thickness: 2,
+                                )
+                              : Offstage()
                         ],
                       ),
                     ),
@@ -194,7 +212,7 @@ class _CIVendorContractState extends State<CIVendorContract> {
                     hoverColor: Color(0xFFF2F9FC),
                     child: Container(
                       height: 50,
-                      width: MediaQuery.of(context).size.width/10,
+                      width: MediaQuery.of(context).size.width / 10,
                       child: Column(
                         children: [
                           Text(
@@ -205,13 +223,17 @@ class _CIVendorContractState extends State<CIVendorContract> {
                               fontWeight: _selectedIndex == 4
                                   ? FontWeightManager.bold
                                   : FontWeightManager.regular,
-                              color:_selectedIndex == 4
+                              color: _selectedIndex == 4
                                   ? ColorManager.blueprime
                                   : ColorManager.mediumgrey,
                             ),
                           ),
-                          _selectedIndex == 4?
-                          Divider(color:ColorManager.blueprime,thickness: 2,):Offstage()
+                          _selectedIndex == 4
+                              ? Divider(
+                                  color: ColorManager.blueprime,
+                                  thickness: 2,
+                                )
+                              : Offstage()
                         ],
                       ),
                     ),
@@ -307,23 +329,55 @@ class _CIVendorContractState extends State<CIVendorContract> {
           ],
         ),
         Expanded(
-          child:
-          NonScrollablePageView(
-            controller: _tabPageController,
-            onPageChanged: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            children: [
-              VendorContractLicense(docId: widget.docId, subDocID: AppConfig.subDocId6,),
-              VendorContractADR(docId: widget.docId, subDocId:  AppConfig.subDocId7,),
-             VendorContractMedicalCostReport(docId: widget.docId, subDocId: AppConfig.subDocId8,),
-              VendorContractCapReport(docId: widget.docId, subDocId: AppConfig.subDocId9,),
-              VendorContractQuarterlyBalanceReport(docId: widget.docId, subDocId: AppConfig.subDocId10)
-            ],
-          ),
-
+          child: Stack(children: [
+            Container(
+                    height: MediaQuery.of(context).size.height / 3.5,
+                    decoration: BoxDecoration(
+                        color: Color(0xFFF2F9FC),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: ColorManager.faintGrey,
+                            blurRadius: 2,
+                            spreadRadius: -2,
+                            offset: Offset(0, -4),
+                          ),
+                        ]),
+                  ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: NonScrollablePageView(
+                controller: _tabPageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                children: [
+                  VendorContractLicense(
+                    docId: widget.docId,
+                    subDocID: AppConfig.subDocId6,
+                  ),
+                  VendorContractADR(
+                    docId: widget.docId,
+                    subDocId: AppConfig.subDocId7,
+                  ),
+                  VendorContractMedicalCostReport(
+                    docId: widget.docId,
+                    subDocId: AppConfig.subDocId8,
+                  ),
+                  VendorContractCapReport(
+                    docId: widget.docId,
+                    subDocId: AppConfig.subDocId9,
+                  ),
+                  VendorContractQuarterlyBalanceReport(
+                      docId: widget.docId, subDocId: AppConfig.subDocId10)
+                ],
+              ),
+            ),
+          ]),
         ),
       ],
     );
