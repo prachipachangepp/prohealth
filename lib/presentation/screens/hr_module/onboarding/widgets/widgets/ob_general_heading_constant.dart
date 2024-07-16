@@ -52,17 +52,17 @@ class ObGeneralHeadingConstant extends StatelessWidget {
 
 
 class ObGeneralDataConstant extends StatelessWidget {
-  final String text1;
-  final String text2;
-  final String text3;
-  final String text4;
+  final String? text1;
+  final String? text2;
+  final String? text3;
+  final String? text4;
 
   const ObGeneralDataConstant({
     Key? key,
-    required this.text1,
-    required this.text2,
-    required this.text3,
-    required this.text4,
+     this.text1,
+     this.text2,
+     this.text3,
+     this.text4,
   }) : super(key: key);
 
   @override
@@ -72,22 +72,22 @@ class ObGeneralDataConstant extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          text1,
+          text1 ?? "-",
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),
         ),
         SizedBox(height: MediaQuery.of(context).size.height/40),
         Text(
-          text2,
+          text2 ?? "-",
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),
         ),
         SizedBox(height: MediaQuery.of(context).size.height/40),
         Text(
-          text3,
+          text3 ?? "-",
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),
         ),
         SizedBox(height: MediaQuery.of(context).size.height/40),
         Text(
-          text4,
+          text4 ?? "",
           style: GoogleFonts.firaSans(fontSize: 10, fontWeight: FontWeight.w400, color: Color(0xff2A2827)),
         ),
       ],

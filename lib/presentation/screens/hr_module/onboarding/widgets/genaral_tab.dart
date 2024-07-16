@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/onboarding_tab_bar_const.dart';
@@ -8,11 +10,31 @@ import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/theme_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../app/services/api/managers/hr_module_manager/see_all/see_all_manager.dart';
+import '../../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
 
 ///prachi
-class OnboardingGeneral extends StatelessWidget {
+class OnboardingGeneral extends StatefulWidget {
   const OnboardingGeneral({Key? key}) : super(key: key);
 
+  @override
+  State<OnboardingGeneral> createState() => _OnboardingGeneralState();
+}
+
+class _OnboardingGeneralState extends State<OnboardingGeneral> {
+  final StreamController<List<SeeAllData>> generalController = StreamController<List<SeeAllData>>();
+  late int currentPage;
+  late int itemsPerPage;
+  late List<String> items;
+  @override
+  void initState() {
+    super.initState();
+    currentPage = 1;
+    itemsPerPage = 20;
+    items = List.generate(20, (index) => 'Item ${index + 1}');
+    getEmployeeSeeAll(context, 1).then((data){generalController.add(data);
+    }).catchError((error){});
+  }
   @override
   Widget build(BuildContext context) {
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
@@ -20,9 +42,42 @@ class OnboardingGeneral extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-            child: ListView.builder(
+            child: StreamBuilder<List<SeeAllData>>(
+      stream: generalController.stream,
+      builder: (context, snapshot) {
+        print('1111111');
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: ColorManager.blueprime,
+            ),
+          );
+        }
+        if (snapshot.data!.isEmpty) {
+          return Center(
+            child: Text(
+              AppString.dataNotFound,
+              style: CustomTextStylesCommon.commonStyle(
+                fontWeight: FontWeightManager.medium,
+                fontSize: FontSize.s12,
+                color: ColorManager.mediumgrey,
+              ),
+            ),
+          );
+        }
+        if (snapshot.hasData) {
+          int totalItems = snapshot.data!.length;
+          // int totalPages = (totalItems / itemsPerPage).ceil();
+          List<SeeAllData> currentPageItems =
+          snapshot.data!.sublist(
+            (currentPage - 1) * itemsPerPage,
+            (currentPage * itemsPerPage) > totalItems
+                ? totalItems
+                : (currentPage * itemsPerPage),
+          );
+          return ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: 7,
+                itemCount: currentPageItems.length,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
@@ -80,19 +135,24 @@ class OnboardingGeneral extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                        // crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
+                                          // CircleAvatar(
+                                          //   radius: MediaQuery.of(context).size.width/50,
+                                          //   child:
+                                          //       Image.asset('images/profile.png'),
+                                          // ),
                                           CircleAvatar(
-                                            radius: MediaQuery.of(context).size.width/50,
-                                            child:
-                                                Image.asset('images/profile.png'),
+                                            radius: MediaQuery.of(context).size.width / 50,
+                                            backgroundImage: NetworkImage(snapshot.data![index].imgurl ?? 'images/profile.png'),
+                                            onBackgroundImageError: (_, __) => Image.asset('images/profile.png'),
                                           ),
                                           SizedBox(height: MediaQuery.of(context).size.width/80,),
                                           Text(
-                                           AppString.amogh,
+                                            '${snapshot.data![index].firstName ?? ''} ${snapshot.data![index].lastName ?? ''}',
                                             style: CustomTextStylesCommon.commonStyle(
-                                                color: ColorManager.black,
-                                                fontSize: FontSize.s12,
-                                                fontWeight: FontWeightManager.bold
-                                            )
+                                              color: ColorManager.black,
+                                              fontSize: FontSize.s12,
+                                              fontWeight: FontWeightManager.bold,
+                                            ),
                                           )
                                         ],
                                       ),
@@ -111,10 +171,10 @@ class OnboardingGeneral extends StatelessWidget {
                                       Column(
                                         children: [
                                           ObGeneralDataConstant(
-                                              text1: '123-45-6789',
-                                              text2: 'ST',
-                                              text3: '1234567890',
-                                              text4: 'abc@gmail.com',
+                                              text1: snapshot.data![index].ssnnbr,
+                                              text2: snapshot.data![index].type,
+                                              text3: snapshot.data![index].primaryPhoneNbr,
+                                              text4: snapshot.data![index].personalEmail,
                                           )
                                         ],
                                       ),
@@ -130,10 +190,10 @@ class OnboardingGeneral extends StatelessWidget {
                                       Column(
                                         children: [
                                           ObGeneralDataConstant(
-                                            text1: '1234687654',
-                                            text2: 'TPN',
-                                            text3: 'Hamburg',
-                                            text4: '02',
+                                            text1: snapshot.data![index].regOfficId,
+                                            text2: snapshot.data![index].experties,
+                                            text3: snapshot.data![index].cityID.toString(),
+                                            text4: snapshot.data![index].zoneId.toString(),
                                           )
                                         ],
                                       ),
@@ -148,10 +208,10 @@ class OnboardingGeneral extends StatelessWidget {
                                       Column(
                                         children: [
                                           ObGeneralDataConstant(
-                                            text1: 'Montvert Tropez',
-                                            text2: 'Full Time',
-                                            text3: 'Hamburg',
-                                            text4: '02/01/2000',
+                                            text1: snapshot.data![index].address,
+                                            text2: snapshot.data![index].employment,
+                                            text3: snapshot.data![index].cityID.toString(),
+                                            text4: snapshot.data![index].dateOfBirth,
                                           )
                                         ],
                                       ),
@@ -160,16 +220,15 @@ class OnboardingGeneral extends StatelessWidget {
                                           text1: 'Status',
                                           text2: 'Race',
                                           text3: 'Service',
-                                          text4: ''
+                                        text4: '',
                                       ),
 
                                       Column(
                                         children: [
                                           ObGeneralDataConstant(
-                                            text1: 'Active',
-                                            text2: 'Asian',
-                                            text3: 'Hospice',
-                                            text4: '',
+                                            text1: snapshot.data![index].status,
+                                            text2: snapshot.data![index].rehirable,
+                                            text3: snapshot.data![index].service,
                                           )
                                         ],
                                       ),
@@ -371,8 +430,12 @@ class OnboardingGeneral extends StatelessWidget {
                       )
                     ],
                   );
-                }))
-      ],
+                }) ;
+  }
+  return Offstage();
+},
+),
+        )],
     );
   }
 }
