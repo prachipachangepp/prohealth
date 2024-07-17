@@ -13,7 +13,9 @@ class HealthRecordEditAddPopup extends StatefulWidget {
   final TextEditingController idController;
   final TextEditingController nameController;
   final String labelName;
-  const HealthRecordEditAddPopup({super.key, required this.idController, required this.nameController, required this.labelName});
+  String expiryType;
+  final Future<void> Function() onSavePredded;
+   HealthRecordEditAddPopup({super.key, required this.expiryType,required this.idController, required this.nameController, required this.labelName, required this.onSavePredded});
 
   @override
   State<HealthRecordEditAddPopup> createState() => _HealthRecordEditAddPopupState();
@@ -22,7 +24,6 @@ class HealthRecordEditAddPopup extends StatefulWidget {
 class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
   @override
   Widget build(BuildContext context) {
-    String? _expiryType;
     return  Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -143,10 +144,10 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                           ),
                         ),
                         value: 'type1',
-                        groupValue: _expiryType,
+                        groupValue: widget.expiryType,
                         onChanged: (value) {
                           setState(() {
-                            _expiryType = value;
+                            widget.expiryType = value!;
                           });
                         },
                       ),
@@ -161,10 +162,10 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                           ),
                         ),
                         value: 'type2',
-                        groupValue: _expiryType,
+                        groupValue: widget.expiryType,
                         onChanged: (value) {
                           setState(() {
-                            _expiryType = value;
+                            widget.expiryType = value!;
                           });
                         },
                       ),
@@ -179,10 +180,10 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                           ),
                         ),
                         value: 'type3',
-                        groupValue: _expiryType,
+                        groupValue: widget.expiryType,
                         onChanged: (value) {
                           setState(() {
-                            _expiryType = value;
+                            widget.expiryType = value!;
                           });
                         },
                       ),
@@ -201,6 +202,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                   height: AppSize.s30,
                   text: AppStringEM.submit,
                   onPressed: () {
+                    widget.onSavePredded();
                     Navigator.pop(context);
                   },
                 ),

@@ -296,8 +296,10 @@ class EmpDocEditPopup extends StatefulWidget {
   final Widget child;
   final int? loadingDuration;
   final String  title;
+   bool? enable;
   EmpDocEditPopup(
       {super.key,
+        this.enable,
       required this.idDocController,
       required this.nameDocController,
       required this.child,
@@ -386,7 +388,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SMTextFConst(
-                    enable: false,
+                    enable: widget.enable == false ? true :widget.enable,
                     controller: widget.idDocController,
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',

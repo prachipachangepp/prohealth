@@ -4,6 +4,12 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../../../app/resources/const_string.dart';
+import '../../../../app/resources/value_manager.dart';
+import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
+import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 
  List<Map<String, dynamic>> checkboxData = [
   {'title': '95673', 'value': false},
@@ -231,7 +237,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                             child: Container(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 12.0),
-                                              child: Text(value),
+                                              child: Text(value,),
                                             ),
                                           );
                                         }).toList(),
@@ -301,18 +307,73 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: [
-                                      CustomDropdownFormField(
-                                        height: 45,
-                                        hintText: 'Select a City',
-                                        labelText: 'City',
-                                        items: [
-                                          'ProHealth San Jose',
-                                          'ProHealth Sacramento',
-                                          'ProHealth Walnut Creek',
-                                          'ProHealth Stockton',
-                                        ],
-                                        onChanged: (String? value) {},
-                                      ),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width/5,
+                                        height: AppSize.s40,
+                                        //alignment: Alignment.center,
+                                        //color: Colors.cyan,
+
+                                        child:
+                                        FutureBuilder<List<AEClinicalCity>>(
+                                          future: HrAddEmplyClinicalCityApi(context),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Shimmer.fromColors(
+                                                baseColor: Colors.grey[300]!,
+                                                highlightColor: Colors.grey[100]!,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(
+                                                      horizontal: 7),
+                                                  child: Container(
+                                                    width: 180,
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                        ColorManager.faintGrey),
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            if (snapshot.hasData) {
+                                              List<String> dropDownList = [];
+                                              for (var i in snapshot.data!) {
+                                                dropDownList.add(i.cityName!);
+                                              }
+                                              return  CustomDropdownFormField(
+                                                height: 45,
+                                                hintText: 'Select a City',
+                                                labelText: 'City',
+                                                items: dropDownList,
+                                               // onChanged: (String? value) {},
+                                              );
+                                              //   MyDropdownTextField(
+                                              //   hint: AppString.city,
+                                              //   // labelStyle: GoogleFonts.firaSans(
+                                              //   //   fontSize: 12,
+                                              //   //   color: Color(0xff575757),
+                                              //   //   fontWeight: FontWeight.w400,
+                                              //   // ),
+                                              //   // labelFontSize: 12,
+                                              //   items: dropDownList,
+                                              // );
+                                            } else {
+                                              return const Offstage();
+                                            }
+                                          },
+                                        ),),
+                                      // CustomDropdownFormField(
+                                      //   height: 45,
+                                      //   hintText: 'Select a City',
+                                      //   labelText: 'City',
+                                      //   items: [
+                                      //     'ProHealth San Jose',
+                                      //     'ProHealth Sacramento',
+                                      //     'ProHealth Walnut Creek',
+                                      //     'ProHealth Stockton',
+                                      //   ],
+                                      //   onChanged: (String? value) {},
+                                      // ),
                                       SizedBox(height: MediaQuery.of(context).size.height / 20),
                                       CustomDropdownFormField(
                                         height: 45,
@@ -325,18 +386,103 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                         onChanged: (String? value) {},
                                       ),
                                       SizedBox(height: MediaQuery.of(context).size.height / 20),
-                                      CustomDropdownFormField(
-                                        height: 45,
-                                        hintText: 'Select a Zone',
-                                        labelText: 'Zone',
-                                        items: [
-                                          '1',
-                                          '2',
-                                          '3',
-                                          '4',
-                                        ],
-                                        onChanged: (String? value) {},
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width/5,
+                                        height: AppSize.s40,
+                                        //alignment: Alignment.center,
+                                        //color: Colors.cyan,
+
+                                        child:
+                                        FutureBuilder<List<AEClinicalZone>>(
+                                          future: HrAddEmplyClinicalZoneApi(
+                                            context,
+                                          ),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Shimmer.fromColors(
+                                                baseColor: Colors.grey[300]!,
+                                                highlightColor: Colors.grey[100]!,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(
+                                                      horizontal: 7),
+                                                  child: Container(
+                                                    width: 180,
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.grey[300]),
+                                                  ),
+                                                ),
+                                              );
+                                            } else if (snapshot.hasError) {
+                                              return MyDropdownTextField(
+                                                hint: AppString.zone,
+                                                // labelText: 'Zone',
+                                                // labelStyle: TextStyle(
+                                                //   fontSize: 12,
+                                                //   color: Color(0xff575757),
+                                                //   fontWeight: FontWeight.w400,
+                                                // ),
+                                                // labelFontSize: 12,
+                                                items: ['Error'],
+                                              );
+                                            } else if (snapshot.hasData) {
+                                              List<String> dropDownList = snapshot
+                                                  .data!
+                                                  .map((zone) => zone.zoneName ?? '')
+                                                  .toList();
+                                              return MyDropdownTextField(
+                                                hint: AppString.zone,
+                                                // labelText: 'Zone',
+                                                // labelStyle: TextStyle(
+                                                //   fontSize: 12,
+                                                //   color: Color(0xff575757),
+                                                //   fontWeight: FontWeight.w400,
+                                                // ),
+                                                // labelFontSize: 12,
+                                                items: dropDownList,
+                                                onChanged: (newValue) {
+                                                  // Handle onChanged here if needed
+                                                },
+                                              );
+                                            } else {
+                                              return MyDropdownTextField(
+                                                hint: AppString.zone,
+                                                // labelText: 'Zone',
+                                                // labelStyle: TextStyle(
+                                                //   fontSize: 12,
+                                                //   color: Color(0xff575757),
+                                                //   fontWeight: FontWeight.w400,
+                                                // ),
+                                                // labelFontSize: 12,
+                                                items: ['No Data'],
+                                              );
+                                            }
+                                          },
+                                        ),
+                                        // MyDropdownTextField(
+                                        //   hint: AppString.zone,
+                                        //
+                                        //   //width: MediaQuery.of(context).size.width/7,
+                                        //   // height: AppSize.s25,
+                                        //   items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                                        //   onChanged: (String? newValue) {
+                                        //     print('Selected item: $newValue');
+                                        //   },
+                                        // ),
                                       ),
+                                      // CustomDropdownFormField(
+                                      //   height: 45,
+                                      //   hintText: 'Select a Zone',
+                                      //   labelText: 'Zone',
+                                      //   items: [
+                                      //     '1',
+                                      //     '2',
+                                      //     '3',
+                                      //     '4',
+                                      //   ],
+                                      //   onChanged: (String? value) {},
+                                      // ),
                                     ],
                                   ),
                                 ),

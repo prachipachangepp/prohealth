@@ -48,10 +48,10 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Expanded(
-                  flex: 1,
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 80.0),
                   child: Text(
                     AppStringEM.srno,
                     style: AllHRTableHeading.customTextStyle(context),
@@ -61,7 +61,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
               Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
+                  padding: const EdgeInsets.only(left: 5.0),
                   child: Text(
                     AppStringEM.type,
                     style: AllHRTableHeading.customTextStyle(context),
@@ -70,29 +70,25 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
               ),
               Expanded(
                 flex: 3,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: Text(
-                    AppStringEM.name,
-                    style: AllHRTableHeading.customTextStyle(context),
-                  ),
+                child: Text(
+                  AppStringEM.name,
+                  style: AllHRTableHeading.customTextStyle(context),
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
+                  padding: const EdgeInsets.only(left: 25.0),
                   child: Text(
                     AppStringEM.location,
                     style: AllHRTableHeading.customTextStyle(context),
                   ),
                 ),
               ),
-              // SizedBox(width: MediaQuery.of(context).size.width/20,),
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 75.0),
+                  padding: const EdgeInsets.only(left: 50.0),
                   child: Text(
                     AppStringEM.specialization,
                     style: AllHRTableHeading.customTextStyle(context),
@@ -102,7 +98,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
               Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 60.0),
+                  padding: const EdgeInsets.only(left: 50.0),
                   child: Text(
                     AppStringEM.edit,
                     style: AllHRTableHeading.customTextStyle(context),
@@ -150,142 +146,132 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
                       : (currentPage * itemsPerPage),
                 );
                 return ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: currentPageItems.length,
-                    itemBuilder: (context, index) {
-                      int serialNumber =
-                          index + 1 + (currentPage - 1) * itemsPerPage;
-                      String formattedSerialNumber =
-                      serialNumber.toString().padLeft(2, '0');
-                      return  Container(
-                        margin: EdgeInsets.all(
-                          5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(4),
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorManager.black.withOpacity(0.25),
-                              spreadRadius: 0,
-                              blurRadius: 4,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        height: AppSize.s56,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Padding(
+                  scrollDirection: Axis.vertical,
+                  itemCount: currentPageItems.length,
+                  itemBuilder: (context, index) {
+                    int serialNumber =
+                        index + 1 + (currentPage - 1) * itemsPerPage;
+                    String formattedSerialNumber =
+                    serialNumber.toString().padLeft(2, '0');
+                    return Container(
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                        boxShadow: [
+                          BoxShadow(
+                            color: ColorManager.black.withOpacity(0.25),
+                            spreadRadius: 0,
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      height: AppSize.s56,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
                               padding: EdgeInsets.only(left: 40.0),
-                              child: Expanded(
-                                flex: 1,
-                                child: Text(
-                                    formattedSerialNumber,
-                                    textAlign: TextAlign.center,
-                                    style: AllHRTableData.customTextStyle(context)),
+                              child: Text(
+                                formattedSerialNumber,
+                                textAlign: TextAlign.center,
+                                style: AllHRTableData.customTextStyle(context),
                               ),
                             ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              snapshot.data![index].type.toString(),
+                              //"RN",
+                              textAlign: TextAlign.center,
+                              style: AllHRTableData.customTextStyle(context),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              snapshot.data![index].firstName.toString(),
+                              //'Dhillon Amarpreet',
+                              textAlign: TextAlign.center,
+                              style: AllHRTableData.customTextStyle(context),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              snapshot.data![index].position.toString(),
+                              //'ProHealth Walnut Creek-EI Dorado Sacramento',
+                              textAlign: TextAlign.center,
+                              style: AllHRTableData.customTextStyle(context),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              snapshot.data![index].expertise.toString(),
+                              //  'Infection control',
+                              textAlign: TextAlign.center,
+                              style: AllHRTableData.customTextStyle(context),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ///edit
+                                IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return EditPopUp();
+                                      },
+                                    );
+                                  },
+                                  icon: Icon(Icons.edit_outlined, size: 18),
+                                  color: Color(0xff50B5E5),
+                                ),
 
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                  snapshot.data![index].type.toString(),
-                                  //"RN",
-                                  textAlign: TextAlign.center,
-                                  style: AllHRTableData.customTextStyle(context)),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                  snapshot.data![index].firstName.toString(),
-                                  //'Dhillon Amarpreet',
-                                  textAlign: TextAlign.center,
-                                  style: AllHRTableData.customTextStyle(context)),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                  snapshot.data![index].regOfficId.toString(),
-                                  //'ProHealth Walnut Creek-EI Dorado Sacramento',
-                                  textAlign: TextAlign.center,
-                                  style: AllHRTableData.customTextStyle(context)),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                  snapshot.data![index].experties.toString(),
-                                  //  'Infection control',
-                                  textAlign: TextAlign.center,
-                                  style: AllHRTableData.customTextStyle(context)),
-                            ), Expanded(
-                              flex: 2,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ///edit
-                                  IconButton(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return EditPopUp();
-                                        },
-                                      );
-                                    },
-                                    icon: Icon(Icons.edit_outlined, size: 18),
-                                    color: Color(0xff50B5E5),
+                                ///delete
+                                IconButton(
+                                  onPressed: () {
+                                    // showDialog(context: context,
+                                    //     builder: (context) => DeletePopup(
+                                    //         onCancel: (){
+                                    //           Navigator.pop(context);
+                                    //         }, onDelete: () async {
+                                    //       await  allfromHrDelete(
+                                    //           context, snapshot.data![index].employeeTypesId!);
+                                    //       getAllHrDeptWise(context,widget.deptId).then((data){
+                                    //         _controller.add(data);
+                                    //       }).catchError((error){});
+                                    //       Navigator.pop(context);
+                                    //     }));
+                                  },
+                                  icon: Icon(
+                                    size: 18,
+                                    Icons.delete_outline,
+                                    color: Color(0xffF6928A),
                                   ),
-
-                                  ///delete
-                                  IconButton(
-                                    onPressed: () {
-                                      // showDialog(context: context,
-                                      //     builder: (context) => DeletePopup(
-                                      //         onCancel: (){
-                                      //           Navigator.pop(context);
-                                      //         }, onDelete: () async {
-                                      //       await  allfromHrDelete(
-                                      //           context, snapshot.data![index].employeeTypesId!);
-                                      //       getAllHrDeptWise(context,widget.deptId).then((data){
-                                      //         _controller.add(data);
-                                      //       }).catchError((error){});
-                                      //       Navigator.pop(context);
-                                      //     }));
-                                    },
-                                    icon: Icon(
-                                      size: 18,
-                                      Icons.delete_outline,
-                                      color: Color(0xffF6928A),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                    })
-                ;
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
               }
               return Offstage();
             },
           ),
         )
-        // Expanded(
-        //   child: ListView.builder(
-        //       scrollDirection: Axis.vertical,
-        //       itemCount: 5,
-        //       itemBuilder: (context, index) {
-        //         // int serialNumber =
-        //         //     index + 1 + (currentPage - 1) * itemsPerPage;
-        //         // String formattedSerialNumber =
-        //         // serialNumber.toString().padLeft(2, '0');
-        //
-        //         return SeeAllContainerConstant();
-        //       }),
-        // )
       ],
     );
   }

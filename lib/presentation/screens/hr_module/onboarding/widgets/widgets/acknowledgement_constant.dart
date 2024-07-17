@@ -27,7 +27,7 @@ Widget AcknowledgementConstant(String title, IconData icon, Color iconColor) {
             title,
             style: GoogleFonts.firaSans(
               color: Colors.black,
-              fontSize: 12.0,
+              fontSize: 10.0,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -36,3 +36,4 @@ Widget AcknowledgementConstant(String title, IconData icon, Color iconColor) {
     ],
   );
 }
+
