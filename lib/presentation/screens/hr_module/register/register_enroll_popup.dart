@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
@@ -756,22 +758,105 @@ class RegisterEnrollAlertDialog {
                             SizedBox(
                               height: AppSize.s10,
                             ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width/7,
+                            //   height: AppSize.s30,
+                            //   //alignment: Alignment.center,
+                            //   //color: Colors.cyan,
+                            //
+                            //   child: MyDropdownTextField(
+                            //     hint: AppString.clinician,
+                            //
+                            //     //width: MediaQuery.of(context).size.width/7,
+                            //     // height: AppSize.s25,
+                            //     items: dropDownList,
+                            //     onChanged: (String? newValue) {
+                            //       print('Selected item: $newValue');
+                            //     },
+                            //   ),
+                            // ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width/7,
                               height: AppSize.s30,
                               //alignment: Alignment.center,
                               //color: Colors.cyan,
 
-                              child: MyDropdownTextField(
-                                hint: AppString.clinician,
-
-                                //width: MediaQuery.of(context).size.width/7,
-                                // height: AppSize.s25,
-                                items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                                onChanged: (String? newValue) {
-                                  print('Selected item: $newValue');
+                              child:
+                              FutureBuilder<List<HRClinical>>(
+                                future: companyAllHrClinicApi(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 7),
+                                        child: Container(
+                                          width: 180,
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[300]),
+                                        ),
+                                      ),
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return MyDropdownTextField(
+                                      hint: AppString.clinician,
+                                      // labelText: 'Zone',
+                                      // labelStyle: TextStyle(
+                                      //   fontSize: 12,
+                                      //   color: Color(0xff575757),
+                                      //   fontWeight: FontWeight.w400,
+                                      // ),
+                                      // labelFontSize: 12,
+                                      items: ['Error'],
+                                    );
+                                  } else if (snapshot.hasData) {
+                                    List<String> dropDownList = snapshot
+                                        .data!
+                                        .map((clinician) => clinician.empType ?? '')
+                                        .toList();
+                                    return MyDropdownTextField(
+                                      hint: AppString.clinician,
+                                      // labelText: 'Zone',
+                                      // labelStyle: TextStyle(
+                                      //   fontSize: 12,
+                                      //   color: Color(0xff575757),
+                                      //   fontWeight: FontWeight.w400,
+                                      // ),
+                                      // labelFontSize: 12,
+                                      items: dropDownList,
+                                      onChanged: (newValue) {
+                                        // Handle onChanged here if needed
+                                      },
+                                    );
+                                  } else {
+                                    return MyDropdownTextField(
+                                      hint: AppString.clinician,
+                                      // labelText: 'Zone',
+                                      // labelStyle: TextStyle(
+                                      //   fontSize: 12,
+                                      //   color: Color(0xff575757),
+                                      //   fontWeight: FontWeight.w400,
+                                      // ),
+                                      // labelFontSize: 12,
+                                      items: ['No Data'],
+                                    );
+                                  }
                                 },
                               ),
+                              // MyDropdownTextField(
+                              //   hint: AppString.zone,
+                              //
+                              //   //width: MediaQuery.of(context).size.width/7,
+                              //   // height: AppSize.s25,
+                              //   items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                              //   onChanged: (String? newValue) {
+                              //     print('Selected item: $newValue');
+                              //   },
+                              // ),
                             ),
 
                             SizedBox(
@@ -1155,7 +1240,10 @@ class RegisterEnrollAlertDialog {
                       children: [
                         CustomIconButtonConst(
                             text: AppString.next, onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                              showDialog(context: context, builder: (BuildContext context) {
+                                return OfferLetterScreen();
+                              });
+                          //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
 
                         }),
                       ],
