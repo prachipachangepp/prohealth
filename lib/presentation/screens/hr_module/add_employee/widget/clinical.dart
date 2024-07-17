@@ -734,7 +734,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                                 .toList();
 
                                             // Ensure that the filtered list is printed to verify
-                                            print("Primary Phone Numbers: $secNo");
+                                            print("Secondary Phone Numbers: $secNo");
 
                                             return Autocomplete<String>(
                                               optionsBuilder: (TextEditingValue textEditingValue) {
@@ -778,7 +778,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                                   width: textFieldWidth,
                                                   height: textFieldHeight,
                                                   cursorHeight: 22,
-                                                  labelText: 'Primary Phone No',
+                                                  labelText: 'Work Phone No',
                                                   labelStyle: TextStyle(
                                                     fontSize: 12,
                                                     color: Color(0xff575757),
@@ -1464,7 +1464,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                                   },
                                                   fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
                                                     return SizedBox(
-                                                      width: 300,
+                                                      width: 290,
                                                       height: AppSize.s30,
                                                       child: TextFormField(
                                                         controller: _controller10,
@@ -1722,35 +1722,13 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                           }
                                         },
                                       ),
-                                      // CustomDropdownTextField(
-                                      //   labelText: 'Emergency Contact',
-                                      //   labelStyle: TextStyle(
-                                      //       fontSize: 12,
-                                      //       color: Color(0xff575757),
-                                      //       fontWeight: FontWeight.w400),
-                                      //   labelFontSize: 12,
-                                      //   items: ['A', 'B', 'C', 'D'],
-                                      // ),
                                     ),
                                     Expanded(flex: 1, child: Container()),
                                     Expanded(flex: 1, child: Container()),
                                     Expanded(flex: 1, child: Container())
                                   ],
                                 )
-                                // Padding(
-                                //   padding: EdgeInsets.only(
-                                //       left: MediaQuery.of(context).size.width / 24),
-                                //   child: CustomTextField(
-                                //     width: textFieldWidth,
-                                //     height: textFieldHeight,
-                                //     cursorHeight: 22,
-                                //     labelText: 'Emergency',
-                                //     labelStyle: TextStyle(),
-                                //     controller: _controller2,
-                                //     focusNode: FocusNode(),
-                                //     labelFontSize: 12,
-                                //   ),
-                                // ),
+
                               ],
                             ),
                           ),
