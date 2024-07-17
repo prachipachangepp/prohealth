@@ -12,6 +12,8 @@ class ManageReposotory{
 
   static String gettermination = "/employees/allTerminatedEmployee";
 
+  static String employeeTimeOff = "/employee-time-off";
+
   /// Employeement
   static String getEmployeement({required int employeeId}){
     return "$employement/$byemployeeId/$employeeId";
@@ -105,5 +107,15 @@ class ManageReposotory{
   /// Termination
   static String getTermination({required int companyId}){
     return "$gettermination/$companyId";
+  }
+  /// Time offf
+  static String getEmployeeTimeOff({required int companyId}){
+    return "$employeeTimeOff/ByCompany/$companyId";
+  }
+  static String getEmployeePrefillTimeOff({required int employeeTimeOffId}){
+    return "$employeeTimeOff/$employeeTimeOffId";
+  }
+  static String patchEmployeeTimeOff({required int employeeTimeOffId}){
+    return "$employeeTimeOff/$employeeTimeOffId";
   }
 }

@@ -108,7 +108,6 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                           Expanded(
                             child: Center(
                               child: Text(AppStringHr.inventoryid,
-
                                   style: GoogleFonts.firaSans(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,
@@ -120,7 +119,6 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                           Expanded(
                             child: Center(
                               child: Text(AppStringHr.docName,
-
                                   style: GoogleFonts.firaSans(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,
@@ -132,7 +130,6 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
                           Expanded(
                             child: Center(
                               child: Text('Device Description',
-
                                   style: GoogleFonts.firaSans(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,
@@ -487,8 +484,6 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                           print("::${typeName}");
                           print("::${calenderController.text}");
                           print("::${nameController.text}");
-
-
                             setState(() {
                               isLoading = false;
                             });

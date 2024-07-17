@@ -12,14 +12,15 @@ class CompensationAddEditPopup extends StatefulWidget {
   final TextEditingController idController;
   final TextEditingController nameController;
   final String labelName;
-  const CompensationAddEditPopup({super.key, required this.idController, required this.nameController, required this.labelName});
+   String expiryType;
+  final Future<void> Function() onSavePredded;
+   CompensationAddEditPopup({super.key, required this.idController, required this.nameController, required this.labelName, required this.onSavePredded,  required this.expiryType});
 
   @override
   State<CompensationAddEditPopup> createState() => _CompensationAddEditPopupState();
 }
 
 class _CompensationAddEditPopupState extends State<CompensationAddEditPopup> {
-  String? _expiryType;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -142,10 +143,10 @@ class _CompensationAddEditPopupState extends State<CompensationAddEditPopup> {
                           ),
                         ),
                         value: 'type1',
-                        groupValue: _expiryType,
+                        groupValue: widget.expiryType,
                         onChanged: (value) {
                           setState(() {
-                            _expiryType = value;
+                            widget.expiryType = value!;
                           });
                         },
                       ),
@@ -160,10 +161,10 @@ class _CompensationAddEditPopupState extends State<CompensationAddEditPopup> {
                           ),
                         ),
                         value: 'type2',
-                        groupValue: _expiryType,
+                        groupValue: widget.expiryType,
                         onChanged: (value) {
                           setState(() {
-                            _expiryType = value;
+                            widget.expiryType = value!;
                           });
                         },
                       ),
@@ -178,10 +179,10 @@ class _CompensationAddEditPopupState extends State<CompensationAddEditPopup> {
                           ),
                         ),
                         value: 'type3',
-                        groupValue: _expiryType,
+                        groupValue: widget.expiryType,
                         onChanged: (value) {
                           setState(() {
-                            _expiryType = value;
+                            widget.expiryType = value!;
                           });
                         },
                       ),
@@ -200,6 +201,7 @@ class _CompensationAddEditPopupState extends State<CompensationAddEditPopup> {
                   height: AppSize.s30,
                   text: AppStringEM.submit,
                   onPressed: () {
+                    widget.onSavePredded();
                     Navigator.pop(context);
                   },
                 ),

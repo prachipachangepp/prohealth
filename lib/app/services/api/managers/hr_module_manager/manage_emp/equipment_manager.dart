@@ -6,6 +6,7 @@ import 'package:prohealth/app/services/api/repository/hr_module_repository/manag
 import 'package:prohealth/data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/manage/equipment_data.dart';
 
+/// Get equipment
 Future<List<EquipmentData>> getEquipement(
     BuildContext context) async {
   String convertIsoToDayMonthYear(String isoDate) {
@@ -29,7 +30,8 @@ Future<List<EquipmentData>> getEquipement(
       for (var item in response.data) {
         String assignedFormattedDate =
             convertIsoToDayMonthYear(item['assignedDate']);
-        itemsData.add(EquipmentData(
+        itemsData.add(
+            EquipmentData(
             empInventoryId: item['employeeInventoryId'],
             inventoryId: item['inventoryId'],
             assignedDate: assignedFormattedDate,
