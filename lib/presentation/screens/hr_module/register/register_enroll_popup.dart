@@ -29,17 +29,15 @@ class RegisterEnrollAlertDialog {
           ),
           backgroundColor: Colors.white,
           titlePadding: EdgeInsets.zero,
-         // contentPadding: EdgeInsets.zero,
+          // contentPadding: EdgeInsets.zero,
           title: Container(
-             //height: 35,
+            //height: 35,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12)
-              ),
-              color: Color(0xff50B5E5)
-            ),
-            child:Padding(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12)),
+                color: Color(0xff50B5E5)),
+            child: Padding(
               padding: const EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +55,10 @@ class RegisterEnrollAlertDialog {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.close, color: ColorManager.white,))
+                      icon: Icon(
+                        Icons.close,
+                        color: ColorManager.white,
+                      ))
                 ],
               ),
             ),
@@ -124,7 +125,12 @@ class RegisterEnrollAlertDialog {
                                 // ),
                                 child: MyDropdownTextField(
                                   hint: AppString.speciality,
-                                  items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                                  items: [
+                                    'Item 1',
+                                    'Item 2',
+                                    'Item 3',
+                                    'Item 4'
+                                  ],
                                   onChanged: (String? newValue) {
                                     print('Selected item: $newValue');
                                   },
@@ -173,7 +179,7 @@ class RegisterEnrollAlertDialog {
                               height: AppPadding.p10,
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width/7,
+                              width: MediaQuery.of(context).size.width / 7,
                               height: AppSize.s30,
                               //alignment: Alignment.center,
                               //color: Colors.cyan,
@@ -189,7 +195,6 @@ class RegisterEnrollAlertDialog {
                                 },
                               ),
                             ),
-
                           ],
                         ),
                         ///////////////////
@@ -215,7 +220,7 @@ class RegisterEnrollAlertDialog {
                               height: AppSize.s10,
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width/7,
+                              width: MediaQuery.of(context).size.width / 7,
                               height: AppSize.s30,
                               //alignment: Alignment.center,
                               //color: Colors.cyan,
@@ -237,7 +242,7 @@ class RegisterEnrollAlertDialog {
                             ),
 
                             SizedBox(
-                              width: MediaQuery.of(context).size.width/7,
+                              width: MediaQuery.of(context).size.width / 7,
                               height: AppSize.s30,
                               //alignment: Alignment.center,
                               //color: Colors.cyan,
@@ -311,7 +316,7 @@ class RegisterEnrollAlertDialog {
                               height: AppSize.s10,
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width/7,
+                              width: MediaQuery.of(context).size.width / 7,
                               height: AppSize.s30,
                               //alignment: Alignment.center,
                               //color: Colors.cyan,
@@ -327,12 +332,11 @@ class RegisterEnrollAlertDialog {
                                 },
                               ),
                             ),
-
                             SizedBox(
                               height: AppSize.s10,
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width/7,
+                              width: MediaQuery.of(context).size.width / 7,
                               height: AppSize.s30,
                               //alignment: Alignment.center,
                               //color: Colors.cyan,
@@ -348,7 +352,6 @@ class RegisterEnrollAlertDialog {
                                 },
                               ),
                             ),
-
                             SizedBox(
                               height: AppSize.s35,
                             ),
@@ -381,7 +384,8 @@ class RegisterEnrollAlertDialog {
                                   AppString.perDiem
                                 ],
                                 onChanged: (selectedIndex) {
-                                  print(AppString.selectIndex + '$selectedIndex');
+                                  print(
+                                      AppString.selectIndex + '$selectedIndex');
                                   _selectedItemIndex = selectedIndex;
                                 },
                               ),
@@ -411,9 +415,15 @@ class RegisterEnrollAlertDialog {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomIconButtonConst(
-                            text: AppString.next, onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                            text: AppString.next,
+                            onPressed: () {
+                              // Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
 
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return OfferLetterScreen();
+                                  });
                             }),
                       ],
                     ),

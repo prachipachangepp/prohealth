@@ -95,6 +95,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
     });
   }
 
+  String? _fileName;
   @override
   Widget build(BuildContext context) {
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
@@ -109,7 +110,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
       scrollDirection: Axis.vertical,
       child: Container(
           // color: Colors.green,
-          height: 500,
+          height: 600,
           // MediaQuery.of(context).size.height/3,
           width: 800,
           // MediaQuery.of(context).size.width/,
@@ -123,18 +124,33 @@ class _ClinicalTabState extends State<ClinicalTab> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      if (_fileName != null)
+                        Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Text(
+                            _fileName!,
+                            style: TextStyle(
+                              fontFamily: 'FiraSans',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
                       ElevatedButton.icon(
                         onPressed: () async {
-                          FilePickerResult? result =
-                              await FilePicker.platform.pickFiles(
+                          FilePickerResult? result = await FilePicker.platform.pickFiles(
                             type: FileType.image,
                             allowMultiple: false,
                           );
 
                           if (result != null) {
                             PlatformFile file = result.files.first;
+                            setState(() {
+                              _fileName = file.name;
+                            });
                             print('File path: ${file.path}');
-                          } else {}
+                          }
                         },
                         icon: Icon(
                           Icons.file_upload_outlined,
@@ -156,7 +172,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -799,7 +815,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                           elevation: 4,
                           borderRadius: BorderRadius.circular(20),
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 15),
+                            padding: EdgeInsets.symmetric(vertical: 10),
                             // width: containerWidth2,
                             height: containerHeight2,
                             decoration: BoxDecoration(
@@ -836,6 +852,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                           },
                                         ),
                                       ),
+
+                                      SizedBox(height: MediaQuery.of(context).size.height/120),
                                       Expanded(
                                         flex: 1,
                                         child: McqWidget(
@@ -844,6 +862,20 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                             'Active',
                                             'Trainee',
                                             'Inactive'
+                                          ],
+                                          onChanged: (int) {},
+                                        ),
+                                      ),
+
+                                      SizedBox(height: MediaQuery.of(context).size.height/120),
+                                      Expanded(
+                                        flex: 1,
+                                        child: McqWidget(
+                                          title: 'Gender',
+                                          items: [
+                                            'Male',
+                                            'Female',
+                                            'Other',
                                           ],
                                           onChanged: (int) {},
                                         ),
@@ -867,6 +899,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                           onChanged: (int) {},
                                         ),
                                       ),
+
+
                                       Expanded(
                                         flex: 1,
                                         child: FutureBuilder<
