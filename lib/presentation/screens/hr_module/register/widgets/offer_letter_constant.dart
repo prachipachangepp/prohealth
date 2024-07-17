@@ -56,12 +56,12 @@ class CustomTextField extends StatelessWidget {
 
 
 
-class CustomDropdownFormField extends StatelessWidget {
+class CustomDropdownFormField extends StatefulWidget {
   final String hintText;
   final String? labelText;
   final List<String> items;
   final String? value;
-  final ValueChanged<String?> onChanged;
+  final ValueChanged<String?>? onChanged;
   final double? height;
 
   const CustomDropdownFormField({
@@ -71,13 +71,27 @@ class CustomDropdownFormField extends StatelessWidget {
     required this.items,
     this.value,
     this.height,
-    required this.onChanged,
+    this.onChanged,
   }) : super(key: key);
 
   @override
+  State<CustomDropdownFormField> createState() => _CustomDropdownFormFieldState();
+}
+
+class _CustomDropdownFormFieldState extends State<CustomDropdownFormField> {
+  String? selectedValue;
+  @override
+  void initState() {
+
+    super.initState();
+    selectedValue = widget
+        .value;
+  }
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
+    return
+      Container(
+      height: widget.height,
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           border: OutlineInputBorder(
@@ -91,21 +105,21 @@ class CustomDropdownFormField extends StatelessWidget {
           ),
           filled: true,
           fillColor: Colors.white,
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: GoogleFonts.firaSans(
             fontSize: 12.0,
             fontWeight: FontWeight.w400,
             color: Color(0xff686464),
           ),
-          labelText: labelText,
+          labelText: widget.labelText,
           labelStyle: GoogleFonts.firaSans(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             color: Color(0xff686464),
           ),
         ),
-        value: value,
-        items: items.map((String item) {
+        value: widget.value,
+        items: widget.items.map((String item) {
           return DropdownMenuItem<String>(
             value: item,
             child: Text(item,
@@ -116,7 +130,14 @@ class CustomDropdownFormField extends StatelessWidget {
             ),),
           );
         }).toList(),
-        onChanged: onChanged,
+        onChanged: (newValue) {
+          setState(() {
+            selectedValue = newValue;
+          });
+          if (widget.onChanged != null) {
+            widget.onChanged!(newValue);
+          }
+        },
         icon: Icon(Icons.arrow_drop_down, color: Colors.blue),
       ),
     );
