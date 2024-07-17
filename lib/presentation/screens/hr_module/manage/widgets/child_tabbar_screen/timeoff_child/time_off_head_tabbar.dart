@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
@@ -14,6 +15,8 @@ class TimeOffHeadTabbar extends StatefulWidget {
 
 class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
   late CompanyIdentityManager _companyManager;
+  TextEditingController _controllerStartDate = TextEditingController();
+  TextEditingController _controllerEndDate = TextEditingController();
 
   late int currentPage;
 
@@ -34,319 +37,345 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        //height: MediaQuery.of(context).size.height/3,
-        child: Column(
-          children: [
-            Container(
-              height: 30,
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    // Text(''),
-                    Text(
-                      AppString.znNo,
-                      style: GoogleFonts.firaSans(
+      child: Padding(
+        padding:  EdgeInsets.only(top: 20.0),
+        child: Container(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      DateTime? pickedDate =
+                      await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2101),
+                      );
+                      if (pickedDate != null) {
+                        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                        _controllerStartDate.text = formattedDate;
+                      }
+                    },
+                    icon: Icon(Icons.calendar_month,color: Color(0xff686464),size: 18,),
+                    label: Text('Start Date',
+                      style: GoogleFonts.roboto(
                         fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
                       ),
                     ),
-                    //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                    Text('Action',
-                        textAlign: TextAlign.start,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        side: BorderSide(color: Color(0xffB6B6B6)),
+                      ),
+                  ),
+                  ),
+                  SizedBox(width: 10),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      DateTime? pickedDate =
+                      await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2101),
+                      );
+                      if (pickedDate != null) {
+                        String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                        _controllerEndDate.text = formattedDate;
+                      }
+                    },
+                    icon: Icon(Icons.calendar_month,color: Color(0xff686464),size: 18,),
+                    label: Text('End Date',
+                      style: GoogleFonts.roboto(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        side: BorderSide(color: Color(0xffB6B6B6)),
+                      ),
+                  ),
+                  ),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/40),
+              Container(
+                height: 30,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // Text(''),
+                      Text(
+                        AppString.znNo,
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           decoration: TextDecoration.none,
-                        )),
-                    Text('Time off Request',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('Reason',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('Hours',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('Start Time',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('End Time',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('Sick Time',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('  ',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('  ',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                    Text('  ',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                  ],
+                        ),
+                      ),
+                      //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                      Text('Action',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                      Text('Time off Request',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                      Text('Reason',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                      Text('Hours',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                      Text('Start Time',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                      Text('End Time',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                      Text('Sick Time',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                      Text('  ',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                      Text('  ',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                      Text('  ',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          )),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: ListView.builder(
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: 7,
                   itemBuilder: (context, index) {
                     int serialNumber =
                         index + 1 + (currentPage - 1) * itemsPerPage;
                     String formattedSerialNumber =
-                    serialNumber.toString().padLeft(2, '0');
+                        serialNumber.toString().padLeft(2, '0');
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xff000000)
-                                        .withOpacity(0.25),
-                                    spreadRadius: 0,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              height: 40,
-                              child: Stack(
-                                  children: [
-                                    Container(
-                                      width: 10,
-                                      color: ColorManager.blueprime,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                                      child: Row(
-                                        mainAxisAlignment:
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xff000000).withOpacity(0.25),
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            height: 40,
+                            child: Stack(
+                              children: [
+                                Container(
+                                  width: 10,
+                                  color: ColorManager.blueprime,
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        formattedSerialNumber,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
+                                      // Text(''),
+                                      Row(
                                         children: [
-                                          Text(
-                                            formattedSerialNumber,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          // Text(''),
-                                          Row(
-                                            children: [
-                                              CircleAvatar(
-                                                radius: 10,
-                                                backgroundColor: ColorManager.faintGrey,
-                                              ),
-                                              Text(
-                                                "John Thomas",
-                                                textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ],
+                                          CircleAvatar(
+                                            radius: 10,
+                                            backgroundColor:
+                                                ColorManager.faintGrey,
                                           ),
                                           Text(
-                                            "1 Day",
+                                            "John Thomas",
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w700,
                                               color: Color(0xff686464),
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
-                                          Text(
-                                            "Headache",
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          Text(
-                                            "12 Hours",
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          Text(
-                                            "13 April 2023 10.00 AM",
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          Text(
-                                            "15 April 2023 5.00 PM",
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          Text(
-                                            "2 days",
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.firaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xff686464),
-                                              decoration: TextDecoration.none,
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              IconButtonWidget(buttonText: "Approve", onPressed: (){}),
-                                              IconButtonWidget(buttonText: "Reject", onPressed: (){}),
-                                              IconButtonWidget(buttonText: "Edit", onPressed: (){})
-                                            ],
-                                          )
-                                         //  Text(''),
                                         ],
                                       ),
-                                    ),]
-                              )),
+                                      Text(
+                                        "1 Day",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Headache",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
+                                      Text(
+                                        "12 Hours",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
+                                      Text(
+                                        "13 April 2023 10.00 AM",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
+                                      Text(
+                                        "15 April 2023 5.00 PM",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
+                                      Text(
+                                        "2 days",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.firaSans(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff686464),
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          IconButtonWidget(
+                                              buttonText: "Approve",
+                                              onPressed: () {}),
+                                          IconButtonWidget(
+                                              buttonText: "Reject",
+                                              onPressed: () {}),
+                                          IconButtonWidget(
+                                              buttonText: "Edit",
+                                              onPressed: () {})
+                                        ],
+                                      )
+                                      //  Text(''),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     );
-                  }),
-
-            ),
-            // RadioListTile<String>(
-            //   title: Text('Per zone',
-            //     style: GoogleFonts.firaSans(
-            //       fontSize: FontSize.s10,
-            //       fontWeight: FontWeightManager.medium,
-            //       color: ColorManager.mediumgrey,
-            //       decoration: TextDecoration.none,
-            //     ),),
-            //   value: 'Per zone',
-            //   groupValue: _expiryType,
-            //   onChanged: (value) {
-            //     setState(() {
-            //       _expiryType = value;
-            //     });
-            //   },
-            // ),
-            // Row(
-            //   children: [
-            //     RadioListTile<String>(
-            //       title: Text('Per zone',
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: FontSize.s10,
-            //           fontWeight: FontWeightManager.medium,
-            //           color: ColorManager.mediumgrey,
-            //           decoration: TextDecoration.none,
-            //         ),),
-            //       value: 'Per zone',
-            //       groupValue: _expiryType,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           _expiryType = value;
-            //         });
-            //       },
-            //     ),
-            //     RadioListTile<String>(
-            //       title: Text('Per milege',
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: FontSize.s10,
-            //           fontWeight: FontWeightManager.medium,
-            //           color: ColorManager.mediumgrey,
-            //           decoration: TextDecoration.none,
-            //         ),),
-            //       value: 'type2',
-            //       groupValue: _expiryType,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           _expiryType = value;
-            //         });
-            //       },
-            //     ),
-            //   ],
-            // )
-          ],
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

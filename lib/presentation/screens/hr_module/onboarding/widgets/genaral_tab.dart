@@ -424,6 +424,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                               ),
                             ],
                           ),
+
                         ),
                       ),
                       SizedBox(height: AppSize.s5,
@@ -437,6 +438,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
 ),
         )],
     );
+
   }
 }
 
