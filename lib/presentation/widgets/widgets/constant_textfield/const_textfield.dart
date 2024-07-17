@@ -18,6 +18,7 @@ class CustomTextField extends StatelessWidget {
   final Icon? suffixIcon;
   final IconData? prefixIcon;
   final FocusNode? focusNode;
+  final VoidCallback? onTapSuffixIcon;
 
   CustomTextField({
     this.width,
@@ -30,6 +31,7 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     this.focusNode,
     required this.labelFontSize,
+    this.onTapSuffixIcon,
   });
 
   @override

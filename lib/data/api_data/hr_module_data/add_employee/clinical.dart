@@ -45,9 +45,10 @@ class HRAddEmployeeGet{
   final  String? netPay;
   final  String? methods;
   final  String? materials;
+  final String? driverLicenceNbr;
 
 
-  HRAddEmployeeGet(  {
+  HRAddEmployeeGet(   {
     this.employeeid,
     this.success, this.message,
     this.code, this.userId,
@@ -58,7 +59,7 @@ class HRAddEmployeeGet{
     this.regOfficeId, this.personalEmail, this.workEmail,
     this.address, this.dob, this.emgContact, this.coverage, this.employment,
     this.gender, this.status, this.service, this.imgUrl, this.resumeUrl,
-    this.companyID, this.onboardingStatus, this.dateofTermination, this.dateofResignation,
+    this.companyID, this.onboardingStatus,this.driverLicenceNbr, this.dateofTermination, this.dateofResignation,
     this.rehirable, this.finalAddress, this.type, this.reason, this.checkDate,
     this.grossPay, this.netPay, this.methods, this.materials,});
 }
