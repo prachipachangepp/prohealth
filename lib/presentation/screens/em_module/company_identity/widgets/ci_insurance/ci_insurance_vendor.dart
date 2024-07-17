@@ -36,7 +36,7 @@ class _CiInsuranceVendorState extends State<CiInsuranceVendor> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 5;
+    itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
     companyVendorGet(context).then((data) {

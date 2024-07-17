@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/bottom_row.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/thank_you_screen.dart';
 
@@ -260,7 +261,8 @@ class _FormNineScreenState extends State<FormNineScreen> {
                           lastDate: DateTime(2101),
                         );
                         if (pickedDate != null) {
-                          _controller.text = "${pickedDate.toLocal()}".split(' ')[0];
+                          String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+                          _controller.text = formattedDate;
                         }
                       },
                     ),

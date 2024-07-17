@@ -404,6 +404,7 @@ class _CiLeasesAndServicesState extends State<CiLeasesAndServices> {
                                                         builder: (context) => StatefulBuilder(
                                                           builder: (BuildContext context, void Function(void Function()) setState) {
                                                             return  DeletePopup(
+                                                                title: 'Delete Leases Services',
                                                                 loadingDuration: _isLoading,
                                                                 onCancel: (){
                                                                   Navigator.pop(context);

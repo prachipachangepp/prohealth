@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
-import '../../../taxtfield_constant.dart';
 
 class PhysicalExamContainer extends StatefulWidget {
+  const PhysicalExamContainer({Key? key}) : super(key: key);
+
   @override
   _PhysicalExamContainerState createState() => _PhysicalExamContainerState();
 }
 
 class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
-  TextEditingController _dateController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
   final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
-
   String? _selectedFileName;
 
   Future<void> _selectDate(BuildContext context) async {
@@ -32,15 +32,11 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
 
   Future<void> _openFileExplorer() async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles();
-
+      final FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         setState(() {
           _selectedFileName = result.files.single.name;
         });
-      } else {
-        // User canceled the file picking
-        print('User canceled file picking.');
       }
     } on PlatformException catch (e) {
       print('Error while picking the file: $e');
@@ -49,156 +45,180 @@ class _PhysicalExamContainerState extends State<PhysicalExamContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 182.0, right: 182.0),
-      child: Expanded(
-        child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: Offset(0, 1),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: constraints.maxWidth * 0.1),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 3,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
               ),
-            ],
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: _buildLeftColumn(),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: _buildRightColumn(context),
+                  ),
+                ],
+              ),
+            ),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        );
+      },
+    );
+  }
+
+  Widget _buildLeftColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Physical Exam',
+          style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: const Color(0xff686464),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Valid within 1 year of test',
+          style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xff686464),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Date Administered',
+          style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xff575757),
+          ),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 30,
+          width: 242,
+          child: TextField(
+            controller: _dateController,
+            decoration: InputDecoration(
+              hintText: 'dd-mm-yyyy',
+              hintStyle: GoogleFonts.firaSans(
+                fontSize: 10.0,
+                fontWeight: FontWeight.w400,
+                color: const Color(0xff9B9B9B),
+              ),
+              suffixIcon: IconButton(
+                icon: const Icon(
+                  Icons.calendar_month_outlined,
+                  color: Color(0xff50B5E5),
+                  size: 16,
+                ),
+                onPressed: () => _selectDate(context),
+              ),
+              contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRightColumn(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 40.0),
+          child: Text(
+            'Upload Physical Exam records in pdf, jpg or png format',
+            style: GoogleFonts.firaSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xff686464),
+            ),
+          ),
+        ),
+        SizedBox(width: MediaQuery.of(context).size.width / 80),
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xffB1B1B1)),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Wrap(
+                  spacing: 12,
+                  runSpacing: 8,
                   children: [
-                    Text(
-                      'Physical Exam',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 80),
-                    Text(
-                      'Valid within 1 year of test',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
+                    ElevatedButton(
+                      onPressed: _openFileExplorer,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffD9D9D9),
+                      ),
+                      child: Text(
+                        'Choose File',
+                        style: GoogleFonts.firaSans(
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 80),
-                    Text(
-                      'Date Administrated',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff575757)),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 110),
-                    Container(
-                      height: 30,
-                      width: 242,
-                      child: CustomTextFieldRegister(
-                        controller: _dateController,
-                        hintText: 'dd-mm-yyyy',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          fontSize: 11.3,
+                          color: const Color(0xff686464),
                         ),
-                        height: 32,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.calendar_month_outlined,
-                            color: Color(0xff50B5E5),
-                            size: 16,
-                          ),
-                          onPressed: () async {
-                            _selectDate(context);
-                          },
-                        ),
+                      ),
+                    ),
+                    Text(
+                      _selectedFileName ?? 'No file chosen',
+                      style: GoogleFonts.roboto(
+                        fontSize: 11.3,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff575757),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: MediaQuery.of(context).size.width / 80),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Upload Immunization records in pdf, jpg or png format',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                      SizedBox(height: 8),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xffB1B1B1)),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              ElevatedButton(
-                                onPressed: _openFileExplorer,
-                                child: Text(
-                                  'Choose File',
-                                  style: GoogleFonts.firaSans(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 11.3,
-                                      color: Color(0xff686464)),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xffD9D9D9),
-                                  // foregroundColor: Colors.black,
-                                ),
-                              ),
-                              SizedBox(width: 12),
-                              Text(
-                                _selectedFileName ?? 'No file chosen',
-                                style: GoogleFonts.roboto(
-                                    fontSize: 11.3,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff575757)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
-
 //////////////////////////////////////////////////////////////////////////////////
-
 class VaccineContainer extends StatefulWidget {
+  const VaccineContainer({Key? key}) : super(key: key);
+
   @override
   _VaccineContainerState createState() => _VaccineContainerState();
 }
 
 class _VaccineContainerState extends State<VaccineContainer> {
-  TextEditingController _dateController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
   final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
-
   String? _selectedFileName;
   int? _selectedRadio;
 
@@ -218,15 +238,11 @@ class _VaccineContainerState extends State<VaccineContainer> {
 
   Future<void> _openFileExplorer() async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles();
-
+      final FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         setState(() {
           _selectedFileName = result.files.single.name;
         });
-      } else {
-        // User canceled the file picking
-        print('User canceled file picking.');
       }
     } on PlatformException catch (e) {
       print('Error while picking the file: $e');
@@ -235,225 +251,202 @@ class _VaccineContainerState extends State<VaccineContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 182.0, right: 182.0),
-      child: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 3,
-              offset: Offset(0, 1),
-            ),
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: constraints.maxWidth * 0.1),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 3,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Radio<int>(
-                                value: 0,
-                                groupValue: _selectedRadio,
-                                onChanged: (int? newValue) {
-                                  setState(() {
-                                    _selectedRadio =
-                                        (_selectedRadio == newValue)
-                                            ? null
-                                            : newValue;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 8),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'TB',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xff686464),
-                                ),
-                              ),
-                              SizedBox(height: 2),
-                              Text(
-                                'Valid within 1 year of test',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 100),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Radio<int>(
-                                value: 1,
-                                groupValue: _selectedRadio,
-                                onChanged: (int? newValue) {
-                                  setState(() {
-                                    _selectedRadio =
-                                        (_selectedRadio == newValue)
-                                            ? null
-                                            : newValue;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 8),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Chest X-Ray',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xff686464),
-                                ),
-                              ),
-                              SizedBox(height: 2),
-                              Text(
-                                'Valid within 1 year of test',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff686464),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                  Expanded(
+                    flex: 1,
+                    child: _buildLeftColumn(),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 40),
-                  Text(
-                    'Date Administered',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff575757)),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height / 110),
-                  Container(
-                    height: 30,
-                    width: 242,
-                    child: TextField(
-                      controller: _dateController,
-                      decoration: InputDecoration(
-                        hintText: 'dd-mm-yyyy',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.calendar_month_outlined,
-                            color: Color(0xff50B5E5),
-                            size: 16,
-                          ),
-                          onPressed: () async {
-                            _selectDate(context);
-                          },
-                        ),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
+                  SizedBox(width: MediaQuery.of(context).size.width/140),
+                  Expanded(
+                    flex: 2,
+                    child: _buildRightColumn(context),
                   ),
                 ],
               ),
             ),
-            SizedBox(width: MediaQuery.of(context).size.width / 80),
-            Expanded(
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLeftColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          spacing: 16,
+          runSpacing: 16,
+          children: [
+            _buildRadioOption(0, 'TB', 'Valid within 1 year of test'),
+            _buildRadioOption(1, 'Chest X-Ray', 'Valid within 1 year of test'),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Date Administered',
+          style: GoogleFonts.firaSans(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xff575757),
+          ),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 30,
+          width: 242,
+          child: TextField(
+            controller: _dateController,
+            decoration: InputDecoration(
+              hintText: 'dd-mm-yyyy',
+              hintStyle: GoogleFonts.firaSans(
+                fontSize: 10.0,
+                fontWeight: FontWeight.w400,
+                color: const Color(0xff9B9B9B),
+              ),
+              suffixIcon: IconButton(
+                icon: const Icon(
+                  Icons.calendar_month_outlined,
+                  color: Color(0xff50B5E5),
+                  size: 16,
+                ),
+                onPressed: () => _selectDate(context),
+              ),
+              contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRightColumn(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 40.0),
+          child: Text(
+            'Upload Vaccination Records in pdf, jpg or png format',
+            style: GoogleFonts.firaSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xff686464),
+            ),
+          ),
+        ),
+        SizedBox(width: MediaQuery.of(context).size.width / 80),
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xffB1B1B1)),
+                borderRadius: BorderRadius.circular(8),
+              ),
               child: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Wrap(
+                  spacing: 12,
+                  runSpacing: 8,
                   children: [
-                    Text(
-                      'Upload Vaccination Records in pdf, jpg or png format',
-                      style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff686464)),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xffB1B1B1)),
-                        borderRadius: BorderRadius.circular(8),
+                    ElevatedButton(
+                      onPressed: _openFileExplorer,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffD9D9D9),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ElevatedButton(
-                              onPressed: _openFileExplorer,
-                              child: Text(
-                                'Choose File',
-                                style: GoogleFonts.firaSans(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.3,
-                                    color: Color(0xff686464)),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xffD9D9D9),
-                                // foregroundColor: Colors.black,
-                              ),
-                            ),
-                            SizedBox(width: 12),
-                            Text(
-                              _selectedFileName ?? 'No file chosen',
-                              style: GoogleFonts.roboto(
-                                  fontSize: 11.3,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff575757)),
-                            ),
-                          ],
+                      child: Text(
+                        'Choose File',
+                        style: GoogleFonts.firaSans(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 11.3,
+                          color: const Color(0xff686464),
                         ),
+                      ),
+                    ),
+                    Text(
+                      _selectedFileName ?? 'No file chosen',
+                      style: GoogleFonts.roboto(
+                        fontSize: 11.3,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff575757),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRadioOption(int value, String title, String subtitle) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Radio<int>(
+          value: value,
+          groupValue: _selectedRadio,
+          onChanged: (int? newValue) {
+            setState(() {
+              _selectedRadio = (_selectedRadio == newValue) ? null : newValue;
+            });
+          },
+        ),
+        const SizedBox(width: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Color(0xff686464),
+              ),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              subtitle,
+              style: const TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff686464),
+              ),
+            ),
           ],
         ),
-      ),
+      ],
     );
   }
 }
+//
+
+////

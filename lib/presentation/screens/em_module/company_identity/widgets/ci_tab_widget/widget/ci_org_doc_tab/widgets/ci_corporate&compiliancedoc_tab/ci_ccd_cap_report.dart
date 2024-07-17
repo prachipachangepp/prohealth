@@ -1,17 +1,12 @@
 import 'dart:async';
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
-import 'package:prohealth/presentation/widgets/widgets/profile_bar/widget/pagination_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../../../../../../../../app/resources/color.dart';
 import '../../../../../../../../../../app/resources/const_string.dart';
 import '../../../../../../../../../../app/resources/theme_manager.dart';
@@ -502,6 +497,7 @@ class _CiCcdCapReportsState extends State<CiCcdCapReports> {
                                               builder: (context) => StatefulBuilder(
                                                 builder: (BuildContext context, void Function(void Function()) setState) {
                                                   return  DeletePopup(
+                                                      title: 'Delete CAP Report',
                                                       loadingDuration: _isLoading,
                                                       onCancel: (){
                                                         Navigator.pop(context);

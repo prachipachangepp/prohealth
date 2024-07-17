@@ -220,9 +220,10 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                           children: [
                                             IconButton(
                                                 onPressed: () {
-                                                  // showDialog(context: context, builder: (BuildContext context){
-                                                  //   return ContractAddDialog(contractNmaeController: contractNameController, onPressed: () {  }, contractIdController: contractIdController,);
-                                                  // });
+                                                  showDialog(context: context, builder: (BuildContext context){
+                                                    return ContractAddDialog(contractNmaeController: contractNameController, contractIdController: contractIdController,
+                                                      onSubmitPressed: () {  }, title: 'Edit Contract',);
+                                                  });
                                                 },
                                                 icon: Icon(
                                                   Icons.edit_outlined,
@@ -231,7 +232,9 @@ class _CiInsuranceContractState extends State<CiInsuranceContract> {
                                                 )),
                                             IconButton(
                                                 onPressed: () {
-                                                  showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                                  showDialog(context: context, builder: (context) => DeletePopup(
+                                                      title: 'Delete Insurance',
+                                                      onCancel: (){
                                                     Navigator.pop(context);
                                                   }, onDelete: (){setState(() async{
                                                     await deleteDocument(

@@ -325,6 +325,7 @@ class _ViewBatchesPopupState extends State<ViewBatchesPopup> {
                                                                         context: context,
                                                                         builder: (context) =>
                                                                             DeletePopup(
+                                                                                title: 'Delete Batch',
                                                                                 onCancel: () {
                                                                                   Navigator.pop(
                                                                                       context);

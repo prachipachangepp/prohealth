@@ -527,6 +527,7 @@ class _HrClinicalScreenState extends State<HrClinicalScreen> {
                                   onPressed: () {
                                      showDialog(context: context,
                                         builder: (context) => DeletePopup(
+                                            title: 'Delete Clinical',
                                             onCancel: (){
                                               Navigator.pop(context);
                                             }, onDelete: () async {
