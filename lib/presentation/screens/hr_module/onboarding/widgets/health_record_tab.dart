@@ -211,7 +211,7 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
               padding:
               EdgeInsets.symmetric(vertical: 20.0), // Adjust as necessary
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
                     children: [
@@ -233,7 +233,7 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
                           ),
                         ],
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(height: 10),
                       Row(
                         children: [
                           Checkbox(
@@ -295,6 +295,8 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
                       ),
                     ],
                   ),
+                  SizedBox(width: MediaQuery.of(context).size.width/7,),
+
                   Column(
                     children: [
                       Row(
@@ -315,7 +317,7 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
                           ),
                         ],
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(height: 10),
                       Row(
                         children: [
                           Checkbox(
@@ -356,7 +358,7 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
                           ),
                         ],
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(height: 10),
                       Row(
                         children: [
                           Checkbox(

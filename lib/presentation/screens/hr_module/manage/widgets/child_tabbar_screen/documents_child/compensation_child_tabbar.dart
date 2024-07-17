@@ -159,7 +159,7 @@ class _CompensationChildTabbarState extends State<CompensationChildTabbar> {
                                       });
                                       Navigator.pop(context);
                                     });
-                                  }
+                                  }, title: '',
                                   )
                                   );
                                 },
