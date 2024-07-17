@@ -66,17 +66,6 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: () async{
-                    }),
-
-                  ],
-                ),
-              ),
               SizedBox(height:MediaQuery.of(context).size.height/20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
