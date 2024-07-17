@@ -4,8 +4,8 @@ class RegisterEnrollData {
   final int? empEnrollId;
   final int? compId;
   final int? empId;
-  final int? userId;
   final String? code;
+  final int? userId;
   final String? firstName;
   final String? lastName;
   final String? phoneNbr;

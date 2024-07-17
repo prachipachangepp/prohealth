@@ -20,7 +20,7 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) asy
         lastName: item['lastName'],
         deptId: item['departmentId'],
         empTypeId: item['employeeTypeId'],
-        experties: item['expertise'],
+        expertise: item['expertise'],
         cityID: item['cityId'],
         countryId: item['countryId'],
         zoneId: item['zoneId'],
@@ -30,7 +30,6 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) asy
         workPhoneNbr: item['workPhoneNbr'],
         regOfficId: item['regOfficId'],
         personalEmail: item['personalEmail'],
-
         workEmail: item['workEmail'],
         address: item['address'],
         dateOfBirth: item['dateOfBirth'],
@@ -43,14 +42,15 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) asy
         imgurl: item['imgurl'],
         resumeurl: item['resumeurl'],
         onboardingStatus: item['onboardingStatus'],
-
-        createdAt: item['createdAt'],
         companyId: item['companyId'],
         terminationFlag: item['terminationFlag'],
-        approved: item['approved'],
+        driverLicenseNum: item['driverLicenceNbr'],
+        approved: item['approved'] ?? false,
         dateofTermination: item['dateofTermination'],
         dateofResignation: item['dateofResignation'],
+        dateofHire: item['dateofHire'],
         rehirable: item['rehirable'],
+        position: item['position'],
         finalAddress: item['finalAddress'],
         type: item['type'],
         reason: item['reason'],
@@ -60,6 +60,7 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) asy
         netPay: item['netPay'],
         methods: item['methods'],
         materials: item['materials'],
+        race: item['race'],
       ));
       }
     }else {

@@ -112,7 +112,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                           borderRadius: BorderRadius.only(
                                               topRight: Radius.circular(20))),
                                       child: Text(
-                                        AppString.approve,
+                                        // AppString.approve,
+                                        snapshot.data![index].approved.toString(),
                                         textAlign: TextAlign.center,
                                         style: CustomTextStylesCommon.commonStyle(
                                             color: ColorManager.white,
@@ -190,8 +191,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                       Column(
                                         children: [
                                           ObGeneralDataConstant(
-                                            text1: snapshot.data![index].regOfficId,
-                                            text2: snapshot.data![index].experties,
+                                            text1: snapshot.data![index].driverLicenseNum,
+                                            text2: snapshot.data![index].expertise,
                                             text3: snapshot.data![index].cityID.toString(),
                                             text4: snapshot.data![index].zoneId.toString(),
                                           )
@@ -227,7 +228,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                         children: [
                                           ObGeneralDataConstant(
                                             text1: snapshot.data![index].status,
-                                            text2: snapshot.data![index].rehirable,
+                                            text2: snapshot.data![index].race,
                                             text3: snapshot.data![index].service,
                                           )
                                         ],
@@ -430,7 +431,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                       )
                     ],
                   );
-                }) ;
+                });
   }
   return Offstage();
 },

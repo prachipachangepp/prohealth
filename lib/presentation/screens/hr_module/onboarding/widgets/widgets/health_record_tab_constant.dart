@@ -29,22 +29,26 @@ Widget buildHealthRecordContainer(String title, String date, IconData icon, Colo
         SizedBox(width: 10),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              title,
-              style: GoogleFonts.firaSans(
-                color: Colors.black,
-                fontSize: 12.0,
-                fontWeight: FontWeight.w500,
+            Expanded(
+              child: Text(
+                title,
+                style: GoogleFonts.firaSans(
+                  color: Colors.black,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-            Text(
-              date,
-              style: GoogleFonts.firaSans(
-                color: Colors.black,
-                fontSize: 12.0,
-                fontWeight: FontWeight.w300,
+            Expanded(
+              child: Text(
+                date,
+                style: GoogleFonts.firaSans(
+                  color: Colors.black,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
             ),
           ],

@@ -83,7 +83,6 @@ class MyAppTabBarController extends GetxController
 class CenteredTabBarController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-
   final List<Widget> tabs;
   final List<Widget> tabViews;
   final double tabBarViewHeight;
