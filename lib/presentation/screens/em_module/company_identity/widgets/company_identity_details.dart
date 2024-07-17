@@ -249,10 +249,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               Row(
                                 children: [
                                   CheckboxConstant(
-                                    value: checkboxValue1,
+                                    value: checkboxValue2,
                                     onChanged: (newValue) {
                                       setState(() {
-                                        checkboxValue1 = newValue!;
+                                        checkboxValue2 = newValue!;
                                       });
                                     },
                                     text: '',
@@ -315,10 +315,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               Row(
                                 children: [
                                   CheckboxConstant(
-                                    value: checkboxValue1,
+                                    value: checkboxValue3,
                                     onChanged: (newValue) {
                                       setState(() {
-                                        checkboxValue1 = newValue!;
+                                        checkboxValue3 = newValue!;
                                       });
                                     },
                                     text: '',
@@ -364,10 +364,10 @@ class _CIDetailsScreenState extends State<CIDetailsScreen> {
                               Row(
                                 children: [
                                   CheckboxConstant(
-                                    value: checkboxValue1,
+                                    value: checkboxValue4,
                                     onChanged: (newValue) {
                                       setState(() {
-                                        checkboxValue1 = newValue!;
+                                        checkboxValue4 = newValue!;
                                       });
                                     },
                                     text: '',

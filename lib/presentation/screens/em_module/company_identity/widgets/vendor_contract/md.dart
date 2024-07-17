@@ -404,6 +404,7 @@ class _CiMdState extends State<CiMd> {
                                                         builder: (context) => StatefulBuilder(
                                                           builder: (BuildContext context, void Function(void Function()) setState) {
                                                             return  DeletePopup(
+                                                                title: 'Delete MD',
                                                                 loadingDuration: _isLoading,
                                                                 onCancel: (){
                                                                   Navigator.pop(context);

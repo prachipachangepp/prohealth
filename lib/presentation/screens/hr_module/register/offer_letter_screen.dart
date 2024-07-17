@@ -93,9 +93,6 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
             data['value'] = value ?? false;
           });
         },
-        // dense: true,
-        // contentPadding: EdgeInsets.zero,
-        // controlAffinity: ListTileControlAffinity.trailing,
       );
     }).toList();
   }
@@ -104,40 +101,66 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: AlertDialog(
-        titlePadding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        // titlePadding: EdgeInsets.zero,
         title: Container(
-          width: 1500,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          width: 1100,
           height: 1029,
           child: Scaffold(
             backgroundColor: Colors.white,
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              automaticallyImplyLeading: false,
-              title: Center(
-                child: Text(
-                  'Offer Letter',
-                  style: GoogleFonts.firaSans(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff1696C8)),
-                ),
-              ),
-            ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(32.0),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Offer Letter',
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff1696C8),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.close,
+                            color: Color(0xff454545),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: MediaQuery.of(context).size.height/20,),
+                    Row(
+                      children: [
+                        Expanded(
                           child: CustomTextField(
+                            height: 36,
                               controller: issueDateController,
                               labelText: 'Issue Date'),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 80),
                         Expanded(
                           child: CustomTextField(
+                            height: 36,
                             controller: lastDateController,
                             labelText: 'Last Date',
                           ),
@@ -145,6 +168,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         SizedBox(width: MediaQuery.of(context).size.width / 80),
                         Expanded(
                           child: CustomTextField(
+                            height: 36,
                             controller: startDateController,
                             labelText: 'Anticipated Start Date',
                           ),
@@ -154,9 +178,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     SizedBox(height: MediaQuery.of(context).size.height / 60),
                     Row(
                       children: [
-                        Container(width: MediaQuery.of(context).size.width/3.33,
+                        Container(
+                          // width: MediaQuery.of(context).size.width/4,
                           child: Expanded(
                             child: CustomTextField(
+                              height: 36,
                               controller: verbalAcceptanceController,
                               labelText: 'Verbal Acceptance',
                             ),
@@ -166,57 +192,60 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         Expanded(
                           child: Stack(
                             children: [
-                              TextField(
-                                cursorColor: Colors.black,
-                                controller: patientsController,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  labelText: 'No. of Patients',
-                                  labelStyle: GoogleFonts.firaSans(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff575757)),
-                                  suffixIcon: Container(
-                                    // padding: EdgeInsets.only(right: 10),
-                                    margin: EdgeInsets.only(right: 10, top: 6, bottom: 6),
-                                    height: 5,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(5.0),
+                              Container(
+                                height: 36,
+                                child: TextField(
+                                  cursorColor: Colors.black,
+                                  controller: patientsController,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
                                     ),
-                                    child: DropdownButton<String>(
-                                      value: selectedDropdownValue,
-                                      items: ['Per day', 'Per week', 'Per month']
-                                          .map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 12.0),
-                                            child: Text(value),
-                                          ),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String? value) {
-                                        if (value != null) {
-                                          setState(() {
-                                            selectedDropdownValue = value;
-                                          });
-                                        }
-                                      },
-                                      underline: SizedBox(),
-                                      icon: Icon(Icons.arrow_drop_down,
-                                          color: ColorManager.blueprime),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Color(0xffB1B1B1), width: 1.0),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    labelText: 'No. of Patients',
+                                    labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff575757)),
+                                    suffixIcon: Container(
+                                      // padding: EdgeInsets.only(right: 10),
+                                      margin: EdgeInsets.only(right: 10, top: 6, bottom: 6),
+                                      height: 3,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                      child: DropdownButton<String>(
+                                        value: selectedDropdownValue,
+                                        items: ['Per day', 'Per week', 'Per month']
+                                            .map((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 12.0),
+                                              child: Text(value),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        onChanged: (String? value) {
+                                          if (value != null) {
+                                            setState(() {
+                                              selectedDropdownValue = value;
+                                            });
+                                          }
+                                        },
+                                        underline: SizedBox(),
+                                        icon: Icon(Icons.arrow_drop_down,
+                                            color: ColorManager.blueprime),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -225,7 +254,28 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           ),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 80),
-                        SizedBox(width: MediaQuery.of(context).size.width / 3.15),
+                        Expanded(
+                          child: TextFormField(
+                            cursorColor: Colors.transparent,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent, width: 1.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent, width: 1.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent, width: 1.0),
+                              ),
+                              labelStyle: GoogleFonts.firaSans(
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.transparent,
+                            ),
+                          ),
+                        ),
+                        )
+                        // SizedBox(width: MediaQuery.of(context).size.width / 3.15),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 30),
@@ -233,8 +283,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       color: ColorManager.cream,
                       thickness: 4,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 10),
+                    SizedBox(height: MediaQuery.of(context).size.height / 20),
                     Container(
+                      width: 1050,
                       height: MediaQuery.of(context).size.height / 2,
                       decoration: BoxDecoration(
                         border: Border.all(color: Color(0xff1696C8)),
@@ -246,52 +297,60 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding:  EdgeInsets.only(left: 71.0),
-                                child: Column(
-                                  children: [
-                                    CustomDropdownFormField(
+                                padding: EdgeInsets.only(left: 71.0, top: 50),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      CustomDropdownFormField(
+                                        height: 45,
                                         hintText: 'Select a City',
                                         labelText: 'City',
                                         items: [
                                           'ProHealth San Jose',
                                           'ProHealth Sacramento',
                                           'ProHealth Walnut Creek',
-                                          'ProHealth Stockton',],
-                                        onChanged: (String) {}
-                                    ),
-        
-                                    SizedBox(height: MediaQuery.of(context).size.height / 30),
-                                    CustomDropdownFormField(
+                                          'ProHealth Stockton',
+                                        ],
+                                        onChanged: (String? value) {},
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                                      CustomDropdownFormField(
+                                        height: 45,
                                         hintText: 'Select a Country',
                                         labelText: 'Country',
                                         items: [
                                           'Alameida',
-                                          'San Joachim'],
-                                        onChanged: (String) {}
-                                    ),
-                                    SizedBox(height: MediaQuery.of(context).size.height / 30),
-                                    CustomDropdownFormField(
+                                          'San Joachim',
+                                        ],
+                                        onChanged: (String? value) {},
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                                      CustomDropdownFormField(
+                                        height: 45,
                                         hintText: 'Select a Zone',
                                         labelText: 'Zone',
                                         items: [
                                           '1',
                                           '2',
-                                        '3',
-                                        '4'],
-                                        onChanged: (String) {}
-                                    ),
-                                  ],
+                                          '3',
+                                          '4',
+                                        ],
+                                        onChanged: (String? value) {},
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(width: MediaQuery.of(context).size.width / 10),
+
+                            SizedBox(width: MediaQuery.of(context).size.width / 260),
                             Expanded(
                               child: DefaultTabController(
                                 length: 2,
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(left: 170.0, right: 170),
+                                      padding: EdgeInsets.only(left: 135.0, right: 135.0),
                                       child: TabBar(
                                         indicatorColor: Color(0xff1696C8),
                                         labelColor: Color(0xff686464),
@@ -312,7 +371,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 170.0, right: 170.0),
+                                        padding: const EdgeInsets.only(left: 100.0, right: 100.0),
                                         child: TabBarView(
                                           physics: NeverScrollableScrollPhysics(),
                                           children: [
@@ -393,8 +452,8 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                       ],
                     ),
-        
-        
+
+
                     SizedBox(height: MediaQuery.of(context).size.height/30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -404,11 +463,12 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return Dialog(
+                                return AlertDialog(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
-                                  child: Container(
+                                  titlePadding: EdgeInsets.zero,
+                                  title: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.only(
@@ -542,9 +602,10 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                       ],
                     ),
-        
+
                     SizedBox(height: MediaQuery.of(context).size.height/10),
                     Container(
+                      height: 50,
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {},
@@ -564,7 +625,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: MediaQuery.of(context).size.height/60),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,

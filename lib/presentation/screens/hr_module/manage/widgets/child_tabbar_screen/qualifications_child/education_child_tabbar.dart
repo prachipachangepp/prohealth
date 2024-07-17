@@ -93,8 +93,8 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Row(children: [
-                        Text('Education #1',
+                       Row(children: [
+                        Text('Education #${snapshot.data![index].educationId}',
                           style: TextStyle(
                             fontFamily: 'FiraSans',
                             fontSize: 13,
@@ -268,7 +268,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                               ),
                                             ],
                                           ),
-                                        ), title: 'Add Education',);
+                                        ), title: 'Edit Education',);
                                     },
                                   );
                                 }

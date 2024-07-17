@@ -110,7 +110,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Employment #1',
+                          Text('Employment #${snapshot.data![index].employmentId}',
                             style: TextStyle(
                               fontFamily: 'FiraSans',
                               fontSize: 13,

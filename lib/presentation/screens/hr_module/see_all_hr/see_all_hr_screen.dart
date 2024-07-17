@@ -64,7 +64,7 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
       ),
     );
   }
-
+//
   Widget _buildSingleTab(
       String text, String number, bool isSelected, bool isLeft, bool isRight) {
     return Expanded(
@@ -241,7 +241,7 @@ class _PopUpState extends State<PopUp> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                'Patient Profile',
+                'Expired License',
                 style: GoogleFonts.firaSans(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,

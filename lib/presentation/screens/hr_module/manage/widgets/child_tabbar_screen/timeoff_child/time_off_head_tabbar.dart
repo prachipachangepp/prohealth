@@ -68,6 +68,8 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           color: Colors.white,
                           decoration: TextDecoration.none,
                         )),
+                   // Text(''),
+                    //SizedBox(),
                     Text('Time off Request',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
@@ -76,7 +78,17 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           color: Colors.white,
                           decoration: TextDecoration.none,
                         )),
+
                     Text('Reason',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        )),
+                    //SizedBox(),
+                    Text('',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
@@ -92,6 +104,14 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           color: Colors.white,
                           decoration: TextDecoration.none,
                         )),
+                    Text('',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.firaSans(
+                         // fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        )),
                     Text('Start Time',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
@@ -100,6 +120,15 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           color: Colors.white,
                           decoration: TextDecoration.none,
                         )),
+                    Text('',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        )),
+
                     Text('End Time',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
@@ -116,7 +145,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           color: Colors.white,
                           decoration: TextDecoration.none,
                         )),
-                    Text('  ',
+                    Text('      ',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
@@ -124,7 +153,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           color: Colors.white,
                           decoration: TextDecoration.none,
                         )),
-                    Text('  ',
+                    Text('     ',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
@@ -132,7 +161,15 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           color: Colors.white,
                           decoration: TextDecoration.none,
                         )),
-                    Text('  ',
+                    Text('     ',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.firaSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                        )),
+                    Text('         ',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.firaSans(
                           fontSize: 12,
@@ -216,9 +253,11 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                               ),
                                             ],
                                           ),
+                                         // Text(""),
+
                                           Text(
                                             "1 Day",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w500,
@@ -226,6 +265,14 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          Text('',
+                                              textAlign: TextAlign.start,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                                decoration: TextDecoration.none,
+                                              )),
                                           Text(
                                             "Headache",
                                             textAlign: TextAlign.center,
@@ -236,6 +283,15 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          Text('  ',
+                                              textAlign: TextAlign.start,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                                decoration: TextDecoration.none,
+                                              )),
+
                                           Text(
                                             "12 Hours",
                                             textAlign: TextAlign.center,
@@ -246,6 +302,15 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+                                          Text('',
+                                              textAlign: TextAlign.start,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                                decoration: TextDecoration.none,
+                                              )),
+
                                           Text(
                                             "13 April 2023 10.00 AM",
                                             textAlign: TextAlign.center,
@@ -256,6 +321,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                               decoration: TextDecoration.none,
                                             ),
                                           ),
+
                                           Text(
                                             "15 April 2023 5.00 PM",
                                             textAlign: TextAlign.center,
@@ -268,7 +334,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                           ),
                                           Text(
                                             "2 days",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.end,
                                             style: GoogleFonts.firaSans(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w500,
