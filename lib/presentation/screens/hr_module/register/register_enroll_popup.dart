@@ -395,8 +395,10 @@ class RegisterEnrollAlertDialog {
                                   AppString.homeHealth,
                                   AppString.hospice,
                                   AppString.homeCare,
-                                  AppString.palliative
+                                  AppString.palliative,
                                 ],
+
+
                               ),
                             ],
                           )
