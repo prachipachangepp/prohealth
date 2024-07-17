@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 class EditBankingPopUp extends StatefulWidget {
   String? selectedType;
@@ -44,7 +45,7 @@ bool isLoading = false;
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildHeaderWithUpload(),
-                SizedBox(height: MediaQuery.of(context).size.height/80),
+                SizedBox(height: MediaQuery.of(context).size.height/30),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -157,7 +158,12 @@ bool isLoading = false;
                 });
               },
             ),
-            Text('Checking'),
+            Text('Checking',
+              style: TextStyle(
+                  fontSize: AppSize.s10,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black
+              ),),
             Radio(
               value: 'Savings',
               groupValue: widget.selectedType,
@@ -167,7 +173,12 @@ bool isLoading = false;
                 });
               },
             ),
-            Text('Savings'),
+            Text('Savings',
+              style: TextStyle(
+                  fontSize: AppSize.s11,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black
+              ),),
           ],
         ),
         SizedBox(height: MediaQuery.of(context).size.height/100),
@@ -181,7 +192,12 @@ bool isLoading = false;
               groupValue: 'Specific Amount',
               onChanged: (value) {},
             ),
-            Text('Specific Amount'),
+            Text('Specific Amount:',
+            style: TextStyle(
+              fontSize: AppSize.s11,
+              fontWeight: FontWeight.w400,
+              color: Colors.black
+            ),),
           ],
         ),
         Row(
@@ -197,7 +213,7 @@ bool isLoading = false;
               child: Text(
                 'Reset',
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: AppSize.s12,
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
                 ),
@@ -226,7 +242,7 @@ bool isLoading = false;
             icon: Icon(
               Icons.calendar_month_outlined,
               color: Color(0xff50B5E5),
-              size: 16,
+              size: AppSize.s20,
             ),
             onPressed: _selectDate,
           ),
@@ -267,8 +283,11 @@ bool isLoading = false;
         String? prefixText,
       }) {
     return Container(
-      height: 32,
+      height: AppSize.s30,
       child: TextField(
+        style: TextStyle(
+          fontSize: AppSize.s12,
+        ),
         controller: controller,
         decoration: InputDecoration(
           labelText: labelText,
@@ -276,7 +295,7 @@ bool isLoading = false;
           prefixText: prefixText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Colors.grey),
+            borderSide: BorderSide(color: Color(0xffB1B1B1)),
           ),
           contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
         ),
@@ -286,7 +305,7 @@ bool isLoading = false;
 
   TextStyle _labelStyle() {
     return GoogleFonts.firaSans(
-      fontSize: 10.0,
+      fontSize: 12.0,
       fontWeight: FontWeight.w400,
       color: Color(0xff575757),
     );
@@ -311,8 +330,8 @@ bool isLoading = false;
         ),
       ),
       isLoading ? SizedBox(
-          height: 25,
-          width: 25,
+          height: 30,
+          width: 30,
           child: CircularProgressIndicator(color: ColorManager.blueprime,))
           : ElevatedButton(
         child: Text('Save',
