@@ -18,6 +18,31 @@ Future<List<HRAddEmployeeGet>> HrAddEmployeeget(
       for (var item in response.data) {
         itemsList.add(
           HRAddEmployeeGet(
+            employeeid : item['employeeId'],
+            code: item['code'],
+            userId: item['userId'],
+            firstName: item['firstName'],
+            lastName: item['lastName'],
+            dptID: item['departmentId'],
+            emplyID: item['employeeTypeId'],
+            expritise: item['expertise'],
+            cityID: item['cityId'],
+            countryID: item['countryId'],
+            zoneID: item['zoneId'],
+            ssnnBr: item['SSNNbr'],
+            primeNo: item['primaryPhoneNbr'],
+            secNo: item['secondryPhoneNbr'],
+            workNo: item['workPhoneNbr'],
+            regOfficeId: item['regOfficId'],
+            personalEmail: item['personalEmail'],
+            workEmail: item['"workEmail'],
+            address: item['address'],
+            dob: item['dateOfBirth'],
+            emgContact: item['emergencyContact'],
+            coverage: item['covreage'],
+            employment: item['employment']
+
+
 
           ),
           // HRAddEmployeeGet(

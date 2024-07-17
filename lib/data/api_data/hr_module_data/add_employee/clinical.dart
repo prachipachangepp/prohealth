@@ -4,6 +4,7 @@
 class HRAddEmployeeGet{
   final bool? success;
   final String? message;
+  final int? employeeid;
   final String? code;
   final int? userId;
   final String? firstName;
@@ -46,7 +47,8 @@ class HRAddEmployeeGet{
   final  String? materials;
 
 
-  HRAddEmployeeGet( {
+  HRAddEmployeeGet(  {
+    this.employeeid,
     this.success, this.message,
     this.code, this.userId,
     this.firstName, this.lastName,
