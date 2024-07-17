@@ -151,6 +151,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                 onPressed: () async{
                                   await showDialog(context: context,
                                       builder: (context) => DeletePopup(
+                                        title: 'Delete Vaccine',
                                           onCancel: (){
                                             Navigator.pop(context);
                                           }, onDelete: (){

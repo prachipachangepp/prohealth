@@ -1,12 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/see_all/see_all_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/see_all_hr/sales_hr.dart';
-
-import '../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
 import 'administration_hr.dart';
 import 'clinical_hr.dart';
 
@@ -33,38 +28,35 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
     _tabController.dispose();
     super.dispose();
   }
-
   Widget _buildTabWithCircle(int selectedIndex) {
-    return Padding(
-      padding: EdgeInsets.only(left: 180.0, right: 180.0),
-      child: Container(
-        height: 40,
-        decoration: BoxDecoration(
-          color: Color(0xff50B5E5),
-          borderRadius: BorderRadius.circular(40),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildSingleTab(
-                'Clinical', '1,366', selectedIndex == 0, true, false),
-            _buildSingleTab('Sales', '1,234', selectedIndex == 1, false, false),
-            _buildSingleTab(
-                'Administration', '567', selectedIndex == 2, false, true),
-          ],
-        ),
+    return Container(
+      height: 30,
+      width:MediaQuery.of(context).size.width/3
+      ,
+      decoration: BoxDecoration(
+        color: Color(0xff50B5E5),
+        borderRadius: BorderRadius.circular(40),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          _buildSingleTab(
+              'Clinical', '1,366', selectedIndex == 0, true, false),
+          _buildSingleTab('Sales', '1,234', selectedIndex == 1, false, false),
+          _buildSingleTab(
+              'Administration', '567', selectedIndex == 2, false, true),
+        ],
       ),
     );
   }
-//
+
   Widget _buildSingleTab(
       String text, String number, bool isSelected, bool isLeft, bool isRight) {
     return Expanded(
@@ -76,7 +68,7 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
           });
         },
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 5),
+          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Color(0xff50B5E5),
             borderRadius: BorderRadius.only(
@@ -87,13 +79,13 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
             ),
             boxShadow: isSelected
                 ? [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: Offset(0, 3),
-                    ),
-                  ]
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 5,
+                blurRadius: 5,
+                offset: Offset(0, 3),
+              ),
+            ]
                 : [],
           ),
           child: Row(
@@ -109,10 +101,9 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
               ),
               if (isSelected && number.isNotEmpty)
                 Container(
-                  height: 31,
-                  width: 31,
+                  height: 40, // Increased height of container
+                  width: 40, // Increased width
                   margin: EdgeInsets.only(left: 5),
-                  // padding: EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     color: Color(0xff50B5E5),
                     shape: BoxShape.circle,
@@ -143,6 +134,7 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -151,6 +143,7 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
                 onTap: () {
@@ -166,9 +159,8 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
                   ),
                 ),
               ),
-              Expanded(
-                child: _buildTabWithCircle(_tabController.index),
-              ),
+              _buildTabWithCircle(_tabController.index),
+
               ElevatedButton(
                 onPressed: () {
                   showDialog(
@@ -219,11 +211,11 @@ class _PopUpState extends State<PopUp> {
     return AlertDialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(8.0),
-        topRight: Radius.circular(8.0),
-        bottomLeft: Radius.circular(8.0),
-        bottomRight: Radius.circular(8.0),
-      )),
+            topLeft: Radius.circular(8.0),
+            topRight: Radius.circular(8.0),
+            bottomLeft: Radius.circular(8.0),
+            bottomRight: Radius.circular(8.0),
+          )),
       titlePadding: EdgeInsets.zero,
       backgroundColor: Colors.white,
       title: Container(
@@ -263,25 +255,12 @@ class _PopUpState extends State<PopUp> {
         ),
       ),
 
-      // Container(
-      //   constraints: BoxConstraints(
-      //     maxHeight: MediaQuery.of(context).size.height * 0.8,
-      //   ),
+
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Align(
-            //   alignment: Alignment.topLeft,
-            //   child: Text(
-            //     'Patient Profile',
-            //     style: GoogleFonts.firaSans(
-            //       fontSize: 11,
-            //       fontWeight: FontWeight.w700,
-            //       color: Color(0xff2C535F),
-            //     ),
-            //   ),
-            // ),
+
             SizedBox(height: MediaQuery.of(context).size.height / 160),
             Row(
               children: [
@@ -483,5 +462,3 @@ class _ConstantContainerWithTextState extends State<ConstantContainerWithText> {
     );
   }
 }
-
-////
