@@ -140,7 +140,8 @@ class _RoleManagerAdministrationState extends State<RoleManagerAdministration> {
                                             // ),
                                           );
                                         }).toList(),
-                                        onChanged: (String? newValue) {
+                                        onChanged: (String? newValue)
+                                        {
                                           setState(() {
                                             varDropdown = 1;
                                           });
