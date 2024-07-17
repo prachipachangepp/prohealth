@@ -30,18 +30,21 @@ bool isLoading = false;
       child: AlertDialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(12.0),topRight: Radius.circular(12.0),),
+          borderRadius: BorderRadius.circular(12.0), // Circular border to all four sides
         ),
         titlePadding: EdgeInsets.zero,
         title: _buildDialogTitle(context),
         content: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0), // Circular border to all four sides
+          ),
           width: MediaQuery.of(context).size.width * 0.8,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildHeaderWithUpload(),
-                SizedBox(height: 20),
+                SizedBox(height: MediaQuery.of(context).size.height/80),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -57,14 +60,18 @@ bool isLoading = false;
           ),
         ),
         actions: _buildDialogActions(context),
-      ),
+      )
     );
   }
 
   Widget _buildDialogTitle(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12.0),
-      color: Color(0xFF27A3E0),
+      height: 40,
+      decoration: BoxDecoration(
+          color: Color(0xFF27A3E0),
+        borderRadius: BorderRadius.only(topRight: Radius.circular(12.0),topLeft: Radius.circular(12.0))
+      ),
+      padding: EdgeInsets.only(left: 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -72,8 +79,8 @@ bool isLoading = false;
             'Edit Banking',
             style: GoogleFonts.firaSans(
               color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
             ),
           ),
           IconButton(
@@ -99,7 +106,7 @@ bool isLoading = false;
         ),
         ElevatedButton.icon(
           onPressed: _handleFileUpload,
-          icon: Icon(Icons.upload, color: Colors.white),
+          icon: Icon(Icons.file_upload_outlined, color: Colors.white),
           label: Text(
             'Upload',
             style: GoogleFonts.firaSans(
@@ -163,9 +170,9 @@ bool isLoading = false;
             Text('Savings'),
           ],
         ),
-        SizedBox(height: 10),
+        SizedBox(height: MediaQuery.of(context).size.height/100),
         _buildTextField(widget.routingNumberController, 'Routing Number/ Transit Number'),
-        SizedBox(height: 10),
+        SizedBox(height: MediaQuery.of(context).size.height/40),
         Text('Requested Amount for this Account (select one)', style: _labelStyle()),
         Row(
           children: [
@@ -224,7 +231,7 @@ bool isLoading = false;
             onPressed: _selectDate,
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: MediaQuery.of(context).size.height/30),
         _buildTextField(widget.accountNumberController, 'Account Number'),
       ],
     );
@@ -247,7 +254,7 @@ bool isLoading = false;
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildTextField(widget.bankNameController, 'Bank Name'),
-        SizedBox(height: 10),
+        SizedBox(height: MediaQuery.of(context).size.height/30),
         _buildTextField(widget.verifyAccountController, 'Verify Account Number'),
       ],
     );
@@ -296,6 +303,7 @@ bool isLoading = false;
             )),
         onPressed: () => Navigator.of(context).pop(),
         style: TextButton.styleFrom(
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
             side: BorderSide(color: Color(0xFF27A3E0)),
