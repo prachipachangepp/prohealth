@@ -36,9 +36,9 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
   @override
   Widget build(BuildContext context) {
     String? _expiryType;
-    return  Expanded(
+    return  SingleChildScrollView(
       child: Container(
-        //height: MediaQuery.of(context).size.height/3,
+        height: MediaQuery.of(context).size.height/1,
         child: Column(
           children: [
             Container(
