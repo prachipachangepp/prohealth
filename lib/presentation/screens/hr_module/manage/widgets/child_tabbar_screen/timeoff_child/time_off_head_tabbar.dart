@@ -1,8 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/resources/font_manager.dart';
+import 'package:prohealth/app/resources/theme_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/timeoff_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/manage/timeoff_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/timeoff_child/edit_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/timeoff_child/inkewell_text_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/icon_button_constant.dart';
 
@@ -15,6 +22,12 @@ class TimeOffHeadTabbar extends StatefulWidget {
 
 class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
   late CompanyIdentityManager _companyManager;
+   TextEditingController ptoController = TextEditingController();
+   TextEditingController durationController = TextEditingController();
+   TextEditingController startTimeController = TextEditingController();
+   TextEditingController endTimeController = TextEditingController();
+   TextEditingController sickTimeController = TextEditingController();
+  final StreamController<List<TimeOfffData>> timeOffStremController = StreamController<List<TimeOfffData>>();
 
   late int currentPage;
 
@@ -26,388 +39,423 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 5;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
+    itemsPerPage = 20;
+    items = List.generate(60, (index) => 'Item ${index + 1}');
     _companyManager = CompanyIdentityManager();
     // companyAllApi(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        //height: MediaQuery.of(context).size.height/3,
-        child: Column(
-          children: [
-            Container(
-              height: 30,
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    // Text(''),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          AppString.znNo,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ),
-                    ),
-                    //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                    Expanded(
-                      child: Center(
-                        child: Text('Action',
-                            //textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text('Time off Request',
-                            //textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text('Reason',
-                            //textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text('Hours',
-                            //textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text('Start Time',
-                            //textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text('End Time',
-                            //textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: Text('Sick Time',
-                            //textAlign: TextAlign.start,
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                            )),
-                      ),
-                    ),
-                    Expanded(flex:1,child: Container()),
-                    Text('  ',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        )),
-                  ],
-                ),
-              ),
+    return StreamBuilder(
+      stream: timeOffStremController.stream,
+      builder: (context,snapshot) {
+        getEmployeeTimeOff(context,5).then((data) {
+          timeOffStremController.add(data);
+        }).catchError((error) {
+          // Handle error
+        });
+        if(snapshot.connectionState == ConnectionState.waiting){
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 100),
+              child: CircularProgressIndicator(color: ColorManager.blueprime,),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 7,
-                  itemBuilder: (context, index) {
-                    int serialNumber =
-                        index + 1 + (currentPage - 1) * itemsPerPage;
-                    String formattedSerialNumber =
-                    serialNumber.toString().padLeft(2, '0');
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xff000000)
-                                        .withOpacity(0.25),
-                                    spreadRadius: 0,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
+          );
+        }
+        if (snapshot.data!.isEmpty) {
+          return Center(
+              child: Text(
+                AppString.dataNotFound,
+                style: CustomTextStylesCommon.commonStyle(
+                    fontWeight: FontWeightManager.medium,
+                    fontSize: FontSize.s12,
+                    color: ColorManager.mediumgrey),
+              ));
+        }
+        if(snapshot.hasData){
+          return Expanded(
+            child: Container(
+              //height: MediaQuery.of(context).size.height/3,
+              child: Column(
+                children: [
+                  Container(
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          // Text(''),
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                AppString.znNo,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                              height: 40,
-                              child: Stack(
-                                  children: [
-                                    Container(
-                                      width: 10,
-                                      color: ColorManager.blueprime,
+                            ),
+                          ),
+                          //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                          Expanded(
+                            child: Center(
+                              child: Text('Action',
+                                  //textAlign: TextAlign.start,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                  )),
+                            ),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Text('Time off Request',
+                                  //textAlign: TextAlign.start,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                  )),
+                            ),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Text('Reason',
+                                  //textAlign: TextAlign.start,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                  )),
+                            ),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Text('Hours',
+                                  //textAlign: TextAlign.start,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                  )),
+                            ),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Text('Start Time',
+                                  //textAlign: TextAlign.start,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                  )),
+                            ),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Text('End Time',
+                                  //textAlign: TextAlign.start,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                  )),
+                            ),
+                          ),
+                          Expanded(
+                            child: Center(
+                              child: Text('Sick Time',
+                                  //textAlign: TextAlign.start,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                  )),
+                            ),
+                          ),
+                          Expanded(flex:1,child: Container()),
+                          Text('  ',
+                              textAlign: TextAlign.start,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                                decoration: TextDecoration.none,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          var timeOff = snapshot.data![index];
+                          int serialNumber =
+                              index + 1 + (currentPage - 1) * itemsPerPage;
+                          String formattedSerialNumber =
+                          serialNumber.toString().padLeft(2, '0');
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(4),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xff000000)
+                                              .withOpacity(0.25),
+                                          spreadRadius: 0,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    height: 40,
+                                    child: Stack(
                                         children: [
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                formattedSerialNumber,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ),
+                                          Container(
+                                            width: 10,
+                                            color: ColorManager.blueprime,
                                           ),
-                                          // Text(''),
-                                          Expanded(
-                                            child: Center(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  CircleAvatar(
-                                                    radius: 10,
-                                                    backgroundColor: ColorManager.faintGrey,
-                                                  ),
-                                                  Text(
-                                                    "John Thomas",
-                                                    //textAlign: TextAlign.center,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 10,
-                                                      fontWeight: FontWeight.w700,
-                                                      color: Color(0xff686464),
-                                                      decoration: TextDecoration.none,
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                      formattedSerialNumber,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464),
+                                                        decoration: TextDecoration.none,
+                                                      ),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                "1 Day",
-                                                //textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                "Headache",
-                                                //textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
+                                                // Text(''),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        CircleAvatar(
+                                                          radius: 10,
+                                                          backgroundColor: ColorManager.faintGrey,
+                                                        ),
+                                                        Text(
+                                                          timeOff.employeeName,
+                                                          //textAlign: TextAlign.center,
+                                                          style: GoogleFonts.firaSans(
+                                                            fontSize: 10,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: Color(0xff686464),
+                                                            decoration: TextDecoration.none,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                "12 Hours",
-                                                //textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                      timeOff.timeOffRequest,
+                                                      //textAlign: TextAlign.center,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464),
+                                                        decoration: TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                "13 April 2023 10.00 AM",
-                                                //textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                      timeOff.reson,
+                                                      //textAlign: TextAlign.center,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464),
+                                                        decoration: TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                "15 April 2023 5.00 PM",
-                                                //textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                      timeOff.hours,
+                                                      //textAlign: TextAlign.center,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464),
+                                                        decoration: TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                "2 days",
-                                                //textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                      timeOff.startTime,
+                                                      //textAlign: TextAlign.center,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464),
+                                                        decoration: TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                      timeOff.endTime,
+                                                      //textAlign: TextAlign.center,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464),
+                                                        decoration: TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Text(
+                                                      timeOff.sickTime,
+                                                      //textAlign: TextAlign.center,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 10,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color(0xff686464),
+                                                        decoration: TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Center(
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                      children: [
+                                                        TextInkwellButton(text: 'Approve', onTap: () {  },),
+                                                        TextInkwellButton(text: 'Reject', onTap: () {  },),
+                                                        TextInkwellButton(text: 'Edit', onTap: () {
+                                                          showDialog(context: context, builder: (BuildContext context){
+                                                            return EditTimeOffPopup(ptoController: ptoController, durationController: durationController,
+                                                              startTimeController: startTimeController, endTimeController: endTimeController, sickTimeController: sickTimeController,
+                                                              labelName: 'Edit Time Off', onPressed: () {  },);
+                                                          });
+                                                        },),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                                //  Text(''),
+                                              ],
                                             ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                children: [
-                                                  TextInkwellButton(text: 'Approve', onTap: () {  },),
-                                                  TextInkwellButton(text: 'Reject', onTap: () {  },),
-                                                  TextInkwellButton(text: 'Edit', onTap: () {  },),
-                                                  // IconButtonWidget(buttonText: "Approve", onPressed: (){}),
-                                                  // IconButtonWidget(buttonText: "Reject", onPressed: (){}),
-                                                  // IconButtonWidget(buttonText: "Edit", onPressed: (){})
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                         //  Text(''),
-                                        ],
-                                      ),
-                                    ),]
-                              )),
-                        ),
-                      ],
-                    );
-                  }),
+                                          ),]
+                                    )),
+                              ),
+                            ],
+                          );
+                        }),
 
+                  ),
+                  // RadioListTile<String>(
+                  //   title: Text('Per zone',
+                  //     style: GoogleFonts.firaSans(
+                  //       fontSize: FontSize.s10,
+                  //       fontWeight: FontWeightManager.medium,
+                  //       color: ColorManager.mediumgrey,
+                  //       decoration: TextDecoration.none,
+                  //     ),),
+                  //   value: 'Per zone',
+                  //   groupValue: _expiryType,
+                  //   onChanged: (value) {
+                  //     setState(() {
+                  //       _expiryType = value;
+                  //     });
+                  //   },
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     RadioListTile<String>(
+                  //       title: Text('Per zone',
+                  //         style: GoogleFonts.firaSans(
+                  //           fontSize: FontSize.s10,
+                  //           fontWeight: FontWeightManager.medium,
+                  //           color: ColorManager.mediumgrey,
+                  //           decoration: TextDecoration.none,
+                  //         ),),
+                  //       value: 'Per zone',
+                  //       groupValue: _expiryType,
+                  //       onChanged: (value) {
+                  //         setState(() {
+                  //           _expiryType = value;
+                  //         });
+                  //       },
+                  //     ),
+                  //     RadioListTile<String>(
+                  //       title: Text('Per milege',
+                  //         style: GoogleFonts.firaSans(
+                  //           fontSize: FontSize.s10,
+                  //           fontWeight: FontWeightManager.medium,
+                  //           color: ColorManager.mediumgrey,
+                  //           decoration: TextDecoration.none,
+                  //         ),),
+                  //       value: 'type2',
+                  //       groupValue: _expiryType,
+                  //       onChanged: (value) {
+                  //         setState(() {
+                  //           _expiryType = value;
+                  //         });
+                  //       },
+                  //     ),
+                  //   ],
+                  // )
+                ],
+              ),
             ),
-            // RadioListTile<String>(
-            //   title: Text('Per zone',
-            //     style: GoogleFonts.firaSans(
-            //       fontSize: FontSize.s10,
-            //       fontWeight: FontWeightManager.medium,
-            //       color: ColorManager.mediumgrey,
-            //       decoration: TextDecoration.none,
-            //     ),),
-            //   value: 'Per zone',
-            //   groupValue: _expiryType,
-            //   onChanged: (value) {
-            //     setState(() {
-            //       _expiryType = value;
-            //     });
-            //   },
-            // ),
-            // Row(
-            //   children: [
-            //     RadioListTile<String>(
-            //       title: Text('Per zone',
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: FontSize.s10,
-            //           fontWeight: FontWeightManager.medium,
-            //           color: ColorManager.mediumgrey,
-            //           decoration: TextDecoration.none,
-            //         ),),
-            //       value: 'Per zone',
-            //       groupValue: _expiryType,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           _expiryType = value;
-            //         });
-            //       },
-            //     ),
-            //     RadioListTile<String>(
-            //       title: Text('Per milege',
-            //         style: GoogleFonts.firaSans(
-            //           fontSize: FontSize.s10,
-            //           fontWeight: FontWeightManager.medium,
-            //           color: ColorManager.mediumgrey,
-            //           decoration: TextDecoration.none,
-            //         ),),
-            //       value: 'type2',
-            //       groupValue: _expiryType,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           _expiryType = value;
-            //         });
-            //       },
-            //     ),
-            //   ],
-            // )
-          ],
-        ),
-      ),
+          );
+        }
+        return SizedBox();
+      }
     );
   }
 }
