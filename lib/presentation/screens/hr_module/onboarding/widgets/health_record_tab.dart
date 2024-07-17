@@ -456,12 +456,48 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
           ),
         ),
 
-        SizedBox(height: 10.0), // Adjust as necessary
+        SizedBox(height: 20.0), // Adjust as necessary
         Padding(
-          padding: EdgeInsets.only(right: 20.0), // Adjust as necessary
+          padding: EdgeInsets.only(right: 30.0), // Adjust as necessary
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Color(0xff1696C8),
+                  side: BorderSide(color: Color(0xff1696C8)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'Reject',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              SizedBox(width: 30),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff1696C8),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'Approve',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
             ],
           ),
         )
