@@ -297,45 +297,52 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding:  EdgeInsets.only(left: 71.0),
-                                child: Column(
-                                  children: [
-                                    CustomDropdownFormField(
+                                padding: EdgeInsets.only(left: 71.0, top: 50),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      CustomDropdownFormField(
+                                        height: 45,
                                         hintText: 'Select a City',
                                         labelText: 'City',
                                         items: [
                                           'ProHealth San Jose',
                                           'ProHealth Sacramento',
                                           'ProHealth Walnut Creek',
-                                          'ProHealth Stockton',],
-                                        onChanged: (String) {}
-                                    ),
-
-                                    SizedBox(height: MediaQuery.of(context).size.height / 30),
-                                    CustomDropdownFormField(
-                                      height: 26,
+                                          'ProHealth Stockton',
+                                        ],
+                                        onChanged: (String? value) {},
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                                      CustomDropdownFormField(
+                                        height: 45,
                                         hintText: 'Select a Country',
                                         labelText: 'Country',
                                         items: [
                                           'Alameida',
-                                          'San Joachim'],
-                                        onChanged: (String) {}
-                                    ),
-                                    SizedBox(height: MediaQuery.of(context).size.height / 30),
-                                    CustomDropdownFormField(
+                                          'San Joachim',
+                                        ],
+                                        onChanged: (String? value) {},
+                                      ),
+                                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                                      CustomDropdownFormField(
+                                        height: 45,
                                         hintText: 'Select a Zone',
                                         labelText: 'Zone',
                                         items: [
                                           '1',
                                           '2',
-                                        '3',
-                                        '4'],
-                                        onChanged: (String) {}
-                                    ),
-                                  ],
+                                          '3',
+                                          '4',
+                                        ],
+                                        onChanged: (String? value) {},
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
+
                             SizedBox(width: MediaQuery.of(context).size.width / 260),
                             Expanded(
                               child: DefaultTabController(
