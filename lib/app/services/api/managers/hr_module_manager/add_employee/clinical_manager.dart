@@ -6,8 +6,65 @@ import '../../../api.dart';
 
 import '../../../repository/hr_module_repository/add_employee/clinical.dart';
 
+///get Employee API
+Future<List<HRAddEmployeeGet>> HrAddEmployeeget(
+    BuildContext context,
+    ) async {
+  List<HRAddEmployeeGet> itemsList = [];
+  try {
+    final response = await Api(context)
+        .get(path: HRModuleAEClinicalRepository.getEmployees());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        itemsList.add(
+          HRAddEmployeeGet(
+            employeeid : item['employeeId'],
+            code: item['code'],
+            userId: item['userId'],
+            firstName: item['firstName'],
+            lastName: item['lastName'],
+            dptID: item['departmentId'],
+            emplyID: item['employeeTypeId'],
+            expritise: item['expertise'],
+            cityID: item['cityId'],
+            countryID: item['countryId'],
+            zoneID: item['zoneId'],
+            ssnnBr: item['SSNNbr'],
+            primeNo: item['primaryPhoneNbr'],
+            secNo: item['secondryPhoneNbr'],
+            workNo: item['workPhoneNbr'],
+            regOfficeId: item['regOfficId'],
+            personalEmail: item['personalEmail'],
+            workEmail: item['"workEmail'],
+            address: item['address'],
+            dob: item['dateOfBirth'],
+            emgContact: item['emergencyContact'],
+            coverage: item['covreage'],
+            employment: item['employment']
 
 
+
+          ),
+          // HRAddEmployeeGet(
+          // AEClinicalDiscipline(
+          //   employeeTypesId: item['employeeTypeId'],
+          //   empType: item['employeeType'],
+          //   deptID: item['DepartmentId'],
+          //   abbrivation: item['abbreviation'],
+          //   color: item['color'],
+          // ),
+        );
+      }
+    } else {
+      print('Api Error');
+    }
+    print("Response:::::${response}");
+    return itemsList;
+  } catch (e) {
+    print("Error $e");
+    return itemsList;
+  }
+}
 ///ADD Employee Post API
 // Future<ApiData> addEmployeeClinical(
 //     BuildContext context,
@@ -41,12 +98,7 @@ import '../../../repository/hr_module_repository/add_employee/clinical.dart';
 //     int companyID,
 //     String onboardingStatus,
 //     String dateofTermination,
-//     String
-//
-//
-//
-//
-//
+
 //     // int employeeId,
 //     // String graduate,
 //     // String degree,
@@ -90,8 +142,6 @@ import '../../../repository/hr_module_repository/add_employee/clinical.dart';
 //         statusCode: 404, success: false, message: AppString.somethingWentWrong);
 //   }
 // }
-
-
 ///Discipline dropdown get Api
 Future<List<AEClinicalDiscipline>> HrAddEmplyClinicalDisciplinApi(
     BuildContext context, int deptID) async {

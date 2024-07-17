@@ -8,6 +8,10 @@ class ManageReposotory{
 
   static String banking = "/employee-bankings";
 
+  static String equipement = "/employee-inventories";
+
+  static String gettermination = "/employees/allTerminatedEmployee";
+
   /// Employeement
   static String getEmployeement({required int employeeId}){
     return "$employement/$byemployeeId/$employeeId";
@@ -46,6 +50,7 @@ class ManageReposotory{
   }
   static String dropdownAttaceLicences({required int licensedId}){
     return "$employee_licenses/attach-license/$licensedId";
+
   }
 
 
@@ -81,5 +86,24 @@ class ManageReposotory{
 
   static String updateBankingEmployee({required int empBankingId}){
     return "$banking/$empBankingId";
+  }
+  /// Equipment
+
+  static String addEquipement(){
+    return "$equipement$add";
+  }
+  static String getEquipement(){
+    return "$equipement";
+  }
+  static String getPrefillEquipement({required int empInventoryId}){
+    return "$equipement/$empInventoryId";
+  }
+  static String patchEquipement({required int empInventoryId}){
+    return "$equipement/$empInventoryId";
+  }
+
+  /// Termination
+  static String getTermination({required int companyId}){
+    return "$gettermination/$companyId";
   }
 }

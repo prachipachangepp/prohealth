@@ -202,53 +202,63 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p80),
-          child: Material(
-            elevation: 5,
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
-            color: Colors.white,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: size.height / 14),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildHealthRecordColumn(context, const Color(0xff008000), leftCheckboxStates),
-                  _buildHealthRecordColumn(context, const Color(0xff686464), rightCheckboxStates),
-                ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+            child: Material(
+              elevation: 5,
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: _buildHealthRecordColumn(context, const Color(0xff008000), leftCheckboxStates),
+                    ),
+                    Expanded(
+                      child: _buildHealthRecordColumn(context, const Color(0xff686464), rightCheckboxStates),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(height: size.height / 100),
-        Padding(
-          padding: EdgeInsets.only(right: size.width / 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              _buildButton('Reject', Colors.white, const Color(0xff1696C8), true),
-              SizedBox(width: size.width / 90),
-              _buildButton('Approve', const Color(0xff1696C8), Colors.white, false),
-            ],
-          ),
-        )
-      ],
+          SizedBox(height: size.height * 0.02),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+            child: Wrap(
+              alignment: WrapAlignment.end,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _buildButton('Reject', Colors.white, const Color(0xff1696C8), true),
+                _buildButton('Approve', const Color(0xff1696C8), Colors.white, false),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
   Widget _buildHealthRecordColumn(BuildContext context, Color color, Map<String, bool> checkboxStates) {
     final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width / 50),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildHealthRecordRow(context, 'Physical Exam', 'TB', color, checkboxStates),
-          SizedBox(height: size.height / 60),
-          _buildHealthRecordRow(context, 'MMR Vaccine', 'Covid Vaccine', color, checkboxStates),
-        ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildHealthRecordRow(context, 'Physical Exam', 'TB', color, checkboxStates),
+            SizedBox(height: size.height * 0.02),
+            _buildHealthRecordRow(context, 'MMR Vaccine', 'Covid Vaccine', color, checkboxStates),
+          ],
+        ),
       ),
     );
   }
@@ -258,7 +268,7 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
     return Row(
       children: [
         _buildHealthRecordWithCheckbox(title1, '2023-08-17', Icons.description_outlined, color, checkboxStates),
-        SizedBox(width: size.width / 30),
+        SizedBox(width: size.width * 0.02),
         _buildHealthRecordWithCheckbox(title2, '2023-08-17', Icons.description_outlined, color, checkboxStates),
       ],
     );
@@ -291,11 +301,14 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      child: Text(
-        text,
-        style: GoogleFonts.firaSans(
-          fontSize: 10.0,
-          fontWeight: FontWeight.w700,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          text,
+          style: GoogleFonts.firaSans(
+            fontSize: 10.0,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
     );

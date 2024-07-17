@@ -65,9 +65,9 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.only(top: 30,left: 45),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       height: 27,
@@ -99,15 +99,10 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                     CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: () async{
 
                     }),
-                    SizedBox(width: 10,),
-                    CustomIconButton(icon: Icons.add,text: 'Add Reference', onPressed: () async{
-
-                    }),
-
                   ],
                 ),
               ),
-               SizedBox(height:MediaQuery.of(context).size.height/10),
+               SizedBox(height:MediaQuery.of(context).size.height/15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

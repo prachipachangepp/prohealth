@@ -64,7 +64,7 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
       ),
     );
   }
-
+//
   Widget _buildSingleTab(
       String text, String number, bool isSelected, bool isLeft, bool isRight) {
     return Expanded(

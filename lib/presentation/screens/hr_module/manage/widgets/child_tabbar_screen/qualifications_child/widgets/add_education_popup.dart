@@ -65,17 +65,6 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CustomIconButton(icon: Icons.add,text: 'Add Edication', onPressed: ()async{
-                    }),
-
-                  ],
-                ),
-              ),
               SizedBox(height:MediaQuery.of(context).size.height/20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
