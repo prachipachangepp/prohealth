@@ -547,8 +547,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 ),
                                 Expanded(
                                   flex: 1,
-                                  child: FutureBuilder<
-                                      List<AEClinicalReportingOffice>>(
+                                  child: FutureBuilder<List<AEClinicalReportingOffice>>(
                                     future:
                                         HrAddEmplyClinicalReportingOfficeApi(
                                             context, 11),

@@ -207,7 +207,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                             Expanded(
                               flex: 3,
                               child: Text(
-                                  snapshot.data![index].regOfficId.toString(),
+                                  snapshot.data![index].position.toString(),
                                   //'ProHealth Walnut Creek-EI Dorado Sacramento',
                                   textAlign: TextAlign.center,
                                   style: AllHRTableData.customTextStyle(context)),
@@ -215,7 +215,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                  snapshot.data![index].experties.toString(),
+                                  snapshot.data![index].expertise.toString(),
                                   //  'Infection control',
                                   textAlign: TextAlign.center,
                                   style: AllHRTableData.customTextStyle(context)),
