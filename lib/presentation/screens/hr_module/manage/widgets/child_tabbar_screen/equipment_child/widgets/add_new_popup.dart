@@ -53,7 +53,7 @@ class _AddNewEquipmentPopupState extends State<AddNewEquipmentPopup> {
                     Text("Add Equipment",style:GoogleFonts.firaSans(
                       fontSize: FontSize.s14,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: Colors.red,
                       //decoration: TextDecoration.none,
                     ),),
                     IconButton(
