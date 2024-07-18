@@ -18,115 +18,301 @@ class OnBoardingWelcome extends StatelessWidget {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: TopRowConstant(),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey, width: 2.0),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2), // shadow color
-                      offset: Offset(0, 5), // horizontal and vertical offset
-                      blurRadius: 5,
-                      spreadRadius: 1,
-                    ),
-                  ],
-                ),
-                width: 1202,
-                height: 626,
-                child: Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'images/doctors.png',
-                              width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.height / 1.3,
-                            ),
-                            SizedBox(width: 24),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Welcome to Prohealth Onboarding Wizard',
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xff686464),
-                                    ),
-                                  ),
-                                  SizedBox(height: 16),
-                                  Center(
-                                    child: Text(
-                                      'Please go through each section and fill valid information',
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xff686464),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 24),
-                                  Center(
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return VerifyUserPopup();
-                                          },
-                                        );
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color(0xff50B5E5),
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 32, vertical: 16),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Start',
-                                        style: GoogleFonts.firaSans(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              border: Border(
+                bottom: BorderSide(color: Colors.grey, width: 2.0),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 80),
-              Row(
-                children: [BottomBarRow()],
-              )
-            ],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  offset: Offset(0, 5),
+                  blurRadius: 5,
+                  spreadRadius: 1,
+                ),
+              ],
+            ),
+            constraints: BoxConstraints(maxWidth: 1202, maxHeight: 500),
+            padding: EdgeInsets.all(24),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'images/doctors.png',
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.height / 2,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 24),
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Welcome to Prohealth Onboarding Wizard',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff686464),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        'Please go through each section and fill valid information',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff686464),
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return VerifyUserPopup();
+                            },
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff50B5E5),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 32, vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          'Start',
+                          style: GoogleFonts.firaSans(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
+      bottomNavigationBar: BottomBarRow(),
     );
   }
 }
+
+
+//
+// Container(
+// color: Colors.pink,
+// child: Column(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: [
+// Row(
+// children: [
+// Image.asset(
+// 'images/doctors.png',
+// width: MediaQuery.of(context).size.width / 3,
+// height: MediaQuery.of(context).size.height / 2,
+// ),
+// SizedBox(width: 24),
+// Column(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: [
+// Text(
+// 'Welcome to Prohealth Onboarding Wizard',
+// style: GoogleFonts.firaSans(
+// fontSize: 30,
+// fontWeight: FontWeight.w600,
+// color: Color(0xff686464),
+// ),
+// ),
+// SizedBox(height: 16),
+// Center(
+// child: Text(
+// 'Please go through each section and fill valid information',
+// style: GoogleFonts.firaSans(
+// fontSize: 14,
+// fontWeight: FontWeight.w400,
+// color: Color(0xff686464),
+// ),
+// ),
+// ),
+// SizedBox(height: 24),
+// Center(
+// child: ElevatedButton(
+// onPressed: () {
+// showDialog(
+// context: context,
+// builder: (BuildContext context) {
+// return VerifyUserPopup();
+// },
+// );
+// },
+// style: ElevatedButton.styleFrom(
+// backgroundColor: Color(0xff50B5E5),
+// padding: const EdgeInsets.symmetric(
+// horizontal: 32, vertical: 16),
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(8),
+// ),
+// ),
+// child: Text(
+// 'Start',
+// style: GoogleFonts.firaSans(
+// fontSize: 20,
+// fontWeight: FontWeight.w700,
+// color: Colors.white),
+// ),
+// ),
+// ),
+// ],
+// ),
+// ],
+// ),
+// ],
+// ),
+// ),
+
+// class OnBoardingWelcome extends StatelessWidget {
+//   const OnBoardingWelcome({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       appBar: PreferredSize(
+//         preferredSize: Size.fromHeight(kToolbarHeight),
+//         child: TopRowConstant(),
+//       ),
+//       body: Column(
+//         children: [
+//           Row(
+//             children: [
+//               Center(
+//                 child: Container(
+//                   decoration: BoxDecoration(
+//                     color: Colors.red,
+//                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
+//                     border: Border(
+//                       bottom: BorderSide(color: Colors.grey, width: 2.0),
+//                     ),
+//                     boxShadow: [
+//                       BoxShadow(
+//                         color: Colors.black.withOpacity(0.2), // shadow color
+//                         offset: Offset(0, 5), // horizontal and vertical offset
+//                         blurRadius: 5,
+//                         spreadRadius: 1,
+//                       ),
+//                     ],
+//                   ),
+//                   width: 1202,
+//                   height: 500,
+//                   child: Padding(
+//                     padding: EdgeInsets.all(24),
+//                     child: Container(
+//                       color: Colors.pink,
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           Row(
+//                             children: [
+//                               Image.asset(
+//                                 'images/doctors.png',
+//                                 width: MediaQuery.of(context).size.width / 3,
+//                                 height: MediaQuery.of(context).size.height / 2,
+//                               ),
+//                               SizedBox(width: 24),
+//                               Column(
+//                                 crossAxisAlignment: CrossAxisAlignment.start,
+//                                 children: [
+//                                   Text(
+//                                     'Welcome to Prohealth Onboarding Wizard',
+//                                     style: GoogleFonts.firaSans(
+//                                       fontSize: 30,
+//                                       fontWeight: FontWeight.w600,
+//                                       color: Color(0xff686464),
+//                                     ),
+//                                   ),
+//                                   SizedBox(height: 16),
+//                                   Center(
+//                                     child: Text(
+//                                       'Please go through each section and fill valid information',
+//                                       style: GoogleFonts.firaSans(
+//                                         fontSize: 14,
+//                                         fontWeight: FontWeight.w400,
+//                                         color: Color(0xff686464),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                   SizedBox(height: 24),
+//                                   Center(
+//                                     child: ElevatedButton(
+//                                       onPressed: () {
+//                                         showDialog(
+//                                           context: context,
+//                                           builder: (BuildContext context) {
+//                                             return VerifyUserPopup();
+//                                           },
+//                                         );
+//                                       },
+//                                       style: ElevatedButton.styleFrom(
+//                                         backgroundColor: Color(0xff50B5E5),
+//                                         padding: const EdgeInsets.symmetric(
+//                                             horizontal: 32, vertical: 16),
+//                                         shape: RoundedRectangleBorder(
+//                                           borderRadius: BorderRadius.circular(8),
+//                                         ),
+//                                       ),
+//                                       child: Text(
+//                                         'Start',
+//                                         style: GoogleFonts.firaSans(
+//                                             fontSize: 20,
+//                                             fontWeight: FontWeight.w700,
+//                                             color: Colors.white),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ],
+//                               ),
+// //                             ],
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//           // SizedBox(height: MediaQuery.of(context).size.height / 80),
+//           const Row(
+//             children: [
+//               Flexible(child: BottomBarRow()),
+//             ],
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 ////////////////////////////////////////VerifyUserPopup////////////////////////
 
@@ -496,7 +682,8 @@ class OnBoardingCongratulation extends StatelessWidget {
       ),
       child: Container(
         width: 900.0,
-        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -506,7 +693,7 @@ class OnBoardingCongratulation extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: Padding(
-                  padding:  EdgeInsets.only(top: 20.0),
+                  padding: EdgeInsets.only(top: 20.0),
                   child: Image.asset(
                     'images/single_doctor.png',
                     height: 277.0,

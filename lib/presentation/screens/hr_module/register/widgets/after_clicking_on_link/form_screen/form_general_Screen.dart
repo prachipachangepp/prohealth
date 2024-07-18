@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -28,12 +29,20 @@ class _generalFormState extends State<generalForm> {
   double textFieldWidth = 430;
   double textFieldHeight = 38;
 
-  TextEditingController firstName = TextEditingController();
+  //TextEditingController firstName = TextEditingController();
 
   /////
-  TextEditingController _controller = TextEditingController();
-  TextEditingController _controllerIssueDate = TextEditingController();
-  TextEditingController _controllerExpirationDate = TextEditingController();
+   TextEditingController _dobcontroller = TextEditingController();
+
+  TextEditingController firstname = TextEditingController();
+  TextEditingController  lastname= TextEditingController();
+  TextEditingController ssecuritynumber= TextEditingController();
+  TextEditingController  phonenumber= TextEditingController();
+  TextEditingController  dphonenumber= TextEditingController();
+  TextEditingController  personalemail= TextEditingController();
+  TextEditingController  driverlicensenumb= TextEditingController();
+  TextEditingController  address= TextEditingController();
+
 
   // Current step in the stepper
   int _currentStep = 0;
@@ -166,6 +175,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        controller: firstname,
                         hintText: 'Enter Text',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -194,6 +204,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        controller: lastname,
                         hintText: 'Enter Text',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -222,6 +233,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        controller: ssecuritynumber,
                         hintText: 'Enter Text',
                         obscureText: !_passwordVisible,
                         hintStyle: GoogleFonts.firaSans(
@@ -268,6 +280,8 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        controller: phonenumber,
+                        keyboardType: TextInputType.name,
                         hintText: 'Enter Text',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -296,6 +310,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        controller: personalemail,
                         hintText: 'Enter Text',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -324,6 +339,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        controller: driverlicensenumb,
                         hintText: 'Enter Text',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -407,7 +423,7 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
-                        controller: _controller,
+                        controller: _dobcontroller,
                         hintText: 'dd-mm-yyyy',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -429,7 +445,7 @@ class _generalFormState extends State<generalForm> {
                               lastDate: DateTime(2101),
                             );
                             if (pickedDate != null) {
-                              _controller.text =
+                              _dobcontroller.text =
                               "${pickedDate.toLocal()}"
                                   .split(' ')[0];
                             }
@@ -450,12 +466,19 @@ class _generalFormState extends State<generalForm> {
                           height:
                           MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
+                        controller: address,
                         hintText: 'Enter Text',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
                           color: Color(0xff9B9B9B),
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         height: 32,
                       ),
                       SizedBox(

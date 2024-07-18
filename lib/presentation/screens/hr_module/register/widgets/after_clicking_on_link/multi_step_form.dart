@@ -42,9 +42,9 @@ class _MultiStepFormState extends State<MultiStepForm> {
   TextEditingController firstName = TextEditingController();
 
   /////
-  TextEditingController _controller = TextEditingController();
-  TextEditingController _controllerIssueDate = TextEditingController();
-  TextEditingController _controllerExpirationDate = TextEditingController();
+  // TextEditingController _controller = TextEditingController();
+  // TextEditingController _controllerIssueDate = TextEditingController();
+  // TextEditingController _controllerExpirationDate = TextEditingController();
 
   // Current step in the stepper
   int _currentStep = 0;
@@ -55,13 +55,13 @@ class _MultiStepFormState extends State<MultiStepForm> {
 
   bool get isLastStep => _currentStep == steps().length - 1;
   bool isCompleted = false;
-  String? _selectedCountry;
-  String? _selectedClinician;
-  String? _selectedSpeciality;
-  String? _selectedDegree;
-  bool _passwordVisible = false;
-  String? _selectedType;
-  String? _selectedType1;
+  // String? _selectedCountry;
+  // String? _selectedClinician;
+  // String? _selectedSpeciality;
+  // String? _selectedDegree;
+  // bool _passwordVisible = false;
+  // String? _selectedType;
+  // String? _selectedType1;
 
   @override
   Widget build(BuildContext context) {

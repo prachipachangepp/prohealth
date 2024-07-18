@@ -10,6 +10,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/row_cont
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/mcq_widget_register.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
@@ -1081,14 +1082,60 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     .size
                                                     .width /
                                                     20),
+                                            // TextButton(
+                                            //   onPressed: () {
+                                            //     if (snapshot.data != null && snapshot.data![index] != null && snapshot.data![index].link != null) {
+                                            //       Navigator.push(
+                                            //         context,
+                                            //         MaterialPageRoute(
+                                            //           builder: (context) => OnBoardingWelcome(),
+                                            //         ),
+                                            //       );
+                                            //     }
+                                            //   },
+                                            //   child: Text(
+                                            //     snapshot.data != null && snapshot.data![index] != null && snapshot.data![index].link != null
+                                            //         ? snapshot.data![index].link.toString()
+                                            //         : '', // You can provide a fallback or handle null case here
+                                            //     style: GoogleFonts.firaSans(
+                                            //       fontSize: 10,
+                                            //       fontWeight: FontWeight.w400,
+                                            //       color: ColorManager.blueprime,
+                                            //     ),
+                                            //   ),
+                                            // )
+
+                                            // InkWell(
+                                            //   onTap: (){
+                                            //     Navigator
+                                            //         .of(context)
+                                            //         .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
+                                            //       return OnBoardingWelcome();
+                                            //     }));                  },
+                                            //   child: Text(
+                                            //     //'https://prohealth.symmetry.care/register',
+                                            //     snapshot.data![index].link.toString(),
+                                            //     style: GoogleFonts.firaSans(
+                                            //       fontSize: 10,
+                                            //       fontWeight: FontWeight.w400,
+                                            //       color: ColorManager.blueprime,
+                                            //     ),
+                                            //   ),
+                                            // )
+
                                             TextButton(
                                               onPressed: () {
                                                 Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) =>
-                                                      OnBoardingWelcome()
-                                                  ),
-                                                );
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            OnBoardingWelcome()));
+                                                // Navigator.push(
+                                                //   context,
+                                                //   MaterialPageRoute(builder: (context) =>
+                                                //       OnBoardingWelcome()
+                                                //   ),
+                                                // );
                                               },
                                               child: Text(
                                                 //'https://prohealth.symmetry.care/register',
