@@ -164,7 +164,7 @@ class _EditPopUpState extends State<EditPopUp> {
                 children: [
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'First Name',
                     ),
                   ),
@@ -173,7 +173,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Last Name',
                     ),
                   ),
@@ -363,7 +363,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Personal Phone Number',
                     ),
                   ),
@@ -372,7 +372,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Work Phone Number',
                     ),
                   ),
@@ -383,7 +383,7 @@ class _EditPopUpState extends State<EditPopUp> {
                 children: [
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Personal email',
                     ),
                   ),
@@ -392,7 +392,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Work email',
                     ),
                   ),
@@ -401,7 +401,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       controller: _controller,
                       labelText: 'dd-mm-yyyy',
                       hintStyle: GoogleFonts.firaSans(
@@ -437,7 +437,7 @@ class _EditPopUpState extends State<EditPopUp> {
                 children: [
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Personal email',
                     ),
                   ),
@@ -466,7 +466,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Driver’s License',
                     ),
                   ),

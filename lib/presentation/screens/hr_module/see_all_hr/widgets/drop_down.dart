@@ -22,7 +22,7 @@ class CustomDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 36,
+      height: 31,
       child: Expanded(
         child: DropdownButtonFormField<String>(
           iconEnabledColor: Color(0xff50B5E5),
