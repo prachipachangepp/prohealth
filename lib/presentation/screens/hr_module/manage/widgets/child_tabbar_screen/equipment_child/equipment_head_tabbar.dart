@@ -28,7 +28,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
   final StreamController<List<EquipmentData>> equipementDataStreamController = StreamController<List<EquipmentData>>();
 
   late CompanyIdentityManager _companyManager;
-
+//
   late int currentPage;
 
   late int itemsPerPage;
