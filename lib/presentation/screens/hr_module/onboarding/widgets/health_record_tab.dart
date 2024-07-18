@@ -169,6 +169,7 @@
 //////
 ////
 
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/widgets/health_record_tab_constant.dart';
@@ -183,376 +184,132 @@ class HealthRecordTab extends StatefulWidget {
 }
 
 class _HealthRecordTabState extends State<HealthRecordTab> {
-  bool isChecked1 = false;
-  bool isChecked2 = false;
-  bool isChecked3 = false;
-  bool isChecked4 = false;
-  bool isChecked5 = false;
-  bool isChecked6 = false;
-  bool isChecked7 = false;
-  bool isChecked8 = false;
+  final Map<String, bool> leftCheckboxStates = {
+    'Physical Exam': false,
+    'TB': false,
+    'MMR Vaccine': false,
+    'Covid Vaccine': false,
+  };
+
+  final Map<String, bool> rightCheckboxStates = {
+    'Physical Exam': false,
+    'TB': false,
+    'MMR Vaccine': false,
+    'Covid Vaccine': false,
+  };
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 20.0), // Adjust as necessary
-          child: Material(
-            elevation: 5,
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
-            color: Colors.white,
-            child: Padding(
-              padding:
-              EdgeInsets.symmetric(vertical: 20.0), // Adjust as necessary
-              child: Row(
-mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: isChecked1,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked1 = value!;
-                              });
-                            },
-                          ),
-                          HealthRecordConst(
-                            "Physical Exam",
-                            "2023-08-17",
-                            Icons.description_outlined,
-                            Color(0xff008000),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: isChecked2,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked2 = value!;
-                              });
-                            },
-                          ),
-                          HealthRecordConst(
-                            "Physical Exam",
-                            "2023-08-17",
-                            Icons.description_outlined,
-                            Color(0xff008000),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: isChecked3,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked3 = value!;
-                              });
-                            },
-                          ),
-                          HealthRecordConst(
-                            "Physical Exam",
-                            "2023-08-17",
-                            Icons.description_outlined,
-                            Color(0xff008000),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: isChecked4,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked4 = value!;
-                              });
-                            },
-                          ),
-                          HealthRecordConst(
-                            "Physical Exam",
-                            "2023-08-17",
-                            Icons.description_outlined,
-                            Color(0xff008000),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width/7,),
-
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: isChecked5,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked5 = value!;
-                              });
-                            },
-                          ),
-                          HealthRecordConst(
-                            "Physical Exam",
-                            "2023-08-17",
-                            Icons.description_outlined,
-                            Color(0xffC6C6C6),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: isChecked6,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked6 = value!;
-                              });
-                            },
-                          ),
-                          HealthRecordConst(
-                            "Physical Exam",
-                            "2023-08-17",
-                            Icons.description_outlined,
-                            Color(0xffC6C6C6),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: isChecked7,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked7 = value!;
-                              });
-                            },
-                          ),
-                          HealthRecordConst(
-                            "Physical Exam",
-                            "2023-08-17",
-                            Icons.description_outlined,
-                            Color(0xffC6C6C6),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: isChecked8,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked8 = value!;
-                              });
-                            },
-                          ),
-                          HealthRecordConst(
-                            "Physical Exam",
-                            "2023-08-17",
-                            Icons.description_outlined,
-                            Color(0xffC6C6C6),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-
-                  // Row(
-                  //   children: [
-                  //     Checkbox(
-                  //       value: isChecked2,
-                  //       onChanged: (bool? value) {
-                  //         setState(() {
-                  //           isChecked2 = value!;
-                  //         });
-                  //       },
-                  //     ),
-                  //     HealthRecordConst(
-                  //       "Physical Exam",
-                  //       "2023-08-17",
-                  //       Icons.description_outlined,
-                  //       Color(0xff50B5E5),
-                  //     ),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   children: [
-                  //     Checkbox(
-                  //       value: isChecked2,
-                  //       onChanged: (bool? value) {
-                  //         setState(() {
-                  //           isChecked2 = value!;
-                  //         });
-                  //       },
-                  //     ),
-                  //     HealthRecordConst(
-                  //       "Physical Exam",
-                  //       "2023-08-17",
-                  //       Icons.description_outlined,
-                  //       Color(0xff50B5E5),
-                  //     ),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   children: [
-                  //     Checkbox(
-                  //       value: isChecked2,
-                  //       onChanged: (bool? value) {
-                  //         setState(() {
-                  //           isChecked2 = value!;
-                  //         });
-                  //       },
-                  //     ),
-                  //     HealthRecordConst(
-                  //       "Physical Exam",
-                  //       "2023-08-17",
-                  //       Icons.description_outlined,
-                  //       Color(0xff50B5E5),
-                  //     ),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   children: [
-                  //     Checkbox(
-                  //       value: isChecked2,
-                  //       onChanged: (bool? value) {
-                  //         setState(() {
-                  //           isChecked2 = value!;
-                  //         });
-                  //       },
-                  //     ),
-                  //     HealthRecordConst(
-                  //       "Physical Exam",
-                  //       "2023-08-17",
-                  //       Icons.description_outlined,
-                  //       Color(0xff50B5E5),
-                  //     ),
-                  //   ],
-                  // ),
-                ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+            child: Material(
+              elevation: 5,
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: _buildHealthRecordColumn(context, const Color(0xff008000), leftCheckboxStates),
+                    ),
+                    Expanded(
+                      child: _buildHealthRecordColumn(context, const Color(0xff686464), rightCheckboxStates),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
+          SizedBox(height: size.height * 0.02),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+            child: Wrap(
+              alignment: WrapAlignment.end,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _buildButton('Reject', Colors.white, const Color(0xff1696C8), true),
+                _buildButton('Approve', const Color(0xff1696C8), Colors.white, false),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
-        SizedBox(height: 20.0), // Adjust as necessary
-        Padding(
-          padding: EdgeInsets.only(right: 30.0), // Adjust as necessary
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Color(0xff1696C8),
-                  side: BorderSide(color: Color(0xff1696C8)),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: Text(
-                  'Reject',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              SizedBox(width: 30),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff1696C8),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: Text(
-                  'Approve',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )
+  Widget _buildHealthRecordColumn(BuildContext context, Color color, Map<String, bool> checkboxStates) {
+    final size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildHealthRecordRow(context, 'Physical Exam', 'TB', color, checkboxStates),
+            SizedBox(height: size.height * 0.02),
+            _buildHealthRecordRow(context, 'MMR Vaccine', 'Covid Vaccine', color, checkboxStates),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHealthRecordRow(BuildContext context, String title1, String title2, Color color, Map<String, bool> checkboxStates) {
+    final size = MediaQuery.of(context).size;
+    return Row(
+      children: [
+        _buildHealthRecordWithCheckbox(title1, '2023-08-17', Icons.description_outlined, color, checkboxStates),
+        SizedBox(width: size.width * 0.02),
+        _buildHealthRecordWithCheckbox(title2, '2023-08-17', Icons.description_outlined, color, checkboxStates),
       ],
     );
   }
 
+  Widget _buildHealthRecordWithCheckbox(String title, String date, IconData icon, Color color, Map<String, bool> checkboxStates) {
+    return Row(
+      children: [
+        Checkbox(
+          value: checkboxStates[title],
+          onChanged: (bool? value) {
+            setState(() {
+              checkboxStates[title] = value!;
+            });
+          },
+        ),
+        buildHealthRecordContainer(title, date, icon, color),
+      ],
+    );
+  }
 
-  Widget HealthRecordConst(String title, String Date, IconData icon,
-      Color iconColor) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Color(0xffC6C6C6)),
-        borderRadius: BorderRadius.all(Radius.circular(4)),
+  Widget _buildButton(String text, Color bgColor, Color textColor, bool hasBorder) {
+    return ElevatedButton(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        backgroundColor: bgColor,
+        foregroundColor: textColor,
+        side: hasBorder ? BorderSide(color: textColor) : null,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
       ),
-      child: Row(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10.0),
-            child: Container(
-              height: 44.0,
-              width: 44.0,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xffC6C6C6)),
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-              ),
-              child: Icon(icon, color: iconColor),
-            ),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          text,
+          style: GoogleFonts.firaSans(
+            fontSize: 10.0,
+            fontWeight: FontWeight.w700,
           ),
-          SizedBox(width: 10),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: GoogleFonts.firaSans(
-                  color: Colors.black,
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Text(
-                Date,
-                style: GoogleFonts.firaSans(
-                  color: Colors.black,
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
