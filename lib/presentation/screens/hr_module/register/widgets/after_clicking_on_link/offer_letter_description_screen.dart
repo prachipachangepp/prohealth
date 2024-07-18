@@ -17,10 +17,12 @@ class OfferLetterDescriptionScreen extends StatefulWidget {
   const OfferLetterDescriptionScreen({super.key});
 
   @override
-  State<OfferLetterDescriptionScreen> createState() => _OfferLetterDescriptionScreenState();
+  State<OfferLetterDescriptionScreen> createState() =>
+      _OfferLetterDescriptionScreenState();
 }
 
-class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScreen> {
+class _OfferLetterDescriptionScreenState
+    extends State<OfferLetterDescriptionScreen> {
   PlatformFile? _selectedFile;
   Uint8List? _webImage;
   bool _isChecked = false;
@@ -60,7 +62,7 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
+      appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: TopRowConstant(),
       ),
@@ -81,12 +83,12 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
               ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
-            Center(
-              child: Container(
-                width: 1032,
-                height: 1475,
-                child: Html(
-                  data: """
+            Container(
+              color: Colors.greenAccent,
+              width: 1032,
+              height: 1190,
+              child: Html(
+                data: """
                   <p>Dear Sameer V </p>
         
                   <p>ProHealth Home Care, Inc. (“ProHealth”) is a home health care provider under the management of industry veterans with experience in assisted living, home health care, DME, hospice, skilled nursing, rehab and hospital management. ProHealth offers a full spectrum of home health services ranging from nursing assistance with everyday needs to physical therapy, occupational therapy, and speech language pathology.</p>
@@ -139,19 +141,18 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
                   <br>
                   <p>The undersigned has read and understood the above-employment offer, including the at-will nature of employment and the obligation to submit any employment-related disputes to binding arbitration rather than a civil court. The undersigned understands and acknowledges that this offer supersedes all prior offers and discussions, and that there are no other terms expressed or implied other than those contained within this offer letter. The undersigned acknowledges that the employment offer is contingent upon verification of licensure, identity and employment eligibility, background check, and the pre-employment health examination and screening. By signing below, the undersigned accepts ProHealth’s offer of employment as stated herein.</p>
                 """,
-                  style: {
-                    "p": Style(
-                      fontSize: FontSize(12.0),
-                      color: Color(0xff686464),
-                      fontWeight: FontWeight.w400,
-                    ),
-                    "li": Style(
-                      fontSize: FontSize(12.0),
-                      color: Color(0xff686464),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  },
-                ),
+                style: {
+                  "p": Style(
+                    fontSize: FontSize(12.0),
+                    color: Color(0xff686464),
+                    fontWeight: FontWeight.w400,
+                  ),
+                  "li": Style(
+                    fontSize: FontSize(12.0),
+                    color: Color(0xff686464),
+                    fontWeight: FontWeight.w400,
+                  ),
+                },
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 100),
@@ -165,76 +166,8 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
                     height: MediaQuery.of(context).size.height / 6,
                     child: _selectedFile == null
                         ? Center(
-                      child: ElevatedButton(
-                        onPressed: _pickFile,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff1696C8),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text(
-                          'Upload Sign',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    )
-                        : Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        if (kIsWeb && _webImage != null)
-                          Image.memory(
-                            _webImage!,
-                            fit: BoxFit.contain,
-                          )
-                        else if (!kIsWeb && _selectedFile != null)
-                          Image.file(
-                            File(_selectedFile!.path!),
-                            fit: BoxFit.contain,
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (_selectedFile != null)
-              Padding(
-                padding: const EdgeInsets.only(left: 230.0),
-                child: Expanded(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            activeColor: ColorManager.blueprime,
-                            value: _isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
-                          ),
-                          Text(
-                            'I agree to the terms & conditions',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 230.0),
-                        child: Row(
-                          children: [
-                            ElevatedButton(
-                              onPressed: _clearSelectedFile,
+                            child: ElevatedButton(
+                              onPressed: _pickFile,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xff1696C8),
                                 foregroundColor: Colors.white,
@@ -243,23 +176,88 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
                                 ),
                               ),
                               child: Text(
-                                'Clear Selected Image',
+                                'Upload Sign',
                                 style: GoogleFonts.firaSans(
                                   fontSize: 10.0,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ],
+                          )
+                        : Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              if (kIsWeb && _webImage != null)
+                                Image.memory(
+                                  _webImage!,
+                                  fit: BoxFit.contain,
+                                )
+                              else if (!kIsWeb && _selectedFile != null)
+                                Image.file(
+                                  File(_selectedFile!.path!),
+                                  fit: BoxFit.contain,
+                                ),
+                            ],
+                          ),
                   ),
+                ],
+              ),
+            ),
+            if (_selectedFile != null)
+              Padding(
+                padding: const EdgeInsets.only(left: 230.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Checkbox(
+                          activeColor: ColorManager.blueprime,
+                          value: _isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              _isChecked = value!;
+                            });
+                          },
+                        ),
+                        Text(
+                          'I agree to the terms & conditions',
+                          style: GoogleFonts.firaSans(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 230.0),
+                      child: Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: _clearSelectedFile,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xff1696C8),
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text(
+                              'Clear Selected Image',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
         
-        
-            SizedBox(height: MediaQuery.of(context).size.height/100),
+            // SizedBox(height: MediaQuery.of(context).size.height/100),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -287,15 +285,17 @@ class _OfferLetterDescriptionScreenState extends State<OfferLetterDescriptionScr
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height/8),
-            Row(
-              children: [
-                BottomBarRow()
-              ],
-            )
+            //BottomBarRow()
+            //SizedBox(height: MediaQuery.of(context).size.height/8),
+            // Row(
+            //   children: [
+            //     BottomBarRow()
+            //   ],
+            // )
           ],
         ),
       ),
+      bottomNavigationBar: BottomBarRow(),
     );
   }
 }
