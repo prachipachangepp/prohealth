@@ -199,9 +199,9 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
               ),
             ),
           ),
-          Row(
-            children: [BottomBarRow()],
-          )
+          // Row(
+          //   children: [BottomBarRow()],
+          // )
         ],
       ),
     );

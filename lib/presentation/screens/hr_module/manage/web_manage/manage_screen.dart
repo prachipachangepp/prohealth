@@ -511,7 +511,7 @@ class _ManageScreenState extends State<ManageScreen> {
        ///TabBar
        CenteredTabBar(),
        /// bottom row
-       BottomBarRow()
+       // BottomBarRow()
       ]),
     );
   }
