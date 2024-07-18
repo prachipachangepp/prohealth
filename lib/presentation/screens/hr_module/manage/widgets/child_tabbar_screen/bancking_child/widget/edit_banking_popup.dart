@@ -371,3 +371,77 @@ bool isLoading = false;
   }
 }
 ///////
+
+
+//
+// Padding(
+// padding:  EdgeInsets.only(top: 20.0),
+// child: Container(
+// child: Column(
+// children: [
+// Row(
+// mainAxisAlignment: MainAxisAlignment.end,
+// children: [
+// ElevatedButton.icon(
+// onPressed: () async {
+// DateTime? pickedDate =
+// await showDatePicker(
+// context: context,
+// initialDate: DateTime.now(),
+// firstDate: DateTime(2000),
+// lastDate: DateTime(2101),
+// );
+// if (pickedDate != null) {
+// String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+// _controllerStartDate.text = formattedDate;
+// }
+// },
+// icon: Icon(Icons.calendar_month,color: Color(0xff686464),size: 18,),
+// label: Text('Start Date',
+// style: GoogleFonts.roboto(
+// fontSize: 12,
+// fontWeight: FontWeight.w400,
+// color: Color(0xff686464),
+// ),
+// ),
+// style: ElevatedButton.styleFrom(
+// backgroundColor: Colors.white,
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(8.0),
+// side: BorderSide(color: Color(0xffB6B6B6)),
+// ),
+// ),
+// ),
+// SizedBox(width: 10),
+// ElevatedButton.icon(
+// onPressed: () async {
+// DateTime? pickedDate =
+// await showDatePicker(
+// context: context,
+// initialDate: DateTime.now(),
+// firstDate: DateTime(2000),
+// lastDate: DateTime(2101),
+// );
+// if (pickedDate != null) {
+// String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+// _controllerEndDate.text = formattedDate;
+// }
+// },
+// icon: Icon(Icons.calendar_month,color: Color(0xff686464),size: 18,),
+// label: Text('End Date',
+// style: GoogleFonts.roboto(
+// fontSize: 12,
+// fontWeight: FontWeight.w400,
+// color: Color(0xff686464),
+// ),
+// ),
+// style: ElevatedButton.styleFrom(
+// backgroundColor: Colors.white,
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(8.0),
+// side: BorderSide(color: Color(0xffB6B6B6)),
+// ),
+// ),
+// ),
+// ],
+// ),
