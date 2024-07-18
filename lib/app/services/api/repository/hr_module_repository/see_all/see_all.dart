@@ -1,5 +1,4 @@
 class SeeAllRepository{
-
   static String emp = "/employees";
   static String all = "/all";
 
