@@ -6,6 +6,7 @@ import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_p
 
 
 /// Search by Text
+/// get api
 Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
     BuildContext context, int companyId, String searchText) async {
   String convertIsoToDayMonthYear(String isoDate) {
@@ -97,7 +98,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
 }
 
 /// Search by ID
-
+///get
 Future<List<SearchEmployeeProfileData>> getSearchProfileById(
     BuildContext context, int companyId, int employeeTypeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
