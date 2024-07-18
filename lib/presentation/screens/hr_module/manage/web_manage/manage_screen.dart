@@ -32,6 +32,7 @@ import '../widgets/child_tabbar_screen/documents_child/acknowledgements_child_ta
 import '../widgets/child_tabbar_screen/documents_child/add_vaccination_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/compensation_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/other_child_tabbar.dart';
+import '../widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/education_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/employment_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/licenses_child_tabbar.dart';
@@ -102,6 +103,10 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController countryController = TextEditingController();
   TextEditingController numberIDController = TextEditingController();
   String compensationExpiryType = '';
+
+  ///Aknowledgement
+  TextEditingController AcknowlegementnameController = TextEditingController();
+
 
   @override
   void initState() {
@@ -344,7 +349,7 @@ class _ManageScreenState extends State<ManageScreen> {
                 margin: EdgeInsets.only(right: 20),
                 child: CustomIconButtonConst(
                     text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
-                      //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+                      showDialog(context: context, builder: (context)=> AcknowledgementAddPopup(labelName: 'Add Acknowlegement', AcknowledgementnameController: AcknowlegementnameController, onSavePressed: () {  },));
                 }),
               ),
             ],

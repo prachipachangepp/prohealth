@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/resources/value_manager.dart';
 
 class EditBankingPopUp extends StatefulWidget {
   String? selectedType;
@@ -35,13 +36,16 @@ bool isLoading = false;
         titlePadding: EdgeInsets.zero,
         title: _buildDialogTitle(context),
         content: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
           width: MediaQuery.of(context).size.width * 0.8,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildHeaderWithUpload(),
-                SizedBox(height: 20),
+                SizedBox(height: MediaQuery.of(context).size.height/30),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -57,14 +61,18 @@ bool isLoading = false;
           ),
         ),
         actions: _buildDialogActions(context),
-      ),
+      )
     );
   }
 
   Widget _buildDialogTitle(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12.0),
-      color: Color(0xFF27A3E0),
+      height: 40,
+      decoration: BoxDecoration(
+          color: Color(0xFF27A3E0),
+        borderRadius: BorderRadius.only(topRight: Radius.circular(12.0),topLeft: Radius.circular(12.0))
+      ),
+      padding: EdgeInsets.only(left: 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -72,8 +80,8 @@ bool isLoading = false;
             'Edit Banking',
             style: GoogleFonts.firaSans(
               color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
             ),
           ),
           IconButton(
@@ -99,7 +107,7 @@ bool isLoading = false;
         ),
         ElevatedButton.icon(
           onPressed: _handleFileUpload,
-          icon: Icon(Icons.upload, color: Colors.white),
+          icon: Icon(Icons.file_upload_outlined, color: Colors.white),
           label: Text(
             'Upload',
             style: GoogleFonts.firaSans(
@@ -150,7 +158,12 @@ bool isLoading = false;
                 });
               },
             ),
-            Text('Checking'),
+            Text('Checking',
+              style: TextStyle(
+                  fontSize: AppSize.s10,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black
+              ),),
             Radio(
               value: 'Savings',
               groupValue: widget.selectedType,
@@ -160,12 +173,17 @@ bool isLoading = false;
                 });
               },
             ),
-            Text('Savings'),
+            Text('Savings',
+              style: TextStyle(
+                  fontSize: AppSize.s11,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black
+              ),),
           ],
         ),
-        SizedBox(height: 10),
+        SizedBox(height: MediaQuery.of(context).size.height/100),
         _buildTextField(widget.routingNumberController, 'Routing Number/ Transit Number'),
-        SizedBox(height: 10),
+        SizedBox(height: MediaQuery.of(context).size.height/40),
         Text('Requested Amount for this Account (select one)', style: _labelStyle()),
         Row(
           children: [
@@ -174,7 +192,12 @@ bool isLoading = false;
               groupValue: 'Specific Amount',
               onChanged: (value) {},
             ),
-            Text('Specific Amount'),
+            Text('Specific Amount:',
+            style: TextStyle(
+              fontSize: AppSize.s11,
+              fontWeight: FontWeight.w400,
+              color: Colors.black
+            ),),
           ],
         ),
         Row(
@@ -190,7 +213,7 @@ bool isLoading = false;
               child: Text(
                 'Reset',
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: AppSize.s12,
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
                 ),
@@ -219,12 +242,12 @@ bool isLoading = false;
             icon: Icon(
               Icons.calendar_month_outlined,
               color: Color(0xff50B5E5),
-              size: 16,
+              size: AppSize.s20,
             ),
             onPressed: _selectDate,
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: MediaQuery.of(context).size.height/30),
         _buildTextField(widget.accountNumberController, 'Account Number'),
       ],
     );
@@ -247,7 +270,7 @@ bool isLoading = false;
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildTextField(widget.bankNameController, 'Bank Name'),
-        SizedBox(height: 10),
+        SizedBox(height: MediaQuery.of(context).size.height/30),
         _buildTextField(widget.verifyAccountController, 'Verify Account Number'),
       ],
     );
@@ -260,8 +283,11 @@ bool isLoading = false;
         String? prefixText,
       }) {
     return Container(
-      height: 32,
+      height: AppSize.s30,
       child: TextField(
+        style: TextStyle(
+          fontSize: AppSize.s12,
+        ),
         controller: controller,
         decoration: InputDecoration(
           labelText: labelText,
@@ -269,7 +295,7 @@ bool isLoading = false;
           prefixText: prefixText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Colors.grey),
+            borderSide: BorderSide(color: Color(0xffB1B1B1)),
           ),
           contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
         ),
@@ -279,7 +305,7 @@ bool isLoading = false;
 
   TextStyle _labelStyle() {
     return GoogleFonts.firaSans(
-      fontSize: 10.0,
+      fontSize: 12.0,
       fontWeight: FontWeight.w400,
       color: Color(0xff575757),
     );
@@ -296,6 +322,7 @@ bool isLoading = false;
             )),
         onPressed: () => Navigator.of(context).pop(),
         style: TextButton.styleFrom(
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
             side: BorderSide(color: Color(0xFF27A3E0)),
@@ -303,8 +330,8 @@ bool isLoading = false;
         ),
       ),
       isLoading ? SizedBox(
-          height: 25,
-          width: 25,
+          height: 30,
+          width: 30,
           child: CircularProgressIndicator(color: ColorManager.blueprime,))
           : ElevatedButton(
         child: Text('Save',
@@ -344,3 +371,77 @@ bool isLoading = false;
   }
 }
 ///////
+
+
+//
+// Padding(
+// padding:  EdgeInsets.only(top: 20.0),
+// child: Container(
+// child: Column(
+// children: [
+// Row(
+// mainAxisAlignment: MainAxisAlignment.end,
+// children: [
+// ElevatedButton.icon(
+// onPressed: () async {
+// DateTime? pickedDate =
+// await showDatePicker(
+// context: context,
+// initialDate: DateTime.now(),
+// firstDate: DateTime(2000),
+// lastDate: DateTime(2101),
+// );
+// if (pickedDate != null) {
+// String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+// _controllerStartDate.text = formattedDate;
+// }
+// },
+// icon: Icon(Icons.calendar_month,color: Color(0xff686464),size: 18,),
+// label: Text('Start Date',
+// style: GoogleFonts.roboto(
+// fontSize: 12,
+// fontWeight: FontWeight.w400,
+// color: Color(0xff686464),
+// ),
+// ),
+// style: ElevatedButton.styleFrom(
+// backgroundColor: Colors.white,
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(8.0),
+// side: BorderSide(color: Color(0xffB6B6B6)),
+// ),
+// ),
+// ),
+// SizedBox(width: 10),
+// ElevatedButton.icon(
+// onPressed: () async {
+// DateTime? pickedDate =
+// await showDatePicker(
+// context: context,
+// initialDate: DateTime.now(),
+// firstDate: DateTime(2000),
+// lastDate: DateTime(2101),
+// );
+// if (pickedDate != null) {
+// String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+// _controllerEndDate.text = formattedDate;
+// }
+// },
+// icon: Icon(Icons.calendar_month,color: Color(0xff686464),size: 18,),
+// label: Text('End Date',
+// style: GoogleFonts.roboto(
+// fontSize: 12,
+// fontWeight: FontWeight.w400,
+// color: Color(0xff686464),
+// ),
+// ),
+// style: ElevatedButton.styleFrom(
+// backgroundColor: Colors.white,
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(8.0),
+// side: BorderSide(color: Color(0xffB6B6B6)),
+// ),
+// ),
+// ),
+// ],
+// ),

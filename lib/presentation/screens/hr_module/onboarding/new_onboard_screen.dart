@@ -9,6 +9,7 @@ import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/qual
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../manage/widgets/bottom_row.dart';
 
 class NewOnboardScreen extends StatefulWidget {
   const NewOnboardScreen({super.key});
@@ -137,6 +138,11 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                   ),
 
           ),
+          Row(
+            children: [
+              BottomBarRow()
+            ],
+          )
         ],
       ),
     );
