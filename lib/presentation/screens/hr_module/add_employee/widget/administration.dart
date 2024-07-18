@@ -144,75 +144,191 @@ class _AdministartionTabState extends State<AdministartionTab> {
             ///first container
             Expanded(
               flex: 2,
-              child: Container(
-                // height: 200,
-                width: MediaQuery.of(context).size.width / 1,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    width: 1,
-                    color: Color(0xffB7B7B7),
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  // height: 200,
+                  width: MediaQuery.of(context).size.width / 1,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      width: 1,
+                      color: Color(0xffB7B7B7),
+                    ),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ///position
-                            FutureBuilder<List<AEClinicalDiscipline>>(
-                              future: HrAddEmplyClinicalDisciplinApi(context,1),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ///position
+                              FutureBuilder<List<AEClinicalDiscipline>>(
+                                future: HrAddEmplyClinicalDisciplinApi(context,1),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: AppSize.s40,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(i.empType!);
+                                    );
                                   }
-                                  return CustomDropdownTextField(
-                                    labelText: 'Position',
-                                    labelStyle: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      color: Color(0xff575757),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelFontSize: 10,
-                                    items: dropDownList,
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.empType == newValue) {
-                                          // int docType = a.employeeTypesId;
-                                          // Do something with docType
+                                  if (snapshot.hasData) {
+                                    List<String> dropDownList = [];
+                                    for (var i in snapshot.data!) {
+                                      dropDownList.add(i.empType!);
+                                    }
+                                    return CustomDropdownTextField(
+                                      labelText: 'Position',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelFontSize: 10,
+                                      items: dropDownList,
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.empType == newValue) {
+                                            // int docType = a.employeeTypesId;
+                                            // Do something with docType
+                                          }
                                         }
-                                      }
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
 
-                            ///social security
-                            FutureBuilder<List<HRAddEmployeeGet>>(
+                              ///social security
+                              FutureBuilder<List<HRAddEmployeeGet>>(
+                                  future: HrAddEmployeeget(context),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 7),
+                                          child: Container(
+                                            width: AppSize.s250,
+                                            height: AppSize.s40,
+                                            decoration: BoxDecoration(
+                                                color: ColorManager.faintGrey),
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    if (snapshot.hasData) {
+                                      List<String> socialSecurityNumbers = snapshot
+                                          .data!
+                                          .map((e) => e.ssnnBr)
+                                          .where((number) => number != null)
+                                          .cast<String>()
+                                          .toList();
+
+                                      return Autocomplete<String>(
+                                        optionsBuilder:
+                                            (TextEditingValue textEditingValue) {
+                                          if (textEditingValue.text.isEmpty) {
+                                            return const Iterable<String>.empty();
+                                          } else {
+                                            return socialSecurityNumbers
+                                                .where((String option) {
+                                              return option
+                                                  .contains(textEditingValue.text);
+                                            });
+                                          }
+                                        },
+                                        optionsViewBuilder: (BuildContext context,
+                                            AutocompleteOnSelected<String> onSelected,
+                                            Iterable<String> options) {
+                                          return Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Material(
+                                              shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.vertical(
+                                                    bottom: Radius.circular(4.0)),
+                                              ),
+                                              child: Container(
+                                                width: textFieldWidth,
+                                                constraints:
+                                                BoxConstraints(maxHeight: 200.0),
+                                                child: ListView.builder(
+                                                  padding: EdgeInsets.zero,
+                                                  itemCount: options.length,
+                                                  itemBuilder: (BuildContext context,
+                                                      int index) {
+                                                    final String option =
+                                                    options.elementAt(index);
+                                                    return ListTile(
+                                                      title: Text(
+                                                        option,
+                                                        style: GoogleFonts.firaSans(
+                                                          fontSize: 12,
+                                                          color: Color(0xff575757),
+                                                          fontWeight: FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                      onTap: () {
+                                                        onSelected(option);
+                                                      },
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        fieldViewBuilder: (BuildContext context,
+                                            TextEditingController ctlrSocialSecurity,
+                                            FocusNode focusNode,
+                                            VoidCallback onFieldSubmitted) {
+                                          return CustomTextField(
+                                            width: textFieldWidth,
+                                            height: textFieldHeight,
+                                            cursorHeight: 20,
+                                            labelText: 'Social Security No',
+                                            labelStyle: GoogleFonts.firaSans(
+                                              fontSize: 12,
+                                              color: Color(0xff575757),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                            controller: ctlrSocialSecurity,
+                                            suffixIcon: Icon(
+                                              Icons.remove_red_eye_outlined,
+                                              color: Colors.blue,
+                                              size: 14,
+                                            ),
+                                            focusNode: focusNode,
+                                            labelFontSize: 12,
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      return const Offstage();
+                                    }
+                                  }),
+
+                              ///work email
+                              FutureBuilder<List<HRAddEmployeeGet>>(
                                 future: HrAddEmployeeget(context),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
@@ -221,8 +337,8 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                       baseColor: Colors.grey[300]!,
                                       highlightColor: Colors.grey[100]!,
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 7),
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
                                         child: Container(
                                           width: AppSize.s250,
                                           height: AppSize.s40,
@@ -234,12 +350,14 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                   }
 
                                   if (snapshot.hasData) {
-                                    List<String> socialSecurityNumbers = snapshot
-                                        .data!
-                                        .map((e) => e.ssnnBr)
-                                        .where((number) => number != null)
+                                    List<String> personalEmail = snapshot.data!
+                                        .map(
+                                          (e) => e.personalEmail,
+                                    )
+                                        .where((email) => email != null)
                                         .cast<String>()
                                         .toList();
+                                    print("Personal Emails: $personalEmail,");
 
                                     return Autocomplete<String>(
                                       optionsBuilder:
@@ -247,8 +365,225 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                         if (textEditingValue.text.isEmpty) {
                                           return const Iterable<String>.empty();
                                         } else {
-                                          return socialSecurityNumbers
-                                              .where((String option) {
+                                          return personalEmail.where((String option) {
+                                            return option
+                                                .contains(textEditingValue.text);
+                                          });
+                                        }
+                                      },
+                                      optionsViewBuilder: (BuildContext context,
+                                          AutocompleteOnSelected<String> onSelected,
+                                          Iterable<String> options) {
+                                        return Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Material(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                  bottom: Radius.circular(4.0)),
+                                            ),
+                                            child: Container(
+                                              width: 300,
+                                              constraints:
+                                              BoxConstraints(maxHeight: 200.0),
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                itemCount: options.length,
+                                                itemBuilder: (BuildContext context,
+                                                    int index) {
+                                                  final String option =
+                                                  options.elementAt(index);
+                                                  return ListTile(
+                                                    title: Text(
+                                                      option,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 12,
+                                                        color: Color(0xff575757),
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      onSelected(option);
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController ctlrWorkEmail,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return CustomTextField(
+                                          width: textFieldWidth,
+                                          height: textFieldHeight,
+                                          cursorHeight: 22,
+                                          labelText: 'Work Email',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          controller: ctlrWorkEmail,
+                                          focusNode: focusNode,
+                                          labelFontSize: 12,
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
+                            ],
+                          )),
+                      Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ///first name
+                              FutureBuilder<List<HRAddEmployeeGet>>(
+                                future: HrAddEmployeeget(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: AppSize.s40,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  if (snapshot.hasData) {
+                                    List<String> firstNames = snapshot.data!
+                                        .map((e) => e.firstName)
+                                        .where((name) => name != null)
+                                        .cast<String>()
+                                        .toList();
+                                    return Autocomplete<String>(
+                                      optionsBuilder:
+                                          (TextEditingValue textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        } else {
+                                          return firstNames.where((String option) {
+                                            return option.toLowerCase().contains(
+                                                textEditingValue.text.toLowerCase());
+                                          });
+                                        }
+                                      },
+                                      optionsViewBuilder: (BuildContext context,
+                                          AutocompleteOnSelected<String> onSelected,
+                                          Iterable<String> options) {
+                                        return Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Material(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                  bottom: Radius.circular(4.0)),
+                                            ),
+                                            child: Container(
+                                              width: textFieldWidth,
+                                              constraints:
+                                              BoxConstraints(maxHeight: 200.0),
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                itemCount: options.length,
+                                                itemBuilder: (BuildContext context,
+                                                    int index) {
+                                                  final String option =
+                                                  options.elementAt(index);
+                                                  return ListTile(
+                                                    title: Text(
+                                                      option,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 12,
+                                                        color: Color(0xff575757),
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      onSelected(option);
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController ctlrfirstName,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return CustomTextField(
+                                          width: textFieldWidth,
+                                          height: textFieldHeight,
+                                          cursorHeight: 20,
+                                          labelText: 'First Name',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          controller: ctlrfirstName,
+                                          focusNode: focusNode,
+                                          labelFontSize: 12,
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
+
+                              ///personal phone no
+                              FutureBuilder<List<HRAddEmployeeGet>>(
+                                future: HrAddEmployeeget(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: AppSize.s40,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey),
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  if (snapshot.hasData) {
+                                    List<String> primeNo = snapshot.data!
+                                        .map((e) => e.primeNo)
+                                        .where((number) => number != null)
+                                        .cast<String>()
+                                        .toList();
+                                    print("Personal Phone No: $primeNo");
+
+                                    return Autocomplete<String>(
+                                      optionsBuilder:
+                                          (TextEditingValue textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        } else {
+                                          return primeNo.where((String option) {
                                             return option
                                                 .contains(textEditingValue.text);
                                           });
@@ -295,25 +630,20 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                         );
                                       },
                                       fieldViewBuilder: (BuildContext context,
-                                          TextEditingController ctlrSocialSecurity,
+                                          TextEditingController ctlrprimeNo,
                                           FocusNode focusNode,
                                           VoidCallback onFieldSubmitted) {
                                         return CustomTextField(
                                           width: textFieldWidth,
                                           height: textFieldHeight,
-                                          cursorHeight: 20,
-                                          labelText: 'Social Security No',
+                                          cursorHeight: 22,
+                                          labelText: 'Personal Phone No',
                                           labelStyle: GoogleFonts.firaSans(
                                             fontSize: 12,
                                             color: Color(0xff575757),
                                             fontWeight: FontWeight.w400,
                                           ),
-                                          controller: ctlrSocialSecurity,
-                                          suffixIcon: Icon(
-                                            Icons.remove_red_eye_outlined,
-                                            color: Colors.blue,
-                                            size: 14,
-                                          ),
+                                          controller: ctlrprimeNo,
                                           focusNode: focusNode,
                                           labelFontSize: 12,
                                         );
@@ -322,988 +652,662 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                   } else {
                                     return const Offstage();
                                   }
-                                }),
+                                },
+                              ),
 
-                            ///work email
-                            FutureBuilder<List<HRAddEmployeeGet>>(
-                              future: HrAddEmployeeget(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
+                              ///address
+                              FutureBuilder<List<HRAddEmployeeGet>>(
+                                future: HrAddEmployeeget(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: AppSize.s40,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }
+                                    );
+                                  }
 
-                                if (snapshot.hasData) {
-                                  List<String> personalEmail = snapshot.data!
-                                      .map(
-                                        (e) => e.personalEmail,
-                                  )
-                                      .where((email) => email != null)
-                                      .cast<String>()
-                                      .toList();
-                                  print("Personal Emails: $personalEmail,");
-
-                                  return Autocomplete<String>(
-                                    optionsBuilder:
-                                        (TextEditingValue textEditingValue) {
-                                      if (textEditingValue.text.isEmpty) {
-                                        return const Iterable<String>.empty();
-                                      } else {
-                                        return personalEmail.where((String option) {
-                                          return option
-                                              .contains(textEditingValue.text);
-                                        });
-                                      }
-                                    },
-                                    optionsViewBuilder: (BuildContext context,
-                                        AutocompleteOnSelected<String> onSelected,
-                                        Iterable<String> options) {
-                                      return Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                bottom: Radius.circular(4.0)),
-                                          ),
-                                          child: Container(
-                                            width: 300,
-                                            constraints:
-                                            BoxConstraints(maxHeight: 200.0),
-                                            child: ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              itemCount: options.length,
-                                              itemBuilder: (BuildContext context,
-                                                  int index) {
-                                                final String option =
-                                                options.elementAt(index);
-                                                return ListTile(
-                                                  title: Text(
-                                                    option,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 12,
-                                                      color: Color(0xff575757),
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    onSelected(option);
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    fieldViewBuilder: (BuildContext context,
-                                        TextEditingController ctlrWorkEmail,
-                                        FocusNode focusNode,
-                                        VoidCallback onFieldSubmitted) {
-                                      return CustomTextField(
-                                        width: textFieldWidth,
-                                        height: textFieldHeight,
-                                        cursorHeight: 22,
-                                        labelText: 'Work Email',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        controller: ctlrWorkEmail,
-                                        focusNode: focusNode,
-                                        labelFontSize: 12,
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-                          ],
-                        )),
-                    Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ///first name
-                            FutureBuilder<List<HRAddEmployeeGet>>(
-                              future: HrAddEmployeeget(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> firstNames = snapshot.data!
-                                      .map((e) => e.firstName)
-                                      .where((name) => name != null)
-                                      .cast<String>()
-                                      .toList();
-                                  return Autocomplete<String>(
-                                    optionsBuilder:
-                                        (TextEditingValue textEditingValue) {
-                                      if (textEditingValue.text.isEmpty) {
-                                        return const Iterable<String>.empty();
-                                      } else {
-                                        return firstNames.where((String option) {
-                                          return option.toLowerCase().contains(
-                                              textEditingValue.text.toLowerCase());
-                                        });
-                                      }
-                                    },
-                                    optionsViewBuilder: (BuildContext context,
-                                        AutocompleteOnSelected<String> onSelected,
-                                        Iterable<String> options) {
-                                      return Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                bottom: Radius.circular(4.0)),
-                                          ),
-                                          child: Container(
-                                            width: textFieldWidth,
-                                            constraints:
-                                            BoxConstraints(maxHeight: 200.0),
-                                            child: ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              itemCount: options.length,
-                                              itemBuilder: (BuildContext context,
-                                                  int index) {
-                                                final String option =
-                                                options.elementAt(index);
-                                                return ListTile(
-                                                  title: Text(
-                                                    option,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 12,
-                                                      color: Color(0xff575757),
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    onSelected(option);
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    fieldViewBuilder: (BuildContext context,
-                                        TextEditingController ctlrfirstName,
-                                        FocusNode focusNode,
-                                        VoidCallback onFieldSubmitted) {
-                                      return CustomTextField(
-                                        width: textFieldWidth,
-                                        height: textFieldHeight,
-                                        cursorHeight: 20,
-                                        labelText: 'First Name',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        controller: ctlrfirstName,
-                                        focusNode: focusNode,
-                                        labelFontSize: 12,
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-
-                            ///personal phone no
-                            FutureBuilder<List<HRAddEmployeeGet>>(
-                              future: HrAddEmployeeget(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
-                                      ),
-                                    ),
-                                  );
-                                }
-
-                                if (snapshot.hasData) {
-                                  List<String> primeNo = snapshot.data!
-                                      .map((e) => e.primeNo)
-                                      .where((number) => number != null)
-                                      .cast<String>()
-                                      .toList();
-                                  print("Personal Phone No: $primeNo");
-
-                                  return Autocomplete<String>(
-                                    optionsBuilder:
-                                        (TextEditingValue textEditingValue) {
-                                      if (textEditingValue.text.isEmpty) {
-                                        return const Iterable<String>.empty();
-                                      } else {
-                                        return primeNo.where((String option) {
-                                          return option
-                                              .contains(textEditingValue.text);
-                                        });
-                                      }
-                                    },
-                                    optionsViewBuilder: (BuildContext context,
-                                        AutocompleteOnSelected<String> onSelected,
-                                        Iterable<String> options) {
-                                      return Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                bottom: Radius.circular(4.0)),
-                                          ),
-                                          child: Container(
-                                            width: textFieldWidth,
-                                            constraints:
-                                            BoxConstraints(maxHeight: 200.0),
-                                            child: ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              itemCount: options.length,
-                                              itemBuilder: (BuildContext context,
-                                                  int index) {
-                                                final String option =
-                                                options.elementAt(index);
-                                                return ListTile(
-                                                  title: Text(
-                                                    option,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 12,
-                                                      color: Color(0xff575757),
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    onSelected(option);
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    fieldViewBuilder: (BuildContext context,
-                                        TextEditingController ctlrprimeNo,
-                                        FocusNode focusNode,
-                                        VoidCallback onFieldSubmitted) {
-                                      return CustomTextField(
-                                        width: textFieldWidth,
-                                        height: textFieldHeight,
-                                        cursorHeight: 22,
-                                        labelText: 'Personal Phone No',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        controller: ctlrprimeNo,
-                                        focusNode: focusNode,
-                                        labelFontSize: 12,
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-
-                            ///address
-                            FutureBuilder<List<HRAddEmployeeGet>>(
-                              future: HrAddEmployeeget(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
-                                      ),
-                                    ),
-                                  );
-                                }
-
-                                if (snapshot.hasData) {
-                                  List<String> address = snapshot.data!
-                                      .map((e) => e.address)
-                                      .where((address) => address != null)
-                                      .cast<String>()
-                                      .toList();
-                                  print("Addresses: $address");
-                                  return Autocomplete<String>(
-                                    optionsBuilder:
-                                        (TextEditingValue textEditingValue) {
-                                      if (textEditingValue.text.isEmpty) {
-                                        return const Iterable<String>.empty();
-                                      } else {
-                                        return address.where((String option) {
-                                          return option.toLowerCase().contains(
-                                              textEditingValue.text.toLowerCase());
-                                        });
-                                      }
-                                    },
-                                    optionsViewBuilder: (BuildContext context,
-                                        AutocompleteOnSelected<String> onSelected,
-                                        Iterable<String> options) {
-                                      return Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                bottom: Radius.circular(4.0)),
-                                          ),
-                                          child: Container(
-                                            width: 300,
-                                            constraints:
-                                            BoxConstraints(maxHeight: 200.0),
-                                            child: ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              itemCount: options.length,
-                                              itemBuilder: (BuildContext context,
-                                                  int index) {
-                                                final String option =
-                                                options.elementAt(index);
-                                                return ListTile(
-                                                  title: Text(
-                                                    option,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 12,
-                                                      color: Color(0xff575757),
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    onSelected(option);
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    fieldViewBuilder: (BuildContext context,
-                                        TextEditingController ctlraddress,
-                                        FocusNode focusNode,
-                                        VoidCallback onFieldSubmitted) {
-                                      return CustomTextField(
-                                        width: textFieldWidth,
-                                        height: textFieldHeight,
-                                        cursorHeight: 22,
-                                        labelText: 'Address',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        controller: ctlrAddress,
-                                        focusNode: focusNode,
-                                        labelFontSize: 12,
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-                          ],
-                        )),
-                    Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ///last name
-                            FutureBuilder<List<HRAddEmployeeGet>>(
-                              future: HrAddEmployeeget(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
-                                      ),
-                                    ),
-                                  );
-                                }
-
-                                if (snapshot.hasData) {
-                                  List<String> lastName = snapshot.data!
-                                      .map((e) => e.lastName)
-                                      .where((name) => name != null)
-                                      .cast<String>()
-                                      .toList();
-
-                                  return Autocomplete<String>(
-                                    optionsBuilder:
-                                        (TextEditingValue textEditingValue) {
-                                      if (textEditingValue.text.isEmpty) {
-                                        return const Iterable<String>.empty();
-                                      } else {
-                                        return lastName.where((String option) {
-                                          return option.toLowerCase().contains(
-                                              textEditingValue.text.toLowerCase());
-                                        });
-                                      }
-                                    },
-                                    optionsViewBuilder: (BuildContext context,
-                                        AutocompleteOnSelected<String> onSelected,
-                                        Iterable<String> options) {
-                                      return Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                bottom: Radius.circular(4.0)),
-                                          ),
-                                          child: Container(
-                                            width: textFieldWidth,
-                                            constraints:
-                                            BoxConstraints(maxHeight: 200.0),
-                                            child: ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              itemCount: options.length,
-                                              itemBuilder: (BuildContext context,
-                                                  int index) {
-                                                final String option =
-                                                options.elementAt(index);
-                                                return ListTile(
-                                                  title: Text(
-                                                    option,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 12,
-                                                      color: Color(0xff575757),
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    onSelected(option);
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    fieldViewBuilder: (BuildContext context,
-                                        TextEditingController ctlrlastName,
-                                        FocusNode focusNode,
-                                        VoidCallback onFieldSubmitted) {
-                                      return CustomTextField(
-                                        width: textFieldWidth,
-                                        height: textFieldHeight,
-                                        cursorHeight: 20,
-                                        labelText: 'Last Name',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        controller: ctlrlastName,
-                                        focusNode: focusNode,
-                                        labelFontSize: 12,
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-
-                            /// work phone no
-                            FutureBuilder<List<HRAddEmployeeGet>>(
-                              future: HrAddEmployeeget(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
-                                      ),
-                                    ),
-                                  );
-                                }
-
-                                if (snapshot.hasData) {
-                                  List<String> workNo = snapshot.data!
-                                      .map((e) => e.workNo)
-                                      .where((number) => number != null)
-                                      .cast<String>()
-                                      .toList();
-
-                                  print("Primary Phone Numbers: $workNo");
-
-                                  return Autocomplete<String>(
-                                    optionsBuilder:
-                                        (TextEditingValue textEditingValue) {
-                                      if (textEditingValue.text.isEmpty) {
-                                        return const Iterable<String>.empty();
-                                      } else {
-                                        return workNo.where((String option) {
-                                          return option
-                                              .contains(textEditingValue.text);
-                                        });
-                                      }
-                                    },
-                                    optionsViewBuilder: (BuildContext context,
-                                        AutocompleteOnSelected<String> onSelected,
-                                        Iterable<String> options) {
-                                      return Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                bottom: Radius.circular(4.0)),
-                                          ),
-                                          child: Container(
-                                            width: textFieldWidth,
-                                            constraints:
-                                            BoxConstraints(maxHeight: 200.0),
-                                            child: ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              itemCount: options.length,
-                                              itemBuilder: (BuildContext context,
-                                                  int index) {
-                                                final String option =
-                                                options.elementAt(index);
-                                                return ListTile(
-                                                  title: Text(
-                                                    option,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 12,
-                                                      color: Color(0xff575757),
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    onSelected(option);
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    fieldViewBuilder: (BuildContext context,
-                                        TextEditingController ctlrsecNo,
-                                        FocusNode focusNode,
-                                        VoidCallback onFieldSubmitted) {
-                                      return CustomTextField(
-                                        width: textFieldWidth,
-                                        height: textFieldHeight,
-                                        cursorHeight: 22,
-                                        labelText: 'Secondary Phone No',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        controller: ctlrsecNo,
-                                        focusNode: focusNode,
-                                        labelFontSize: 12,
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-
-                            ///date
-                            SizedBox(
-                              width: AppSize.s250,
-                              height: AppSize.s40,
-                              child: Padding(
-                                padding: const EdgeInsets.all(AppPadding.p5),
-                                child: TextFormField(
-                                  controller: ctlrDob,
-                                  readOnly: true,
-                                  decoration: InputDecoration(
-                                    labelText: 'Date of Birth',
-                                    labelStyle: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      color: Color(0xff575757),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    contentPadding: EdgeInsets.only(
-                                        bottom: 8, top: 10, left: 8),
-                                    border: OutlineInputBorder(),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.black),
-                                    ),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(
-                                        Icons.calendar_month_outlined,
-                                        size: 13,
-                                      ),
-                                      onPressed: () async {
-                                        final selectedDate = await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(1900),
-                                          lastDate: DateTime.now(),
-                                        );
-                                        if (selectedDate != null) {
-                                          setState(() {
-                                            this.selectedDate = selectedDate;
-                                            ctlrDob.text = DateFormat('yyyy-MM-dd')
-                                                .format(selectedDate);
+                                  if (snapshot.hasData) {
+                                    List<String> address = snapshot.data!
+                                        .map((e) => e.address)
+                                        .where((address) => address != null)
+                                        .cast<String>()
+                                        .toList();
+                                    print("Addresses: $address");
+                                    return Autocomplete<String>(
+                                      optionsBuilder:
+                                          (TextEditingValue textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        } else {
+                                          return address.where((String option) {
+                                            return option.toLowerCase().contains(
+                                                textEditingValue.text.toLowerCase());
                                           });
                                         }
                                       },
+                                      optionsViewBuilder: (BuildContext context,
+                                          AutocompleteOnSelected<String> onSelected,
+                                          Iterable<String> options) {
+                                        return Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Material(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                  bottom: Radius.circular(4.0)),
+                                            ),
+                                            child: Container(
+                                              width: 300,
+                                              constraints:
+                                              BoxConstraints(maxHeight: 200.0),
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                itemCount: options.length,
+                                                itemBuilder: (BuildContext context,
+                                                    int index) {
+                                                  final String option =
+                                                  options.elementAt(index);
+                                                  return ListTile(
+                                                    title: Text(
+                                                      option,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 12,
+                                                        color: Color(0xff575757),
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      onSelected(option);
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController ctlraddress,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return CustomTextField(
+                                          width: textFieldWidth,
+                                          height: textFieldHeight,
+                                          cursorHeight: 22,
+                                          labelText: 'Address',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          controller: ctlrAddress,
+                                          focusNode: focusNode,
+                                          labelFontSize: 12,
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
+                            ],
+                          )),
+                      Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ///last name
+                              FutureBuilder<List<HRAddEmployeeGet>>(
+                                future: HrAddEmployeeget(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: AppSize.s40,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey),
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  if (snapshot.hasData) {
+                                    List<String> lastName = snapshot.data!
+                                        .map((e) => e.lastName)
+                                        .where((name) => name != null)
+                                        .cast<String>()
+                                        .toList();
+
+                                    return Autocomplete<String>(
+                                      optionsBuilder:
+                                          (TextEditingValue textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        } else {
+                                          return lastName.where((String option) {
+                                            return option.toLowerCase().contains(
+                                                textEditingValue.text.toLowerCase());
+                                          });
+                                        }
+                                      },
+                                      optionsViewBuilder: (BuildContext context,
+                                          AutocompleteOnSelected<String> onSelected,
+                                          Iterable<String> options) {
+                                        return Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Material(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                  bottom: Radius.circular(4.0)),
+                                            ),
+                                            child: Container(
+                                              width: textFieldWidth,
+                                              constraints:
+                                              BoxConstraints(maxHeight: 200.0),
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                itemCount: options.length,
+                                                itemBuilder: (BuildContext context,
+                                                    int index) {
+                                                  final String option =
+                                                  options.elementAt(index);
+                                                  return ListTile(
+                                                    title: Text(
+                                                      option,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 12,
+                                                        color: Color(0xff575757),
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      onSelected(option);
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController ctlrlastName,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return CustomTextField(
+                                          width: textFieldWidth,
+                                          height: textFieldHeight,
+                                          cursorHeight: 20,
+                                          labelText: 'Last Name',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          controller: ctlrlastName,
+                                          focusNode: focusNode,
+                                          labelFontSize: 12,
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
+
+                              /// work phone no
+                              FutureBuilder<List<HRAddEmployeeGet>>(
+                                future: HrAddEmployeeget(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: AppSize.s40,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey),
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  if (snapshot.hasData) {
+                                    List<String> workNo = snapshot.data!
+                                        .map((e) => e.workNo)
+                                        .where((number) => number != null)
+                                        .cast<String>()
+                                        .toList();
+
+                                    print("Primary Phone Numbers: $workNo");
+
+                                    return Autocomplete<String>(
+                                      optionsBuilder:
+                                          (TextEditingValue textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        } else {
+                                          return workNo.where((String option) {
+                                            return option
+                                                .contains(textEditingValue.text);
+                                          });
+                                        }
+                                      },
+                                      optionsViewBuilder: (BuildContext context,
+                                          AutocompleteOnSelected<String> onSelected,
+                                          Iterable<String> options) {
+                                        return Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Material(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                  bottom: Radius.circular(4.0)),
+                                            ),
+                                            child: Container(
+                                              width: textFieldWidth,
+                                              constraints:
+                                              BoxConstraints(maxHeight: 200.0),
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                itemCount: options.length,
+                                                itemBuilder: (BuildContext context,
+                                                    int index) {
+                                                  final String option =
+                                                  options.elementAt(index);
+                                                  return ListTile(
+                                                    title: Text(
+                                                      option,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 12,
+                                                        color: Color(0xff575757),
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      onSelected(option);
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController ctlrsecNo,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return CustomTextField(
+                                          width: textFieldWidth,
+                                          height: textFieldHeight,
+                                          cursorHeight: 22,
+                                          labelText: 'Secondary Phone No',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          controller: ctlrsecNo,
+                                          focusNode: focusNode,
+                                          labelFontSize: 12,
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
+
+                              ///date
+                              SizedBox(
+                                width: AppSize.s250,
+                                height: AppSize.s40,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(AppPadding.p5),
+                                  child: TextFormField(
+                                    controller: ctlrDob,
+                                    readOnly: true,
+                                    decoration: InputDecoration(
+                                      labelText: 'Date of Birth',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      contentPadding: EdgeInsets.only(
+                                          bottom: 8, top: 10, left: 8),
+                                      border: OutlineInputBorder(),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.black),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        icon: Icon(
+                                          Icons.calendar_month_outlined,
+                                          size: 13,
+                                        ),
+                                        onPressed: () async {
+                                          final selectedDate = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(1900),
+                                            lastDate: DateTime.now(),
+                                          );
+                                          if (selectedDate != null) {
+                                            setState(() {
+                                              this.selectedDate = selectedDate;
+                                              ctlrDob.text = DateFormat('yyyy-MM-dd')
+                                                  .format(selectedDate);
+                                            });
+                                          }
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )),
-                    Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ///home office
-                            FutureBuilder<List<AEClinicalDiscipline>>(
-                              future: HrAddEmplyClinicalDisciplinApi(context, 1),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
+                            ],
+                          )),
+                      Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ///home office
+                              FutureBuilder<List<AEClinicalDiscipline>>(
+                                future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: AppSize.s40,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }
-                                if (snapshot.hasData) {
-                                  List<String> dropDownList = [];
-                                  for (var i in snapshot.data!) {
-                                    dropDownList.add(i.empType!);
+                                    );
                                   }
-                                  return CustomDropdownTextField(
-                                    labelText: 'Home Office',
-                                    labelStyle: GoogleFonts.firaSans(
-                                      fontSize: 12,
-                                      color: Color(0xff575757),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelFontSize: 10,
-                                    items: dropDownList,
-                                    onChanged: (newValue) {
-                                      for (var a in snapshot.data!) {
-                                        if (a.empType == newValue) {
-                                          // int docType = a.employeeTypesId;
-                                          // Do something with docType
+                                  if (snapshot.hasData) {
+                                    List<String> dropDownList = [];
+                                    for (var i in snapshot.data!) {
+                                      dropDownList.add(i.empType!);
+                                    }
+                                    return CustomDropdownTextField(
+                                      labelText: 'Home Office',
+                                      labelStyle: GoogleFonts.firaSans(
+                                        fontSize: 12,
+                                        color: Color(0xff575757),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      labelFontSize: 10,
+                                      items: dropDownList,
+                                      onChanged: (newValue) {
+                                        for (var a in snapshot.data!) {
+                                          if (a.empType == newValue) {
+                                            // int docType = a.employeeTypesId;
+                                            // Do something with docType
+                                          }
                                         }
-                                      }
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
 
-                            ///personal email
-                            FutureBuilder<List<HRAddEmployeeGet>>(
-                              future: HrAddEmployeeget(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
+                              ///personal email
+                              FutureBuilder<List<HRAddEmployeeGet>>(
+                                future: HrAddEmployeeget(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: AppSize.s40,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }
+                                    );
+                                  }
 
-                                if (snapshot.hasData) {
-                                  List<String> personalEmail = snapshot.data!
-                                      .map(
-                                        (e) => e.personalEmail,
-                                  )
-                                      .where((email) => email != null)
-                                      .cast<String>()
-                                      .toList();
-                                  print("Personal Emails: $personalEmail,");
+                                  if (snapshot.hasData) {
+                                    List<String> personalEmail = snapshot.data!
+                                        .map(
+                                          (e) => e.personalEmail,
+                                    )
+                                        .where((email) => email != null)
+                                        .cast<String>()
+                                        .toList();
+                                    print("Personal Emails: $personalEmail,");
 
-                                  return Autocomplete<String>(
-                                    optionsBuilder:
-                                        (TextEditingValue textEditingValue) {
-                                      if (textEditingValue.text.isEmpty) {
-                                        return const Iterable<String>.empty();
-                                      } else {
-                                        return personalEmail.where((String option) {
-                                          return option
-                                              .contains(textEditingValue.text);
-                                        });
-                                      }
-                                    },
-                                    optionsViewBuilder: (BuildContext context,
-                                        AutocompleteOnSelected<String> onSelected,
-                                        Iterable<String> options) {
-                                      return Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                bottom: Radius.circular(4.0)),
-                                          ),
-                                          child: Container(
-                                            width: 300,
-                                            constraints:
-                                            BoxConstraints(maxHeight: 200.0),
-                                            child: ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              itemCount: options.length,
-                                              itemBuilder: (BuildContext context,
-                                                  int index) {
-                                                final String option =
-                                                options.elementAt(index);
-                                                return ListTile(
-                                                  title: Text(
-                                                    option,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 12,
-                                                      color: Color(0xff575757),
-                                                      fontWeight: FontWeight.w400,
+                                    return Autocomplete<String>(
+                                      optionsBuilder:
+                                          (TextEditingValue textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        } else {
+                                          return personalEmail.where((String option) {
+                                            return option
+                                                .contains(textEditingValue.text);
+                                          });
+                                        }
+                                      },
+                                      optionsViewBuilder: (BuildContext context,
+                                          AutocompleteOnSelected<String> onSelected,
+                                          Iterable<String> options) {
+                                        return Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Material(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                  bottom: Radius.circular(4.0)),
+                                            ),
+                                            child: Container(
+                                              width: 300,
+                                              constraints:
+                                              BoxConstraints(maxHeight: 200.0),
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                itemCount: options.length,
+                                                itemBuilder: (BuildContext context,
+                                                    int index) {
+                                                  final String option =
+                                                  options.elementAt(index);
+                                                  return ListTile(
+                                                    title: Text(
+                                                      option,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 12,
+                                                        color: Color(0xff575757),
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  onTap: () {
-                                                    onSelected(option);
-                                                  },
-                                                );
-                                              },
+                                                    onTap: () {
+                                                      onSelected(option);
+                                                    },
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    fieldViewBuilder: (BuildContext context,
-                                        TextEditingController ctlrWorkEmail,
-                                        FocusNode focusNode,
-                                        VoidCallback onFieldSubmitted) {
-                                      return CustomTextField(
-                                        width: textFieldWidth,
-                                        height: textFieldHeight,
-                                        cursorHeight: 22,
-                                        labelText: 'Work Email',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        controller: ctlrWorkEmail,
-                                        focusNode: focusNode,
-                                        labelFontSize: 12,
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-
-                            ///emergancy contact no
-                            FutureBuilder<List<HRAddEmployeeGet>>(
-                              future: HrAddEmployeeget(context),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                      child: Container(
-                                        width: AppSize.s250,
-                                        height: AppSize.s40,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.faintGrey),
-                                      ),
-                                    ),
-                                  );
-                                }
-
-                                if (snapshot.hasData) {
-                                  List<String> emgContact = snapshot.data!
-                                      .map((e) => e.emgContact)
-                                      .where((number) => number != null)
-                                      .cast<String>()
-                                      .toList();
-                                  print("Primary Phone Numbers: $emgContact");
-                                  return Autocomplete<String>(
-                                    optionsBuilder:
-                                        (TextEditingValue textEditingValue) {
-                                      if (textEditingValue.text.isEmpty) {
-                                        return const Iterable<String>.empty();
-                                      } else {
-                                        return emgContact.where((String option) {
-                                          return option
-                                              .contains(textEditingValue.text);
-                                        });
-                                      }
-                                    },
-                                    optionsViewBuilder: (BuildContext context,
-                                        AutocompleteOnSelected<String> onSelected,
-                                        Iterable<String> options) {
-                                      return Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                bottom: Radius.circular(4.0)),
+                                        );
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController ctlrWorkEmail,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return CustomTextField(
+                                          width: textFieldWidth,
+                                          height: textFieldHeight,
+                                          cursorHeight: 22,
+                                          labelText: 'Work Email',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
                                           ),
-                                          child: Container(
-                                            width:
-                                            textFieldWidth, // Adjust the width as needed
-                                            constraints: BoxConstraints(
-                                                maxHeight:
-                                                200.0), // Optional: Adjust the max height
-                                            child: ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              itemCount: options.length,
-                                              itemBuilder: (BuildContext context,
-                                                  int index) {
-                                                final String option =
-                                                options.elementAt(index);
-                                                return ListTile(
-                                                  title: Text(
-                                                    option,
-                                                    style: GoogleFonts.firaSans(
-                                                      fontSize: 12,
-                                                      color: Color(0xff575757),
-                                                      fontWeight: FontWeight.w400,
+                                          controller: ctlrWorkEmail,
+                                          focusNode: focusNode,
+                                          labelFontSize: 12,
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
+
+                              ///emergancy contact no
+                              FutureBuilder<List<HRAddEmployeeGet>>(
+                                future: HrAddEmployeeget(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[100]!,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(horizontal: 7),
+                                        child: Container(
+                                          width: AppSize.s250,
+                                          height: AppSize.s40,
+                                          decoration: BoxDecoration(
+                                              color: ColorManager.faintGrey),
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  if (snapshot.hasData) {
+                                    List<String> emgContact = snapshot.data!
+                                        .map((e) => e.emgContact)
+                                        .where((number) => number != null)
+                                        .cast<String>()
+                                        .toList();
+                                    print("Primary Phone Numbers: $emgContact");
+                                    return Autocomplete<String>(
+                                      optionsBuilder:
+                                          (TextEditingValue textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        } else {
+                                          return emgContact.where((String option) {
+                                            return option
+                                                .contains(textEditingValue.text);
+                                          });
+                                        }
+                                      },
+                                      optionsViewBuilder: (BuildContext context,
+                                          AutocompleteOnSelected<String> onSelected,
+                                          Iterable<String> options) {
+                                        return Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Material(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                  bottom: Radius.circular(4.0)),
+                                            ),
+                                            child: Container(
+                                              width:
+                                              textFieldWidth, // Adjust the width as needed
+                                              constraints: BoxConstraints(
+                                                  maxHeight:
+                                                  200.0), // Optional: Adjust the max height
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                itemCount: options.length,
+                                                itemBuilder: (BuildContext context,
+                                                    int index) {
+                                                  final String option =
+                                                  options.elementAt(index);
+                                                  return ListTile(
+                                                    title: Text(
+                                                      option,
+                                                      style: GoogleFonts.firaSans(
+                                                        fontSize: 12,
+                                                        color: Color(0xff575757),
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  onTap: () {
-                                                    onSelected(option);
-                                                  },
-                                                );
-                                              },
+                                                    onTap: () {
+                                                      onSelected(option);
+                                                    },
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    fieldViewBuilder: (BuildContext context,
-                                        TextEditingController controller6,
-                                        FocusNode focusNode,
-                                        VoidCallback onFieldSubmitted) {
-                                      return CustomTextField(
-                                        width: textFieldWidth,
-                                        height: textFieldHeight,
-                                        cursorHeight: 22,
-                                        labelText: 'Emergency Contact No',
-                                        labelStyle: GoogleFonts.firaSans(
-                                          fontSize: 12,
-                                          color: Color(0xff575757),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        controller: controller6,
-                                        focusNode: focusNode,
-                                        labelFontSize: 12,
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const Offstage();
-                                }
-                              },
-                            ),
-                          ],
-                        )),
-                  ],
+                                        );
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController controller6,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return CustomTextField(
+                                          width: textFieldWidth,
+                                          height: textFieldHeight,
+                                          cursorHeight: 22,
+                                          labelText: 'Emergency Contact No',
+                                          labelStyle: GoogleFonts.firaSans(
+                                            fontSize: 12,
+                                            color: Color(0xff575757),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          controller: controller6,
+                                          focusNode: focusNode,
+                                          labelFontSize: 12,
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Offstage();
+                                  }
+                                },
+                              ),
+                            ],
+                          )),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -1313,49 +1317,53 @@ class _AdministartionTabState extends State<AdministartionTab> {
             ///second container
             Expanded(
               flex: 1,
-              child: Container(
-                // height: 200,
-                  width: MediaQuery.of(context).size.width / 1,
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      width: 1,
-                      color: Color(0xffB7B7B7),
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  // height: 200,
+                    width: MediaQuery.of(context).size.width / 1,
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        width: 1,
+                        color: Color(0xffB7B7B7),
+                      ),
                     ),
-                  ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        McqWidget(
-                          title: 'Employment',
-                          items: [
-                            'Full Time',
-                            'Contract',
-                            'Part Time',
-                            'Per Diem'
-                          ],
-                          onChanged: (selectedIndex) {
-                            print('Selected index: $selectedIndex');
-                            _selectedItemIndex = selectedIndex;
-                          },
-                        ),
-                        McqWidget(
-                          title: 'Gender',
-                          items: [
-                            'Male',
-                            'Female',
-                            'Other',
-                          ],
-                          onChanged: (int) {},
-                        ),
-                        McqWidget(
-                          title: 'Status',
-                          items: ['Active', 'Trainee', 'Inactive'],
-                          onChanged: (int) {},
-                        ),
-                      ])),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          McqWidget(
+                            title: 'Employment',
+                            items: [
+                              'Full Time',
+                              'Contract',
+                              'Part Time',
+                              'Per Diem'
+                            ],
+                            onChanged: (selectedIndex) {
+                              print('Selected index: $selectedIndex');
+                              _selectedItemIndex = selectedIndex;
+                            },
+                          ),
+                          McqWidget(
+                            title: 'Gender',
+                            items: [
+                              'Male',
+                              'Female',
+                              'Other',
+                            ],
+                            onChanged: (int) {},
+                          ),
+                          McqWidget(
+                            title: 'Status',
+                            items: ['Active', 'Trainee', 'Inactive'],
+                            onChanged: (int) {},
+                          ),
+                        ])),
+              ),
             ),
             SizedBox(
               height: 10,

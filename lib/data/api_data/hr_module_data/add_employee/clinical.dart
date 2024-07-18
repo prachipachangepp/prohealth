@@ -72,10 +72,6 @@ class HRAddEmployeeGet{
   });
 }
 
-
-
-
-
 /// discipline dropdown
 class AEClinicalDiscipline {
   final bool? success;
@@ -193,4 +189,8 @@ class AEClinicalService {
   // "npi_number": "45555E",
   // "medicare_provider_id": "455EE",
   // "hco_num_id": "dkkkd444"
+}
+/// upload photo
+class UploadPicture{
+
 }

@@ -98,7 +98,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                     elevation: 4,
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      height: AppSize.s30,
+                      height: AppSize.s25,
                       width: MediaQuery.of(context).size.width / 2.99,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -114,6 +114,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                       ),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children:  [
                             Expanded(
                                 child: ListView.builder(
@@ -142,7 +143,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                           child: Container(
                                             height: 30,
                                             width: MediaQuery.of(context).size.width / 9,
-                                            padding: EdgeInsets.all(5),
+                                            padding: EdgeInsets.all(4),
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(20),
                                               color: widget.selectedIndex == snapshot.data![index].deptId
