@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -22,12 +23,14 @@ class TimeOffHeadTabbar extends StatefulWidget {
 
 class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
   late CompanyIdentityManager _companyManager;
+  TextEditingController _controllerStartDate = TextEditingController();
+  TextEditingController _controllerEndDate = TextEditingController();
    TextEditingController ptoController = TextEditingController();
-   TextEditingController durationController = TextEditingController();
-   TextEditingController startTimeController = TextEditingController();
-   TextEditingController endTimeController = TextEditingController();
-   TextEditingController sickTimeController = TextEditingController();
-  final StreamController<List<TimeOfffData>> timeOffStremController = StreamController<List<TimeOfffData>>();
+   TextEditingController durationController= TextEditingController();
+   TextEditingController startTimeController= TextEditingController();
+   TextEditingController endTimeController= TextEditingController();
+   TextEditingController sickTimeController= TextEditingController();
+   StreamController<List<TimeOfffData>> timeOffStremController = StreamController<List<TimeOfffData>>();
 
   late int currentPage;
 
