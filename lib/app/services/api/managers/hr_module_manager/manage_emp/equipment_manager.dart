@@ -128,6 +128,7 @@ Future<ApiData> addEquipment(BuildContext context,
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
 /// Patch equipment
 Future<ApiData> updateEquipmentPatch(BuildContext context,
     int empInventoryId,int inventoryId,String assignedDate,int empId,String givenId,int inventoryTypeId,String name,

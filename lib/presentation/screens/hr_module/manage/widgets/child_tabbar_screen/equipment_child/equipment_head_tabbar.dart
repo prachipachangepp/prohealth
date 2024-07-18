@@ -28,7 +28,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
   final StreamController<List<EquipmentData>> equipementDataStreamController = StreamController<List<EquipmentData>>();
 
   late CompanyIdentityManager _companyManager;
-
+//
   late int currentPage;
 
   late int itemsPerPage;
@@ -473,7 +473,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                      CustomElevatedButton(
                         width: AppSize.s105,
                         height: AppSize.s30,
-                        text: 'Add',
+                        text: 'Add Equipment',
                         onPressed: () async{
                           setState(() {
                             isLoading = true;

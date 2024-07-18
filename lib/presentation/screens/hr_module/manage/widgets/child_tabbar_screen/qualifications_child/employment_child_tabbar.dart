@@ -315,10 +315,13 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                   }).catchError((error) {
                                                     // Handle error
                                                   });
-                                                  }, checkBoxTile:  Container(
-                                                      width: 300,
-                                                      child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
-                                                      },)), tite: 'Edit Employeement',);
+                                                  }, checkBoxTile:  Padding(
+                                                    padding:  EdgeInsets.only(left: 25.0),
+                                                    child: Container(
+                                                        width: 300,
+                                                        child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
+                                                        },)),
+                                                  ), tite: 'Edit Employeement',);
                                               }
                                             );
                                           });
