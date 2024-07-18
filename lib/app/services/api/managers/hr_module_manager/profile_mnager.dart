@@ -97,6 +97,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
 }
 
 /// Search by ID
+
 Future<List<SearchEmployeeProfileData>> getSearchProfileById(
     BuildContext context, int companyId, int employeeTypeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
