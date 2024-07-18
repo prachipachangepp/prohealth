@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
+import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/dashoboard_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/new_onboard_screen.dart';
 import '../../../../app/resources/color.dart';
@@ -33,6 +35,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   final ButtonSelectionController myController =
       Get.put(ButtonSelectionController());
   String selectedOption = 'Select';
+  int employeeId = 2;
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -170,6 +173,13 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                 suffixIcon: Icon(Icons.search,size: 20,),
                                 contentPadding: EdgeInsets.only(left: 8,right: 8,bottom: 20),
                               ),
+                              onChanged: (val){
+                                setState(() {
+                                  employeeId = 9;
+                                  getSearchByEmployeeIdProfileByText(context,employeeId);
+                                });
+
+                              },
                             ),
                           ),
                           SizedBox(
@@ -272,17 +282,32 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
           ///page view
           Expanded(
             flex: 8,
-            child: PageView(
-              controller: _pageController,
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                DashBoardScreen(),
-                ManageScreen(),
-                AddEmployeeHomeScreen(),
-                RegisterScreen(),
-                NewOnboardScreen(),
-                SeeAllHrScreen()
-              ],
+            child: FutureBuilder<SearchByEmployeeIdProfileData>(
+              future: getSearchByEmployeeIdProfileByText(context,employeeId),
+              builder: (context,snapshot) {
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                }
+
+                if(snapshot.hasData){
+                  Map<String, dynamic> profileList;
+                  SearchByEmployeeIdProfileData searchByEmployeeIdProfileData = snapshot.data!;
+                  return PageView(
+                    controller: _pageController,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      DashBoardScreen(searchByEmployeeIdProfileData: searchByEmployeeIdProfileData,),
+                      ManageScreen(searchByEmployeeIdProfileData: searchByEmployeeIdProfileData,),
+                      AddEmployeeHomeScreen(),
+                      RegisterScreen(),
+                      NewOnboardScreen(),
+                      SeeAllHrScreen()
+                    ],
+                  );
+                }
+                return SizedBox();
+
+              }
             ),
           ),
           // BottomAppBar()

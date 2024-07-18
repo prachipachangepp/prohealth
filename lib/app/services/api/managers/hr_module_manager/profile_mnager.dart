@@ -29,8 +29,10 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
       for (var item in response.data) {
         String DateOfBirth = convertIsoToDayMonthYear(item['dateOfBirth']);
         String CreatedAt = convertIsoToDayMonthYear(item['createdAt']);
-        String TerminationDate = convertIsoToDayMonthYear(item['dateofTermination']);
-        String ReginationDate = convertIsoToDayMonthYear(item['dateofResignation']);
+        String TerminationDate = convertIsoToDayMonthYear(
+            item['dateofTermination']);
+        String ReginationDate = convertIsoToDayMonthYear(
+            item['dateofResignation']);
         String CheckDate = convertIsoToDayMonthYear(item['checkDate']);
         String HireDate = convertIsoToDayMonthYear(item['dateofHire']);
         itemsData.add(SearchEmployeeProfileData(
@@ -63,7 +65,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
           imgurl: item['imgurl'] ?? '--',
           resumeurl: item['resumeurl'] ?? '--',
           onboardingStatus: item['onboardingStatus'] ?? '--',
-          createdAt: CreatedAt,
+          createdAt: CreatedAt ?? "--",
           companyId: item['companyId'] ?? 0,
           terminationFlag: item['terminationFlag'] ?? false,
           approved: item['approved'] ?? false,
@@ -75,7 +77,9 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
           reason: item['reason'] ?? '--',
           finalPayCheck: item['finalPayCheck'] != null ? item['finalPayCheck'].toDouble() : 0.0,
           checkDate: CheckDate,
-          grossPay: item['grossPay'] != null ? item['grossPay'].toDouble() : 0.0,
+          grossPay: item['grossPay'] != null
+              ? item['grossPay'].toDouble()
+              : 0.0,
           netPay: item['netPay'] != null ? item['netPay'].toDouble() : 0.0,
           methods: item['methods'] ?? '--',
           materials: item['materials'] ?? '--',
@@ -85,6 +89,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
           race: item['race'] ?? '--',
         ));
       }
+
       print("search data by Text");
     } else {
       print("Search Data by Text Error 1");
@@ -180,6 +185,123 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileById(
       print("search data by Id");
     } else {
       print("Search Data by Id Error 1");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
+/// employee id wise
+Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
+    BuildContext context, int employeeId) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('MM-dd-yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+  var itemsData;
+  try {
+    final response = await Api(context)
+        .get(path: ProfileRepository.searchByEmployeeIdProfile(employeeId: employeeId,));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+        itemsData = SearchByEmployeeIdProfileData(
+          code: response.data['code'] ?? '--',
+          userId: response.data['userId'] ?? 0,
+          firstName: response.data['firstName'] ?? '--',
+          lastName: response.data['lastName'] ?? '--',
+          departmentId: response.data['departmentId'] ?? 0,
+          employeeTypeId: response.data['employeeTypeId'] ?? 0,
+          cityId: response.data['cityId'] ?? 0,
+          countryId: response.data['countryId'] ?? 0,
+          zoneId: response.data['zoneId'] ?? 0,
+          SSNNbr: response.data['SSNNbr'] ?? '--',
+          primaryPhoneNbr: response.data['primaryPhoneNbr'] ?? '--',
+          secondryPhoneNbr: response.data['secondryPhoneNbr'] ?? '--',
+          workPhoneNbr: response.data['workPhoneNbr'] ?? '--',
+          regOfficId: response.data['regOfficId'] ?? '--',
+          personalEmail: response.data['personalEmail'] ?? '--',
+          workEmail: response.data['workEmail'] ?? '--',
+          dateOfBirth: response.data['dateOfBirth'] ?? "--",
+          emergencyContact: response.data['emergencyContact'] ?? '--',
+          covreage: response.data['covreage'] ?? '--',
+          employment: response.data['employment'] ?? '--',
+          gender: response.data['gender'] ?? '--',
+          status: response.data['status'] ?? '--',
+          service: response.data['service'] ?? '--',
+          imgurl: response.data['imgurl'] ?? '--',
+          resumeurl: response.data['resumeurl'] ?? '--',
+          onboardingStatus: response.data['onboardingStatus'] ?? '',
+          driverLicenceNbr: response.data['driverLicenceNbr'] ?? '',
+          createdAt: response.data['createdAt'] ?? "--",
+          dateofTermination: response.data['dateofTermination'] ?? "--",
+          dateofResignation: response.data['dateofResignation'] ?? "--",
+          dateofHire: response.data['dateofHire'] ?? "--",
+          rehirable: response.data['rehirable'] ??"--",
+          position: response.data['position'] ?? '--',
+          finalAddress: response.data['finalAddress'] ?? '--',
+          type: response.data['type'] ?? '--',
+          reason: response.data['reason'] ?? '--',
+          finalPayCheck: response.data['finalPayCheck'] != null ? response.data['finalPayCheck'].toDouble() : 0.0,
+          checkDate: response.data['checkDate'] ?? "--",
+          grossPay: response.data['grossPay'] != null ? response.data['grossPay'].toDouble() : 0.0,
+          netPay: response.data['netPay'] != null ? response.data['netPay'].toDouble() : 0.0,
+          methods: response.data['methods'] ?? '--',
+          materials: response.data['materials'] ?? '--',
+          city: response.data['city'] ?? '--',
+          employeeType: response.data['employeeType'] ?? '--',
+          department: response.data['department'] ?? '--',
+          country: response.data['country'] ?? '--',
+          zone: response.data['zone'] ?? '--',
+          race: response.data['race'] ?? '--',
+          profileScorePercentage: response.data['profileScorePercentage'] != null ? response.data['profileScorePercentage'].toDouble() : 0.0,
+        );
+
+
+      print("search data by Text ${itemsData.toString()}");
+    } else {
+      print("Search Data by Text Error 1");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
+Future<ProfilePercentage> getPercentage(
+    BuildContext context, int employeeId) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('MM-dd-yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+  var itemsData;
+  try {
+    final response = await Api(context)
+        .get(path: ProfileRepository.getPercentage(employeeId: employeeId,));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      itemsData = ProfilePercentage(percentage: response.data);
+      print('profile percentage');
+    } else {
+      print("percentage Error 1");
     }
     return itemsData;
   } catch (e) {

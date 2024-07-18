@@ -47,6 +47,8 @@ import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
 
 ///done by saloni
 class ManageScreen extends StatefulWidget {
+  final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
+   ManageScreen({super.key,  this.searchByEmployeeIdProfileData,  });
   @override
   State<ManageScreen> createState() => _ManageScreenState();
 }
@@ -653,29 +655,16 @@ class _ManageScreenState extends State<ManageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: FutureBuilder<List<SearchEmployeeProfileData>>(
-            future: getSearchProfileById(context, 1, 33),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                return ListView(scrollDirection: Axis.vertical, children: [
+        body: ListView(scrollDirection: Axis.vertical, children: [
                   /// green blue container
-                  ProfileBar(),
+                  ProfileBar(searchByEmployeeIdProfileData: widget.searchByEmployeeIdProfileData!,),
 
                   ///TabBar
                   CenteredTabBar(),
 
                   /// bottom row
                   BottomBarRow()
-                ]);
-              }
-              return SizedBox();
-            }));
+                ]),
+             );
   }
 }

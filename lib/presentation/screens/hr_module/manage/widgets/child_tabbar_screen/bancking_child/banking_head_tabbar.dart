@@ -98,9 +98,6 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                showDialog(context: context, builder: (_) => FutureBuilder<EmployeeBankingPrefillData>(
                                  future: getPrefillEmployeeBancking(context,snapshot.data![index].empBankingId),
                                  builder: (context,snapshotPrefill) {
-                                   if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                     return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
-                                   }
                                    if(snapshot.connectionState == ConnectionState.waiting){
                                      return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
                                    }
