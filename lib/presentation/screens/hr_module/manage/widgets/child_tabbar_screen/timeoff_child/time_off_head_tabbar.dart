@@ -74,9 +74,9 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
               ));
         }
         if(snapshot.hasData){
-          return Expanded(
+          return SingleChildScrollView(
             child: Container(
-              //height: MediaQuery.of(context).size.height/3,
+              height: MediaQuery.of(context).size.height/1,
               child: Column(
                 children: [
                   Container(
@@ -395,7 +395,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                             ],
                           );
                         }),
-
+            
                   ),
                   // RadioListTile<String>(
                   //   title: Text('Per zone',
