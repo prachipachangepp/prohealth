@@ -12,7 +12,7 @@ import '../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../manage/widgets/custom_icon_button_constant.dart';
 import 'mcq_widget_add-employee.dart';
 
-///prachi to do
+///prachi todo
 class ClinicalTab extends StatefulWidget {
   @override
   State<ClinicalTab> createState() => _ClinicalTabState();
@@ -62,7 +62,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
 
   int empTypeId = 0;
   // Country? _selectedCountry;
-
+  String? _fileName;
   DateTime? selectedDate;
   List<DateTime?> dobList = [];
   Future<void> selectDate(BuildContext context) async {
@@ -118,21 +118,36 @@ class _ClinicalTabState extends State<ClinicalTab> {
                 // color: Colors.pink,
                 // height: 40,
                 width: MediaQuery.of(context).size.width / 1,
-                child: Row(
+                child:   Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    if (_fileName != null)
+                      Padding(
+                        padding: EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          _fileName!,
+                          style: TextStyle(
+                            fontFamily: 'FiraSans',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
                     ElevatedButton.icon(
                       onPressed: () async {
-                        FilePickerResult? result =
-                            await FilePicker.platform.pickFiles(
+                        FilePickerResult? result = await FilePicker.platform.pickFiles(
                           type: FileType.image,
                           allowMultiple: false,
                         );
 
                         if (result != null) {
                           PlatformFile file = result.files.first;
+                          setState(() {
+                            _fileName = file.name;
+                          });
                           print('File path: ${file.path}');
-                        } else {}
+                        }
                       },
                       icon: Icon(
                         Icons.file_upload_outlined,
@@ -154,9 +169,9 @@ class _ClinicalTabState extends State<ClinicalTab> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                    )
+                    ),
                   ],
-                ),
+                )
               ),
             ),
 
