@@ -31,26 +31,36 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
         height: MediaQuery.of(context).size.height/1.5,
         decoration: BoxDecoration(
           color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            Container(
+              height: 34,
+              decoration: BoxDecoration(
+                color: Color(0xff50B5E5),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.labelName,style:GoogleFonts.firaSans(
-                    fontSize: FontSize.s14,
-                    fontWeight: FontWeight.w700,
-                    color: ColorManager.blueprime,
-                    //decoration: TextDecoration.none,
-                  ),),
+                  Padding(
+                    padding:  EdgeInsets.only(left: 10.0),
+                    child: Text(widget.labelName,style:GoogleFonts.firaSans(
+                      fontSize: FontSize.s14,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      //decoration: TextDecoration.none,
+                    ),),
+                  ),
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close),
+                    icon: Icon(Icons.close,color: Colors.white,),
                   ),
                 ],
               ),

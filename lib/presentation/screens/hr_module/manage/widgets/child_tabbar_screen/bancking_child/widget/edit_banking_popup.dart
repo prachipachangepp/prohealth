@@ -31,13 +31,13 @@ bool isLoading = false;
       child: AlertDialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0), // Circular border to all four sides
+          borderRadius: BorderRadius.circular(12.0),
         ),
         titlePadding: EdgeInsets.zero,
         title: _buildDialogTitle(context),
         content: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0), // Circular border to all four sides
+            borderRadius: BorderRadius.circular(12.0),
           ),
           width: MediaQuery.of(context).size.width * 0.8,
           child: SingleChildScrollView(

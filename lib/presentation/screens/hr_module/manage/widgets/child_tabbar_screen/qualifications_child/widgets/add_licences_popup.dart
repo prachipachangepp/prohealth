@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -105,15 +106,21 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                       value: 'Select Document',style: TextStyle(color: Color(0xff686464),fontSize: 12),
                     ),
                   ),
-                  SizedBox(width: 10,),
-                  CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: () async{
-
-                  }),
-                  SizedBox(width: 10,),
-                  CustomIconButton(icon: Icons.add,text: 'Add Reference', onPressed: () async{
-
-                  }),
-
+                  SizedBox(width: 537,),
+                  CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: () async
+                  {
+                    FilePickerResult? result =
+                    await FilePicker.platform.pickFiles(
+                      allowMultiple: false,
+                    );
+                    if (result != null) {
+                      PlatformFile file = result.files.first;
+                      print('File picked: ${file.name}');
+                    } else {
+                      // User canceled the picker
+                    }
+                  },
+                  ),
                 ],
               ),
             ),

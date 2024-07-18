@@ -233,11 +233,14 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                         items: ['Per day', 'Per week', 'Per month']
                                             .map((String value) {
                                           return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 12.0),
-                                              child: Text(value,),
+                                              value: value,
+                                              child: Container(
+                                              padding: EdgeInsets.symmetric(horizontal: 12.0),
+                                          child: Text(
+                                          value,
+                                          style: TextStyle(fontSize: 10.0),
+                                          )// Set your desired font size here
+
                                             ),
                                           );
                                         }).toList(),

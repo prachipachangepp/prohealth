@@ -53,6 +53,7 @@ class VisitListDataPrefill {
         required this.visitId,
         required this.visitType});
 }
+
 class CiVisitAdd {
   final String? visitType;
   final List? eligibleClinician;
