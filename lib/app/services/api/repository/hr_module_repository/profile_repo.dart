@@ -2,7 +2,8 @@ class ProfileRepository {
   static String profilesearch = "/employees/searchByStringFilter";
 
   /// search employee profile
-  static String searchEmployeeProfileByText({required int companyId, required String searchText}){
+  static String searchEmployeeProfileByText({
+    required int companyId, required String searchText}){
     return "$profilesearch/$companyId/$searchText";
   }
 
