@@ -1,4 +1,3 @@
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,25 +12,16 @@ class EditBankingPopUp extends StatefulWidget {
   final TextEditingController routingNumberController;
   final TextEditingController specificAmountController;
   Future<void> Function() onPressed;
-
-  EditBankingPopUp({
-    super.key,
-    required this.onPressed,
-    this.selectedType,
-    required this.effectiveDateController,
-    required this.bankNameController,
-    required this.accountNumberController,
-    required this.verifyAccountController,
-    required this.routingNumberController,
-    required this.specificAmountController,
-  });
+   EditBankingPopUp({super.key, required this.onPressed,this.selectedType,required this.effectiveDateController, required this.bankNameController,
+     required this.accountNumberController, required this.verifyAccountController,
+     required this.routingNumberController, required this.specificAmountController});
 
   @override
   State<EditBankingPopUp> createState() => _EditBankingPopUpState();
 }
 
 class _EditBankingPopUpState extends State<EditBankingPopUp> {
-  bool isLoading = false;
+bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +30,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       child: AlertDialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(12.0),
-            topRight: Radius.circular(12.0),
-          ),
+          borderRadius: BorderRadius.circular(12.0),
         ),
         titlePadding: EdgeInsets.zero,
         title: _buildDialogTitle(context),
@@ -110,46 +97,23 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
             color: Colors.black,
           ),
         ),
-        Row(
-          children: [
-            ElevatedButton.icon(
-              onPressed: _handleFileUpload,
-              icon: Icon(Icons.upload, color: Colors.white),
-              label: Text(
-                'Upload License',
-                style: GoogleFonts.firaSans(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF27A3E0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-              ),
+        ElevatedButton.icon(
+          onPressed: _handleFileUpload,
+          icon: Icon(Icons.upload, color: Colors.white),
+          label: Text(
+            'Upload',
+            style: GoogleFonts.firaSans(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
             ),
-            SizedBox(width: 10),
-            ElevatedButton.icon(
-              onPressed: _handleFileUpload,
-              icon: Icon(Icons.add, color: Colors.white),
-              label: Text(
-                'Add Banking',
-                style: GoogleFonts.firaSans(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF27A3E0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-              ),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFF27A3E0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
             ),
-          ],
+          ),
         ),
       ],
     );
@@ -326,7 +290,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
       ElevatedButton(
         child: Text('Cancel',
             style: GoogleFonts.firaSans(
-              color: Colors.white,
+              color: Color(0xff1696C8),
               fontWeight: FontWeight.w700,
               fontSize: 12,
             )),
@@ -379,7 +343,4 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     ];
   }
 }
-
-
-
-
+///////

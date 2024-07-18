@@ -9,7 +9,6 @@ import '../../../../app/resources/value_manager.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../manage/controller/controller.dart';
-import '../manage/widgets/bottom_row.dart';
 import 'addemployee_tab_bar_constant.dart';
 
 ///prachi
@@ -199,9 +198,6 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
               ),
             ),
           ),
-          Row(
-            children: [BottomBarRow()],
-          )
         ],
       ),
     );
