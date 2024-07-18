@@ -134,6 +134,9 @@ class VerifyUserPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       backgroundColor: Colors.white,
       titlePadding: EdgeInsets.zero,
       // shape: RoundedRectangleBorder(
@@ -141,7 +144,7 @@ class VerifyUserPopup extends StatelessWidget {
       title: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(0),
-          color: Colors.white, //background colour pf screen
+          //color: Colors.white, //background colour pf screen
         ),
         width: 500,
         height: 450,

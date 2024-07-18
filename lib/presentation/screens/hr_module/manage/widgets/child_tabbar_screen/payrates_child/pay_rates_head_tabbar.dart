@@ -36,9 +36,9 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
   @override
   Widget build(BuildContext context) {
     String? _expiryType;
-    return  Expanded(
+    return  SingleChildScrollView(
       child: Container(
-        //height: MediaQuery.of(context).size.height/3,
+        height: MediaQuery.of(context).size.height/1,
         child: Column(
           children: [
             Container(
@@ -53,48 +53,52 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // Text(''),
-                    Text(
-                      AppString.znNo,
-                      style: GoogleFonts.firaSans(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          AppString.znNo,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
                       ),
                     ),
                     //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 50),
-                      child: Text('Type of Visit',
-                          textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            decoration: TextDecoration.none,
-                          )),
+                    Expanded(
+                      child: Center(
+                        child: Text('Type of Visit',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                            )),
+                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 50),
-                      child: Text('Rate         ',
-                          textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            decoration: TextDecoration.none,
-                          )),
+                    Expanded(
+                      child: Center(
+                        child: Text('Rate',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                            )),
+                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 55),
-                      child: Text('Action',
-                          textAlign: TextAlign.start,
-                          style: GoogleFonts.firaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            decoration: TextDecoration.none,
-                          )),
+                    Expanded(
+                      child: Center(
+                        child: Text('Action',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                            )),
+                      ),
                     ),
                   ],
                 ),
@@ -144,43 +148,57 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                     children: [
-                                      Text(
-                                        formattedSerialNumber,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xff686464),
-                                          decoration: TextDecoration.none,
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            formattedSerialNumber,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                       // Text(''),
-                                      Text(
-                                        "Lab Drop off",
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w700,
-                                          color: Color(0xff686464),
-                                          decoration: TextDecoration.none,
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            "Lab Drop off",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                      Text(
-                                        "0.00",
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.firaSans(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xff686464),
-                                          decoration: TextDecoration.none,
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            "0.00",
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff686464),
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                      Container(
-                                        height: 25,
-                                          width: 150,
-                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Color(0xFFF6928A)),
-                                          child: ElevatedButton(onPressed: (){},
-                                              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFF6928A)),
-                                              child: Text('Delete',style: TextStyle(color: ColorManager.white),)))//  Text(''),
+                                      Expanded(
+                                        child: Center(
+                                          child: Container(
+                                            height: 25,
+                                              width: 150,
+                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Color(0xFFF6928A)),
+                                              child: ElevatedButton(onPressed: (){},
+                                                  style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFF6928A)),
+                                                  child: Text('Delete',style: TextStyle(color: ColorManager.white),))),
+                                        ),
+                                      )//  Text(''),
                                     ],
                                                                     ),
                                   ),]
@@ -189,7 +207,6 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                       ],
                     );
                   }),
-
             ),
             // RadioListTile<String>(
             //   title: Text('Per zone',

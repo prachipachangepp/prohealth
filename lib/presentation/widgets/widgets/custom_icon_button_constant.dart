@@ -10,19 +10,20 @@ class CustomIconButtonConst extends StatelessWidget {
   final String? text;
   final IconData? icon;
   final VoidCallback onPressed;
+  final double? width;
 
   const CustomIconButtonConst({
     this.text,
     this.icon,
     required this.onPressed,
+    this.width,
     Key? key,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width/9,
+      width: width ?? MediaQuery.of(context).size.width / 9,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -31,7 +32,7 @@ class CustomIconButtonConst extends StatelessWidget {
             blurRadius: 4,
           ),
         ],
-        borderRadius: BorderRadius.circular(12)
+        borderRadius: BorderRadius.circular(12),
       ),
       child: ElevatedButton.icon(
         onPressed: onPressed,
@@ -44,7 +45,7 @@ class CustomIconButtonConst extends StatelessWidget {
             fontSize: AppSize.s12,
             fontWeight: FontWeightManager.bold,
             color: ColorManager.white,
-          )
+          ),
         ),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(horizontal: AppSize.s15, vertical: AppSize.s10),
@@ -59,3 +60,4 @@ class CustomIconButtonConst extends StatelessWidget {
     );
   }
 }
+

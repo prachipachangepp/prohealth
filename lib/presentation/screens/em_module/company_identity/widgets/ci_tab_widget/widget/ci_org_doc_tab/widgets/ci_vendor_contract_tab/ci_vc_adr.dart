@@ -475,6 +475,7 @@ class _VendorContractADRState extends State<VendorContractADR> {
                                                 builder: (context) => StatefulBuilder(
                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                     return  DeletePopup(
+                                                        title: 'Delete SNF',
                                                         loadingDuration: _isLoading,
                                                         onCancel: (){
                                                           Navigator.pop(context);

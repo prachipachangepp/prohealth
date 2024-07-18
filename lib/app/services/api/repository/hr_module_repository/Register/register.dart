@@ -11,4 +11,8 @@ class AllRegisterRepository{
   static String getEmployeeEnroll(){
     return "$empEnroll";
   }
+  ///employee-enroll/{employeeEnrollId}
+  static String getEmpEnrollByEnrollId({required int empEnrollId}){
+    return "$empEnroll/$empEnrollId";
+  }
 }

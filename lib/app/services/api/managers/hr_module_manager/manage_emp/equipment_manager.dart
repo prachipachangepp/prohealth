@@ -1,0 +1,163 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:prohealth/app/resources/const_string.dart';
+import 'package:prohealth/app/services/api/api.dart';
+import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
+import '../../../../../../data/api_data/hr_module_data/manage/equipment_data.dart';
+
+/// Get equipment
+Future<List<EquipmentData>> getEquipement(
+    BuildContext context) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('MM-dd-yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+  List<EquipmentData> itemsData = [];
+  try {
+    final response =
+        await Api(context).get(path: ManageReposotory.getEquipement());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        String assignedFormattedDate =
+            convertIsoToDayMonthYear(item['assignedDate']);
+        itemsData.add(
+            EquipmentData(
+            empInventoryId: item['employeeInventoryId'],
+            inventoryId: item['inventoryId'],
+            assignedDate: assignedFormattedDate,
+            employeeId: item['employeeId'],
+            givenId: item['givenId'],
+            inventoryTypeId: item['inventoryTypeId'],
+            name: item['name'],
+            createdAt: item['createdAt'] ?? "--"));
+      }
+    } else {
+      print("Equipment");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
+/// Equipement prefill data get
+Future<EquipmentPrefillData> getPrefillEquipement(
+    BuildContext context, int employeeId) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('MM-dd-yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+  var itemsData;
+  try {
+    final response =
+        await Api(context).get(path: ManageReposotory.getEquipement());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+        String assignedFormattedDate =
+            convertIsoToDayMonthYear(response.data['assignedDate']);
+        itemsData =
+            EquipmentPrefillData(
+            empInventoryId: response.data['employeeInventoryId'],
+            inventoryId: response.data['inventoryId'],
+            assignedDate: assignedFormattedDate,
+            employeeId: response.data['employeeId'],
+            givenId: response.data['givenId'],
+            inventoryTypeId: response.data['inventoryTypeId'],
+            name: response.data['name'],
+            createdAt: response.data['createdAt'] ?? "--");
+
+    } else {
+      print("Equipment prefill");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
+/// add equipment
+Future<ApiData> addEquipment(BuildContext context,
+    int inventoryId,String assignedDate,int empId,String givenId,int inventoryTypeId,String name,
+    ) async {
+  try {
+    var response = await Api(context).post(path: ManageReposotory.addEquipement(), data: {
+      "inventoryId": inventoryId,
+      "assignedDate": "${assignedDate}T00:00:00Z",
+      "employeeId": empId,
+      "givenId": givenId,
+      "inventoryTypeId": inventoryTypeId,
+      "name": name
+    },);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Equipment added");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+/// Patch equipment
+Future<ApiData> updateEquipmentPatch(BuildContext context,
+    int empInventoryId,int inventoryId,String assignedDate,int empId,String givenId,int inventoryTypeId,String name,
+    ) async {
+  try {
+    var response = await Api(context).patch(path: ManageReposotory.patchEquipement(empInventoryId: empInventoryId), data: {
+      "inventoryId": inventoryId,
+      "assignedDate": "${assignedDate}T00:00:00Z",
+      "employeeId": empId,
+      "givenId": givenId,
+      "inventoryTypeId": inventoryTypeId,
+      "name": name
+    },);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Equipment updated");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}

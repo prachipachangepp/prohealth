@@ -391,11 +391,11 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                           child: Container(
                             height:30,
                             width: 30,
-                            color: Color(int.parse('0xFF$hexColor')),
+                            color:hexColor == 'string' ? Colors.white : Color(int.parse('0xFF$hexColor')),
                             child:Center(child: Text(i.eligibleClinician,style: GoogleFonts.firaSans(
                               fontSize: 10,
                               fontWeight: FontWeight.w500,
-                              color: _isDarkColor(Color(int.parse('0xFF$hexColor'))) ? ColorManager.white : ColorManager.black,
+                              color: _isDarkColor(hexColor == 'string' ?Colors.white :Color(int.parse('0xFF$hexColor'))) ? ColorManager.white : ColorManager.black,
                               decoration: TextDecoration.none,
                             ),))
                           ),
@@ -683,6 +683,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                   builder: (context) => StatefulBuilder(
                                                     builder: (BuildContext context, void Function(void Function()) setState) {
                                                       return  DeletePopup(
+                                                          title: 'Delete Visit',
                                                           loadingDuration: _isLoading,
                                                           onCancel: (){
                                                             Navigator.pop(context);

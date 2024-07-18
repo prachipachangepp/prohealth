@@ -71,7 +71,7 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s10,
                         fontWeight: FontWeightManager.bold,
-                        color: ColorManager.mediumgrey,
+                        color: ColorManager.fmediumgrey,
                         decoration: TextDecoration.none,
                       ),),
                     SizedBox(height: AppSize.s4,),
@@ -154,7 +154,9 @@ class _RoleManagerSalesState extends State<RoleManagerSales> {
                                         // ),
                                       );
                                     }).toList(),
-                                    onChanged: (String? newValue) {},
+                                    onChanged: (String? newValue) {
+
+                                    },
                                     value:  dropDownList[0],
                                     style: GoogleFonts.firaSans(
                                       fontSize: 12,

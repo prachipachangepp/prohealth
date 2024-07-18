@@ -416,7 +416,9 @@ class _CiPoliciesAndProceduresState extends State<CiPoliciesAndProcedures> {
                                               });
                                             }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                             IconButton(onPressed: (){
-                                              showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                              showDialog(context: context, builder: (context) => DeletePopup(
+                                                  title: 'Delete Policies Procedure',
+                                                  onCancel: (){
                                                 Navigator.pop(context);
                                               }, onDelete: (){ setState(() async{
                                                 await deleteDocument(

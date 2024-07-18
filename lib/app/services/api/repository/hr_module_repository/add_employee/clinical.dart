@@ -13,6 +13,7 @@ class HRModuleAEClinicalRepository {
       ///service
       static String service = "company-office-service";
       static String addEmployees = "/employees-add/";
+      static String employees = "/employees";
           // "/company-office-service/";
 
 
@@ -36,6 +37,9 @@ class HRModuleAEClinicalRepository {
       }
       static String postAddEmployeeClinical(){
     return "$addEmployees";
+}
+static String getEmployees(){
+    return "$employees";
 }
 }
 // { required int companyID,

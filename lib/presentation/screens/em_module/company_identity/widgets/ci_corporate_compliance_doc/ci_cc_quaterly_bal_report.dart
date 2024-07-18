@@ -406,6 +406,7 @@ class _CICCQuarterlyBalReportState extends State<CICCQuarterlyBalReport> {
                                                         builder: (context) => StatefulBuilder(
                                                           builder: (BuildContext context, void Function(void Function()) setState) {
                                                             return  DeletePopup(
+                                                                title: 'Delete Quarterly Report',
                                                                 loadingDuration: _isLoading,
                                                                 onCancel: (){
                                                                   Navigator.pop(context);

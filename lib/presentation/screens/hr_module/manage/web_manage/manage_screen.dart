@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
@@ -99,9 +101,24 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController issuingOrganizationController = TextEditingController();
   TextEditingController countryController = TextEditingController();
   TextEditingController numberIDController = TextEditingController();
+  String compensationExpiryType = '';
 
   @override
   void initState() {
+    // List<Tab> tabs = [];
+    // await FutureBuilder<List<EmployeeDocTabModal>>(
+    //     future: getEmployeeDocTab(context),
+    //     builder: (context, snapshot) {
+    //       if (snapshot.hasData) {
+    //         return Row(children:List.generate(snapshot.data!.length, (index){
+    //           tabs.add(Tab(text:snapshot.data![index].employeeDocType));
+    //           return Offstage();
+    //         }));
+    //       } else {
+    //         return SizedBox(height: 1,width: 1,);
+    //       }
+    //     });
+
     childController = CenteredTabBarChildController(
       tabs: [
         Tab(text: AppStringHr.employment),
@@ -140,7 +157,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                 checkBoxTile: Container(
                                   width: 300,
                                     child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
-                                    },)), tite: 'Edit Employeement',
+                                    },)), tite: 'Add Employeement',
                               );
                             },
                           );
@@ -316,24 +333,26 @@ class _ManageScreenState extends State<ManageScreen> {
     ],
         tabViews: [
       ///aknowledgment
-      Column(
-        children: [
-          Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+      SingleChildScrollView(
+        child: Column(
           children: [
-            Container(
-             // width: 100,
-              margin: EdgeInsets.only(right: 20),
-              child: CustomIconButtonConst(
-                  text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
-                    // showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-              }),
-            ),
+            Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+               // width: 100,
+                margin: EdgeInsets.only(right: 20),
+                child: CustomIconButtonConst(
+                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
+                      //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+                }),
+              ),
+            ],
+          ),
+            SizedBox(height: 30,),
+            AcknowledgementsChildBar(),
           ],
         ),
-          SizedBox(height: 30,),
-          AcknowledgementsChildBar(),
-        ],
       ),
       ///compensation
       Column(
@@ -347,7 +366,20 @@ class _ManageScreenState extends State<ManageScreen> {
                 child: CustomIconButtonConst(
                     text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
                       showDialog(context: context, builder: (BuildContext context){
-                        return CompensationAddEditPopup(idController: compensitionAddIdController, nameController: compensitionAddNameController, labelName: 'Add Compensation',);
+                        return CompensationAddEditPopup(
+                          idController: compensitionAddIdController, nameController: compensitionAddNameController,
+                          expiryType: compensationExpiryType,
+                          labelName: 'Add Compensation', onSavePredded: () async{
+                          await addEmployeeDocSetup(context,
+                          11,
+                          compensitionAddNameController.text,
+                              compensationExpiryType.toString(),
+                          DateTime.now() as String);
+                          Navigator.pop(context);
+                          compensitionAddIdController.clear();
+                          compensitionAddNameController.clear();
+                          compensationExpiryType = '';
+                        },);
                       });
                 }),
               ),
@@ -368,7 +400,17 @@ class _ManageScreenState extends State<ManageScreen> {
                 child: CustomIconButtonConst(
                     text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
                   showDialog(context: context, builder: (BuildContext context){
-                    return HealthRecordEditAddPopup(idController: healthRecordAddIdController, nameController: healthRecordAddNameController, labelName: 'Add Additional Vaccination',);
+                    return HealthRecordEditAddPopup(idController: healthRecordAddIdController, nameController: healthRecordAddNameController,
+                      labelName: 'Add Additional Vaccination', expiryType: expiryType.toString(), onSavePredded: () async{
+                        await addEmployeeDocSetup(context,
+                            1,
+                            healthRecordAddNameController.text,
+                            expiryType.toString(),
+                            DateTime.now() as String);
+                        healthRecordAddIdController.clear();
+                        healthRecordAddNameController.clear();
+                        expiryType = '';
+                      },);
                   });
 
                 }),
