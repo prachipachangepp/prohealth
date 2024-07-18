@@ -32,26 +32,39 @@ class _AddNewEquipmentPopupState extends State<AddNewEquipmentPopup> {
         height: AppSize.s350,
         decoration: BoxDecoration(
           color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Add Equipment",style:GoogleFonts.firaSans(
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeight.w700,
-                  color: ColorManager.blueprime,
-                  //decoration: TextDecoration.none,
-                ),),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              height: 34,
+              decoration: BoxDecoration(
+                color: Color(0xff50B5E5),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
                 ),
-              ],
+              ),
+              child: Padding(
+                padding:  EdgeInsets.only(left: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Add Equipment",style:GoogleFonts.firaSans(
+                      fontSize: FontSize.s14,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      //decoration: TextDecoration.none,
+                    ),),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close,color: Colors.white,),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
