@@ -1970,7 +1970,11 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                     }
                                     return SizedBox();
                                   }),
-                            ),]),
+                            ),
+                            Expanded(child: Container(
+                              height: 60,
+                            ),)
+                          ]),
                       ]),
                   )
                   ),
