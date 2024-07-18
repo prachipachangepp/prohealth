@@ -16,14 +16,31 @@ class AddVisitPopup extends StatefulWidget {
   final Widget child;
   final Widget child1;
   final String title;
-  const AddVisitPopup({super.key, required this.nameOfDocumentController, required this.idOfDocumentController, required this.onSavePressed, required this.child, required this.child1, required this.title,});
+
+  const AddVisitPopup({
+    super.key,
+    required this.nameOfDocumentController,
+    required this.idOfDocumentController,
+    required this.onSavePressed,
+    required this.child,
+    required this.child1,
+    required this.title,
+  });
 
   @override
-  State<AddVisitPopup> createState() => _AddPoliciesPopupState();
+  State<AddVisitPopup> createState() => _AddVisitPopupState();
 }
 
-class _AddPoliciesPopupState extends State<AddVisitPopup> {
+class _AddVisitPopupState extends State<AddVisitPopup> {
   bool isLoading = false;
+  bool _isNameOfDocumentValid = true;
+
+  void _validateInputs() {
+    setState(() {
+      _isNameOfDocumentValid = widget.nameOfDocumentController.text.isNotEmpty;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -31,7 +48,6 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
       child: Container(
         width: AppSize.s400,
         height: AppSize.s350,
-       //  height: MediaQuery.of(context).size.height/1.5,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -39,27 +55,25 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
         child: Column(
           children: [
             Container(
-          height: 40,
+              height: 40,
               width: AppSize.s400,
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: ColorManager.bluebottom,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8),
-              topRight: Radius.circular(8),
-            ),
-          ),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
               child: Row(
-                // mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                   widget.title,
+                    widget.title,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.firaSans(
                       fontSize: 13,
-                      fontWeight:
-                      FontWeightManager.semiBold,
+                      fontWeight: FontWeightManager.semiBold,
                       color: ColorManager.white,
                       decoration: TextDecoration.none,
                     ),
@@ -68,13 +82,15 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close,
-                      color: ColorManager.white,),
+                    icon: Icon(
+                      Icons.close,
+                      color: ColorManager.white,
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -90,24 +106,35 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
                       keyboardType: TextInputType.text,
                       text: 'Type of Visit',
                     ),
+                    if (!_isNameOfDocumentValid)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4.0),
+                        child: Text(
+                          'Please enter some text',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
                     SizedBox(height: AppSize.s20),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Eligible Clinician',
+                        Text(
+                          'Eligible Clinician',
                           style: GoogleFonts.firaSans(
                             fontSize: FontSize.s12,
                             fontWeight: FontWeight.w700,
                             color: ColorManager.mediumgrey,
-                            //decoration: TextDecoration.none,
                           ),
                         ),
-                        SizedBox(height: 5,),
+                        SizedBox(height: 5),
                         widget.child,
-                        SizedBox(height: 5,),
+                        SizedBox(height: 5),
                         widget.child1,
-                      ],),
-
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -117,24 +144,29 @@ class _AddPoliciesPopupState extends State<AddVisitPopup> {
               padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Center(
                 child: isLoading
-                    ? CircularProgressIndicator( color: ColorManager.blueprime,)
-                    :CustomElevatedButton(
+                    ? CircularProgressIndicator(
+                  color: ColorManager.blueprime,
+                )
+                    : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.add,
-                  onPressed: () async{
-                    setState(() {
-                      isLoading = true;
-                    });
-                    try {
-                      await widget.onSavePressed();
-                    } finally {
+                  onPressed: () async {
+                    _validateInputs();
+                    if (_isNameOfDocumentValid) {
                       setState(() {
-                        isLoading = false;
+                        isLoading = true;
                       });
-                      Navigator.pop(context);
-                     widget.idOfDocumentController.clear();
-                     widget.nameOfDocumentController.clear();
+                      try {
+                        await widget.onSavePressed();
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.pop(context);
+                        widget.idOfDocumentController.clear();
+                        widget.nameOfDocumentController.clear();
+                      }
                     }
                   },
                 ),

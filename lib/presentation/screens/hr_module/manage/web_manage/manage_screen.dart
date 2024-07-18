@@ -34,6 +34,8 @@ import '../widgets/child_tabbar_screen/documents_child/acknowledgements_child_ta
 import '../widgets/child_tabbar_screen/documents_child/add_vaccination_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/compensation_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/other_child_tabbar.dart';
+import '../widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
+import '../widgets/child_tabbar_screen/equipment_child/widgets/add_new_popup.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/education_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/employment_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/licenses_child_tabbar.dart';
@@ -108,6 +110,9 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController countryController = TextEditingController();
   TextEditingController numberIDController = TextEditingController();
   String compensationExpiryType = '';
+
+  ///Acknowledegement
+  TextEditingController AcknowledgementnameController = TextEditingController();
 
   @override
   void initState() {
@@ -457,7 +462,7 @@ class _ManageScreenState extends State<ManageScreen> {
                       text: AppStringHr.addNew,
                       icon: Icons.add,
                       onPressed: () {
-                        //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+                        showDialog(context: context, builder: (context)=> AcknowledgementAddPopup(labelName: 'Add Acknowledgement', AcknowledgementnameController: AcknowledgementnameController, onSavePressed: () {  },));
                       }),
                 ),
               ],
@@ -630,7 +635,7 @@ class _ManageScreenState extends State<ManageScreen> {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (_) => EquipmentAddPopup());
+                            builder: (_) => AddNewEquipmentPopup(idController: idController, nameController: nameController,));
                       }),
                 ),
               ],
