@@ -9,6 +9,7 @@ import '../../../../app/resources/value_manager.dart';
 import '../../../../app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
 import '../../../../data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
 import '../manage/controller/controller.dart';
+import '../manage/widgets/bottom_row.dart';
 import 'addemployee_tab_bar_constant.dart';
 
 ///prachi
@@ -97,7 +98,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                     elevation: 4,
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      height: AppSize.s30,
+                      height: AppSize.s25,
                       width: MediaQuery.of(context).size.width / 2.99,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -113,6 +114,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                       ),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children:  [
                             Expanded(
                                 child: ListView.builder(
@@ -141,7 +143,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                           child: Container(
                                             height: 30,
                                             width: MediaQuery.of(context).size.width / 9,
-                                            padding: EdgeInsets.all(5),
+                                            padding: EdgeInsets.all(4),
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(20),
                                               color: widget.selectedIndex == snapshot.data![index].deptId
@@ -198,6 +200,9 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
               ),
             ),
           ),
+          // Row(
+          //   children: [BottomBarRow()],
+          // )
         ],
       ),
     );

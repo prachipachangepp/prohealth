@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
@@ -9,8 +10,9 @@ class BottomBarRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: AppSize.s88,
-      width: double.infinity,
+      height: AppSize.s40,
+      // width: AppSize.s
+      // double.infinity,
       //flex: 1,
       child: Padding(
         padding: EdgeInsets.symmetric(
