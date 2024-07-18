@@ -151,6 +151,7 @@ class AppString {
   static const String country = "Country";
   static const String phoneNumber = "Phone Number";
   static const String next = "Next";
+
   static const String reject = "Reject";
   static const String enterText = "Please enter some text";
 
@@ -170,6 +171,43 @@ class AppString {
   static const String didntreccode = "Didn’t recieve a code? ";
   static const String resend = "Resend";
   static const String poweredby = "Powered By";
+
+
+
+
+
+
+
+
+
+
+  static const String licenses = "Licenses";
+  static const String profiled = "Profiled";
+  static const String phoneCmt = "PhoneCmt";
+  static const String date = "Date";
+
+  static const String nationality = "Nationality";
+  static const String comment = "Comment";
+  static const String aboutToExpireLicense = "About To Expire License";
+  static const String expiredLicense = "Expired License";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   ///verify
   static const String incorrectOtp = 'Incorrect OTP. Please try again.';
