@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/dashboard/dashoboard_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/new_onboard_screen.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
+import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
 import '../../../widgets/app_bar/app_bar.dart';
 import '../../../widgets/widgets/const_appbar/controller.dart';
 import '../../em_module/em_desktop_screen.dart';
@@ -151,92 +154,131 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                                   color: Color(0xFF686464), width: 1),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: TextFormField(
-                              controller: searchController,
-                              textAlign: TextAlign.start,
-                              cursorHeight: 18,
-                              cursorColor: ColorManager.black,
-                              style: GoogleFonts.firaSans(fontSize: MediaQuery.of(context).size.width / 100),
-                              textAlignVertical: TextAlignVertical.top,
-                              decoration: InputDecoration(
-                                hintText: 'John S',
-                                hintStyle: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s10,
-                                    fontWeight: FontWeightManager.regular,
-                                    color: ColorManager.mediumgrey,
-                                    //decoration: TextDecoration.underline, // Remove underline from the text
-                                  ),
-                                border: InputBorder.none,
-                                suffixIcon: Icon(Icons.search,size: 20,),
-                                contentPadding: EdgeInsets.only(left: 8,right: 8,bottom: 20),
-                              ),
-                            ),
+                            // child:
+                            // FutureBuilder<List<AEClinicalDiscipline>>(
+                            //     future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                            //     builder: (context, snapshot) {
+                            //       if (snapshot.connectionState ==
+                            //           ConnectionState.waiting) {
+                            //         return Shimmer.fromColors(
+                            //           baseColor: Colors.grey[300]!,
+                            //           highlightColor: Colors.grey[100]!,
+                            //           child: Padding(
+                            //             padding: const EdgeInsets.symmetric(
+                            //                 horizontal: 7),
+                            //             child: Container(
+                            //               width: 180,
+                            //               height: 40,
+                            //               decoration: BoxDecoration(
+                            //                   color: ColorManager.faintGrey),
+                            //             ),
+                            //           ),
+                            //         );
+                            //       }
+                            //       if (snapshot.hasData) {
+                            //         List<String> dropDownList = [];
+                            //         for (var i in snapshot.data!) {
+                            //           dropDownList.add(i.empType!);
+                            //         }
+                            //         return TextFormField(
+                            //             controller: searchController,
+                            //             textAlign: TextAlign.start,
+                            //             cursorHeight: 18,
+                            //             cursorColor: ColorManager.black,
+                            //             style: GoogleFonts.firaSans(
+                            //                 fontSize: MediaQuery.of(context)
+                            //                         .size
+                            //                         .width /
+                            //                     100),
+                            //             textAlignVertical:
+                            //                 TextAlignVertical.top,
+                            //             decoration: InputDecoration(
+                            //               hintText: 'John S',
+                            //               hintStyle: GoogleFonts.firaSans(
+                            //                 fontSize: FontSize.s10,
+                            //                 fontWeight:
+                            //                     FontWeightManager.regular,
+                            //                 color: ColorManager.mediumgrey,
+                            //                 //decoration: TextDecoration.underline, // Remove underline from the text
+                            //               ),
+                            //               border: InputBorder.none,
+                            //               suffixIcon: Icon(
+                            //                 Icons.search,
+                            //                 size: 20,
+                            //               ),
+                            //               contentPadding: EdgeInsets.only(
+                            //                   left: 8, right: 8, bottom: 20),
+                            //             ));
+                            //       }
+                            //     }),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width/70,
+                            width: MediaQuery.of(context).size.width / 70,
                           ),
-                          MediaQuery.of(context).size.width >=1100 ?
-                          Row(
-                            children: [
-                              Container(
-                                width: 37,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  color: ColorManager.white,
-                                  borderRadius: BorderRadius.circular(9),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x40000000),
-                                      offset: Offset(0, 4),
-                                      blurRadius: 4,
-                                    ),
-                                  ],
-                                ),
-                                child: InkWell(
-                                  onTap: (){
-
-                                  },
-                                  child: Center(
-                                    child: SvgPicture.asset('images/menuLines.svg')
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width/90,
-                              ),
-                              Container(
-                                width: 32,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  color: ColorManager.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x40000000),
-                                      offset: Offset(0, 4),
-                                      blurRadius: 4,
-                                    ),
-                                  ],
-                                ),
-                                child: InkWell(
-                                  onTap: (){
-
-                                  },
-                                  child: Center(
-                                    child: Text(
-                                      'DZ',textAlign: TextAlign.center,
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s11,
-                                        fontWeight: FontWeightManager.regular,
-                                        color: ColorManager.black,
-                                        //decoration: TextDecoration.underline, // Remove underline from the text
+                          MediaQuery.of(context).size.width >= 1100
+                              ? Row(
+                                  children: [
+                                    Container(
+                                      width: 37,
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(9),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0x40000000),
+                                            offset: Offset(0, 4),
+                                            blurRadius: 4,
+                                          ),
+                                        ],
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {},
+                                        child: Center(
+                                            child: SvgPicture.asset(
+                                                'images/menuLines.svg')),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ): SizedBox(width: 1,)
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          90,
+                                    ),
+                                    Container(
+                                      width: 32,
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0x40000000),
+                                            offset: Offset(0, 4),
+                                            blurRadius: 4,
+                                          ),
+                                        ],
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {},
+                                        child: Center(
+                                          child: Text(
+                                            'DZ',
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: FontSize.s11,
+                                              fontWeight:
+                                                  FontWeightManager.regular,
+                                              color: ColorManager.black,
+                                              //decoration: TextDecoration.underline, // Remove underline from the text
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : SizedBox(
+                                  width: 1,
+                                )
                         ],
                       )
                     : SizedBox(

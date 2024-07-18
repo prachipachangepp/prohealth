@@ -166,7 +166,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                           });
                                           Navigator.pop(context);
                                         });
-                                      }
+                                      },
                                       )
                                   );
                                 },

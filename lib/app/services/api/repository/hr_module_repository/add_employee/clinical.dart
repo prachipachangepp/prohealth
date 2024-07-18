@@ -12,7 +12,7 @@ class HRModuleAEClinicalRepository {
       static String zone = "/zone/";
       ///service
       static String service = "company-office-service";
-      static String addEmployees = "/employees-add/";
+      static String addEmployees = "/employees/add";
       static String employees = "/employees";
           // "/company-office-service/";
 

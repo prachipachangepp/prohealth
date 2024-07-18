@@ -45,9 +45,16 @@ class HRAddEmployeeGet{
   final  String? netPay;
   final  String? methods;
   final  String? materials;
+  final String? driverLicenceNbr;
+  final bool? terminationFlag;
+  final bool? approved;
+  final String? dateofHire;
+  final String? position;
+  final int?  finalPayCheck;
+  final String? race;
 
 
-  HRAddEmployeeGet(  {
+  HRAddEmployeeGet( {
     this.employeeid,
     this.success, this.message,
     this.code, this.userId,
@@ -58,14 +65,12 @@ class HRAddEmployeeGet{
     this.regOfficeId, this.personalEmail, this.workEmail,
     this.address, this.dob, this.emgContact, this.coverage, this.employment,
     this.gender, this.status, this.service, this.imgUrl, this.resumeUrl,
-    this.companyID, this.onboardingStatus, this.dateofTermination, this.dateofResignation,
+    this.companyID, this.onboardingStatus,this.driverLicenceNbr, this.dateofTermination, this.dateofResignation,
     this.rehirable, this.finalAddress, this.type, this.reason, this.checkDate,
-    this.grossPay, this.netPay, this.methods, this.materials,});
+    this.grossPay, this.netPay, this.methods, this.materials,
+    this.terminationFlag, this.approved, this.dateofHire, this.position, this.finalPayCheck, this.race,
+  });
 }
-
-
-
-
 
 /// discipline dropdown
 class AEClinicalDiscipline {
@@ -184,4 +189,8 @@ class AEClinicalService {
   // "npi_number": "45555E",
   // "medicare_provider_id": "455EE",
   // "hco_num_id": "dkkkd444"
+}
+/// upload photo
+class UploadPicture{
+
 }

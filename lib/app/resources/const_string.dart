@@ -89,9 +89,6 @@ class AppString {
   static const String how_do_you_know_this_person = "How do you know this person ?";
 
 
-
-
-
   ///Onboarding
   static const String onboarding = "Onboarding";
   static const String general = "General";
