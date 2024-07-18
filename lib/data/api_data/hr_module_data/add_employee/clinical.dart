@@ -1,3 +1,72 @@
+///add employee get
+
+
+class HRAddEmployeeGet{
+  final bool? success;
+  final String? message;
+  final int? employeeid;
+  final String? code;
+  final int? userId;
+  final String? firstName;
+  final  String? lastName;
+  final int? dptID;
+  final int? emplyID;
+  final  String? expritise;
+  final  int? cityID;
+  final int? countryID;
+  final  int? zoneID;
+  final  String? ssnnBr;
+  final  String? primeNo;
+  final  String? secNo;
+  final String? workNo;
+  final  String? regOfficeId;
+  final  String? personalEmail;
+  final String? workEmail;
+  final   String? address;
+  final  String? dob;
+  final String? emgContact;
+  final  String? coverage;
+  final  String? employment;
+  final  String? gender;
+  final   String? status;
+  final  String? service;
+  final  String? imgUrl;
+  final String? resumeUrl;
+  final  int? companyID;
+  final  String? onboardingStatus;
+  final  String? dateofTermination;
+  final  String? dateofResignation;
+  final  String? rehirable;
+  final  String? finalAddress;
+  final String? type;
+  final String? reason;
+  final  String? checkDate;
+  final  String? grossPay;
+  final  String? netPay;
+  final  String? methods;
+  final  String? materials;
+
+
+  HRAddEmployeeGet(  {
+    this.employeeid,
+    this.success, this.message,
+    this.code, this.userId,
+    this.firstName, this.lastName,
+    this.dptID, this.emplyID, this.expritise,
+    this.cityID, this.countryID, this.zoneID,
+    this.ssnnBr, this.primeNo, this.secNo, this.workNo,
+    this.regOfficeId, this.personalEmail, this.workEmail,
+    this.address, this.dob, this.emgContact, this.coverage, this.employment,
+    this.gender, this.status, this.service, this.imgUrl, this.resumeUrl,
+    this.companyID, this.onboardingStatus, this.dateofTermination, this.dateofResignation,
+    this.rehirable, this.finalAddress, this.type, this.reason, this.checkDate,
+    this.grossPay, this.netPay, this.methods, this.materials,});
+}
+
+
+
+
+
 /// discipline dropdown
 class AEClinicalDiscipline {
   final bool? success;

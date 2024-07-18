@@ -426,7 +426,9 @@ class _CiZoneZipcodeState extends State<CiZoneZipcode> {
                                         });
                                       }, icon: Icon(Icons.edit_outlined,size:18,color: ColorManager.blueprime,)),
                                       IconButton(onPressed: (){
-                                        showDialog(context: context, builder: (context) => DeletePopup(onCancel: (){
+                                        showDialog(context: context, builder: (context) => DeletePopup(
+                                            title: 'Delete Zipcode',
+                                            onCancel: (){
                                           Navigator.pop(context);
                                         }, onDelete: () async{
                                           await deleteZipCodeSetup(context, snapshot.data![index].zipcodeSetupId!);

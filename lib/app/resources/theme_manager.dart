@@ -61,7 +61,7 @@ class ThemeManagerDark {
     return GoogleFonts.firaSans(
       fontSize: fontSize,
       color: Color(0xFF2A2827),
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
     );
   }
 }

@@ -160,13 +160,14 @@ int listIndex = 0 ;
                   ],
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 34,
+                  width: MediaQuery.of(context).size.width / 50,
                 ),
                 Material(
                   elevation: 4,
                   borderRadius: BorderRadius.circular(14),
                   child: Container(
-                    width: MediaQuery.of(context).size.width/1.23,height: 30,
+                    width: MediaQuery.of(context).size.width/1.18,
+                    height: 30,
                   decoration: BoxDecoration(
                       color: ColorManager.blueprime,
                     borderRadius: BorderRadius.circular(14)
@@ -176,7 +177,7 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                                         height: 30,
-                                        width: MediaQuery.of(context).size.width / 8.62,
+                                        width: MediaQuery.of(context).size.width / 8.4,
                                         padding: EdgeInsets.symmetric(vertical: 6),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20),
@@ -201,7 +202,7 @@ int listIndex = 0 ;
                         InkWell(
                                       child: Container(
                                         height: 30,
-                                        width: MediaQuery.of(context).size.width / 8.62,
+                                        width: MediaQuery.of(context).size.width / 8.9,
                                         padding: EdgeInsets.symmetric(vertical: 6),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20),
@@ -210,7 +211,7 @@ int listIndex = 0 ;
                                               : null,
                                         ),
                                         child: Text(
-                                          'Zone',
+                                          'Zones',
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.firaSans(
                                             fontSize: 12,
@@ -226,7 +227,7 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                             height: 30,
-                            width: MediaQuery.of(context).size.width / 8.62,
+                            width: MediaQuery.of(context).size.width / 7,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -251,7 +252,7 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                             height: 30,
-                            width: MediaQuery.of(context).size.width / 8.62,
+                            width: MediaQuery.of(context).size.width / 8.7,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -276,7 +277,7 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                             height: 30,
-                            width: MediaQuery.of(context).size.width / 8.62,
+                            width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -301,7 +302,7 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                             height: 30,
-                            width: MediaQuery.of(context).size.width / 8.62,
+                            width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -326,7 +327,7 @@ int listIndex = 0 ;
                         InkWell(
                           child: Container(
                             height: 30,
-                            width: MediaQuery.of(context).size.width / 8.62,
+                            width: MediaQuery.of(context).size.width / 8.4,
                             padding: EdgeInsets.symmetric(vertical: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),

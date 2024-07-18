@@ -485,6 +485,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
                                 onPressed: () {
                                   showDialog(context: context,
                                       builder: (context) => DeletePopup(
+                                          title: 'Delete Sales',
                                           onCancel: (){
                                             Navigator.pop(context);
                                           }, onDelete: () async {

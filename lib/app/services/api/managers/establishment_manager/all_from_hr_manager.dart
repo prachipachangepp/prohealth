@@ -63,6 +63,7 @@ Future<List<HRClinical>> companyAllHrClinicApi(BuildContext context) async {
   }
 }
 
+
 /// Get data by depart ment ID
 Future<List<HRAllData>> getAllHrDeptWise(BuildContext context,int deptId) async {
   List<HRAllData> itemsList = [];

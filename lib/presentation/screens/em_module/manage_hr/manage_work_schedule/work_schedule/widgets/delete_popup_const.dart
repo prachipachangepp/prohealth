@@ -12,8 +12,9 @@ class DeletePopup extends StatefulWidget {
   final VoidCallback onCancel;
   final VoidCallback onDelete;
   final bool? loadingDuration;
+  final String title;
    DeletePopup({super.key, required this.onCancel,
-    required this.onDelete, this.loadingDuration});
+    required this.onDelete, this.loadingDuration, required this.title});
 
   @override
   State<DeletePopup> createState() => _DeletePopupState();
@@ -33,20 +34,42 @@ class _DeletePopupState extends State<DeletePopup> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.bluebottom,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
+              ),
+              height: 35,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.semiBold,
+                        color: ColorManager.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close,color: ColorManager.white,),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
+                vertical: AppPadding.p20,
                 horizontal: AppPadding.p20,
               ),
               child: Column(
@@ -54,7 +77,8 @@ class _DeletePopupState extends State<DeletePopup> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: AppSize.s100,
+
+                    height: AppSize.s50,
                     width: AppSize.s150,
                     child: Text('Do you really want to delete ?',textAlign: TextAlign.center,
                       style:CustomTextStylesCommon.commonStyle(

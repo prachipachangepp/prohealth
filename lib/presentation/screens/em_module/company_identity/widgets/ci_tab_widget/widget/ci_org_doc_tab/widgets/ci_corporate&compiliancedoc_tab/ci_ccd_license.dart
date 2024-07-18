@@ -511,6 +511,7 @@ class _CICcdLicenseState extends State<CICcdLicense> {
                                               builder: (context) => StatefulBuilder(
                                                 builder: (BuildContext context, void Function(void Function()) setState) {
                                                   return  DeletePopup(
+                                                      title: 'Delete License',
                                                     loadingDuration: _isLoading,
                                                       onCancel: (){
                                                         Navigator.pop(context);

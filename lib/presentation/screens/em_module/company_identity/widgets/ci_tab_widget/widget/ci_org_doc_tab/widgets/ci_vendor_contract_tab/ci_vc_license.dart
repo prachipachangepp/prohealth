@@ -504,6 +504,7 @@ class _VendorContractLicenseState extends State<VendorContractLicense> {
                                                 builder: (context) => StatefulBuilder(
                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                     return  DeletePopup(
+                                                        title: 'Delete Liases & Services',
                                                         loadingDuration: _isLoading,
                                                         onCancel: (){
                                                           Navigator.pop(context);

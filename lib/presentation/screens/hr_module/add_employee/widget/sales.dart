@@ -5,7 +5,12 @@ import '../../manage/widgets/custom_icon_button_constant.dart';
 import 'mcq_widget_add-employee.dart';
 
 ///prachi
-class SalesTab extends StatelessWidget {
+class SalesTab extends StatefulWidget {
+  @override
+  State<SalesTab> createState() => _SalesTabState();
+}
+
+class _SalesTabState extends State<SalesTab> {
   final TextEditingController _sale1Controller = TextEditingController();
   final TextEditingController _workemailController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -16,7 +21,10 @@ class SalesTab extends StatelessWidget {
   final TextEditingController _dateofbirthController = TextEditingController();
   final TextEditingController _personalemailController =
       TextEditingController();
+
   int? _selectedItemIndex;
+
+  String? _fileName;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +40,65 @@ class SalesTab extends StatelessWidget {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
             padding: EdgeInsets.all(10.0),
-            child: Row(
+            child:
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     ElevatedButton.icon(
+            //       onPressed: () async {
+            //         FilePickerResult? result = await FilePicker.platform.pickFiles(
+            //           type: FileType.image,
+            //           allowMultiple: false,
+            //         );
+            //
+            //         if (result != null) {
+            //           PlatformFile file = result.files.first;
+            //           print('File path: ${file.path}');
+            //         } else {
+            //
+            //         }
+            //       },
+            //       icon: Icon(
+            //         Icons.file_upload_outlined,
+            //         color: Colors.white,
+            //       ),
+            //       label: Text(
+            //         'Upload Photo',
+            //         textAlign: TextAlign.center,
+            //         style: TextStyle(
+            //           fontFamily: 'FiraSans',
+            //           fontSize: 12,
+            //           fontWeight: FontWeight.w700,
+            //           color: Colors.white,
+            //         ),
+            //       ),
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Color(0xff1696C8),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(12),
+            //         ),
+            //       ),
+            //     )
+            //   ],
+            // ),
+
+
+            Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                if (_fileName != null)
+                  Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: Text(
+                      _fileName!,
+                      style: TextStyle(
+                        fontFamily: 'FiraSans',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                 ElevatedButton.icon(
                   onPressed: () async {
                     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -44,9 +108,10 @@ class SalesTab extends StatelessWidget {
 
                     if (result != null) {
                       PlatformFile file = result.files.first;
+                      setState(() {
+                        _fileName = file.name;
+                      });
                       print('File path: ${file.path}');
-                    } else {
-
                     }
                   },
                   icon: Icon(
@@ -69,7 +134,7 @@ class SalesTab extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -300,32 +365,41 @@ class SalesTab extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          McqWidget(
-                            title: 'Employment',
-                            items: [
-                              'Full Time',
-                              'Contract',
-                              'Part Time',
-                              'Per Diem'
-                            ],
-                            onChanged: (selectedIndex) {
-                              print('Selected index: $selectedIndex');
-                              _selectedItemIndex = selectedIndex;
-                            },
+                          Padding(
+                            padding: const EdgeInsets.only(top: 25.0),
+                            child: McqWidget(
+                              title: 'Employment',
+                              items: [
+                                'Full Time',
+                                'Contract',
+                                'Part Time',
+                                'Per Diem'
+                              ],
+                              onChanged: (selectedIndex) {
+                                print('Selected index: $selectedIndex');
+                                _selectedItemIndex = selectedIndex;
+                              },
+                            ),
                           ),
-                          McqWidget(
-                            title: 'Gender',
-                            items: [
-                              'Male',
-                              'Female',
-                              'Other',
-                            ],
-                            onChanged: (int) {},
+                          Padding(
+                            padding: const EdgeInsets.only(top: 25.0),
+                            child: McqWidget(
+                              title: 'Gender',
+                              items: [
+                                'Male',
+                                'Female',
+                                'Other',
+                              ],
+                              onChanged: (int) {},
+                            ),
                           ),
-                          McqWidget(
-                            title: 'Status',
-                            items: ['Active', 'Trainee', 'Inactive'],
-                            onChanged: (int) {},
+                          Padding(
+                            padding: const EdgeInsets.only(top: 25.0),
+                            child: McqWidget(
+                              title: 'Status',
+                              items: ['Active', 'Trainee', 'Inactive'],
+                              onChanged: (int) {},
+                            ),
                           ),
                         ],
                       ),

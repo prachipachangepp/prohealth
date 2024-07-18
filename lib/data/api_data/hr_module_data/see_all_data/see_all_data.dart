@@ -3,14 +3,14 @@ class SeeAllData {
   final String? code;
   final int? userID;
   final String? firstName;
-  final String? LastName;
+  final String? lastName;
   final int? deptId;
   final int? empTypeId;
-  final String? experties;
+  final String? expertise;
   final int? cityID;
   final int? countryId;
   final int? zoneId;
-  final String? SSNNbr;
+  final String? ssnnbr;
   final String? primaryPhoneNbr;
   final String? secondryPhoneNbr;
   final String? workPhoneNbr;
@@ -28,12 +28,15 @@ class SeeAllData {
   final String? imgurl;
   final String? resumeurl;
   final String? onboardingStatus;
-  final int? companyID;
+  final int? companyId;
   final bool? terminationFlag;
+  final String? driverLicenseNum;
   final bool? approved;
   final String? dateofTermination;
   final String? dateofResignation;
+  final String? dateofHire;
   final String? rehirable;
+  final String? position;
   final String? finalAddress;
   final String? type;
   final String? reason;
@@ -43,20 +46,26 @@ class SeeAllData {
   final int? netPay;
   final String? methods;
   final String? materials;
+  final String? race;
+
 
   SeeAllData({
+    this.driverLicenseNum,
+    this.dateofHire,
+    this.position,
+    this.race,
     this.empId,
     this.code,
     this.userID,
     this.firstName,
-    this.LastName,
+    this.lastName,
     this.deptId,
     this.empTypeId,
-    this.experties,
+    this.expertise,
     this.cityID,
     this.countryId,
     this.zoneId,
-    this.SSNNbr,
+    this.ssnnbr,
     this.primaryPhoneNbr,
     this.secondryPhoneNbr,
     this.workPhoneNbr,
@@ -74,7 +83,7 @@ class SeeAllData {
     this.imgurl,
     this.resumeurl,
     this.onboardingStatus,
-    this.companyID,
+    this.companyId,
     this.terminationFlag,
     this.approved,
     this.dateofTermination,
