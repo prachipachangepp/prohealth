@@ -60,7 +60,7 @@ class OnBoardingWelcome extends StatelessWidget {
                   flex: 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Welcome to Prohealth Onboarding Wizard',
