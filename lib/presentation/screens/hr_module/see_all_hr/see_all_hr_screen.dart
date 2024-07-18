@@ -233,7 +233,7 @@ class _PopUpState extends State<PopUp> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                'Expired License',
+                'Patient Profile',
                 style: GoogleFonts.firaSans(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
