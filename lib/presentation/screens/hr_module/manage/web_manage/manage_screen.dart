@@ -12,6 +12,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mn
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
@@ -110,6 +111,9 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController countryController = TextEditingController();
   TextEditingController numberIDController = TextEditingController();
   String compensationExpiryType = '';
+
+  /// Acknowlpdgement
+  TextEditingController acknowldgementNameController = TextEditingController();
 
   @override
   void initState() {
@@ -459,6 +463,9 @@ class _ManageScreenState extends State<ManageScreen> {
                       text: AppStringHr.addNew,
                       icon: Icons.add,
                       onPressed: () {
+                        showDialog(context: context, builder: (BuildContext context){
+                          return AcknowledgementAddPopup(labelName: '', AcknowledgementnameController: acknowldgementNameController, onSavePressed: () {  },);
+                        });
                         //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                       }),
                 ),
