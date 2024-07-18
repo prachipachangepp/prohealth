@@ -41,10 +41,32 @@ Future<List<HRAddEmployeeGet>> HrAddEmployeeget(
             dob: item['dateOfBirth'],
             emgContact: item['emergencyContact'],
             coverage: item['covreage'],
-            employment: item['employment']
-
-
-
+            employment: item['employment'],
+            gender: item['gender'],
+            status: item['status'],
+            service: item['service'],
+            imgUrl: item['imgurl'],
+            resumeUrl: item['resumeurl'],
+            onboardingStatus: item['onboardingStatus'],
+            companyID: item['companyId'],
+            terminationFlag: item['terminationFlag'],
+            driverLicenceNbr: item['driverLicenceNbr'],
+            approved: item['approved'],
+            dateofTermination: item['dateofTermination'],
+            dateofResignation: item['dateofResignation'],
+            dateofHire: item['dateofHire'],
+            rehirable: item['rehirable'],
+            position:item['position'],
+            finalAddress: item['finalAddress'],
+            type: item['type'],
+            reason: item['reason'],
+            finalPayCheck: item['finalPayCheck'],
+            checkDate: item['checkDate'],
+              grossPay: item['grossPay'],
+              netPay : item["netPay"],
+              methods : item['methods'],
+              materials: item['materials'],
+              race: item['race'],
           ),
           // HRAddEmployeeGet(
           // AEClinicalDiscipline(
