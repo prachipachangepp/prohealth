@@ -225,11 +225,14 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               ],
             ),
             //SizedBox(height:MediaQuery.of(context).size.height/50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                widget.checkBoxTile,
-              ],
+            Padding(
+              padding: const EdgeInsets.only(left: 40.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  widget.checkBoxTile,
+                ],
+              ),
             ),
            // SizedBox(height:MediaQuery.of(context).size.height/50),
             Row(
