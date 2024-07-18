@@ -473,7 +473,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                      CustomElevatedButton(
                         width: AppSize.s105,
                         height: AppSize.s30,
-                        text: 'Add',
+                        text: 'Add Equipment',
                         onPressed: () async{
                           setState(() {
                             isLoading = true;

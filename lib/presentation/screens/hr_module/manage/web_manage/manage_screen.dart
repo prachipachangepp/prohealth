@@ -8,7 +8,9 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
@@ -42,15 +44,18 @@ import '../widgets/child_tabbar_screen/health_record_child/health_records_head_t
 import '../widgets/child_tabbar_screen/payrates_child/pay_rates_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/termination/termination_head_tabbar.dart';
 import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
+
 ///done by saloni
 class ManageScreen extends StatefulWidget {
   @override
   State<ManageScreen> createState() => _ManageScreenState();
 }
+
 class _ManageScreenState extends State<ManageScreen> {
   late CenteredTabBarChildController childController;
   late CenteredTabBarChildController childControlleOne;
   late CenteredTabBarController centeredTabBarController;
+
   /// Add employee
   TextEditingController positionTitleController = TextEditingController();
   TextEditingController leavingResonController = TextEditingController();
@@ -63,29 +68,30 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController emergencyMobileNumber = TextEditingController();
 
   /// Add Reference
-   TextEditingController nameController = TextEditingController();
-   TextEditingController emailController = TextEditingController();
-   TextEditingController titlePositionController = TextEditingController();
-   TextEditingController knowPersonController = TextEditingController();
-   TextEditingController companyNameController = TextEditingController();
-   TextEditingController associationLengthController = TextEditingController();
-   TextEditingController mobileNumberController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController titlePositionController = TextEditingController();
+  TextEditingController knowPersonController = TextEditingController();
+  TextEditingController companyNameController = TextEditingController();
+  TextEditingController associationLengthController = TextEditingController();
+  TextEditingController mobileNumberController = TextEditingController();
 
   TextEditingController livensureController = TextEditingController();
+
   /// Add Education
-   TextEditingController collegeUniversityController = TextEditingController();
-   TextEditingController phoneController = TextEditingController();
-   TextEditingController calenderController = TextEditingController();
-   TextEditingController cityController = TextEditingController();
-   TextEditingController degreeController = TextEditingController();
-   TextEditingController stateController = TextEditingController();
-   TextEditingController majorSubjectController = TextEditingController();
-   TextEditingController countryNameController = TextEditingController();
+  TextEditingController collegeUniversityController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController calenderController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController degreeController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController majorSubjectController = TextEditingController();
+  TextEditingController countryNameController = TextEditingController();
   String expiryType = '';
+
   ///
   TextEditingController addressCtlr = TextEditingController();
   TextEditingController nameCtlr = TextEditingController();
-
 
   TextEditingController compensitionAddIdController = TextEditingController();
   TextEditingController compensitionAddNameController = TextEditingController();
@@ -138,32 +144,60 @@ class _ManageScreenState extends State<ManageScreen> {
                     width: 100,
                     margin: EdgeInsets.only(right: 40),
                     child: CustomIconButtonConst(
-                        text: AppStringHr.add, icon: Icons.add, onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return StatefulBuilder(
-                            builder: (BuildContext context, void Function(void Function()) setState) {
-                              return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController,
-                                startDateContoller: startDateContoller, endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
-                                supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController, employeerController: employeerController,
-                                emergencyMobileNumber: emergencyMobileNumber, onpressedClose: () {
-                                  //Navigator.pop(context);
-                                }, onpressedSave: () async{
-                                  await addEmployeement(context,2, employeerController.text,
-                                      cityNameController.text, leavingResonController.text, lastSupervisorNameController.text,
-                                      supervisorMobileNumber.text, positionTitleController.text, startDateContoller.text, endDateController.text);
+                        text: AppStringHr.add,
+                        icon: Icons.add,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    void Function(void Function()) setState) {
+                                  return AddEmployeementPopup(
+                                    positionTitleController:
+                                        positionTitleController,
+                                    leavingResonController:
+                                        leavingResonController,
+                                    startDateContoller: startDateContoller,
+                                    endDateController: endDateController,
+                                    lastSupervisorNameController:
+                                        lastSupervisorNameController,
+                                    supervisorMobileNumber:
+                                        supervisorMobileNumber,
+                                    cityNameController: cityNameController,
+                                    employeerController: employeerController,
+                                    emergencyMobileNumber:
+                                        emergencyMobileNumber,
+                                    onpressedClose: () {
+                                      //Navigator.pop(context);
+                                    },
+                                    onpressedSave: () async {
+                                      await addEmployeement(
+                                          context,
+                                          2,
+                                          employeerController.text,
+                                          cityNameController.text,
+                                          leavingResonController.text,
+                                          lastSupervisorNameController.text,
+                                          supervisorMobileNumber.text,
+                                          positionTitleController.text,
+                                          startDateContoller.text,
+                                          endDateController.text);
+                                    },
+                                    checkBoxTile: Container(
+                                        width: 300,
+                                        child: CheckboxTile(
+                                          title: 'Currently work here',
+                                          initialValue: false,
+                                          onChanged: (value) {},
+                                        )),
+                                    tite: 'Add Employeement',
+                                  );
                                 },
-                                checkBoxTile: Container(
-                                  width: 300,
-                                    child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
-                                    },)), tite: 'Add Employeement',
                               );
                             },
                           );
-                        },
-                      );
-                    }),
+                        }),
                   ),
                 ],
               ),
@@ -171,6 +205,7 @@ class _ManageScreenState extends State<ManageScreen> {
             ],
           ),
         ),
+
         ///education
         SingleChildScrollView(
           child: Column(
@@ -182,55 +217,81 @@ class _ManageScreenState extends State<ManageScreen> {
                     width: 100,
                     margin: EdgeInsets.only(right: 20),
                     child: CustomIconButtonConst(
-                        text: AppStringHr.add, icon: Icons.add, onPressed: () {
-                          showDialog(context: context, builder: (BuildContext context){
-                            return StatefulBuilder(
-                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                return AddEducationPopup(collegeUniversityController: collegeUniversityController,
-                                  phoneController: phoneController,
-                                  calenderController: calenderController, cityController: cityController,
-                                  degreeController: degreeController, stateController: stateController, majorSubjectController: majorSubjectController,
-                                  countryNameController: countryNameController, onpressedClose: (){
-                                    Navigator.pop(context);
-                                  }, onpressedSave: () async{
-                                    await addEmployeeEducation(context, 2, expiryType.toString(), degreeController.text, majorSubjectController.text, cityController.text,
-                                        collegeUniversityController.text, phoneController.text, stateController.text);
+                        text: AppStringHr.add,
+                        icon: Icons.add,
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return StatefulBuilder(
+                                  builder: (BuildContext context,
+                                      void Function(void Function()) setState) {
+                                    return AddEducationPopup(
+                                      collegeUniversityController:
+                                          collegeUniversityController,
+                                      phoneController: phoneController,
+                                      calenderController: calenderController,
+                                      cityController: cityController,
+                                      degreeController: degreeController,
+                                      stateController: stateController,
+                                      majorSubjectController:
+                                          majorSubjectController,
+                                      countryNameController:
+                                          countryNameController,
+                                      onpressedClose: () {
+                                        Navigator.pop(context);
+                                      },
+                                      onpressedSave: () async {
+                                        await addEmployeeEducation(
+                                            context,
+                                            2,
+                                            expiryType.toString(),
+                                            degreeController.text,
+                                            majorSubjectController.text,
+                                            cityController.text,
+                                            collegeUniversityController.text,
+                                            phoneController.text,
+                                            stateController.text);
+                                      },
+                                      radioButton: Container(
+                                        width: 280,
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: CustomRadioListTile(
+                                                value: "Yes",
+                                                groupValue:
+                                                    expiryType.toString(),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    expiryType = value!;
+                                                  });
+                                                },
+                                                title: "Yes",
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: CustomRadioListTile(
+                                                value: "No",
+                                                groupValue:
+                                                    expiryType.toString(),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    expiryType = value!;
+                                                  });
+                                                },
+                                                title: "No",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      title: 'Add Education',
+                                    );
                                   },
-                                  radioButton:Container(
-                                    width: 280,
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: CustomRadioListTile(
-                                            value: "Yes",
-                                            groupValue: expiryType.toString(),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                expiryType = value!;
-                                              });
-                                            },
-                                            title: "Yes",
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: CustomRadioListTile(
-                                            value: "No",
-                                            groupValue: expiryType.toString(),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                expiryType = value!;
-                                              });
-                                            },
-                                            title: "No",
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ), title: 'Add Education',);
-                              },
-                            );
-                          });
-                    }),
+                                );
+                              });
+                        }),
                   ),
                 ],
               ),
@@ -238,6 +299,7 @@ class _ManageScreenState extends State<ManageScreen> {
             ],
           ),
         ),
+
         ///reference
         SingleChildScrollView(
           child: Column(
@@ -249,25 +311,52 @@ class _ManageScreenState extends State<ManageScreen> {
                     width: 100,
                     margin: EdgeInsets.only(right: 20),
                     child: CustomIconButtonConst(
-                        text: AppStringHr.add, icon: Icons.add, onPressed: () {
-                          showDialog(context: context, builder: (BuildContext context){
-                            return AddReferencePopup(nameController: nameController, emailController: emailController, titlePositionController: titlePositionController,
-                              knowPersonController: knowPersonController, companyNameController: companyNameController, associationLengthController: associationLengthController, mobileNumberController: mobileNumberController,
-                              onpressedClose: () {  }, onpressedSave: () async{
-                              await addReferencePost(context, associationLengthController.text, 'Reference', companyNameController.text, emailController.text,
-                                  5, mobileNumberController.text, nameController.text, knowPersonController.text, titlePositionController.text);
-                              }, title: 'Add Reference',);
-                          });
-
-                    }),
+                        text: AppStringHr.add,
+                        icon: Icons.add,
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddReferencePopup(
+                                  nameController: nameController,
+                                  emailController: emailController,
+                                  titlePositionController:
+                                      titlePositionController,
+                                  knowPersonController: knowPersonController,
+                                  companyNameController: companyNameController,
+                                  associationLengthController:
+                                      associationLengthController,
+                                  mobileNumberController:
+                                      mobileNumberController,
+                                  onpressedClose: () {},
+                                  onpressedSave: () async {
+                                    await addReferencePost(
+                                        context,
+                                        associationLengthController.text,
+                                        'Reference',
+                                        companyNameController.text,
+                                        emailController.text,
+                                        5,
+                                        mobileNumberController.text,
+                                        nameController.text,
+                                        knowPersonController.text,
+                                        titlePositionController.text);
+                                  },
+                                  title: 'Add Reference',
+                                );
+                              });
+                        }),
                   ),
                 ],
               ),
-              SizedBox(height: 1,),
+              SizedBox(
+                height: 1,
+              ),
               ReferencesChildTabbar(),
             ],
           ),
         ),
+
         ///license
         SingleChildScrollView(
           child: Column(
@@ -279,46 +368,69 @@ class _ManageScreenState extends State<ManageScreen> {
                     height: 27,
                     width: 250,
                     margin: EdgeInsets.symmetric(horizontal: 20),
-                    padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
+                    padding: EdgeInsets.only(top: 2, bottom: 1, left: 4),
                     decoration: BoxDecoration(
-                        color: Colors.transparent,
-                      border: Border.all(color: Color(0xffB1B1B1)), // Black border
+                      color: Colors.transparent,
+                      border:
+                          Border.all(color: Color(0xffB1B1B1)), // Black border
                       borderRadius: BorderRadius.circular(5), // Rounded corners
                     ),
                     child: DropdownButtonFormField<String>(
                       focusColor: Colors.transparent,
-                      icon: Icon(Icons.arrow_drop_down_sharp,color: Color(0xff50B5E5),),
+                      icon: Icon(
+                        Icons.arrow_drop_down_sharp,
+                        color: Color(0xff50B5E5),
+                      ),
                       decoration: InputDecoration.collapsed(hintText: ''),
-                      items: <String>['Select Document', 'Drivers License', 'CPR', 'Liability Insurence']
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: <String>[
+                        'Select Document',
+                        'Drivers License',
+                        'CPR',
+                        'Liability Insurence'
+                      ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
-                      },
-                      value: 'Select Document',style: TextStyle(color: Color(0xff686464),fontSize: 12),
+                      onChanged: (String? newValue) {},
+                      value: 'Select Document',
+                      style: TextStyle(color: Color(0xff686464), fontSize: 12),
                     ),
                   ),
                   Container(
                     width: 100,
                     margin: EdgeInsets.only(right: 20),
                     child: CustomIconButtonConst(
-                        text: AppStringHr.add, icon: Icons.add, onPressed: () {
-                          showDialog(context: context, builder: (BuildContext context){
-                            return AddLicencesPopup(LivensureController: livensureController,
-                              issueDateController: issueDateController, expiryDateController: expiryDateController, issuingOrganizationController: issuingOrganizationController,
-                              countryController: countryController, numberIDController: numberIDController, onpressedClose: () {  }, onpressedSave: () async{
-                              // await addLicensePost(context, licenseId, countryNameController.text, 0, expiryDateController.text, issueDateController.text,
-                              //     licenseUrl, licensure, licenseNumber, org, documentType);
-                              }, title: 'Add Licence',);
-                          });
-                    }),
+                        text: AppStringHr.add,
+                        icon: Icons.add,
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddLicencesPopup(
+                                  LivensureController: livensureController,
+                                  issueDateController: issueDateController,
+                                  expiryDateController: expiryDateController,
+                                  issuingOrganizationController:
+                                      issuingOrganizationController,
+                                  countryController: countryController,
+                                  numberIDController: numberIDController,
+                                  onpressedClose: () {},
+                                  onpressedSave: () async {
+                                    // await addLicensePost(context, licenseId, countryNameController.text, 0, expiryDateController.text, issueDateController.text,
+                                    //     licenseUrl, licensure, licenseNumber, org, documentType);
+                                  },
+                                  title: 'Add Licence',
+                                );
+                              });
+                        }),
                   ),
                 ],
               ),
-              SizedBox(height: 1,),
+              SizedBox(
+                height: 1,
+              ),
               LicensesChildTabbar(),
             ],
           ),
@@ -330,30 +442,34 @@ class _ManageScreenState extends State<ManageScreen> {
       Tab(text: AppStringHr.compensation),
       Tab(text: AppStringHr.addVaccination),
       Tab(text: AppStringHr.others),
-    ],
-        tabViews: [
+    ], tabViews: [
       ///aknowledgment
       SingleChildScrollView(
         child: Column(
           children: [
             Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-               // width: 100,
-                margin: EdgeInsets.only(right: 20),
-                child: CustomIconButtonConst(
-                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
-                      //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-                }),
-              ),
-            ],
-          ),
-            SizedBox(height: 30,),
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  // width: 100,
+                  margin: EdgeInsets.only(right: 20),
+                  child: CustomIconButtonConst(
+                      text: AppStringHr.addNew,
+                      icon: Icons.add,
+                      onPressed: () {
+                        //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
+                      }),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
             AcknowledgementsChildBar(),
           ],
         ),
       ),
+
       ///compensation
       Column(
         children: [
@@ -364,28 +480,38 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
-                      showDialog(context: context, builder: (BuildContext context){
-                        return CompensationAddEditPopup(
-                          idController: compensitionAddIdController, nameController: compensitionAddNameController,
-                          expiryType: compensationExpiryType,
-                          labelName: 'Add Compensation', onSavePredded: () async{
-                          await addEmployeeDocSetup(context,
-                          11,
-                          compensitionAddNameController.text,
-                              compensationExpiryType.toString(),
-                          DateTime.now() as String);
-                          Navigator.pop(context);
-                          compensitionAddIdController.clear();
-                          compensitionAddNameController.clear();
-                          compensationExpiryType = '';
-                        },);
-                      });
-                }),
+                    text: AppStringHr.addNew,
+                    icon: Icons.add,
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CompensationAddEditPopup(
+                              idController: compensitionAddIdController,
+                              nameController: compensitionAddNameController,
+                              expiryType: compensationExpiryType,
+                              labelName: 'Add Compensation',
+                              onSavePredded: () async {
+                                await addEmployeeDocSetup(
+                                    context,
+                                    11,
+                                    compensitionAddNameController.text,
+                                    compensationExpiryType.toString(),
+                                    DateTime.now() as String);
+                                Navigator.pop(context);
+                                compensitionAddIdController.clear();
+                                compensitionAddNameController.clear();
+                                compensationExpiryType = '';
+                              },
+                            );
+                          });
+                    }),
               ),
             ],
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           CompensationChildTabbar(),
         ],
       ),
@@ -398,26 +524,37 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
-                  showDialog(context: context, builder: (BuildContext context){
-                    return HealthRecordEditAddPopup(idController: healthRecordAddIdController, nameController: healthRecordAddNameController,
-                      labelName: 'Add Additional Vaccination', expiryType: expiryType.toString(), onSavePredded: () async{
-                        await addEmployeeDocSetup(context,
-                            1,
-                            healthRecordAddNameController.text,
-                            expiryType.toString(),
-                            DateTime.now() as String);
-                        healthRecordAddIdController.clear();
-                        healthRecordAddNameController.clear();
-                        expiryType = '';
-                      },);
-                  });
-
-                }),
+                    text: AppStringHr.addNew,
+                    icon: Icons.add,
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return HealthRecordEditAddPopup(
+                              idController: healthRecordAddIdController,
+                              nameController: healthRecordAddNameController,
+                              labelName: 'Add Additional Vaccination',
+                              expiryType: expiryType.toString(),
+                              onSavePredded: () async {
+                                await addEmployeeDocSetup(
+                                    context,
+                                    1,
+                                    healthRecordAddNameController.text,
+                                    expiryType.toString(),
+                                    DateTime.now() as String);
+                                healthRecordAddIdController.clear();
+                                healthRecordAddNameController.clear();
+                                expiryType = '';
+                              },
+                            );
+                          });
+                    }),
               ),
             ],
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           AdditionalVaccinationsChildBar(),
         ],
       ),
@@ -430,15 +567,24 @@ class _ManageScreenState extends State<ManageScreen> {
                 // width: 100,
                 margin: EdgeInsets.only(right: 60),
                 child: CustomIconButtonConst(
-                    text: AppStringHr.addNew, icon: Icons.add, onPressed: () {
-                      showDialog(context: context, builder: (BuildContext context){
-                        return OtherEditAddPopup(idController: otherAddIdController, nameController: otherAddNameController, labelName: 'Add');
-                      });
-                }),
+                    text: AppStringHr.addNew,
+                    icon: Icons.add,
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return OtherEditAddPopup(
+                                idController: otherAddIdController,
+                                nameController: otherAddNameController,
+                                labelName: 'Add');
+                          });
+                    }),
               ),
             ],
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           OtherChildTabbar(),
         ],
       ),
@@ -450,7 +596,7 @@ class _ManageScreenState extends State<ManageScreen> {
         Tab(text: AppStringHr.documents),
         Tab(text: AppStringHr.bankings),
         // Tab(text: AppStringHr.healthRcord),
-         Tab(text: AppStringHr.inventory),
+        Tab(text: AppStringHr.inventory),
         Tab(text: AppStringHr.payRate),
         Tab(text: AppStringHr.termination),
         Tab(text: AppStringHr.timeOff),
@@ -459,7 +605,7 @@ class _ManageScreenState extends State<ManageScreen> {
         CenteredTabBarChild(childController),
         CenteredTabBarChild(childControlleOne),
         BankingHeadTabbar(),
-       // HealthRecordsHeadTabbar(),
+        // HealthRecordsHeadTabbar(),
         Column(
           children: [
             Row(
@@ -482,12 +628,16 @@ class _ManageScreenState extends State<ManageScreen> {
                       text: AppStringHr.addNew,
                       icon: Icons.add,
                       onPressed: () {
-                        showDialog(context: context, builder: (_) => EquipmentAddPopup());
+                        showDialog(
+                            context: context,
+                            builder: (_) => EquipmentAddPopup());
                       }),
                 ),
               ],
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             InventoryHeadTabbar(),
           ],
         ),
@@ -502,17 +652,30 @@ class _ManageScreenState extends State<ManageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(
-        scrollDirection: Axis.vertical,
-          children: [
-        /// green blue container
-       ProfileBar(),
-       ///TabBar
-       CenteredTabBar(),
-       /// bottom row
-       BottomBarRow()
-      ]),
-    );
+        backgroundColor: Colors.white,
+        body: FutureBuilder<List<SearchEmployeeProfileData>>(
+            future: getSearchProfileById(context, 1, 33),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                return ListView(scrollDirection: Axis.vertical, children: [
+                  /// green blue container
+                  ProfileBar(),
+
+                  ///TabBar
+                  CenteredTabBar(),
+
+                  /// bottom row
+                  BottomBarRow()
+                ]);
+              }
+              return SizedBox();
+            }));
   }
 }
