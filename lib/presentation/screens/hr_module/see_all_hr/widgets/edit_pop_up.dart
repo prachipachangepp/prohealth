@@ -159,6 +159,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
+              ///incorrect
               SizedBox(height: MediaQuery.of(context).size.height / 100),
               Row(
                 children: [
@@ -199,7 +200,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
@@ -261,7 +262,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
@@ -338,7 +339,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
@@ -378,7 +379,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
@@ -432,7 +433,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+               SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
@@ -472,6 +473,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
+              ///incorrect end
               SizedBox(height: MediaQuery.of(context).size.height / 200),
               Divider(
                 // height: 50,
