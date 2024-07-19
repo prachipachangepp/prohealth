@@ -2,6 +2,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_banking_manager.dart';
 
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../taxtfield_constant.dart';
@@ -21,31 +22,21 @@ class BankingScreen extends StatefulWidget {
 class _BankingScreenState extends State<BankingScreen> {
 
 
-  double textFieldWidth = 430;
-  double textFieldHeight = 38;
 
-  TextEditingController firstName = TextEditingController();
 
   /////
   TextEditingController _controller = TextEditingController();
-  TextEditingController _controllerIssueDate = TextEditingController();
-  TextEditingController _controllerExpirationDate = TextEditingController();
+  TextEditingController requestammount = TextEditingController();
+  TextEditingController accountnumber = TextEditingController();
+  TextEditingController routingnumber = TextEditingController();
+  TextEditingController bankname = TextEditingController();
+
+
 
   // Current step in the stepper
-  int _currentStep = 0;
 
-  bool isChecked = false;
-
-  bool get isFirstStep => _currentStep == 0;
-
-
-  bool isCompleted = false;
-  String? _selectedCountry;
-  String? _selectedClinician;
-  String? _selectedSpeciality;
-  String? _selectedDegree;
-  late bool _passwordVisible = false;
-  String? _selectedType;
+  String? _selectedTypeS;
+  String? _selectedTypeC;
   String? _selectedType1;
 
 
@@ -117,10 +108,10 @@ class _BankingScreenState extends State<BankingScreen> {
                                   child: CustomRadioListTile(
                                 title: 'Checking',
                                 value: 'Checking',
-                                groupValue: _selectedType,
+                                groupValue: _selectedTypeC,
                                 onChanged: (value) {
                                   setState(() {
-                                    _selectedType = value;
+                                    _selectedTypeC = value;
                                   });
                                 },
                               )),
@@ -128,10 +119,10 @@ class _BankingScreenState extends State<BankingScreen> {
                                 child: CustomRadioListTile(
                                   title: 'Savings',
                                   value: 'Savings',
-                                  groupValue: _selectedType,
+                                  groupValue: _selectedTypeS,
                                   onChanged: (value) {
                                     setState(() {
-                                      _selectedType = value;
+                                      _selectedTypeS = value;
                                     });
                                   },
                                 ),
@@ -196,6 +187,7 @@ class _BankingScreenState extends State<BankingScreen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            controller: bankname,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -218,6 +210,7 @@ class _BankingScreenState extends State<BankingScreen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            controller: routingnumber,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -246,6 +239,7 @@ class _BankingScreenState extends State<BankingScreen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            controller: accountnumber,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -268,6 +262,7 @@ class _BankingScreenState extends State<BankingScreen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            // controller: ,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -297,6 +292,7 @@ class _BankingScreenState extends State<BankingScreen> {
                             },
                           ),
                           CustomTextFieldRegister(
+                            controller: requestammount,
                             prefixText: '\$',
                             prefixStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -387,6 +383,31 @@ class _BankingScreenState extends State<BankingScreen> {
                 ),
               ],
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff1696C8),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed: () async {
+                 // await postbankingscreen(context, 0, accountnumber.text, bankname.text, int.parse(amountrequested.text), "__", routingNumber, "__", "__")
+                },
+                child: Text(
+                  'Save',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

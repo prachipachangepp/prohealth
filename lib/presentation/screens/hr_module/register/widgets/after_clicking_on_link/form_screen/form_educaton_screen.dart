@@ -42,7 +42,7 @@ class _EducationScreenState extends State<EducationScreen> {
 
   String? _selectedDegree;
 
-  String? _selectedTypeY;
+  String? graduatetype;
   String? _selectedTypeN;
 
 
@@ -149,10 +149,10 @@ TextEditingController  state = TextEditingController();
                                   child: CustomRadioListTile(
                                 title: 'Yes',
                                 value: 'Yes',
-                                groupValue: _selectedTypeY,
+                                groupValue: graduatetype,
                                 onChanged: (value) {
                                   setState(() {
-                                    _selectedTypeY = value;
+                                    graduatetype = value;
                                   });
                                 },
                               )),
@@ -160,10 +160,10 @@ TextEditingController  state = TextEditingController();
                                 child: CustomRadioListTile(
                                   title: 'No',
                                   value: 'No',
-                                  groupValue: _selectedTypeN,
+                                  groupValue: graduatetype,
                                   onChanged: (value) {
                                     setState(() {
-                                      _selectedTypeN = value;
+                                      graduatetype = value;
                                     });
                                   },
                                 ),
@@ -426,7 +426,7 @@ TextEditingController  state = TextEditingController();
                   ),
                 ),
                 onPressed: () async {
-                  await posteducationscreen(context, 0, "__", "__", majorsubject.text, city.text, collegeuniversity.text, phone.text, state.text, "__"); },
+                  await posteducationscreen(context, 0, graduatetype.toString(), "__", majorsubject.text, city.text, collegeuniversity.text, phone.text, state.text, "__"); },
                 child: Text(
                   'Save',
                   style: GoogleFonts.firaSans(

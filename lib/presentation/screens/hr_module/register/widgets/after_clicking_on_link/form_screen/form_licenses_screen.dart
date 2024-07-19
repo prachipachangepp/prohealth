@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_licenses_manager.dart';
 
 import '../../../taxtfield_constant.dart';
 
@@ -28,6 +29,9 @@ class _LicensesScreenState extends State<LicensesScreen> {
 
   /////
   TextEditingController _controller = TextEditingController();
+  TextEditingController licensure = TextEditingController();
+  TextEditingController org = TextEditingController();
+  TextEditingController licensurenumber = TextEditingController();
   TextEditingController _controllerIssueDate = TextEditingController();
   TextEditingController _controllerExpirationDate = TextEditingController();
 
@@ -41,12 +45,6 @@ class _LicensesScreenState extends State<LicensesScreen> {
 
   bool isCompleted = false;
   String? _selectedCountry;
-  String? _selectedClinician;
-  String? _selectedSpeciality;
-  String? _selectedDegree;
-  late bool _passwordVisible = false;
-  String? _selectedType;
-  String? _selectedType1;
 
 
 
@@ -191,6 +189,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                                       MediaQuery.of(context).size.height /
                                           60),
                               CustomTextFieldRegister(
+                                controller: licensure,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -215,6 +214,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                                       MediaQuery.of(context).size.height /
                                           60),
                               CustomTextFieldRegister(
+                                controller: org,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -304,6 +304,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                                       MediaQuery.of(context).size.height /
                                           60),
                               CustomTextFieldRegister(
+                                controller: licensurenumber,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -515,6 +516,30 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   ],
                 ),
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff1696C8),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () async {
+                    await postlicensesscreen(context, "--", 0, "__", licensure.text, licensurenumber.text, org.text, "__");                 },
+                  child: Text(
+                    'Save',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

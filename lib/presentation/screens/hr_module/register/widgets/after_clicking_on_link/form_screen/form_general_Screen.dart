@@ -11,12 +11,10 @@ import '../../../taxtfield_constant.dart';
 import 'form_educaton_screen.dart';
 
 class generalForm extends StatefulWidget {
-   generalForm({
+  generalForm({
     super.key,
     required this.context,
   });
-
-
 
   final BuildContext context;
 
@@ -25,26 +23,22 @@ class generalForm extends StatefulWidget {
 }
 
 class _generalFormState extends State<generalForm> {
-
-
-
   double textFieldWidth = 430;
   double textFieldHeight = 38;
 
   //TextEditingController firstName = TextEditingController();
 
   /////
-   TextEditingController _dobcontroller = TextEditingController();
+  TextEditingController _dobcontroller = TextEditingController();
 
   TextEditingController firstname = TextEditingController();
-  TextEditingController  lastname= TextEditingController();
-  TextEditingController ssecuritynumber= TextEditingController();
-  TextEditingController  phonenumber= TextEditingController();
+  TextEditingController lastname = TextEditingController();
+  TextEditingController ssecuritynumber = TextEditingController();
+  TextEditingController phonenumber = TextEditingController();
   // TextEditingController  phonenumber= TextEditingController();
-  TextEditingController  personalemail= TextEditingController();
-  TextEditingController  driverlicensenumb= TextEditingController();
-  TextEditingController  address= TextEditingController();
-
+  TextEditingController personalemail = TextEditingController();
+  TextEditingController driverlicensenumb = TextEditingController();
+  TextEditingController address = TextEditingController();
 
   // Current step in the stepper
   int _currentStep = 0;
@@ -53,31 +47,19 @@ class _generalFormState extends State<generalForm> {
 
   bool get isFirstStep => _currentStep == 0;
 
-
   bool isCompleted = false;
   String? _selectedCountry;
   String? _selectedClinician;
   String? _selectedSpeciality;
   String? _selectedDegree;
   late bool _passwordVisible = false;
-  String? _genderTypeM;
-  String? _genderTypeF;
-  String? _genderTypeO;
-  String? _raceTypeA;
-  String? _raceTypeB;
-  String? _raceTypeW;
-  String? _raceTypeO;
-  String? _raceTypeH;
+  String? gendertype;
 
-
-
-
-
+  String? racetype;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-
       child: Column(
         children: [
           Center(
@@ -100,8 +82,7 @@ class _generalFormState extends State<generalForm> {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(
               width: MediaQuery.of(context).size.width / 3,
-              padding: const EdgeInsets.symmetric(
-                  vertical: 12, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               decoration: BoxDecoration(
                 color: const Color(0xFFE6F7FF),
                 borderRadius: BorderRadius.circular(12),
@@ -120,8 +101,7 @@ class _generalFormState extends State<generalForm> {
             height: AppSize.s13,
           ),
           Padding(
-            padding:
-            const EdgeInsets.only(left: 140, right: 140, top: 20),
+            padding: const EdgeInsets.only(left: 140, right: 140, top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,9 +120,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff1696C8),
@@ -153,7 +131,7 @@ class _generalFormState extends State<generalForm> {
                         ),
                         onPressed: () async {
                           FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
+                              await FilePicker.platform.pickFiles(
                             allowMultiple: false,
                           );
                           if (result != null) {
@@ -173,9 +151,7 @@ class _generalFormState extends State<generalForm> {
                         ),
                         icon: const Icon(Icons.file_upload_outlined),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Legal First Name',
                         style: GoogleFonts.firaSans(
@@ -183,9 +159,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: firstname,
                         hintText: 'Enter Text',
@@ -202,9 +176,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Legal Last Name',
                         style: GoogleFonts.firaSans(
@@ -212,9 +184,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: lastname,
                         hintText: 'Enter Text',
@@ -231,9 +201,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Social Security Number',
                         style: GoogleFonts.firaSans(
@@ -241,9 +209,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: ssecuritynumber,
                         hintText: 'Enter Text',
@@ -278,9 +244,7 @@ class _generalFormState extends State<generalForm> {
                         ),
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Personal Mobile Number',
                         style: GoogleFonts.firaSans(
@@ -288,9 +252,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: phonenumber,
                         keyboardType: TextInputType.name,
@@ -308,9 +270,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Personal Email',
                         style: GoogleFonts.firaSans(
@@ -318,9 +278,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: personalemail,
                         hintText: 'Enter Text',
@@ -337,9 +295,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Driver’s License Number',
                         style: GoogleFonts.firaSans(
@@ -347,9 +303,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: driverlicensenumb,
                         hintText: 'Enter Text',
@@ -381,9 +335,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Container(
                         width: 400,
                         child: Row(
@@ -392,39 +344,37 @@ class _generalFormState extends State<generalForm> {
                             CustomRadioListTile(
                               title: 'Male',
                               value: 'male',
-                              groupValue: _genderTypeM,
+                              groupValue: gendertype,
                               onChanged: (value) {
                                 setState(() {
-                                  _genderTypeM = value;
+                                  gendertype = value;
                                 });
                               },
                             ),
                             CustomRadioListTile(
                               title: 'Female',
                               value: 'Female',
-                              groupValue: _genderTypeF,
+                              groupValue: gendertype,
                               onChanged: (value) {
                                 setState(() {
-                                  _genderTypeF = value;
+                                  gendertype = value;
                                 });
                               },
                             ),
                             CustomRadioListTile(
                               title: 'Other',
                               value: 'Other',
-                              groupValue: _genderTypeO,
+                              groupValue: gendertype,
                               onChanged: (value) {
                                 setState(() {
-                                  _genderTypeO = value;
+                                  gendertype = value;
                                 });
                               },
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'DOB',
                         style: GoogleFonts.firaSans(
@@ -432,9 +382,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: _dobcontroller,
                         hintText: 'dd-mm-yyyy',
@@ -459,15 +407,12 @@ class _generalFormState extends State<generalForm> {
                             );
                             if (pickedDate != null) {
                               _dobcontroller.text =
-                              "${pickedDate.toLocal()}"
-                                  .split(' ')[0];
+                                  "${pickedDate.toLocal()}".split(' ')[0];
                             }
                           },
                         ),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Address',
                         style: GoogleFonts.firaSans(
@@ -475,9 +420,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: address,
                         hintText: 'Enter Text',
@@ -494,9 +437,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Text(
                         "Race",
                         style: GoogleFonts.firaSans(
@@ -504,72 +445,70 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-
-                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomRadioListTile(
-                              title: 'Asian',
-                              value: 'Asian',
-                              groupValue: _raceTypeA,
-                              onChanged: (value) {
-                                setState(() {
-                                  _raceTypeA = value;
-                                });
-                              },
-                            ),
-                            CustomRadioListTile(
-                              title: 'White',
-                              value: 'White',
-                              groupValue: _raceTypeW,
-                              onChanged: (value) {
-                                setState(() {
-                                  _raceTypeW = value;
-                                });
-                              },
-                            ),
-                            CustomRadioListTile(
-                              title: 'Hispanic or Latino',
-                              value: 'Hispanic or Latino',
-                              groupValue: _raceTypeH,
-                              onChanged: (value) {
-                                setState(() {
-                                  _raceTypeH = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomRadioListTile(
+                            title: 'Asian',
+                            value: 'Asian',
+                            groupValue: racetype,
+                            onChanged: (value) {
+                              setState(() {
+                                racetype = value;
+                              });
+                            },
+                          ),
+                          CustomRadioListTile(
+                            title: 'White',
+                            value: 'White',
+                            groupValue: racetype,
+                            onChanged: (value) {
+                              setState(() {
+                                racetype = value;
+                              });
+                            },
+                          ),
+                          CustomRadioListTile(
+                            title: 'Hispanic or Latino',
+                            value: 'Hispanic or Latino',
+                            groupValue: racetype,
+                            onChanged: (value) {
+                              setState(() {
+                                racetype = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CustomRadioListTile(
                             title: 'Black or African American',
                             value: 'Black or African American',
-                            groupValue: _raceTypeB,
+                            groupValue: racetype,
                             onChanged: (value) {
                               setState(() {
-                                _raceTypeB = value;
+                                racetype = value;
                               });
                             },
                           ),
                           CustomRadioListTile(
                             title: 'Other',
                             value: 'Other',
-                            groupValue: _raceTypeO,
+                            groupValue: racetype,
                             onChanged: (value) {
                               setState(() {
-                                _raceTypeO = value;
+                                racetype = value;
                               });
                             },
                           ),
-                         SizedBox(width: 1,)
+                          SizedBox(
+                            width: 1,
+                          )
                         ],
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Type of Clinician',
                         style: GoogleFonts.firaSans(
@@ -577,14 +516,11 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Container(
                         height: 32,
                         child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(
-
                             hintText: 'Select Clinician',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -593,8 +529,7 @@ class _generalFormState extends State<generalForm> {
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
-                              borderSide:
-                              BorderSide(color: Colors.grey),
+                              borderSide: BorderSide(color: Colors.grey),
                             ),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
@@ -620,18 +555,15 @@ class _generalFormState extends State<generalForm> {
                             'Clinican',
                             'Cliniian'
                           ] // List of countries
-                              .map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Speciality',
                         style: GoogleFonts.firaSans(
@@ -639,9 +571,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Container(
                         height: 32,
                         child: DropdownButtonFormField<String>(
@@ -654,8 +584,7 @@ class _generalFormState extends State<generalForm> {
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
-                              borderSide:
-                              BorderSide(color: Colors.grey),
+                              borderSide: BorderSide(color: Colors.grey),
                             ),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
@@ -681,13 +610,12 @@ class _generalFormState extends State<generalForm> {
                             'CSpeciality',
                             'Speciality'
                           ] // List of countries
-                              .map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
                       ),
                     ],
@@ -696,26 +624,62 @@ class _generalFormState extends State<generalForm> {
               ],
             ),
           ),
-          SizedBox(
-              height:
-              MediaQuery.of(context).size.height / 20),
-          
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:  Color(0xff1696C8),
+                  backgroundColor: Color(0xff1696C8),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                onPressed:
-                    () async {
-                  await postgeneralscreen(context, "__" , 0, firstname.text, lastname.text, 0 ,0, "__", 0, 0, 0, ssecuritynumber.text, phonenumber.text, "__", "__", "__",  personalemail.text, "__", address.text, "__", "__", "__", "__", "__", "__", "__", "__", 0, "__",  phonenumber.text, "__", "__", "__", "__", "__", 0, 0,0, "__","__","__");
-
+                onPressed: () async {
+                  await postgeneralscreen(
+                      context,
+                      "__",
+                      0,
+                      firstname.text,
+                      lastname.text,
+                      0,
+                      0,
+                      "__",
+                      0,
+                      0,
+                      0,
+                      ssecuritynumber.text,
+                      phonenumber.text,
+                      "__",
+                      "__",
+                      "__",
+                      personalemail.text,
+                      "__",
+                      address.text,
+                      "__",
+                      "__",
+                      "__",
+                      gendertype.toString(),
+                      "__",
+                      "__",
+                      "__",
+                      "__",
+                      0,
+                      "__",
+                      driverlicensenumb.text,
+                      "__",
+                      "__",
+                      "__",
+                      "__",
+                      "__",
+                      0,
+                      0,
+                      0,
+                      "__",
+                      "__",
+                      racetype.toString());
+                  // postgeneralscreen(context, "__" , 0, firstname.text, lastname.text, 0 ,0, "__", 0, 0, 0, ssecuritynumber.text, phonenumber.text, "__","__", "__",  personalemail.text, "__", address.text, "__", "__", "__", "__", "__", "__", "__", "__", 0, "__",  phonenumber.text, "__", "__", "__", "__", "__", 0, 0,0, "__","__","__");
                 },
                 child: Text(
                   'Save',
@@ -725,11 +689,9 @@ class _generalFormState extends State<generalForm> {
                     color: Colors.white,
                   ),
                 ),
-
               ),
             ],
           )
-          
         ],
       ),
     );
@@ -739,10 +701,10 @@ class _generalFormState extends State<generalForm> {
 TextEditingController _dobcontroller = TextEditingController();
 
 TextEditingController firstname = TextEditingController();
-TextEditingController  lastname= TextEditingController();
-TextEditingController ssecuritynumber= TextEditingController();
-TextEditingController  phonenumber= TextEditingController();
+TextEditingController lastname = TextEditingController();
+TextEditingController ssecuritynumber = TextEditingController();
+TextEditingController phonenumber = TextEditingController();
 
-TextEditingController  personalemail= TextEditingController();
-TextEditingController  driverlicensenumb= TextEditingController();
-TextEditingController  address= TextEditingController();
+TextEditingController personalemail = TextEditingController();
+TextEditingController driverlicensenumb = TextEditingController();
+TextEditingController address = TextEditingController();
