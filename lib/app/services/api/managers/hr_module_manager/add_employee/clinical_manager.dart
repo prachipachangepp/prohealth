@@ -191,8 +191,11 @@ Future<ApiData> addEmployeeClinical(
         "methods": method,
         "materials": material,
         "race": race,
+
       },
+
     );
+    print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Education added");
       // orgDocumentGet(context);

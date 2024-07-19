@@ -41,6 +41,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   TextEditingController searchController = TextEditingController();
   Future<List<SearchEmployeeProfileData>>? _searchFuture;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,7 +186,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                             List<String> options = snapshot.data!
                                 .map((data) => data.firstName)
                                 .where(
-                                    (name) => name != null && name.isNotEmpty)
+                                    (firstName) => firstName != null && firstName.isNotEmpty)
                                 .toList();
 
                             return Autocomplete<String>(
