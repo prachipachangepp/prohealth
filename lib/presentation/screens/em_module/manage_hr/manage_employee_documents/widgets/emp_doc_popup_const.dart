@@ -11,280 +11,6 @@ import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field
 
 import '../../../../../../app/resources/theme_manager.dart';
 
-class EmpDocEditPopupDatePicker extends StatefulWidget {
-  final TextEditingController idDocController;
-  final TextEditingController nameDocController;
-  final VoidCallback onSavePressed;
-  final Widget child;
-  const EmpDocEditPopupDatePicker(
-      {super.key,
-      required this.idDocController,
-      required this.nameDocController,
-      required this.onSavePressed,
-      required this.child});
-
-  @override
-  State<EmpDocEditPopupDatePicker> createState() =>
-      _EmpDocEditPopupDatePickerState();
-}
-
-class _EmpDocEditPopupDatePickerState extends State<EmpDocEditPopupDatePicker> {
-  String? _expiryType;
-  String? _errorMessage;
-  TextEditingController birthdayController = TextEditingController();
-  final DateTime _selectedDate = DateTime.now();
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        width: AppSize.s400,
-        height: AppSize.s550,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SMTextFConst(
-                    controller: widget.idDocController,
-                    keyboardType: TextInputType.text,
-                    text: 'ID of the Document',
-                  ),
-                  SizedBox(height: AppSize.s8),
-                  SMTextFConst(
-                    controller: widget.nameDocController,
-                    keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
-                  ),
-                  SizedBox(height: AppSize.s8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Type of the Document',
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s12,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.mediumgrey,
-                          //decoration: TextDecoration.none,
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      widget.child,
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-
-            ///radio
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Expiry Type',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RadioListTile<String>(
-                        title: Text(
-                          'Not Applicable',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'type1',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Scheduled',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'type2',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Issuer Expiry',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'type3',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Expiry Date',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  FormField<String>(
-                    builder: (FormFieldState<String> field) {
-                      return SizedBox(
-                        width: 354,
-                        height: 30,
-                        child: TextFormField(
-                          controller: birthdayController,
-                          style: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey),
-                          decoration: InputDecoration(
-                            hintText: 'mm-dd-yyyy',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(width: 1),
-                            ),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(
-                              Icons.calendar_month_outlined,
-                              color: ColorManager.blueprime,
-                            ),
-                            errorText: field.errorText,
-                          ),
-                          readOnly: true,
-                          onTap: () async {
-                            DateTime? date = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1100),
-                              lastDate: DateTime(2026),
-                            );
-                            if (date != null) {
-                              String formattedDate =
-                              DateFormat('mm-dd-yyyy').format(date);
-                              birthdayController.text = formattedDate;
-                              field.didChange(formattedDate);
-                              // birthdayController.text = DateFormat('mm-dd-yyyy')
-                              //     .format(_selectedDate);
-                              // field.didChange(
-                              //     date.toLocal().toString().split(' ')[0]);
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please select birth date';
-                            }
-                            return null;
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p24),
-              child: Center(
-                child: CustomElevatedButton(
-                  width: AppSize.s105,
-                  height: AppSize.s30,
-                  text: AppStringEM.submit,
-                  onPressed: () {
-                    widget.onSavePressed();
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-///
 class EmpDocEditPopup extends StatefulWidget {
   final TextEditingController idDocController;
   final TextEditingController nameDocController;
@@ -295,45 +21,43 @@ class EmpDocEditPopup extends StatefulWidget {
   final Widget radioButton;
   final Widget child;
   final int? loadingDuration;
-  final String  title;
-   bool? enable;
-  EmpDocEditPopup(
-      {super.key,
-        this.enable,
-      required this.idDocController,
-      required this.nameDocController,
-      required this.child,
-      required this.calenderController,
-      this.expiryType,
-      required this.onSavePredded,
-      required this.radioButton, this.isSaving,   this.loadingDuration = 3, required this.title,});
+  final String title;
+  bool? enable;
+
+  EmpDocEditPopup({
+    Key? key,
+    this.enable,
+    required this.idDocController,
+    required this.nameDocController,
+    required this.child,
+    required this.calenderController,
+    this.expiryType,
+    required this.onSavePredded,
+    required this.radioButton,
+    this.isSaving,
+    this.loadingDuration = 3,
+    required this.title,
+  }) : super(key: key);
 
   @override
   State<EmpDocEditPopup> createState() => _EmpDocEditPopupState();
 }
 
 class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
-  //TextEditingController calenderController = TextEditingController();
   final DateTime _selectedDate = DateTime.now();
-  String? _errorMessage;
   bool _isLoading = false;
+  String? _idError;
+  String? _nameError;
 
-  void _handlePress() {
+  void _validateFields() {
     setState(() {
-      _isLoading = true;
-    });
-
-    widget.onSavePredded.call();
-    Future.delayed(Duration(seconds: widget.loadingDuration!), () {
-      setState(() {
-        _isLoading = false;
-      });
+      _idError = widget.idDocController.text.isEmpty ? 'Please enter some text' : null;
+      _nameError = widget.nameDocController.text.isEmpty ? 'Please enter some text' : null;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    bool isSaving = false;
-
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -346,7 +70,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
         child: Column(
           children: [
             Container(
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                 color: ColorManager.bluebottom,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(8),
@@ -360,7 +84,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
-                     widget.title,
+                      widget.title,
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,
@@ -373,7 +97,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.close,color: ColorManager.white,),
+                    icon: Icon(Icons.close, color: ColorManager.white,),
                   ),
                 ],
               ),
@@ -387,17 +111,37 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SMTextFConst(
-                    enable: widget.enable == false ? true :widget.enable,
-                    controller: widget.idDocController,
-                    keyboardType: TextInputType.text,
-                    text: 'ID of the Document',
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SMTextFConst(
+                        enable: widget.enable == false ? true : widget.enable,
+                        controller: widget.idDocController,
+                        keyboardType: TextInputType.text,
+                        text: 'ID of the Document',
+                      ),
+                      if (_idError != null)
+                        Text(
+                          _idError!,
+                          style: TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                    ],
                   ),
                   SizedBox(height: AppSize.s8),
-                  SMTextFConst(
-                    controller: widget.nameDocController,
-                    keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SMTextFConst(
+                        controller: widget.nameDocController,
+                        keyboardType: TextInputType.text,
+                        text: 'Name of the Document',
+                      ),
+                      if (_nameError != null)
+                        Text(
+                          _nameError!,
+                          style: TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                    ],
                   ),
                   SizedBox(height: AppSize.s8),
                   Column(
@@ -409,7 +153,6 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                           fontSize: FontSize.s12,
                           fontWeight: FontWeight.w700,
                           color: ColorManager.mediumgrey,
-                          //decoration: TextDecoration.none,
                         ),
                       ),
                       SizedBox(height: 5),
@@ -419,11 +162,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
-
-            ///radio
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -462,9 +201,7 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                       decoration: TextDecoration.none,
                     ),
                   ),
-                  SizedBox(
-                    height: 4,
-                  ),
+                  SizedBox(height: 4),
                   FormField<String>(
                     builder: (FormFieldState<String> field) {
                       return SizedBox(
@@ -475,7 +212,6 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                             fontSize: FontSize.s12,
                             fontWeight: FontWeight.w700,
                             color: ColorManager.mediumgrey,
-                            //decoration: TextDecoration.none,
                           ),
                           controller: widget.calenderController,
                           decoration: InputDecoration(
@@ -486,7 +222,6 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                               fontSize: FontSize.s12,
                               fontWeight: FontWeight.w700,
                               color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -497,18 +232,16 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(
                                   width: 1,
-                                  color: ColorManager
-                                      .mediumgrey), // Set focused border color to red
+                                  color: ColorManager.mediumgrey),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(
                                   width: 1,
-                                  color: ColorManager
-                                      .mediumgrey), // Set enabled border color to red
+                                  color: ColorManager.mediumgrey),
                             ),
                             contentPadding:
-                                EdgeInsets.symmetric(horizontal: 16),
+                            EdgeInsets.symmetric(horizontal: 16),
                             suffixIcon: Icon(Icons.calendar_month_outlined,
                                 color: ColorManager.blueprime),
                             errorText: field.errorText,
@@ -523,12 +256,9 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
                             );
                             if (date != null) {
                               String formattedDate =
-                                  DateFormat('MM-dd-yyyy').format(date);
+                              DateFormat('MM-dd-yyyy').format(date);
                               widget.calenderController.text = formattedDate;
                               field.didChange(formattedDate);
-                              // birthdayController.text =
-                              // date.toLocal().toString().split(' ')[0];
-                              // field.didChange(date.toLocal().toString().split(' ')[0]);
                             }
                           },
                           validator: (value) {
@@ -554,40 +284,28 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
               ),
             )
                 : Center(
-              child:  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomElevatedButton(
-                        width: AppSize.s105,
-                        height: AppSize.s30,
-                        text: AppStringEM.submit,
-                        // onPressed: widget.onSavePredded
-                        onPressed: () async {
-                          setState(()  {
-                            _isLoading = true;
-                            isSaving = true;
-                            Navigator.pop(context);
-                          });
-                          await widget.onSavePredded();
-                          setState(() {
-                            _isLoading = false;
-                          });
-                        },
-
-                      ),
-                    ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomElevatedButton(
+                  width: AppSize.s105,
+                  height: AppSize.s30,
+                  text: AppStringEM.submit,
+                  onPressed: () async {
+                    _validateFields();
+                    if (_idError == null && _nameError == null) {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      await widget.onSavePredded();
+                      setState(() {
+                        _isLoading = false;
+                      });
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+              ),
             ),
-            // if (_errorMessage != null)
-            //   Padding(
-            //     padding: const EdgeInsets.all(AppPadding.p8),
-            //     child: Text(
-            //       _errorMessage!,
-            //       style: CustomTextStylesCommon.commonStyle(
-            //         color: ColorManager.red,
-            //         fontSize: FontSize.s14,
-            //         fontWeight: FontWeightManager.bold,
-            //       ),
-            //     ),
-
           ],
         ),
       ),

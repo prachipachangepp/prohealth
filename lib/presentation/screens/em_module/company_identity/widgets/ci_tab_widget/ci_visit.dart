@@ -71,29 +71,25 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
   String chips = "";
   bool _isLoading = false;
   bool _isDarkColor(Color color) {
-    double perceivedBrightness = color.red * 0.299 + color.green * 0.587 + color.blue * 0.114;
-    return perceivedBrightness < 128; // If perceived brightness is less than 128, color is considered dark
+    double perceivedBrightness =
+        color.red * 0.299 + color.green * 0.587 + color.blue * 0.114;
+    return perceivedBrightness <
+        128; // If perceived brightness is less than 128, color is considered dark
   }
-  void addChip(
-    String chip,
-      int chipId
-  ) {
+
+  void addChip(String chip, int chipId) {
     // setState(() {
 
-
-     // chipsList = selectedChips;
+    // chipsList = selectedChips;
     // });
   }
 
-  void deleteChip(
-    String chip,
-      int chipId
-  ) {
+  void deleteChip(String chip, int chipId) {
     //setState(() {
-      selectedChips.remove(chip);
-      selectedChipsId.remove(chipId);
-      //selectedChipsEmpId.remove(chipEmpId);
-   // });
+    selectedChips.remove(chip);
+    selectedChipsId.remove(chipId);
+    //selectedChipsEmpId.remove(chipEmpId);
+    // });
   }
 
   void _loadColors() async {
@@ -114,7 +110,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       _selectedItem = newValue;
     });
   }
- // List<> eligibalClinical =[];
+
+  // List<> eligibalClinical =[];
   @override
   Widget build(BuildContext context) {
     List<String> currentPageItems = items.sublist(
@@ -148,8 +145,8 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               idOfDocumentController: docIdController,
                               onSavePressed: () async {
                                 print(":::::${_selectedItem}");
-                                await addVisitPost(
-                                    context, docNamecontroller.text, 1,selectedChipsId);
+                                await addVisitPost(context,
+                                    docNamecontroller.text, 1, selectedChipsId);
                                 getVisit(context, 1, 1, 15).then((data) {
                                   _visitController.add(data);
                                 }).catchError((error) {
@@ -159,8 +156,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                 selectedChips.clear();
                                 docNamecontroller.clear();
                               },
-                              child1: Wrap(spacing: 8.0,
-                                  children: listWidget),
+                              child1: Wrap(spacing: 8.0, children: listWidget),
                               child: FutureBuilder<List<HRClinical>>(
                                   future: companyAllHrClinicApi(context),
                                   builder: (context, snapshot) {
@@ -214,37 +210,51 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                 empTypeId = docType;
                                                 setState(() {
                                                   if (val.isNotEmpty) {
-
-                                                    selectedChips.add(Chip(
-                                                      backgroundColor: ColorManager.white,
-                                                      shape: StadiumBorder(
-                                                          side: BorderSide(
-                                                              color: ColorManager.blueprime)),
-                                                      deleteIcon: Icon(
-                                                        Icons.close,
-                                                        color: ColorManager.blueprime,
-                                                        size: 17,
+                                                    selectedChips.add(
+                                                      Chip(
+                                                        backgroundColor:
+                                                            ColorManager.white,
+                                                        shape: StadiumBorder(
+                                                            side: BorderSide(
+                                                                color: ColorManager
+                                                                    .blueprime)),
+                                                        deleteIcon: Icon(
+                                                          Icons.close,
+                                                          color: ColorManager
+                                                              .blueprime,
+                                                          size: 17,
+                                                        ),
+                                                        label: Text(
+                                                          val,
+                                                          style: CustomTextStylesCommon.commonStyle(
+                                                              fontWeight:
+                                                                  FontWeightManager
+                                                                      .medium,
+                                                              fontSize:
+                                                                  FontSize.s10,
+                                                              color: ColorManager
+                                                                  .mediumgrey),
+                                                        ),
+                                                        onDeleted: () {
+                                                          setState(() {
+                                                            deleteChip(
+                                                                val, docType);
+                                                            selectedChips
+                                                                .clear();
+                                                            selectedChipsId
+                                                                .clear();
+                                                            print(
+                                                                ":::Chips name ${selectedChips}");
+                                                            print(
+                                                                ":::: Chips Id ${selectedChipsId}");
+                                                          });
+                                                        },
                                                       ),
-                                                      label: Text(
-                                                        val,
-                                                        style: CustomTextStylesCommon.commonStyle(
-                                                            fontWeight: FontWeightManager.medium,
-                                                            fontSize: FontSize.s10,
-                                                            color: ColorManager.mediumgrey),
-                                                      ),
-
-                                                      onDeleted: () {
-                                                        setState(() {
-                                                          deleteChip(val,docType);
-                                                          selectedChips.clear();
-                                                          selectedChipsId.clear();
-                                                          print(":::Chips name ${selectedChips}");
-                                                          print(":::: Chips Id ${selectedChipsId}");
-                                                        });
-                                                      },
-                                                    ),);
-                                                    selectedChipsId.add(docType);
-                                                    print("::${selectedChipsId}");
+                                                    );
+                                                    selectedChipsId
+                                                        .add(docType);
+                                                    print(
+                                                        "::${selectedChipsId}");
                                                     print("::${selectedChips}");
                                                   }
                                                 });
@@ -268,6 +278,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
       SizedBox(
         height: 10,
       ),
+
       ///headings
       Container(
         height: AppSize.s30,
@@ -281,7 +292,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
           children: [
             // Expanded(flex: 2, child: Container()),
             Padding(
-              padding:  const EdgeInsets.only(left: 50),
+              padding: const EdgeInsets.only(left: 50),
               child: Text(
                 AppString.srNo,
                 textAlign: TextAlign.center,
@@ -294,6 +305,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                     ),
               ),
             ),
+
             ///visit
             Padding(
               padding: const EdgeInsets.only(left: 110),
@@ -308,9 +320,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                     ),
               ),
             ),
+
             ///EL clinician
             Padding(
-              padding:  const EdgeInsets.only(right: 270),
+              padding: const EdgeInsets.only(right: 270),
               child: Text(
                 AppString.eligibleClinician,
                 textAlign: TextAlign.center,
@@ -326,7 +339,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
               padding: const EdgeInsets.only(right: 40.0),
               child: Text(
                 AppString.actions,
-                textAlign:TextAlign.center,
+                textAlign: TextAlign.center,
                 style: GoogleFonts.firaSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -336,7 +349,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                 // style: RegisterTableHead.customTextStyle(context),
               ),
             ),
-           // Expanded(flex: 2, child: Container())
+            // Expanded(flex: 2, child: Container())
           ],
         ),
       ),
@@ -381,24 +394,34 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                     scrollDirection: Axis.vertical,
                     itemCount: currentPageItems.length,
                     itemBuilder: (context, index) {
-                      print("Length ::: ${snapshot.data![index].eligibleClinician.toString()}");
+                      print(
+                          "Length ::: ${snapshot.data![index].eligibleClinician.toString()}");
                       List<Widget> clinical = [];
-                      for(var i in snapshot.data![index].eligibleClinician!){
-                         var hexColor = i.color.replaceAll("#","");
+                      for (var i in snapshot.data![index].eligibleClinician!) {
+                        var hexColor = i.color.replaceAll("#", "");
                         //var = i.color.trim();
                         clinical.add(Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height:30,
-                            width: 30,
-                            color:hexColor == 'string' ? Colors.white : Color(int.parse('0xFF$hexColor')),
-                            child:Center(child: Text(i.eligibleClinician,style: GoogleFonts.firaSans(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                              color: _isDarkColor(hexColor == 'string' ?Colors.white :Color(int.parse('0xFF$hexColor'))) ? ColorManager.white : ColorManager.black,
-                              decoration: TextDecoration.none,
-                            ),))
-                          ),
+                              height: 30,
+                              width: 30,
+                              color: hexColor == 'string'
+                                  ? Colors.white
+                                  : Color(int.parse('0xFF$hexColor')),
+                              child: Center(
+                                  child: Text(
+                                i.eligibleClinician,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: _isDarkColor(hexColor == 'string'
+                                          ? Colors.white
+                                          : Color(int.parse('0xFF$hexColor')))
+                                      ? ColorManager.white
+                                      : ColorManager.black,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ))),
                         ));
                       }
                       int serialNumber =
@@ -408,11 +431,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: Column(children: [
-
                           Container(
                               padding: EdgeInsets.only(bottom: AppPadding.p5),
-                              margin:
-                                  EdgeInsets.symmetric(horizontal: AppMargin.m50),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: AppMargin.m50),
                               decoration: BoxDecoration(
                                 color: ColorManager.white,
                                 borderRadius: BorderRadius.circular(4),
@@ -427,9 +449,10 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                               ),
                               height: AppSize.s56,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                 // Expanded(flex: 2, child: Container()),
+                                  // Expanded(flex: 2, child: Container()),
                                   Expanded(
                                     flex: 2,
                                     child: Text(
@@ -441,7 +464,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
-                                 // Expanded(flex: 1, child: Container()),
+                                  // Expanded(flex: 1, child: Container()),
                                   Expanded(
                                     flex: 3,
                                     child: Text(
@@ -454,21 +477,23 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           color: Color(0xff686464)),
                                     ),
                                   ),
-                                 // Expanded(flex: 1, child: Container()),
+                                  // Expanded(flex: 1, child: Container()),
                                   Expanded(
                                     flex: 3,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children:clinical
-                                    ),
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: clinical),
                                   ),
-                                 // Expanded(flex: 2, child: Container()),
+                                  // Expanded(flex: 2, child: Container()),
                                   Expanded(
                                     flex: 2,
                                     child: Center(
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           IconButton(
                                               onPressed: () {
@@ -476,197 +501,180 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                                     context: context,
                                                     builder:
                                                         (BuildContext context) {
-                                                      return FutureBuilder<VisitListDataPrefill>(
-                                                            future: getVisitListPrefill(context, snapshot.data![index].visitId),
-                                                            builder: (context,snapshotPrefill) {
-                                                              if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                                return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,));
-                                                              }
-                                                              var visitName = snapshotPrefill.data!.visitType;
-                                                              docNamecontroller = TextEditingController(text: snapshotPrefill.data!.visitType.toString());
-                                                              return StatefulBuilder(
-                                                                builder: (BuildContext context, void Function(void Function()) setState) {
-                                                                  return AddVisitPopup(
-                                                                    nameOfDocumentController:
-                                                                    docNamecontroller,
-                                                                    idOfDocumentController:
-                                                                    docIdController,
-                                                                    onSavePressed:
-                                                                        () async {
-                                                                      await updateVisitPatch(
-                                                                          context,
-                                                                          snapshot
-                                                                              .data![index]
-                                                                              .visitId,
-                                                                          visitName == docNamecontroller
-                                                                              .text ? visitName.toString() : docNamecontroller.text,
-                                                                          1,
-                                                                          selectedEditChipsId);
+                                                      return FutureBuilder<
+                                                              VisitListDataPrefill>(
+                                                          future:
+                                                              getVisitListPrefill(context, snapshot.data![index].visitId),
+                                                          builder: (context,
+                                                              snapshotPrefill) {
+                                                            if (snapshotPrefill.connectionState == ConnectionState.waiting) {
+                                                              return Center(
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                color: ColorManager
+                                                                    .blueprime,
+                                                              ));
+                                                            }
+                                                            var visitName = snapshotPrefill.data!.visitType;
+                                                            docNamecontroller = TextEditingController(
+                                                                    text: snapshotPrefill.data!.visitType.toString());
+                                                            return StatefulBuilder(
+                                                              builder: (BuildContext context,
+                                                                  void Function(
+                                                                      void Function())
+                                                                      setState) {
+                                                                return AddVisitPopup(
+                                                                  nameOfDocumentController:
+                                                                      docNamecontroller,
+                                                                  idOfDocumentController:
+                                                                      docIdController,
+                                                                  onSavePressed:
+                                                                      () async {
+                                                                    await updateVisitPatch(
+                                                                        context,
+                                                                        snapshot
+                                                                            .data![
+                                                                                index]
+                                                                            .visitId,
+                                                                        visitName ==
+                                                                                docNamecontroller.text
+                                                                            ? visitName.toString()
+                                                                            : docNamecontroller.text,
+                                                                        1,
+                                                                        selectedEditChipsId);
 
-                                                                      getVisit(context, 1,
-                                                                          1, 10)
-                                                                          .then((data) {
-                                                                        _visitController
-                                                                            .add(data);
-                                                                      }).catchError(
-                                                                              (error) {
-                                                                            // Handle error
-                                                                          });
-                                                                      selectedEditChipsId.clear();
-                                                                      selectedEditChips.clear();
-                                                                      docNamecontroller
-                                                                          .clear();
-                                                                      _selectedItem =
-                                                                      "Select";
-                                                                    },
-                                                                    child1: Wrap(
-                                                                        spacing: 8.0,
-                                                                        children: selectedEditChips),
-                                                                    title: 'Edit Visit',
-                                                                    child: FutureBuilder<
-                                                                        List<
-                                                                            HRClinical>>(
-                                                                        future:
-                                                                        companyAllHrClinicApi(
-                                                                            context),
-                                                                        builder: (context,
-                                                                            snapshot) {
-                                                                          if (snapshot
-                                                                              .connectionState ==
-                                                                              ConnectionState
-                                                                                  .waiting) {
-                                                                            return Shimmer
-                                                                                .fromColors(
-                                                                                baseColor:
-                                                                                Colors.grey[
-                                                                                300]!,
-                                                                                highlightColor:
-                                                                                Colors.grey[
-                                                                                100]!,
-                                                                                child:
-                                                                                Container(
-                                                                                  width:
-                                                                                  354,
-                                                                                  height:
-                                                                                  30,
-                                                                                  decoration: BoxDecoration(
-                                                                                      color: ColorManager.faintGrey,
-                                                                                      borderRadius: BorderRadius.circular(10)),
-                                                                                ));
-                                                                          }
-                                                                          if (snapshot.data!
-                                                                              .isEmpty) {
-                                                                            return Center(
-                                                                              child: Text(
-                                                                                AppString
-                                                                                    .dataNotFound,
-                                                                                style: CustomTextStylesCommon
-                                                                                    .commonStyle(
-                                                                                  fontWeight:
-                                                                                  FontWeightManager
-                                                                                      .medium,
-                                                                                  fontSize:
-                                                                                  FontSize
-                                                                                      .s12,
-                                                                                  color: ColorManager
-                                                                                      .mediumgrey,
-                                                                                ),
+                                                                    getVisit(
+                                                                            context,
+                                                                            1,
+                                                                            1,
+                                                                            10)
+                                                                        .then(
+                                                                            (data) {
+                                                                      _visitController
+                                                                          .add(
+                                                                              data);
+                                                                    }).catchError(
+                                                                            (error) {
+                                                                      // Handle error
+                                                                    });
+                                                                    selectedEditChipsId
+                                                                        .clear();
+                                                                    selectedEditChips
+                                                                        .clear();
+                                                                    docNamecontroller
+                                                                        .clear();
+                                                                    _selectedItem =
+                                                                        "Select";
+                                                                  },
+                                                                  child1: Wrap(
+                                                                      spacing:
+                                                                          8.0,
+                                                                      children:
+                                                                          selectedEditChips),
+                                                                  title:
+                                                                      'Edit Visit',
+                                                                  child: FutureBuilder<
+                                                                          List<
+                                                                              HRClinical>>(
+                                                                      future: companyAllHrClinicApi(
+                                                                          context),
+                                                                      builder:
+                                                                          (context,
+                                                                              snapshot) {
+                                                                        if (snapshot.connectionState ==
+                                                                            ConnectionState.waiting) {
+                                                                          return Shimmer.fromColors(
+                                                                              baseColor: Colors.grey[300]!,
+                                                                              highlightColor: Colors.grey[100]!,
+                                                                              child: Container(
+                                                                                width: 354,
+                                                                                height: 30,
+                                                                                decoration: BoxDecoration(color: ColorManager.faintGrey, borderRadius: BorderRadius.circular(10)),
+                                                                              ));
+                                                                        }
+                                                                        if (snapshot
+                                                                            .data!
+                                                                            .isEmpty) {
+                                                                          return Center(
+                                                                            child:
+                                                                                Text(
+                                                                              AppString.dataNotFound,
+                                                                              style: CustomTextStylesCommon.commonStyle(
+                                                                                fontWeight: FontWeightManager.medium,
+                                                                                fontSize: FontSize.s12,
+                                                                                color: ColorManager.mediumgrey,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                        if (snapshot
+                                                                            .hasData) {
+                                                                          int docType =
+                                                                              0;
+                                                                          List<DropdownMenuItem<String>>
+                                                                              dropDownTypesList =
+                                                                              [];
+                                                                          for (var i
+                                                                              in snapshot.data!) {
+                                                                            dropDownTypesList.add(
+                                                                              DropdownMenuItem<String>(
+                                                                                child: Text(i.abbrivation!),
+                                                                                value: i.abbrivation,
                                                                               ),
                                                                             );
                                                                           }
-                                                                          if (snapshot
-                                                                              .hasData) {
-                                                                            int docType = 0;
-                                                                            List<
-                                                                                DropdownMenuItem<
-                                                                                    String>>
-                                                                            dropDownTypesList =
-                                                                            [];
-                                                                            for (var i
-                                                                            in snapshot
-                                                                                .data!) {
-                                                                              dropDownTypesList
-                                                                                  .add(
-                                                                                DropdownMenuItem<
-                                                                                    String>(
-                                                                                  child: Text(
-                                                                                      i.abbrivation!),
-                                                                                  value: i
-                                                                                      .abbrivation,
-                                                                                ),
-                                                                              );
-                                                                            }
-                                                                            return CICCDropdown(
-                                                                                initialValue:
-                                                                                dropDownTypesList[0]
-                                                                                    .value,
-                                                                                onChange:
-                                                                                    (val) {
-                                                                                  for (var a
-                                                                                  in snapshot
-                                                                                      .data!) {
-                                                                                    if (a.abbrivation ==
-                                                                                        val) {
-                                                                                      docType =
-                                                                                          a.employeeTypesId;
-                                                                                      empTypeId =
-                                                                                          docType;
-                                                                                      setState(
-                                                                                              () {
-                                                                                            if (val.isNotEmpty) {
-                                                                                              selectedEditChips.add(Chip(
-                                                                                                shape: StadiumBorder(
-                                                                                                    side: BorderSide(
-                                                                                                        color: ColorManager.blueprime)),
-                                                                                                //side: BorderSide(color: ColorManager.blueprime),
-                                                                                                deleteIcon: Icon(
-                                                                                                  Icons.close,
-                                                                                                  color: ColorManager.blueprime,
-                                                                                                  size: 17,
-                                                                                                ),
-                                                                                                label: Text(
-                                                                                                  val,
-                                                                                                  style: CustomTextStylesCommon.commonStyle(
-                                                                                                      fontWeight: FontWeightManager.medium,
-                                                                                                      fontSize: FontSize.s10,
-                                                                                                      color: ColorManager.mediumgrey),
-                                                                                                ),
+                                                                          return CICCDropdown(
+                                                                              initialValue: dropDownTypesList[0].value,
+                                                                              onChange: (val) {
+                                                                                for (var a in snapshot.data!) {
+                                                                                  if (a.abbrivation == val) {
+                                                                                    docType = a.employeeTypesId;
+                                                                                    empTypeId = docType;
+                                                                                    setState(() {
+                                                                                      if (val.isNotEmpty) {
+                                                                                        selectedEditChips.add(
+                                                                                          Chip(
+                                                                                            shape: StadiumBorder(side: BorderSide(color: ColorManager.blueprime)),
+                                                                                            //side: BorderSide(color: ColorManager.blueprime),
+                                                                                            deleteIcon: Icon(
+                                                                                              Icons.close,
+                                                                                              color: ColorManager.blueprime,
+                                                                                              size: 17,
+                                                                                            ),
+                                                                                            label: Text(
+                                                                                              val,
+                                                                                              style: CustomTextStylesCommon.commonStyle(fontWeight: FontWeightManager.medium, fontSize: FontSize.s10, color: ColorManager.mediumgrey),
+                                                                                            ),
 
-                                                                                                onDeleted: () {
-                                                                                                  setState(() {
-                                                                                                   // deleteChip(val,docType);
-                                                                                                    selectedEditChips.clear();
-                                                                                                    selectedEditChipsId.clear();
-                                                                                                    print(":::Chips name ${selectedChips}");
-                                                                                                    print(":::: Chips Id ${selectedChipsId}");
-                                                                                                  });
-                                                                                                },
-                                                                                              ),);
-                                                                                              //addChip(val.trim(),docType);
-                                                                                              selectedEditChipsId.add(docType);
-                                                                                              print("chipsID:::${selectedChipsId}");
-
-                                                                                            }
-                                                                                          });
-                                                                                    }
+                                                                                            onDeleted: () {
+                                                                                              setState(() {
+                                                                                                // deleteChip(val,docType);
+                                                                                                selectedEditChips.clear();
+                                                                                                selectedEditChipsId.clear();
+                                                                                                print(":::Chips name ${selectedChips}");
+                                                                                                print(":::: Chips Id ${selectedChipsId}");
+                                                                                              });
+                                                                                            },
+                                                                                          ),
+                                                                                        );
+                                                                                        //addChip(val.trim(),docType);
+                                                                                        selectedEditChipsId.add(docType);
+                                                                                        print("chipsID:::${selectedChipsId}");
+                                                                                      }
+                                                                                    });
                                                                                   }
-                                                                                  print(
-                                                                                      ":::${docType}");
-                                                                                  print(
-                                                                                      ":::<>${empTypeId}");
-                                                                                },
-                                                                                items:
-                                                                                dropDownTypesList);
-                                                                          }
-                                                                          return SizedBox();
-                                                                        }),
-                                                                  );
-                                                                },
-
-                                                              );
-                                                            }
-                                                          );
-
+                                                                                }
+                                                                                print(":::${docType}");
+                                                                                print(":::<>${empTypeId}");
+                                                                              },
+                                                                              items: dropDownTypesList);
+                                                                        }
+                                                                        return SizedBox();
+                                                                      }),
+                                                                );
+                                                              },
+                                                            );
+                                                          });
                                                     });
                                               },
                                               icon: Icon(
@@ -679,40 +687,62 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                           ),
                                           IconButton(
                                             onPressed: () async {
-                                              showDialog(context: context,
-                                                  builder: (context) => StatefulBuilder(
-                                                    builder: (BuildContext context, void Function(void Function()) setState) {
-                                                      return  DeletePopup(
-                                                          title: 'Delete Visit',
-                                                          loadingDuration: _isLoading,
-                                                          onCancel: (){
-                                                            Navigator.pop(context);
-                                                          }, onDelete: () async{
-                                                        setState(() {
-                                                          _isLoading = true;
-                                                        });
-                                                        try {
-                                                          await deleteVisitPatch(context,
-                                                              snapshot.data![index].visitId);
-                                                          setState(() async {
-                                                            await getVisit(context, 1, 1, 20)
-                                                                .then((data) {
-                                                              _visitController.add(data);
-                                                            }).catchError((error) {
-                                                              // Handle error
-                                                            });
-                                                            Navigator.pop(context);
-                                                          });
-                                                        } finally {
-                                                          setState(() {
-                                                            _isLoading = false;
-                                                          });
-                                                        }
-
-                                                      });
-                                                    },
-
-                                                  ));
+                                              showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (context) =>
+                                                          StatefulBuilder(
+                                                            builder: (BuildContext
+                                                                    context,
+                                                                void Function(
+                                                                        void
+                                                                            Function())
+                                                                    setState) {
+                                                              return DeletePopup(
+                                                                  title:
+                                                                      'Delete Visit',
+                                                                  loadingDuration:
+                                                                      _isLoading,
+                                                                  onCancel: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  onDelete:
+                                                                      () async {
+                                                                    setState(
+                                                                        () {
+                                                                      _isLoading =
+                                                                          true;
+                                                                    });
+                                                                    try {
+                                                                      await deleteVisitPatch(
+                                                                          context,
+                                                                          snapshot
+                                                                              .data![index]
+                                                                              .visitId);
+                                                                      setState(
+                                                                          () async {
+                                                                        await getVisit(context, 1, 1, 20).then(
+                                                                            (data) {
+                                                                          _visitController
+                                                                              .add(data);
+                                                                        }).catchError(
+                                                                            (error) {
+                                                                          // Handle error
+                                                                        });
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      });
+                                                                    } finally {
+                                                                      setState(
+                                                                          () {
+                                                                        _isLoading =
+                                                                            false;
+                                                                      });
+                                                                    }
+                                                                  });
+                                                            },
+                                                          ));
 
                                               //
                                             },
@@ -725,7 +755,7 @@ class _CiVisitScreenState extends State<CiVisitScreen> {
                                       ),
                                     ),
                                   ),
-                                 // Expanded(flex: 3, child: Container())
+                                  // Expanded(flex: 3, child: Container())
                                 ],
                               ))
                         ]),

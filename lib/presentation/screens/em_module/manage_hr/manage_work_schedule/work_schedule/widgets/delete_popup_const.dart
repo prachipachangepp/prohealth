@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
@@ -100,7 +101,7 @@ class _DeletePopupState extends State<DeletePopup> {
                     child: CustomButtonTransparent(
                       text: AppStringEM.cancel,
                       onPressed: () async{
-                       // widget.onCancel();
+                        widget.onCancel( );
                         Navigator.pop(context);
                       },
                     ),

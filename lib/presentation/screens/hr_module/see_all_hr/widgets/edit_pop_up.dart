@@ -81,90 +81,92 @@ class _EditPopUpState extends State<EditPopUp> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      FilePickerResult? result =
-                      await FilePicker.platform.pickFiles();
-
-                      if (result != null) {
-                        PlatformFile file = result.files.first;
-                        print('File selected: ${file.name}');
-                        // Handle the selected file
-                      } else {
-                        // User canceled the picker
-                      }
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          'Upload Resume',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(Icons.file_upload_outlined, color: Colors.white),
-                      ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      backgroundColor: Color(0xff50B5E5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width / 100),
-                  ElevatedButton(
-                    onPressed: ()async {
-                      FilePickerResult? result =
-                      await FilePicker.platform.pickFiles();
-
-                      if (result != null) {
-                        PlatformFile file = result.files.first;
-                        print('File selected: ${file.name}');
-                        // Handle the selected file
-                      } else {
-                        // User canceled the picker
-                      }
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          'Upload Photo',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(Icons.file_upload_outlined, color: Colors.white),
-                      ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      backgroundColor: Color(0xff50B5E5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              ///uplode button
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     ElevatedButton(
+              //       onPressed: () async {
+              //         FilePickerResult? result =
+              //         await FilePicker.platform.pickFiles();
+              //
+              //         if (result != null) {
+              //           PlatformFile file = result.files.first;
+              //           print('File selected: ${file.name}');
+              //           // Handle the selected file
+              //         } else {
+              //           // User canceled the picker
+              //         }
+              //       },
+              //       child: Row(
+              //         children: [
+              //           Text(
+              //             'Upload Resume',
+              //             style: GoogleFonts.firaSans(
+              //               fontSize: 10,
+              //               fontWeight: FontWeight.w700,
+              //               color: Colors.white,
+              //             ),
+              //           ),
+              //           SizedBox(width: 8),
+              //           Icon(Icons.file_upload_outlined, color: Colors.white),
+              //         ],
+              //       ),
+              //       style: ElevatedButton.styleFrom(
+              //         padding:
+              //         EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              //         backgroundColor: Color(0xff50B5E5),
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(12),
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(width: MediaQuery.of(context).size.width / 100),
+              //     ElevatedButton(
+              //       onPressed: ()async {
+              //         FilePickerResult? result =
+              //         await FilePicker.platform.pickFiles();
+              //
+              //         if (result != null) {
+              //           PlatformFile file = result.files.first;
+              //           print('File selected: ${file.name}');
+              //           // Handle the selected file
+              //         } else {
+              //           // User canceled the picker
+              //         }
+              //       },
+              //       child: Row(
+              //         children: [
+              //           Text(
+              //             'Upload Photo',
+              //             style: GoogleFonts.firaSans(
+              //               fontSize: 10,
+              //               fontWeight: FontWeight.w700,
+              //               color: Colors.white,
+              //             ),
+              //           ),
+              //           SizedBox(width: 8),
+              //           Icon(Icons.file_upload_outlined, color: Colors.white),
+              //         ],
+              //       ),
+              //       style: ElevatedButton.styleFrom(
+              //         padding:
+              //         EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              //         backgroundColor: Color(0xff50B5E5),
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(12),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              ///incorrect
               SizedBox(height: MediaQuery.of(context).size.height / 100),
               Row(
                 children: [
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'First Name',
                     ),
                   ),
@@ -173,7 +175,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Last Name',
                     ),
                   ),
@@ -189,6 +191,7 @@ class _EditPopUpState extends State<EditPopUp> {
                         'option 3',
                         'option 4',
                       ],
+
                       value: dropdownValue,
                       onChanged: (value) {
                         setState(() {
@@ -199,7 +202,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
@@ -261,7 +264,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
@@ -338,7 +341,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
@@ -363,7 +366,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Personal Phone Number',
                     ),
                   ),
@@ -372,18 +375,18 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Work Phone Number',
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Personal email',
                     ),
                   ),
@@ -392,7 +395,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Work email',
                     ),
                   ),
@@ -401,7 +404,7 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       controller: _controller,
                       labelText: 'dd-mm-yyyy',
                       hintStyle: GoogleFonts.firaSans(
@@ -432,12 +435,12 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 60),
+               SizedBox(height: MediaQuery.of(context).size.height / 60),
               Row(
                 children: [
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Personal email',
                     ),
                   ),
@@ -466,12 +469,13 @@ class _EditPopUpState extends State<EditPopUp> {
                   ),
                   Expanded(
                     child: CustomTextFieldRegister(
-                      height: 36,
+                      height: 31,
                       labelText: 'Driver’s License',
                     ),
                   ),
                 ],
               ),
+              ///incorrect end
               SizedBox(height: MediaQuery.of(context).size.height / 200),
               Divider(
                 // height: 50,

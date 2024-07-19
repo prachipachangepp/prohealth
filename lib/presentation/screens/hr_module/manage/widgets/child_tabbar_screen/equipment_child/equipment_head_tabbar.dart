@@ -8,7 +8,6 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/equipment_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/equipment_data.dart';
-
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
@@ -28,7 +27,7 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
   final StreamController<List<EquipmentData>> equipementDataStreamController = StreamController<List<EquipmentData>>();
 
   late CompanyIdentityManager _companyManager;
-
+//
   late int currentPage;
 
   late int itemsPerPage;
@@ -473,7 +472,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                      CustomElevatedButton(
                         width: AppSize.s105,
                         height: AppSize.s30,
-                        text: 'Add',
+                        text: 'Add Equipment',
                         onPressed: () async{
                           setState(() {
                             isLoading = true;

@@ -18,6 +18,7 @@ class CustomTextField extends StatelessWidget {
   final Icon? suffixIcon;
   final IconData? prefixIcon;
   final FocusNode? focusNode;
+  final VoidCallback? onTapSuffixIcon;
 
   CustomTextField({
     this.width,
@@ -30,36 +31,34 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     this.focusNode,
     required this.labelFontSize,
+    this.onTapSuffixIcon,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 2,
-      child: SizedBox(
-        width: AppSize.s250,
-        height: AppSize.s40,
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p5),
-          child: TextFormField(
-            focusNode: focusNode,
-            controller: controller,
-            textAlign: TextAlign.start,
-            style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
-            textAlignVertical: TextAlignVertical.center,
-            cursorHeight: cursorHeight,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
-              border: OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: ColorManager.black),
-              ),
-              labelText: labelText,
-              labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p14),
-                child: suffixIcon,
-              ),
+    return SizedBox(
+      width: AppSize.s250,
+      height: AppSize.s40,
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p5),
+        child: TextFormField(
+          focusNode: focusNode,
+          controller: controller,
+          textAlign: TextAlign.start,
+          style: TextStyle(fontSize: MediaQuery.of(context).size.width / 130),
+          textAlignVertical: TextAlignVertical.center,
+          cursorHeight: cursorHeight,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
+            border: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.black),
+            ),
+            labelText: labelText,
+            labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(left: AppPadding.p14),
+              child: suffixIcon,
             ),
           ),
         ),
@@ -110,45 +109,42 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: SizedBox(
-        width: AppSize.s250,
-        height: AppSize.s40,
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p5),
-          child: DropdownButtonFormField<String>(
-            icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
-            value: _selectedValue,
-            items: widget.items.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value, style: GoogleFonts.firaSans(
-                  fontSize: 12,
-                  color: Color(0xff575757),
-                  fontWeight: FontWeight.w400,
-                ),),
-              );
-            }).toList(),
-            onChanged: (newValue) {
-              setState(() {
-                _selectedValue = newValue;
-              });
-              if (widget.onChanged != null) {
-                widget.onChanged!(newValue);
-              }
-            },
-            isExpanded: true,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
-              border: OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: ColorManager.black),
-              ),
-              labelText: widget.labelText,
-              labelStyle:
-                  widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+    return SizedBox(
+      width: AppSize.s250,
+      height: AppSize.s40,
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p5),
+        child: DropdownButtonFormField<String>(
+          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
+          value: _selectedValue,
+          items: widget.items.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: GoogleFonts.firaSans(
+                fontSize: 12,
+                color: Color(0xff575757),
+                fontWeight: FontWeight.w400,
+              ),),
+            );
+          }).toList(),
+          onChanged: (newValue) {
+            setState(() {
+              _selectedValue = newValue;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(newValue);
+            }
+          },
+          isExpanded: true,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
+            border: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.black),
             ),
+            labelText: widget.labelText,
+            labelStyle:
+                widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
           ),
         ),
       ),

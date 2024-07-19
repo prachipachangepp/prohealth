@@ -1,6 +1,7 @@
 class AllRegisterRepository{
 
   static String empEnroll = "/employee-enroll";
+  static String add = "/add";
   static String filter = "/Filter";
 
   ///employee-enroll/Filter/{companyId}/{filter}
@@ -15,4 +16,9 @@ class AllRegisterRepository{
   static String getEmpEnrollByEnrollId({required int empEnrollId}){
     return "$empEnroll/$empEnrollId";
   }
+  ///employee-enroll/add
+  static String addEmpEnrollAdd(){
+    return "$empEnroll$add";
+  }
+
 }

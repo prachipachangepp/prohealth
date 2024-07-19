@@ -41,30 +41,52 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
         height: AppSize.s400,
         decoration: BoxDecoration(
           color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text(widget.tite,style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s16,
-                      fontWeight: FontWeightManager.bold,
-                      color: ColorManager.blueprime,
-                      decoration: TextDecoration.none,
-                    ),),
+              Container(
+                height: 34,
+                decoration: BoxDecoration(
+                  color: Color(0xff50B5E5),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.close),
-                  ),
-                ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(left: 10.0),
+                      child: Text(widget.tite,style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s16,
+                        fontWeight: FontWeightManager.bold,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      ),),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.close,color: Colors.white,),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height/40,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: () async{
+                    }),
+
+                  ],
+                ),
               ),
               SizedBox(height:MediaQuery.of(context).size.height/20),
               Row(
@@ -205,11 +227,14 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                 ],
               ),
               //SizedBox(height:MediaQuery.of(context).size.height/50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  widget.checkBoxTile,
-                ],
+              Padding(
+                padding:  EdgeInsets.only(left: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    widget.checkBoxTile,
+                  ],
+                ),
               ),
              // SizedBox(height:MediaQuery.of(context).size.height/50),
               Row(

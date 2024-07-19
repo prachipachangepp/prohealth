@@ -9,8 +9,9 @@ class BottomBarRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: AppSize.s88,
-      width: double.infinity,
+      height: AppSize.s50,
+      // width: AppSize.s
+      // double.infinity,
       //flex: 1,
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -61,8 +62,8 @@ class BottomBarRow extends StatelessWidget {
               children: [
                 Image.asset(
                   'images/powered_logo.png',
-                //  height: 27,
-                  width: MediaQuery.of(context).size.width/50,
+                  //  height: 27,
+                  width: MediaQuery.of(context).size.width / 50,
                 ),
                 Text(
                   'Powered by',

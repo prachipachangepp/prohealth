@@ -95,12 +95,10 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                effectiveDateController: effectiveDateController,
                                bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
                                routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () {
-                               showDialog(context: context, builder: (_) => FutureBuilder<EmployeeBankingPrefillData>(
+                               showDialog(context: context, builder: (_) =>
+                                   FutureBuilder<EmployeeBankingPrefillData>(
                                  future: getPrefillEmployeeBancking(context,snapshot.data![index].empBankingId),
                                  builder: (context,snapshotPrefill) {
-                                   if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                     return Center(child:CircularProgressIndicator(color: ColorManager.blueprime,));
-                                   }
                                    if(snapshot.connectionState == ConnectionState.waiting){
                                      return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
                                    }
@@ -119,7 +117,8 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
 
                                    var amount = snapshotPrefill.data!.amountRequested;
                                    specificAmountController = TextEditingController(text: snapshotPrefill.data!.amountRequested.toString());
-                                   return EditBankingPopUp(effectiveDateController: effectiveDateController,
+                                   return
+                                     EditBankingPopUp(effectiveDateController: effectiveDateController,
                                      bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
                                      routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () async{
                                      await PatchEmployeeBanking(context, snapshot.data![index].empBankingId, snapshotPrefill.data!.employeeId,
