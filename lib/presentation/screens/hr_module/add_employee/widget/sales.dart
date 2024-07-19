@@ -1134,6 +1134,11 @@ class _SalesTabState extends State<SalesTab> {
                               child: TextFormField(
                                 controller: ctlrDob,
                                 readOnly: true,
+                                style: GoogleFonts.firaSans(
+                                  fontSize: 12,
+                                  color: Color(0xff575757),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 decoration: InputDecoration(
                                   labelText: 'Date of Birth',
                                   labelStyle: GoogleFonts.firaSans(
@@ -1571,8 +1576,8 @@ class _SalesTabState extends State<SalesTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                'E072',
-                                68,
+                                'E075',
+                                75,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
                                 1,
@@ -1619,7 +1624,18 @@ class _SalesTabState extends State<SalesTab> {
                                 'Material',
                                 'Race',
                               );
-                              print("Employee Added");
+                              print("Sales Employee Added");
+                              ctlrfirstName.clear();
+                              ctlrPersonalEmail.clear();
+                              ctlrsecNo.clear();
+                              ctlrWorkEmail.clear();
+                              ctlrEmContact.clear();
+                              ctlrDob.clear();
+                              ctlrprimeNo.clear();
+                              ctlrworkNo.clear();
+                              ctlrlastName.clear();
+                              ctlrSocialSecurity.clear();
+
                             },
                           );
                         },

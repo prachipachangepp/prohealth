@@ -1138,6 +1138,11 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                   child: TextFormField(
                                     controller: ctlrDob,
                                     readOnly: true,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      color: Color(0xff575757),
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                     decoration: InputDecoration(
                                       labelText: 'Date of Birth',
                                       labelStyle: GoogleFonts.firaSans(
@@ -1575,8 +1580,8 @@ class _AdministartionTabState extends State<AdministartionTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                'E069',
-                                69,
+                                'E0727',
+                                728,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
                                 1,
@@ -1623,7 +1628,17 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                 'Material',
                                 'Race',
                               );
-                              print("Employee Added");
+                              print("Administration Employee Added");
+                              ctlrfirstName.clear();
+                              ctlrPersonalEmail.clear();
+                              ctlrsecNo.clear();
+                              ctlrWorkEmail.clear();
+                              ctlrEmContact.clear();
+                              ctlrDob.clear();
+                              ctlrprimeNo.clear();
+                              ctlrworkNo.clear();
+                              ctlrlastName.clear();
+                              ctlrSocialSecurity.clear();
                             },
                           );
                         },

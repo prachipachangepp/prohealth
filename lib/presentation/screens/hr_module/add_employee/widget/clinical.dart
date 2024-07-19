@@ -2070,8 +2070,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                'E071',
-                                71,
+                                'E07',
+                                77,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
                                 1,
@@ -2097,7 +2097,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 'Service',
                                 'imgurl.com',
                                 'resumeurl.com',
-                                1,
+                                5,
                                 true,
                                 true,
                                 'Onboarding',
@@ -2118,7 +2118,17 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 'Material',
                                 'Race',
                               );
-                              print("Employee Added");
+                              print("Clinical Employee Added");
+                              ctlrfirstName.clear();
+                              ctlrPersonalEmail.clear();
+                              ctlrsecNo.clear();
+                              ctlrWorkEmail.clear();
+                              ctlrEmContact.clear();
+                              ctlrDob.clear();
+                              ctlrprimeNo.clear();
+                              ctlrworkNo.clear();
+                              ctlrlastName.clear();
+                              ctlrSocialSecurity.clear();
                             },
                           );
                         },
