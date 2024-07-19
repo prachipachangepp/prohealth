@@ -7,6 +7,7 @@ import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../taxtfield_constant.dart';
+import 'form_educaton_screen.dart';
 
 class generalForm extends StatefulWidget {
    generalForm({
@@ -376,39 +377,36 @@ class _generalFormState extends State<generalForm> {
                         width: 400,
                         child: Row(
                           children: [
-                            Expanded(
-                                child: CustomRadioListTile(
-                                  title: 'Male',
-                                  value: 'male',
-                                  groupValue: _selectedType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType = value;
-                                    });
-                                  },
-                                )),
-                            Expanded(
-                                child: CustomRadioListTile(
-                                  title: 'Female',
-                                  value: 'Female',
-                                  groupValue: _selectedType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType = value;
-                                    });
-                                  },
-                                )),
-                            Expanded(
-                                child: CustomRadioListTile(
-                                  title: 'Other',
-                                  value: 'Other',
-                                  groupValue: _selectedType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType = value;
-                                    });
-                                  },
-                                )),
+                            CustomRadioListTile(
+                              title: 'Male',
+                              value: 'male',
+                              groupValue: _selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                });
+                              },
+                            ),
+                            CustomRadioListTile(
+                              title: 'Female',
+                              value: 'Female',
+                              groupValue: _selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                });
+                              },
+                            ),
+                            CustomRadioListTile(
+                              title: 'Other',
+                              value: 'Other',
+                              groupValue: _selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                });
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -497,72 +495,62 @@ class _generalFormState extends State<generalForm> {
                       Container(
                         //width: 550,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        //  mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: CustomRadioListTile(
-                                title: 'Asian',
-                                value: 'Asian',
-                                groupValue: _selectedType,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedType = value;
-                                  });
-                                },
-                              ),
+                            CustomRadioListTile(
+                              title: 'Asian',
+                              value: 'Asian',
+                              groupValue: _selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                });
+                              },
                             ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                title: 'White',
-                                value: 'White',
-                                groupValue: _selectedType,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedType = value;
-                                  });
-                                },
-                              ),
+                            CustomRadioListTile(
+                              title: 'White',
+                              value: 'White',
+                              groupValue: _selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                });
+                              },
                             ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                title: 'Hispanic or Latino',
-                                value: 'Hispanic or Latino',
-                                groupValue: _selectedType,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedType = value;
-                                  });
-                                },
-                              ),
+                            CustomRadioListTile(
+                              title: 'Hispanic or Latino',
+                              value: 'Hispanic or Latino',
+                              groupValue: _selectedType,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedType = value;
+                                });
+                              },
                             ),
                           ],
                         ),
                       ),
                       Row(
                         children: [
-                          Expanded(
-                            child: CustomRadioListTile(
-                              title: 'Black or African American',
-                              value: 'Black or African American',
-                              groupValue: _selectedType,
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedType = value;
-                                });
-                              },
-                            ),
+                          CustomRadioListTile(
+                            title: 'Black or African American',
+                            value: 'Black or African American',
+                            groupValue: _selectedType,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedType = value;
+                              });
+                            },
                           ),
-                          Expanded(
-                            child: CustomRadioListTile(
-                              title: 'Other',
-                              value: 'Other',
-                              groupValue: _selectedType,
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedType = value;
-                                });
-                              },
-                            ),
+                          CustomRadioListTile(
+                            title: 'Other',
+                            value: 'Other',
+                            groupValue: _selectedType,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedType = value;
+                              });
+                            },
                           ),
                         ],
                       ),
@@ -693,7 +681,65 @@ class _generalFormState extends State<generalForm> {
                 ),
               ],
             ),
-          )
+          ),
+          
+          // Row(
+          //   children: [
+          //
+          //       ElevatedButton.icon(
+          //         style: ElevatedButton.styleFrom(
+          //           backgroundColor: Colors.white,
+          //           foregroundColor: const Color(0xff1696C8),
+          //           side: const BorderSide(
+          //               color: Color(0xff1696C8)),
+          //           shape: RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.circular(8),
+          //           ),
+          //         ),
+          //         onPressed:(){},
+          //         label: Text(
+          //           "Back",
+          //           style: GoogleFonts.firaSans(
+          //             fontSize: 14.0,
+          //             fontWeight: FontWeight.w700,
+          //             //color: Colors.white,
+          //           ),
+          //         ),
+          //         icon: const Icon(Icons.arrow_back),
+          //       ),
+          //
+          //     const SizedBox(
+          //       width: 20,
+          //     ),
+          //     ElevatedButton.icon(
+          //       style: ElevatedButton.styleFrom(
+          //         backgroundColor: const Color(0xff1696C8),
+          //         foregroundColor: Colors.white,
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(8),
+          //         ),
+          //       ),
+          //       onPressed:
+          //           (){
+          //
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => EducationScreen(context: Text(""),)),
+          //             );
+          //       },
+          //       label: Text(
+          //         'Continue',
+          //         style: GoogleFonts.firaSans(
+          //           fontSize: 14.0,
+          //           fontWeight: FontWeight.w700,
+          //           color: Colors.white,
+          //         ),
+          //       ),
+          //       icon: const Icon(Icons.arrow_forward),
+          //     ),
+          //   ],
+          // )
+          
         ],
       ),
     );

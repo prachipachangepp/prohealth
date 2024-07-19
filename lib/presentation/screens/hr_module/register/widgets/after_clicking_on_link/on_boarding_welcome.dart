@@ -65,7 +65,7 @@ class OnBoardingWelcome extends StatelessWidget {
                       Text(
                         'Welcome to Prohealth Onboarding Wizard',
                         style: GoogleFonts.firaSans(
-                          fontSize: 30,
+                          fontSize: 20,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff686464),
                         ),
@@ -79,7 +79,7 @@ class OnBoardingWelcome extends StatelessWidget {
                           color: Color(0xff686464),
                         ),
                       ),
-                      SizedBox(height: 24),
+                      SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: () {
                           showDialog(
@@ -101,7 +101,7 @@ class OnBoardingWelcome extends StatelessWidget {
                           'Start',
                           style: GoogleFonts.firaSans(
                               fontSize: 20,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w500,
                               color: Colors.white),
                         ),
                       ),
@@ -117,7 +117,6 @@ class OnBoardingWelcome extends StatelessWidget {
     );
   }
 }
-
 
 //
 // Container(
@@ -353,12 +352,12 @@ class VerifyUserPopup extends StatelessWidget {
                     child: Row(
                       children: [
                         Icon(Icons.person_outline,
-                            color: Colors.white, size: 28),
+                            color: Colors.white, size: 20),
                         SizedBox(width: 8),
                         Text(
                           AppString.verify_user,
                           style: GoogleFonts.firaSans(
-                            fontSize: 24,
+                            fontSize: 20,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
@@ -384,7 +383,10 @@ class VerifyUserPopup extends StatelessWidget {
                       children: [
                         Icon(Icons.security, color: Color(0xFF50B5E5)),
                         SizedBox(width: 8),
-                        Text(AppString.security_code),
+                        Text(
+                          AppString.security_code,  style: TextStyle(fontSize: 14),
+
+                        ),
                       ],
                     ),
                     labelText: AppString.security_code,
@@ -396,7 +398,7 @@ class VerifyUserPopup extends StatelessWidget {
                       children: [
                         Icon(Icons.phone, color: Color(0xFF50B5E5)),
                         SizedBox(width: 8),
-                        Text(AppString.phone_number),
+                        Text(AppString.phone_number, style: TextStyle(fontSize: 14),),
                       ],
                     ),
                     labelText: AppString.phone_number,
@@ -408,13 +410,13 @@ class VerifyUserPopup extends StatelessWidget {
                       children: [
                         Icon(Icons.email, color: Color(0xFF50B5E5)),
                         SizedBox(width: 8),
-                        Text(AppString.email),
+                        Text(AppString.email, style: TextStyle(fontSize: 14),),
                       ],
                     ),
                     labelText: AppString.email,
                     icon: Icons.email,
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: 35),
                   ElevatedButton(
                     onPressed: () {
                       showDialog(
@@ -440,8 +442,8 @@ class VerifyUserPopup extends StatelessWidget {
                     child: Text(
                       'Continue',
                       style: GoogleFonts.firaSans(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white),
                     ),
                   ),
@@ -710,7 +712,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                   'Congratulations!',
                   style: GoogleFonts.firaSans(
                     color: Color(0xFF686464),
-                    fontSize: 30.0,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -727,7 +729,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                       'You are a part of ProHealth family',
                       style: GoogleFonts.firaSans(
                         color: Color(0xFF686464),
-                        fontSize: 20.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -737,7 +739,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.firaSans(
                         color: Color(0xFF686464),
-                        fontSize: 20.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -766,7 +768,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                   style: GoogleFonts.firaSans(
                     fontSize: 20,
                     color: Colors.white,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -789,7 +791,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                       'For any assistance please call:',
                       style: GoogleFonts.firaSans(
                         color: Color(0xFF686464),
-                        fontSize: 20.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -797,7 +799,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                       '(4088) 555-1234',
                       style: GoogleFonts.firaSans(
                         color: Color(0xFF50B5E5),
-                        fontSize: 20.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                         decoration: TextDecoration.underline,
                         decorationColor: Color(0xFF50B5E5),
@@ -807,7 +809,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                       'or email:',
                       style: GoogleFonts.firaSans(
                         color: Color(0xFF686464),
-                        fontSize: 20.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                         decoration: TextDecoration.underline,
                         decorationColor: Color(0xFF686464),
@@ -817,7 +819,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                       'support@symmetry.com',
                       style: GoogleFonts.firaSans(
                         color: Color(0xFF50B5E5),
-                        fontSize: 20.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                         decoration: TextDecoration.underline,
                         decorationColor: Color(0xFF50B5E5),
