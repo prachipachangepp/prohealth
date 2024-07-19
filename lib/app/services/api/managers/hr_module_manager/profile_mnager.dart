@@ -31,11 +31,11 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
         String DateOfBirth = convertIsoToDayMonthYear(item['dateOfBirth']);
         String CreatedAt = convertIsoToDayMonthYear(item['createdAt']);
         String TerminationDate = convertIsoToDayMonthYear(
-            item['dateofTermination']);
+            item['dateofTermination'] ?? '--');
         String ReginationDate = convertIsoToDayMonthYear(
-            item['dateofResignation']);
-        String CheckDate = convertIsoToDayMonthYear(item['checkDate']);
-        String HireDate = convertIsoToDayMonthYear(item['dateofHire']);
+            item['dateofResignation'] ?? '--');
+        //String CheckDate = convertIsoToDayMonthYear(item['checkDate']);
+        String HireDate = convertIsoToDayMonthYear(item['dateofHire'] ?? '--');
         itemsData.add(SearchEmployeeProfileData(
           employeeId: item['employeeId'] ?? 0,
           code: item['code'] ?? '--',
@@ -77,7 +77,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
           type: item['type'] ?? '--',
           reason: item['reason'] ?? '--',
           finalPayCheck: item['finalPayCheck'] != null ? item['finalPayCheck'].toDouble() : 0.0,
-          checkDate: CheckDate,
+          checkDate: item['checkDate'] ?? '--',
           grossPay: item['grossPay'] != null
               ? item['grossPay'].toDouble()
               : 0.0,
@@ -295,7 +295,6 @@ Future<ProfilePercentage> getPercentage(
 
     return formattedDate;
   }
-
   var itemsData;
   try {
     final response = await Api(context)

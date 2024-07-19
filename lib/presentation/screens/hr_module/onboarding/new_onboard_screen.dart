@@ -95,9 +95,9 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: widget.selectedIndex == entry.key
-                                  ? Colors.white
-                                  : null,
+                                  ? Colors.white : null,
                             ),
+
                             child: Text(
                                 entry.value,
                                 textAlign: TextAlign.center,
@@ -138,11 +138,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                   ),
 
           ),
-          Row(
-            children: [
-              BottomBarRow()
-            ],
-          )
+          BottomBarRow()
         ],
       ),
     );
