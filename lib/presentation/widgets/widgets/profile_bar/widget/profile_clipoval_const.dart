@@ -55,14 +55,15 @@ class ProfileBarClipConst extends StatelessWidget {
 }
 
 class ProfileBarPhoneCmtConst extends StatelessWidget {
-  const ProfileBarPhoneCmtConst({super.key});
+  final String phoneNo;
+  const ProfileBarPhoneCmtConst({super.key, required this.phoneNo});
 
   @override
   Widget build(BuildContext context) {
     return  Row(
       children: [
         Text(
-          AppString.text,
+          phoneNo,
           style: ThemeManagerDark.customTextStyle(context),
         ),
         SizedBox(

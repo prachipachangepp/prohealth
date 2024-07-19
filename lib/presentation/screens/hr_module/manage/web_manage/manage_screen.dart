@@ -12,6 +12,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mn
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
+import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
@@ -34,8 +35,6 @@ import '../widgets/child_tabbar_screen/documents_child/acknowledgements_child_ta
 import '../widgets/child_tabbar_screen/documents_child/add_vaccination_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/compensation_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/documents_child/other_child_tabbar.dart';
-import '../widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
-import '../widgets/child_tabbar_screen/equipment_child/widgets/add_new_popup.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/education_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/employment_child_tabbar.dart';
 import '../widgets/child_tabbar_screen/qualifications_child/licenses_child_tabbar.dart';
@@ -49,6 +48,8 @@ import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
 
 ///done by saloni
 class ManageScreen extends StatefulWidget {
+  final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
+   ManageScreen({super.key,  this.searchByEmployeeIdProfileData,  });
   @override
   State<ManageScreen> createState() => _ManageScreenState();
 }
@@ -111,8 +112,8 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController numberIDController = TextEditingController();
   String compensationExpiryType = '';
 
-  ///Acknowledegement
-  TextEditingController AcknowledgementnameController = TextEditingController();
+  /// Acknowlpdgement
+  TextEditingController acknowldgementNameController = TextEditingController();
 
   @override
   void initState() {
@@ -462,7 +463,10 @@ class _ManageScreenState extends State<ManageScreen> {
                       text: AppStringHr.addNew,
                       icon: Icons.add,
                       onPressed: () {
-                        showDialog(context: context, builder: (context)=> AcknowledgementAddPopup(labelName: 'Add Acknowledgement', AcknowledgementnameController: AcknowledgementnameController, onSavePressed: () {  },));
+                        showDialog(context: context, builder: (BuildContext context){
+                          return AcknowledgementAddPopup(labelName: '', AcknowledgementnameController: acknowldgementNameController, onSavePressed: () {  },);
+                        });
+                        //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                       }),
                 ),
               ],
@@ -635,7 +639,7 @@ class _ManageScreenState extends State<ManageScreen> {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (_) => AddNewEquipmentPopup(idController: idController, nameController: nameController,));
+                            builder: (_) => EquipmentAddPopup());
                       }),
                 ),
               ],
@@ -658,29 +662,16 @@ class _ManageScreenState extends State<ManageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: FutureBuilder<List<SearchEmployeeProfileData>>(
-            future: getSearchProfileById(context, 1, 33),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.blueprime,
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                return ListView(scrollDirection: Axis.vertical, children: [
+        body: ListView(scrollDirection: Axis.vertical, children: [
                   /// green blue container
-                  ProfileBar(),
+                  ProfileBar(searchByEmployeeIdProfileData: widget.searchByEmployeeIdProfileData!,),
 
                   ///TabBar
                   CenteredTabBar(),
 
                   /// bottom row
                   BottomBarRow()
-                ]);
-              }
-              return SizedBox();
-            }));
+                ]),
+             );
   }
 }
