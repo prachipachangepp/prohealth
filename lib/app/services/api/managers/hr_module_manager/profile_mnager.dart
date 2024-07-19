@@ -28,14 +28,14 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
         .get(path: ProfileRepository.searchEmployeeProfileByText(companyId: companyId, searchText: searchText));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
-        String DateOfBirth = convertIsoToDayMonthYear(item['dateOfBirth']);
-        String CreatedAt = convertIsoToDayMonthYear(item['createdAt']);
-        String TerminationDate = convertIsoToDayMonthYear(
-            item['dateofTermination'] ?? '--');
-        String ReginationDate = convertIsoToDayMonthYear(
-            item['dateofResignation'] ?? '--');
-        //String CheckDate = convertIsoToDayMonthYear(item['checkDate']);
-        String HireDate = convertIsoToDayMonthYear(item['dateofHire'] ?? '--');
+        // String DateOfBirth = convertIsoToDayMonthYear(item['dateOfBirth']);
+        // String CreatedAt = convertIsoToDayMonthYear(item['createdAt']);
+        // String TerminationDate = convertIsoToDayMonthYear(
+        //     item['dateofTermination'] ?? '--');
+        // String ReginationDate = convertIsoToDayMonthYear(
+        //     item['dateofResignation'] ?? '--');
+        // //String CheckDate = convertIsoToDayMonthYear(item['checkDate']);
+        // String HireDate = convertIsoToDayMonthYear(item['dateofHire'] ?? '--');
         itemsData.add(SearchEmployeeProfileData(
           employeeId: item['employeeId'] ?? 0,
           code: item['code'] ?? '--',
@@ -56,7 +56,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
           personalEmail: item['personalEmail'] ?? '--',
           workEmail: item['workEmail'] ?? '--',
           address: item['address'] ?? '--',
-          dateOfBirth: DateOfBirth,
+          dateOfBirth: item['dateOfBirth'] ?? "--",
           emergencyContact: item['emergencyContact'] ?? '--',
           employment: item['employment'] ?? '--',
           covreage: item['covreage'] ?? '--',
@@ -66,12 +66,12 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
           imgurl: item['imgurl'] ?? '--',
           resumeurl: item['resumeurl'] ?? '--',
           onboardingStatus: item['onboardingStatus'] ?? '--',
-          createdAt: CreatedAt ?? "--",
+          createdAt: item['createdAt'] ?? "--",
           companyId: item['companyId'] ?? 0,
           terminationFlag: item['terminationFlag'] ?? false,
           approved: item['approved'] ?? false,
-          dateofTermination: TerminationDate,
-          dateofResignation: ReginationDate,
+          dateofTermination: item['dateofTermination'] ?? "--",
+          dateofResignation: item['dateofResignation'] ?? "--",
           rehirable: item['rehirable'] ?? false,
           finalAddress: item['finalAddress'] ?? '--',
           type: item['type'] ?? '--',
@@ -84,14 +84,14 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
           netPay: item['netPay'] != null ? item['netPay'].toDouble() : 0.0,
           methods: item['methods'] ?? '--',
           materials: item['materials'] ?? '--',
-          dateofHire: HireDate,
+          dateofHire: item['dateofHire'] ?? "--",
           position: item['position'] ?? '--',
           driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
           race: item['race'] ?? '--',
         ));
       }
 
-      print("search data by Text");
+      print("search data by Text${itemsData}");
     } else {
       print("Search Data by Text Error 1");
     }
