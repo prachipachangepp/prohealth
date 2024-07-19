@@ -76,19 +76,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   ],
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height/40,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: () async{
-                    }),
-
-                  ],
-                ),
-              ),
-              SizedBox(height:MediaQuery.of(context).size.height/20),
+              SizedBox(height: MediaQuery.of(context).size.height/13,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -133,7 +121,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     labelText: "Start Date",
                     keyboardType: TextInputType.text,
                     suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
-                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    padding:  EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                     onTap: () async{
                       DateTime? date = await showDatePicker(
                         context: context,
@@ -296,7 +284,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               ),
               SizedBox(height:MediaQuery.of(context).size.height/15),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
