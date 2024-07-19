@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/app.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 
@@ -10,7 +9,7 @@ class BottomBarRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: AppSize.s40,
+      height: AppSize.s50,
       // width: AppSize.s
       // double.infinity,
       //flex: 1,
@@ -63,8 +62,8 @@ class BottomBarRow extends StatelessWidget {
               children: [
                 Image.asset(
                   'images/powered_logo.png',
-                //  height: 27,
-                  width: MediaQuery.of(context).size.width/50,
+                  //  height: 27,
+                  width: MediaQuery.of(context).size.width / 50,
                 ),
                 Text(
                   'Powered by',
