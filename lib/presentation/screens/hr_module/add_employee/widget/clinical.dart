@@ -1399,14 +1399,18 @@ class _ClinicalTabState extends State<ClinicalTab> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 7),
-                                  child: Container(
-                                    width: AppSize.s250,
-                                    height: AppSize.s40,
-                                    decoration: BoxDecoration(
-                                        color: ColorManager.faintGrey),
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                      width: AppSize.s250,
+                                      height: AppSize.s40,
+                                      decoration: BoxDecoration(
+                                          color: ColorManager.faintGrey),
+                                    ),
                                   ),
                                 );
                               }
@@ -1948,8 +1952,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                'E061',
-                                61,
+                                'E062',
+                                62,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
                                 1,
@@ -2114,7 +2118,7 @@ class _ConfirmPopupState extends State<ConfirmPopup> {
                       text: 'No',
                       onPressed: () {
                         widget.onCancel();
-                        Navigator.pop(context);
+
                       },
                     ),
                   ),
