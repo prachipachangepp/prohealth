@@ -504,7 +504,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: ctlrprimeNo,
+                            controller: ctlrWorkEmail,
                             labelFontSize: 12,
                           ),
 
@@ -627,7 +627,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: ctlrprimeNo,
+                            controller: ctlrEmContact,
                             labelFontSize: 12,
                           )
 
@@ -1041,7 +1041,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               }
                             },
                           ),
-
+                         ///personal email
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
@@ -1052,7 +1052,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: ctlrWorkEmail,
+                            controller: ctlrprimeNo,
                             labelFontSize: 12,
                           ),
 
@@ -1297,7 +1297,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                           //     }
                           //   },
                           // ),
-
+ ///work no
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
@@ -1668,7 +1668,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               }
                             },
                           ),
-
+///sec no
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
@@ -1679,7 +1679,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: ctlrworkNo,
+                            controller: ctlrsecNo,
                             labelFontSize: 12,
                           ),
 
