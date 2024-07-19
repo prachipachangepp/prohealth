@@ -45,7 +45,7 @@ Future<List<SeeAllData>> getEmployeeSeeAll(BuildContext context, int compID) asy
         companyId: item['companyId'],
         terminationFlag: item['terminationFlag'],
         driverLicenseNum: item['driverLicenceNbr'],
-        approved: item['approved'],
+        approved: item['approved'] ?? false,
         dateofTermination: item['dateofTermination'],
         dateofResignation: item['dateofResignation'],
         dateofHire: item['dateofHire'],

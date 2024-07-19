@@ -101,7 +101,7 @@ class _DeletePopupState extends State<DeletePopup> {
                     child:
                     TextButton(
                       onPressed: widget.onCancel,
-                      child: Text('Cancle',
+                      child: Text('Cancel',
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,

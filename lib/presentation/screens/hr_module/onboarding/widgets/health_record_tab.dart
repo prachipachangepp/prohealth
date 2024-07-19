@@ -169,7 +169,6 @@
 //////
 ////
 
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/widgets/health_record_tab_constant.dart';
@@ -229,14 +228,20 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
           ),
           SizedBox(height: size.height * 0.02),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-            child: Wrap(
-              alignment: WrapAlignment.end,
-              spacing: 8,
-              runSpacing: 8,
+            padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/19),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                _buildButton('Reject', Colors.white, const Color(0xff1696C8), true),
-                _buildButton('Approve', const Color(0xff1696C8), Colors.white, false),
+                Wrap(
+                  alignment: WrapAlignment.end,
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    _buildButton('Reject', Colors.white, const Color(0xff1696C8), true),
+                    _buildButton('Approve', const Color(0xff1696C8), Colors.white, false),
+                  ],
+                ),
               ],
             ),
           )
