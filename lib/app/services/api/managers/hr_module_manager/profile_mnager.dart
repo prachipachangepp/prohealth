@@ -295,7 +295,6 @@ Future<ProfilePercentage> getPercentage(
 
     return formattedDate;
   }
-
   var itemsData;
   try {
     final response = await Api(context)

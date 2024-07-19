@@ -138,11 +138,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                   ),
 
           ),
-          Row(
-            children: [
-              BottomBarRow()
-            ],
-          )
+          BottomBarRow()
         ],
       ),
     );
