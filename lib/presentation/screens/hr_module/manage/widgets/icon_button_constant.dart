@@ -70,20 +70,56 @@ class IconButtonWidget extends StatelessWidget {
 }
 
 
-// class BorderIconButton extends StatelessWidget {
-//   final IconData iconData;
-//   const BorderIconButton({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: MediaQuery.of(context).size.width/10,
-//       decoration: BoxDecoration(border: Border.all(color: ColorManager.blueprime)),
-//       child: Row(
-//         children: [
-//
-//       ],),
-//     );
-//   }
-// }
+class BorderIconButton extends StatelessWidget {
+  final IconData iconData;
+  final String buttonText;
+  final VoidCallback onPressed;
+  const BorderIconButton({super.key, required this.iconData, required this.buttonText, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 30,
+      width: 100,
+      decoration: BoxDecoration(border: Border.all(color: ColorManager.blueprime),borderRadius:BorderRadius.circular(8)),
+      child: InkWell(
+        onTap: onPressed,
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              iconData == null ? Offstage():
+              Icon(
+                iconData,
+                color: Color(0xFF1696C8),
+                size: MediaQuery.of(context).size.width/100,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 200,
+              ),
+              Text(
+                buttonText,
+                style: TextStyle(
+                  fontFamily: 'FiraSans',
+                  fontWeight: FontWeight.w700,
+                  fontSize: MediaQuery.of(context).size.width / 145,
+                  color: Color(0xFF1696C8),
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 200,
+              ),
+              // iconData1 == null ? Offstage():
+              // Icon(
+              //   iconData1,
+              //   color: Color(0xFF1696C8),
+              //   size: MediaQuery.of(context).size.width/100,
+              // ),
+
+          ],),
+        ),
+      ),
+    );
+  }
+}
 

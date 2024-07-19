@@ -98,7 +98,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 return SingleChildScrollView(
                   child: WrapWidget(childern: List.generate(snapshot.data!.length, (index){
                     return  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10,vertical: AppPadding.p10),
+                      padding: const EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p10,
+                          top: AppPadding.p5,bottom: AppPadding.p40),
                       child:
                           Container(
                             width: MediaQuery.of(context).size.width/2.2,

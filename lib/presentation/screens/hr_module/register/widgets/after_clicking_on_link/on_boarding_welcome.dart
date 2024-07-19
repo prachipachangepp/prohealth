@@ -668,6 +668,8 @@ class CustomTextField extends StatelessWidget {
 // }
 
 ////////////////////////////////////congratulation/////////////////////////////////////
+
+////congratulation screen
 class OnBoardingCongratulation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -745,29 +747,27 @@ class OnBoardingCongratulation extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              OfferLetterDescriptionScreen()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF50B5E5),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            OfferLetterDescriptionScreen()));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF50B5E5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6.0),
                 ),
-                child: Text(
-                  'Continue',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                  ),
+                minimumSize: Size(129, 44),
+              ),
+              child: Text(
+                'Continue',
+                style: GoogleFonts.firaSans(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),

@@ -274,6 +274,7 @@ class _OfferLetterDescriptionScreenState
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
+                    minimumSize: Size(128, 44),
                   ),
                   child: Text(
                     'Continue',
