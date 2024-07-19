@@ -161,320 +161,320 @@ class _EditPopUpState extends State<EditPopUp> {
               //   ],
               // ),
               ///incorrect
-              SizedBox(height: MediaQuery.of(context).size.height / 100),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextFieldRegister(
-                      height: 31,
-                      labelText: 'First Name',
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomTextFieldRegister(
-                      height: 31,
-                      labelText: 'Last Name',
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomDropdown(
-                      labelText: 'Type of Clinician',
-                      items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4',
-                      ],
-
-                      value: dropdownValue,
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValue = value;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              // SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomDropdown(
-                      labelText: 'Rating',
-                      items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4',
-                      ],
-                      value: dropdownValueRating,
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValueRating = value;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomDropdown(
-                      labelText: 'Speciality',
-                      items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4',
-                      ],
-                      value: dropdownValueSpeciality,
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValueSpeciality = value;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomDropdown(
-                      labelText: 'Reporting Office',
-                      items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4',
-                      ],
-                      value: dropdownValueOffice,
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValueOffice = value;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              // SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomDropdown(
-                      hintText: 'Select a Zone',
-                      hintStyle: GoogleFonts.roboto(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff575757)),
-                      labelText: 'Zone',
-                      items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4',
-                      ],
-                      value: dropdownValueZone,
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValueZone = value;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomDropdown(
-                      hintText: 'Select a City',
-                      hintStyle: GoogleFonts.roboto(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff575757)),
-                      labelText: 'City',
-                      items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4',
-                      ],
-                      value: dropdownValueCity,
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValueCity = value;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomDropdown(
-                      hintText: 'Select a Country',
-                      hintStyle: GoogleFonts.roboto(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff575757)),
-                      labelText: 'Country',
-                      items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4',
-                      ],
-                      value: dropdownValueCountry,
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValueCountry = value;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              // SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomDropdown(
-                      labelText: 'SSN',
-                      items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4',
-                      ],
-                      value: dropdownValueSSN,
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValueSSN = value;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomTextFieldRegister(
-                      height: 31,
-                      labelText: 'Personal Phone Number',
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomTextFieldRegister(
-                      height: 31,
-                      labelText: 'Work Phone Number',
-                    ),
-                  ),
-                ],
-              ),
-              // SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextFieldRegister(
-                      height: 31,
-                      labelText: 'Personal email',
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomTextFieldRegister(
-                      height: 31,
-                      labelText: 'Work email',
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomTextFieldRegister(
-                      height: 31,
-                      controller: _controller,
-                      labelText: 'dd-mm-yyyy',
-                      hintStyle: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff9B9B9B),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xff50B5E5),
-                          size: 16,
-                        ),
-                        onPressed: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
-                            _controller.text = formattedDate;
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-               SizedBox(height: MediaQuery.of(context).size.height / 60),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextFieldRegister(
-                      height: 31,
-                      labelText: 'Personal email',
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomDropdown(
-                      labelText: 'Status',
-                      items: [
-                        'option 1',
-                        'option 2',
-                        'option 3',
-                        'option 4',
-                      ],
-                      value: dropdownValueStatus,
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValueStatus = value;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 120,
-                  ),
-                  Expanded(
-                    child: CustomTextFieldRegister(
-                      height: 31,
-                      labelText: 'Driver’s License',
-                    ),
-                  ),
-                ],
-              ),
+              // SizedBox(height: MediaQuery.of(context).size.height / 100),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: CustomTextFieldRegister(
+              //         height: 31,
+              //         labelText: 'First Name',
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomTextFieldRegister(
+              //         height: 31,
+              //         labelText: 'Last Name',
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomDropdown(
+              //         labelText: 'Type of Clinician',
+              //         items: [
+              //           'option 1',
+              //           'option 2',
+              //           'option 3',
+              //           'option 4',
+              //         ],
+              //
+              //         value: dropdownValue,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             dropdownValue = value;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // // SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: CustomDropdown(
+              //         labelText: 'Rating',
+              //         items: [
+              //           'option 1',
+              //           'option 2',
+              //           'option 3',
+              //           'option 4',
+              //         ],
+              //         value: dropdownValueRating,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             dropdownValueRating = value;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomDropdown(
+              //         labelText: 'Speciality',
+              //         items: [
+              //           'option 1',
+              //           'option 2',
+              //           'option 3',
+              //           'option 4',
+              //         ],
+              //         value: dropdownValueSpeciality,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             dropdownValueSpeciality = value;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomDropdown(
+              //         labelText: 'Reporting Office',
+              //         items: [
+              //           'option 1',
+              //           'option 2',
+              //           'option 3',
+              //           'option 4',
+              //         ],
+              //         value: dropdownValueOffice,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             dropdownValueOffice = value;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // // SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: CustomDropdown(
+              //         hintText: 'Select a Zone',
+              //         hintStyle: GoogleFonts.roboto(
+              //             fontSize: 12,
+              //             fontWeight: FontWeight.w400,
+              //             color: Color(0xff575757)),
+              //         labelText: 'Zone',
+              //         items: [
+              //           'option 1',
+              //           'option 2',
+              //           'option 3',
+              //           'option 4',
+              //         ],
+              //         value: dropdownValueZone,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             dropdownValueZone = value;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomDropdown(
+              //         hintText: 'Select a City',
+              //         hintStyle: GoogleFonts.roboto(
+              //             fontSize: 12,
+              //             fontWeight: FontWeight.w400,
+              //             color: Color(0xff575757)),
+              //         labelText: 'City',
+              //         items: [
+              //           'option 1',
+              //           'option 2',
+              //           'option 3',
+              //           'option 4',
+              //         ],
+              //         value: dropdownValueCity,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             dropdownValueCity = value;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomDropdown(
+              //         hintText: 'Select a Country',
+              //         hintStyle: GoogleFonts.roboto(
+              //             fontSize: 12,
+              //             fontWeight: FontWeight.w400,
+              //             color: Color(0xff575757)),
+              //         labelText: 'Country',
+              //         items: [
+              //           'option 1',
+              //           'option 2',
+              //           'option 3',
+              //           'option 4',
+              //         ],
+              //         value: dropdownValueCountry,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             dropdownValueCountry = value;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // // SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: CustomDropdown(
+              //         labelText: 'SSN',
+              //         items: [
+              //           'option 1',
+              //           'option 2',
+              //           'option 3',
+              //           'option 4',
+              //         ],
+              //         value: dropdownValueSSN,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             dropdownValueSSN = value;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomTextFieldRegister(
+              //         height: 31,
+              //         labelText: 'Personal Phone Number',
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomTextFieldRegister(
+              //         height: 31,
+              //         labelText: 'Work Phone Number',
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // // SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: CustomTextFieldRegister(
+              //         height: 31,
+              //         labelText: 'Personal email',
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomTextFieldRegister(
+              //         height: 31,
+              //         labelText: 'Work email',
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomTextFieldRegister(
+              //         height: 31,
+              //         controller: _controller,
+              //         labelText: 'dd-mm-yyyy',
+              //         hintStyle: GoogleFonts.firaSans(
+              //           fontSize: 10.0,
+              //           fontWeight: FontWeight.w400,
+              //           color: Color(0xff9B9B9B),
+              //         ),
+              //         suffixIcon: IconButton(
+              //           icon: Icon(
+              //             Icons.calendar_month_outlined,
+              //             color: Color(0xff50B5E5),
+              //             size: 16,
+              //           ),
+              //           onPressed: () async {
+              //             DateTime? pickedDate = await showDatePicker(
+              //               context: context,
+              //               initialDate: DateTime.now(),
+              //               firstDate: DateTime(2000),
+              //               lastDate: DateTime(2101),
+              //             );
+              //             if (pickedDate != null) {
+              //               String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+              //               _controller.text = formattedDate;
+              //             }
+              //           },
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              //  SizedBox(height: MediaQuery.of(context).size.height / 60),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: CustomTextFieldRegister(
+              //         height: 31,
+              //         labelText: 'Personal email',
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomDropdown(
+              //         labelText: 'Status',
+              //         items: [
+              //           'option 1',
+              //           'option 2',
+              //           'option 3',
+              //           'option 4',
+              //         ],
+              //         value: dropdownValueStatus,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             dropdownValueStatus = value;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: MediaQuery.of(context).size.width / 120,
+              //     ),
+              //     Expanded(
+              //       child: CustomTextFieldRegister(
+              //         height: 31,
+              //         labelText: 'Driver’s License',
+              //       ),
+              //     ),
+              //   ],
+              // ),
               ///incorrect end
               SizedBox(height: MediaQuery.of(context).size.height / 200),
               Divider(

@@ -10,9 +10,11 @@ import '../../../../app/resources/theme_manager.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../../app/services/api/managers/hr_module_manager/see_all/see_all_manager.dart';
 import '../../../../data/api_data/hr_module_data/see_all_data/see_all_data.dart';
+import '../../em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 
 class SalesHrScreen extends StatefulWidget {
-  const SalesHrScreen({super.key});
+  final Function(int) onSalesCountChange;
+  SalesHrScreen({super.key, required this.onSalesCountChange});
 
   @override
   State<SalesHrScreen> createState() => _SalesHrScreenState();
@@ -22,16 +24,36 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
   final StreamController<List<SeeAllData>> seeAllController = StreamController<List<SeeAllData>>();
   late int currentPage;
   late int itemsPerPage;
-  late List<String> items;
+
   @override
   void initState() {
     super.initState();
     currentPage = 1;
     itemsPerPage = 20;
-    items = List.generate(20, (index) => 'Item ${index + 1}');
-    getEmployeeSeeAll(context, 1).then((data){seeAllController.add(data);
-    }).catchError((error){});
+    fetchData();
   }
+
+
+  Future<void> fetchData() async {
+    try {
+      List<SeeAllData> data = await getEmployeeSeeAll(context, 1);
+      seeAllController.add(data);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // Update the count after the current build phase
+        widget.onSalesCountChange(data.length);
+      });
+    } catch (error) {
+      print("Error fetching data: $error");
+    }
+  }
+
+
+  @override
+  void dispose() {
+    seeAllController.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -115,7 +137,6 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
           child: StreamBuilder<List<SeeAllData>>(
             stream: seeAllController.stream,
             builder: (context, snapshot) {
-              print('1111111');
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(
@@ -123,7 +144,15 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                   ),
                 );
               }
-              if (snapshot.data!.isEmpty) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text(
+                    "Error: ${snapshot.error}",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                );
+              }
+              if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return Center(
                   child: Text(
                     AppString.dataNotFound,
@@ -135,143 +164,136 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                   ),
                 );
               }
-              if (snapshot.hasData) {
-                int totalItems = snapshot.data!.length;
-                // int totalPages = (totalItems / itemsPerPage).ceil();
-                List<SeeAllData> currentPageItems =
-                snapshot.data!.sublist(
-                  (currentPage - 1) * itemsPerPage,
-                  (currentPage * itemsPerPage) > totalItems
-                      ? totalItems
-                      : (currentPage * itemsPerPage),
-                );
-                return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: currentPageItems.length,
-                  itemBuilder: (context, index) {
-                    int serialNumber =
-                        index + 1 + (currentPage - 1) * itemsPerPage;
-                    String formattedSerialNumber =
-                    serialNumber.toString().padLeft(2, '0');
-                    return Container(
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorManager.black.withOpacity(0.25),
-                            spreadRadius: 0,
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      height: AppSize.s56,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 40.0),
-                              child: Text(
-                                formattedSerialNumber,
-                                textAlign: TextAlign.center,
-                                style: AllHRTableData.customTextStyle(context),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              snapshot.data![index].type.toString(),
-                              //"RN",
-                              textAlign: TextAlign.center,
-                              style: AllHRTableData.customTextStyle(context),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              snapshot.data![index].firstName.toString(),
-                              //'Dhillon Amarpreet',
-                              textAlign: TextAlign.center,
-                              style: AllHRTableData.customTextStyle(context),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              snapshot.data![index].position.toString(),
-                              //'ProHealth Walnut Creek-EI Dorado Sacramento',
-                              textAlign: TextAlign.center,
-                              style: AllHRTableData.customTextStyle(context),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              snapshot.data![index].expertise.toString(),
-                              //  'Infection control',
-                              textAlign: TextAlign.center,
-                              style: AllHRTableData.customTextStyle(context),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ///edit
-                                IconButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return EditPopUp();
-                                      },
-                                    );
-                                  },
-                                  icon: Icon(Icons.edit_outlined, size: 18),
-                                  color: Color(0xff50B5E5),
-                                ),
 
-                                ///delete
-                                IconButton(
-                                  onPressed: () {
-                                    // showDialog(context: context,
-                                    //     builder: (context) => DeletePopup(
-                                    //         onCancel: (){
-                                    //           Navigator.pop(context);
-                                    //         }, onDelete: () async {
-                                    //       await  allfromHrDelete(
-                                    //           context, snapshot.data![index].employeeTypesId!);
-                                    //       getAllHrDeptWise(context,widget.deptId).then((data){
-                                    //         _controller.add(data);
-                                    //       }).catchError((error){});
-                                    //       Navigator.pop(context);
-                                    //     }));
-                                  },
-                                  icon: Icon(
-                                    size: 18,
-                                    Icons.delete_outline,
-                                    color: Color(0xffF6928A),
-                                  ),
-                                ),
-                              ],
+              List<SeeAllData> data = snapshot.data!;
+              // Ensure the count is updated without causing build errors
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                widget.onSalesCountChange(data.length);
+              });
+
+              int totalItems = data.length;
+              List<SeeAllData> currentPageItems = data.sublist(
+                (currentPage - 1) * itemsPerPage,
+                (currentPage * itemsPerPage) > totalItems ? totalItems : (currentPage * itemsPerPage),
+              );
+
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: currentPageItems.length,
+                itemBuilder: (context, index) {
+                  int serialNumber = index + 1 + (currentPage - 1) * itemsPerPage;
+                  String formattedSerialNumber = serialNumber.toString().padLeft(2, '0');
+
+                  return Container(
+                    margin: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorManager.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    height: AppSize.s56,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 40.0),
+                            child: Text(
+                              formattedSerialNumber,
+                              textAlign: TextAlign.center,
+                              style: AllHRTableData.customTextStyle(context),
                             ),
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              }
-              return Offstage();
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Text(
+                            data[index].type.toString(),
+                            textAlign: TextAlign.center,
+                            style: AllHRTableData.customTextStyle(context),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            data[index].firstName.toString(),
+                            textAlign: TextAlign.center,
+                            style: AllHRTableData.customTextStyle(context),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                            data[index].position.toString(),
+                            textAlign: TextAlign.center,
+                            style: AllHRTableData.customTextStyle(context),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            data[index].expertise.toString(),
+                            textAlign: TextAlign.center,
+                            style: AllHRTableData.customTextStyle(context),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  // showDialog(
+                                  //   context: context,
+                                  //   builder: (BuildContext context) {
+                                  //     return EditPopUp();
+                                  //   },
+                                  // );
+                                },
+                                icon: Icon(Icons.edit_outlined, size: 18),
+                                color: Color(0xff50B5E5),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => DeletePopup(
+                                      title: 'Delete HR Clinical',
+                                      onCancel: () {
+                                        Navigator.pop(context);
+                                      },
+                                      onDelete: () {
+                                        // Handle delete action
+                                      },
+                                    ),
+                                  );
+                                },
+                                icon: Icon(
+                                  size: 18,
+                                  Icons.delete_outline,
+                                  color: Color(0xffF6928A),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
             },
           ),
-        )
+        ),
       ],
     );
   }

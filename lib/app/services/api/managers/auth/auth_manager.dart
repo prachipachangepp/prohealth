@@ -17,7 +17,7 @@ class AuthManager {
           data: {"email": email, "password": password});
       if (response.statusCode == 201) {
         String? access = response.data['accessToken'];
-        String userName = response.data['user']['firstName'] + response.data['user']['lastName'];
+        String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
         TokenManager.setAccessToken(token: access ?? "",username: userName);
         return ApiData(
             success: true,
@@ -131,7 +131,7 @@ class AuthManager {
       print(response);
       if (response.statusCode == 201 || response.statusCode == 200) {
         String accessToken = response.data["accessToken"] ?? "";
-        String userName = response.data['user']['firstName'] + response.data['user']['lastName'];
+        String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
         TokenManager.setAccessToken(token: accessToken, username: userName);
         // Navigator.pushNamed(context, HomeScreen.routeName);
 
