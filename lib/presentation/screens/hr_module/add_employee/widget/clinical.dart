@@ -1052,7 +1052,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: ctlrprimeNo,
+                            controller: ctlrPersonalEmail,
                             labelFontSize: 12,
                           ),
 

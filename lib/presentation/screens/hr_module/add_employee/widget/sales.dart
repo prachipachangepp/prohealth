@@ -1229,6 +1229,7 @@ class _SalesTabState extends State<SalesTab> {
                           ),
 
                           ///personal email
+                          ///personal email
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
@@ -1239,7 +1240,7 @@ class _SalesTabState extends State<SalesTab> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: ctlrprimeNo,
+                            controller: ctlrPersonalEmail,
                             labelFontSize: 12,
                           ),
                           // ///personal email

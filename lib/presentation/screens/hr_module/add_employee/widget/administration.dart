@@ -1233,6 +1233,7 @@ class _AdministartionTabState extends State<AdministartionTab> {
                               ),
 
                               ///personal email
+                              ///personal email
                               CustomTextField(
                                 width: textFieldWidth,
                                 height: textFieldHeight,
@@ -1243,7 +1244,7 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                   color: Color(0xff575757),
                                   fontWeight: FontWeight.w400,
                                 ),
-                                controller: ctlrprimeNo,
+                                controller: ctlrPersonalEmail,
                                 labelFontSize: 12,
                               ),
                               // ///personal email
