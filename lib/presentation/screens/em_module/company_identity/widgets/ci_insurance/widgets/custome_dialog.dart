@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 import '../../../../../../../app/resources/color.dart';
@@ -9,6 +10,7 @@ import '../../../../../../../app/resources/establishment_resources/establishment
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
+import '../../whitelabelling/success_popup.dart';
 
 class CustomPopup extends StatelessWidget {
    final TextEditingController controller;
@@ -65,6 +67,7 @@ class CustomPopup extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: AppSize.s20,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p3,
@@ -89,10 +92,15 @@ class CustomPopup extends StatelessWidget {
                 child: CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.save,
+                  text: AppStringEM.Add,
                   onPressed: () {
                     onPressed();
-                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AddSuccessPopup(message: 'Added Successfully',);
+                      },
+                    );
                   },
                 ),
               ),

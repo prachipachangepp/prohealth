@@ -157,6 +157,7 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
+import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 class AcknowledgementAddPopup extends StatefulWidget {
   final String labelName;
@@ -244,32 +245,38 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                       ),
                     ),
                     SizedBox(height: 3),
-                    DropdownButtonFormField<String>(
-                      value: _selectedDocumentType,
+                    CICCDropdown(
+                      initialValue: 'Select Type',
                       items: [
                         DropdownMenuItem(value: 'Type 1', child: Text('Type 1')),
                         DropdownMenuItem(value: 'Type 2', child: Text('Type 2')),
                         DropdownMenuItem(value: 'Type 3', child: Text('Type 3')),
                         DropdownMenuItem(value: 'Type 4', child: Text('Type 4')),
                       ],
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedDocumentType = value;
-                        });
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please select the document type';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(color: Color(0xffB1B1B1)),
-                        ),
-                      ),
                     ),
+                    // DropdownButtonFormField<String>(
+                    //   value: _selectedDocumentType,
+                    //   items: [
+                    //
+                    //   ],
+                    //   onChanged: (value) {
+                    //     setState(() {
+                    //       _selectedDocumentType = value;
+                    //     });
+                    //   },
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please select the document type';
+                    //     }
+                    //     return null;
+                    //   },
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(8),
+                    //       borderSide: BorderSide(color: Color(0xffB1B1B1)),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(height: AppSize.s20),
                     GestureDetector(
                       onTap: () async {

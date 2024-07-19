@@ -19,10 +19,10 @@ class AddEmployeementPopup extends StatefulWidget {
   final TextEditingController employeerController;
   final TextEditingController emergencyMobileNumber;
   final String tite;
-  final VoidCallback onpressedClose;
+  // final VoidCallback onpressedClose;
    Future<void> Function() onpressedSave;
   final Widget checkBoxTile;
-   AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedClose, required this.onpressedSave, required this.checkBoxTile, required this.tite});
+   AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedSave, required this.checkBoxTile, required this.tite});
 
   @override
   State<AddEmployeementPopup> createState() => _AddEmployeementPopupState();
@@ -301,7 +301,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButtonTransparent(text: "Cancel", onPressed: () {
-                      widget.onpressedClose;
+                      //widget.onpressedClose;
                       Navigator.pop(context);
                     }),
                     SizedBox(width: 10,),

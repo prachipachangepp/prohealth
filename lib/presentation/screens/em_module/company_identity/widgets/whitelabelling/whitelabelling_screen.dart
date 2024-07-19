@@ -10,11 +10,13 @@ import 'package:open_file/open_file.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/whitelabelling_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/whitelabelling_modal/whitelabelling_modal_.dart';
 import 'package:prohealth/presentation/screens/em_module/company_identity/company_identity_screen.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../hr_module/register/confirmation_constant.dart';
 import '../../../widgets/button_constant.dart';
 import '../../../widgets/text_form_field_const.dart';
 
@@ -157,7 +159,14 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                           decoration: TextDecoration.none,
                         ),
                         text: "Save",
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CCSuccessPopup();
+                            },
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -592,7 +601,12 @@ class _WhitelabellingScreenState extends State<WhitelabellingScreen> {
                                                         nameController.text,
                                                         addressController.text,
                                                       );
-                                                      Navigator.pop(context);
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext context) {
+                                                          return EditSuccessPopup(message: 'Submitted Successfully',);
+                                                        },
+                                                      );
                                                     },
                                                   ),
                                                 ],
