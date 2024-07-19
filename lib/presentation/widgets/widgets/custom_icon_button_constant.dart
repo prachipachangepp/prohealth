@@ -23,7 +23,7 @@ class CustomIconButtonConst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? MediaQuery.of(context).size.width / 9,
+      width: width ?? MediaQuery.of(context).size.width / 11,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -48,7 +48,7 @@ class CustomIconButtonConst extends StatelessWidget {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: AppSize.s15, vertical: AppSize.s10),
+          padding: EdgeInsets.symmetric(horizontal: AppSize.s10, vertical: AppSize.s10),
           backgroundColor: ColorManager.blueprime,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

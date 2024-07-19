@@ -98,13 +98,23 @@ class _DeletePopupState extends State<DeletePopup> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: AppPadding.p24),
                   child: Center(
-                    child: CustomButtonTransparent(
-                      text: AppStringEM.cancel,
-                      onPressed: () async{
-                        widget.onCancel( );
-                        Navigator.pop(context);
-                      },
-                    ),
+                    child:
+                    TextButton(
+                      onPressed: widget.onCancel,
+                      child: Text('Cancle',
+                          style: GoogleFonts.firaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.bluebottom,
+                          )),)
+                    //
+                    // CustomButtonTransparent(
+                    //   text: AppStringEM.cancel,
+                    //   onPressed: () async{
+                    //     widget.onCancel( );
+                    //     Navigator.pop(context);
+                    //   },
+                    // ),
                   ),
                 ),
                 SizedBox(width: 20,),

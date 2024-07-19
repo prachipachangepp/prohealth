@@ -154,6 +154,7 @@ class _ManageScreenState extends State<ManageScreen> {
                         icon: Icons.add,
                         onPressed: () {
                           showDialog(
+                            barrierDismissible: false,
                             context: context,
                             builder: (BuildContext context) {
                               return StatefulBuilder(
@@ -174,9 +175,6 @@ class _ManageScreenState extends State<ManageScreen> {
                                     employeerController: employeerController,
                                     emergencyMobileNumber:
                                         emergencyMobileNumber,
-                                    onpressedClose: () {
-                                      //Navigator.pop(context);
-                                    },
                                     onpressedSave: () async {
                                       await addEmployeement(
                                           context,
@@ -422,7 +420,9 @@ class _ManageScreenState extends State<ManageScreen> {
                                       issuingOrganizationController,
                                   countryController: countryController,
                                   numberIDController: numberIDController,
-                                  onpressedClose: () {},
+                                  onpressedClose: () {
+                                    Navigator.pop(context);
+                                  },
                                   onpressedSave: () async {
                                     // await addLicensePost(context, licenseId, countryNameController.text, 0, expiryDateController.text, issueDateController.text,
                                     //     licenseUrl, licensure, licenseNumber, org, documentType);
@@ -464,7 +464,8 @@ class _ManageScreenState extends State<ManageScreen> {
                       icon: Icons.add,
                       onPressed: () {
                         showDialog(context: context, builder: (BuildContext context){
-                          return AcknowledgementAddPopup(labelName: '', AcknowledgementnameController: acknowldgementNameController, onSavePressed: () {  },);
+                          return AcknowledgementAddPopup(labelName: 'Add Acknowledgement',
+                            AcknowledgementnameController: acknowldgementNameController, onSavePressed: () {  },);
                         });
                         //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                       }),

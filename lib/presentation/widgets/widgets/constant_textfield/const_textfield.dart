@@ -19,6 +19,7 @@ class CustomTextField extends StatelessWidget {
   final IconData? prefixIcon;
   final FocusNode? focusNode;
   final VoidCallback? onTapSuffixIcon;
+  final void Function(String)? onChanged;
 
   CustomTextField({
     this.width,
@@ -31,7 +32,7 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     this.focusNode,
     required this.labelFontSize,
-    this.onTapSuffixIcon,
+    this.onTapSuffixIcon, this.onChanged,
   });
 
   @override
@@ -49,11 +50,12 @@ class CustomTextField extends StatelessWidget {
           textAlignVertical: TextAlignVertical.center,
           cursorHeight: cursorHeight,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.black),
             ),
+
             labelText: labelText,
             labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
             suffixIcon: Padding(
@@ -61,6 +63,7 @@ class CustomTextField extends StatelessWidget {
               child: suffixIcon,
             ),
           ),
+          onChanged: onChanged,
         ),
       ),
     );
@@ -97,6 +100,8 @@ class CustomDropdownTextField extends StatefulWidget {
   _CustomDropdownTextFieldState createState() =>
       _CustomDropdownTextFieldState();
 }
+
+
 
 class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
   late String? _selectedValue;
@@ -137,7 +142,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
           },
           isExpanded: true,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.black),
@@ -151,6 +156,84 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
     );
   }
 }
+
+class CustomDropDown extends StatefulWidget {
+  final String? value;
+  final List<String> items;
+  final String labelText;
+  final String? hintText;
+  final TextStyle? labelStyle;
+  final double? labelFontSize;
+  final void Function(String?)? onChanged;
+  final double? width;
+  final double? height;
+  final String? initialValue;
+   CustomDropDown({super.key, this.value,
+    required this.items,
+    required this.labelText,
+    this.labelStyle,
+    this.labelFontSize,
+    this.onChanged,
+    this.width,
+    this.height, this.initialValue, this.hintText,});
+
+  @override
+  State<CustomDropDown> createState() => _CustomDropDownState();
+}
+
+class _CustomDropDownState extends State<CustomDropDown> {
+  late String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value;
+  }
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 354,
+      height: AppSize.s40,
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p5),
+        child: DropdownButtonFormField<String>(
+          icon: Icon(Icons.arrow_drop_down_sharp, color: ColorManager.blueprime),
+          value: _selectedValue,
+          items: widget.items.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: GoogleFonts.firaSans(
+                fontSize: 12,
+                color: Color(0xff575757),
+                fontWeight: FontWeight.w400,
+              ),),
+            );
+          }).toList(),
+          onChanged: (newValue) {
+            setState(() {
+              _selectedValue = newValue;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged!(newValue);
+            }
+          },
+          isExpanded: true,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
+            border: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorManager.black),
+            ),
+            labelText: widget.labelText,
+            labelStyle:
+            widget.labelStyle?.copyWith(fontSize: widget.labelFontSize),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 ///todo prachi
 ///Human Resource screen textField
 class HRManageTextField extends StatefulWidget {

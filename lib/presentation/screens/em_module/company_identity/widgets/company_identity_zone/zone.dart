@@ -140,7 +140,7 @@ class _CiOrgDocumentState extends State<CiZone> {
               ///tabbar
               Padding(
                 padding: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.width / 7),
+                    right: MediaQuery.of(context).size.width / 6),
                 child: Container(
                   //color: Colors.greenAccent,
                   width: MediaQuery.of(context).size.width / 5.5,
@@ -177,6 +177,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                           ),
                         ),
                       ),
+                      SizedBox(width: 10,),
                       InkWell(
                         onTap: () => _selectButton(1),
                         child: Container(
@@ -206,6 +207,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                           ),
                         ),
                       ),
+                      SizedBox(width: 10,),
                       InkWell(
                         onTap: () => _selectButton(2),
                         child: Container(
@@ -244,39 +246,42 @@ class _CiOrgDocumentState extends State<CiZone> {
 
               ///button
               _selectedIndex == 0
-                  ? CustomIconButtonConst(
-                width: MediaQuery.of(context).size.width/15,
-                      icon: Icons.add,
-                      text: "Add",
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return CIZoneAddPopup(
-                                title: 'Add County',
-                                onSavePressed: () async {
-                                  await addCounty(
-                                      context,
-                                      countynameController.text,
-                                      stateController.text,
-                                      countyController.text,
-                                      "37.0902°",
-                                      "95.7129°",
-                                      widget.companyID,
-                                      widget.officeId);
-                                },
-                                title1: 'State Name',
-                                countynameController: stateController,
-                                title2: 'Country Name',
-                                zipcodeController: countyController,
-                                title3: 'County Name',
-                                mapController: countynameController,
-                              );
-                            });
-                      })
+                  ? Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: CustomIconButtonConst(
+                                    // width: MediaQuery.of(context).size.width/15,
+                        icon: Icons.add,
+                        text: "Add",
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return CIZoneAddPopup(
+                                  title: 'Add County',
+                                  onSavePressed: () async {
+                                    await addCounty(
+                                        context,
+                                        countynameController.text,
+                                        stateController.text,
+                                        countyController.text,
+                                        "37.0902°",
+                                        "95.7129°",
+                                        widget.companyID,
+                                        widget.officeId);
+                                  },
+                                  title1: 'State Name',
+                                  countynameController: stateController,
+                                  title2: 'Country Name',
+                                  zipcodeController: countyController,
+                                  title3: 'County Name',
+                                  mapController: countynameController,
+                                );
+                              });
+                        }),
+                  )
                   : _selectedIndex == 1
                       ? CustomIconButtonConst(
-                  width: MediaQuery.of(context).size.width/15,
+                  width: MediaQuery.of(context).size.width/10,
                           icon: Icons.add,
                           text: AppStringEM.add,
                           onPressed: () {
@@ -367,7 +372,7 @@ class _CiOrgDocumentState extends State<CiZone> {
                                 });
                           })
                       : CustomIconButtonConst(
-                  width: MediaQuery.of(context).size.width/15,
+                  width: MediaQuery.of(context).size.width/10,
                           icon: Icons.add,
                           text: "Add",
                           onPressed: () {

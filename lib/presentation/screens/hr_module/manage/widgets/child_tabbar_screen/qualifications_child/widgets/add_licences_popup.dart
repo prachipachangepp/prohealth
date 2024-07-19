@@ -67,7 +67,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.of(context, rootNavigator: true).pop();
                     },
                     icon: const Icon(Icons.close,color: Colors.white,),
                   ),
@@ -76,9 +76,9 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
             ),
             SizedBox(height:MediaQuery.of(context).size.height/20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.only(left: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     height: 27,
@@ -106,7 +106,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                       value: 'Select Document',style: TextStyle(color: Color(0xff686464),fontSize: 12),
                     ),
                   ),
-                  SizedBox(width: 537,),
+                  SizedBox(width: 40,),
                   CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: () async
                   {
                     FilePickerResult? result =

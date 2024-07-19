@@ -298,7 +298,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                     endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
                                                     supervisorMobileNumber: supervisorMobileNumber, cityNameController: cityNameController,
                                                     employeerController: employeerController, emergencyMobileNumber: emergencyMobileNumber,
-                                                    onpressedClose: (){}, onpressedSave: ()async{
+                                                     onpressedSave: ()async{
                                                   await updateEmployeementPatch(context,
                                                       snapshot.data![index].employmentId,
                                                       2,

@@ -82,7 +82,7 @@ class ProfileBar extends StatelessWidget {
                                       valueColor:
                                       AlwaysStoppedAnimation<Color>(ColorManager.greenF),
                                       strokeWidth: 3,
-                                      value: 0.70,
+                                      value: searchByEmployeeIdProfileData!.profileScorePercentage,
                                     ),
                                   ),
                                 ],

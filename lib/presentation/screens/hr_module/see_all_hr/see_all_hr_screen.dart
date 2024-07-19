@@ -14,6 +14,9 @@ class SeeAllHrScreen extends StatefulWidget {
 
 class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  int adminCount = 0;
+  int clinicalCount = 0;
+  int salesCount = 0;
   @override
   void initState() {
     super.initState();
@@ -27,6 +30,26 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  void updateAdminCount(int count) {
+    setState(() {
+      adminCount = count;
+      print('......${adminCount}');
+    });
+  }
+  void updateClinicalCount(int count) {
+    setState(() {
+      clinicalCount = count;
+      print('clinical......${clinicalCount}');
+    });
+  }
+
+  void updateSalesCount(int count) {
+    setState(() {
+      salesCount = count;
+      print('sales......${salesCount}');
+    });
   }
   Widget _buildTabWithCircle(int selectedIndex) {
     return Container(
@@ -48,10 +71,10 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
       child: Row(
         children: [
           _buildSingleTab(
-              'Clinical', '1,366', selectedIndex == 0, true, false),
-          _buildSingleTab('Sales', '1,234', selectedIndex == 1, false, false),
+              'Clinical', clinicalCount.toString(), selectedIndex == 0, true, false),
+          _buildSingleTab('Sales', salesCount.toString(), selectedIndex == 1, false, false),
           _buildSingleTab(
-              'Administration', '567', selectedIndex == 2, false, true),
+              'Administration', adminCount.toString(), selectedIndex == 2, false, true),
         ],
       ),
     );
@@ -185,9 +208,9 @@ class _SeeAllHrScreenState extends State<SeeAllHrScreen> with SingleTickerProvid
             child: TabBarView(
               controller: _tabController,
               children: [
-                ClinicalHrScreen(),
-                SalesHrScreen(),
-                AdministrationHrScreen(),
+                ClinicalHrScreen(onClinicalCountChange: updateClinicalCount,),
+                SalesHrScreen(onSalesCountChange: updateSalesCount,),
+                AdministrationHrScreen(onAdminCountChange: updateAdminCount),
               ],
             ),
           ),

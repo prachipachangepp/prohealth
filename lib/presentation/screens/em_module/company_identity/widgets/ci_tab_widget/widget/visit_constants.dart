@@ -47,7 +47,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s400,
-        height: AppSize.s350,
+        height: AppSize.s300,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -117,7 +117,7 @@ class _AddVisitPopupState extends State<AddVisitPopup> {
                           ),
                         ),
                       ),
-                    SizedBox(height: AppSize.s20),
+                    SizedBox(height: AppSize.s30),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

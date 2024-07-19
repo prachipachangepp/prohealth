@@ -32,6 +32,47 @@ class EditTimeOffPopup extends StatefulWidget {
 
 class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
   final _formKey = GlobalKey<FormState>();
+  TimeOfDay _selectedTime = TimeOfDay.now();
+
+  // Error messages
+  String? startTimeError;
+  String? endTimeError;
+
+  Future<void> _selectStartTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      initialEntryMode: TimePickerEntryMode.input,
+      context: context,
+      initialTime: _selectedTime,
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+        widget.startTimeController.text = _selectedTime.format(context);
+      });
+    } else {
+      setState(() {
+        widget.startTimeController.text = _selectedTime.format(context);
+      });
+    }
+  }
+
+  Future<void> _selectEndTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      initialEntryMode: TimePickerEntryMode.input,
+      context: context,
+      initialTime: _selectedTime,
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+        widget.endTimeController.text = _selectedTime.format(context);
+      });
+    } else {
+      setState(() {
+        widget.endTimeController.text = _selectedTime.format(context);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +102,11 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
                     SizedBox(height: AppSize.s15),
                     _buildTextFormField(widget.durationController, 'Duration'),
                     SizedBox(height: AppSize.s15),
-                    _buildTextFormField(widget.startTimeController, 'Start Time'),
+                    _buildTextFormField(widget.startTimeController, 'Start Time',onChange: () => _selectStartTime(context),
+                    icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 19,),),
                     SizedBox(height: AppSize.s15),
-                    _buildTextFormField(widget.endTimeController, 'End Time'),
+                    _buildTextFormField(widget.endTimeController, 'End Time',onChange: () => _selectEndTime(context),
+                      icon: Icon(Icons.timer_outlined, color: ColorManager.blueprime, size: 19,),),
                     SizedBox(height: AppSize.s15),
                     _buildTextFormField(widget.sickTimeController, 'Sick Time'),
                   ],
@@ -128,11 +171,13 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
     );
   }
 
-  Widget _buildTextFormField(TextEditingController controller, String labelText) {
+  Widget _buildTextFormField(TextEditingController controller, String labelText, {VoidCallback? onChange,Icon? icon}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SMTextFConst(
+          icon: icon,
+          onChange: onChange,
           controller: controller,
           keyboardType: TextInputType.text,
           text: labelText,
