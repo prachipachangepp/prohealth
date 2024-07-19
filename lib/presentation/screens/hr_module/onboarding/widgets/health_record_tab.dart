@@ -295,6 +295,46 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
     );
   }
 
+  Widget buildHealthRecordContainer(String title, String date, IconData icon, Color color) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        color: color.withOpacity(0.1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.firaSans(
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 8.0),
+          Row(
+            children: [
+              Icon(
+                icon,
+                size: 20.0,
+                color: color,
+              ),
+              SizedBox(width: 4.0),
+              Text(
+                date,
+                style: GoogleFonts.firaSans(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildButton(String text, Color bgColor, Color textColor, bool hasBorder) {
     return ElevatedButton(
       onPressed: () {},
