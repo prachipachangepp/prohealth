@@ -82,6 +82,8 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         _removeOverlay();
                         setState(() {
                           employeeId = id;
+                          myController.selectButton(1);
+                          _pageController = PageController(initialPage: 1);
                         });
                       },
                     )),
@@ -127,7 +129,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
     }
   }
 
-  int employeeId = 9;
+  int employeeId = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -246,6 +248,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                           link: _layerLink,
                           child: TextField(
                             controller: _controller,
+                            style: GoogleFonts.firaSans(fontSize: 12),
                             onChanged: _search,
                             decoration: InputDecoration(
                                 hintText: 'Search',
