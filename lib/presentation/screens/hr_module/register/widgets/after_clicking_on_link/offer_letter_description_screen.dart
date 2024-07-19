@@ -84,7 +84,7 @@ class _OfferLetterDescriptionScreenState
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 15),
             Container(
-              color: Colors.greenAccent,
+              color: Colors.white,
               width: 1032,
               height: 1190,
               child: Html(

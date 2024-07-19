@@ -178,7 +178,10 @@ class _MultiStepFormState extends State<MultiStepForm> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
-                                  onPressed: details.onStepContinue,
+                                  onPressed: (){
+
+                                    details.onStepContinue;
+                                  },
                                   label: Text(
                                     isLastStep ? 'Confirm' : 'Continue',
                                     style: GoogleFonts.firaSans(
@@ -195,12 +198,13 @@ class _MultiStepFormState extends State<MultiStepForm> {
                 ),
               ),
             ),
-            const Row(
-              children: [BottomBarRow()],
-            )
+            // const Row(
+            //   children: [BottomBarRow()],
+            // )
           ],
         ),
       ),
+      bottomNavigationBar: BottomBarRow(),
 
     );
   }
