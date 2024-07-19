@@ -2070,8 +2070,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                'E063',
-                                63,
+                                'E071',
+                                71,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
                                 1,

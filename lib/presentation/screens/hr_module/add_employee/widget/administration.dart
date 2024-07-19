@@ -1575,8 +1575,8 @@ class _AdministartionTabState extends State<AdministartionTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                'E067',
-                                68,
+                                'E069',
+                                69,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
                                 1,

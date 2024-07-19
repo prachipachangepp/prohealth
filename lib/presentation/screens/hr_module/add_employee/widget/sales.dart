@@ -1571,7 +1571,7 @@ class _SalesTabState extends State<SalesTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                'E067',
+                                'E072',
                                 68,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
