@@ -41,8 +41,8 @@ class HRAddEmployeeGet{
   final String? type;
   final String? reason;
   final  String? checkDate;
-  final  String? grossPay;
-  final  String? netPay;
+  final  int? grossPay;
+  final  int? netPay;
   final  String? methods;
   final  String? materials;
   final String? driverLicenceNbr;

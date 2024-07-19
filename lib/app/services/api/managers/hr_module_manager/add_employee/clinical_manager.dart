@@ -68,16 +68,9 @@ Future<List<HRAddEmployeeGet>> HrAddEmployeeget(
               materials: item['materials'],
               race: item['race'],
           ),
-          // HRAddEmployeeGet(
-          // AEClinicalDiscipline(
-          //   employeeTypesId: item['employeeTypeId'],
-          //   empType: item['employeeType'],
-          //   deptID: item['DepartmentId'],
-          //   abbrivation: item['abbreviation'],
-          //   color: item['color'],
-          // ),
         );
       }
+      print("Response:::::${response}");
     } else {
       print('Api Error');
     }

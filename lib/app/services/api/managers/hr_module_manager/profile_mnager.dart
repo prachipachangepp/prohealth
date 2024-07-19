@@ -102,13 +102,13 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
 Future<List<SearchEmployeeProfileData>> getSearchProfileById(
     BuildContext context, int companyId, int employeeTypeId) async {
   String convertIsoToDayMonthYear(String isoDate) {
-    // Parse ISO date string to DateTime object
+    /// Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
 
-    // Create a DateFormat object to format the date
+    /// Create a DateFormat object to format the date
     DateFormat dateFormat = DateFormat('MM-dd-yyyy');
 
-    // Format the date into "dd mm yy" format
+    /// Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
 
     return formattedDate;

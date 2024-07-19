@@ -19,6 +19,7 @@ class CustomTextField extends StatelessWidget {
   final IconData? prefixIcon;
   final FocusNode? focusNode;
   final VoidCallback? onTapSuffixIcon;
+  final void Function(String)? onChanged;
 
   CustomTextField({
     this.width,
@@ -31,7 +32,7 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     this.focusNode,
     required this.labelFontSize,
-    this.onTapSuffixIcon,
+    this.onTapSuffixIcon, this.onChanged,
   });
 
   @override
@@ -49,11 +50,12 @@ class CustomTextField extends StatelessWidget {
           textAlignVertical: TextAlignVertical.center,
           cursorHeight: cursorHeight,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.black),
             ),
+
             labelText: labelText,
             labelStyle: labelStyle.copyWith(fontSize: labelFontSize),
             suffixIcon: Padding(
@@ -61,6 +63,7 @@ class CustomTextField extends StatelessWidget {
               child: suffixIcon,
             ),
           ),
+          onChanged: onChanged,
         ),
       ),
     );
@@ -137,7 +140,7 @@ class _CustomDropdownTextFieldState extends State<CustomDropdownTextField> {
           },
           isExpanded: true,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: AppPadding.p2),
+            contentPadding: EdgeInsets.only(bottom: AppPadding.p3, top: AppPadding.p5, left: 4),
             border: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorManager.black),
