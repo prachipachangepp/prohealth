@@ -48,7 +48,7 @@ class CustomIconButtonConst extends StatelessWidget {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: AppSize.s15, vertical: AppSize.s10),
+          padding: EdgeInsets.symmetric(horizontal: AppSize.s10, vertical: AppSize.s10),
           backgroundColor: ColorManager.blueprime,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

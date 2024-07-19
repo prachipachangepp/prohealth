@@ -15,6 +15,8 @@ import 'package:prohealth/app/resources/value_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
 
+import '../../whitelabelling/success_popup.dart';
+
 class AddOfficeSumbitButton extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController addressController;
@@ -173,7 +175,12 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                       setState(() {
                         isLoading = false;
                       });
-                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddSuccessPopup(message: 'Added Successfully',);
+                        },
+                      );
                       widget.nameController.clear();
                       widget.mobNumController.clear();
                       widget.addressController.clear();
