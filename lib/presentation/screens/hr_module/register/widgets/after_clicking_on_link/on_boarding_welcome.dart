@@ -712,7 +712,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                   'Congratulations!',
                   style: GoogleFonts.firaSans(
                     color: Color(0xFF686464),
-                    fontSize: 20.0,
+                    fontSize: 24.0,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -766,7 +766,7 @@ class OnBoardingCongratulation extends StatelessWidget {
                 child: Text(
                   'Continue',
                   style: GoogleFonts.firaSans(
-                    fontSize: 20,
+                    fontSize: 18,
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                   ),

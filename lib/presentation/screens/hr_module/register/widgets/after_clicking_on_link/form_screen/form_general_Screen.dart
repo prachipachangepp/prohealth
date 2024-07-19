@@ -373,9 +373,13 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height / 60),
                       Container(
                         width: 400,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomRadioListTile(
                               title: 'Male',
@@ -492,10 +496,9 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      Container(
-                        //width: 550,
-                        child: Row(
-                        //  mainAxisAlignment: MainAxisAlignment.center,
+
+                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomRadioListTile(
                               title: 'Asian',
@@ -529,8 +532,9 @@ class _generalFormState extends State<generalForm> {
                             ),
                           ],
                         ),
-                      ),
+
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CustomRadioListTile(
                             title: 'Black or African American',
@@ -552,6 +556,7 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
+                         // const Text("                 ")
                         ],
                       ),
                       SizedBox(
