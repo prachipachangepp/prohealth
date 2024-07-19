@@ -6,14 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/row_container_widget_const.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/register_enroll_popup.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/certificate_screen.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/multi_step_form.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/offer_letter_description_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/mcq_widget_register.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/color.dart';
@@ -22,10 +15,6 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/resources/value_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../widgets/widgets/custom_icon_button_constant.dart';
-import '../../../widgets/widgets/profile_bar/profile_bar.dart';
-import '../../em_module/widgets/button_constant.dart';
-import '../../em_module/widgets/text_form_field_const.dart';
-import '../manage/controller/controller.dart';
 import 'confirmation_constant.dart';
 
 ///saloni
@@ -118,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 color: Color(0xff51B5E6),
                                 width: 0.5,
                               ),
-                  
+
                               ///update here
                               color: Colors.white,
                               borderRadius:
@@ -140,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                        snapshot.data![index].firstName.toString(),
+                                        snapshot.data![index].firstName,
                                         style: GoogleFonts.firaSans(
                                           fontWeight: FontWeightManager.medium,
                                           // color: ColorManager.mediumgrey,
@@ -168,14 +157,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         MediaQuery.of(context).size.width /
                                             100,
                                       ),
-                                      snapshot.data![index].status.toString() == 'NotOpened' ?
+                                      snapshot.data![index].status == 'NotOpened' ?
                                           SizedBox(width: 10,) :
                                       Container(
                                         width: 10.0,
                                         height: 15.0,
                                         decoration: BoxDecoration(
-                                          color: snapshot.data![index].status.toString() == 'Opened' ?
-                                          Color(0xff51B5E6): snapshot.data![index].status.toString() == 'Partial' ?
+                                          color: snapshot.data![index].status == 'Opened' ?
+                                          Color(0xff51B5E6): snapshot.data![index].status == 'Partial' ?
                                           Color(0xffCA8A04) : Colors.green,
                                           shape: BoxShape.circle,
                                         ),
@@ -185,10 +174,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         MediaQuery.of(context).size.width /
                                             100,
                                       ),
-                                      snapshot.data![index].status.toString() == 'NotOpened' ?
+                                      snapshot.data![index].status == 'NotOpened' ?
                                       SizedBox(width: 10,) :
                                       Text(
-                                        snapshot.data![index].status.toString(),
+                                        snapshot.data![index].status,
                                         style: GoogleFonts.firaSans(
                                           fontWeight: FontWeightManager.medium,
                                           color: Color(0xff333333),
@@ -213,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         CustomRow(
                                           icon: Icons.person_2_outlined,
                                           text1: 'Code',
-                                          text2: snapshot.data![index].code.toString(),
+                                          text2: snapshot.data![index].code,
                                         ),
                                         SizedBox(
                                           height:
@@ -223,7 +212,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         CustomRow(
                                           icon: Icons.phone_outlined,
                                           text1: 'Phone',
-                                          text2: snapshot.data![index].phoneNbr.toString(),
+                                          text2: snapshot.data![index].phoneNbr,
                                         ),
                                         SizedBox(
                                           height:
@@ -233,7 +222,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         CustomRow(
                                           icon: Icons.email_outlined,
                                           text1: 'Email',
-                                          text2: snapshot.data![index].email.toString(),
+                                          text2: snapshot.data![index].email,
                                         ),
                                         SizedBox(
                                           height:
@@ -318,7 +307,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               },
                                               child: Text(
                                                 //'https://prohealth.symmetry.care/register',
-                                                snapshot.data![index].link.toString(),
+                                                snapshot.data![index].link,
                                                 style: GoogleFonts.firaSans(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w400,
@@ -326,7 +315,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                               ),
                                             )
-                  
+
                                           ],
                                         ),
                                         ///button
@@ -341,48 +330,100 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     onPressed: () {
                                                       //_controller.openDialog(context);
                                                       showDialog(context: context, builder: (_) =>
-                                                        FutureBuilder<RegisterDataPrefill>(
-                                                          future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
-                                                          builder: (context, snapshotPrefill){
-                                                            if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                              return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                                            }
-                                                            var firstName = snapshotPrefill.data!.firstName.toString();
-                                                            firstNameController = TextEditingController(text: firstName);
+                                                         ///future builder
+                                                      // FutureBuilder<RegisterDataPrefill>(
+                                                      //   future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
+                                                      //   builder: (context, snapshotPrefill){
+                                                      //     if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                      //       return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                      //     }
+                                                      //     var firstName = snapshotPrefill.data!.firstName.toString();
+                                                      //     firstNameController = TextEditingController(text: firstName);
+                                                      //
+                                                      //     var lastName = snapshotPrefill.data!.lastName.toString();
+                                                      //     lastNameController = TextEditingController(text: lastName);
+                                                      //
+                                                      //     var email = snapshotPrefill.data!.email.toString();
+                                                      //     emailController = TextEditingController(text: email);
+                                                      //
+                                                      //     var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
+                                                      //     phoneNumberController = TextEditingController(text: phoneNum);
 
-                                                            var lastName = snapshotPrefill.data!.lastName.toString();
-                                                            lastNameController = TextEditingController(text: lastName);
-
-                                                            var email = snapshotPrefill.data!.email.toString();
-                                                            emailController = TextEditingController(text: email);
-
-                                                            var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
-                                                            phoneNumberController = TextEditingController(text: phoneNum);
-
-                                                            return RegisterEnrollPopup(firstName: firstNameController,
-                                                             lastName: lastNameController,
-                                                              email: emailController,
-                                                              phone: phoneNumberController,
-                                                              onPressed: () {
+                                                           ConfirmationPopup(
+                                                            containerText: 'Do you really want to enroll?'
+                                                                '\n${snapshot.data![index].firstName} ${snapshot.data![index].lastName}',
+                                                            onConfirm: ()async{
                                                               Navigator.pop(context);
-                                                                showDialog(context: context, builder: (BuildContext context) {
-                                                                  return ConfirmationPopup(onConfirm: (){
-                                                                    Navigator.pop(context);
-                                                                    showDialog(context: context, builder: (BuildContext context) {
-                                                                      return SuccessPopup();
-                                                                    });
-                                                                  }, title: 'Confirm Enrollment',
-                                                                    onCancel: () {
-                                                                      Navigator.pop(context);
-                                                                    },
-                                                                  );
-                                                                  //OfferLetterScreen();
-                                                                });
-                                                              },);
+                                                             await addEmpEnroll(context,
+                                                                  snapshot.data![index].compId,  snapshot.data![index].empId,  snapshot.data![index].code,
+                                                                  snapshot.data![index].userId,  snapshot.data![index].firstName,  snapshot.data![index].lastName,
+                                                                  snapshot.data![index].phoneNbr,  snapshot.data![index].email,  snapshot.data![index].link,
+                                                                  snapshot.data![index].status);
+                                                             print('${snapshot.data![index].compId}');
+                                                             print('${snapshot.data![index].empId}');
+                                                             print(snapshot.data![index].code);
+                                                             print('${snapshot.data![index].userId}');
+                                                             print(snapshot.data![index].firstName);
+                                                             print(snapshot.data![index].lastName);
+                                                             print(snapshot.data![index].phoneNbr);
+                                                             print(snapshot.data![index].email);
+                                                             print(snapshot.data![index].link);
+                                                             print(snapshot.data![index].status);
+                                                              showDialog(context: context, builder: (BuildContext context) {
+                                                                return SuccessPopup();
+                                                              });
+                                                            }, title: 'Confirm Enrollment',
+                                                            onCancel: () {
+                                                              Navigator.pop(context);
+                                                            },
+                                                          ),
 
 
-                                                          },
-                                                        ),
+                                                      //   },
+                                                      // ),
+                                                          ///prefill api
+                                                        // FutureBuilder<RegisterDataPrefill>(
+                                                        //   future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
+                                                        //   builder: (context, snapshotPrefill){
+                                                        //     if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                        //       return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                        //     }
+                                                        //     var firstName = snapshotPrefill.data!.firstName.toString();
+                                                        //     firstNameController = TextEditingController(text: firstName);
+                                                        //
+                                                        //     var lastName = snapshotPrefill.data!.lastName.toString();
+                                                        //     lastNameController = TextEditingController(text: lastName);
+                                                        //
+                                                        //     var email = snapshotPrefill.data!.email.toString();
+                                                        //     emailController = TextEditingController(text: email);
+                                                        //
+                                                        //     var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
+                                                        //     phoneNumberController = TextEditingController(text: phoneNum);
+                                                        //
+                                                        //     return RegisterEnrollPopup(firstName: firstNameController,
+                                                        //      lastName: lastNameController,
+                                                        //       email: emailController,
+                                                        //       phone: phoneNumberController,
+                                                        //       onPressed: () {
+                                                        //       Navigator.pop(context);
+                                                        //         showDialog(context: context, builder: (BuildContext context) {
+                                                        //           return ConfirmationPopup(onConfirm: (){
+                                                        //             Navigator.pop(context);
+                                                        //             showDialog(context: context, builder: (BuildContext context) {
+                                                        //               return SuccessPopup();
+                                                        //             });
+                                                        //           }, title: 'Confirm Enrollment',
+                                                        //             onCancel: () {
+                                                        //               Navigator.pop(context);
+                                                        //             },
+                                                        //           );
+                                                        //           //OfferLetterScreen();
+                                                        //         });
+                                                        //       },);
+                                                        //
+                                                        //
+                                                        //   },
+                                                        // ),
                                                       );
                                                     }),
                                               ),
@@ -474,7 +515,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           //     ],
                           //   ),
                           // ),
-                  
+
                     );
                   })),
                 );

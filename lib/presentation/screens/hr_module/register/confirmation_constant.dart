@@ -15,7 +15,8 @@ class ConfirmationPopup extends StatefulWidget {
   final VoidCallback onConfirm;
   final bool? loadingDuration;
   final String title;
-  const ConfirmationPopup({super.key,required this.onCancel, required this.onConfirm, this.loadingDuration, required this.title});
+  final String containerText;
+  const ConfirmationPopup({super.key,required this.onCancel, required this.onConfirm, this.loadingDuration, required this.title, required this.containerText});
 
   @override
   State<ConfirmationPopup> createState() => _ConfirmationPopupState();
@@ -78,13 +79,13 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-
                     height: AppSize.s50,
-                    width: AppSize.s150,
-                    child: Text('Do you really want to continue?',textAlign: TextAlign.center,
+                    //width: AppSize.s150,
+                    child: Text(widget.containerText,
+                      textAlign: TextAlign.center,
                       style:CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.regular,
-                          fontSize: FontSize.s16,
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s14,
                           color: ColorManager.mediumgrey
                       ),),
                   )
@@ -98,12 +99,21 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: AppPadding.p24),
                     child: Center(
-                      child: CustomButtonTransparent(
-                        text: 'No',
-                        onPressed: (){
-                          widget.onCancel();
-                        },
-                      ),
+                      child: TextButton(
+                        onPressed: widget.onCancel,
+                        child: Text('Cancle',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.bluebottom,
+                            )),)
+
+                      // CustomButtonTransparent(
+                      //   text: 'No',
+                      //   onPressed: (){
+                      //     widget.onCancel();
+                      //   },
+                      // ),
                     ),
                   ),
                   SizedBox(width: 20,),
