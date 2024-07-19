@@ -18,8 +18,8 @@ Future<List<RegisterEnrollData>> RegisterGetData(BuildContext context,) async {
            empEnrollId: item["employeeEnrollId"],
            compId: item["companyId"],
            empId: item["employeeId"],
-           userId: item["userId"],
            code: item["code"],
+           userId: item["userId"],
          firstName: item["firstName"],
          lastName: item["lastName"],
          phoneNbr: item["phoneNbr"],
@@ -79,7 +79,8 @@ Future<ApiData> addEmpEnroll(BuildContext context,
     int companyId, int employeeId,String code,
     int userId,String firstName,String lastName,
     String phoneNbr,String email,String link, String status
-    ) async {
+    )
+async {
   try {
     var response = await Api(context).post(path: AllRegisterRepository.addEmpEnrollAdd(),
       data: {
@@ -94,6 +95,7 @@ Future<ApiData> addEmpEnroll(BuildContext context,
         "link": link,
         "status": status
     },);
+    print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Enroll added");
       // orgDocumentGet(context);

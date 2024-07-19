@@ -43,298 +43,301 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Column(
-          children: [
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: Color(0xff50B5E5),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 34,
+                decoration: BoxDecoration(
+                  color: Color(0xff50B5E5),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(left: 10.0),
+                      child: Text(widget.tite,style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s16,
+                        fontWeight: FontWeightManager.bold,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      ),),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.close,color: Colors.white,),
+                    ),
+                  ],
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              SizedBox(height: MediaQuery.of(context).size.height/40,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: () async{
+                    }),
+
+                  ],
+                ),
+              ),
+              SizedBox(height:MediaQuery.of(context).size.height/20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
-                    child: Text(widget.tite,style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s14,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.positionTitleController,
+                    labelText: "Final Position Title",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+
                     },
-                    icon: const Icon(Icons.close,color: Colors.white,),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
                   ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.leavingResonController,
+                    labelText: "Reason For Leaving",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.startDateContoller,
+                    labelText: "Start Date",
+                    keyboardType: TextInputType.text,
+                    suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onTap: () async{
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedStartDate,
+                        firstDate: DateTime(1100),
+                        lastDate: DateTime(2025),
+                      );
+                      if (date != null) {
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                        widget.startDateContoller.text = formattedDate;
+                        //field.didChange(formattedDate);
+                      }
+
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+               ],
+              ),
+              SizedBox(height:MediaQuery.of(context).size.height/20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.endDateController,
+                    labelText: "End Date",
+                    keyboardType: TextInputType.text,
+                    suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onTap: () async{
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedEndDate,
+                        firstDate: DateTime(1100),
+                        lastDate: DateTime(2025),
+                      );
+                      if (date != null) {
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+                        widget.endDateController.text = formattedDate;
+                        //field.didChange(formattedDate);
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.lastSupervisorNameController,
+                    labelText: "Last Supervisor’s Name",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.supervisorMobileNumber,
+                    labelText: "Supervisor’s Mobile Number",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+
                 ],
               ),
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 10),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.end,
-            //     children: [
-            //       CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: () async{
-            //       }),
-            //
-            //     ],
-            //   ),
-            // ),
-            SizedBox(height:MediaQuery.of(context).size.height/20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.positionTitleController,
-                  labelText: "Final Position Title",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
+              //SizedBox(height:MediaQuery.of(context).size.height/50),
+              Padding(
+                padding:  EdgeInsets.only(left: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    widget.checkBoxTile,
+                  ],
                 ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.leavingResonController,
-                  labelText: "Reason For Leaving",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.startDateContoller,
-                  labelText: "Start Date",
-                  keyboardType: TextInputType.text,
-                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onTap: () async{
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: _selectedStartDate,
-                      firstDate: DateTime(1100),
-                      lastDate: DateTime(2025),
-                    );
-                    if (date != null) {
-                      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                      widget.startDateContoller.text = formattedDate;
-                      //field.didChange(formattedDate);
-                    }
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-             ],
-            ),
-            SizedBox(height:MediaQuery.of(context).size.height/20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.endDateController,
-                  labelText: "End Date",
-                  keyboardType: TextInputType.text,
-                  suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onTap: () async{
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      initialDate: _selectedEndDate,
-                      firstDate: DateTime(1100),
-                      lastDate: DateTime(2025),
-                    );
-                    if (date != null) {
-                      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                      widget.endDateController.text = formattedDate;
-                      //field.didChange(formattedDate);
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.lastSupervisorNameController,
-                  labelText: "Last Supervisor’s Name",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.supervisorMobileNumber,
-                  labelText: "Supervisor’s Mobile Number",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-
-              ],
-            ),
-            //SizedBox(height:MediaQuery.of(context).size.height/50),
-            Padding(
-              padding: const EdgeInsets.only(left: 40.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              ),
+             // SizedBox(height:MediaQuery.of(context).size.height/50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  widget.checkBoxTile,
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.cityNameController,
+                    labelText: "City",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.employeerController,
+                    labelText: "Employer",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomTextFieldRegister(
+                    height: AppSize.s30,
+                    width: MediaQuery.of(context).size.width/6,
+                    controller: widget.emergencyMobileNumber,
+                    labelText: "Emergency Mobile Number",
+                    keyboardType: TextInputType.text,
+                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    onChanged: (value) {
+
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+
                 ],
               ),
-            ),
-           // SizedBox(height:MediaQuery.of(context).size.height/50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.cityNameController,
-                  labelText: "City",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.employeerController,
-                  labelText: "Employer",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-                CustomTextFieldRegister(
-                  height: AppSize.s30,
-                  width: MediaQuery.of(context).size.width/6,
-                  controller: widget.emergencyMobileNumber,
-                  labelText: "Emergency Mobile Number",
-                  keyboardType: TextInputType.text,
-                  padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
-                  onChanged: (value) {
-
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppString.enterText;
-                    }
-                    return null;
-                  },
-                ),
-
-              ],
-            ),
-            SizedBox(height:MediaQuery.of(context).size.height/15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomButtonTransparent(text: "Cancel", onPressed: () {
-                    widget.onpressedClose;
-                    Navigator.pop(context);
-                  }),
-                  SizedBox(width: 10,),
-                  isLoading
-                      ? SizedBox(
-                    height: 25,
-                      width: 25,
-                      child: CircularProgressIndicator( color: ColorManager.blueprime,))
-                      : CustomElevatedButton(text: "Save",onPressed: () async{
-                    setState(() {
-                      isLoading = true;
-                    });
-                    try {
-                      await widget.onpressedSave();
-                    } finally {
-                      setState(() {
-                        isLoading = false;
-                      });
+              SizedBox(height:MediaQuery.of(context).size.height/15),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomButtonTransparent(text: "Cancel", onPressed: () {
+                      widget.onpressedClose;
                       Navigator.pop(context);
-                      widget.startDateContoller.clear();
-                      widget.endDateController.clear();
-                      widget.leavingResonController.clear();
-                      widget.cityNameController.clear();
-                      widget.lastSupervisorNameController.clear();
-                      widget.supervisorMobileNumber.clear();
-                      widget.employeerController.clear();
-                      widget.positionTitleController.clear();
-                      widget.emergencyMobileNumber.clear();
-                    }
+                    }),
+                    SizedBox(width: 10,),
+                    isLoading
+                        ? SizedBox(
+                      height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator( color: ColorManager.blueprime,))
+                        : CustomElevatedButton(text: "Save",onPressed: () async{
+                      setState(() {
+                        isLoading = true;
+                      });
+                      try {
+                        await widget.onpressedSave();
+                      } finally {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.pop(context);
+                        widget.startDateContoller.clear();
+                        widget.endDateController.clear();
+                        widget.leavingResonController.clear();
+                        widget.cityNameController.clear();
+                        widget.lastSupervisorNameController.clear();
+                        widget.supervisorMobileNumber.clear();
+                        widget.employeerController.clear();
+                        widget.positionTitleController.clear();
+                        widget.emergencyMobileNumber.clear();
+                      }
 
-                  }),
-                ],
-              ),
-            )
-          ],
+                    }),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
