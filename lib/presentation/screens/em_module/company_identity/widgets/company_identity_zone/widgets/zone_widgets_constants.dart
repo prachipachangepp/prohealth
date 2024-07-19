@@ -7,6 +7,7 @@ import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../widgets/button_constant.dart';
 import '../../../../widgets/text_form_field_const.dart';
+import '../../whitelabelling/success_popup.dart';
 
 class CIZoneAddPopup extends StatefulWidget {
   final TextEditingController countynameController;
@@ -59,6 +60,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
       child: SingleChildScrollView(
         child: Container(
           width: AppSize.s400,
+          height: AppSize.s350,
           decoration: BoxDecoration(
             color: ColorManager.white,
             borderRadius: BorderRadius.circular(8),
@@ -101,6 +103,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   ],
                 ),
               ),
+              SizedBox(height: AppSize.s20,),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: AppPadding.p6,
@@ -114,14 +117,14 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                       keyboardType: TextInputType.text,
                       text: widget.title1,
                     ),
-                    SizedBox(height: AppSize.s15),
+                    SizedBox(height: AppSize.s20),
                     SMTextFConst(
                       controller: widget.zipcodeController,
                       keyboardType: TextInputType.text,
                       text: widget.title2,
                     ),
                     if (widget.title3 != null) ...[
-                      SizedBox(height: AppSize.s15),
+                      SizedBox(height: AppSize.s20),
                       SMTextFConst(
                         controller: widget.mapController!,
                         keyboardType: TextInputType.text,
@@ -130,7 +133,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                     ],
                     if (widget.title4 != null &&
                         widget.landmarkController != null) ...[
-                      SizedBox(height: AppSize.s15),
+                      SizedBox(height: AppSize.s20),
                       SMTextFConst(
                         controller: widget.landmarkController!,
                         keyboardType: TextInputType.text,
@@ -140,6 +143,7 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                   ],
                 ),
               ),
+              SizedBox(height: AppSize.s30,),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: AppPadding.p24, top: AppPadding.p14),
@@ -157,7 +161,12 @@ class _CIZoneAddPopupState extends State<CIZoneAddPopup> {
                         isLoading = true;
                       });
                      await widget.onSavePressed();
-                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CountySuccessPopup(message: 'Save Successfully',);
+                        },
+                      );
                       setState(() {
                         isLoading = false;
                       });
@@ -199,6 +208,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
       child: SingleChildScrollView(
         child: Container(
           width: AppSize.s400,
+          height: AppSize.s460,
           decoration: BoxDecoration(
             color: ColorManager.white,
             borderRadius: BorderRadius.circular(8),
@@ -304,6 +314,7 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                   ],
                 ),
               ),
+              SizedBox(height: AppSize.s10,),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: AppPadding.p24, top: AppPadding.p14),
@@ -321,7 +332,12 @@ class _AddZipCodePopupState extends State<AddZipCodePopup> {
                         isLoading = true;
                       });
                       await widget.onSavePressed();
-                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CountySuccessPopup(message: 'Save Successfully',);
+                        },
+                      );
                       setState(() {
                         isLoading = false;
                       });
@@ -450,7 +466,12 @@ class _AddZonePopupState extends State<AddZonePopup> {
                         isLoading = true;
                       });
                       await widget.onSavePressed();
-                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CountySuccessPopup(message: 'Save Successfully',);
+                        },
+                      );
                       setState(() {
                         isLoading = false;
                       });
