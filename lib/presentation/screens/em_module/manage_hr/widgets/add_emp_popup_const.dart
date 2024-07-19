@@ -334,8 +334,8 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
 
   void _validateFields() {
     setState(() {
-      _typeError = widget.typeController.text.isEmpty ? 'Please enter some text' : null;
-      _abbreviationError = widget.abbreviationController.text.isEmpty ? 'Please enter some text' : null;
+      _typeError = widget.typeController.text.isEmpty ? 'Please Enter Employee Type' : null;
+      _abbreviationError = widget.abbreviationController.text.isEmpty ? 'Please Enter Abbreviation' : null;
     });
   }
 
