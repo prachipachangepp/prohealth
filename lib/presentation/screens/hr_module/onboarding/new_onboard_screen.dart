@@ -97,6 +97,7 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                               color: widget.selectedIndex == entry.key
                                   ? Colors.white : null,
                             ),
+
                             child: Text(
                                 entry.value,
                                 textAlign: TextAlign.center,
