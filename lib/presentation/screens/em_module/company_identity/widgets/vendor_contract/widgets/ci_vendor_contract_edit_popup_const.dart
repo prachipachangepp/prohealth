@@ -71,12 +71,7 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
                   ),
-                  SizedBox(height: AppSize.s8),
-                  SMTextFConst(
-                    controller: widget.nameDocController,
-                    keyboardType: TextInputType.text,
-                    text: 'Name of the Document',
-                  ),
+
                   SizedBox(height: AppSize.s8),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,161 +111,161 @@ class _CiVendorContractEditPopupState extends State<CiVendorContractEditPopup> {
             ),
 
             ///radio
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Expiry Type',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RadioListTile<String>(
-                        title: Text(
-                          'Not Applicable',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'type1',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Scheduled',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'type2',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: Text(
-                          'Issuer Expiry',
-                          style: GoogleFonts.firaSans(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeightManager.medium,
-                            color: ColorManager.mediumgrey,
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        value: 'type3',
-                        groupValue: _expiryType,
-                        onChanged: (value) {
-                          setState(() {
-                            _expiryType = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppPadding.p3,
-                horizontal: AppPadding.p20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Expiry Date',
-                    style: GoogleFonts.firaSans(
-                      fontSize: FontSize.s12,
-                      fontWeight: FontWeight.w700,
-                      color: ColorManager.mediumgrey,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  FormField<String>(
-                    builder: (FormFieldState<String> field) {
-                      return SizedBox(
-                        width: 354,
-                        height: 30,
-                        child: TextFormField(
-                          controller: birthdayController,
-                          decoration: InputDecoration(
-                            hintText: 'mm-dd-yyyy',
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.mediumgrey,
-                              //decoration: TextDecoration.none,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(width: 1),
-                            ),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 16),
-                            suffixIcon: Icon(
-                              Icons.calendar_month_outlined,
-                              color: ColorManager.blueprime,
-                            ),
-                            errorText: field.errorText,
-                          ),
-                          readOnly: true,
-                          onTap: () async {
-                            DateTime? date = await showDatePicker(
-                              context: context,
-                              initialDate: _selectedDate,
-                              firstDate: DateTime(1100),
-                              lastDate: DateTime(2026),
-                            );
-                            if (date != null) {
-                              String formattedDate =
-                              DateFormat('mm-dd-yyyy').format(date);
-                              birthdayController.text = formattedDate;
-                              field.didChange(formattedDate);
-                              // birthdayController.text =DateFormat('mm-dd-yyyy').format(_selectedDate);
-                              // field.didChange(
-                              //     date.toLocal().toString().split(' ')[0]);
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please select birth date';
-                            }
-                            return null;
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     vertical: AppPadding.p3,
+            //     horizontal: AppPadding.p20,
+            //   ),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         'Expiry Type',
+            //         style: GoogleFonts.firaSans(
+            //           fontSize: FontSize.s12,
+            //           fontWeight: FontWeight.w700,
+            //           color: ColorManager.mediumgrey,
+            //           decoration: TextDecoration.none,
+            //         ),
+            //       ),
+            //       Column(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           RadioListTile<String>(
+            //             title: Text(
+            //               'Not Applicable',
+            //               style: GoogleFonts.firaSans(
+            //                 fontSize: FontSize.s10,
+            //                 fontWeight: FontWeightManager.medium,
+            //                 color: ColorManager.mediumgrey,
+            //                 decoration: TextDecoration.none,
+            //               ),
+            //             ),
+            //             value: 'type1',
+            //             groupValue: _expiryType,
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 _expiryType = value;
+            //               });
+            //             },
+            //           ),
+            //           RadioListTile<String>(
+            //             title: Text(
+            //               'Scheduled',
+            //               style: GoogleFonts.firaSans(
+            //                 fontSize: FontSize.s10,
+            //                 fontWeight: FontWeightManager.medium,
+            //                 color: ColorManager.mediumgrey,
+            //                 decoration: TextDecoration.none,
+            //               ),
+            //             ),
+            //             value: 'type2',
+            //             groupValue: _expiryType,
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 _expiryType = value;
+            //               });
+            //             },
+            //           ),
+            //           RadioListTile<String>(
+            //             title: Text(
+            //               'Issuer Expiry',
+            //               style: GoogleFonts.firaSans(
+            //                 fontSize: FontSize.s10,
+            //                 fontWeight: FontWeightManager.medium,
+            //                 color: ColorManager.mediumgrey,
+            //                 decoration: TextDecoration.none,
+            //               ),
+            //             ),
+            //             value: 'type3',
+            //             groupValue: _expiryType,
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 _expiryType = value;
+            //               });
+            //             },
+            //           ),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     vertical: AppPadding.p3,
+            //     horizontal: AppPadding.p20,
+            //   ),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         'Expiry Date',
+            //         style: GoogleFonts.firaSans(
+            //           fontSize: FontSize.s12,
+            //           fontWeight: FontWeight.w700,
+            //           color: ColorManager.mediumgrey,
+            //           decoration: TextDecoration.none,
+            //         ),
+            //       ),
+            //       FormField<String>(
+            //         builder: (FormFieldState<String> field) {
+            //           return SizedBox(
+            //             width: 354,
+            //             height: 30,
+            //             child: TextFormField(
+            //               controller: birthdayController,
+            //               decoration: InputDecoration(
+            //                 hintText: 'mm-dd-yyyy',
+            //                 hintStyle: GoogleFonts.firaSans(
+            //                   fontSize: FontSize.s12,
+            //                   fontWeight: FontWeight.w700,
+            //                   color: ColorManager.mediumgrey,
+            //                   //decoration: TextDecoration.none,
+            //                 ),
+            //                 border: OutlineInputBorder(
+            //                   borderRadius: BorderRadius.circular(8),
+            //                   borderSide: BorderSide(width: 1),
+            //                 ),
+            //                 contentPadding:
+            //                     EdgeInsets.symmetric(horizontal: 16),
+            //                 suffixIcon: Icon(
+            //                   Icons.calendar_month_outlined,
+            //                   color: ColorManager.blueprime,
+            //                 ),
+            //                 errorText: field.errorText,
+            //               ),
+            //               readOnly: true,
+            //               onTap: () async {
+            //                 DateTime? date = await showDatePicker(
+            //                   context: context,
+            //                   initialDate: _selectedDate,
+            //                   firstDate: DateTime(1100),
+            //                   lastDate: DateTime(2026),
+            //                 );
+            //                 if (date != null) {
+            //                   String formattedDate =
+            //                   DateFormat('mm-dd-yyyy').format(date);
+            //                   birthdayController.text = formattedDate;
+            //                   field.didChange(formattedDate);
+            //                   // birthdayController.text =DateFormat('mm-dd-yyyy').format(_selectedDate);
+            //                   // field.didChange(
+            //                   //     date.toLocal().toString().split(' ')[0]);
+            //                 }
+            //               },
+            //               validator: (value) {
+            //                 if (value == null || value.isEmpty) {
+            //                   return 'please select birth date';
+            //                 }
+            //                 return null;
+            //               },
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p24),

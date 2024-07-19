@@ -22,6 +22,7 @@ class AppStringEM{
   static const String submit = "Submit";
   static const String roleManager =  "Role Manager";
   static const String orgdoc =   "Org Document";
+  static const String Add =   "Add";
 
   ///CI Zone
   static const String countyName = "County Name";
