@@ -154,6 +154,7 @@ class _ManageScreenState extends State<ManageScreen> {
                         icon: Icons.add,
                         onPressed: () {
                           showDialog(
+                            barrierDismissible: false,
                             context: context,
                             builder: (BuildContext context) {
                               return StatefulBuilder(
@@ -422,7 +423,9 @@ class _ManageScreenState extends State<ManageScreen> {
                                       issuingOrganizationController,
                                   countryController: countryController,
                                   numberIDController: numberIDController,
-                                  onpressedClose: () {},
+                                  onpressedClose: () {
+                                    Navigator.pop(context);
+                                  },
                                   onpressedSave: () async {
                                     // await addLicensePost(context, licenseId, countryNameController.text, 0, expiryDateController.text, issueDateController.text,
                                     //     licenseUrl, licensure, licenseNumber, org, documentType);

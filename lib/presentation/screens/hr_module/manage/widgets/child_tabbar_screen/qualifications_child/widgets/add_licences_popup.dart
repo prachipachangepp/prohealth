@@ -67,7 +67,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.of(context, rootNavigator: true).pop();
                     },
                     icon: const Icon(Icons.close,color: Colors.white,),
                   ),

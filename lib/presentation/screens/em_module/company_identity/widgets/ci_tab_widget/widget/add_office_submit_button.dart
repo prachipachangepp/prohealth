@@ -141,7 +141,6 @@ class _AddOfficeSumbitButtonState extends State<AddOfficeSumbitButton> {
                 ),
               ),
             ),
-            Spacer(),
             SizedBox(height: 30,),
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p10),
