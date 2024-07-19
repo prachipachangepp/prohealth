@@ -212,7 +212,7 @@ class ProfileBar extends StatelessWidget {
                                     child: Text(
                                       AppString.viewzone,
                                       style: GoogleFonts.firaSans(
-                                          fontSize: FontSize.s7,
+                                          fontSize: FontSize.s9,
                                           fontWeight: FontWeightManager.bold,
                                           color: ColorManager.white,
                                           decoration: TextDecoration.underline,
@@ -276,21 +276,21 @@ class ProfileBar extends StatelessWidget {
                                 ///"Expired License"
                                 ProfileBarClipConst(
                                     text: AppString.expiredlicense,
-                                    containerColor: ColorManager.rednew,
+                                    containerColor: Color(0xFFD16D6A),
                                     textOval: AppString.zero),
 
                                 SizedBox(height: MediaQuery.of(context).size.height/120),
                                 ///"About To Expired License"
                                 ProfileBarClipConst(
                                     text: AppString.abouttoexpire,
-                                    containerColor: Colors.green,
+                                    containerColor: Color(0xFFB4DB4C),
                                     textOval: AppString.two),
 
                                 SizedBox(height: MediaQuery.of(context).size.height/120),
                                 ///"Up To Date License"
                                 ProfileBarClipConst(
                                     text: AppString.uptodate,
-                                    containerColor: Colors.yellow,
+                                    containerColor: Color(0xFFFEBD4D),
                                     textOval: AppString.four),
                               ],
                             ),

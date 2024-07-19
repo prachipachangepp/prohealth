@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 
 class CustomTextFieldRegister extends StatelessWidget {
@@ -13,7 +15,7 @@ class CustomTextFieldRegister extends StatelessWidget {
   final Widget? suffixIcon;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
-  final VoidCallback? onTap;
+   VoidCallback? onTap;
   final FocusNode? focusNode;
   final ValueChanged<String>? onFieldSubmitted;
   final EdgeInsetsGeometry? padding;
@@ -25,7 +27,7 @@ class CustomTextFieldRegister extends StatelessWidget {
   final String? prefixText;
   final double? cursorHeight;
 
-  const CustomTextFieldRegister({
+   CustomTextFieldRegister({
     Key? key,
     this.controller,
     this.labelText,
@@ -90,19 +92,22 @@ class CustomTextFieldRegister extends StatelessWidget {
               //   borderRadius: BorderRadius.circular(5.0),
               // ),
               labelText: labelText,
-              labelStyle: TextStyle(
-                fontSize: FontSize.s10
-              ),
+              labelStyle: GoogleFonts.firaSans(
+            fontSize: FontSize.s10,
+          ),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               contentPadding: padding
           ),
           keyboardType: keyboardType,
           textInputAction: textInputAction,
-          style: TextStyle(fontSize: FontSize.s12,),
+          style: GoogleFonts.firaSans(
+            fontSize: FontSize.s12,
+          ),
           obscureText: obscureText,
           autofocus: autofocus,
           enabled: enabled,
+          onTap: onTap,
           onChanged: onChanged,
           validator: validator,
           focusNode: focusNode,
