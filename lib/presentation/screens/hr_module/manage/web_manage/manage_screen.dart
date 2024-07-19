@@ -175,9 +175,6 @@ class _ManageScreenState extends State<ManageScreen> {
                                     employeerController: employeerController,
                                     emergencyMobileNumber:
                                         emergencyMobileNumber,
-                                    onpressedClose: () {
-                                      //Navigator.pop(context);
-                                    },
                                     onpressedSave: () async {
                                       await addEmployeement(
                                           context,
@@ -467,7 +464,8 @@ class _ManageScreenState extends State<ManageScreen> {
                       icon: Icons.add,
                       onPressed: () {
                         showDialog(context: context, builder: (BuildContext context){
-                          return AcknowledgementAddPopup(labelName: '', AcknowledgementnameController: acknowldgementNameController, onSavePressed: () {  },);
+                          return AcknowledgementAddPopup(labelName: 'Add Acknowledgement',
+                            AcknowledgementnameController: acknowldgementNameController, onSavePressed: () {  },);
                         });
                         //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
                       }),

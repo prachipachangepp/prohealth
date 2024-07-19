@@ -160,49 +160,51 @@ int employeeId = 9;
                       padding: EdgeInsets.all(5),
                       width: AppSize.s330,
                       height: 40,
-                      child:TextFormField(
-                        controller: searchController,
-                        // focusNode: focusNode,
-                        // autofocus: true,
-                        onChanged: (value) {
-                          setState(() {
-                            //getSearchProfileById(context, 5, int.parse(name.toString()));
-                            // employeeId = value == "" ? 0 :int.parse(value.toString());
-                            // getSearchByEmployeeIdProfileByText(context,employeeId);
-                            // employeeId = 2;
-                            // getSearchByEmployeeIdProfileByText(context,employeeId);
-                          });
-                        },
-                        textAlign: TextAlign.start,
-                        cursorHeight: 14,
-                        cursorColor: ColorManager.black,
-                        style: GoogleFonts.firaSans(
-                          fontSize: 12,
-                        ),
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                            hintText: 'Search',
-                            alignLabelWithHint: true,
-                            hintStyle: GoogleFonts.firaSans(
-                              fontSize: FontSize.s12,
-                              fontWeight: FontWeightManager.regular,
-                              color: ColorManager.mediumgrey,
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(20))),
-                            suffixIcon: IconButton(
-                              icon: Center(
-                                child: Icon(
-                                  Icons.search,
-                                  size: 18,
-                                ),
-                              ),
-                              onPressed: () {},
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5)),
-                      ),
+                      child:
+                        /// formated text field
+                      // TextFormField(
+                      //   controller: searchController,
+                      //   // focusNode: focusNode,
+                      //   // autofocus: true,
+                      //   onChanged: (value) {
+                      //     setState(() {
+                      //       //getSearchProfileById(context, 5, int.parse(name.toString()));
+                      //       // employeeId = value == "" ? 0 :int.parse(value.toString());
+                      //       // getSearchByEmployeeIdProfileByText(context,employeeId);
+                      //       // employeeId = 2;
+                      //       // getSearchByEmployeeIdProfileByText(context,employeeId);
+                      //     });
+                      //   },
+                      //   textAlign: TextAlign.start,
+                      //   cursorHeight: 14,
+                      //   cursorColor: ColorManager.black,
+                      //   style: GoogleFonts.firaSans(
+                      //     fontSize: 12,
+                      //   ),
+                      //   textAlignVertical: TextAlignVertical.center,
+                      //   decoration: InputDecoration(
+                      //       hintText: 'Search',
+                      //       alignLabelWithHint: true,
+                      //       hintStyle: GoogleFonts.firaSans(
+                      //         fontSize: FontSize.s12,
+                      //         fontWeight: FontWeightManager.regular,
+                      //         color: ColorManager.mediumgrey,
+                      //       ),
+                      //       border: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.all(
+                      //               Radius.circular(20))),
+                      //       suffixIcon: IconButton(
+                      //         icon: Center(
+                      //           child: Icon(
+                      //             Icons.search,
+                      //             size: 18,
+                      //           ),
+                      //         ),
+                      //         onPressed: () {},
+                      //       ),
+                      //       contentPadding: EdgeInsets.symmetric(
+                      //           horizontal: 20, vertical: 5)),
+                      // ),
 
                       /// using typeAheadField
                       // TypeAheadField(
@@ -266,148 +268,148 @@ int employeeId = 9;
                       // },
                       // )
                       /// Using future builder and autocomplete
-                      // FutureBuilder<List<SearchEmployeeProfileData>>(
-                      //   future: "Sujata".contains(RegExp(r'^[0-9]*$'))
-                      //       ? getSearchProfileById(
-                      //       context, 5, int.parse("Sujata"))
-                      //       : getSearchProfileByText(context, 5, "Sujata"),
-                      //   builder: (context,
-                      //       AsyncSnapshot<List<SearchEmployeeProfileData>>
-                      //       snapshot) {
-                      //     if (snapshot.connectionState ==
-                      //         ConnectionState.waiting) {
-                      //       return Shimmer.fromColors(
-                      //         baseColor: Colors.grey[300]!,
-                      //         highlightColor: Colors.grey[100]!,
-                      //         child: Padding(
-                      //           padding:
-                      //           const EdgeInsets.symmetric(horizontal: 1),
-                      //           child: Container(
-                      //             width: AppSize.s330,
-                      //             height: 30,
-                      //             decoration: BoxDecoration(
-                      //               color: ColorManager.faintGrey,
-                      //               borderRadius: BorderRadius.circular(10),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       );
-                      //     }
-                      //     if (snapshot.hasData) {
-                      //       List<String> options = snapshot.data!
-                      //           .map((data) => data.firstName)
-                      //           .where(
-                      //               (firstName) => firstName != null && firstName.isNotEmpty)
-                      //           .toList();
-                      //
-                      //       return Autocomplete<String>(
-                      //         optionsBuilder:
-                      //             (TextEditingValue textEditingValue) {
-                      //           if (textEditingValue.text.isEmpty) {
-                      //             return const Iterable<String>.empty();
-                      //           }
-                      //           return options.where((option) => option
-                      //               .toLowerCase()
-                      //               .contains(
-                      //               textEditingValue.text.toLowerCase()));
-                      //         },
-                      //         onSelected: (String selectedName) {
-                      //           // Handle selection
-                      //         },
-                      //         optionsViewBuilder: (BuildContext context,
-                      //             AutocompleteOnSelected<String> onSelected,
-                      //             Iterable<String> options) {
-                      //           return Align(
-                      //             alignment: Alignment.topLeft,
-                      //             child: Material(
-                      //               shape: const RoundedRectangleBorder(
-                      //                 borderRadius: BorderRadius.vertical(
-                      //                     bottom: Radius.circular(4.0)),
-                      //               ),
-                      //               child: Container(
-                      //                 constraints:
-                      //                 BoxConstraints(maxHeight: 230.0),
-                      //                 child: ListView.builder(
-                      //                   padding: EdgeInsets.zero,
-                      //                   itemCount: options.length,
-                      //                   itemBuilder:
-                      //                       (BuildContext context, int index) {
-                      //                     final String option =
-                      //                     options.elementAt(index);
-                      //                     return ListTile(
-                      //                       title: Text(
-                      //                         option,
-                      //                         style: GoogleFonts.firaSans(
-                      //                           fontSize: 12,
-                      //                           color: Color(0xff575757),
-                      //                           fontWeight: FontWeight.w400,
-                      //                         ),
-                      //                       ),
-                      //                       onTap: () {
-                      //                         onSelected(option);
-                      //                       },
-                      //                     );
-                      //                   },
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           );
-                      //         },
-                      //         fieldViewBuilder: (BuildContext context,
-                      //             TextEditingController textEditingController,
-                      //             FocusNode focusNode,
-                      //             VoidCallback onFieldSubmitted) {
-                      //           return TextFormField(
-                      //             controller: textEditingController,
-                      //             onChanged: (value) {
-                      //               setState(() {
-                      //                 employeeId = 2;
-                      //                 getSearchByEmployeeIdProfileByText(context,employeeId);
-                      //
-                      //               });
-                      //
-                      //             },
-                      //             textAlign: TextAlign.start,
-                      //             cursorHeight: 12,
-                      //             cursorColor: ColorManager.black,
-                      //             style: GoogleFonts.firaSans(
-                      //               fontSize: 12,
-                      //             ),
-                      //             textAlignVertical: TextAlignVertical.center,
-                      //             decoration: InputDecoration(
-                      //                 hintText: 'Search',
-                      //                 alignLabelWithHint: true,
-                      //                 hintStyle: GoogleFonts.firaSans(
-                      //                   fontSize: FontSize.s12,
-                      //                   fontWeight: FontWeightManager.regular,
-                      //                   color: ColorManager.mediumgrey,
-                      //                 ),
-                      //                 border: OutlineInputBorder(
-                      //                     borderRadius: BorderRadius.all(
-                      //                         Radius.circular(20))),
-                      //                 suffixIcon: IconButton(
-                      //                   icon: Center(
-                      //                     child: Icon(
-                      //                       Icons.search,
-                      //                       size: 18,
-                      //                     ),
-                      //                   ),
-                      //                   onPressed: () {},
-                      //                 ),
-                      //                 contentPadding: EdgeInsets.symmetric(
-                      //                     horizontal: 20, vertical: 5)),
-                      //           );
-                      //         },
-                      //       );
-                      //     }
-                      //     else if (snapshot.hasError) {
-                      //       print("Error: ${snapshot.error}");
-                      //       return Text("Error: ${snapshot.error}");
-                      //     } else {
-                      //       return Container();
-                      //     }
-                      //   },
-                      // ),
+                      FutureBuilder<List<SearchEmployeeProfileData>>(
+                        future: "Sujata".contains(RegExp(r'^[0-9]*$'))
+                            ? getSearchProfileById(
+                            context, 5, int.parse("Sujata"))
+                            : getSearchProfileByText(context, 5, "Sujata"),
+                        builder: (context,
+                            AsyncSnapshot<List<SearchEmployeeProfileData>>
+                            snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 1),
+                                child: Container(
+                                  width: AppSize.s330,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: ColorManager.faintGrey,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          if (snapshot.hasData) {
+                            List<String> options = snapshot.data!
+                                .map((data) => data.firstName)
+                                .where(
+                                    (firstName) => firstName != null && firstName.isNotEmpty)
+                                .toList();
+
+                            return Autocomplete<String>(
+                              optionsBuilder:
+                                  (TextEditingValue textEditingValue) {
+                                if (textEditingValue.text.isEmpty) {
+                                  return const Iterable<String>.empty();
+                                }
+                                return options.where((option) => option
+                                    .toLowerCase()
+                                    .contains(
+                                    textEditingValue.text.toLowerCase()));
+                              },
+                              onSelected: (String selectedName) {
+                                // Handle selection
+                              },
+                              optionsViewBuilder: (BuildContext context,
+                                  AutocompleteOnSelected<String> onSelected,
+                                  Iterable<String> options) {
+                                return Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Material(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          bottom: Radius.circular(4.0)),
+                                    ),
+                                    child: Container(
+                                      constraints:
+                                      BoxConstraints(maxHeight: 230.0),
+                                      child: ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        itemCount: options.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          final String option =
+                                          options.elementAt(index);
+                                          return ListTile(
+                                            title: Text(
+                                              option,
+                                              style: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              onSelected(option);
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              fieldViewBuilder: (BuildContext context,
+                                  TextEditingController textEditingController,
+                                  FocusNode focusNode,
+                                  VoidCallback onFieldSubmitted) {
+                                return TextFormField(
+                                  controller: textEditingController,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      employeeId = 2;
+                                      getSearchByEmployeeIdProfileByText(context,employeeId);
+
+                                    });
+
+                                  },
+                                  textAlign: TextAlign.start,
+                                  cursorHeight: 12,
+                                  cursorColor: ColorManager.black,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                  ),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  decoration: InputDecoration(
+                                      hintText: 'Search',
+                                      alignLabelWithHint: true,
+                                      hintStyle: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s12,
+                                        fontWeight: FontWeightManager.regular,
+                                        color: ColorManager.mediumgrey,
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20))),
+                                      suffixIcon: IconButton(
+                                        icon: Center(
+                                          child: Icon(
+                                            Icons.search,
+                                            size: 18,
+                                          ),
+                                        ),
+                                        onPressed: () {},
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 5)),
+                                );
+                              },
+                            );
+                          }
+                          else if (snapshot.hasError) {
+                            print("Error: ${snapshot.error}");
+                            return Text("Error: ${snapshot.error}");
+                          } else {
+                            return Container();
+                          }
+                        },
+                      ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 70,

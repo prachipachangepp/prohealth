@@ -98,7 +98,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           );
                           if (pickedDate != null) {
                             String formattedDate =
-                                DateFormat('dd/MM/yyyy').format(pickedDate);
+                                DateFormat('MM/dd/yyyy').format(pickedDate);
                             _controllerStartDate.text = formattedDate;
                           }
                         },
@@ -108,7 +108,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           size: 18,
                         ),
                         label: Text(
-                          'Start Date',
+                          _controllerStartDate.text == "" ?'Start Date':_controllerStartDate.text,
                           style: GoogleFonts.roboto(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -134,7 +134,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           );
                           if (pickedDate != null) {
                             String formattedDate =
-                                DateFormat('dd/MM/yyyy').format(pickedDate);
+                                DateFormat('MM/dd/yyyy').format(pickedDate);
                             _controllerEndDate.text = formattedDate;
                           }
                         },
@@ -144,7 +144,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           size: 18,
                         ),
                         label: Text(
-                          'End Date',
+                        _controllerEndDate.text == "" ?'End Date':_controllerEndDate.text,
                           style: GoogleFonts.roboto(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
