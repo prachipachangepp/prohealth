@@ -122,7 +122,8 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileById(
   List<SearchEmployeeProfileData> itemsData = [];
   try {
     final response = await Api(context)
-        .get(path: ProfileRepository.searchEmployeeProfileById(companyId: companyId, Id: employeeTypeId));
+        .get(path: ProfileRepository.searchEmployeeProfileById(
+        companyId: companyId, Id: employeeTypeId));
     if (response.statusCode == 200 || response.statusCode == 201) {
       for (var item in response.data) {
         String DateOfBirth = convertIsoToDayMonthYear(item['dateOfBirth']);
@@ -181,6 +182,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileById(
           position: item['position'] ?? '--',
           driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
           race: item['race'] ?? '--',
+
         ));
       }
       print("search data by Id");

@@ -4,7 +4,8 @@ class ProfileRepository {
   static String score = "GetProfileScore";
 
   /// search employee profile
-  static String searchEmployeeProfileByText({required int companyId, required String searchText}){
+  static String searchEmployeeProfileByText({
+    required int companyId, required String searchText}){
     return "$profilesearch/$companyId/$searchText";
   }
 
