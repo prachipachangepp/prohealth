@@ -143,6 +143,7 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                           //   child:
                                           //       Image.asset('images/profile.png'),
                                           // ),
+
                                           CircleAvatar(
                                             radius: MediaQuery.of(context).size.width / 50,
                                             backgroundImage: NetworkImage(snapshot.data![index].imgurl ?? 'images/profile.png'),
