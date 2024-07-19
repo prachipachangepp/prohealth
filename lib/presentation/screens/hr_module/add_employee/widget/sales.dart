@@ -88,6 +88,7 @@ class _SalesTabState extends State<SalesTab> {
   void initState() {
     super.initState();
     _fetchData();
+    _futureData = HrAddEmployeeget(context);
   }
 
   Future<void> _fetchData() async {
