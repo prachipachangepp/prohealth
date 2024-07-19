@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
@@ -39,7 +40,7 @@ class _generalFormState extends State<generalForm> {
   TextEditingController  lastname= TextEditingController();
   TextEditingController ssecuritynumber= TextEditingController();
   TextEditingController  phonenumber= TextEditingController();
-  TextEditingController  dphonenumber= TextEditingController();
+  // TextEditingController  phonenumber= TextEditingController();
   TextEditingController  personalemail= TextEditingController();
   TextEditingController  driverlicensenumb= TextEditingController();
   TextEditingController  address= TextEditingController();
@@ -59,8 +60,15 @@ class _generalFormState extends State<generalForm> {
   String? _selectedSpeciality;
   String? _selectedDegree;
   late bool _passwordVisible = false;
-  String? _selectedType;
-  String? _selectedType1;
+  String? _genderTypeM;
+  String? _genderTypeF;
+  String? _genderTypeO;
+  String? _raceTypeA;
+  String? _raceTypeB;
+  String? _raceTypeW;
+  String? _raceTypeO;
+  String? _raceTypeH;
+
 
 
 
@@ -384,30 +392,30 @@ class _generalFormState extends State<generalForm> {
                             CustomRadioListTile(
                               title: 'Male',
                               value: 'male',
-                              groupValue: _selectedType,
+                              groupValue: _genderTypeM,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedType = value;
+                                  _genderTypeM = value;
                                 });
                               },
                             ),
                             CustomRadioListTile(
                               title: 'Female',
                               value: 'Female',
-                              groupValue: _selectedType,
+                              groupValue: _genderTypeF,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedType = value;
+                                  _genderTypeF = value;
                                 });
                               },
                             ),
                             CustomRadioListTile(
                               title: 'Other',
                               value: 'Other',
-                              groupValue: _selectedType,
+                              groupValue: _genderTypeO,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedType = value;
+                                  _genderTypeO = value;
                                 });
                               },
                             ),
@@ -503,30 +511,30 @@ class _generalFormState extends State<generalForm> {
                             CustomRadioListTile(
                               title: 'Asian',
                               value: 'Asian',
-                              groupValue: _selectedType,
+                              groupValue: _raceTypeA,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedType = value;
+                                  _raceTypeA = value;
                                 });
                               },
                             ),
                             CustomRadioListTile(
                               title: 'White',
                               value: 'White',
-                              groupValue: _selectedType,
+                              groupValue: _raceTypeW,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedType = value;
+                                  _raceTypeW = value;
                                 });
                               },
                             ),
                             CustomRadioListTile(
                               title: 'Hispanic or Latino',
                               value: 'Hispanic or Latino',
-                              groupValue: _selectedType,
+                              groupValue: _raceTypeH,
                               onChanged: (value) {
                                 setState(() {
-                                  _selectedType = value;
+                                  _raceTypeH = value;
                                 });
                               },
                             ),
@@ -539,24 +547,24 @@ class _generalFormState extends State<generalForm> {
                           CustomRadioListTile(
                             title: 'Black or African American',
                             value: 'Black or African American',
-                            groupValue: _selectedType,
+                            groupValue: _raceTypeB,
                             onChanged: (value) {
                               setState(() {
-                                _selectedType = value;
+                                _raceTypeB = value;
                               });
                             },
                           ),
                           CustomRadioListTile(
                             title: 'Other',
                             value: 'Other',
-                            groupValue: _selectedType,
+                            groupValue: _raceTypeO,
                             onChanged: (value) {
                               setState(() {
-                                _selectedType = value;
+                                _raceTypeO = value;
                               });
                             },
                           ),
-                         // const Text("                 ")
+                         SizedBox(width: 1,)
                         ],
                       ),
                       SizedBox(
@@ -576,6 +584,7 @@ class _generalFormState extends State<generalForm> {
                         height: 32,
                         child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(
+
                             hintText: 'Select Clinician',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -687,66 +696,53 @@ class _generalFormState extends State<generalForm> {
               ],
             ),
           ),
+          SizedBox(
+              height:
+              MediaQuery.of(context).size.height / 20),
           
-          // Row(
-          //   children: [
-          //
-          //       ElevatedButton.icon(
-          //         style: ElevatedButton.styleFrom(
-          //           backgroundColor: Colors.white,
-          //           foregroundColor: const Color(0xff1696C8),
-          //           side: const BorderSide(
-          //               color: Color(0xff1696C8)),
-          //           shape: RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(8),
-          //           ),
-          //         ),
-          //         onPressed:(){},
-          //         label: Text(
-          //           "Back",
-          //           style: GoogleFonts.firaSans(
-          //             fontSize: 14.0,
-          //             fontWeight: FontWeight.w700,
-          //             //color: Colors.white,
-          //           ),
-          //         ),
-          //         icon: const Icon(Icons.arrow_back),
-          //       ),
-          //
-          //     const SizedBox(
-          //       width: 20,
-          //     ),
-          //     ElevatedButton.icon(
-          //       style: ElevatedButton.styleFrom(
-          //         backgroundColor: const Color(0xff1696C8),
-          //         foregroundColor: Colors.white,
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(8),
-          //         ),
-          //       ),
-          //       onPressed:
-          //           (){
-          //
-          //             Navigator.push(
-          //               context,
-          //               MaterialPageRoute(builder: (context) => EducationScreen(context: Text(""),)),
-          //             );
-          //       },
-          //       label: Text(
-          //         'Continue',
-          //         style: GoogleFonts.firaSans(
-          //           fontSize: 14.0,
-          //           fontWeight: FontWeight.w700,
-          //           color: Colors.white,
-          //         ),
-          //       ),
-          //       icon: const Icon(Icons.arrow_forward),
-          //     ),
-          //   ],
-          // )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:  Color(0xff1696C8),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed:
+                    () async {
+                  await postgeneralscreen(context, "__" , 0, firstname.text, lastname.text, 0 ,0, "__", 0, 0, 0, ssecuritynumber.text, phonenumber.text, "__", "__", "__",  personalemail.text, "__", address.text, "__", "__", "__", "__", "__", "__", "__", "__", 0, "__",  phonenumber.text, "__", "__", "__", "__", "__", 0, 0,0, "__","__","__");
+
+                },
+                child: Text(
+                  'Save',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+
+              ),
+            ],
+          )
           
         ],
       ),
     );
   }
 }
+
+TextEditingController _dobcontroller = TextEditingController();
+
+TextEditingController firstname = TextEditingController();
+TextEditingController  lastname= TextEditingController();
+TextEditingController ssecuritynumber= TextEditingController();
+TextEditingController  phonenumber= TextEditingController();
+
+TextEditingController  personalemail= TextEditingController();
+TextEditingController  driverlicensenumb= TextEditingController();
+TextEditingController  address= TextEditingController();

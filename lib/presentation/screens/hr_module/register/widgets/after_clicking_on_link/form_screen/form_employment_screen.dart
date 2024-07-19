@@ -1,7 +1,9 @@
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_employment_manager.dart';
 
 import '../../../taxtfield_constant.dart';
 
@@ -30,11 +32,11 @@ class _Employment_screenState extends State<Employment_screen> {
   TextEditingController firstName = TextEditingController();
 
   /////
-  TextEditingController _controller = TextEditingController();
-  TextEditingController _controllerIssueDate = TextEditingController();
-  TextEditingController _controllerExpirationDate = TextEditingController();
+  TextEditingController _controllersod = TextEditingController();
+  TextEditingController _controllereod = TextEditingController();
 
-  // Current step in the stepper
+
+  // Current step in the stepper0[
   int _currentStep = 0;
 
   bool isChecked = false;
@@ -43,15 +45,14 @@ class _Employment_screenState extends State<Employment_screen> {
 
 
   bool isCompleted = false;
-  String? _selectedCountry;
-  String? _selectedClinician;
-  String? _selectedSpeciality;
-  String? _selectedDegree;
-  late bool _passwordVisible = false;
-  String? _selectedType;
-  String? _selectedType1;
 
 
+  TextEditingController finalposition = TextEditingController();
+  TextEditingController  employer= TextEditingController();
+  TextEditingController rforleaving = TextEditingController();
+  TextEditingController lSupervisorName = TextEditingController();
+  TextEditingController supervisormobnum = TextEditingController();
+  TextEditingController city = TextEditingController();
 
 
 
@@ -180,6 +181,7 @@ class _Employment_screenState extends State<Employment_screen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                           controller: finalposition,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -202,7 +204,7 @@ class _Employment_screenState extends State<Employment_screen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
-                            controller: _controller,
+                            controller: _controllersod,
                             hintText: 'dd-mm-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -225,7 +227,7 @@ class _Employment_screenState extends State<Employment_screen> {
                                   lastDate: DateTime(2101),
                                 );
                                 if (pickedDate != null) {
-                                  _controller.text =
+                                  _controllersod.text =
                                       "${pickedDate.toLocal()}"
                                           .split(' ')[0];
                                 }
@@ -246,7 +248,7 @@ class _Employment_screenState extends State<Employment_screen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
-                            controller: _controller,
+                            controller: _controllereod,
                             hintText: 'dd-mm-yyyy',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -269,7 +271,7 @@ class _Employment_screenState extends State<Employment_screen> {
                                   lastDate: DateTime(2101),
                                 );
                                 if (pickedDate != null) {
-                                  _controller.text =
+                                  _controllereod.text =
                                       "${pickedDate.toLocal()}"
                                           .split(' ')[0];
                                 }
@@ -310,6 +312,7 @@ class _Employment_screenState extends State<Employment_screen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            controller: employer,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -341,6 +344,7 @@ class _Employment_screenState extends State<Employment_screen> {
                             height:
                                 MediaQuery.of(context).size.height / 60),
                         CustomTextFieldRegister(
+                          controller: rforleaving,
                           hintText: 'Enter Text',
                           hintStyle: GoogleFonts.firaSans(
                             fontSize: 10.0,
@@ -363,6 +367,7 @@ class _Employment_screenState extends State<Employment_screen> {
                             height:
                                 MediaQuery.of(context).size.height / 60),
                         CustomTextFieldRegister(
+                          controller: lSupervisorName,
                           hintText: 'Enter Text',
                           hintStyle: GoogleFonts.firaSans(
                             fontSize: 10.0,
@@ -385,6 +390,7 @@ class _Employment_screenState extends State<Employment_screen> {
                             height:
                                 MediaQuery.of(context).size.height / 60),
                         CustomTextFieldRegister(
+                          controller: supervisormobnum,
                           hintText: 'Enter Text',
                           hintStyle: GoogleFonts.firaSans(
                             fontSize: 10.0,
@@ -407,6 +413,7 @@ class _Employment_screenState extends State<Employment_screen> {
                             height:
                                 MediaQuery.of(context).size.height / 60),
                         CustomTextFieldRegister(
+                          controller: city,
                           hintText: 'Enter Text',
                           hintStyle: GoogleFonts.firaSans(
                             fontSize: 10.0,
@@ -448,7 +455,36 @@ class _Employment_screenState extends State<Employment_screen> {
                 ),
               ],
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:  Color(0xff1696C8),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed:
+                    () async {
+                 await postemploymentscreen(context, 0, employer.text, city.text,  rforleaving.text, lSupervisorName.text, supervisormobnum.text, finalposition.text, "__", "__");
+                },
+                child: Text(
+                  'Save',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+
+              ),
+            ],
           )
+          
         ],
       ),
     );

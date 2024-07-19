@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_education_manager.dart';
 
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../taxtfield_constant.dart';
@@ -28,12 +29,7 @@ class _EducationScreenState extends State<EducationScreen> {
   double textFieldWidth = 430;
   double textFieldHeight = 38;
 
-  TextEditingController firstName = TextEditingController();
 
-  /////
-  TextEditingController _controller = TextEditingController();
-  TextEditingController _controllerIssueDate = TextEditingController();
-  TextEditingController _controllerExpirationDate = TextEditingController();
 
   // Current step in the stepper
   int _currentStep = 0;
@@ -43,17 +39,20 @@ class _EducationScreenState extends State<EducationScreen> {
   bool get isFirstStep => _currentStep == 0;
 
 
-  bool isCompleted = false;
-  String? _selectedCountry;
-  String? _selectedClinician;
-  String? _selectedSpeciality;
+
   String? _selectedDegree;
-  late bool _passwordVisible = false;
-  String? _selectedType;
-  String? _selectedType1;
+
+  String? _selectedTypeY;
+  String? _selectedTypeN;
 
 
 
+
+TextEditingController  collegeuniversity = TextEditingController();
+TextEditingController   majorsubject = TextEditingController();
+TextEditingController   phone = TextEditingController();
+TextEditingController  city = TextEditingController();
+TextEditingController  state = TextEditingController();
 
 
 
@@ -125,6 +124,7 @@ class _EducationScreenState extends State<EducationScreen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            controller: collegeuniversity,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -149,10 +149,10 @@ class _EducationScreenState extends State<EducationScreen> {
                                   child: CustomRadioListTile(
                                 title: 'Yes',
                                 value: 'Yes',
-                                groupValue: _selectedType,
+                                groupValue: _selectedTypeY,
                                 onChanged: (value) {
                                   setState(() {
-                                    _selectedType = value;
+                                    _selectedTypeY = value;
                                   });
                                 },
                               )),
@@ -160,10 +160,10 @@ class _EducationScreenState extends State<EducationScreen> {
                                 child: CustomRadioListTile(
                                   title: 'No',
                                   value: 'No',
-                                  groupValue: _selectedType,
+                                  groupValue: _selectedTypeN,
                                   onChanged: (value) {
                                     setState(() {
-                                      _selectedType = value;
+                                      _selectedTypeN = value;
                                     });
                                   },
                                 ),
@@ -246,6 +246,7 @@ class _EducationScreenState extends State<EducationScreen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            controller: majorsubject,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -274,6 +275,7 @@ class _EducationScreenState extends State<EducationScreen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            controller: phone,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -296,6 +298,7 @@ class _EducationScreenState extends State<EducationScreen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            controller: city,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -318,6 +321,7 @@ class _EducationScreenState extends State<EducationScreen> {
                               height: MediaQuery.of(context).size.height /
                                   60),
                           CustomTextFieldRegister(
+                            controller: state,
                             hintText: 'Enter Text',
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
@@ -409,6 +413,30 @@ class _EducationScreenState extends State<EducationScreen> {
                 ),
               ],
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff1696C8),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed: () async {
+                  await posteducationscreen(context, 0, "__", "__", majorsubject.text, city.text, collegeuniversity.text, phone.text, state.text, "__"); },
+                child: Text(
+                  'Save',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
