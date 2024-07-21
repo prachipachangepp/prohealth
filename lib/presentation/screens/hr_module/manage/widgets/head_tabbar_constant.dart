@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 import '../controller/controller.dart';
 
@@ -19,17 +21,20 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
               child: TabBar(
                 controller: controller.tabController,
                 tabs: controller.tabs,
-                isScrollable: false,
                 indicatorWeight: 6,
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicatorColor: Color(0xFF50B5E5),
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
+                indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(width: 6, color: Color(0xFF50B5E5)),
+                    borderRadius: BorderRadius.circular(13)),
+               indicatorSize: TabBarIndicatorSize.tab,
                 labelColor: Color(0xFF50B5E5),
-                labelStyle: TextStyle(
-                  fontFamily: 'FiraSans',
+                labelStyle: GoogleFonts.firaSans(
                   fontSize: 12,
-                  fontWeight: FontWeight.w700,
+                  fontWeight:
+                  FontWeight.w700,
                 ),
-                unselectedLabelColor: Colors.black,
+                unselectedLabelColor: ColorManager.textPrimaryColor,
                 dividerColor: Colors.transparent,
               ),
             ),
