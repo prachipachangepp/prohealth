@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -21,7 +19,6 @@ import 'package:prohealth/presentation/screens/hr_module/register/register_scree
 import 'package:prohealth/presentation/screens/hr_module/see_all_hr/see_all_hr_screen.dart';
 import 'package:prohealth/presentation/widgets/app_bar/app_bar.dart';
 import 'package:prohealth/presentation/widgets/widgets/const_appbar/controller.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomeHrScreen extends StatefulWidget {
   const HomeHrScreen({super.key});
@@ -31,7 +28,7 @@ class HomeHrScreen extends StatefulWidget {
 }
 
 class _HomeHrScreenState extends State<HomeHrScreen> {
-  final PageController _pageController = PageController();
+  PageController _pageController = PageController();
   final SMController smController = Get.put(SMController());
   late final String? dropdownValue;
   late final ValueChanged<String?>? onChanged;
@@ -39,14 +36,101 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
   late final VoidCallback? onItem2Selected;
   bool showSelectOption = true;
   final ButtonSelectionController myController =
-  Get.put(ButtonSelectionController());
+      Get.put(ButtonSelectionController());
   String selectedOption = 'Select';
   TextEditingController searchController = TextEditingController();
   Future<List<SearchEmployeeProfileData>>? _searchFuture;
 
+  TextEditingController _controller = TextEditingController();
+  OverlayEntry? _overlayEntry;
+  List<String> _searchResults = [];
 
+  final LayerLink _layerLink = LayerLink();
+  List<SearchEmployeeProfileData> data = [];
 
-int employeeId = 9;
+  OverlayEntry _createOverlayEntry() {
+    RenderBox renderBox = context.findRenderObject() as RenderBox;
+
+    return OverlayEntry(
+      builder: (context) => Positioned(
+        width: 330,
+        child: CompositedTransformFollower(
+          link: _layerLink,
+          showWhenUnlinked: true,
+          offset: Offset(0.0, 40),
+          child: Material(
+            elevation: 4.0,
+            child: Column(
+              children: [
+                ..._searchResults.map((result) => ListTile(
+                      title: Text(
+                        result,
+                        style: GoogleFonts.firaSans(
+                          fontSize: FontSize.s12,
+                          fontWeight: FontWeightManager.regular,
+                          color: ColorManager.mediumgrey,
+                        ),
+                      ),
+                      onTap: () {
+                        _controller.text = result;
+                        int id = 0;
+                        for (var e in data) {
+                          if (result == e.firstName + " " + e.lastName) {
+                            id = e.employeeId;
+                          }
+                        }
+                        _removeOverlay();
+                        setState(() {
+                          employeeId = id;
+                          myController.selectButton(1);
+                          _pageController = PageController(initialPage: 1);
+                        });
+                      },
+                    )),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _search(String query) async {
+    if (query.isEmpty) {
+      setState(() {
+        _searchResults = [];
+        _removeOverlay();
+      });
+      return;
+    }
+
+    // Replace with your API endpoint
+
+    data = await getSearchProfileByText(context, 5, query);
+
+    _searchResults = data.map((e) => e.firstName + " " + e.lastName).toList();
+    print(_searchResults);
+    _showOverlay();
+  }
+
+  void _showOverlay() {
+    if (_overlayEntry != null) {
+      _overlayEntry!.remove();
+    }
+
+    _overlayEntry = _createOverlayEntry();
+    Overlay.of(context)!.insert(_overlayEntry!);
+  }
+
+  void _removeOverlay() {
+    if (_overlayEntry != null) {
+      _overlayEntry!.remove();
+      _overlayEntry = null;
+    }
+  }
+
+  int employeeId = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +152,7 @@ int employeeId = 9;
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
                         width: 100,
                         onPressed: () {
@@ -86,7 +170,7 @@ int employeeId = 9;
                       width: MediaQuery.of(context).size.width / 55,
                     ),
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
                         width: 140,
                         onPressed: () {
@@ -103,7 +187,7 @@ int employeeId = 9;
                       width: MediaQuery.of(context).size.width / 55,
                     ),
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                           height: 30,
                           width: 140,
                           onPressed: () {
@@ -119,7 +203,7 @@ int employeeId = 9;
                       width: MediaQuery.of(context).size.width / 55,
                     ),
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
                         width: 140,
                         onPressed: () {
@@ -136,7 +220,7 @@ int employeeId = 9;
                       width: MediaQuery.of(context).size.width / 55,
                     ),
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
                         width: 140,
                         onPressed: () {
@@ -157,322 +241,212 @@ int employeeId = 9;
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(5),
-                      width: AppSize.s330,
-                      height: 40,
-                      child:
-                        /// formated text field
-                      // TextFormField(
-                      //   controller: searchController,
-                      //   // focusNode: focusNode,
-                      //   // autofocus: true,
-                      //   onChanged: (value) {
-                      //     setState(() {
-                      //       //getSearchProfileById(context, 5, int.parse(name.toString()));
-                      //       // employeeId = value == "" ? 0 :int.parse(value.toString());
-                      //       // getSearchByEmployeeIdProfileByText(context,employeeId);
-                      //       // employeeId = 2;
-                      //       // getSearchByEmployeeIdProfileByText(context,employeeId);
-                      //     });
-                      //   },
-                      //   textAlign: TextAlign.start,
-                      //   cursorHeight: 14,
-                      //   cursorColor: ColorManager.black,
-                      //   style: GoogleFonts.firaSans(
-                      //     fontSize: 12,
-                      //   ),
-                      //   textAlignVertical: TextAlignVertical.center,
-                      //   decoration: InputDecoration(
-                      //       hintText: 'Search',
-                      //       alignLabelWithHint: true,
-                      //       hintStyle: GoogleFonts.firaSans(
-                      //         fontSize: FontSize.s12,
-                      //         fontWeight: FontWeightManager.regular,
-                      //         color: ColorManager.mediumgrey,
-                      //       ),
-                      //       border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.all(
-                      //               Radius.circular(20))),
-                      //       suffixIcon: IconButton(
-                      //         icon: Center(
-                      //           child: Icon(
-                      //             Icons.search,
-                      //             size: 18,
-                      //           ),
-                      //         ),
-                      //         onPressed: () {},
-                      //       ),
-                      //       contentPadding: EdgeInsets.symmetric(
-                      //           horizontal: 20, vertical: 5)),
-                      // ),
-
-                      /// using typeAheadField
-                      // TypeAheadField(
-                      //   controller: searchController,
-                      //   suggestionsCallback: (name){
-                      //     getSearchProfileByText(context, 5, name);
-                      //
-                      //   },
-                      //   builder:(context, controller, focusNode) {
-                      //     return TextFormField(
-                      //       controller: controller,
-                      //       focusNode: focusNode,
-                      //       autofocus: true,
-                      //       onChanged: (value) {
-                      //         setState(() {
-                      //           //getSearchProfileById(context, 5, int.parse(name.toString()));
-                      //           employeeId = value == "" ? 0 :int.parse(value.toString());
-                      //           getSearchByEmployeeIdProfileByText(context,employeeId);
-                      //           // employeeId = 2;
-                      //           // getSearchByEmployeeIdProfileByText(context,employeeId);
-                      //         });
-                      //       },
-                      //       textAlign: TextAlign.start,
-                      //       cursorHeight: 12,
-                      //       cursorColor: ColorManager.black,
-                      //       style: GoogleFonts.firaSans(
-                      //         fontSize: 12,
-                      //       ),
-                      //       textAlignVertical: TextAlignVertical.center,
-                      //       decoration: InputDecoration(
-                      //           hintText: 'Search',
-                      //           alignLabelWithHint: true,
-                      //           hintStyle: GoogleFonts.firaSans(
-                      //             fontSize: FontSize.s12,
-                      //             fontWeight: FontWeightManager.regular,
-                      //             color: ColorManager.mediumgrey,
-                      //           ),
-                      //           border: OutlineInputBorder(
-                      //               borderRadius: BorderRadius.all(
-                      //                   Radius.circular(20))),
-                      //           suffixIcon: IconButton(
-                      //             icon: Center(
-                      //               child: Icon(
-                      //                 Icons.search,
-                      //                 size: 18,
-                      //               ),
-                      //             ),
-                      //             onPressed: () {},
-                      //           ),
-                      //           contentPadding: EdgeInsets.symmetric(
-                      //               horizontal: 20, vertical: 5)),
-                      //     );
-                      //   },
-                      //     itemBuilder: (context, String value) {
-                      //     print("::::::${value}");
-                      //   return ListTile(
-                      //     title: Text(value),
-                      //   );
-                      // }, onSelected: (value) {
-                      //     searchController.text = value;
-                      // },
-                      // )
-                      /// Using future builder and autocomplete
-                      FutureBuilder<List<SearchEmployeeProfileData>>(
-                        future: "Sujata".contains(RegExp(r'^[0-9]*$'))
-                            ? getSearchProfileById(
-                            context, 5, int.parse("Sujata"))
-                            : getSearchProfileByText(context, 5, "Sujata"),
-                        builder: (context,
-                            AsyncSnapshot<List<SearchEmployeeProfileData>>
-                            snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 1),
-                                child: Container(
-                                  width: AppSize.s330,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.faintGrey,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                        padding: EdgeInsets.all(5),
+                        width: AppSize.s330,
+                        height: 40,
+                        child: CompositedTransformTarget(
+                          link: _layerLink,
+                          child: TextField(
+                            controller: _controller,
+                            style: GoogleFonts.firaSans(fontSize: 12),
+                            onChanged: _search,
+                            decoration: InputDecoration(
+                                hintText: 'Search',
+                                alignLabelWithHint: true,
+                                hintStyle: GoogleFonts.firaSans(
+                                  fontSize: FontSize.s12,
+                                  fontWeight: FontWeightManager.regular,
+                                  color: ColorManager.mediumgrey,
                                 ),
-                              ),
-                            );
-                          }
-                          if (snapshot.hasData) {
-                            List<String> options = snapshot.data!
-                                .map((data) => data.firstName)
-                                .where(
-                                    (firstName) => firstName != null && firstName.isNotEmpty)
-                                .toList();
-
-                            return Autocomplete<String>(
-                              optionsBuilder:
-                                  (TextEditingValue textEditingValue) {
-                                if (textEditingValue.text.isEmpty) {
-                                  return const Iterable<String>.empty();
-                                }
-                                return options.where((option) => option
-                                    .toLowerCase()
-                                    .contains(
-                                    textEditingValue.text.toLowerCase()));
-                              },
-                              onSelected: (String selectedName) {
-                                // Handle selection
-                              },
-                              optionsViewBuilder: (BuildContext context,
-                                  AutocompleteOnSelected<String> onSelected,
-                                  Iterable<String> options) {
-                                return Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Material(
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                          bottom: Radius.circular(4.0)),
-                                    ),
-                                    child: Container(
-                                      constraints:
-                                      BoxConstraints(maxHeight: 230.0),
-                                      child: ListView.builder(
-                                        padding: EdgeInsets.zero,
-                                        itemCount: options.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          final String option =
-                                          options.elementAt(index);
-                                          return ListTile(
-                                            title: Text(
-                                              option,
-                                              style: GoogleFonts.firaSans(
-                                                fontSize: 12,
-                                                color: Color(0xff575757),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              onSelected(option);
-                                            },
-                                          );
-                                        },
-                                      ),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                suffixIcon: IconButton(
+                                  icon: Center(
+                                    child: Icon(
+                                      Icons.search,
+                                      size: 18,
                                     ),
                                   ),
-                                );
-                              },
-                              fieldViewBuilder: (BuildContext context,
-                                  TextEditingController textEditingController,
-                                  FocusNode focusNode,
-                                  VoidCallback onFieldSubmitted) {
-                                return TextFormField(
-                                  controller: textEditingController,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      employeeId = 2;
-                                      getSearchByEmployeeIdProfileByText(context,employeeId);
+                                  onPressed: () {},
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 5)),
+                          ),
+                        )),
 
-                                    });
+                    /// formated text field
+                    //     TextFormField(
+                    //   controller: searchController,
+                    //   // focusNode: focusNode,
+                    //   // autofocus: true,
+                    //   onChanged: (value) {
+                    //     setState(() {
+                    //       getSearchProfileByText(
+                    //           context, 5, searchController.text);
+                    //       employeeId =
+                    //           value == "" ? 0 : int.parse(value.toString());
+                    //       getSearchByEmployeeIdProfileByText(
+                    //           context, employeeId);
+                    //       employeeId = 2;
+                    //       getSearchByEmployeeIdProfileByText(
+                    //           context, employeeId);
+                    //     });
+                    //   },
+                    //   textAlign: TextAlign.start,
+                    //   cursorHeight: 14,
+                    //   cursorColor: ColorManager.black,
+                    //   style: GoogleFonts.firaSans(
+                    //     fontSize: 12,
+                    //   ),
+                    //   textAlignVertical: TextAlignVertical.center,
+                    //   decoration: InputDecoration(
+                    //       hintText: 'Search',
+                    //       alignLabelWithHint: true,
+                    //       hintStyle: GoogleFonts.firaSans(
+                    //         fontSize: FontSize.s12,
+                    //         fontWeight: FontWeightManager.regular,
+                    //         color: ColorManager.mediumgrey,
+                    //       ),
+                    //       border: OutlineInputBorder(
+                    //           borderRadius:
+                    //               BorderRadius.all(Radius.circular(20))),
+                    //       suffixIcon: IconButton(
+                    //         icon: Center(
+                    //           child: Icon(
+                    //             Icons.search,
+                    //             size: 18,
+                    //           ),
+                    //         ),
+                    //         onPressed: () {},
+                    //       ),
+                    //       contentPadding: EdgeInsets.symmetric(
+                    //           horizontal: 20, vertical: 5)),
+                    // ),
 
-                                  },
-                                  textAlign: TextAlign.start,
-                                  cursorHeight: 12,
-                                  cursorColor: ColorManager.black,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                  ),
-                                  textAlignVertical: TextAlignVertical.center,
-                                  decoration: InputDecoration(
-                                      hintText: 'Search',
-                                      alignLabelWithHint: true,
-                                      hintStyle: GoogleFonts.firaSans(
-                                        fontSize: FontSize.s12,
-                                        fontWeight: FontWeightManager.regular,
-                                        color: ColorManager.mediumgrey,
-                                      ),
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      suffixIcon: IconButton(
-                                        icon: Center(
-                                          child: Icon(
-                                            Icons.search,
-                                            size: 18,
-                                          ),
-                                        ),
-                                        onPressed: () {},
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 5)),
-                                );
-                              },
-                            );
-                          }
-                          else if (snapshot.hasError) {
-                            print("Error: ${snapshot.error}");
-                            return Text("Error: ${snapshot.error}");
-                          } else {
-                            return Container();
-                          }
-                        },
-                      ),
-                    ),
+                    /// using typeAheadField
+                    // TypeAheadField(
+                    //   controller: searchController,
+                    //   suggestionsCallback: (name){
+                    //     getSearchProfileByText(context, 5, name);
+                    //
+                    //   },
+                    //   builder:(context, controller, focusNode) {
+                    //     return TextFormField(
+                    //       controller: controller,
+                    //       focusNode: focusNode,
+                    //       autofocus: true,
+                    //       onChanged: (value) {
+                    //         setState(() {
+                    //           //getSearchProfileById(context, 5, int.parse(name.toString()));
+                    //           employeeId = value == "" ? 0 :int.parse(value.toString());
+                    //           getSearchByEmployeeIdProfileByText(context,employeeId);
+                    //           // employeeId = 2;
+                    //           // getSearchByEmployeeIdProfileByText(context,employeeId);
+                    //         });
+                    //       },
+                    //       textAlign: TextAlign.start,
+                    //       cursorHeight: 12,
+                    //       cursorColor: ColorManager.black,
+                    //       style: GoogleFonts.firaSans(
+                    //         fontSize: 12,
+                    //       ),
+                    //       textAlignVertical: TextAlignVertical.center,
+                    //       decoration: InputDecoration(
+                    //           hintText: 'Search',
+                    //           alignLabelWithHint: true,
+                    //           hintStyle: GoogleFonts.firaSans(
+                    //             fontSize: FontSize.s12,
+                    //             fontWeight: FontWeightManager.regular,
+                    //             color: ColorManager.mediumgrey,
+                    //           ),
+                    //           border: OutlineInputBorder(
+                    //               borderRadius: BorderRadius.all(
+                    //                   Radius.circular(20))),
+                    //           suffixIcon: IconButton(
+                    //             icon: Center(
+                    //               child: Icon(
+                    //                 Icons.search,
+                    //                 size: 18,
+                    //               ),
+                    //             ),
+                    //             onPressed: () {},
+                    //           ),
+                    //           contentPadding: EdgeInsets.symmetric(
+                    //               horizontal: 20, vertical: 5)),
+                    //     );
+                    //   },
+                    //     itemBuilder: (context, String value) {
+                    //     print("::::::${value}");
+                    //   return ListTile(
+                    //     title: Text(value),
+                    //   );
+                    // }, onSelected: (value) {
+                    //     searchController.text = value;
+                    // },
+                    // )
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 70,
                     ),
                     MediaQuery.of(context).size.width >= 1100
                         ? Row(
-                      children: [
-                        Container(
-                          width: 37,
-                          height: 25,
-                          decoration: BoxDecoration(
-                            color: ColorManager.white,
-                            borderRadius: BorderRadius.circular(9),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x40000000),
-                                offset: Offset(0, 4),
-                                blurRadius: 4,
-                              ),
-                            ],
-                          ),
-                          child: InkWell(
-                            onTap: () {},
-                            child: Center(
-                              child: SvgPicture.asset(
-                                  'images/menuLines.svg'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 90,
-                        ),
-                        Container(
-                          width: 32,
-                          height: 25,
-                          decoration: BoxDecoration(
-                            color: ColorManager.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x40000000),
-                                offset: Offset(0, 4),
-                                blurRadius: 4,
-                              ),
-                            ],
-                          ),
-                          child: InkWell(
-                            onTap: () {},
-                            child: Center(
-                              child: Text(
-                                'DZ',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: FontSize.s11,
-                                  fontWeight: FontWeightManager.regular,
-                                  color: ColorManager.black,
+                            children: [
+                              Container(
+                                width: 37,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.white,
+                                  borderRadius: BorderRadius.circular(9),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x40000000),
+                                      offset: Offset(0, 4),
+                                      blurRadius: 4,
+                                    ),
+                                  ],
+                                ),
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                        'images/menuLines.svg'),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 90,
+                              ),
+                              Container(
+                                width: 32,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x40000000),
+                                      offset: Offset(0, 4),
+                                      blurRadius: 4,
+                                    ),
+                                  ],
+                                ),
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: Center(
+                                    child: Text(
+                                      'DZ',
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.firaSans(
+                                        fontSize: FontSize.s11,
+                                        fontWeight: FontWeightManager.regular,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
                         : SizedBox(width: 1),
                   ],
                 ),
@@ -483,7 +457,7 @@ int employeeId = 9;
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Obx(
-                          () => CustomTitleButton(
+                      () => CustomTitleButton(
                         height: 30,
                         width: 140,
                         onPressed: () {
@@ -507,29 +481,37 @@ int employeeId = 9;
           Expanded(
             flex: 8,
             child: FutureBuilder<SearchByEmployeeIdProfileData>(
-                future: getSearchByEmployeeIdProfileByText(context,employeeId),
-                builder: (context,snapshot) {
-                  if(snapshot.connectionState == ConnectionState.waiting){
-                    return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                future: getSearchByEmployeeIdProfileByText(context, employeeId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime,
+                      ),
+                    );
                   }
                   if (employeeId == 0) {
                     return Center(
                         child: Text(
-                          AppString.dataNotFound,
-                          style: CustomTextStylesCommon.commonStyle(
-                              fontWeight: FontWeightManager.medium,
-                              fontSize: FontSize.s12,
-                              color: ColorManager.mediumgrey),
-                        ));
+                      AppString.dataNotFound,
+                      style: CustomTextStylesCommon.commonStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: FontSize.s12,
+                          color: ColorManager.mediumgrey),
+                    ));
                   }
-                  if(snapshot.hasData){
-                    SearchByEmployeeIdProfileData searchByEmployeeIdProfileData = snapshot.data!;
+                  if (snapshot.hasData) {
+                    SearchByEmployeeIdProfileData
+                        searchByEmployeeIdProfileData = snapshot.data!;
                     return PageView(
                       controller: _pageController,
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        DashBoardScreen(searchByEmployeeIdProfileData: searchByEmployeeIdProfileData,),
-                        ManageScreen(searchByEmployeeIdProfileData: searchByEmployeeIdProfileData,),
+                        DashBoardScreen(),
+                        ManageScreen(
+                          searchByEmployeeIdProfileData:
+                              searchByEmployeeIdProfileData,
+                        ),
                         AddEmployeeHomeScreen(),
                         RegisterScreen(),
                         NewOnboardScreen(),
@@ -537,9 +519,8 @@ int employeeId = 9;
                       ],
                     );
                   }
-                  return SizedBox();
-                }
-            ),
+                  return Container();
+                }),
           ),
           // BottomAppBar()
         ],
@@ -547,4 +528,3 @@ int employeeId = 9;
     );
   }
 }
- 

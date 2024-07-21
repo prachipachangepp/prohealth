@@ -138,17 +138,17 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                        // crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          // CircleAvatar(
-                                          //   radius: MediaQuery.of(context).size.width/50,
-                                          //   child:
-                                          //       Image.asset('images/profile.png'),
-                                          // ),
-
                                           CircleAvatar(
-                                            radius: MediaQuery.of(context).size.width / 50,
-                                            backgroundImage: NetworkImage(snapshot.data![index].imgurl ?? 'images/profile.png'),
-                                            onBackgroundImageError: (_, __) => Image.asset('images/profile.png'),
+                                            radius: MediaQuery.of(context).size.width/50,
+                                            child:
+                                                Image.asset('images/profile.png'),
                                           ),
+                                          // CircleAvatar(
+                                          //   radius: MediaQuery.of(context).size.width / 50,
+                                          //   backgroundImage: NetworkImage(snapshot.data![index].imgurl ?? 'images/profile.png'),
+                                          //   onBackgroundImageError: (_, __) => Image.asset(
+                                          //       'images/profile.png'),
+                                          // ),
                                           SizedBox(height: MediaQuery.of(context).size.width/80,),
                                           Text(
                                             '${snapshot.data![index].firstName ?? ''} ${snapshot.data![index].lastName ?? ''}',
