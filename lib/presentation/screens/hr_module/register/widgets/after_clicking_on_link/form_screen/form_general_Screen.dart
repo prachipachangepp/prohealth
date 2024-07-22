@@ -637,6 +637,10 @@ class _generalFormState extends State<generalForm> {
                   ),
                 ),
                 onPressed: () async {
+                 // await postgeneralscreen(context,  secondryPhoneNbr, workPhoneNbr, regOfficId, personalEmail, workEmail, address,
+                 //      emergencyContact, covreage, employment, gender, status, service, imgurl,
+                 //      resumeurl, companyId, onboardingStatus, driverLicenceNbr, rehirable,
+                 //      position, finalAddress, type, reason, finalPayCheck, grossPay, netPay, methods, materials, race);
                   await postgeneralscreen(
                       context,
                       "__",
@@ -698,13 +702,13 @@ class _generalFormState extends State<generalForm> {
   }
 }
 
-TextEditingController _dobcontroller = TextEditingController();
-
-TextEditingController firstname = TextEditingController();
-TextEditingController lastname = TextEditingController();
-TextEditingController ssecuritynumber = TextEditingController();
-TextEditingController phonenumber = TextEditingController();
-
-TextEditingController personalemail = TextEditingController();
-TextEditingController driverlicensenumb = TextEditingController();
-TextEditingController address = TextEditingController();
+// TextEditingController _dobcontroller = TextEditingController();
+//
+// TextEditingController firstname = TextEditingController();
+// TextEditingController lastname = TextEditingController();
+// TextEditingController ssecuritynumber = TextEditingController();
+// TextEditingController phonenumber = TextEditingController();
+//
+// TextEditingController personalemail = TextEditingController();
+// TextEditingController driverlicensenumb = TextEditingController();
+// TextEditingController address = TextEditingController();
