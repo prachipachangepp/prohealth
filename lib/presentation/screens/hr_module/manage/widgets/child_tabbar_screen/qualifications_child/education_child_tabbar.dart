@@ -13,7 +13,8 @@ import '../../../../../../../../app/resources/theme_manager.dart';
 import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 class EducationChildTabbar extends StatefulWidget {
-  const EducationChildTabbar({super.key});
+  final int employeeId;
+  const EducationChildTabbar({super.key, required this.employeeId});
 
   @override
   State<EducationChildTabbar> createState() => _EducationChildTabbarState();
@@ -33,11 +34,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
   @override
   void initState() {
     // TODO: implement initState
-    getEmployeeEducation(context,2).then((data) {
-      educationStreamController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
 
     super.initState();
   }
@@ -46,6 +43,11 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
     return StreamBuilder<List<EducationData>>(
       stream: educationStreamController.stream,
       builder: (context,snapshot) {
+        getEmployeeEducation(context,widget.employeeId).then((data) {
+          educationStreamController.add(data);
+        }).catchError((error) {
+          // Handle error
+        });
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: Padding(
@@ -223,7 +225,7 @@ class _EducationChildTabbarState extends State<EducationChildTabbar> {
                                         }, onpressedSave: () async{
                                           await updateEmployeeEducation(context,
                                               snapshot.data![index].educationId,
-                                              2,
+                                              widget.employeeId,
                                              graduate == expiryType.toString() ? graduate.toString() : expiryType.toString(),
                                               degree == degreeController.text ? degree.toString() : degreeController.text,
                                              majorSubject == majorSubjectController.text ? majorSubject.toString() : majorSubjectController.text,

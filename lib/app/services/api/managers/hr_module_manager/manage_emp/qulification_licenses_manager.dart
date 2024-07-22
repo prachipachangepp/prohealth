@@ -59,7 +59,6 @@ Future<List<QulificationLicensesData>> getEmployeeLicenses(
 
 Future<ApiData> addLicensePost(
     BuildContext context,
-    int licenseId,
     String country,
     int employeeId,
     String expDate,
@@ -75,8 +74,8 @@ Future<ApiData> addLicensePost(
       data: {
         "country": country,
         "employeeId": employeeId,
-        "expDate": expDate,
-        "issueDate": issueDate,
+        "expDate": "${expDate}T00:00:00Z",
+        "issueDate": "${issueDate}T00:00:00Z",
         "licenseUrl": licenseUrl,
         "licensure": licensure,
         "licenseNumber": licenseNumber,
@@ -105,6 +104,55 @@ Future<ApiData> addLicensePost(
   }
 }
 
+/// select document
+
+Future<List<SelectDocuments>> selectDocument(
+  BuildContext context,
+) async {
+  String convertIsoToDayMonthYear(String isoDate) {
+    // Parse ISO date string to DateTime object
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Create a DateFormat object to format the date
+    DateFormat dateFormat = DateFormat('dd MMM yyyy');
+
+    // Format the date into "dd mm yy" format
+    String formattedDate = dateFormat.format(dateTime);
+
+    return formattedDate;
+  }
+
+  List<SelectDocuments> itemsData = [];
+  try {
+    final response =
+        await Api(context).get(path: ManageReposotory.getselectDocuments());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      for (var item in response.data) {
+        // String expFormattedDate = convertIsoToDayMonthYear(item['expDate']);
+        // String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
+        itemsData.add(SelectDocuments(
+            documentId: item['document_id'],
+            documentTypeId: item['document_type_id'],
+            documentSubTypeId: item['document_subtype_id'],
+            docName: item['doc_name'],
+            docCreated: item['doc_created_at'],
+            url: item['url'],
+            expiryType: item['expiry_type'],
+            expiryDate: item['expiry_date'],
+            expiryReminder: item['expiry_reminder'],
+            companyId: item['company_id'],
+            officeId: item['office_id']));
+      }
+    } else {
+      print("Select Documents");
+    }
+    return itemsData;
+  } catch (e) {
+    print("error${e}");
+    return itemsData;
+  }
+}
+
 /// Update license
 Future<ApiData> updateLicensePatch(
     BuildContext context,
@@ -124,8 +172,8 @@ Future<ApiData> updateLicensePatch(
       data: {
         "country": country,
         "employeeId": employeeId,
-        "expDate": expDate,
-        "issueDate": issueDate,
+        "expDate": "${expDate}T00:00:00Z",
+        "issueDate": "${issueDate}T00:00:00Z",
         "licenseUrl": licenseUrl,
         "licensure": licensure,
         "licenseNumber": licenseNumber,

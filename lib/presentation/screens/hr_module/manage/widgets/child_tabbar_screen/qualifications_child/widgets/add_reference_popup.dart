@@ -230,7 +230,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CustomButtonTransparent(text: "Cancel", onPressed: () async{
-                    widget.onpressedClose;
+                    widget.onpressedClose();
                   }),
                   const SizedBox(width: 10,),
                  isLoading ? SizedBox(

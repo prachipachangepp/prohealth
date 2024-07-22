@@ -5,7 +5,7 @@ class ManageReposotory{
   static String education = "/employee-educations";
   static String byemployeeId = "ByemployeeId";
   static String employement = "/employee-employment-histories";
-
+  static String selectDocuments = "/corporate-document";
   static String banking = "/employee-bankings";
 
   static String equipement = "/employee-inventories";
@@ -37,6 +37,9 @@ class ManageReposotory{
   /// Employee licences
   static String getEmployeeLicenses({required int employeeid}){
     return "$employee_licenses/ByemployeeId/$employeeid";
+  }
+  static String getselectDocuments(){
+    return "$selectDocuments";
   }
   static String addEmployeeLicenses(){
     return "$employee_licenses$add";
@@ -117,5 +120,11 @@ class ManageReposotory{
   }
   static String patchEmployeeTimeOff({required int employeeTimeOffId}){
     return "$employeeTimeOff/$employeeTimeOffId";
+  }
+  static String approveTimeOffPatch({required int employeeTimeOffId}){
+    return"$employeeTimeOff/approve/$employeeTimeOffId";
+  }
+  static String rejectTimeOffPatch({required int employeeTimeOffId}){
+    return"$employeeTimeOff/reject/$employeeTimeOffId";
   }
 }
