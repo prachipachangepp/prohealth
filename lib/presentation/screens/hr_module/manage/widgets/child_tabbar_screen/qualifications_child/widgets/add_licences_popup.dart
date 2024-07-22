@@ -18,10 +18,11 @@ class AddLicencesPopup extends StatefulWidget {
   final TextEditingController countryController;
   final TextEditingController numberIDController;
   final String title;
+  final Widget child;
   final VoidCallback onpressedClose;
   final Future<void> Function() onpressedSave;
 
-  AddLicencesPopup({super.key, required this.LivensureController, required this.issueDateController, required this.expiryDateController, required this.issuingOrganizationController, required this.countryController, required this.numberIDController, required this.onpressedClose, required this.onpressedSave, required this.title});
+  AddLicencesPopup({super.key, required this.LivensureController, required this.issueDateController, required this.expiryDateController, required this.issuingOrganizationController, required this.countryController, required this.numberIDController, required this.onpressedClose, required this.onpressedSave, required this.title, required this.child});
 
   @override
   State<AddLicencesPopup> createState() => _AddLicencesPopupState();
@@ -30,6 +31,7 @@ class AddLicencesPopup extends StatefulWidget {
 class _AddLicencesPopupState extends State<AddLicencesPopup> {
   final DateTime _selectedIssueDate = DateTime.now();
   final DateTime _selectedExpDate = DateTime.now();
+
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -80,32 +82,7 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 27,
-                    width: 250,
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    padding: EdgeInsets.only(top: 2,bottom: 1,left: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(color: Color(0xffB1B1B1)), // Black border
-                      borderRadius: BorderRadius.circular(5), // Rounded corners
-                    ),
-                    child: DropdownButtonFormField<String>(
-                      focusColor: Colors.transparent,
-                      icon: Icon(Icons.arrow_drop_down_sharp,color: Color(0xff50B5E5),),
-                      decoration: InputDecoration.collapsed(hintText: ''),
-                      items: <String>['Select Document', 'Drivers License', 'CPR', 'Liability Insurence']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                      },
-                      value: 'Select Document',style: TextStyle(color: Color(0xff686464),fontSize: 12),
-                    ),
-                  ),
+                  widget.child,
                   SizedBox(width: 40,),
                   CustomIconButton(icon: Icons.file_upload_outlined,text: 'Upload License', onPressed: () async
                   {
@@ -269,17 +246,20 @@ class _AddLicencesPopupState extends State<AddLicencesPopup> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CustomButtonTransparent(text: "Cancel", onPressed: () async{
-                    widget.onpressedClose;
+                    widget.onpressedClose();
                   }),
                   SizedBox(width: 10,),
                   isLoading
-                      ? CircularProgressIndicator( color: ColorManager.blueprime,)
+                      ? SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: CircularProgressIndicator( color: ColorManager.blueprime,))
                       :CustomElevatedButton(text: "Save",onPressed: () async{
                     setState(() {
                       isLoading = true;
                     });
                     try {
-                      await widget.onpressedSave;
+                      await widget.onpressedSave();
                     } finally {
                       setState(() {
                         isLoading = false;

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/profile_repo.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
 
 /// Search by Text
 /// get api
 Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
-    BuildContext context, int companyId, String searchText) async {
+    BuildContext context, String searchText) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -23,6 +24,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
 
   List<SearchEmployeeProfileData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context).get(
         path: ProfileRepository.searchEmployeeProfileByText(
             companyId: companyId, searchText: searchText));
@@ -75,7 +77,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
           approved: item['approved'] ?? false,
           dateofTermination: item['dateofTermination'] ?? "--",
           dateofResignation: item['dateofResignation'] ?? "--",
-          rehirable: item['rehirable'] ?? false,
+          rehirable: item['rehirable'] ?? "--",
           finalAddress: item['finalAddress'] ?? '--',
           type: item['type'] ?? '--',
           reason: item['reason'] ?? '--',
@@ -92,6 +94,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileByText(
           position: item['position'] ?? '--',
           driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
           race: item['race'] ?? '--',
+            rating:item["rating"]??'--'
         ));
       }
 
@@ -191,7 +194,7 @@ Future<List<SearchEmployeeProfileData>> getSearchProfileById(
           dateofHire: HireDate,
           position: item['position'] ?? '--',
           driverLicenceNbr: item['driverLicenceNbr'] ?? '--',
-          race: item['race'] ?? '--',
+          race: item['race'] ?? '--', rating: item['rating']??'--',
         ));
       }
       print("search data by Id");
@@ -231,6 +234,7 @@ Future<SearchByEmployeeIdProfileData> getSearchByEmployeeIdProfileByText(
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       itemsData = SearchByEmployeeIdProfileData(
+        employeeId: response.data['employeeId']??0,
         code: response.data['code'] ?? '--',
         userId: response.data['userId'] ?? 0,
         firstName: response.data['firstName'] ?? '--',

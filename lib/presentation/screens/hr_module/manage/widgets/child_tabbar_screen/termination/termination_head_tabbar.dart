@@ -26,7 +26,7 @@ class _TerminationHeadTabbarState extends State<TerminationHeadTabbar> {
     return StreamBuilder<List<TerminationData>>(
       stream: terminationStremController.stream,
       builder: (context,snapshot) {
-        getTermination(context,1).then((data) {
+        getTermination(context).then((data) {
           terminationStremController.add(data);
       }).catchError((error) {
         // Handle error

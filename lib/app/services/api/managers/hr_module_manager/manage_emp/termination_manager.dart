@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/termination_data.dart';
 
-Future<List<TerminationData>> getTermination(BuildContext context,int companyId) async {
+Future<List<TerminationData>> getTermination(BuildContext context) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -20,6 +21,7 @@ Future<List<TerminationData>> getTermination(BuildContext context,int companyId)
 
   List<TerminationData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response =
         await Api(context).get(path: ManageReposotory.getTermination(companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {

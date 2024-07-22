@@ -1,4 +1,5 @@
 class TimeOfffData {
+  final int employeeTimeOffId;
   final int employeeId;
   final String employeeName;
   final String timeOffRequest;
@@ -7,7 +8,10 @@ class TimeOfffData {
   final String endTime;
   final String sickTime;
   final String hours;
+  bool? approved;
   TimeOfffData({
+    this.approved,
+    required this.employeeTimeOffId,
     required this.employeeId,
     required this.employeeName,
     required this.timeOffRequest,
@@ -22,9 +26,8 @@ class TimeOfffData {
 
 class TimeOfPrefillData {
   final int employeeTimeOffId;
-  final int companyId;
   final int employeeId;
-  //final String employeeName;
+  final String employeeName;
   final String timeOffRequest;
   final String reson;
   final String startTime;
@@ -33,9 +36,8 @@ class TimeOfPrefillData {
   final String hours;
   TimeOfPrefillData({
     required this.employeeTimeOffId,
-    required this.companyId,
     required this.employeeId,
-    //required this.employeeName,
+    required this.employeeName,
     required this.timeOffRequest,
     required this.reson,
     required this.startTime,
