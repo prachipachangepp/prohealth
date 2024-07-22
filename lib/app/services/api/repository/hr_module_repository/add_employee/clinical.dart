@@ -14,6 +14,7 @@ class HRModuleAEClinicalRepository {
       static String service = "company-office-service";
       static String addEmployees = "/employees/add";
       static String employees = "/employees";
+      static String attachPhoto = "/attach-photo/";
           // "/company-office-service/";
 
 
@@ -37,10 +38,15 @@ class HRModuleAEClinicalRepository {
       }
       static String postAddEmployeeClinical(){
     return "$addEmployees";
-}
-static String getEmployees(){
+    }
+    static String getEmployees(){
     return "$employees";
-}
+    }
+    static String addphoto({
+     required int employeeID
+    }){
+    return "$employees$attachPhoto$employeeID";
+   }
 }
 // { required int companyID,
 //   required int officeID,

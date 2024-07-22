@@ -1,15 +1,22 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:prohealth/app/constants/app_config.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart' as clinical_manager;
+import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/uploadimage_service.dart' as upload_service;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/uploadimage_service.dart';
 import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/font_manager.dart';
 import '../../../../../app/resources/theme_manager.dart';
@@ -19,6 +26,18 @@ import '../../../em_module/widgets/button_constant.dart';
 import '../../manage/widgets/custom_icon_button_constant.dart';
 import 'dateprovider.dart';
 import 'mcq_widget_add-employee.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/uploadimage_service.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
+import 'dart:html' as html;  // Import dart:html for web
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
+import 'dart:html' as html;
+import 'package:http/http.dart' as http;
+import 'dart:typed_data';
+
 
 ///prachi todo
 class ClinicalTab extends StatefulWidget {
@@ -39,43 +58,24 @@ class _ClinicalTabState extends State<ClinicalTab> {
   final TextEditingController ctlrAddress = TextEditingController();
   final TextEditingController ctlrEmContact = TextEditingController();
   final TextEditingController ctlrDob = TextEditingController();
-  final StreamController<List<AEClinicalDiscipline>> _hrdisciplineController =
-      StreamController<List<AEClinicalDiscipline>>();
-  final StreamController<List<AEClinicalCity>> _hrCityController =
-      StreamController<List<AEClinicalCity>>();
-  final StreamController<List<AEClinicalReportingOffice>>
-      _hrReportingOfficeController =
-      StreamController<List<AEClinicalReportingOffice>>();
-  final StreamController<List<AEClinicalZone>> _hrZoneController =
-      StreamController<List<AEClinicalZone>>();
-  final StreamController<List<HRAddEmployeeGet>> _hrAEgetController =
-      StreamController<List<HRAddEmployeeGet>>();
-
-  String _selectedOption = 'Option 1';
-
+  late Stream<List<HRAddEmployeeGet>> _emailStream;
+  late Stream<List<HRAddEmployeeGet>> _emergencyContactStream;
   late int currentPage;
-
   late int itemsPerPage;
-
   late List<String> items;
   late bool isAdded;
   int? _selectedItemIndex;
-  late DateTime _selectedDate;
   int docZoneId = 0;
   int docAddVisitTypeId = 0;
   int docVisitTypeId = 0;
   int empTypeId = 0;
   String? _fileName;
-
   DateTime? selectedDate;
   List<String> _dropDownList = [];
   List<String> _socialSecurityNumbers = [];
   late Future<List<HRAddEmployeeGet>> _futureData;
   String? _selectedDiscipline;
   late Future<List<AEClinicalCity>> _futureCities;
-
-  String? _selectedCity;
-
   ///descipline
   Future<void> _loadDisciplineData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -86,7 +86,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
       _selectedDiscipline = savedDiscipline;
     });
   }
-
   ///date
   _loadDate() async {
     final prefs = await SharedPreferences.getInstance();
@@ -98,19 +97,16 @@ class _ClinicalTabState extends State<ClinicalTab> {
       });
     }
   }
-
   /// date _savedate
   void _saveDate(DateTime date) {
     final isoDate = DateFormat("yyyy-MM-dd").format(date);
     // api.saveDate(isoDate);
   }
-
   /// discipline
   Future<void> _saveData(String? discipline) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('selectedDiscipline', discipline ?? '');
   }
-
   ///ssnbr
   Future<void> _saveSSNBrData() async {
     try {
@@ -127,7 +123,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
       print("Error fetching data: $e");
     }
   }
-
   /// city
   Future<void> _fetchCities() async {
     try {
@@ -143,13 +138,93 @@ class _ClinicalTabState extends State<ClinicalTab> {
       print("Error fetching cities: $e");
     }
   }
+  /// upload image
+  // String? _fileName;
 
-  ///work email
-  late Stream<List<HRAddEmployeeGet>> _emailStream;
-  List<String> _workEmails = [];
-  String? _selectedEmail;
-  late Stream<List<HRAddEmployeeGet>> _emergencyContactStream;
-  List<String> _emgContact = [];
+  Future<void> _pickAndUploadFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: false,
+    );
+
+    if (result != null) {
+      PlatformFile file = result.files.first;
+      setState(() {
+        _fileName = file.name;
+      });
+      print('File path: ${file.path}');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmPopup(
+            title: 'Confirm Upload Photo',
+            onCancel: () {
+              Navigator.pop(context);
+            },
+            onConfirm: () async {
+              Navigator.pop(context);
+              await addPhotoUpload(
+                context,
+                27,
+                'A145',
+                45,
+                'Alina',
+                'Doe',
+                1,
+                1,
+                'Expert',
+                1,
+                1,
+                1,
+                'SSNBr01',
+                '235890',
+                '09875',
+                '87689',
+                'RegIOfficeId123',
+                'alina@gmail.com',
+                'a@gmail.com',
+                'At LA',
+                '1990-01-01',
+                '4456373',
+                'Full',
+                'Permanent',
+                'Female',
+                'Active',
+                'IT',
+                'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
+                'ResumeUrl',
+                1,
+                true,
+                true,
+                'Completed',
+                '2023-01-01',
+                'DL12345',
+                '2024-01-01',
+                '2024-01-01',
+                '2023-01-01',
+                'Yes',
+                'Developer',
+                'Final Address',
+                '2024-01-01',
+                3000,
+                'type',
+                'reason',
+                100000,
+                90000,
+                'method',
+                'Material',
+                'Race',
+              );
+              print("Photo Uploaded");
+            },
+          );
+        },
+      );
+    }
+  }
+
+
+
   @override
   void initState() {
     super.initState();
@@ -181,69 +256,433 @@ class _ClinicalTabState extends State<ClinicalTab> {
         child: Column(
           children: [
             ///upload photo button
-            Expanded(
-              flex: 1,
-              child: Container(
-                  // color: Colors.pink,
-                  // height: 40,
-                  width: MediaQuery.of(context).size.width / 1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      if (_fileName != null)
-                        Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: Text(
-                            _fileName!,
-                            style: TextStyle(
-                              fontFamily: 'FiraSans',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          FilePickerResult? result =
-                              await FilePicker.platform.pickFiles(
-                            type: FileType.image,
-                            allowMultiple: false,
-                          );
-
-                          if (result != null) {
-                            PlatformFile file = result.files.first;
-                            setState(() {
-                              _fileName = file.name;
-                            });
-                            print('File path: ${file.path}');
-                          }
-                        },
-                        icon: Icon(
-                          Icons.file_upload_outlined,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          'Upload Photo',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'FiraSans',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff1696C8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
+            ///"https://symmetry-office-document.s3.us-west-2.amazonaws.com/documents/e6585043-c645-4a38-aead-799aa1fca4a2-usaman.png",
+            // CustomButton(
+            //   width: 125,
+            //   height: 30,
+            //   text: 'Upload Photo',
+            //   style: TextStyle(
+            //     fontFamily: 'FiraSans',
+            //     fontSize: 12,
+            //     fontWeight: FontWeight.w700,
+            //   ),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //     FilePickerResult? result = await FilePicker.platform.pickFiles(
+            //       type: FileType.image,
+            //       allowMultiple: false,
+            //     );
+            //
+            //     if (result != null) {
+            //       PlatformFile file = result.files.first;
+            //       setState(() {
+            //         _fileName = file.name;
+            //       });
+            //       print('File path: ${file.path}');
+            //       showDialog(
+            //         context: context,
+            //         builder: (BuildContext context) {
+            //           return ConfirmPopup(
+            //             title: 'Confirm Upload Photo',
+            //             onCancel: () {
+            //               Navigator.pop(context);
+            //             },
+            //             onConfirm: () async {
+            //               Navigator.pop(context);
+            //
+            //               ///  addEmployeeClinical API
+            //               // await addEmployeeClinical(
+            //               //     context,
+            //               //     1,
+            //               //     'E082',
+            //               //     82,
+            //               //     ctlrfirstName.text,
+            //               //     ctlrlastName.text,
+            //               //     1,
+            //               //     1,
+            //               //     'Expertise',
+            //               //     1,
+            //               //     1,
+            //               //     1,
+            //               //     'SSN123',
+            //               //     ctlrSocialSecurity.text,
+            //               //     ctlrprimeNo.text,
+            //               //     ctlrsecNo.text,
+            //               //     ctlrworkNo.text,
+            //               //     ctlrWorkEmail.text,
+            //               //     ctlrPersonalEmail.text,
+            //               //     ctlrAddress.text,
+            //               //     '2024-01-01',
+            //               //     ctlrEmContact.text,
+            //               //     'Coverage',
+            //               //     'Employment',
+            //               //     'Male',
+            //               //     'Active',
+            //               //     'Service',
+            //               //     'imgurl.com',
+            //               //     'resumeurl.com',
+            //               //     5,
+            //               //     true,
+            //               //     true,
+            //               //     'Onboarding',
+            //               //     'DL123',
+            //               //     '2024-01-01',
+            //               //     '2024-01-01',
+            //               //     '2024-01-01',
+            //               //     'Yes',
+            //               //     'Position',
+            //               //     '123 Final St',
+            //               //     '2024-01-01',
+            //               //     1,
+            //               //     'Type',
+            //               //     'Reason',
+            //               //     1,
+            //               //     1000,
+            //               //     'Method',
+            //               //     'Material',
+            //               //     'Race',
+            //               //     'rating'
+            //               // );
+            //               // print("Clinical Employee Added");
+            //               //
+            //               // // Clear text controllers
+            //               // ctlrfirstName.clear();
+            //               // ctlrPersonalEmail.clear();
+            //               // ctlrsecNo.clear();
+            //               // ctlrWorkEmail.clear();
+            //               // ctlrEmContact.clear();
+            //               // ctlrDob.clear();
+            //               // ctlrprimeNo.clear();
+            //               // ctlrworkNo.clear();
+            //               // ctlrlastName.clear();
+            //               // ctlrSocialSecurity.clear();
+            //               ///Call addPhotoUpload API
+            //               await addPhotoUpload(
+            //                   context,
+            //                   1,
+            //                   'S01',
+            //                   23,
+            //                   'Alina',
+            //                   'Doe',
+            //                   1,
+            //                   1,
+            //                   'Expert',
+            //                   1,
+            //                   1,
+            //                   1,
+            //                   'SSNBr01',
+            //                   '235890',
+            //                   '09875',
+            //                   '87689',
+            //                   'RegIOfficeId123',
+            //                   'alina@gmail.com',
+            //                   'a@gmail.com',
+            //                   'At LA',
+            //                   '1990-01-01',
+            //                   '4456373',
+            //                   'Full',
+            //                   'Permanent',
+            //                   'Female',
+            //                   'Active',
+            //                   'IT',
+            //                   'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
+            //                   'ResumeUrl',
+            //                   1,
+            //                   true,
+            //                   true,
+            //                   'Completed',
+            //                   '2023-01-01',
+            //                   'DL12345',
+            //                   '2024-01-01',
+            //                   '2024-01-01',
+            //                   '2023-01-01',
+            //                   'Yes',
+            //                   'Developer',
+            //                   'Final Address',
+            //                   '2024-01-01',
+            //                   3000,
+            //                   'type',
+            //                   'reason',
+            //                   100000,
+            //                   90000,
+            //                   'method',
+            //                   'Material',
+            //                   'Race'
+            //               );
+            //               print("Photo Uploaded");
+            //             },
+            //           );
+            //         },
+            //       );
+            //     }
+            //   },
+            // ),
+            ///applied upload photo api
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     if (_fileName != null)
+            //       Padding(
+            //         padding: EdgeInsets.only(right: 8.0),
+            //         child: Text(
+            //           _fileName!,
+            //           style: TextStyle(
+            //             fontFamily: 'FiraSans',
+            //             fontSize: 12,
+            //             fontWeight: FontWeight.w700,
+            //             color: Colors.black,
+            //           ),
+            //         ),
+            //       ),
+            //     CustomButton(
+            //       width: 125,
+            //       height: 30,
+            //       text: 'Upload Photo',
+            //       style: TextStyle(
+            //         fontFamily: 'FiraSans',
+            //         fontSize: 12,
+            //         fontWeight: FontWeight.w700,
+            //       ),
+            //       borderRadius: 12,
+            //       onPressed: () async {
+            //         FilePickerResult? result = await FilePicker.platform.pickFiles(
+            //           type: FileType.image,
+            //           allowMultiple: false,
+            //         );
+            //
+            //         if (result != null) {
+            //           PlatformFile file = result.files.first;
+            //           setState(() {
+            //             _fileName = file.name;
+            //           });
+            //           print('File path: ${file.path}');
+            //           showDialog(
+            //             context: context,
+            //             builder: (BuildContext context) {
+            //               return ConfirmPopup(
+            //                 title: 'Confirm Upload Photo',
+            //                 onCancel: () {
+            //                   Navigator.pop(context);
+            //                 },
+            //                 onConfirm: () async {
+            //                   Navigator.pop(context);
+            //                   await addPhotoUpload(
+            //                     context,
+            //                     1,
+            //                     'A145',
+            //                      45,
+            //                     'Alina',
+            //                     'Doe',
+            //                     1,
+            //                     1,
+            //                     'Expert',
+            //                     1,
+            //                     1,
+            //                     1,
+            //                     'SSNBr01',
+            //                     '235890',
+            //                     '09875',
+            //                     '87689',
+            //                     'RegIOfficeId123',
+            //                     'alina@gmail.com',
+            //                     'a@gmail.com',
+            //                     'At LA',
+            //                     '1990-01-01',
+            //                     '4456373',
+            //                     'Full',
+            //                     'Permanent',
+            //                     'Female',
+            //                     'Active',
+            //                     'IT',
+            //                     'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
+            //                     'ResumeUrl',
+            //                     1,
+            //                     true,
+            //                     true,
+            //                     'Completed',
+            //                     '2023-01-01',
+            //                     'DL12345',
+            //                     '2024-01-01',
+            //                     '2024-01-01',
+            //                     '2023-01-01',
+            //                     'Yes',
+            //                     'Developer',
+            //                     'Final Address',
+            //                     '2024-01-01',
+            //                     3000,
+            //                     'type',
+            //                     'reason',
+            //                     100000,
+            //                     90000,
+            //                     'method',
+            //                     'Material',
+            //                     'Race',
+            //                   );
+            //                   print("Photo Uploaded");
+            //                 },
+            //               );
+            //             },
+            //           );
+            //         }
+            //       },
+            //     ),
+            //
+            //   ],
+            // ),
+            ///
+            // CustomButton(
+            //   width: 125,
+            //   height: 30,
+            //   text: 'Upload Photo',
+            //   style: TextStyle(
+            //     fontFamily: 'FiraSans',
+            //     fontSize: 12,
+            //     fontWeight: FontWeight.w700,
+            //   ),
+            //   borderRadius: 12,
+            //   onPressed: () async {
+            //     FilePickerResult? result = await FilePicker.platform.pickFiles(
+            //       type: FileType.image,
+            //       allowMultiple: false,
+            //     );
+            //
+            //     if (result != null) {
+            //       PlatformFile file = result.files.first;
+            //       setState(() {
+            //         _fileName = file.name;
+            //       });
+            //       print('File path: ${file.path}');
+            //
+            //       showDialog(
+            //         context: context,
+            //         builder: (BuildContext context) {
+            //           return ConfirmPopup(
+            //             title: 'Confirm Upload Photo',
+            //             onCancel: () {
+            //               Navigator.pop(context);
+            //             },
+            //             onConfirm: () async {
+            //               Navigator.pop(context);
+            //              await addPhotoUpload(
+            //                context,
+            //                  1,
+            //                  'S01',
+            //                  023,
+            //                  'Alina',
+            //                  'Joe',
+            //                  1,
+            //                  1,
+            //                  'Expert',
+            //                  1,
+            //                  1,
+            //                  1,
+            //                  'SSNBr01',
+            //                  '235890',
+            //                  '09875',
+            //                  '87689'
+            //                  'RegIOfficeId123',
+            //                  'alina@gmail.com',
+            //                  'a@gmail.com',
+            //                  'At LA',
+            //                  '1990-01-01',
+            //                  '4456373',
+            //                  'Full',
+            //                  'Permanent',
+            //                  'Female',
+            //                  'Active',
+            //                  'IT',
+            //                  'https://symmetry-office-document.s3.us-west-2.amazonaws.com/b91ca3e2-c02c-4891-b733-a67f40afa636-photoprohealth.webp',
+            //                  'ResumeUrl',
+            //                   'yuio',
+            //                  1,
+            //                  true,
+            //                   true,
+            //                  '1990-01-01',
+            //                  'driverLicenceNbr',
+            //                  '1990-01-01',
+            //                  '1990-01-01',
+            //                  '1990-01-01',
+            //                  'rehirable',
+            //                  'position',
+            //                  'finalAddress',
+            //                  '1990-01-01',
+            //                  'hello',
+            //                  1,
+            //                  "reason",
+            //                  'lkjh',
+            //                  1,
+            //                  1,
+            //                  'method',
+            //                  'material',
+            //                  'race'
+            //              );
+            //               print("Photo Added");
+            //
+            //             },
+            //           );
+            //         },
+            //       );
+            //     }
+            //   },
+            // ),
+            /// you
+             //   Center(
+      //   child: Column(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //     children: <Widget>[
+      //       if (_imageFile != null)
+      //         Image.file(File(_imageFile!.path), height: 100, width: 100),
+      //       SizedBox(height: 20),
+      //       ElevatedButton(
+      //         onPressed: _pickImage,
+      //         child: Text('Pick Image'),
+      //       ),
+      //       SizedBox(height: 20),
+      //       ElevatedButton(
+      //         onPressed: _uploadImage,
+      //         child: Text('Upload Image'),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+        Center(
+        child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (_fileName != null)
+                  Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: Text(
+                      _fileName!,
+                      style: TextStyle(
+                        fontFamily: 'FiraSans',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
                       ),
-                    ],
-                  )),
+                    ),
+                  ),
+                CustomButton(
+                  width: 125,
+                  height: 30,
+                  text: 'Upload Photo',
+                  style: TextStyle(
+                    fontFamily: 'FiraSans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  borderRadius: 12,
+                  onPressed: _pickAndUploadFile,
+                ),
+              ],
             ),
+          ],
+        ),),
 
+            SizedBox(height: 5,),
             ///first container
             Expanded(
               flex: 6,
@@ -285,7 +724,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               _saveData(newValue);
                             },
                           ),
-
                           ///social security
                           FutureBuilder<List<HRAddEmployeeGet>>(
                             future: _futureData,
@@ -399,7 +837,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               }
                             },
                           ),
-
                           ///city
                           FutureBuilder<List<AEClinicalCity>>(
                             future: HrAddEmplyClinicalCityApi(context),
@@ -441,59 +878,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               }
                             },
                           ),
-
-                          ///city
-                          // FutureBuilder<List<AEClinicalCity>>(
-                          //   future: _futureCities,
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding: const EdgeInsets.symmetric(
-                          //               horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       // Update the dropdown list only if it’s empty
-                          //       if (_dropDownList.isEmpty) {
-                          //         _fetchCities();
-                          //
-                          //       }
-                          //
-                          //       return CustomDropdownTextField(
-                          //         labelText: 'City',
-                          //         labelStyle: GoogleFonts.firaSans(
-                          //           fontSize: 12,
-                          //           color: Color(0xff575757),
-                          //           fontWeight: FontWeight.w400,
-                          //         ),
-                          //         labelFontSize: 12,
-                          //         items: _dropDownList,
-                          //         value: _selectedCity,
-                          //         onChanged: (newValue) {
-                          //           setState(() {
-                          //             _selectedCity = newValue;
-                          //           });
-                          //         },
-                          //       );
-                          //     } else if (snapshot.hasError) {
-                          //       return Text("Error: ${snapshot.error}");
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
+                          ///work email
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
@@ -507,116 +892,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                             controller: ctlrWorkEmail,
                             labelFontSize: 12,
                           ),
-
-                          ///work email
-                          // StreamBuilder<List<HRAddEmployeeGet>>(
-                          //   stream:
-                          //       Stream.fromFuture(HrAddEmployeeget(context)),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding: const EdgeInsets.symmetric(
-                          //               horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       List<String> workEmail = snapshot.data!
-                          //           .map((e) => e.workEmail)
-                          //           .where((number) => number != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //       print("workEmailt: $workEmail");
-                          //
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return workEmail.where((String option) {
-                          //               return option
-                          //                   .contains(textEditingValue.text);
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width: textFieldWidth,
-                          //                 constraints:
-                          //                     BoxConstraints(maxHeight: 200.0),
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController ctlrprimeNo,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 22,
-                          //             labelText: 'Work Email',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: ctlrprimeNo,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
-
+                          ///Emergency contact
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
@@ -630,116 +906,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
                             controller: ctlrEmContact,
                             labelFontSize: 12,
                           )
-
-                          ///Emergency contact
-                          // StreamBuilder<List<HRAddEmployeeGet>>(
-                          //   stream:
-                          //       Stream.fromFuture(HrAddEmployeeget(context)),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         period: Duration(milliseconds: 1000),
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding: const EdgeInsets.symmetric(
-                          //               horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       List<String> emgContact = snapshot.data!
-                          //           .map((e) => e.emgContact)
-                          //           .where((number) => number != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //       print("Emerncy Cont: $emgContact");
-                          //
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return emgContact.where((String option) {
-                          //               return option
-                          //                   .contains(textEditingValue.text);
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width: textFieldWidth,
-                          //                 constraints:
-                          //                     BoxConstraints(maxHeight: 200.0),
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController ctlrprimeNo,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 22,
-                          //             labelText: 'Emergency Phone No',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: ctlrprimeNo,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
                         ],
                       )),
                       Expanded(
@@ -1913,7 +2079,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
             SizedBox(
               height: 10,
             ),
-
             ///second container
             Expanded(
               flex: 5,
@@ -2037,7 +2202,6 @@ class _ClinicalTabState extends State<ClinicalTab> {
             SizedBox(
               height: 10,
             ),
-
             ///add button
             Expanded(
               flex: 1,
@@ -2070,8 +2234,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                'E07',
-                                77,
+                                  'A1044',
+                                  44,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
                                 1,
@@ -2117,6 +2281,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 'Method',
                                 'Material',
                                 'Race',
+                                'rating'
                               );
                               print("Clinical Employee Added");
                               ctlrfirstName.clear();
@@ -3533,3 +3698,78 @@ class _ConfirmPopupState extends State<ConfirmPopup> {
 //                       }
 //                     },
 //                   ),
+///image upload
+// Column(
+//         children: [
+//         Row(
+//         mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             if (_fileName != null)
+//               Padding(
+//                 padding: EdgeInsets.only(right: 8.0),
+//                 child: Text(
+//                   _fileName!,
+//                   style: TextStyle(
+//                     fontFamily: 'FiraSans',
+//                     fontSize: 12,
+//                     fontWeight: FontWeight.w700,
+//                     color: Colors.black,
+//                   ),
+//                 ),
+//               ),
+//             ElevatedButton(
+//               onPressed: () async {
+//                 pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+//
+//                 if (pickedFile != null) {
+//                   setState(() {
+//                     _fileName = pickedFile!.name;
+//                     if (kIsWeb) {
+//                       pickedFile!.readAsBytes().then((bytes) {
+//                         _fileDataUrl = 'data:image/png;base64,' + base64Encode(bytes);
+//                       });
+//                     }
+//                   });
+//
+//                   print('File path: ${pickedFile!.path}');
+//                   showDialog(
+//                     context: context,
+//                     builder: (BuildContext context) {
+//                       return AlertDialog(
+//                         title: Text('Confirm Upload Photo'),
+//                         actions: [
+//                           TextButton(
+//                             onPressed: () {
+//                               Navigator.pop(context);
+//                             },
+//                             child: Text('Cancel'),
+//                           ),
+//                           TextButton(
+//                             onPressed: () async {
+//                               Navigator.pop(context);
+//                               ImageUploadService imageUploadService = ImageUploadService();
+//                               await imageUploadService.uploadImage(pickedFile);
+//                             },
+//                             child: Text('Confirm'),
+//                           ),
+//                         ],
+//                       );
+//                     },
+//                   );
+//                 } else {
+//                   print('No image selected.');
+//                 }
+//               },
+//               child: Text('Upload Photo'),
+//             ),
+//           ],
+//         ),
+//           if (pickedFile != null)
+//         kIsWeb
+//         ? _fileDataUrl != null
+//         ? Image.network(_fileDataUrl!, height: 40, width: 40)
+//         : Container()
+//         : Image.file(File(pickedFile!.path), height: 40, width: 40),
+//     ],
+//     ),
+

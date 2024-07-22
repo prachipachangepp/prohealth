@@ -1627,6 +1627,7 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                 'Method',
                                 'Material',
                                 'Race',
+                                'rating'
                               );
                               print("Administration Employee Added");
                               ctlrfirstName.clear();

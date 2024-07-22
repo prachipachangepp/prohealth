@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get_connect/http/src/multipart/form_data.dart';
+import 'package:get/get_connect/http/src/multipart/form_data.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
@@ -133,6 +139,7 @@ Future<ApiData> addEmployeeClinical(
     String method,
     String material,
     String race,
+    String rating,
 
     ) async {
   try {
@@ -184,13 +191,14 @@ Future<ApiData> addEmployeeClinical(
         "methods": method,
         "materials": material,
         "race": race,
+        "rating": rating,
 
       },
 
     );
     print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Education added");
+      print("Add Employee added");
       // orgDocumentGet(context);
       return ApiData(
           statusCode: response.statusCode!,
@@ -209,6 +217,141 @@ Future<ApiData> addEmployeeClinical(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+///post api for upload photo
+Future<ApiData> addPhotoUpload(
+    BuildContext context,
+    int emplyId,
+    String code,
+    int userId,
+    String firstName,
+    String lastName,
+    int dptID,
+    int emplyTypeId,
+    String expritise,
+    int cityID,
+    int countryID,
+    int zoneID,
+    String ssnnBr,
+    String primeNo,
+    String secNo,
+    String workNo,
+    String regOfficeId,
+    String personalEmail,
+    String workEmail,
+    String address,
+    String dob,
+    String emgContact,
+    String coverage,
+    String employment,
+    String gender,
+    String status,
+    String service,
+    String imgUrl,
+    String resumeUrl,
+    int companyID,
+    bool terminationFlag,
+    bool approved,
+    String onboardingStatus,
+    String createdAt,
+    String driverLicenceNbr,
+    String dateofTermination,
+    String dateofResignation,
+    String dateofHire,
+    String rehirable,
+    String position,
+    String finaladdress,
+    String checkDate,
+    int grossPay,
+    String type,
+    String reason,
+    int finalPayCheck,
+    int netpay,
+    String method,
+    String material,
+    String race,
+
+    ) async {
+  try {
+    var response = await Api(context).post(
+      path: HRModuleAEClinicalRepository.addphoto(employeeID: emplyId),
+      data: {
+        "employeeId": emplyId,
+        "code": code,
+        "userId": userId,
+        "firstName": firstName,
+        "lastName": lastName,
+        "departmentId": dptID,
+        "employeeTypeId": emplyTypeId,
+        "expertise": expritise,
+        "cityId": cityID,
+        "countryId": countryID,
+        "zoneId": zoneID,
+        "SSNNbr": ssnnBr,
+        "primaryPhoneNbr": primeNo,
+        "secondryPhoneNbr": secNo,
+        "workPhoneNbr": workNo,
+        "regOfficId": regOfficeId,
+        "personalEmail": personalEmail,
+        "workEmail": workEmail,
+        "address": address,
+        "dateOfBirth": "${dob}T00:00:00Z",
+        "emergencyContact": emgContact,
+        "covreage": coverage,
+        "employment": employment,
+        "gender": gender,
+        "status": status,
+        "service": service,
+        "imgurl": imgUrl,
+        "resumeurl": resumeUrl,
+        "companyId": companyID,
+        "onboardingStatus": onboardingStatus,
+         "createdAt": "${createdAt}T00:00:00Z",
+        "terminationFlag": terminationFlag,
+        "approved": approved,
+        "dateofTermination": "${dateofTermination}T00:00:00Z",
+        "dateofResignation": "${dateofResignation}T00:00:00Z",
+        "dateofHire": "${dateofHire}T00:00:00Z",
+        "rehirable": rehirable,
+        "position": position,
+        "driverLicenceNbr": driverLicenceNbr,
+        "finalAddress": finaladdress,
+        "type": type,
+        "reason": reason,
+        "finalPayCheck": finalPayCheck,
+        "checkDate": "${checkDate}T00:00:00Z",
+        "grossPay": grossPay,
+        "netPay": netpay,
+        "methods": method,
+        "materials": material,
+        "race": race,
+
+      },
+
+    );
+    print(response);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("Photo Uploaded");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+
+
 ///Discipline dropdown get Api
 Future<List<AEClinicalDiscipline>> HrAddEmplyClinicalDisciplinApi(
     BuildContext context, int deptID) async {
