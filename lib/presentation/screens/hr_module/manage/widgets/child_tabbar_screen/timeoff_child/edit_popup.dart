@@ -183,7 +183,7 @@ class _EditTimeOffPopupState extends State<EditTimeOffPopup> {
           text: labelText,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter some text';
+              return 'Please enter valid details';
             }
             return null;
           },

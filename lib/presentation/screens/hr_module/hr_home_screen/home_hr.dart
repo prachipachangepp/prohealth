@@ -106,7 +106,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
 
     // Replace with your API endpoint
 
-    data = await getSearchProfileByText(context, 5, query);
+    data = await getSearchProfileByText(context, query);
 
     _searchResults = data.map((e) => e.firstName + " " + e.lastName).toList();
     print(_searchResults);
@@ -510,7 +510,7 @@ class _HomeHrScreenState extends State<HomeHrScreen> {
                         DashBoardScreen(),
                         ManageScreen(
                           searchByEmployeeIdProfileData:
-                              searchByEmployeeIdProfileData,
+                              searchByEmployeeIdProfileData, employeeId: searchByEmployeeIdProfileData.employeeId!,
                         ),
                         AddEmployeeHomeScreen(),
                         RegisterScreen(),

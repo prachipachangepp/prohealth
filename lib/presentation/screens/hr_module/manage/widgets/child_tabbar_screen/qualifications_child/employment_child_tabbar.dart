@@ -17,6 +17,8 @@ import '../../row_container_widget_const.dart';
 
 ///done by saloni
 class EmploymentContainerConstant extends StatefulWidget {
+  final int employeeId;
+  EmploymentContainerConstant({required this.employeeId});
   @override
   State<EmploymentContainerConstant> createState() => _EmploymentContainerConstantState();
 }
@@ -37,11 +39,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
   @override
   void initState() {
     // TODO: implement initState
-    getEmployeement(context,2).then((data) {
-      employeementStreamController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
 
     super.initState();
   }
@@ -50,6 +48,11 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
     return StreamBuilder<List<EmployeementData>>(
       stream: employeementStreamController.stream,
       builder: (context,snapshot) {
+        getEmployeement(context,widget.employeeId).then((data) {
+          employeementStreamController.add(data);
+        }).catchError((error) {
+          // Handle error
+        });
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: Padding(
@@ -313,7 +316,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                           onpressedSave: ()async{
                                             await updateEmployeementPatch(context,
                                                 snapshot.data![index].employmentId,
-                                                2,
+                                                widget.employeeId,
                                                 employeer == employeerController.text ? employeer.toString() : employeerController.text,
                                                 cityName == cityNameController.text ? cityName.toString() : cityNameController.text,
                                                 leavingReason == leavingResonController.text ? leavingReason.toString() : leavingResonController.text,
@@ -333,7 +336,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                 width: 300,
                                                 child: CheckboxTile(title: 'Currently work here',initialValue: false,onChanged: (value){
                                                 },)),
-                                          ), tite: 'Edit Employeement',);
+                                          ), tite: 'Edit Employeement', onpressedClose: () {Navigator.pop(context);  },);
                                       }
                                   );
                                 });

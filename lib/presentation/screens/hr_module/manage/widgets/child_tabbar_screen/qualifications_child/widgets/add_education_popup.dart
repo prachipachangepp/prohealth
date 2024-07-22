@@ -694,7 +694,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                     CustomButtonTransparent(
                         text: "Cancel",
                         onPressed: () async {
-                          widget.onpressedClose;
+                          widget.onpressedClose();
                         }),
                     const SizedBox(width: 10),
                     isLoading

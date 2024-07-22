@@ -11,6 +11,9 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp
 import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
+
+import 'package:prohealth/data/api_data/hr_module_data/manage/qualification_licenses.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
@@ -23,6 +26,7 @@ import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_ta
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_reference_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
 import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/hr_resources/string_manager.dart';
 import '../../../../widgets/widgets/custom_icon_button_constant.dart';
@@ -48,8 +52,9 @@ import '../widgets/child_tabbar_screen/timeoff_child/time_off_head_tabbar.dart';
 
 ///done by saloni
 class ManageScreen extends StatefulWidget {
+  final int? employeeId;
   final SearchByEmployeeIdProfileData? searchByEmployeeIdProfileData;
-   ManageScreen({super.key,  this.searchByEmployeeIdProfileData,  });
+   ManageScreen({super.key,  this.searchByEmployeeIdProfileData,this.employeeId,});
   @override
   State<ManageScreen> createState() => _ManageScreenState();
 }
@@ -58,6 +63,8 @@ class _ManageScreenState extends State<ManageScreen> {
   late CenteredTabBarChildController childController;
   late CenteredTabBarChildController childControlleOne;
   late CenteredTabBarController centeredTabBarController;
+
+  String docName ='';
 
   /// Add employee
   TextEditingController positionTitleController = TextEditingController();
@@ -178,7 +185,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                     onpressedSave: () async {
                                       await addEmployeement(
                                           context,
-                                          2,
+                                          widget.employeeId!,
                                           employeerController.text,
                                           cityNameController.text,
                                           leavingResonController.text,
@@ -195,7 +202,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                           initialValue: false,
                                           onChanged: (value) {},
                                         )),
-                                    tite: 'Add Employeement',
+                                    tite: 'Add Employeement', onpressedClose: () {Navigator.pop(context);},
                                   );
                                 },
                               );
@@ -205,7 +212,7 @@ class _ManageScreenState extends State<ManageScreen> {
                   ),
                 ],
               ),
-              EmploymentContainerConstant(),
+              EmploymentContainerConstant(employeeId: widget.employeeId!,),
             ],
           ),
         ),
@@ -245,7 +252,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                   onpressedSave: () async {
                                     await addEmployeeEducation(
                                         context,
-                                        2,
+                                        widget.employeeId!,
                                         expiryType.toString(),
                                         degreeController.text,
                                         majorSubjectController.text,
@@ -298,7 +305,7 @@ class _ManageScreenState extends State<ManageScreen> {
                   ),
                 ],
               ),
-              EducationChildTabbar(),
+              EducationChildTabbar(employeeId: widget.employeeId!,),
             ],
           ),
         ),
@@ -339,7 +346,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                         'Reference',
                                         companyNameController.text,
                                         emailController.text,
-                                        5,
+                                        widget.employeeId!,
                                         mobileNumberController.text,
                                         nameController.text,
                                         knowPersonController.text,
@@ -355,7 +362,7 @@ class _ManageScreenState extends State<ManageScreen> {
               SizedBox(
                 height: 1,
               ),
-              ReferencesChildTabbar(),
+              ReferencesChildTabbar(employeeId: widget.employeeId!,),
             ],
           ),
         ),
@@ -367,40 +374,59 @@ class _ManageScreenState extends State<ManageScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    height: 27,
-                    width: 250,
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    padding: EdgeInsets.only(top: 2, bottom: 1, left: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border:
-                          Border.all(color: Color(0xffB1B1B1)), // Black border
-                      borderRadius: BorderRadius.circular(5), // Rounded corners
-                    ),
-                    child: DropdownButtonFormField<String>(
-                      focusColor: Colors.transparent,
-                      icon: Icon(
-                        Icons.arrow_drop_down_sharp,
-                        color: Color(0xff50B5E5),
-                      ),
-                      decoration: InputDecoration.collapsed(hintText: ''),
-                      items: <String>[
-                        'Select Document',
-                        'Drivers License',
-                        'CPR',
-                        'Liability Insurence'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {},
-                      value: 'Select Document',
-                      style: TextStyle(color: Color(0xff686464), fontSize: 12),
-                    ),
+                  FutureBuilder<List<SelectDocuments>>(
+                      future: selectDocument(context),
+                      builder: (context,snapshot) {
+                        if(snapshot.connectionState == ConnectionState.waiting){
+                          return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                width: 350,
+                                height: 30,
+                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                              )
+                          );
+                        }
+                        if (snapshot.data!.isEmpty) {
+                          return Center(
+                            child: Offstage()
+                          );
+                        }
+                        if(snapshot.hasData){
+                          List dropDown = [];
+                          String docType = '';
+                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                          for(var i in snapshot.data!){
+                            dropDownMenuItems.add(
+                              DropdownMenuItem<String>(
+                                child: Text(i.docName),
+                                value: i.docName,
+                              ),
+                            );
+                          }
+                          return CICCDropdown(
+                            width: 200,
+                              initialValue: dropDownMenuItems[0].value,
+                              onChange: (val){
+                                for(var a in snapshot.data!){
+                                  if(a.docName == val){
+                                   docType = a.docName;
+                                   docName = docType;
+                                    //docMetaId = docType;
+                                  }
+                                }
+                                print(":::${docType}");
+                               // print(":::<>${docMetaId}");
+                              },
+                              items:dropDownMenuItems
+                          );
+                        }else{
+                          return SizedBox();
+                        }
+                      }
                   ),
+                  SizedBox(width: 20),
                   Container(
                     width: 100,
                     margin: EdgeInsets.only(right: 20),
@@ -423,10 +449,63 @@ class _ManageScreenState extends State<ManageScreen> {
                                     Navigator.pop(context);
                                   },
                                   onpressedSave: () async {
-                                    // await addLicensePost(context, licenseId, countryNameController.text, 0, expiryDateController.text, issueDateController.text,
-                                    //     licenseUrl, licensure, licenseNumber, org, documentType);
+                                    await addLicensePost(context, countryController.text, widget.employeeId!, expiryDateController.text, issueDateController.text,
+                                        'url', livensureController.text, numberIDController.text, docName.toString(), docName.toString());
+                                    Navigator.pop(context);
                                   },
                                   title: 'Add Licence',
+                                  child: FutureBuilder<List<SelectDocuments>>(
+                                      future: selectDocument(context),
+                                      builder: (context,snapshot) {
+                                        if(snapshot.connectionState == ConnectionState.waiting){
+                                          return Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.grey[100]!,
+                                              child: Container(
+                                                width: 350,
+                                                height: 30,
+                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
+                                              )
+                                          );
+                                        }
+                                        if (snapshot.data!.isEmpty) {
+                                          return Center(
+                                              child: Offstage()
+                                          );
+                                        }
+                                        if(snapshot.hasData){
+                                          List dropDown = [];
+                                          String docType = '';
+                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
+                                          for(var i in snapshot.data!){
+                                            dropDownMenuItems.add(
+                                              DropdownMenuItem<String>(
+                                                child: Text(i.docName),
+                                                value: i.docName,
+                                              ),
+                                            );
+                                          }
+                                          return CICCDropdown(
+                                              width: 200,
+                                              initialValue: dropDownMenuItems[0].value,
+                                              onChange: (val){
+                                                for(var a in snapshot.data!){
+                                                  if(a.docName == val){
+                                                    docType = a.docName;
+                                                    docName = docType;
+                                                    //docMetaId = docType;
+                                                  }
+                                                }
+                                                print(":::${docType}");
+                                                // print(":::<>${docMetaId}");
+                                              },
+                                              items:dropDownMenuItems
+                                          );
+                                        }else{
+                                          return SizedBox();
+                                        }
+                                      }
+                                  ),
                                 );
                               });
                         }),
@@ -436,7 +515,7 @@ class _ManageScreenState extends State<ManageScreen> {
               SizedBox(
                 height: 1,
               ),
-              LicensesChildTabbar(),
+              LicensesChildTabbar(employeeId: widget.employeeId!,),
             ],
           ),
         ),

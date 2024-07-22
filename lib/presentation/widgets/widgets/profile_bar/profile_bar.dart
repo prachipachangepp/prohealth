@@ -28,7 +28,7 @@ class ProfileBar extends StatelessWidget {
                 color: ColorManager.greenF,
               ),
               child: FutureBuilder<ProfilePercentage>(
-                  future: getPercentage(context, 2),
+                  future: getPercentage(context, searchByEmployeeIdProfileData!.employeeId!),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return SizedBox();
