@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
@@ -310,61 +311,63 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: [
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width/5,
-                                        height: AppSize.s40,
-                                        //alignment: Alignment.center,
-                                        //color: Colors.cyan,
+                                      // SizedBox(
+                                      //   width: MediaQuery.of(context).size.width/5,
+                                      //   height: AppSize.s40,
+                                      //   //alignment: Alignment.center,
+                                      //   //color: Colors.cyan,
+                                      //
+                                      //   child:
+                                      //   FutureBuilder<List<AEClinicalCity>>(
+                                      //     future: HrAddEmplyClinicalCityApi(context),
+                                      //     builder: (context, snapshot) {
+                                      //       if (snapshot.connectionState ==
+                                      //           ConnectionState.waiting) {
+                                      //         return Shimmer.fromColors(
+                                      //           baseColor: Colors.grey[300]!,
+                                      //           highlightColor: Colors.grey[100]!,
+                                      //           child: Padding(
+                                      //             padding: const EdgeInsets.symmetric(
+                                      //                 horizontal: 7),
+                                      //             child: Container(
+                                      //               width: 180,
+                                      //               height: 40,
+                                      //               decoration: BoxDecoration(
+                                      //                   color:
+                                      //                   ColorManager.faintGrey),
+                                      //             ),
+                                      //           ),
+                                      //         );
+                                      //       }
+                                      //       if (snapshot.hasData) {
+                                      //         List<String> dropDownList = [];
+                                      //         for (var i in snapshot.data!) {
+                                      //           dropDownList.add(i.cityName!);
+                                      //         }
+                                      //         return  CustomDropdownFormField(
+                                      //           height: 45,
+                                      //           hintText: 'Select a City',
+                                      //           labelText: 'City',
+                                      //           items: dropDownList,
+                                      //          // onChanged: (String? value) {},
+                                      //         );
+                                      //         //   MyDropdownTextField(
+                                      //         //   hint: AppString.city,
+                                      //         //   // labelStyle: GoogleFonts.firaSans(
+                                      //         //   //   fontSize: 12,
+                                      //         //   //   color: Color(0xff575757),
+                                      //         //   //   fontWeight: FontWeight.w400,
+                                      //         //   // ),
+                                      //         //   // labelFontSize: 12,
+                                      //         //   items: dropDownList,
+                                      //         // );
+                                      //       } else {
+                                      //         return const Offstage();
+                                      //       }
+                                      //     },
+                                      //   ),),
 
-                                        child:
-                                        FutureBuilder<List<AEClinicalCity>>(
-                                          future: HrAddEmplyClinicalCityApi(context),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor: Colors.grey[100]!,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.symmetric(
-                                                      horizontal: 7),
-                                                  child: Container(
-                                                    width: 180,
-                                                    height: 40,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                        ColorManager.faintGrey),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            if (snapshot.hasData) {
-                                              List<String> dropDownList = [];
-                                              for (var i in snapshot.data!) {
-                                                dropDownList.add(i.cityName!);
-                                              }
-                                              return  CustomDropdownFormField(
-                                                height: 45,
-                                                hintText: 'Select a City',
-                                                labelText: 'City',
-                                                items: dropDownList,
-                                               // onChanged: (String? value) {},
-                                              );
-                                              //   MyDropdownTextField(
-                                              //   hint: AppString.city,
-                                              //   // labelStyle: GoogleFonts.firaSans(
-                                              //   //   fontSize: 12,
-                                              //   //   color: Color(0xff575757),
-                                              //   //   fontWeight: FontWeight.w400,
-                                              //   // ),
-                                              //   // labelFontSize: 12,
-                                              //   items: dropDownList,
-                                              // );
-                                            } else {
-                                              return const Offstage();
-                                            }
-                                          },
-                                        ),),
+
                                       // CustomDropdownFormField(
                                       //   height: 45,
                                       //   hintText: 'Select a City',
@@ -814,7 +817,20 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width/75),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ConfirmationPopup(
+                                  onCancel: () {Navigator.pop(context);},
+                                  onConfirm: () {Navigator.pop(context);},
+                                  title: 'Confirm Enrollment',
+                                  containerText: 'Do you really want to enroll?',
+                                );
+                              },
+                            );
+                          },
+
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xff1696C8),
                             foregroundColor: Colors.white,
