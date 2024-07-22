@@ -29,7 +29,7 @@ class _generalFormState extends State<generalForm> {
   //TextEditingController firstName = TextEditingController();
 
   /////
-  TextEditingController _dobcontroller = TextEditingController();
+  TextEditingController dobcontroller = TextEditingController();
 
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
@@ -56,6 +56,36 @@ class _generalFormState extends State<generalForm> {
   String? gendertype;
 
   String? racetype;
+
+
+  List<String> _fileNames = [];
+  bool _loading = false;
+
+  void _pickFiles() async {
+    setState(() {
+      _loading = true; // Show loader
+      _fileNames.clear(); // Clear previous file names if any
+    });
+
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+    );
+
+    if (result != null) {
+      setState(() {
+        _fileNames.addAll(result.files.map((file) => file.name!));
+        _loading = false; // Hide loader
+      });
+      print('Files picked: $_fileNames');
+    } else {
+      setState(() {
+        _loading = false; // Hide loader on cancel
+      });
+      print('User canceled the picker');
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -129,18 +159,19 @@ class _generalFormState extends State<generalForm> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed: () async {
-                          FilePickerResult? result =
-                              await FilePicker.platform.pickFiles(
-                            allowMultiple: false,
-                          );
-                          if (result != null) {
-                            PlatformFile file = result.files.first;
-                            print('File picked: ${file.name}');
-                          } else {
-                            // User canceled the picker
-                          }
-                        },
+                        onPressed:_pickFiles,
+                        // onPressed: () async {
+                        //   FilePickerResult? result =
+                        //       await FilePicker.platform.pickFiles(
+                        //     allowMultiple: false,
+                        //   );
+                        //   if (result != null) {
+                        //     PlatformFile file = result.files.first;
+                        //     print('File picked: ${file.name}');
+                        //   } else {
+                        //     // User canceled the picker
+                        //   }
+                        // },
                         label: Text(
                           "Choose File",
                           style: GoogleFonts.firaSans(
@@ -151,6 +182,32 @@ class _generalFormState extends State<generalForm> {
                         ),
                         icon: const Icon(Icons.file_upload_outlined),
                       ),
+                      _loading
+                          ? SizedBox(width: 25,
+                        height: 25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime, // Loader color
+                          // Loader size
+                        ),
+                      )
+                          : _fileNames.isNotEmpty
+                          ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _fileNames
+                            .map((fileName) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'File picked: $fileName',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff686464)),
+                          ),
+                        ))
+                            .toList(),
+                      )
+                          : SizedBox(), // Display file names if picked
+
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Legal First Name',
@@ -384,7 +441,7 @@ class _generalFormState extends State<generalForm> {
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
-                        controller: _dobcontroller,
+                        controller: dobcontroller,
                         hintText: 'dd-mm-yyyy',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -406,7 +463,7 @@ class _generalFormState extends State<generalForm> {
                               lastDate: DateTime(2101),
                             );
                             if (pickedDate != null) {
-                              _dobcontroller.text =
+                              dobcontroller.text =
                                   "${pickedDate.toLocal()}".split(' ')[0];
                             }
                           },
@@ -632,59 +689,61 @@ class _generalFormState extends State<generalForm> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xff1696C8),
                   foregroundColor: Colors.white,
+
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                onPressed: () async {
-                 // await postgeneralscreen(context,  secondryPhoneNbr, workPhoneNbr, regOfficId, personalEmail, workEmail, address,
-                 //      emergencyContact, covreage, employment, gender, status, service, imgurl,
-                 //      resumeurl, companyId, onboardingStatus, driverLicenceNbr, rehirable,
-                 //      position, finalAddress, type, reason, finalPayCheck, grossPay, netPay, methods, materials, race);
-                  await postgeneralscreen(
-                      context,
-                      "__",
-                      0,
-                      firstname.text,
-                      lastname.text,
-                      0,
-                      0,
-                      "__",
-                      0,
-                      0,
-                      0,
-                      ssecuritynumber.text,
-                      phonenumber.text,
-                      "__",
-                      "__",
-                      "__",
-                      personalemail.text,
-                      "__",
-                      address.text,
-                      "__",
-                      "__",
-                      "__",
-                      gendertype.toString(),
-                      "__",
-                      "__",
-                      "__",
-                      "__",
-                      0,
-                      "__",
-                      driverlicensenumb.text,
-                      "__",
-                      "__",
-                      "__",
-                      "__",
-                      "__",
-                      0,
-                      0,
-                      0,
-                      "__",
-                      "__",
-                      racetype.toString());
-                  // postgeneralscreen(context, "__" , 0, firstname.text, lastname.text, 0 ,0, "__", 0, 0, 0, ssecuritynumber.text, phonenumber.text, "__","__", "__",  personalemail.text, "__", address.text, "__", "__", "__", "__", "__", "__", "__", "__", 0, "__",  phonenumber.text, "__", "__", "__", "__", "__", 0, 0,0, "__","__","__");
-                },
+                 onPressed: () async {
+                //   await postgeneralscreen(
+                //       context,
+                //       "__",
+                //       0,
+                //       firstname.text,
+                //       lastname.text,
+                //       0,
+                //       0,
+                //       "__",
+                //       0,
+                //       0,
+                //       0,
+                //       ssecuritynumber.text,
+                //       phonenumber.text,
+                //       "__",
+                //       "__",
+                //       "__",
+                //       personalemail.text,
+                //       "__",
+                //       address.text,
+                //       dobcontroller.text,
+                //       "__",
+                //       "__",
+                //       "__",
+                //       gendertype.toString(),
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       0,
+                //       "__",
+                //       driverlicensenumb.text,
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       0,
+                //       "__",
+                //       0,
+                //       0,
+                //       "__",
+                //       "__",
+                //       racetype.toString(),
+                //       "__");
+                 },
                 child: Text(
                   'Save',
                   style: GoogleFonts.firaSans(
