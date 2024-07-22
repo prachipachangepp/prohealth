@@ -28,7 +28,7 @@ class ProfileBar extends StatelessWidget {
                 color: ColorManager.greenF,
               ),
               child: FutureBuilder<ProfilePercentage>(
-                  future: getPercentage(context, 2),
+                  future: getPercentage(context, searchByEmployeeIdProfileData!.employeeId!),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return SizedBox();
@@ -70,8 +70,9 @@ class ProfileBar extends StatelessWidget {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset('images/profile.png',
-                                height: AppSize.s50, width: AppSize.s50),
+                            Icon(Icons.person,color: ColorManager.white,size: AppSize.s50,),
+                            // Image.network(searchByEmployeeIdProfileData!.imgurl,
+                            //     height: AppSize.s50, width: AppSize.s50),
                             // you can replace
                             SizedBox(
                               height: AppSize.s53,

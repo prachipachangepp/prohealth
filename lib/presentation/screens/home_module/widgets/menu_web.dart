@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/ci_org_doc_manager.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/presentation/screens/hr_module/hr_home_screen/hr_home_screen.dart';
+import 'package:prohealth/presentation/screens/login_module/login/login_screen.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
@@ -102,10 +103,11 @@ class HomeScreenWeb extends StatelessWidget {
                                     ),
                                   ),
                                   IconButton(
-                                      onPressed: () {
-                                        TokenManager.removeAccessToken();
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context, '/', (route) => false);
+                                      onPressed: () async{
+                                         TokenManager.removeAccessToken();
+                                         Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName,(route) => false);
+                                        // Navigator.pushNamedAndRemoveUntil(
+                                        //     context, '/', (route) => false);
                                       },
                                       icon: const Icon(Icons.logout))
                                 ],

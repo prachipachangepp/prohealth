@@ -13,7 +13,8 @@ import '../../icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 ///done by saloni
 class ReferencesChildTabbar extends StatefulWidget {
-  const ReferencesChildTabbar({super.key});
+  final int employeeId;
+  const ReferencesChildTabbar({super.key, required this.employeeId});
 
   @override
   State<ReferencesChildTabbar> createState() => _ReferencesChildTabbarState();
@@ -31,11 +32,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
   @override
   void initState() {
     // TODO: implement initState
-    getReferences(context,5).then((data) {
-      referenceStreamController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
 
     super.initState();
   }
@@ -45,6 +42,11 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
     return StreamBuilder<List<ReferenceData>>(
       stream: referenceStreamController.stream,
       builder: (context,snapshot) {
+        getReferences(context,widget.employeeId).then((data) {
+          referenceStreamController.add(data);
+        }).catchError((error) {
+          // Handle error
+        });
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: Padding(
@@ -224,7 +226,7 @@ class _ReferencesChildTabbarState extends State<ReferencesChildTabbar> {
                                                 comment.toString(),
                                                 companyName == companyNameController.text ? companyName.toString() : companyNameController.text,
                                                 email == emailController.text ? email.toString() : emailController.text,
-                                                5,
+                                                widget.employeeId,
                                                 mobileNumber == mobileNumberController.text ? mobileNumber.toString() : mobileNumberController.text,
                                                 name == nameController.text ? name.toString() : nameController.text,
                                                 references.toString(),

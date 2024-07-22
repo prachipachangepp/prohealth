@@ -163,12 +163,13 @@ class AcknowledgementAddPopup extends StatefulWidget {
   final String labelName;
   final TextEditingController AcknowledgementnameController;
   final VoidCallback onSavePressed;
+  final Widget child;
 
   const AcknowledgementAddPopup({
     Key? key,
     required this.labelName,
     required this.AcknowledgementnameController,
-    required this.onSavePressed,
+    required this.onSavePressed, required this.child,
   }) : super(key: key);
 
   @override
@@ -245,15 +246,7 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                       ),
                     ),
                     SizedBox(height: 3),
-                    CICCDropdown(
-                      initialValue: 'Select Type',
-                      items: [
-                        DropdownMenuItem(value: 'Type 1', child: Text('Type 1')),
-                        DropdownMenuItem(value: 'Type 2', child: Text('Type 2')),
-                        DropdownMenuItem(value: 'Type 3', child: Text('Type 3')),
-                        DropdownMenuItem(value: 'Type 4', child: Text('Type 4')),
-                      ],
-                    ),
+                    widget.child,
                     // DropdownButtonFormField<String>(
                     //   value: _selectedDocumentType,
                     //   items: [
