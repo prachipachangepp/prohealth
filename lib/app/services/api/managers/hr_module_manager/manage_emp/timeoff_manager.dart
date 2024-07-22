@@ -3,11 +3,12 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/timeoff_data.dart';
 
 Future<List<TimeOfffData>> getEmployeeTimeOff(
-    BuildContext context, int companyId) async {
+    BuildContext context,) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -23,6 +24,7 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
 
   List<TimeOfffData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: ManageReposotory.getEmployeeTimeOff(companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
