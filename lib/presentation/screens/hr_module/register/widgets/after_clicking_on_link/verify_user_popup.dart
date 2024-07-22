@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/value_manager.dart';
@@ -96,7 +97,7 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                     },
                   ),
                   SizedBox(height: 20),
-                  ElevatedButton(
+                  isLoading ? SizedBox(height:25,width:25,child: CircularProgressIndicator(color: ColorManager.blueprime,)) : ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF50B5E5),
                       shape: RoundedRectangleBorder(
@@ -106,18 +107,18 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                     onPressed: emailEntered
                         ? () {
                       setState(() {
-                        isLoading = true; // Step 2: Set loading state to true
+                        isLoading = true;
                         otpEnabled = true;
                       });
-                      // Simulate API call delay (replace with actual API call)
+                      // API
                       Future.delayed(Duration(seconds: 2), () {
                         setState(() {
-                          isLoading = false; // Step 3: Set loading state to false when done
+                          isLoading = false;
                         });
                       });
                     }
-                        : null, // Disable button if email not entered
-                    child: isLoading ? CircularProgressIndicator() : Text('Enter OTP'), // Show loader if loading
+                        : null,
+                    child:  Text('Enter OTP'),
                   ),
                   SizedBox(height: 20),
                   Column(
