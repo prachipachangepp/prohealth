@@ -21,137 +21,322 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
       backgroundColor: Colors.white,
-      titlePadding: EdgeInsets.zero,
-      title: Container(
-        height: 50,
-        decoration: BoxDecoration(
-          color: Color(0xff50B5E5),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(13),
-            topRight: Radius.circular(13),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 16),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.3,
+        height: 300,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Color(0xff50B5E5),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(13),
+                  topRight: Radius.circular(13),
+                ),
+              ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.person_outline, color: Colors.white, size: 20),
-                  SizedBox(width: 8),
-                  Text(
-                    AppString.verify_user,
-                    style: GoogleFonts.firaSans(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                  Padding(
+                    padding: EdgeInsets.only(left: 16),
+                    child: Row(
+                      children: [
+                        Icon(Icons.person_outline, color: Colors.white, size: 20),
+                        SizedBox(width: 8),
+                        Text(
+                          AppString.verify_user,
+                          style: GoogleFonts.firaSans(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.close, color: Colors.white),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                   ),
                 ],
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.close, color: Colors.white),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  CustomTextFieldRegister(
+
+                    height: AppSize.s35,
+                    width: MediaQuery.of(context).size.width / 5,
+                    controller: emailController,
+                    labelText: 'Email',
+                    keyboardType: TextInputType.text,
+                    padding: EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
+                    onChanged: (value) {
+                      setState(() {
+                        emailEntered = value.isNotEmpty; // Update emailEntered based on email field
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppString.enterText;
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF50B5E5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                      ),
+                    ),
+                    onPressed: emailEntered
+                        ? () {
+                      setState(() {
+                        isLoading = true; // Step 2: Set loading state to true
+                        otpEnabled = true;
+                      });
+                      // Simulate API call delay (replace with actual API call)
+                      Future.delayed(Duration(seconds: 2), () {
+                        setState(() {
+                          isLoading = false; // Step 3: Set loading state to false when done
+                        });
+                      });
+                    }
+                        : null, // Disable button if email not entered
+                    child: isLoading ? CircularProgressIndicator() : Text('Enter OTP'), // Show loader if loading
+                  ),
+                  SizedBox(height: 20),
+                  Column(
+                    children: <Widget>[
+                      CustomTextFieldRegister(
+                        height: AppSize.s35,
+                        width: MediaQuery.of(context).size.width / 5,
+                        controller: otpController,
+                        labelText: 'Enter OTP',
+                        enabled: otpEnabled,
+                        keyboardType: TextInputType.text,
+                        padding: EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
+                        onChanged: (value) {},
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppString.enterText;
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF50B5E5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                      ),
+                    ),
+                    onPressed: otpEnabled
+                        ? () {
+                      // Handle OTP submission logic here
+                      String email = emailController.text;
+                      String otp = otpController.text;
+                      print('Email: $email, OTP: $otp');
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: OnBoardingCongratulation(),
+                          );
+                        },
+                      );
+                    }
+                        : null, // Disable button if OTP not entered
+                    child: Text('Submit'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          CustomTextFieldRegister(
-            height: AppSize.s35,
-            width: MediaQuery.of(context).size.width / 6,
-            controller: emailController,
-            labelText:'Email',
-            keyboardType: TextInputType.text,
-            padding: EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
-            onChanged: (value) {
-              setState(() {
-                emailEntered = value.isNotEmpty; // Update emailEntered based on email field
-              });
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return AppString.enterText;
-              }
-              return null;
-            },
-          ),
-
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: emailEntered ? () {
-              setState(() {
-                isLoading = true; // Step 2: Set loading state to true
-                otpEnabled = true;
-              });
-              // Simulate API call delay (replace with actual API call)
-              Future.delayed(Duration(seconds: 2), () {
-                setState(() {
-                  isLoading = false; // Step 3: Set loading state to false when done
-                });
-              });
-            } : null, // Disable button if email not entered
-            child: isLoading ? CircularProgressIndicator() : Text('Enter OTP'), // Show loader if loading
-          ),
-          SizedBox(height: 20),
-          Column(
-            children: <Widget>[
-              CustomTextFieldRegister(
-                height: AppSize.s35,
-                width: MediaQuery.of(context).size.width / 6,
-                controller: otpController,
-                labelText:'Enter OTP',
-                enabled: otpEnabled,
-                keyboardType: TextInputType.text,
-                padding: EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
-                onChanged: (value) {},
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return AppString.enterText;
-                  }
-                  return null;
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-      actions: <Widget>[
-        ElevatedButton(
-          onPressed: otpEnabled ? () {
-            // Handle OTP submission logic here
-            String email = emailController.text;
-            String otp = otpController.text;
-            print('Email: $email, OTP: $otp');
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: OnBoardingCongratulation(),
-                );
-              },
-            );
-          } : null, // Disable button if OTP not entered
-          child: Text('Submit'),
-        ),
-      ],
     );
   }
 }
+
+/////////////////
+
+////
+
+// import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
+//
+// import '../../../../../../app/resources/const_string.dart';
+// import '../../../../../../app/resources/value_manager.dart';
+// import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
+// import '../../taxtfield_constant.dart';
+// import 'on_boarding_welcome.dart';
+//
+// class EnterEmailAndOTPDialog extends StatefulWidget {
+//   @override
+//   _EnterEmailAndOTPDialogState createState() => _EnterEmailAndOTPDialogState();
+// }
+//
+// class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
+//   TextEditingController emailController = TextEditingController();
+//   TextEditingController otpController = TextEditingController();
+//   bool otpEnabled = false;
+//   bool emailEntered = false;
+//   bool isLoading = false;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(15.0),
+//       ),
+//       backgroundColor: Colors.white,
+//       titlePadding: EdgeInsets.zero,
+//       title: Container(
+//         height: 50,
+//         decoration: BoxDecoration(
+//           color: Color(0xff50B5E5),
+//           borderRadius: BorderRadius.only(
+//             topLeft: Radius.circular(13),
+//             topRight: Radius.circular(13),
+//           ),
+//         ),
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: [
+//             Padding(
+//               padding: EdgeInsets.only(left: 16),
+//               child: Row(
+//                 children: [
+//                   Icon(Icons.person_outline, color: Colors.white, size: 20),
+//                   SizedBox(width: 8),
+//                   Text(
+//                     AppString.verify_user,
+//                     style: GoogleFonts.firaSans(
+//                       fontSize: 20,
+//                       fontWeight: FontWeight.w600,
+//                       color: Colors.white,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             IconButton(
+//               icon: Icon(Icons.close, color: Colors.white),
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//             ),
+//           ],
+//         ),
+//       ),
+//       content: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         children: <Widget>[
+//           CustomTextFieldRegister(
+//             height: AppSize.s35,
+//             width: MediaQuery.of(context).size.width / 6,
+//             controller: emailController,
+//             labelText:'Email',
+//             keyboardType: TextInputType.text,
+//             padding: EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
+//             onChanged: (value) {
+//               setState(() {
+//                 emailEntered = value.isNotEmpty; // Update emailEntered based on email field
+//               });
+//             },
+//             validator: (value) {
+//               if (value == null || value.isEmpty) {
+//                 return AppString.enterText;
+//               }
+//               return null;
+//             },
+//           ),
+//
+//           SizedBox(height: 20),
+//           ElevatedButton(
+//             onPressed: emailEntered ? () {
+//               setState(() {
+//                 isLoading = true; // Step 2: Set loading state to true
+//                 otpEnabled = true;
+//               });
+//               // Simulate API call delay (replace with actual API call)
+//               Future.delayed(Duration(seconds: 2), () {
+//                 setState(() {
+//                   isLoading = false; // Step 3: Set loading state to false when done
+//                 });
+//               });
+//             } : null, // Disable button if email not entered
+//             child: isLoading ? CircularProgressIndicator() : Text('Enter OTP'), // Show loader if loading
+//           ),
+//           SizedBox(height: 20),
+//           Column(
+//             children: <Widget>[
+//               CustomTextFieldRegister(
+//                 height: AppSize.s35,
+//                 width: MediaQuery.of(context).size.width / 6,
+//                 controller: otpController,
+//                 labelText:'Enter OTP',
+//                 enabled: otpEnabled,
+//                 keyboardType: TextInputType.text,
+//                 padding: EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
+//                 onChanged: (value) {},
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return AppString.enterText;
+//                   }
+//                   return null;
+//                 },
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//       actions: <Widget>[
+//         ElevatedButton(
+//           onPressed: otpEnabled ? () {
+//             // Handle OTP submission logic here
+//             String email = emailController.text;
+//             String otp = otpController.text;
+//             print('Email: $email, OTP: $otp');
+//             showDialog(
+//               context: context,
+//               builder: (BuildContext context) {
+//                 return Dialog(
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(20.0),
+//                   ),
+//                   child: OnBoardingCongratulation(),
+//                 );
+//               },
+//             );
+//           } : null, // Disable button if OTP not entered
+//           child: Text('Submit'),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 /////////////////////////////////////raw///////////////////
 // import 'package:flutter/material.dart';
