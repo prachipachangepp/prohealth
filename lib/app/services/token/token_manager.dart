@@ -12,13 +12,21 @@ class TokenManager {
     String? userName = sharedPreferences.getString("userName");
     return userName ?? "";
   }
+  static Future<int> getCompanyId() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    int? companyId = sharedPreferences.getInt("companyId");
+    return companyId ?? 0;
+  }
 
-  static void setAccessToken({required String token, required String username}) async {
+
+  static void setAccessToken({required String token, required String username, required int companyId}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     print('User Name set $username');
     print("Token to set $token");
+    print('companyId ${companyId}');
     sharedPreferences.setString("accessToken", token);
     sharedPreferences.setString("userName", username);
+    sharedPreferences.setInt("companyId", companyId);
   }
 
   static void removeAccessToken() async {

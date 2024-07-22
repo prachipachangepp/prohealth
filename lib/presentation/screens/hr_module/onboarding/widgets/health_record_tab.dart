@@ -169,7 +169,6 @@
 //////
 ////
 
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/presentation/screens/hr_module/onboarding/widgets/widgets/health_record_tab_constant.dart';
@@ -229,14 +228,20 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
           ),
           SizedBox(height: size.height * 0.02),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-            child: Wrap(
-              alignment: WrapAlignment.end,
-              spacing: 8,
-              runSpacing: 8,
+            padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/19),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                _buildButton('Reject', Colors.white, const Color(0xff1696C8), true),
-                _buildButton('Approve', const Color(0xff1696C8), Colors.white, false),
+                Wrap(
+                  alignment: WrapAlignment.end,
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    _buildButton('Reject', Colors.white, const Color(0xff1696C8), true),
+                    _buildButton('Approve', const Color(0xff1696C8), Colors.white, false),
+                  ],
+                ),
               ],
             ),
           )
@@ -287,6 +292,46 @@ class _HealthRecordTabState extends State<HealthRecordTab> {
         ),
         buildHealthRecordContainer(title, date, icon, color),
       ],
+    );
+  }
+
+  Widget buildHealthRecordContainer(String title, String date, IconData icon, Color color) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        color: color.withOpacity(0.1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.firaSans(
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 8.0),
+          Row(
+            children: [
+              Icon(
+                icon,
+                size: 20.0,
+                color: color,
+              ),
+              SizedBox(width: 4.0),
+              Text(
+                date,
+                style: GoogleFonts.firaSans(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

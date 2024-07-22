@@ -267,7 +267,7 @@ class _SalesHrScreenState extends State<SalesHrScreen> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => DeletePopup(
-                                      title: 'Delete HR Clinical',
+                                      title: 'Delete HR Sales',
                                       onCancel: () {
                                         Navigator.pop(context);
                                       },

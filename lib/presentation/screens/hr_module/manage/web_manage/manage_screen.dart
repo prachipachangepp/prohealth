@@ -133,7 +133,7 @@ class _ManageScreenState extends State<ManageScreen> {
 
     childController = CenteredTabBarChildController(
       tabs: [
-        Tab(text: AppStringHr.employment),
+        Tab(text: AppStringHr.employment,),
         Tab(text: AppStringHr.education),
         Tab(text: AppStringHr.referance),
         Tab(text: AppStringHr.license),
@@ -226,38 +226,37 @@ class _ManageScreenState extends State<ManageScreen> {
                         onPressed: () {
                           showDialog(
                               context: context,
-                              builder: (BuildContext context) {
-                                return StatefulBuilder(
-                                  builder: (BuildContext context,
-                                      void Function(void Function()) setState) {
-                                    return AddEducationPopup(
-                                      collegeUniversityController:
-                                          collegeUniversityController,
-                                      phoneController: phoneController,
-                                      calenderController: calenderController,
-                                      cityController: cityController,
-                                      degreeController: degreeController,
-                                      stateController: stateController,
-                                      majorSubjectController:
-                                          majorSubjectController,
-                                      countryNameController:
-                                          countryNameController,
-                                      onpressedClose: () {
-                                        Navigator.pop(context);
-                                      },
-                                      onpressedSave: () async {
-                                        await addEmployeeEducation(
-                                            context,
-                                            2,
-                                            expiryType.toString(),
-                                            degreeController.text,
-                                            majorSubjectController.text,
-                                            cityController.text,
-                                            collegeUniversityController.text,
-                                            phoneController.text,
-                                            stateController.text);
-                                      },
-                                      radioButton: Container(
+                              builder: (context) {
+                                return AddEducationPopup(
+                                  collegeUniversityController:
+                                  collegeUniversityController,
+                                  phoneController: phoneController,
+                                  calenderController: calenderController,
+                                  cityController: cityController,
+                                  degreeController: degreeController,
+                                  stateController: stateController,
+                                  majorSubjectController:
+                                  majorSubjectController,
+                                  countryNameController:
+                                  countryNameController,
+                                  onpressedClose: () {
+                                    Navigator.pop(context);
+                                  },
+                                  onpressedSave: () async {
+                                    await addEmployeeEducation(
+                                        context,
+                                        2,
+                                        expiryType.toString(),
+                                        degreeController.text,
+                                        majorSubjectController.text,
+                                        cityController.text,
+                                        collegeUniversityController.text,
+                                        phoneController.text,
+                                        stateController.text);
+                                  },
+                                  radioButton: StatefulBuilder(
+                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                      return Container(
                                         width: 280,
                                         child: Row(
                                           children: [
@@ -265,7 +264,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                               child: CustomRadioListTile(
                                                 value: "Yes",
                                                 groupValue:
-                                                    expiryType.toString(),
+                                                expiryType.toString(),
                                                 onChanged: (value) {
                                                   setState(() {
                                                     expiryType = value!;
@@ -278,7 +277,7 @@ class _ManageScreenState extends State<ManageScreen> {
                                               child: CustomRadioListTile(
                                                 value: "No",
                                                 groupValue:
-                                                    expiryType.toString(),
+                                                expiryType.toString(),
                                                 onChanged: (value) {
                                                   setState(() {
                                                     expiryType = value!;
@@ -289,10 +288,10 @@ class _ManageScreenState extends State<ManageScreen> {
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      title: 'Add Education',
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
+                                  title: 'Add Education',
                                 );
                               });
                         }),

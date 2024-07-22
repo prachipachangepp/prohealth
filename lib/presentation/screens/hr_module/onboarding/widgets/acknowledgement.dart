@@ -455,7 +455,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
         ),
         SizedBox(height: screenHeight / 100),
         Padding(
-          padding: EdgeInsets.only(right: screenWidth / 20),
+          padding: EdgeInsets.only(right: screenWidth / 19),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

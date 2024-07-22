@@ -54,7 +54,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
     return StreamBuilder(
         stream: timeOffStremController.stream,
         builder: (context, snapshot) {
-          getEmployeeTimeOff(context, 5).then((data) {
+          getEmployeeTimeOff(context,).then((data) {
             timeOffStremController.add(data);
           }).catchError((error) {
             // Handle error
@@ -351,12 +351,11 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    CircleAvatar(
-                                                      radius: 10,
-                                                      backgroundColor:
-                                                          ColorManager
-                                                              .faintGrey,
-                                                    ),
+                                                    // CircleAvatar(
+                                                    //   radius: 10,
+                                                    //   child:  Center(child: Icon(Icons.person,color:Colors.grey,)),
+                                                    // ),
+                                                    Icon(Icons.person,color:Colors.grey,size: 17,),
                                                     Text(
                                                       timeOff.employeeName,
                                                       //textAlign: TextAlign.center,

@@ -111,15 +111,17 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                           color: ColorManager.greenF,
                                           borderRadius: BorderRadius.only(
                                               topRight: Radius.circular(20))),
-                                      child: Text(
-                                        // AppString.approve,
-                                        snapshot.data![index].approved.toString(),
-                                        textAlign: TextAlign.center,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                            color: ColorManager.white,
-                                            fontSize: FontSize.s11,
-                                            fontWeight: FontWeightManager.bold
-                                        )
+                                      child: Center(
+                                        child: Text(
+                                          // AppString.approve,
+                                          snapshot.data![index].approved.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: CustomTextStylesCommon.commonStyle(
+                                              color: ColorManager.white,
+                                              fontSize: FontSize.s11,
+                                              fontWeight: FontWeightManager.bold
+                                          )
+                                        ),
                                       )),
                                 ],
                               ),
@@ -136,16 +138,17 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                        // crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          // CircleAvatar(
-                                          //   radius: MediaQuery.of(context).size.width/50,
-                                          //   child:
-                                          //       Image.asset('images/profile.png'),
-                                          // ),
                                           CircleAvatar(
-                                            radius: MediaQuery.of(context).size.width / 50,
-                                            backgroundImage: NetworkImage(snapshot.data![index].imgurl ?? 'images/profile.png'),
-                                            onBackgroundImageError: (_, __) => Image.asset('images/profile.png'),
+                                            radius: MediaQuery.of(context).size.width/50,
+                                            child:
+                                                Image.asset('images/profile.png'),
                                           ),
+                                          // CircleAvatar(
+                                          //   radius: MediaQuery.of(context).size.width / 50,
+                                          //   backgroundImage: NetworkImage(snapshot.data![index].imgurl ?? 'images/profile.png'),
+                                          //   onBackgroundImageError: (_, __) => Image.asset(
+                                          //       'images/profile.png'),
+                                          // ),
                                           SizedBox(height: MediaQuery.of(context).size.width/80,),
                                           Text(
                                             '${snapshot.data![index].firstName ?? ''} ${snapshot.data![index].lastName ?? ''}',
@@ -174,8 +177,8 @@ class _OnboardingGeneralState extends State<OnboardingGeneral> {
                                           ObGeneralDataConstant(
                                               text1: snapshot.data![index].ssnnbr,
                                               text2: snapshot.data![index].type,
-                                              text3: snapshot.data![index].primaryPhoneNbr,
-                                              text4: snapshot.data![index].personalEmail,
+                                              text3: snapshot.data![index].primaryPhoneNbr ?? '-',
+                                              text4: snapshot.data![index].personalEmail?? '-',
                                           )
                                         ],
                                       ),

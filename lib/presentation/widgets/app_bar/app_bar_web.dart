@@ -452,13 +452,7 @@ class AppBarWeb extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const CircleAvatar(
-                                        radius: 12,
-                                        backgroundColor: Colors.white,
-                                        // child: Image.asset(
-                                        //   "images/profile.png",
-                                        // ),
-                                      ),
+                                      Icon(Icons.person,color:Colors.white,),
                                       const SizedBox(height: 2),
                                       FutureBuilder(
                                         future: user(),

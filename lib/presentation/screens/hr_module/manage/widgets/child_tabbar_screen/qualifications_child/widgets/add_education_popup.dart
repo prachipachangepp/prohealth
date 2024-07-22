@@ -362,7 +362,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.5,
-        height: AppSize.s500, // Adjusted height to fit error messages
+        height: MediaQuery.of(context).size.height/1.9, // Adjusted height to fit error messages
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -375,7 +375,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                 children: [
                   Padding(
                     padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
                     child: Text(
                       widget.title,
                       style: GoogleFonts.firaSans(
@@ -394,7 +394,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                   ),
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
+              SizedBox(height: MediaQuery.of(context).size.height / 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

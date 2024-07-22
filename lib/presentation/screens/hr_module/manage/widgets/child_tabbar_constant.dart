@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../controller/controller.dart';
 
@@ -41,11 +42,13 @@ class CenteredTabBarChild extends StatelessWidget {
               indicatorSize: TabBarIndicatorSize.tab,
               indicatorColor: Colors.white,
               labelColor: Color(0xFF686464),
-              labelStyle: TextStyle(
-                fontFamily: 'FiraSans',
+              unselectedLabelStyle: GoogleFonts.firaSans(
                 fontSize: 12,
-                color: Color(0xFF686464),
                 fontWeight: FontWeight.w600,
+              ),
+              labelStyle: GoogleFonts.firaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
               ),
               unselectedLabelColor: Colors.white,
             ),
