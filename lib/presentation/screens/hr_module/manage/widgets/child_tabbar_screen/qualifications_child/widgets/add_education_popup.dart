@@ -423,8 +423,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_collegeUniversityError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please enter College/University Name',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 10
+                            ),
                         ),
                     ],
                   ),
@@ -453,8 +456,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_phoneError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter Phone Number ',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -496,9 +502,12 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                         },
                       ),
                       if (_calendarError)
-                        const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                         Text(
+                          'Please Enter Start Date',
+                          style: TextStyle(
+                              color: Colors.red,
+                            fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -523,7 +532,10 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       if (!_isRadioButtonSelected)
                         const Text(
                           'Please select an option',
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -552,8 +564,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_cityError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter City',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -582,8 +597,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_degreeError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter Degree',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -618,8 +636,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_stateError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter State',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -648,8 +669,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_majorSubjectError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter Major Subject',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -678,8 +702,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_countryNameError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter Country Name',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
