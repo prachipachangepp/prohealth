@@ -149,6 +149,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
@@ -178,9 +179,29 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   final _formKey = GlobalKey<FormState>();
   String? _selectedDocumentType;
   bool _documentUploaded = true;
-  File? file;
-  PlatformFile? fileName;
+  var file;
+  var fileName;
+  var fileName1;
+  String? filePath;
+  var finalPath;
+  // PlatformFile? fileName;
 
+  Future<String> saveFileFromBytes(dynamic bytes, String fileName) async {
+    // Get the directory to save the file.
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+
+    fileName1 = fileName;
+
+    // Create the file.
+    File file = File('$tempPath/$fileName');
+
+    // Write the bytes to the file.
+    await file.writeAsBytes(bytes);
+
+    // Return the file path.
+    return file.path;
+  }
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -274,17 +295,29 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                     GestureDetector(
                       onTap: () async {
                         FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          type: FileType.any,
                           allowMultiple: false,
                         );
                         if (result != null) {
-                          file = result.files.first.bytes! as File?;
-                          fileName = result.files.first;
-                          print('File picked: ${fileName!.name}');
-                          setState(() {
-                            widget.AcknowledgementnameController.text = file as String;
-                            _documentUploaded = true;
-                          });
+                          try{
+
+                              file = result.files.first.bytes;
+                              fileName = result.files.first.name;
+
+                            print('File picked: ${fileName}');
+                            print(String.fromCharCodes(file));
+                            finalPath = file;
+                            setState(() {
+                              widget.AcknowledgementnameController.text = fileName;
+                              _documentUploaded = true;
+                            });
+                          }catch(e){
+                            print(e);
+                          }
                         }
+                        // if(file != null ){
+                        //
+                        // }
                       },
                       child: AbsorbPointer(
                         child: SMTextFConst(
@@ -314,8 +347,15 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                   text: AppStringEM.submit,
                   onPressed: () async{
                     if (_formKey.currentState!.validate() && widget.AcknowledgementnameController.text.isNotEmpty) {
-                      await uploadDocuments(context: context, employeeDocumentMetaId: 2, employeeDocumentTypeSetupId: 6,
-                      employeeId: 8, documentName: widget.AcknowledgementnameController.text, documentFile: file!);
+                      try{
+                        //File filePath = File(finalPath!);
+                        await uploadHttpDocuments(context: context, employeeDocumentMetaId: 2, employeeDocumentTypeSetupId: 6,
+                            employeeId: 8, documentName: widget.AcknowledgementnameController.text,
+                            documentFile: finalPath);
+                      }catch(e){
+                        print(e);
+                      }
+                      print("Code ${widget.AcknowledgementnameController.text}");
                       // widget.onSavePressed();
                       Navigator.pop(context);
                     } else {

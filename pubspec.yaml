@@ -49,6 +49,7 @@ dependencies:
   flex_color_picker: any
   file_picker: any
   intl: any
+  path_provider: any
   shimmer: any
   open_file: any
   amplify_flutter: any
