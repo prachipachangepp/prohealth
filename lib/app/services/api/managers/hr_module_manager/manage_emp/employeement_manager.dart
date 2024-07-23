@@ -42,8 +42,8 @@ Future<List<EmployeementData>> getEmployeement(
             dateOfJoining: joiningFormattedDate,
             endDate: endFormattedDate,
             approved: item['approved'],
-            emgMobile: response.data['emgMobile'],
-            country: response.data['country'],
+            emgMobile: item['emgMobile'],
+            country: item['country'],
             sucess: true, message: response.statusMessage!));
       }
     } else {
