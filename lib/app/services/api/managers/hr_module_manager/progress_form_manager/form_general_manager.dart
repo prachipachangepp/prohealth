@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
-import '../../../repository/hr_module_repository/form_repository/form_general.dart';
+import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-Future<ApiData> addEmployeeEducation(BuildContext context,
+Future<ApiData> postgeneralscreen(
+    BuildContext context,
     String code,
     int userID,
     String firstName,
@@ -18,13 +19,13 @@ Future<ApiData> addEmployeeEducation(BuildContext context,
     int zoneId,
     String SSNNbr,
     String primaryPhoneNbr,
-String secondryPhoneNbr,
+    String secondryPhoneNbr,
     String workPhoneNbr,
     String regOfficId,
     String personalEmail,
     String workEmail,
     String address,
-
+    String dateOfBirth,
     String emergencyContact,
     String covreage,
     String employment,
@@ -33,36 +34,28 @@ String secondryPhoneNbr,
     String service,
     String imgurl,
     String resumeurl,
-int companyId,
+    int companyId,
     String onboardingStatus,
     String driverLicenceNbr,
-
-
+    String dateofTermination,
+    String dateofResignation,
+    String dateofHire,
     String rehirable,
     String position,
     String finalAddress,
     String type,
     String reason,
     int finalPayCheck,
-
+    String checkDate,
     int grossPay,
     int netPay,
     String methods,
     String materials,
     String race,
-
-
-
-
-    String state
-
-
-
-
-    ) async {
+    String rating) async {
   try {
     var response = await Api(context).post(
-      path: ProgressBarPageone.postgeneralscreen(),
+      path: ProgressBarRepository.postgeneralscreen(),
       data: {
         "code": code,
         "userId": userID,
@@ -76,39 +69,40 @@ int companyId,
         "zoneId": zoneId,
         "SSNNbr": SSNNbr,
         "primaryPhoneNbr": primaryPhoneNbr,
-        "secondryPhoneNbr":secondryPhoneNbr,
+        "secondryPhoneNbr": secondryPhoneNbr,
         "workPhoneNbr": workPhoneNbr,
         "regOfficId": regOfficId,
         "personalEmail": personalEmail,
         "workEmail": workEmail,
         "address": address,
-        "dateOfBirth": "2024-07-18T13:38:10.490Z",
+        "dateOfBirth": dateOfBirth,
         "emergencyContact": emergencyContact,
         "covreage": covreage,
         "employment": employment,
         "gender": gender,
         "status": status,
-        "service":service,
+        "service": service,
         "imgurl": imgurl,
         "resumeurl": resumeurl,
-        "companyId":companyId,
+        "companyId": companyId,
         "onboardingStatus": onboardingStatus,
         "driverLicenceNbr": driverLicenceNbr,
-        "dateofTermination": "2024-07-18T13:38:10.490Z",
-        "dateofResignation": "2024-07-18T13:38:10.490Z",
-        "dateofHire": "2024-07-18T13:38:10.490Z",
+        "dateofTermination": dateofTermination,
+        "dateofResignation": dateofResignation,
+        "dateofHire": dateofHire,
         "rehirable": rehirable,
         "position": position,
         "finalAddress": finalAddress,
         "type": type,
         "reason": reason,
-        "finalPayCheck":finalPayCheck,
-        "checkDate": "2024-07-18T13:38:10.490Z",
-        "grossPay":grossPay,
-        "netPay":netPay,
+        "finalPayCheck": finalPayCheck,
+        "checkDate": checkDate,
+        "grossPay": grossPay,
+        "netPay": netPay,
         "methods": methods,
         "materials": materials,
-        "race": race
+        "race": race,
+        "rating": rating
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

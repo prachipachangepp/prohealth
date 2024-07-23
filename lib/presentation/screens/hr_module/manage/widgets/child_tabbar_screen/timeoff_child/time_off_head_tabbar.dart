@@ -54,7 +54,7 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
     return StreamBuilder(
         stream: timeOffStremController.stream,
         builder: (context, snapshot) {
-          getEmployeeTimeOff(context, 5).then((data) {
+          getEmployeeTimeOff(context,).then((data) {
             timeOffStremController.add(data);
           }).catchError((error) {
             // Handle error
@@ -351,12 +351,11 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    CircleAvatar(
-                                                      radius: 10,
-                                                      backgroundColor:
-                                                          ColorManager
-                                                              .faintGrey,
-                                                    ),
+                                                    // CircleAvatar(
+                                                    //   radius: 10,
+                                                    //   child:  Center(child: Icon(Icons.person,color:Colors.grey,)),
+                                                    // ),
+                                                    Icon(Icons.person,color:Colors.grey,size: 17,),
                                                     Text(
                                                       timeOff.employeeName,
                                                       //textAlign: TextAlign.center,
@@ -472,10 +471,20 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                       MainAxisAlignment
                                                           .spaceAround,
                                                   children: [
+                                                    snapshot.data![index].approved == true ?
+                                                    Text('Approved',
+                                                        textAlign: TextAlign.center,
+                                                        style: CustomTextStylesCommon.commonStyle(
+                                                            fontSize: FontSize.s12,
+                                                            fontWeight: FontWeightManager.bold,
+                                                            color: ColorManager.blueprime)):
                                                     TextInkwellButton(
                                                       text: 'Approve',
-                                                      onTap: () {},
+                                                      onTap: () async{
+                                                        await approveTimeOffPatch(context, snapshot.data![index].employeeTimeOffId);
+                                                      },
                                                     ),
+                                                        // :SizedBox(),
                                                     TextInkwellButton(
                                                       text: 'Reject',
                                                       onTap: () {},
@@ -488,21 +497,42 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                                                             builder:
                                                                 (BuildContext
                                                                     context) {
-                                                              return EditTimeOffPopup(
-                                                                ptoController:
-                                                                    ptoController,
-                                                                durationController:
-                                                                    durationController,
-                                                                startTimeController:
-                                                                    startTimeController,
-                                                                endTimeController:
-                                                                    endTimeController,
-                                                                sickTimeController:
-                                                                    sickTimeController,
-                                                                labelName:
-                                                                    'Edit Time Off',
-                                                                onPressed:
-                                                                    () {},
+                                                              return FutureBuilder<TimeOfPrefillData>(
+                                                                future: getEmployeePrefillTimeOff(context,snapshot.data![index].employeeTimeOffId),
+                                                                builder: (context,snapshotPrefill) {
+                                                                  if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                                    return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                                  }
+                                                                  var startTime = snapshotPrefill.data!.startTime;
+                                                                  startTimeController = TextEditingController(text: snapshotPrefill.data!.startTime);
+
+                                                                  var endTime = snapshotPrefill.data!.endTime;
+                                                                  endTimeController = TextEditingController(text: snapshotPrefill.data!.endTime);
+
+                                                                  var sickTime = snapshotPrefill.data!.sickTime;
+                                                                  sickTimeController = TextEditingController(text: snapshotPrefill.data!.sickTime);
+                                                                  return EditTimeOffPopup(
+                                                                    ptoController:
+                                                                        ptoController,
+                                                                    durationController:
+                                                                        durationController,
+                                                                    startTimeController:
+                                                                        startTimeController,
+                                                                    endTimeController:
+                                                                        endTimeController,
+                                                                    sickTimeController:
+                                                                        sickTimeController,
+                                                                    labelName:
+                                                                        'Edit Time Off',
+                                                                    onPressed:
+                                                                        () async{
+                                                                         await updateEmployeeTimeOffPatch(context, snapshotPrefill.data!.employeeTimeOffId, snapshotPrefill.data!.employeeId,
+                                                                             snapshotPrefill.data!.timeOffRequest, snapshotPrefill.data!.reson, startTime == startTimeController.text ? startTime.toString() :startTimeController.text,
+                                                                             endTime == endTimeController.text ? endTime.toString() : endTimeController.text, sickTime == sickTimeController.text ? sickTime.toString() : sickTimeController.text,
+                                                                             snapshotPrefill.data!.hours);
+                                                                        },
+                                                                  );
+                                                                }
                                                               );
                                                             });
                                                       },
@@ -521,58 +551,6 @@ class _TimeOffHeadTabbarState extends State<TimeOffHeadTabbar> {
                           );
                         }),
                   ),
-                  // RadioListTile<String>(
-                  //   title: Text('Per zone',
-                  //     style: GoogleFonts.firaSans(
-                  //       fontSize: FontSize.s10,
-                  //       fontWeight: FontWeightManager.medium,
-                  //       color: ColorManager.mediumgrey,
-                  //       decoration: TextDecoration.none,
-                  //     ),),
-                  //   value: 'Per zone',
-                  //   groupValue: _expiryType,
-                  //   onChanged: (value) {
-                  //     setState(() {
-                  //       _expiryType = value;
-                  //     });
-                  //   },
-                  // ),
-                  // Row(
-                  //   children: [
-                  //     RadioListTile<String>(
-                  //       title: Text('Per zone',
-                  //         style: GoogleFonts.firaSans(
-                  //           fontSize: FontSize.s10,
-                  //           fontWeight: FontWeightManager.medium,
-                  //           color: ColorManager.mediumgrey,
-                  //           decoration: TextDecoration.none,
-                  //         ),),
-                  //       value: 'Per zone',
-                  //       groupValue: _expiryType,
-                  //       onChanged: (value) {
-                  //         setState(() {
-                  //           _expiryType = value;
-                  //         });
-                  //       },
-                  //     ),
-                  //     RadioListTile<String>(
-                  //       title: Text('Per milege',
-                  //         style: GoogleFonts.firaSans(
-                  //           fontSize: FontSize.s10,
-                  //           fontWeight: FontWeightManager.medium,
-                  //           color: ColorManager.mediumgrey,
-                  //           decoration: TextDecoration.none,
-                  //         ),),
-                  //       value: 'type2',
-                  //       groupValue: _expiryType,
-                  //       onChanged: (value) {
-                  //         setState(() {
-                  //           _expiryType = value;
-                  //         });
-                  //       },
-                  //     ),
-                  //   ],
-                  // )
                 ],
               ),
             );

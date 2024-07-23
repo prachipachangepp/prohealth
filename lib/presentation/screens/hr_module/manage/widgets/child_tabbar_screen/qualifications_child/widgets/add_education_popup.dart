@@ -362,49 +362,39 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width / 1.5,
-        height: AppSize.s400
-        , // Adjusted height to fit error messages
+        height: MediaQuery.of(context).size.height/1.9, // Adjusted height to fit error messages
         decoration: BoxDecoration(
           color: ColorManager.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                height: 41,
-                decoration: BoxDecoration(
-                  color: Color(0xff50B5E5),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        widget.title,
-                        style: GoogleFonts.firaSans(
-                          fontSize: FontSize.s16,
-                          fontWeight: FontWeightManager.bold,
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                        ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s16,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.blueprime,
+                        decoration: TextDecoration.none,
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.close,color: Colors.white,),
-                    ),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.close),
+                  ),
+                ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
+              SizedBox(height: MediaQuery.of(context).size.height / 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -433,8 +423,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_collegeUniversityError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please enter College/University Name',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 10
+                            ),
                         ),
                     ],
                   ),
@@ -463,8 +456,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_phoneError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter Phone Number ',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -506,9 +502,12 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                         },
                       ),
                       if (_calendarError)
-                        const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                         Text(
+                          'Please Enter Start Date',
+                          style: TextStyle(
+                              color: Colors.red,
+                            fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -533,7 +532,10 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       if (!_isRadioButtonSelected)
                         const Text(
                           'Please select an option',
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -562,8 +564,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_cityError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter City',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -592,8 +597,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_degreeError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter Degree',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -628,8 +636,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_stateError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter State',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -658,8 +669,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_majorSubjectError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter Major Subject',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -688,8 +702,11 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                       ),
                       if (_countryNameError)
                         const Text(
-                          'Please enter some text',
-                          style: TextStyle(color: Colors.red),
+                          'Please Enter Country Name',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 10
+                          ),
                         ),
                     ],
                   ),
@@ -704,7 +721,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                     CustomButtonTransparent(
                         text: "Cancel",
                         onPressed: () async {
-                          widget.onpressedClose;
+                          widget.onpressedClose();
                         }),
                     const SizedBox(width: 10),
                     isLoading

@@ -3,11 +3,12 @@ import 'package:intl/intl.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/timeoff_data.dart';
 
 Future<List<TimeOfffData>> getEmployeeTimeOff(
-    BuildContext context, int companyId) async {
+    BuildContext context,) async {
   String convertIsoToDayMonthYear(String isoDate) {
     // Parse ISO date string to DateTime object
     DateTime dateTime = DateTime.parse(isoDate);
@@ -23,6 +24,7 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
 
   List<TimeOfffData> itemsData = [];
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: ManageReposotory.getEmployeeTimeOff(companyId: companyId));
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -30,6 +32,7 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
         String startFormattedDate = convertIsoToDayMonthYear(item['startTime']);
         String endFormattedDate = convertIsoToDayMonthYear(item['endTime']);
         itemsData.add(TimeOfffData(
+          approved: item['approve'],
             employeeId: item['employeeId'],
             employeeName: item['employeeName'],
             timeOffRequest: item['timeOffRequest'],
@@ -37,7 +40,7 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
             startTime: startFormattedDate,
             endTime: endFormattedDate,
             sickTime: item['sickTime'],
-            hours: item['Hours']));
+            hours: item['Hours'], employeeTimeOffId: item['employeeTimeOffId']));
       }
     } else {
       print("TimeOff");
@@ -52,7 +55,6 @@ Future<List<TimeOfffData>> getEmployeeTimeOff(
 Future<ApiData> updateEmployeeTimeOffPatch(BuildContext context,
     int employeeTimeOffId,
     int employeeID,
-    int companyId,
     String timeOffRequest,
     String reson,
     String startTime,
@@ -61,13 +63,14 @@ Future<ApiData> updateEmployeeTimeOffPatch(BuildContext context,
     String hours
     ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(path: ManageReposotory.patchEmployeeTimeOff(employeeTimeOffId: employeeTimeOffId), data: {
       "employeeId": employeeID,
       "companyId": companyId,
       "timeOffRequest": timeOffRequest,
       "reason": reson,
-      "startTime": startTime,
-      "endTime":endTime,
+      "startTime": "${startTime}T00:00:00Z",
+      "endTime":"${endTime}T00:00:00Z",
       "sickTime": sickTime,
       "Hours": hours
     });
@@ -100,7 +103,7 @@ Future<TimeOfPrefillData> getEmployeePrefillTimeOff(
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('MM-dd-yyyy');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
@@ -113,17 +116,17 @@ Future<TimeOfPrefillData> getEmployeePrefillTimeOff(
     final response = await Api(context)
         .get(path: ManageReposotory.getEmployeePrefillTimeOff(employeeTimeOffId: employeeTimeOffId));
     if (response.statusCode == 200 || response.statusCode == 201) {
-        String startFormattedDate = convertIsoToDayMonthYear(response.data['startTime']);
-        String endFormattedDate = convertIsoToDayMonthYear(response.data['endTime']);
+        // String startFormattedDate = convertIsoToDayMonthYear(response.data['startTime']);
+        // String endFormattedDate = convertIsoToDayMonthYear(response.data['endTime']);
         itemsData = TimeOfPrefillData(
             employeeId: response.data['employeeId'],
-            //employeeName: item['employeeName'],
+            employeeName: response.data['employeeName'],
             timeOffRequest: response.data['timeOffRequest'],
             reson: response.data['reason'],
-            startTime: startFormattedDate,
-            endTime: endFormattedDate,
+            startTime: response.data['startTime'],
+            endTime: response.data['endTime'],
             sickTime: response.data['sickTime'],
-            hours: response.data['Hours'], employeeTimeOffId: response.data['employeeTimeOffId'], companyId: response.data['companyId']);
+            hours: response.data['Hours'], employeeTimeOffId: response.data['employeeTimeOffId']);
 
     } else {
       print("TimeOff prefill");
@@ -132,5 +135,61 @@ Future<TimeOfPrefillData> getEmployeePrefillTimeOff(
   } catch (e) {
     print("error${e}");
     return itemsData;
+  }
+}
+
+/// Reject TimeOff
+Future<ApiData> rejectTimeOffPatch(BuildContext context, int employeeTimeOffId) async {
+  try {
+    var response = await Api(context).patch(
+      path: ManageReposotory.rejectTimeOffPatch(employeeTimeOffId: employeeTimeOffId),
+      data: {},
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("TimeOff rejected");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
+  }
+}
+
+/// Approve TimeOff
+Future<ApiData> approveTimeOffPatch(BuildContext context, int employeeTimeOffId) async {
+  try {
+    var response = await Api(context).patch(
+      path: ManageReposotory.approveTimeOffPatch(employeeTimeOffId: employeeTimeOffId),
+      data: {},
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("TimeOff Approved");
+      // orgDocumentGet(context);
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: true,
+          message: response.statusMessage!);
+    } else {
+      print("Error 1");
+      return ApiData(
+          statusCode: response.statusCode!,
+          success: false,
+          message: response.data['message']);
+    }
+  } catch (e) {
+    print("Error $e");
+    return ApiData(
+        statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }

@@ -19,10 +19,10 @@ class AddEmployeementPopup extends StatefulWidget {
   final TextEditingController employeerController;
   final TextEditingController emergencyMobileNumber;
   final String tite;
-  // final VoidCallback onpressedClose;
+  final VoidCallback onpressedClose;
    Future<void> Function() onpressedSave;
   final Widget checkBoxTile;
-   AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedSave, required this.checkBoxTile, required this.tite});
+   AddEmployeementPopup({super.key, required this.positionTitleController, required this.leavingResonController, required this.startDateContoller, required this.endDateController, required this.lastSupervisorNameController, required this.supervisorMobileNumber, required this.cityNameController, required this.employeerController, required this.emergencyMobileNumber, required this.onpressedSave, required this.checkBoxTile, required this.tite, required this.onpressedClose});
 
   @override
   State<AddEmployeementPopup> createState() => _AddEmployeementPopupState();
@@ -76,19 +76,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   ],
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height/40,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CustomIconButton(icon: Icons.add,text: 'Add Employeement', onPressed: () async{
-                    }),
-
-                  ],
-                ),
-              ),
-              SizedBox(height:MediaQuery.of(context).size.height/20),
+              SizedBox(height: MediaQuery.of(context).size.height/13,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -133,7 +121,7 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                     labelText: "Start Date",
                     keyboardType: TextInputType.text,
                     suffixIcon: Icon(Icons.calendar_month_outlined,color: ColorManager.blueprime,),
-                    padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
+                    padding:  EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                     onTap: () async{
                       DateTime? date = await showDatePicker(
                         context: context,
@@ -296,13 +284,13 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
               ),
               SizedBox(height:MediaQuery.of(context).size.height/15),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButtonTransparent(text: "Cancel", onPressed: () {
-                      //widget.onpressedClose;
-                      Navigator.pop(context);
+                      widget.onpressedClose();
+                      //Navigator.pop(context);
                     }),
                     SizedBox(width: 10,),
                     isLoading

@@ -27,6 +27,7 @@ class OtherEditAddPopup extends StatefulWidget {
 class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
   String? _expiryType;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _showExpiryTypeError = false;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +110,7 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                         },
                         validator: (value) {
                           if (widget.idController.text.isEmpty) {
-                            return 'Please enter some text';
+                            return 'Please Enter ID of The Document';
                           }
                           return null;
                         },
@@ -138,7 +139,7 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                         },
                         validator: (value) {
                           if (widget.nameController.text.isEmpty) {
-                            return 'Please enter some text';
+                            return 'Please Enter Name of The Document';
                           }
                           return null;
                         },
@@ -207,6 +208,7 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                             onChanged: (value) {
                               setState(() {
                                 _expiryType = value;
+                                _showExpiryTypeError = false;
                               });
                             },
                           ),
@@ -225,6 +227,7 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                             onChanged: (value) {
                               setState(() {
                                 _expiryType = value;
+                                _showExpiryTypeError = false;
                               });
                             },
                           ),
@@ -243,9 +246,18 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                             onChanged: (value) {
                               setState(() {
                                 _expiryType = value;
+                                _showExpiryTypeError = false;
                               });
                             },
                           ),
+                          if (_showExpiryTypeError)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: Text(
+                                'Please select Expiry Type',
+                                style: TextStyle(color: Colors.red, fontSize: 12),
+                              ),
+                            ),
                         ],
                       ),
                     ],
@@ -258,10 +270,16 @@ class _OtherEditAddPopupState extends State<OtherEditAddPopup> {
                     child: CustomElevatedButton(
                       width: AppSize.s105,
                       height: AppSize.s30,
-                      text: AppStringEM.submit,
+                      text: AppStringEM.add,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.pop(context);
+                          if (_expiryType == null) {
+                            setState(() {
+                              _showExpiryTypeError = true;
+                            });
+                          } else {
+                            Navigator.pop(context);
+                          }
                         }
                       },
                     ),

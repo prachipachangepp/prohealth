@@ -30,6 +30,7 @@ class HealthRecordEditAddPopup extends StatefulWidget {
 
 class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _showExpiryTypeError = false;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +111,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                       },
                       validator: (value) {
                         if (widget.idController.text.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Please Enter ID of The Document';
                         }
                         return null;
                       },
@@ -139,7 +140,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                       },
                       validator: (value) {
                         if (widget.nameController.text.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Please Enter Name of The Document';
                         }
                         return null;
                       },
@@ -208,6 +209,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                           onChanged: (value) {
                             setState(() {
                               widget.expiryType = value!;
+                              _showExpiryTypeError = false;
                             });
                           },
                         ),
@@ -226,6 +228,7 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                           onChanged: (value) {
                             setState(() {
                               widget.expiryType = value!;
+                              _showExpiryTypeError = false;
                             });
                           },
                         ),
@@ -244,9 +247,18 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                           onChanged: (value) {
                             setState(() {
                               widget.expiryType = value!;
+                              _showExpiryTypeError = false;
                             });
                           },
                         ),
+                        if (_showExpiryTypeError)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: Text(
+                              'Please select Expiry Type',
+                              style: TextStyle(color: Colors.red, fontSize: 12),
+                            ),
+                          ),
                       ],
                     ),
                   ],
@@ -259,11 +271,17 @@ class _HealthRecordEditAddPopupState extends State<HealthRecordEditAddPopup> {
                   child: CustomElevatedButton(
                     width: AppSize.s105,
                     height: AppSize.s30,
-                    text: AppStringEM.submit,
+                    text: AppStringEM.add,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        widget.onSavePredded();
-                        Navigator.pop(context);
+                        if (widget.expiryType.isEmpty) {
+                          setState(() {
+                            _showExpiryTypeError = true;
+                          });
+                        } else {
+                          widget.onSavePredded();
+                          Navigator.pop(context);
+                        }
                       }
                     },
                   ),

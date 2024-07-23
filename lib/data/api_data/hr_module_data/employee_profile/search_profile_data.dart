@@ -34,7 +34,7 @@ class SearchEmployeeProfileData{
   final bool approved;
   final String dateofTermination;
   final String dateofResignation;
-  final bool rehirable;
+  final String rehirable;
   final String finalAddress;
   final String type;
   final String reason;
@@ -48,8 +48,10 @@ class SearchEmployeeProfileData{
   final String position;
   final String driverLicenceNbr;
   final String race;
+  final String rating;
 
   SearchEmployeeProfileData({
+    required this.rating,
     required this.employeeId,
     required this.code,
     required this.userId,
@@ -103,6 +105,7 @@ class SearchEmployeeProfileData{
 }
 
 class SearchByEmployeeIdProfileData{
+  final int? employeeId;
   final String code;
   final int userId;
   final String firstName;
@@ -154,6 +157,7 @@ class SearchByEmployeeIdProfileData{
   final double profileScorePercentage;
 
   SearchByEmployeeIdProfileData({
+    this.employeeId,
     required this.code,
     required this.userId,
     required this.firstName,

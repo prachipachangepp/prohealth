@@ -12,7 +12,8 @@ import '../../custom_icon_button_constant.dart';
 import '../../row_container_widget_const.dart';
 ///done by saloni
 class LicensesChildTabbar extends StatefulWidget {
-  const LicensesChildTabbar({super.key});
+  final int employeeId;
+  const LicensesChildTabbar({super.key, required this.employeeId});
 
   @override
   State<LicensesChildTabbar> createState() => _LicensesChildTabbarState();
@@ -23,11 +24,7 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
   @override
   void initState() {
     // TODO: implement initState
-    getEmployeeLicenses(context,0).then((data) {
-      streamController.add(data);
-    }).catchError((error) {
-      // Handle error
-    });
+
 
     super.initState();
   }
@@ -36,6 +33,11 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
     return StreamBuilder<List<QulificationLicensesData>>(
       stream: streamController.stream,
       builder: (context,snapshot) {
+        getEmployeeLicenses(context,widget.employeeId).then((data) {
+          streamController.add(data);
+        }).catchError((error) {
+          // Handle error
+        });
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: Padding(
@@ -182,183 +184,6 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
                   ),
                 );
               })
-
-            //   Container(
-            //   height: 200,
-            //   width: MediaQuery.of(context).size.width/5,
-            //   child: Column(
-            //     children: [
-            //       Row(
-            //         children: [
-            //           Text('License #1',
-            //             style: TextStyle(
-            //               fontFamily: 'FiraSans',
-            //               fontSize: 13,
-            //               color: Color(0xFF333333),
-            //               fontWeight: FontWeight.bold,
-            //             ),),
-            //         ],
-            //       ),
-            //       SizedBox(height: MediaQuery.of(context).size.height/50,),
-            //       Row(
-            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //         children: [
-            //           Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               Text('Licensure/Certification',
-            //                   style: ThemeManager.customTextStyle(context)),
-            //               SizedBox(height: 10,),
-            //               Text('Issuing Organization',
-            //                   style: ThemeManager.customTextStyle(context)),
-            //               SizedBox(height: 10,),
-            //               Text('Country',
-            //                   style: ThemeManager.customTextStyle(context)),
-            //               SizedBox(height: 10,),
-            //               Text('Number/ID',
-            //                   style: ThemeManager.customTextStyle(context)),
-            //             ],),
-            //           Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               Text('Driving',
-            //                 style: ThemeManagerDark.customTextStyle(context),),
-            //               SizedBox(height: 10,),
-            //               Text('Health Ministry',
-            //                 style: ThemeManagerDark.customTextStyle(context),),
-            //               SizedBox(height: 10,),
-            //               Text('USA',
-            //                 style: ThemeManagerDark.customTextStyle(context),),
-            //               SizedBox(height: 10,),
-            //               Text('123345555',
-            //                 style: ThemeManagerDark.customTextStyle(context),),
-            //             ],
-            //           ),
-            //           Column(
-            //             children: [
-            //               Text('Issue Date',
-            //                   style: ThemeManager.customTextStyle(context)),
-            //               SizedBox(height: 10,),
-            //               Text('End Date',
-            //                   style: ThemeManager.customTextStyle(context)),
-            //               SizedBox(height: 50,)
-            //             ],
-            //           ),
-            //           Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               Text('2023-08-09',
-            //                 style: ThemeManagerDark.customTextStyle(context),),
-            //               SizedBox(height: 10,),
-            //               Text('2024-03-20',
-            //                 style: ThemeManagerDark.customTextStyle(context),),
-            //               SizedBox(height: 50,)
-            //
-            //             ],
-            //           ),
-            //         ],
-            //       ),
-            //       SizedBox(height: MediaQuery.of(context).size.height/40,),
-            //       Row(
-            //         mainAxisAlignment: MainAxisAlignment.end,
-            //         children: [
-            //           CustomButtonTransparent(text: 'Reject', onPressed: (){}),
-            //           SizedBox(width: 5,),
-            //           CustomIconButton(
-            //               text: 'Approve', onPressed: (){}),
-            //         ],
-            //       )
-            //     ],
-            //   ),
-            // ),
-            //   Container(
-            //     height: 200,
-            //     width: MediaQuery.of(context).size.width/2,
-            //     child: Column(
-            //       children: [
-            //         Row(
-            //           children: [
-            //             Text('License #1',
-            //               style: TextStyle(
-            //                 fontFamily: 'FiraSans',
-            //                 fontSize: 13,
-            //                 color: Color(0xFF333333),
-            //                 fontWeight: FontWeight.bold,
-            //               ),),
-            //           ],
-            //         ),
-            //         SizedBox(height: MediaQuery.of(context).size.height/50,),
-            //         Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //           children: [
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text('Licensure/Certification',
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 SizedBox(height: 10,),
-            //                 Text('Issuing Organization',
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 SizedBox(height: 10,),
-            //                 Text('Country',
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 SizedBox(height: 10,),
-            //                 Text('Number/ID',
-            //                     style: ThemeManager.customTextStyle(context)),
-            //               ],),
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text('Driving',
-            //                   style: ThemeManagerDark.customTextStyle(context),),
-            //                 SizedBox(height: 10,),
-            //                 Text('Health Ministry',
-            //                   style: ThemeManagerDark.customTextStyle(context),),
-            //                 SizedBox(height: 10,),
-            //                 Text('USA',
-            //                   style: ThemeManagerDark.customTextStyle(context),),
-            //                 SizedBox(height: 10,),
-            //                 Text('123345555',
-            //                   style: ThemeManagerDark.customTextStyle(context),),
-            //               ],
-            //             ),
-            //             Column(
-            //               children: [
-            //                 Text('Issue Date',
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 SizedBox(height: 10,),
-            //                 Text('End Date',
-            //                     style: ThemeManager.customTextStyle(context)),
-            //                 SizedBox(height: 50,)
-            //               ],
-            //             ),
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text('2023-08-09',
-            //                   style: ThemeManagerDark.customTextStyle(context),),
-            //                 SizedBox(height: 10,),
-            //                 Text('2024-03-20',
-            //                   style: ThemeManagerDark.customTextStyle(context),),
-            //                 SizedBox(height: 50,)
-            //
-            //               ],
-            //             ),
-            //           ],
-            //         ),
-            //         SizedBox(height: MediaQuery.of(context).size.height/40,),
-            //         Row(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             CustomButtonTransparent(text: 'Reject', onPressed: (){}),
-            //             SizedBox(width: 5,),
-            //             CustomIconButton(
-            //                 text: 'Approve', onPressed: (){}),
-            //           ],
-            //         )
-            //       ],
-            //     ),
-            //   ),
           );
         }
         else{
@@ -366,179 +191,5 @@ class _LicensesChildTabbarState extends State<LicensesChildTabbar> {
         }
       }
     );
-    //   Padding(
-    //   padding: EdgeInsets.symmetric(
-    //       horizontal: MediaQuery.of(context).size.width/80,
-    //       vertical: MediaQuery.of(context).size.height/100),
-    //   child: TwoContainersRow(
-    //     child1: Column(
-    //       children: [
-    //         Row(
-    //           children: [
-    //             Text('License #1',
-    //               style: TextStyle(
-    //                 fontFamily: 'FiraSans',
-    //                 fontSize: 13,
-    //                 color: Color(0xFF333333),
-    //                 fontWeight: FontWeight.bold,
-    //               ),),
-    //           ],
-    //         ),
-    //         SizedBox(height: MediaQuery.of(context).size.height/50,),
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: [
-    //             Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //               Text('Licensure/Certification',
-    //                   style: ThemeManager.customTextStyle(context)),
-    //               SizedBox(height: 10,),
-    //               Text('Issuing Organization',
-    //                   style: ThemeManager.customTextStyle(context)),
-    //               SizedBox(height: 10,),
-    //               Text('Country',
-    //                   style: ThemeManager.customTextStyle(context)),
-    //               SizedBox(height: 10,),
-    //               Text('Number/ID',
-    //                   style: ThemeManager.customTextStyle(context)),
-    //             ],),
-    //             Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text('Driving',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 10,),
-    //                 Text('Health Ministry',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 10,),
-    //                 Text('USA',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 10,),
-    //                 Text('123345555',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //               ],
-    //             ),
-    //             Column(
-    //               children: [
-    //                 Text('Issue Date',
-    //                     style: ThemeManager.customTextStyle(context)),
-    //                 SizedBox(height: 10,),
-    //                 Text('End Date',
-    //                     style: ThemeManager.customTextStyle(context)),
-    //                 SizedBox(height: 50,)
-    //               ],
-    //             ),
-    //             Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text('2023-08-09',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 10,),
-    //                 Text('2024-03-20',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 50,)
-    //
-    //               ],
-    //             ),
-    //           ],
-    //         ),
-    //         SizedBox(height: MediaQuery.of(context).size.height/40,),
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.end,
-    //           children: [
-    //             CustomButtonTransparent(text: 'Reject', onPressed: (){}),
-    //             SizedBox(width: 5,),
-    //             CustomIconButton(
-    //                 text: 'Approve', onPressed: (){}),
-    //           ],
-    //         )
-    //       ],
-    //     ),
-    //     child2: Column(
-    //       children: [
-    //         Row(
-    //           children: [
-    //             Text('License #2',
-    //               style: TextStyle(
-    //                 fontFamily: 'FiraSans',
-    //                 fontSize: 13,
-    //                 color: Color(0xFF333333),
-    //                 fontWeight: FontWeight.bold,
-    //               ),),
-    //           ],
-    //         ),
-    //         SizedBox(height: MediaQuery.of(context).size.height/50,),
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: [
-    //             Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text('Licensure/Certification',
-    //                     style: ThemeManager.customTextStyle(context)),
-    //                 SizedBox(height: 10,),
-    //                 Text('Issuing Organization',
-    //                     style: ThemeManager.customTextStyle(context)),
-    //                 SizedBox(height: 10,),
-    //                 Text('Country',
-    //                     style: ThemeManager.customTextStyle(context)),
-    //                 SizedBox(height: 10,),
-    //                 Text('Number/ID',
-    //                     style: ThemeManager.customTextStyle(context)),
-    //               ],),
-    //             Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text('Driving',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 10,),
-    //                 Text('Health Ministry',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 10,),
-    //                 Text('USA',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 10,),
-    //                 Text('123345555',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //               ],
-    //             ),
-    //             Column(
-    //               children: [
-    //                 Text('Issue Date',
-    //                     style: ThemeManager.customTextStyle(context)),
-    //                 SizedBox(height: 10,),
-    //                 Text('End Date',
-    //                     style: ThemeManager.customTextStyle(context)),
-    //                 SizedBox(height: 50,)
-    //               ],
-    //             ),
-    //             Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text('2023-08-09',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 10,),
-    //                 Text('2024-03-20',
-    //                   style: ThemeManagerDark.customTextStyle(context),),
-    //                 SizedBox(height: 50,)
-    //
-    //               ],
-    //             ),
-    //           ],
-    //         ),
-    //         SizedBox(height: MediaQuery.of(context).size.height/40,),
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.end,
-    //           children: [
-    //             CustomButtonTransparent(text: 'Reject', onPressed: (){}),
-    //             SizedBox(width: 5,),
-    //             CustomIconButton(
-    //                 text: 'Approve', onPressed: (){}),
-    //           ],
-    //         )
-    //       ],
-    //     ),),
-    // );
   }
 }

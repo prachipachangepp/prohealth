@@ -376,6 +376,8 @@
 //////////////////////////after validation/////////////////////
 
 
+
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -411,7 +413,7 @@ class EditBankingPopUp extends StatefulWidget {
 class _EditBankingPopUpState extends State<EditBankingPopUp> {
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
-  bool isRadioSelected = true;
+  final _typeFieldKey = GlobalKey<FormFieldState<String>>();
 
   @override
   Widget build(BuildContext context) {
@@ -459,7 +461,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
 
   Widget _buildDialogTitle(BuildContext context) {
     return Container(
-      height: 40,
+      height: 45,
       decoration: BoxDecoration(
           color: Color(0xFF27A3E0),
           borderRadius: BorderRadius.only(
@@ -540,47 +542,72 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           'Type',
           style: GoogleFonts.firaSans(fontWeight: FontWeight.w600, fontSize: 14),
         ),
-        Row(
-          children: [
-            Radio(
-              value: 'Checking',
-              groupValue: widget.selectedType,
-              onChanged: (value) {
-                setState(() {
-                  widget.selectedType = value.toString();
-                });
-              },
-            ),
-            Text(
-              'Checking',
-              style: TextStyle(
-                  fontSize: AppSize.s10,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-            ),
-            Radio(
-              value: 'Savings',
-              groupValue: widget.selectedType,
-              onChanged: (value) {
-                setState(() {
-                  widget.selectedType = value.toString();
-                });
-              },
-            ),
-            Text(
-              'Savings',
-              style: TextStyle(
-                  fontSize: AppSize.s11,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-            ),
-          ],
+        FormField<String>(
+          key: _typeFieldKey,
+          initialValue: widget.selectedType,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select an account type';
+            }
+            return null;
+          },
+          builder: (state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                      value: 'Checking',
+                      groupValue: widget.selectedType,
+                      onChanged: (value) {
+                        setState(() {
+                          widget.selectedType = value.toString();
+                          _typeFieldKey.currentState?.didChange(value.toString());
+                        });
+                      },
+                    ),
+                    Text(
+                      'Checking',
+                      style: TextStyle(
+                          fontSize: AppSize.s10,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black),
+                    ),
+                    Radio(
+                      value: 'Savings',
+                      groupValue: widget.selectedType,
+                      onChanged: (value) {
+                        setState(() {
+                          widget.selectedType = value.toString();
+                          _typeFieldKey.currentState?.didChange(value.toString());
+                        });
+                      },
+                    ),
+                    Text(
+                      'Savings',
+                      style: TextStyle(
+                          fontSize: AppSize.s11,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
+                if (state.hasError)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      state.errorText!,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
-        if (!isRadioSelected)
-          Text(
-            'Please select an option',
-            style: TextStyle(color: Colors.red, fontSize: 12),
-          ),
         SizedBox(height: MediaQuery.of(context).size.height / 100),
         _buildTextFormField(widget.routingNumberController, 'Routing Number/ Transit Number'),
         SizedBox(height: MediaQuery.of(context).size.height / 40),
@@ -703,16 +730,12 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter some text';
+              return 'Please enter ${labelText.toLowerCase()}';
             }
             return null;
           },
         ),
-        if (controller.text.isEmpty)
-          Text(
-            'Please enter some text',
-            style: TextStyle(color: Colors.red, fontSize: 12),
-          ),
+        SizedBox(height: 5),
       ],
     );
   }
@@ -757,10 +780,7 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
                 fontWeight: FontWeight.w700,
                 fontSize: 12)),
         onPressed: () async {
-          setState(() {
-            isRadioSelected = widget.selectedType != null;
-          });
-          if (_formKey.currentState!.validate() && isRadioSelected) {
+          if (_formKey.currentState!.validate()) {
             setState(() {
               isLoading = true;
             });
@@ -777,7 +797,8 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
               widget.routingNumberController.clear();
               widget.accountNumberController.clear();
               widget.verifyAccountController.clear();
-              widget.selectedType = '';
+              widget.selectedType = null;
+              _typeFieldKey.currentState?.reset();
             }
           }
         },

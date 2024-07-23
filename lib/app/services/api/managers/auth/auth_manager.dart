@@ -18,7 +18,8 @@ class AuthManager {
       if (response.statusCode == 201) {
         String? access = response.data['accessToken'];
         String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
-        TokenManager.setAccessToken(token: access ?? "",username: userName);
+        int companyID = response.data['user']['company_id'];
+        TokenManager.setAccessToken(token: access ?? "",username: userName, companyId: companyID);
         return ApiData(
             success: true,
             message: response.statusMessage ?? "",
@@ -120,7 +121,7 @@ class AuthManager {
   }
 
   ///Sign In otp Verification
-  static Future<ApiData> verifyOTPAndLogin(
+   static Future<ApiData> verifyOTPAndLogin(
       {required String email,
       required String otp,
       required BuildContext context}) async {
@@ -132,7 +133,8 @@ class AuthManager {
       if (response.statusCode == 201 || response.statusCode == 200) {
         String accessToken = response.data["accessToken"] ?? "";
         String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
-        TokenManager.setAccessToken(token: accessToken, username: userName);
+        int companyID = response.data['user']['company_id'];
+        TokenManager.setAccessToken(token: accessToken, username: userName, companyId: companyID);
         // Navigator.pushNamed(context, HomeScreen.routeName);
 
         return ApiData(
