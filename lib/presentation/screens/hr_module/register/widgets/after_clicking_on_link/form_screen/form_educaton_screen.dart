@@ -534,7 +534,7 @@ class _EducationScreenState extends State<EducationScreen> {
 //     state: '',
 //   ),
 // ];
-
+//
 // Row(
 //   mainAxisAlignment: MainAxisAlignment.start,
 //   children: [

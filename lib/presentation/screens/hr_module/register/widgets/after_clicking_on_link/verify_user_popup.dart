@@ -5,16 +5,18 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/value_manager.dart';
-import '../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/onboarding_verify_user.dart';
+import '../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/onboarding_verifyuser_manager.dart';
 import '../../taxtfield_constant.dart';
 import 'on_boarding_welcome.dart';
 
 
-class EnterEmailAndOTPDialog extends StatefulWidget {
+class VerifyUserpopup extends StatefulWidget {
   @override
-  _EnterEmailAndOTPDialogState createState() => _EnterEmailAndOTPDialogState();
+  VerifyUserpopupState createState() => VerifyUserpopupState();
 }
-class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
+class VerifyUserpopupState extends State<VerifyUserpopup> {
+
+
   TextEditingController emailController = TextEditingController();
   TextEditingController otpController = TextEditingController();
 
@@ -36,7 +38,7 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
       backgroundColor: Colors.white,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.3,
-        height: 300,
+        height:  MediaQuery.of(context).size.height*0.5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -91,13 +93,12 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                       onFieldSubmitted: (String value) {
                         FocusScope.of(context).requestFocus(otpFocusNode);
                       },
-                      height: AppSize.s35,
+                      height: MediaQuery.of(context).size.height / 20,
                       width: MediaQuery.of(context).size.width / 5,
                       controller: emailController,
                       labelText: 'Email',
                       keyboardType: TextInputType.text,
-                      padding: const EdgeInsets.only(
-                          bottom: AppPadding.p5, left: AppPadding.p20),
+                      padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
                       onChanged: (value) {
                         setState(() {
                           emailEntered = value.isNotEmpty;
@@ -113,7 +114,40 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                         }
                         return null;
                       },
+                      // // Ensure minimum size when empty
+                      // minWidth: MediaQuery.of(context).size.width / 5,
+                      // minHeight: MediaQuery.of(context).size.height / 20,
                     ),
+
+
+                    // CustomTextFieldRegister(
+                    //   focusNode: emailFocusNode,
+                    //   onFieldSubmitted: (String value) {
+                    //     FocusScope.of(context).requestFocus(otpFocusNode);
+                    //   },
+                    //   height:MediaQuery.of(context).size.height / 20,
+                    //   width: MediaQuery.of(context).size.width / 5,
+                    //   controller: emailController,
+                    //   labelText: 'Email',
+                    //   keyboardType: TextInputType.text,
+                    //   padding: const EdgeInsets.only(
+                    //       bottom: AppPadding.p5, left: AppPadding.p20),
+                    //   onChanged: (value) {
+                    //     setState(() {
+                    //       emailEntered = value.isNotEmpty;
+                    //     });
+                    //   },
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please enter an email address';
+                    //     } else if (!RegExp(
+                    //         r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+                    //         .hasMatch(value)) {
+                    //       return 'Please enter a valid email address';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
                     const SizedBox(height: 20),
                     isLoading
                         ? SizedBox(
@@ -152,7 +186,7 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                     ),
                     const SizedBox(height: 20),
                     CustomTextFieldRegister(
-                      height: AppSize.s35,
+                      height:MediaQuery.of(context).size.height / 20,
                       width: MediaQuery.of(context).size.width / 5,
                       controller: otpController,
                       labelText: 'Enter OTP',
@@ -176,16 +210,16 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                           borderRadius: BorderRadius.circular(6.0),
                         ),
                       ),
-                      onPressed: otpEnabled && otpController.text.isNotEmpty
-                          ? () {
-                        if (_formKey.currentState!.validate()) {
+                      onPressed: otpEnabled //&& otpController.text.isNotEmpty
+                          ? ()async {
+                        if (_formKey.currentState!.validate())  {
                           String email = emailController.text;
-                          String otp = otpController.text;
+                           String otp = otpController.text;
                           print('Email: $email, OTP: $otp');
-                          showDialog(
+                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return Dialog(
+                              return   Dialog(
                                 shape: RoundedRectangleBorder(
                                   borderRadius:
                                   BorderRadius.circular(20.0),
@@ -194,7 +228,9 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                               );
                             },
                           );
-                        }
+                        }else(){
+                          return const Text("password is not correct");
+                        };
                       }
                           : null,
                       child: const Text('Submit'),
@@ -224,7 +260,7 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
 //
 // import '../../../../../../app/resources/const_string.dart';
 // import '../../../../../../app/resources/value_manager.dart';
-// import '../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/onboarding_verify_user.dart';
+// import '../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/onboarding_verifyuser_manager.dart';
 // //import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 // import '../../taxtfield_constant.dart';
 // import 'on_boarding_welcome.dart';
