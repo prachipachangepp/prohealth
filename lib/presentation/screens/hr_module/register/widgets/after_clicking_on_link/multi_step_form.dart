@@ -124,79 +124,80 @@ class _MultiStepFormState extends State<MultiStepForm> {
                 padding: const EdgeInsets.all(8.0),
                 child: Stepper(
                   physics: const ScrollPhysics(),
-                    type: StepperType.horizontal,
-                    steps: steps(),
-                    currentStep: _currentStep,
-                    onStepContinue: () {
-                      if (isLastStep) {
-                        setState(() => isCompleted = true);
-                      } else {
-                        setState(() => _currentStep += 1);
-                      }
-                    },
-                    onStepCancel: isFirstStep
-                        ? null
-                        : () => setState(() => _currentStep -= 1),
-                    controlsBuilder: (context, details) => Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (!isFirstStep) ...[
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: const Color(0xff1696C8),
-                                    side: const BorderSide(
-                                        color: Color(0xff1696C8)),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  onPressed: details.onStepCancel,
-                                  label: Text(
-                                    "Back",
-                                    style: GoogleFonts.firaSans(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w700,
-                                      //color: Colors.white,
-                                    ),
-                                  ),
-                                  icon: const Icon(Icons.arrow_back),
-                                )
-                              ],
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff1696C8),
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                                onPressed:details.onStepContinue,
-                                //     (){
-                                //
-                                //   details.onStepContinue;
-                                // },
-                                label: Text(
-                                  isLastStep ? 'Confirm' : 'Continue',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                icon: const Icon(Icons.arrow_forward),
-                              ),
-                            ],
+                  type: StepperType.horizontal,
+                  steps: steps(),
+                  currentStep: _currentStep,
+                  onStepContinue: () {
+                    if (isLastStep) {
+                      setState(() => isCompleted = true);
+                    } else {
+                      setState(() => _currentStep += 1);
+                    }
+                  },
+                  onStepCancel: isFirstStep
+                      ? null
+                      : () => setState(() => _currentStep -= 1),
+                  controlsBuilder: (context, details) => Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (!isFirstStep) ...[
+                          const SizedBox(
+                            width: 20,
                           ),
-                        )),
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: const Color(0xff1696C8),
+                              side: const BorderSide(color: Color(0xff1696C8)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: details.onStepCancel,
+                            label: Text(
+                              "Back",
+                              style: GoogleFonts.firaSans(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                                //color: Colors.white,
+                              ),
+                            ),
+                            icon: const Icon(Icons.arrow_back),
+                          )
+                        ],
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff1696C8),
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: details.onStepContinue,
+                          //     (){
+                          //
+                          //   details.onStepContinue;
+                          // },
+                          label: Text(
+                            isLastStep ? 'Confirm' : 'Continue',
+                            style: GoogleFonts.firaSans(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                          icon: const Icon(Icons.arrow_forward),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onStepTapped: (step) => setState(() => _currentStep = step),
+                ),
               ),
             ),
           ),
@@ -206,7 +207,6 @@ class _MultiStepFormState extends State<MultiStepForm> {
         ],
       ),
       bottomNavigationBar: BottomBarRow(),
-
     );
   }
 
@@ -348,13 +348,3 @@ class _MultiStepFormState extends State<MultiStepForm> {
         )
       ];
 }
-
-
-
-
-
-
-
-
-
-

@@ -5,7 +5,7 @@ import 'package:prohealth/app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/value_manager.dart';
 import '../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/onboarding_verify_user.dart';
-import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
+//import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../taxtfield_constant.dart';
 import 'on_boarding_welcome.dart';
 
@@ -17,6 +17,12 @@ class EnterEmailAndOTPDialog extends StatefulWidget {
 class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
   TextEditingController emailController = TextEditingController();
   TextEditingController otpController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode Otpbutton = FocusNode();
+
   bool otpEnabled = false;
   bool emailEntered = false;
   bool isLoading = false;
@@ -50,7 +56,8 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                     padding: const EdgeInsets.only(left: 16),
                     child: Row(
                       children: [
-                        const Icon(Icons.person_outline, color: Colors.white, size: 20),
+                        const Icon(Icons.person_outline,
+                            color: Colors.white, size: 20),
                         const SizedBox(width: 8),
                         Text(
                           AppString.verify_user,
@@ -74,106 +81,137 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  CustomTextFieldRegister(
-
-                    height: AppSize.s35,
-                    width: MediaQuery.of(context).size.width / 5,
-                    controller: emailController,
-                    labelText: 'Email',
-                    keyboardType: TextInputType.text,
-                    padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
-                    onChanged: (value) {
-                      setState(() {
-                        emailEntered = value.isNotEmpty; // Update emailEntered based on email field
-                      });
-                    },
-                    validator: (value) {
-                      if (value != null) {
-                        return 'Please enter an email address';
-                      } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(value!)) {
-                        return 'Please enter a valid email address';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  isLoading ? SizedBox(height:25,width:25,child: CircularProgressIndicator(color: ColorManager.blueprime,)) : ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF50B5E5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                    ),
-                    onPressed: emailEntered
-                        ? () async{
-                      setState(() {
-                        isLoading = true;
-                        otpEnabled = true;
-                      });
-                    await postverifyuser(context,emailController.text );
-                      Future.delayed(const Duration(seconds: 2), () {
+              child: Form(
+                key: _formKey,
+                // autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    CustomTextFieldRegister(
+                      focusNode: emailFocusNode,
+                      onFieldSubmitted: (String value) {
+                        FocusScope.of(context).requestFocus(Otpbutton);
+                      },
+                      height: AppSize.s35,
+                      width: MediaQuery.of(context).size.width / 5,
+                      controller: emailController,
+                      labelText: 'Email',
+                      keyboardType: TextInputType.text,
+                      padding: const EdgeInsets.only(
+                          bottom: AppPadding.p5, left: AppPadding.p20),
+                      onChanged: (value) {
                         setState(() {
-                          isLoading = false;
+                          emailEntered = value
+                              .isNotEmpty; // Update emailEntered based on email field
                         });
-                      });
-                    }
-                        : null,
-                    child:  const Text('Enter OTP'),
-                  ),
-                  const SizedBox(height: 20),
-                  Column(
-                    children: <Widget>[
-                      CustomTextFieldRegister(
-                        height: AppSize.s35,
-                        width: MediaQuery.of(context).size.width / 5,
-                        controller: otpController,
-                        labelText: 'Enter OTP',
-                        enabled: otpEnabled,
-                        keyboardType: TextInputType.number,
-                        padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
-                        onChanged: (value) {},
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return AppString.enterText;
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF50B5E5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
+                      },
+                      validator: (value) {
+                        if (value != null) {
+                          return 'Please enter an email address';
+                        } else if (!RegExp(
+                                r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+                            .hasMatch(value!)) {
+                          return 'Please enter a valid email address';
+                        }
+                        return null;
+                      },
                     ),
-                    onPressed: otpEnabled
-                        ? () {
-                      // Handle OTP submission logic here
-                      String email = emailController.text;
-                      String otp = otpController.text;
-                      print('Email: $email, OTP: $otp');
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
+                    const SizedBox(height: 20),
+                    isLoading
+                        ? SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(
+                              color: ColorManager.blueprime,
+                            ))
+                        : ElevatedButton(
+                            focusNode: Otpbutton,
+                            autofocus: true,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF50B5E5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                              ),
                             ),
-                            child: OnBoardingCongratulation(),
-                          );
-                        },
-                      );
-                    }
-                        : null, // Disable button if OTP not entered
-                    child: const Text('Submit'),
-                  ),
-                ],
+                            onPressed: emailEntered
+                                ? () async {
+                                    setState(() {
+                                      isLoading = true;
+                                      otpEnabled = true;
+                                    });
+                                    await postverifyuser(
+                                        context, emailController.text);
+                                    Future.delayed(const Duration(seconds: 2),
+                                        () {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    });
+                                  }
+                                : null,
+                            child: const Text('Enter OTP'),
+                          ),
+                    const SizedBox(height: 20),
+                    Column(
+                      children: <Widget>[
+                        CustomTextFieldRegister(
+                          height: AppSize.s35,
+                          width: MediaQuery.of(context).size.width / 5,
+                          controller: otpController,
+                          labelText: 'Enter OTP',
+                          enabled: otpEnabled,
+                          keyboardType: TextInputType.number,
+                          padding: const EdgeInsets.only(
+                              bottom: AppPadding.p5, left: AppPadding.p20),
+                          onChanged: (value) {},
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return AppString.enterText;
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF50B5E5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                      ),
+                      onPressed: otpEnabled
+                          ? () {
+                              // if (_formKey.currentState!.validate() &&
+                              //     otpController.text.isEmpty) {
+                              //   // widget.onSavePressed();
+                              // } else {
+                              //   print(" wait");
+                              //   // setState(() {
+                              //   //   _documentUploaded = widget.AcknowledgementnameController.text.isNotEmpty;
+                              //   // });
+                              // }
+                              String email = emailController.text;
+                              String otp = otpController.text;
+                              print('Email: $email, OTP: $otp');
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    child: OnBoardingCongratulation(),
+                                  );
+                                },
+                              );
+                            }
+                          : null,
+                      child: const Text('Submit'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -480,10 +518,6 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
 //   }
 // }
 ///////////////////////////////////////////////////
-
-
-
-
 
 // class EmailOtpDialog extends StatefulWidget {
 //   @override
