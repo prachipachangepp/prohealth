@@ -145,8 +145,7 @@
 // }
 
 ///////////////////////////////////after validation/////////////////////////////////
-
-
+import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -154,10 +153,9 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/establishment_resources/establishment_string_manager.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/text_form_field_const.dart';
-import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
 
 class AcknowledgementAddPopup extends StatefulWidget {
   final String labelName;
@@ -180,6 +178,8 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
   final _formKey = GlobalKey<FormState>();
   String? _selectedDocumentType;
   bool _documentUploaded = true;
+  File? file;
+  PlatformFile? fileName;
 
   @override
   Widget build(BuildContext context) {
@@ -277,10 +277,11 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                           allowMultiple: false,
                         );
                         if (result != null) {
-                          PlatformFile file = result.files.first;
-                          print('File picked: ${file.name}');
+                          file = result.files.first.bytes! as File?;
+                          fileName = result.files.first;
+                          print('File picked: ${fileName!.name}');
                           setState(() {
-                            widget.AcknowledgementnameController.text = file.name;
+                            widget.AcknowledgementnameController.text = file as String;
                             _documentUploaded = true;
                           });
                         }
@@ -311,9 +312,11 @@ class _AcknowledgementAddPopupState extends State<AcknowledgementAddPopup> {
                   width: AppSize.s105,
                   height: AppSize.s30,
                   text: AppStringEM.submit,
-                  onPressed: () {
+                  onPressed: () async{
                     if (_formKey.currentState!.validate() && widget.AcknowledgementnameController.text.isNotEmpty) {
-                      widget.onSavePressed();
+                      await uploadDocuments(context: context, employeeDocumentMetaId: 2, employeeDocumentTypeSetupId: 6,
+                      employeeId: 8, documentName: widget.AcknowledgementnameController.text, documentFile: file!);
+                      // widget.onSavePressed();
                       Navigator.pop(context);
                     } else {
                       setState(() {

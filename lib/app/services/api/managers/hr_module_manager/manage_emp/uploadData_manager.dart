@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/upload_repo.dart';
@@ -9,13 +11,20 @@ Future<ApiData> uploadDocuments({
   required int employeeDocumentMetaId,
   required int employeeDocumentTypeSetupId,
   required int employeeId,
-  required String documentName,
+  required File documentFile,
+  required String documentName
 }) async {
   try {
     var response = await Api(context).post(
       path: UploadDocumentRepository.uploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId, employeeId: employeeId),
       data: {
-        'file':documentName.toString()
+        "employeeDocumentMetaId": employeeDocumentMetaId,
+        "employeeDocumentTypeSetupId": employeeDocumentTypeSetupId,
+        "employeeId": employeeId,
+        "documentFile":  MultipartFile(
+          documentFile.path,
+          filename: documentName,
+        ),
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {

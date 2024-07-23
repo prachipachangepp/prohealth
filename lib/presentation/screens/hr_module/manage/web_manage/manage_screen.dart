@@ -549,7 +549,7 @@ class _ManageScreenState extends State<ManageScreen> {
                         showDialog(context: context, builder: (BuildContext context){
                           return AcknowledgementAddPopup(labelName: 'Add Acknowledgement',
                             AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
-                             await uploadDocuments(context: context, employeeDocumentMetaId: 2, employeeDocumentTypeSetupId: 6, employeeId: widget.employeeId!, documentName: acknowldgementNameController.text);
+
                             }, child: FutureBuilder<List<EmployeeDocTabModal>>(
                                 future: getEmployeeDocTab(context),
                                 builder: (context,snapshot) {
