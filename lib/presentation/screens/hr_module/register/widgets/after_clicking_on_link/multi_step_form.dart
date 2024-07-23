@@ -71,138 +71,139 @@ class _MultiStepFormState extends State<MultiStepForm> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: TopRowConstant(),
       ),
-      body: Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("     "),
-                  Text(
-                    "Details",
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("     "),
+                Text(
+                  "Details",
+                  style: GoogleFonts.firaSans(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.blueprime,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff50B5E5),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () {
+                    // Add functionality for save and continue here
+                  },
+                  child: Text(
+                    "Save Progress",
                     style: GoogleFonts.firaSans(
-                      fontSize: 18,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.w700,
-                      color: ColorManager.blueprime,
-                      decoration: TextDecoration.none,
+                      color: Colors.white,
                     ),
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff50B5E5),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {
-                      // Add functionality for save and continue here
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: AppSize.s5,
+          ),
+          Container(
+            // height: MediaQuery.of(context).size.height / 4,
+            // width: MediaQuery.of(context).size.width / 1.1,
+            // color: Colors.yellow,
+            child: Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stepper(
+                  physics: const ScrollPhysics(),
+                    type: StepperType.horizontal,
+                    steps: steps(),
+                    currentStep: _currentStep,
+                    onStepContinue: () {
+                      if (isLastStep) {
+                        setState(() => isCompleted = true);
+                      } else {
+                        setState(() => _currentStep += 1);
+                      }
                     },
-                    child: Text(
-                      "Save Progress",
-                      style: GoogleFonts.firaSans(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: AppSize.s5,
-            ),
-            Expanded(
-              child: Container(
-                // height: MediaQuery.of(context).size.height / 4,
-                // width: MediaQuery.of(context).size.width / 1.1,
-                // color: Colors.yellow,
-                child: Flexible(
-                  child: Stepper(
-                      type: StepperType.horizontal,
-                      steps: steps(),
-                      currentStep: _currentStep,
-                      onStepContinue: () {
-                        if (isLastStep) {
-                          setState(() => isCompleted = true);
-                        } else {
-                          setState(() => _currentStep += 1);
-                        }
-                      },
-                      onStepCancel: isFirstStep
-                          ? null
-                          : () => setState(() => _currentStep -= 1),
-                      controlsBuilder: (context, details) => Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                if (!isFirstStep) ...[
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton.icon(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      foregroundColor: const Color(0xff1696C8),
-                                      side: const BorderSide(
-                                          color: Color(0xff1696C8)),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    onPressed: details.onStepCancel,
-                                    label: Text(
-                                      "Back",
-                                      style: GoogleFonts.firaSans(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w700,
-                                        //color: Colors.white,
-                                      ),
-                                    ),
-                                    icon: const Icon(Icons.arrow_back),
-                                  )
-                                ],
+                    onStepCancel: isFirstStep
+                        ? null
+                        : () => setState(() => _currentStep -= 1),
+                    controlsBuilder: (context, details) => Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (!isFirstStep) ...[
                                 const SizedBox(
                                   width: 20,
                                 ),
                                 ElevatedButton.icon(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xff1696C8),
-                                    foregroundColor: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: const Color(0xff1696C8),
+                                    side: const BorderSide(
+                                        color: Color(0xff1696C8)),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
-                                  onPressed: (){
-
-                                    details.onStepContinue;
-                                  },
+                                  onPressed: details.onStepCancel,
                                   label: Text(
-                                    isLastStep ? 'Confirm' : 'Continue',
+                                    "Back",
                                     style: GoogleFonts.firaSans(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w700,
-                                      color: Colors.white,
+                                      //color: Colors.white,
                                     ),
                                   ),
-                                  icon: const Icon(Icons.arrow_forward),
-                                ),
+                                  icon: const Icon(Icons.arrow_back),
+                                )
                               ],
-                            ),
-                          )),
-                ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xff1696C8),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                onPressed:details.onStepContinue,
+                                //     (){
+                                //
+                                //   details.onStepContinue;
+                                // },
+                                label: Text(
+                                  isLastStep ? 'Confirm' : 'Continue',
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                icon: const Icon(Icons.arrow_forward),
+                              ),
+                            ],
+                          ),
+                        )),
               ),
             ),
-            // const Row(
-            //   children: [BottomBarRow()],
-            // )
-          ],
-        ),
+          ),
+          // const Row(
+          //   children: [BottomBarRow()],
+          // )
+        ],
       ),
       bottomNavigationBar: BottomBarRow(),
 

@@ -270,7 +270,8 @@ class _OfferLetterDescriptionScreenState
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff50B5E5),
-                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -279,11 +280,33 @@ class _OfferLetterDescriptionScreenState
                   child: Text(
                     'Continue',
                     style: GoogleFonts.firaSans(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w700,
-                    ),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
                   ),
                 ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(builder: (context) => MultiStepForm()),
+                //     );
+                //   },
+                //   style: ElevatedButton.styleFrom(
+                //     backgroundColor: Color(0xff50B5E5),
+                //     foregroundColor: Colors.white,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(8),
+                //     ),
+                //   ),
+                //   child: Text(
+                //     'Continue',
+                //     style: GoogleFonts.firaSans(
+                //       fontSize: 14.0,
+                //       fontWeight: FontWeight.w700,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             //BottomBarRow()

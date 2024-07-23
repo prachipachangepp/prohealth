@@ -121,7 +121,7 @@ class AuthManager {
   }
 
   ///Sign In otp Verification
-  static Future<ApiData> verifyOTPAndLogin(
+   static Future<ApiData> verifyOTPAndLogin(
       {required String email,
       required String otp,
       required BuildContext context}) async {
