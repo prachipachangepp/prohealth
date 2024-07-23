@@ -199,14 +199,110 @@ class OnboardingTabManage extends StatefulWidget {
   State<OnboardingTabManage> createState() => _OnboardingTabManageState();
 }
 
+// class _OnboardingTabManageState extends State<OnboardingTabManage> {
+//   final List<String> _categories = [
+//     AppString.general,
+//     AppString.qualification,
+//     AppString.banking,
+//     AppString.healthRecord,
+//     AppString.acknowledgement
+//   ];
+//   @override
+//   Widget build(BuildContext context) {
+//     return Material(
+//       color: Colors.white,
+//       child: Column(
+//         children: [
+//           if (widget.selectedIndex != 0)
+//             Padding(
+//               padding: const EdgeInsets.only(top: 30),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   Material(
+//                     elevation: 4,
+//                     borderRadius: BorderRadius.circular(20),
+//                     child: Container(
+//                       height: 28,
+//                       width: MediaQuery.of(context).size.width / 1.68,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(20),
+//                         color: ColorManager.blueprime,
+//                       ),
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                         children: _categories
+//                             .asMap()
+//                             .entries
+//                             .map(
+//                               (entry) => InkWell(
+//                             child: Container(
+//                               height: 30,
+//                               width: MediaQuery.of(context).size.width / 8.42,
+//                               padding: EdgeInsets.symmetric(vertical: 6),
+//                               decoration: BoxDecoration(
+//                                 borderRadius: BorderRadius.circular(20),
+//                                 color: widget.selectedIndex == entry.key
+//                                     ? Colors.white : null,
+//                               ),
+//
+//                               child: Text(
+//                                   entry.value,
+//                                   textAlign: TextAlign.center,
+//                                   style: GoogleFonts.firaSans(textStyle:TextStyle(
+//                                     fontSize: 12,
+//                                     fontWeight: FontWeightManager.semiBold,
+//                                     color: widget.selectedIndex == entry.key
+//                                         ? ColorManager.mediumgrey
+//                                         : Colors.white,
+//                                   ),)
+//                               ),
+//                             ),
+//                             onTap: () => widget.selectButton(entry.key),
+//                           ),
+//                         )
+//                             .toList(),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           Expanded(
+//             flex: 10,
+//             child:Padding(
+//               padding: EdgeInsets.only(
+//                   top: MediaQuery.of(context).size.width / 45 ),
+//               child: PageView(
+//                   controller: widget.managePageController,
+//                   physics: NeverScrollableScrollPhysics(),
+//                   children: [
+//                     OnboardingGeneral( selectButton: widget.selectButton),
+//                     OnboardingQualification(),
+//                     Banking(),
+//                     HealthRecord(),
+//                     Acknowledgement()
+//                   ]),
+//             ),
+//           ),
+//           BottomBarRow()
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+
+
 class _OnboardingTabManageState extends State<OnboardingTabManage> {
   final List<String> _categories = [
-    AppString.general,
+    // AppString.general,
     AppString.qualification,
     AppString.banking,
     AppString.healthRecord,
     AppString.acknowledgement
   ];
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -215,77 +311,98 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
         children: [
           if (widget.selectedIndex != 0)
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 30, left: 100),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Material(
-                    elevation: 4,
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: 28,
-                      width: MediaQuery.of(context).size.width / 1.68,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: ColorManager.blueprime,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: _categories
-                            .asMap()
-                            .entries
-                            .map(
-                              (entry) => InkWell(
-                            child: Container(
-                              height: 30,
-                              width: MediaQuery.of(context).size.width / 8.42,
-                              padding: EdgeInsets.symmetric(vertical: 6),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: widget.selectedIndex == entry.key
-                                    ? Colors.white : null,
-                              ),
-
-                              child: Text(
-                                  entry.value,
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.firaSans(textStyle:TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeightManager.semiBold,
-                                    color: widget.selectedIndex == entry.key
-                                        ? ColorManager.mediumgrey
-                                        : Colors.white,
-                                  ),)
-                              ),
-                            ),
-                            onTap: () => widget.selectButton(entry.key),
-                          ),
-                        )
-                            .toList(),
+                  InkWell(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'Go Back',
+                      style: GoogleFonts.firaSans(
+                        fontSize: FontSize.s12,
+                        fontWeight: FontWeightManager.bold,
+                        color: ColorManager.mediumgrey,
+                        decoration: TextDecoration.underline,
                       ),
                     ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width/6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Material(
+                        elevation: 4,
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          height: 28,
+                          width: MediaQuery.of(context).size.width / 2.1, //1.68
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: ColorManager.blueprime,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: _categories
+                                .asMap()
+                                .entries
+                                .map(
+                                  (entry) => InkWell(
+                                child: Container(
+                                  height: 30,
+                                  width: MediaQuery.of(context).size.width / 8.42,
+                                  padding: EdgeInsets.symmetric(vertical: 6),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                                        ? Colors.white : null,
+                                  ),
+                                  child: Text(
+                                    entry.value,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.firaSans(
+                                      textStyle: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeightManager.semiBold,
+                                        color: widget.selectedIndex - 1 == entry.key //color: widget.selectedIndex == entry.key
+                                            ? ColorManager.mediumgrey
+                                            : Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                onTap: () => widget.selectButton(entry.key + 1),  //onTap: () => widget.selectButton(entry.key),
+                              ),
+                            )
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
           Expanded(
             flex: 10,
-            child:Padding(
+            child: Padding(
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.width / 45 ),
+                  top: MediaQuery.of(context).size.width / 45),
               child: PageView(
-                  controller: widget.managePageController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    OnboardingGeneral( selectButton: widget.selectButton),
-                    OnboardingQualification(),
-                    Banking(),
-                    HealthRecord(),
-                    Acknowledgement()
-                  ]),
+                controller: widget.managePageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  OnboardingGeneral(selectButton: widget.selectButton),
+                  OnboardingQualification(),
+                  Banking(),
+                  HealthRecord(),
+                  Acknowledgement(),
+                ],
+              ),
             ),
           ),
-          BottomBarRow()
+          BottomBarRow(),
         ],
       ),
     );
