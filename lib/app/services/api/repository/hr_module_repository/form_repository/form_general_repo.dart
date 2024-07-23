@@ -13,7 +13,7 @@ class ProgressBarRepository{
 
  static String   bankingpage  = "/employee-bankings/add";
 
-
+static String verifyuserpopup = "/auth/Otp";
 
 ///////
   static String postgeneralscreen(){
@@ -39,5 +39,11 @@ static String postlicensesscreen(){
     return "$bankingpage";
  }
 
+
+
+ ///////
+static String postverifyuser(){
+    return "$verifyuserpopup";
+}
 }
 

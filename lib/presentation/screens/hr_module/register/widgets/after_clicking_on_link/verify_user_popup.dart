@@ -4,6 +4,7 @@ import 'package:prohealth/app/resources/color.dart';
 
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/value_manager.dart';
+import '../../../../../../app/services/api/managers/hr_module_manager/progress_form_manager/onboarding_verify_user.dart';
 import '../../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../taxtfield_constant.dart';
 import 'on_boarding_welcome.dart';
@@ -107,12 +108,12 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                       ),
                     ),
                     onPressed: emailEntered
-                        ? () {
+                        ? () async{
                       setState(() {
                         isLoading = true;
                         otpEnabled = true;
                       });
-                      // API
+                    await postverifyuser(context,emailController.text );
                       Future.delayed(const Duration(seconds: 2), () {
                         setState(() {
                           isLoading = false;
@@ -131,7 +132,7 @@ class _EnterEmailAndOTPDialogState extends State<EnterEmailAndOTPDialog> {
                         controller: otpController,
                         labelText: 'Enter OTP',
                         enabled: otpEnabled,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
                         padding: const EdgeInsets.only(bottom: AppPadding.p5, left: AppPadding.p20),
                         onChanged: (value) {},
                         validator: (value) {
