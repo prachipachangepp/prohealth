@@ -2,19 +2,19 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_general_manager.dart';
 
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/value_manager.dart';
 import '../../../../../em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
 import '../../../taxtfield_constant.dart';
+import 'form_educaton_screen.dart';
 
 class generalForm extends StatefulWidget {
-   generalForm({
+  generalForm({
     super.key,
     required this.context,
   });
-
-
 
   final BuildContext context;
 
@@ -23,26 +23,22 @@ class generalForm extends StatefulWidget {
 }
 
 class _generalFormState extends State<generalForm> {
-
-
-
   double textFieldWidth = 430;
   double textFieldHeight = 38;
 
   //TextEditingController firstName = TextEditingController();
 
   /////
-   TextEditingController _dobcontroller = TextEditingController();
+  TextEditingController dobcontroller = TextEditingController();
 
   TextEditingController firstname = TextEditingController();
-  TextEditingController  lastname= TextEditingController();
-  TextEditingController ssecuritynumber= TextEditingController();
-  TextEditingController  phonenumber= TextEditingController();
-  TextEditingController  dphonenumber= TextEditingController();
-  TextEditingController  personalemail= TextEditingController();
-  TextEditingController  driverlicensenumb= TextEditingController();
-  TextEditingController  address= TextEditingController();
-
+  TextEditingController lastname = TextEditingController();
+  TextEditingController ssecuritynumber = TextEditingController();
+  TextEditingController phonenumber = TextEditingController();
+  // TextEditingController  phonenumber= TextEditingController();
+  TextEditingController personalemail = TextEditingController();
+  TextEditingController driverlicensenumb = TextEditingController();
+  TextEditingController address = TextEditingController();
 
   // Current step in the stepper
   int _currentStep = 0;
@@ -51,24 +47,49 @@ class _generalFormState extends State<generalForm> {
 
   bool get isFirstStep => _currentStep == 0;
 
-
   bool isCompleted = false;
   String? _selectedCountry;
   String? _selectedClinician;
   String? _selectedSpeciality;
   String? _selectedDegree;
   late bool _passwordVisible = false;
-  String? _selectedType;
-  String? _selectedType1;
+  String? gendertype;
+
+  String? racetype;
 
 
+  List<String> _fileNames = [];
+  bool _loading = false;
+
+  void _pickFiles() async {
+    setState(() {
+      _loading = true; // Show loader
+      _fileNames.clear(); // Clear previous file names if any
+    });
+
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+    );
+
+    if (result != null) {
+      setState(() {
+        _fileNames.addAll(result.files.map((file) => file.name!));
+        _loading = false; // Hide loader
+      });
+      print('Files picked: $_fileNames');
+    } else {
+      setState(() {
+        _loading = false; // Hide loader on cancel
+      });
+      print('User canceled the picker');
+    }
+  }
 
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
-
       child: Column(
         children: [
           Center(
@@ -91,8 +112,7 @@ class _generalFormState extends State<generalForm> {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(
               width: MediaQuery.of(context).size.width / 3,
-              padding: const EdgeInsets.symmetric(
-                  vertical: 12, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               decoration: BoxDecoration(
                 color: const Color(0xFFE6F7FF),
                 borderRadius: BorderRadius.circular(12),
@@ -111,8 +131,7 @@ class _generalFormState extends State<generalForm> {
             height: AppSize.s13,
           ),
           Padding(
-            padding:
-            const EdgeInsets.only(left: 140, right: 140, top: 20),
+            padding: const EdgeInsets.only(left: 140, right: 140, top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,9 +150,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff1696C8),
@@ -142,18 +159,19 @@ class _generalFormState extends State<generalForm> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed: () async {
-                          FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
-                            allowMultiple: false,
-                          );
-                          if (result != null) {
-                            PlatformFile file = result.files.first;
-                            print('File picked: ${file.name}');
-                          } else {
-                            // User canceled the picker
-                          }
-                        },
+                        onPressed:_pickFiles,
+                        // onPressed: () async {
+                        //   FilePickerResult? result =
+                        //       await FilePicker.platform.pickFiles(
+                        //     allowMultiple: false,
+                        //   );
+                        //   if (result != null) {
+                        //     PlatformFile file = result.files.first;
+                        //     print('File picked: ${file.name}');
+                        //   } else {
+                        //     // User canceled the picker
+                        //   }
+                        // },
                         label: Text(
                           "Choose File",
                           style: GoogleFonts.firaSans(
@@ -164,9 +182,33 @@ class _generalFormState extends State<generalForm> {
                         ),
                         icon: const Icon(Icons.file_upload_outlined),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      _loading
+                          ? SizedBox(width: 25,
+                        height: 25,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.blueprime, // Loader color
+                          // Loader size
+                        ),
+                      )
+                          : _fileNames.isNotEmpty
+                          ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _fileNames
+                            .map((fileName) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'File picked: $fileName',
+                            style: GoogleFonts.firaSans(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff686464)),
+                          ),
+                        ))
+                            .toList(),
+                      )
+                          : SizedBox(), // Display file names if picked
+
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Legal First Name',
                         style: GoogleFonts.firaSans(
@@ -174,9 +216,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: firstname,
                         hintText: 'Enter Text',
@@ -193,9 +233,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Legal Last Name',
                         style: GoogleFonts.firaSans(
@@ -203,9 +241,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: lastname,
                         hintText: 'Enter Text',
@@ -222,9 +258,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Social Security Number',
                         style: GoogleFonts.firaSans(
@@ -232,9 +266,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: ssecuritynumber,
                         hintText: 'Enter Text',
@@ -269,9 +301,7 @@ class _generalFormState extends State<generalForm> {
                         ),
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Personal Mobile Number',
                         style: GoogleFonts.firaSans(
@@ -279,9 +309,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: phonenumber,
                         keyboardType: TextInputType.name,
@@ -299,9 +327,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Personal Email',
                         style: GoogleFonts.firaSans(
@@ -309,9 +335,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: personalemail,
                         hintText: 'Enter Text',
@@ -328,9 +352,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Driver’s License Number',
                         style: GoogleFonts.firaSans(
@@ -338,9 +360,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: driverlicensenumb,
                         hintText: 'Enter Text',
@@ -372,49 +392,46 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Container(
                         width: 400,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                                child: CustomRadioListTile(
-                                  title: 'Male',
-                                  value: 'male',
-                                  groupValue: _selectedType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType = value;
-                                    });
-                                  },
-                                )),
-                            Expanded(
-                                child: CustomRadioListTile(
-                                  title: 'Female',
-                                  value: 'Female',
-                                  groupValue: _selectedType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType = value;
-                                    });
-                                  },
-                                )),
-                            Expanded(
-                                child: CustomRadioListTile(
-                                  title: 'Other',
-                                  value: 'Other',
-                                  groupValue: _selectedType,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedType = value;
-                                    });
-                                  },
-                                )),
+                            CustomRadioListTile(
+                              title: 'Male',
+                              value: 'male',
+                              groupValue: gendertype,
+                              onChanged: (value) {
+                                setState(() {
+                                  gendertype = value;
+                                });
+                              },
+                            ),
+                            CustomRadioListTile(
+                              title: 'Female',
+                              value: 'Female',
+                              groupValue: gendertype,
+                              onChanged: (value) {
+                                setState(() {
+                                  gendertype = value;
+                                });
+                              },
+                            ),
+                            CustomRadioListTile(
+                              title: 'Other',
+                              value: 'Other',
+                              groupValue: gendertype,
+                              onChanged: (value) {
+                                setState(() {
+                                  gendertype = value;
+                                });
+                              },
+                            ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'DOB',
                         style: GoogleFonts.firaSans(
@@ -422,11 +439,9 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
-                        controller: _dobcontroller,
+                        controller: dobcontroller,
                         hintText: 'dd-mm-yyyy',
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
@@ -448,16 +463,13 @@ class _generalFormState extends State<generalForm> {
                               lastDate: DateTime(2101),
                             );
                             if (pickedDate != null) {
-                              _dobcontroller.text =
-                              "${pickedDate.toLocal()}"
-                                  .split(' ')[0];
+                              dobcontroller.text =
+                                  "${pickedDate.toLocal()}".split(' ')[0];
                             }
                           },
                         ),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Address',
                         style: GoogleFonts.firaSans(
@@ -465,9 +477,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
                         controller: address,
                         hintText: 'Enter Text',
@@ -484,9 +494,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         height: 32,
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Text(
                         "Race",
                         style: GoogleFonts.firaSans(
@@ -494,81 +502,70 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      Container(
-                        //width: 550,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: CustomRadioListTile(
-                                title: 'Asian',
-                                value: 'Asian',
-                                groupValue: _selectedType,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedType = value;
-                                  });
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                title: 'White',
-                                value: 'White',
-                                groupValue: _selectedType,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedType = value;
-                                  });
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: CustomRadioListTile(
-                                title: 'Hispanic or Latino',
-                                value: 'Hispanic or Latino',
-                                groupValue: _selectedType,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedType = value;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                            child: CustomRadioListTile(
-                              title: 'Black or African American',
-                              value: 'Black or African American',
-                              groupValue: _selectedType,
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedType = value;
-                                });
-                              },
-                            ),
+                          CustomRadioListTile(
+                            title: 'Asian',
+                            value: 'Asian',
+                            groupValue: racetype,
+                            onChanged: (value) {
+                              setState(() {
+                                racetype = value;
+                              });
+                            },
                           ),
-                          Expanded(
-                            child: CustomRadioListTile(
-                              title: 'Other',
-                              value: 'Other',
-                              groupValue: _selectedType,
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedType = value;
-                                });
-                              },
-                            ),
+                          CustomRadioListTile(
+                            title: 'White',
+                            value: 'White',
+                            groupValue: racetype,
+                            onChanged: (value) {
+                              setState(() {
+                                racetype = value;
+                              });
+                            },
+                          ),
+                          CustomRadioListTile(
+                            title: 'Hispanic or Latino',
+                            value: 'Hispanic or Latino',
+                            groupValue: racetype,
+                            onChanged: (value) {
+                              setState(() {
+                                racetype = value;
+                              });
+                            },
                           ),
                         ],
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CustomRadioListTile(
+                            title: 'Black or African American',
+                            value: 'Black or African American',
+                            groupValue: racetype,
+                            onChanged: (value) {
+                              setState(() {
+                                racetype = value;
+                              });
+                            },
+                          ),
+                          CustomRadioListTile(
+                            title: 'Other',
+                            value: 'Other',
+                            groupValue: racetype,
+                            onChanged: (value) {
+                              setState(() {
+                                racetype = value;
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            width: 1,
+                          )
+                        ],
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Type of Clinician',
                         style: GoogleFonts.firaSans(
@@ -576,9 +573,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Container(
                         height: 32,
                         child: DropdownButtonFormField<String>(
@@ -591,8 +586,7 @@ class _generalFormState extends State<generalForm> {
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
-                              borderSide:
-                              BorderSide(color: Colors.grey),
+                              borderSide: BorderSide(color: Colors.grey),
                             ),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
@@ -618,18 +612,15 @@ class _generalFormState extends State<generalForm> {
                             'Clinican',
                             'Cliniian'
                           ] // List of countries
-                              .map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 30),
+                      SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
                         'Speciality',
                         style: GoogleFonts.firaSans(
@@ -637,9 +628,7 @@ class _generalFormState extends State<generalForm> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xff686464)),
                       ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
+                      SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Container(
                         height: 32,
                         child: DropdownButtonFormField<String>(
@@ -652,8 +641,7 @@ class _generalFormState extends State<generalForm> {
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
-                              borderSide:
-                              BorderSide(color: Colors.grey),
+                              borderSide: BorderSide(color: Colors.grey),
                             ),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
@@ -679,13 +667,12 @@ class _generalFormState extends State<generalForm> {
                             'CSpeciality',
                             'Speciality'
                           ] // List of countries
-                              .map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
                       ),
                     ],
@@ -693,9 +680,94 @@ class _generalFormState extends State<generalForm> {
                 ),
               ],
             ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff1696C8),
+                  foregroundColor: Colors.white,
+
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                 onPressed: () async {
+                //   await postgeneralscreen(
+                //       context,
+                //       "__",
+                //       0,
+                //       firstname.text,
+                //       lastname.text,
+                //       0,
+                //       0,
+                //       "__",
+                //       0,
+                //       0,
+                //       0,
+                //       ssecuritynumber.text,
+                //       phonenumber.text,
+                //       "__",
+                //       "__",
+                //       "__",
+                //       personalemail.text,
+                //       "__",
+                //       address.text,
+                //       dobcontroller.text,
+                //       "__",
+                //       "__",
+                //       "__",
+                //       gendertype.toString(),
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       0,
+                //       "__",
+                //       driverlicensenumb.text,
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       "__",
+                //       0,
+                //       "__",
+                //       0,
+                //       0,
+                //       "__",
+                //       "__",
+                //       racetype.toString(),
+                //       "__");
+                 },
+                child: Text(
+                  'Save',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           )
         ],
       ),
     );
   }
 }
+
+// TextEditingController _dobcontroller = TextEditingController();
+//
+// TextEditingController firstname = TextEditingController();
+// TextEditingController lastname = TextEditingController();
+// TextEditingController ssecuritynumber = TextEditingController();
+// TextEditingController phonenumber = TextEditingController();
+//
+// TextEditingController personalemail = TextEditingController();
+// TextEditingController driverlicensenumb = TextEditingController();
+// TextEditingController address = TextEditingController();

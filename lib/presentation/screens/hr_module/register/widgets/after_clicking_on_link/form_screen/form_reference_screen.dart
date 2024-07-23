@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_reference_manager.dart';
 
 import '../../../../../../../app/resources/const_string.dart';
 import '../../../taxtfield_constant.dart';
@@ -18,6 +18,14 @@ class ReferencesScreen extends StatefulWidget {
 }
 
 class _ReferencesScreenState extends State<ReferencesScreen> {
+  TextEditingController name = TextEditingController();
+  TextEditingController titleposition = TextEditingController();
+  TextEditingController companyorganization = TextEditingController();
+  TextEditingController mobilenumber = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController knowthisperson = TextEditingController();
+  TextEditingController lengthofassociation = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -75,8 +83,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                           fontWeight: FontWeight.w700,
                           color: Color(0xff686464)),
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height / 20),
+                    SizedBox(height: MediaQuery.of(context).size.height / 20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -93,9 +100,9 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      60),
+                                      MediaQuery.of(context).size.height / 60),
                               CustomTextFieldRegister(
+                                controller: name,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -106,8 +113,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      40),
+                                      MediaQuery.of(context).size.height / 40),
                               Text(
                                 AppString.title_position,
                                 style: GoogleFonts.firaSans(
@@ -117,9 +123,9 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      60),
+                                      MediaQuery.of(context).size.height / 60),
                               CustomTextFieldRegister(
+                                controller: titleposition,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -130,8 +136,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      30),
+                                      MediaQuery.of(context).size.height / 30),
                               Text(
                                 AppString.company_organization,
                                 style: GoogleFonts.firaSans(
@@ -141,9 +146,9 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      60),
+                                      MediaQuery.of(context).size.height / 60),
                               CustomTextFieldRegister(
+                                controller: companyorganization,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -154,8 +159,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      30),
+                                      MediaQuery.of(context).size.height / 30),
                               Text(
                                 AppString.mobile_number,
                                 style: GoogleFonts.firaSans(
@@ -165,9 +169,9 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      60),
+                                      MediaQuery.of(context).size.height / 60),
                               CustomTextFieldRegister(
+                                controller: mobilenumber,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -179,9 +183,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                            width:
-                            MediaQuery.of(context).size.width / 15),
+                        SizedBox(width: MediaQuery.of(context).size.width / 15),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,9 +197,9 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      60),
+                                      MediaQuery.of(context).size.height / 60),
                               CustomTextFieldRegister(
+                                controller: email,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -208,8 +210,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      60),
+                                      MediaQuery.of(context).size.height / 60),
                               Text(
                                 AppString.how_do_you_know_this_person,
                                 style: GoogleFonts.firaSans(
@@ -219,9 +220,9 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      60),
+                                      MediaQuery.of(context).size.height / 60),
                               CustomTextFieldRegister(
+                                controller: knowthisperson,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -232,8 +233,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      60),
+                                      MediaQuery.of(context).size.height / 60),
                               Text(
                                 AppString.length_of_association,
                                 style: GoogleFonts.firaSans(
@@ -243,9 +243,9 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                               ),
                               SizedBox(
                                   height:
-                                  MediaQuery.of(context).size.height /
-                                      60),
+                                      MediaQuery.of(context).size.height / 60),
                               CustomTextFieldRegister(
+                                controller: lengthofassociation,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -259,8 +259,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height / 20),
+                    SizedBox(height: MediaQuery.of(context).size.height / 20),
                     Text(
                       'Please ensure that the references you provide are professional contacts who can provide insight into \n your skills, work ethic, and character ',
                       style: GoogleFonts.firaSans(
@@ -268,8 +267,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                           fontWeight: FontWeight.w500,
                           color: Color(0xff686464)),
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height / 20),
+                    SizedBox(height: MediaQuery.of(context).size.height / 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -299,6 +297,41 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                   ],
                 ),
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff1696C8),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () async {
+                    await postreferencescreen(
+                        context,
+                        lengthofassociation.text,
+                        "__",
+                        companyorganization.text,
+                        email.text,
+                        0,
+                        mobilenumber.text,
+                        name.text,
+                        knowthisperson.text,
+                        titleposition.text);
+                  },
+                  child: Text(
+                    'Save',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
