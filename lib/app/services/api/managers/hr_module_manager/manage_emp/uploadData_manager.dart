@@ -62,10 +62,6 @@ Future<ApiData> uploadDocuments({
 }
 
 
-
-
-
-
 Future<void> uploadHttpDocuments({
   required BuildContext context,
   required int employeeDocumentMetaId,
