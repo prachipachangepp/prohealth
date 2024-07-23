@@ -277,7 +277,8 @@ class ProfileBar extends StatelessWidget {
                           ///"Expired License"
                           ProfileBarClipConst(
                               text: AppString.expiredlicense,
-                              containerColor: Colors.deepOrangeAccent,
+                              // containerColor: Colors.deepOrangeAccent,
+                              containerColor: Color(0xffD16D6A),
                               textOval: AppString.zero),
 
                           SizedBox(
@@ -286,7 +287,8 @@ class ProfileBar extends StatelessWidget {
                           ///"About To Expired License"
                           ProfileBarClipConst(
                               text: AppString.abouttoexpire,
-                              containerColor: Colors.orange,
+                              // containerColor: Colors.orange,
+                              containerColor: Color(0xffFEBD4D),
                               textOval: AppString.two),
 
                           SizedBox(
@@ -295,7 +297,8 @@ class ProfileBar extends StatelessWidget {
                           ///"Up To Date License"
                           ProfileBarClipConst(
                               text: AppString.uptodate,
-                              containerColor: Colors.lightGreen,
+                              // containerColor: Colors.lightGreen,
+                              containerColor: Color(0xffB4DB4C),
                               textOval: AppString.four),
                         ],
                       ),

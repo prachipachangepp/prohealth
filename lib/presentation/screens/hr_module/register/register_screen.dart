@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/register_manager/register_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/register_data/register_data.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/const_wrap_widget.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/after_clicking_on_link/on_boarding_welcome.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/register_row_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -329,8 +330,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 child: CustomIconButtonConst(
                                                     text: AppString.enroll,
                                                     onPressed: () {
+                showDialog(context: context, builder: (BuildContext context) {
+                  return OfferLetterScreen();
+                });
+                                                     // Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
                                                       //_controller.openDialog(context);
-                                                      showDialog(context: context, builder: (_) =>
+                                                      // showDialog(context: context, builder: (_) =>
                                                          ///future builder
                                                       // FutureBuilder<RegisterDataPrefill>(
                                                       //   future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
@@ -350,34 +355,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       //     var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
                                                       //     phoneNumberController = TextEditingController(text: phoneNum);
 
-                                                           ConfirmationPopup(
-                                                            containerText: 'Do you really want to enroll?'
-                                                                '\n${snapshot.data![index].firstName} ${snapshot.data![index].lastName}',
-                                                            onConfirm: ()async{
-                                                              Navigator.pop(context);
-                                                             await addEmpEnroll(context,
-                                                                  snapshot.data![index].compId,  snapshot.data![index].empId,  snapshot.data![index].code,
-                                                                  snapshot.data![index].userId,  snapshot.data![index].firstName,  snapshot.data![index].lastName,
-                                                                  snapshot.data![index].phoneNbr,  snapshot.data![index].email,  snapshot.data![index].link,
-                                                                  snapshot.data![index].status);
-                                                             print('${snapshot.data![index].compId}');
-                                                             print('${snapshot.data![index].empId}');
-                                                             print(snapshot.data![index].code);
-                                                             print('${snapshot.data![index].userId}');
-                                                             print(snapshot.data![index].firstName);
-                                                             print(snapshot.data![index].lastName);
-                                                             print(snapshot.data![index].phoneNbr);
-                                                             print(snapshot.data![index].email);
-                                                             print(snapshot.data![index].link);
-                                                             print(snapshot.data![index].status);
-                                                              showDialog(context: context, builder: (BuildContext context) {
-                                                                return SuccessPopup();
-                                                              });
-                                                            }, title: 'Confirm Enrollment',
-                                                            onCancel: () {
-                                                              Navigator.pop(context);
-                                                            },
-                                                          ),
+                                                          //  ConfirmationPopup(
+                                                          //   containerText: 'Do you really want to enroll?'
+                                                          //       '\n${snapshot.data![index].firstName} ${snapshot.data![index].lastName}',
+                                                          //   onConfirm: ()async{
+                                                          //     Navigator.pop(context);
+                                                          //    await addEmpEnroll(context,
+                                                          //         snapshot.data![index].compId,  snapshot.data![index].empId,  snapshot.data![index].code,
+                                                          //         snapshot.data![index].userId,  snapshot.data![index].firstName,  snapshot.data![index].lastName,
+                                                          //         snapshot.data![index].phoneNbr,  snapshot.data![index].email,  snapshot.data![index].link,
+                                                          //         snapshot.data![index].status);
+                                                          //    print('${snapshot.data![index].compId}');
+                                                          //    print('${snapshot.data![index].empId}');
+                                                          //    print(snapshot.data![index].code);
+                                                          //    print('${snapshot.data![index].userId}');
+                                                          //    print(snapshot.data![index].firstName);
+                                                          //    print(snapshot.data![index].lastName);
+                                                          //    print(snapshot.data![index].phoneNbr);
+                                                          //    print(snapshot.data![index].email);
+                                                          //    print(snapshot.data![index].link);
+                                                          //    print(snapshot.data![index].status);
+                                                          //     showDialog(context: context, builder: (BuildContext context) {
+                                                          //       return SuccessPopup();
+                                                          //     });
+                                                          //   }, title: 'Confirm Enrollment',
+                                                          //   onCancel: () {
+                                                          //     Navigator.pop(context);
+                                                          //   },
+                                                          // ),
 
 
                                                       //   },
@@ -425,7 +430,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                         //
                                                         //   },
                                                         // ),
-                                                      );
+
                                                     }),
                                               ),
                                             ],

@@ -409,6 +409,43 @@ class AppBarWeb extends StatelessWidget {
                                 //   width: MediaQuery.of(context).size.width / 50,
                                 // ),
 
+                                // Expanded(
+                                //   flex: 3,
+                                //   child: Row(
+                                //     mainAxisAlignment: MainAxisAlignment.center,
+                                //     children: [
+                                //       AppClickableWidget(
+                                //         onTap: () {},
+                                //         onHover: (bool val) {},
+                                //         child: Container(
+                                //             padding: const EdgeInsets.symmetric(
+                                //                 horizontal: 5, vertical: 5),
+                                //             child: const Center(
+                                //               child: Icon(
+                                //                 Icons
+                                //                     .notifications_none_outlined,
+                                //                 color: Colors.white,
+                                //               ),
+                                //             )),
+                                //       ),
+                                //
+                                //       AppClickableWidget(
+                                //         onTap: () {},
+                                //         onHover: (bool val) {},
+                                //         child: Container(
+                                //             padding: const EdgeInsets.symmetric(
+                                //                 horizontal: 5, vertical: 5),
+                                //             child: const Center(
+                                //               child: Icon(
+                                //                 Icons.settings_outlined,
+                                //                 color: Colors.white,
+                                //               ),
+                                //             )),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+
                                 Expanded(
                                   flex: 3,
                                   child: Row(
@@ -418,32 +455,36 @@ class AppBarWeb extends StatelessWidget {
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 5, vertical: 5),
-                                            child: const Center(
-                                              child: Icon(
-                                                Icons
-                                                    .notifications_none_outlined,
-                                                color: Colors.white,
-                                              ),
-                                            )),
+                                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                          child: const Center(
+                                            child: Icon(
+                                              Icons.notifications_none_outlined,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
                                       ),
+
+                                      SizedBox(width: 18), //width between the notifications_none_outlined & settings_outlined icon
+
                                       AppClickableWidget(
                                         onTap: () {},
                                         onHover: (bool val) {},
                                         child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 5, vertical: 5),
-                                            child: const Center(
-                                              child: Icon(
-                                                Icons.settings_outlined,
-                                                color: Colors.white,
-                                              ),
-                                            )),
+                                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                          child: const Center(
+                                            child: Icon(
+                                              Icons.settings_outlined,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
+
+
                                 // SizedBox(
                                 //   width: MediaQuery.of(context).size.width / 50,
                                 // ),

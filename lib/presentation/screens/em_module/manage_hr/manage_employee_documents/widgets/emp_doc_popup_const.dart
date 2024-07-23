@@ -51,8 +51,8 @@ class _EmpDocEditPopupState extends State<EmpDocEditPopup> {
 
   void _validateFields() {
     setState(() {
-      _idError = widget.idDocController.text.isEmpty ? 'Please enter some text' : null;
-      _nameError = widget.nameDocController.text.isEmpty ? 'Please enter some text' : null;
+      _idError = widget.idDocController.text.isEmpty ? 'Please Enter ID of Document' : null;
+      _nameError = widget.nameDocController.text.isEmpty ? 'Please Enter Name of thr Document ' : null;
     });
   }
 
