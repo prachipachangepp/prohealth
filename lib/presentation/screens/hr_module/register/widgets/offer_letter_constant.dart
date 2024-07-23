@@ -4,12 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../app/resources/color.dart';
 
 
-class CustomTextField extends StatelessWidget {
+class CustomTextFieldOfferScreen extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final double? height;
 
-  CustomTextField({required this.controller, required this.labelText, this.height});
+  CustomTextFieldOfferScreen({required this.controller, required this.labelText, this.height});
 
   @override
   Widget build(BuildContext context) {

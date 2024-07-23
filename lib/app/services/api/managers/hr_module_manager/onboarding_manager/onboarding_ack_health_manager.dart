@@ -22,11 +22,11 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
       for(var item in response.data){
         itemsList.add(
           OnboardingAckHealthData(
-              employeeDocumentId: item['employeeDocumentId'] == null ? 1 :item['employeeDocumentId'],
-              EmployeeDocumentTypeMetaDataId: item['EmployeeDocumentTypeMetaDataId'] == null ? 10 :item['EmployeeDocumentTypeMetaDataId'],
+              employeeDocumentId: item['employeeDocumentId'] ?? 1,
+              EmployeeDocumentTypeMetaDataId: item['EmployeeDocumentTypeMetaDataId'] ?? 10,
               EmployeeDocumentTypeSetupId: item['EmployeeDocumentTypeSetupId'] ?? 2,
               employeeId: item['employeeId'] ?? 1,
-              DocumentUrl: item['DocumentUrl'] == null ? 'null' : item['DocumentUrl'],
+              DocumentUrl: item['DocumentUrl'] ?? 'null',
               UploadDate: item['UploadDate'] ?? '--',
               approved: item['approved'] ?? false)
           // EmployeeDocTabModal(
@@ -36,7 +36,7 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
           //   message: response.statusMessage!,
           // ),
         );
-        print(response);
+        print(".....Saloni......$response");
       }
       print("onboarding Document Response:::::${itemsList}");
     } else {

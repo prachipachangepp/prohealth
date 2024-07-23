@@ -280,8 +280,8 @@ class _OnboardingTabManageState extends State<OnboardingTabManage> {
                     OnboardingGeneral( selectButton: widget.selectButton),
                     OnboardingQualification(),
                     Banking(),
-                    HealthRecordTab(),
-                    AcknowledgementTab()
+                    HealthRecord(),
+                    Acknowledgement()
                   ]),
             ),
           ),

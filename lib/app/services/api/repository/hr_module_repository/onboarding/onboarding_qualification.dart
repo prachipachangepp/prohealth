@@ -5,7 +5,7 @@ class OnboardingQualificationRepo {
   static String references = "/reference";
   static String employee_licenses = "/employee-licenses";
   static String employee_banking = "/employee-bankings";
-  static String employee_doc = " /employee-documents";
+  static String employee_doc = "/employee-documents";
 
   /// /employee-employment-histories
   static String getEmpEmploymentHistories({required int employeeid}) {

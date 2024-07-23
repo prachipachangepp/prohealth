@@ -330,7 +330,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 child: CustomIconButtonConst(
                                                     text: AppString.enroll,
                                                     onPressed: () {
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                showDialog(context: context, builder: (BuildContext context) {
+                  return OfferLetterScreen();
+                });
+                                                     // Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
                                                       //_controller.openDialog(context);
                                                       // showDialog(context: context, builder: (_) =>
                                                          ///future builder
