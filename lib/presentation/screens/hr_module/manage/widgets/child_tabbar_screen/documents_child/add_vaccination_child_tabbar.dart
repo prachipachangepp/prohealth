@@ -5,10 +5,13 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/employee_doc_repository.dart';
 import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
+import 'package:prohealth/data/api_data/hr_module_data/onboarding_data/onboarding_ack_health_data.dart';
 import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_work_schedule/work_schedule/widgets/delete_popup_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
+import 'package:prohealth/presentation/screens/hr_module/onboarding/download_doc_const.dart';
 
 import '../../../../../../../../app/resources/theme_manager.dart';
 class AdditionalVaccinationsChildBar extends StatefulWidget {
@@ -21,14 +24,14 @@ class AdditionalVaccinationsChildBar extends StatefulWidget {
 class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsChildBar> {
   TextEditingController editIdController = TextEditingController();
   TextEditingController nameIdController = TextEditingController();
-  final StreamController<List<EmployeeDocumentModal>> _controller = StreamController<List<EmployeeDocumentModal>>();
+  final StreamController<List<OnboardingAckHealthData>> _controller = StreamController<List<OnboardingAckHealthData>>();
   String expiryType ='';
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: _controller.stream,
       builder: (context,snapshot) {
-        getEmployeeDoc(context, 1,1,20).then((data) {
+        getAckHealthRecord(context, 1,1,20).then((data) {
           _controller.add(data);
         }).catchError((error) {
           // Handle error
@@ -53,12 +56,43 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
           );
         }
         if(snapshot.hasData){
+
           return Expanded(
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 var health = snapshot.data![index];
+                var fileUrl = health.DocumentUrl;
+                final fileExtension = fileUrl.split('.').last.toLowerCase();
+
+                Widget fileWidget;
+
+                if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                  fileWidget = Image.network(
+                    fileUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(
+                        Icons.broken_image,
+                        size: 45,
+                        color: ColorManager.faintGrey,
+                      );
+                    },
+                  );
+                } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                  fileWidget = Icon(
+                    Icons.description,
+                    size: 45,
+                    color: ColorManager.faintGrey,
+                  );
+                } else {
+                  fileWidget = Icon(
+                    Icons.insert_drive_file,
+                    size: 45,
+                    color: ColorManager.faintGrey,
+                  );
+                }
                 return Column(
                   children: [
                     SizedBox(height: 5),
@@ -91,16 +125,16 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                     borderRadius: BorderRadius.circular(4),
                                     border: Border.all(width: 2,color:ColorManager.faintGrey),
                                   ),
-                                  child: Image.asset('images/Vector.png') ),
+                                  child: fileWidget),
                               SizedBox(width: 10),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('ID:${health.employeeDocTypesetupId}',
+                                  Text('ID:${health.employeeDocumentId}',
                                       style:AknowledgementStyleConst.customTextStyle(context)),
                                   SizedBox(height: 5,),
-                                  Text(health.docName,
+                                  Text(health.UploadDate,
                                       style:TextStyle(
                                         fontFamily: 'FiraSans',
                                         fontSize: 10,
@@ -126,6 +160,7 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                 iconSize: 20,),
                               IconButton(
                                 onPressed: () {
+                                  downloadFile(fileUrl);
                                 },
                                 icon: Icon(Icons.save_alt_outlined,color: Color(0xff1696C8),),
                                 iconSize: 20,),
@@ -137,9 +172,9 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                         await editEmployeeDocTypeSetupId(context,
                                           nameIdController.text,
                                           expiryType.toString(),
-                                          health.expiry,
-                                          health.employeeDocTypesetupId,
-                                          health.employeeDocTypeMetaId,
+                                         "NA",
+                                          health.EmployeeDocumentTypeSetupId,
+                                          health.EmployeeDocumentTypeMetaDataId,
                                         );
                                       },);
 
@@ -158,8 +193,8 @@ class _AdditionalVaccinationsChildBarState extends State<AdditionalVaccinationsC
                                         setState(() async{
                                           await employeedoctypeSetupIdDelete(
                                               context,
-                                              snapshot.data![index].employeeDocTypesetupId);
-                                          getEmployeeDoc(context, 1,1,20).then((data) {
+                                              snapshot.data![index].employeeDocumentId);
+                                          getAckHealthRecord(context, 1,1,20).then((data) {
                                             _controller.add(data);
                                           }).catchError((error) {
                                             // Handle error

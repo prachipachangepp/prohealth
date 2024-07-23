@@ -27,16 +27,11 @@ Future<ApiData> uploadDocuments({
       filename: documentName,
     );
     print("file Doc ${fileDocuments}");
-    var data = FormData({
-      'files': [
-        await fileDocuments
-      ],
-
-    });
     var response = await Api(context).post(
       path: UploadDocumentRepository.uploadEmployeeDocumentGet(employeeDocumentTypeMetaDataId: employeeDocumentMetaId, employeeDocumentTypeSetupId: employeeDocumentTypeSetupId, employeeId: employeeId),
       data: {
 
+        'file':documentName
       },
     );
     print("Response ${response.toString()}");

@@ -185,7 +185,7 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                         height: 10,
                                       ),
                                       Text(
-                                        '9845632156',
+                                        snapshot.data![index].emgMobile,
                                         style: ThemeManagerDark.customTextStyle(context),
                                       ),
                                     ],
@@ -256,15 +256,13 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                         height: 10,
                                       ),
                                       Text(
-                                        'Germany',
+                                        snapshot.data![index].country,
                                         style: ThemeManagerDark.customTextStyle(context),
                                       ),
                                     ],
                                   ),
                                 ],
                               )
-
-
                             ],
                           ),
                           Align(
@@ -308,6 +306,9 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                         var employeer = snapshotPrefill.data!.employer;
                                         employeerController = TextEditingController(text: snapshotPrefill.data!.employer);
 
+                                        var emgMobile = snapshotPrefill.data!.emgMobile;
+                                        emergencyMobileNumber = TextEditingController(text: snapshotPrefill.data!.emgMobile);
+
 
                                         return AddEmployeementPopup(positionTitleController: positionTitleController, leavingResonController: leavingResonController, startDateContoller: startDateContoller,
                                           endDateController: endDateController, lastSupervisorNameController: lastSupervisorNameController,
@@ -324,7 +325,10 @@ class _EmploymentContainerConstantState extends State<EmploymentContainerConstan
                                                 supervisorMob == supervisorMobileNumber.text ? supervisorMob.toString() : supervisorMobileNumber.text,
                                                 positionTitle == positionTitleController.text ? positionTitle.toString() : positionTitleController.text,
                                                 startDate == startDateContoller.text ? startDate  : startDateContoller.text,
-                                                endDate == endDateController.text ? endDate : endDateController.text);
+                                                endDate == endDateController.text ? endDate : endDateController.text,
+                                                emgMobile == emergencyMobileNumber.text ? emgMobile : emergencyMobileNumber.text,
+                                                'USA'
+                                                );
                                             getEmployeement(context,2).then((data) {
                                               employeementStreamController.add(data);
                                             }).catchError((error) {

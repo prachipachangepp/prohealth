@@ -11,8 +11,10 @@ class EmployeementData {
   final String title;
   final String dateOfJoining;
   final String endDate;
+  final String emgMobile;
+  final String country;
   bool? approved;
-  EmployeementData({required this.sucess, required this.message,
+  EmployeementData({required this.emgMobile, required this.country,required this.sucess, required this.message,
       this.approved,
       required this.employmentId,
       required this.employeeId,
@@ -40,7 +42,9 @@ class EmployeementPrefillData {
   final String dateOfJoining;
   final String endDate;
   bool? approved;
-  EmployeementPrefillData({required this.sucess, required this.message,
+  final String emgMobile;
+  final String country;
+  EmployeementPrefillData({required this.emgMobile, required this.country,required this.sucess, required this.message,
       this.approved,
         required this.employmentId,
         required this.employeeId,

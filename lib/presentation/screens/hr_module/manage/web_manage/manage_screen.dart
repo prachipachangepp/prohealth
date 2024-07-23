@@ -198,7 +198,9 @@ class _ManageScreenState extends State<ManageScreen> {
                                           supervisorMobileNumber.text,
                                           positionTitleController.text,
                                           startDateContoller.text,
-                                          endDateController.text);
+                                          endDateController.text,
+                                          emergencyMobileNumber.text,
+                                          'USA');
                                     },
                                     checkBoxTile: Container(
                                         width: 300,
