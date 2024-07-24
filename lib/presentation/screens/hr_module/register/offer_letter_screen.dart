@@ -56,6 +56,9 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
   late List<Map<String, dynamic>> checkboxStates;
   late List<Map<String, dynamic>> checkboxStatesCity;
 
+
+  String _salary = "";
+
   @override
   void initState() {
     super.initState();
@@ -120,7 +123,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           width: 1100,
-          height: 1029,
+          height: 700, //1029
           child: Scaffold(
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
@@ -291,14 +294,14 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         // SizedBox(width: MediaQuery.of(context).size.width / 3.15),
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 30),
+                    SizedBox(height: MediaQuery.of(context).size.height / 50),
                     Divider(
                       color: ColorManager.cream,
                       thickness: 4,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 20),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40),
                     Container(
-                      width: 1050,
+                      width: 1030,
                       height: MediaQuery.of(context).size.height / 2,
                       decoration: BoxDecoration(
                         border: Border.all(color: Color(0xff1696C8)),
@@ -756,7 +759,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/20),
+                    SizedBox(height: MediaQuery.of(context).size.height/40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -798,6 +801,16 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        if (_salary.isNotEmpty)
+                          Text(
+                            _salary,
+                            style: GoogleFonts.firaSans(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                            ),
+                          ),
+                        SizedBox(width: MediaQuery.of(context).size.width/120),
                         ElevatedButton(
                           onPressed: () {
                             showDialog(
@@ -889,6 +902,11 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                                                 ),
                                                 keyboardType: TextInputType.number,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    _salary = value;
+                                                  });
+                                                },
                                               ),
                                               SizedBox(height: MediaQuery.of(context).size.height/20),
                                               Center(
@@ -944,7 +962,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                       ],
                     ),
 
-                    SizedBox(height: MediaQuery.of(context).size.height/10),
+                    SizedBox(height: MediaQuery.of(context).size.height/30),
                     Container(
                       height: 50,
                       width: double.infinity,
@@ -966,7 +984,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/60),
+                    SizedBox(height: MediaQuery.of(context).size.height/80),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -979,7 +997,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),)
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height/15),
+                    SizedBox(height: MediaQuery.of(context).size.height/40),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
