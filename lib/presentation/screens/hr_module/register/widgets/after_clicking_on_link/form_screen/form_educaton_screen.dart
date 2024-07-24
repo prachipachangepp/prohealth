@@ -153,7 +153,7 @@ class _EducationScreenState extends State<EducationScreen> {
                    //  },
 
                   IconButton(
-                    icon: Icon(Icons.remove,),
+                    icon: Icon(Icons.remove,size :10),
                     onPressed: () => removeRow(index),
                   ),
                 ],
