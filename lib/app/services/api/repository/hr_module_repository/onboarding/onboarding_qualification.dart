@@ -6,6 +6,8 @@ class OnboardingQualificationRepo {
   static String employee_licenses = "/employee-licenses";
   static String employee_banking = "/employee-bankings";
   static String employee_doc = "/employee-documents";
+  static String approve = "/approve";
+  static String reject = "/reject";
 
   /// /employee-employment-histories
   static String getEmpEmploymentHistories({required int employeeid}) {
@@ -68,10 +70,18 @@ class OnboardingQualificationRepo {
     return "$employee_banking/reject/$empBankingId";
   }
 
+
   ///onboarding Acknowledment & health record
   //employee-documents/ByemployeeId/{EmployeeDocumentTypeMetaDataId}/{EmployeeDocumentTypeSetupId}/{employeeId}
   static String getAckHealthRecord({required int EmpDocTypeMetaDataId,required int EmpDocTypeSetupId,required int employeeId}) {
     return "$employee_doc$byEmployeeId/$EmpDocTypeMetaDataId/$EmpDocTypeSetupId/$employeeId";
   }
-  
+  //employee-documents/approve/{employeeDocumentId}
+  static String approveAckHealthRecord({required int employeeDocumentId}) {
+    return "$employee_doc$approve/$employeeDocumentId";
+  }
+  //employee-documents/reject/{employeeDocumentId}
+  static String rejectAckHealthRecord({required int employeeDocumentId}) {
+    return "$employee_doc$reject/$employeeDocumentId";
+  }
 }

@@ -292,7 +292,7 @@ class _AddBatchPopupState extends State<AddBatchPopup> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
-                      'Add Batches',
+                      'Edit Batches',
                       style: GoogleFonts.firaSans(
                         fontSize: FontSize.s12,
                         fontWeight: FontWeightManager.semiBold,

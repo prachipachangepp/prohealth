@@ -79,8 +79,8 @@ class BorderIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
-      width: 100,
+      height: 25,
+      width: 70,
       decoration: BoxDecoration(border: Border.all(color: ColorManager.blueprime),borderRadius:BorderRadius.circular(8)),
       child: InkWell(
         onTap: onPressed,

@@ -22,7 +22,7 @@ class CenteredTabBar extends GetView<CenteredTabBarController> {
                 controller: controller.tabController,
                 tabs: controller.tabs,
                 indicatorWeight: 6,
-                overlayColor: WidgetStateProperty.all(Colors.transparent),
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
                 indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
                 indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(width: 6, color: Color(0xFF50B5E5)),
