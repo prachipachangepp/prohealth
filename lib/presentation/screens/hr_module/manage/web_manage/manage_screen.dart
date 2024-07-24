@@ -758,18 +758,55 @@ class _ManageScreenState extends State<ManageScreen> {
         CenteredTabBarChild(childControlleOne),
         BankingHeadTabbar(),
         // HealthRecordsHeadTabbar(),
+        // Column(
+        //   children: [
+        //     Row(
+        //       mainAxisAlignment: MainAxisAlignment.end,
+        //       children: [
+        //         Container(
+        //           // width: 100,
+        //           decoration: BoxDecoration(
+        //             boxShadow: [
+        //               BoxShadow(
+        //                 color: Colors.grey.withOpacity(0.25),
+        //                 //spreadRadius: 1,
+        //                 blurRadius: 4,
+        //                 offset: Offset(0, 5),
+        //               ),
+        //             ],
+        //           ),
+        //           margin: EdgeInsets.only(right: 10),
+        //
+        //           child: CustomIconButtonConst(
+        //               text: AppStringHr.addNew,
+        //               icon: Icons.add,
+        //               onPressed: () {
+        //                 showDialog(
+        //                     context: context,
+        //                     builder: (_) => EquipmentAddPopup());
+        //               }),
+        //         ),
+        //       ],
+        //     ),
+        //     SizedBox(
+        //       height: 20,
+        //     ),
+        //     InventoryHeadTabbar(),
+        //   ],
+        // ),
+
         Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  // width: 100,
+                  width: 137, // Specify your desired width
+                  height: 30, // Specify your desired height
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.25),
-                        //spreadRadius: 1,
                         blurRadius: 4,
                         offset: Offset(0, 5),
                       ),
@@ -777,13 +814,15 @@ class _ManageScreenState extends State<ManageScreen> {
                   ),
                   margin: EdgeInsets.only(right: 10),
                   child: CustomIconButtonConst(
-                      text: AppStringHr.addNew,
-                      icon: Icons.add,
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (_) => EquipmentAddPopup());
-                      }),
+                    text: AppStringHr.addNew,
+                    icon: Icons.add,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => EquipmentAddPopup(),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
@@ -793,6 +832,8 @@ class _ManageScreenState extends State<ManageScreen> {
             InventoryHeadTabbar(),
           ],
         ),
+
+
         PayRatesHeadTabbar(),
         TerminationHeadTabbar(),
         TimeOffHeadTabbar(),
