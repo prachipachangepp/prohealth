@@ -530,7 +530,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                       Text(
                         'Graduate',
                         style: TextStyle(fontSize: FontSize.s10),
                       ),

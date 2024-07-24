@@ -1148,27 +1148,30 @@ class _EditBankingPopUpState extends State<EditBankingPopUp> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextFormField(
-          style: TextStyle(
-            fontSize: AppSize.s10,
-          ),
-          controller: controller,
-          decoration: InputDecoration(
-            labelText: labelText,
-            suffixIcon: suffixIcon,
-            prefixText: prefixText,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Color(0xffB1B1B1)),
+        Container(
+          height: 36,
+          child: TextFormField(
+            style: TextStyle(
+              fontSize: AppSize.s10,
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            controller: controller,
+            decoration: InputDecoration(
+              labelText: labelText,
+              suffixIcon: suffixIcon,
+              prefixText: prefixText,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Color(0xffB1B1B1)),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter ${labelText.toLowerCase()}';
+              }
+              return null;
+            },
           ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter ${labelText.toLowerCase()}';
-            }
-            return null;
-          },
         ),
         SizedBox(height: 5),
       ],
