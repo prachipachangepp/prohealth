@@ -71,18 +71,6 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
               ),
             ),
             SizedBox(height:MediaQuery.of(context).size.height/20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomIconButton(icon: Icons.add,text: 'Add Reference', onPressed: ()async{
-                  }),
-
-                ],
-              ),
-            ),
-            SizedBox(height:MediaQuery.of(context).size.height/20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -94,7 +82,6 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                   keyboardType: TextInputType.text,
                   padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                   onChanged: (value) {
-
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {

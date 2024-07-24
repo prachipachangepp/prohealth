@@ -119,7 +119,8 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                    var amount = snapshotPrefill.data!.amountRequested;
                                    specificAmountController = TextEditingController(text: snapshotPrefill.data!.amountRequested.toString());
                                    return
-                                     EditBankingPopUp(effectiveDateController: effectiveDateController,
+                                     EditBankingPopUp(
+                                       effectiveDateController: effectiveDateController,
                                      bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
                                      routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () async{
                                      await PatchEmployeeBanking(context, snapshot.data![index].empBankingId, snapshotPrefill.data!.employeeId,
@@ -129,7 +130,8 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                          snapshotPrefill.data!.checkUrl,
                                          effectiveDate == effectiveDateController.text ? effectiveDate.toString() : effectiveDateController.text,
                                          routingNumber == routingNumberController.text ? routingNumber.toString() : routingNumberController.text,
-                                         snapshotPrefill.data!.type);
+                                         "NA",
+                                         "Checking",);
                                      },);
                                  }
                                ));

@@ -46,7 +46,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 10;
+    itemsPerPage = 30;
   }
 
   String selectedOfficeID = '';
@@ -126,7 +126,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                               secNumController.text,
                             );
                             companyOfficeListGet(
-                                context, 11, 1, 15)
+                                context, 1, 30)
                                 .then((data) {
                               _companyIdentityController
                                   .add(data);
@@ -214,7 +214,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
           Expanded(
             child: showStreamBuilder
                 ? FutureBuilder(
-                    future: companyOfficeListGet(context, 11, 1, 15),
+                    future: companyOfficeListGet(context,1, 30),
                     builder: (context, snap) {
                       if (snap.hasData) {
                         _companyIdentityController.add(snap.data!);
