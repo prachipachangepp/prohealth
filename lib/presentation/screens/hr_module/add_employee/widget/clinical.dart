@@ -442,7 +442,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                             },
                           ),
 
-                          ///city
+                          ///email
                           // FutureBuilder<List<AEClinicalCity>>(
                           //   future: _futureCities,
                           //   builder: (context, snapshot) {
@@ -508,7 +508,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                             labelFontSize: 12,
                           ),
 
-                          ///work email
+                          ///phone
                           // StreamBuilder<List<HRAddEmployeeGet>>(
                           //   stream:
                           //       Stream.fromFuture(HrAddEmployeeget(context)),

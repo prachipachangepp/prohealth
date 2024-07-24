@@ -5,7 +5,7 @@ import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 
-///register enroll
+///register enroll get
 Future<List<RegisterEnrollData>> RegisterGetData(BuildContext context,) async {
   List<RegisterEnrollData> itemsList = [];
   try {
@@ -15,17 +15,28 @@ Future<List<RegisterEnrollData>> RegisterGetData(BuildContext context,) async {
       for (var item in response.data) {
         itemsList.add(
        RegisterEnrollData(
-           empEnrollId: item["employeeEnrollId"],
-           compId: item["companyId"],
-           empId: item["employeeId"],
-           code: item["code"],
-           userId: item["userId"],
-         firstName: item["firstName"],
-         lastName: item["lastName"],
-         phoneNbr: item["phoneNbr"],
-         email: item["email"],
-         link: item["link"],
-         status: item["status"],
+           employeeEnrollId: item["employeeEnrollId"] ?? 0,
+           companyId: item["companyId"] ?? 0,
+           employeeId: item["employeeId"] ?? 0,
+           code: item["code"] ?? '--',
+           userId: item["userId"] ?? 0,
+         firstName: item["firstName"] ?? '--',
+         lastName: item["lastName"]?? '--',
+         phoneNbr: item["phoneNbr"] ?? '--',
+         email: item["email"] ?? '--',
+         link: item["link"] ?? '--',
+         status: item["status"] ?? '--',
+         departmentId: item["departmentId"] ?? 0,
+         position: item["position"] ?? '--',
+         speciality: item["speciality"] ?? '--',
+         clinicianTypeId: item["clinicianTypeId"] ?? 0,
+         reportingOfficeId: item["reportingOfficeId"] ?? '--',
+         cityId: item["cityId"] ?? 0,
+         countryId: item["countryId"] ?? 0,
+         countyId: item["countyId"] ?? 0,
+         zoneId: item["zoneId"] ?? 0,
+         employment: item["employment"] ?? '--',
+         service: item["service"] ?? '--',
        )
         );
       }
