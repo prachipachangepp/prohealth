@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prohealth/app/services/api/managers/auth/auth_manager.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 
 import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
@@ -15,6 +18,61 @@ class VerifyUserpopup extends StatefulWidget {
   VerifyUserpopupState createState() => VerifyUserpopupState();
 }
 class VerifyUserpopupState extends State<VerifyUserpopup> {
+  final List<TextEditingController> _otpControllers =
+  List.generate(6, (_) => TextEditingController());
+
+  bool _isVerifyingOTP = false;
+  String? _errorMessage = "";
+
+  Future<void> _verifyOTPAndProcess(String email, String otp) async {
+    setState(() {
+      _isVerifyingOTP = true;
+      _errorMessage = "";
+    });
+    String enteredOTP =
+        otp;
+    try {
+      ApiDataRegister result = await AuthManager.verifyOTPAndRegister(
+          email: email, otp: enteredOTP, context: context);
+      if (result.success) {
+        print('Success navigate');
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return   Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(20.0),
+              ),
+              child: OnBoardingCongratulation(),
+            );
+          },
+        );
+      } else {
+        setState(() {
+          _errorMessage = result.message;
+        });
+      }
+      setState(() {
+        _isVerifyingOTP = false;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final List<FocusNode> _focusNodes = List.generate(6, (index) => FocusNode());
+
+  @override
+  void dispose() {
+    for (var controller in _otpControllers) {
+      controller.dispose();
+    }
+    for (var node in _focusNodes) {
+      node.dispose();
+    }
+    super.dispose();
+  }
 
 
   TextEditingController emailController = TextEditingController();
@@ -215,19 +273,9 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                         if (_formKey.currentState!.validate())  {
                           String email = emailController.text;
                            String otp = otpController.text;
+                           await _verifyOTPAndProcess(emailController.text,otpController.text);
                           print('Email: $email, OTP: $otp');
-                           showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return   Dialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(20.0),
-                                ),
-                                child: OnBoardingCongratulation(),
-                              );
-                            },
-                          );
+
                         }else(){
                           return const Text("password is not correct");
                         };

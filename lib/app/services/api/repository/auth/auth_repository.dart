@@ -7,6 +7,9 @@ class AuthenticationRepository {
   static String verifyOtpMail = "/auth/verifyOtp";
   static String forgotPassword = "/auth/ForgotPassword";
   static String resetPassword = "/auth/ResetPassword";
+
+  /// Verify Offer Auth
+  static String verifyOtpForOffer = "/auth/verifyOtpForOffer";
   static String userById({required int userId}) {
     return "$users/$userId";
   }
