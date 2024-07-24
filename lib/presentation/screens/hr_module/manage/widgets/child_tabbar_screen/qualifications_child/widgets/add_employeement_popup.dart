@@ -289,8 +289,8 @@ class _AddEmployeementPopupState extends State<AddEmployeementPopup> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButtonTransparent(text: "Cancel", onPressed: () {
-                      widget.onpressedClose();
-                      //Navigator.pop(context);
+                     // widget.onpressedClose();
+                      Navigator.pop(context);
                     }),
                     SizedBox(width: 10,),
                     isLoading

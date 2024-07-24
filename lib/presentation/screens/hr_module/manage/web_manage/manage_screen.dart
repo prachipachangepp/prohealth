@@ -68,7 +68,7 @@ class _ManageScreenState extends State<ManageScreen> {
   late CenteredTabBarChildController childControlleOne;
   late CenteredTabBarController centeredTabBarController;
 
-  String docName ='';
+
 
   /// Add employee
   TextEditingController positionTitleController = TextEditingController();
@@ -90,7 +90,7 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController associationLengthController = TextEditingController();
   TextEditingController mobileNumberController = TextEditingController();
 
-  TextEditingController livensureController = TextEditingController();
+
 
   /// Add Education
   TextEditingController collegeUniversityController = TextEditingController();
@@ -107,24 +107,11 @@ class _ManageScreenState extends State<ManageScreen> {
   TextEditingController addressCtlr = TextEditingController();
   TextEditingController nameCtlr = TextEditingController();
 
-  TextEditingController compensitionAddIdController = TextEditingController();
-  TextEditingController compensitionAddNameController = TextEditingController();
 
-  TextEditingController healthRecordAddIdController = TextEditingController();
-  TextEditingController healthRecordAddNameController = TextEditingController();
 
-  TextEditingController otherAddIdController = TextEditingController();
-  TextEditingController otherAddNameController = TextEditingController();
-
-  TextEditingController issueDateController = TextEditingController();
-  TextEditingController expiryDateController = TextEditingController();
-  TextEditingController issuingOrganizationController = TextEditingController();
-  TextEditingController countryController = TextEditingController();
-  TextEditingController numberIDController = TextEditingController();
-  String compensationExpiryType = '';
 
   /// Acknowlpdgement
-  TextEditingController acknowldgementNameController = TextEditingController();
+
 
   @override
   void initState() {
@@ -154,71 +141,6 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: 100,
-                    margin: EdgeInsets.only(right: 40),
-                    child: CustomIconButtonConst(
-                        text: AppStringHr.add,
-                        icon: Icons.add,
-                        onPressed: () {
-                          showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                           // routeSettings: ,
-                            builder: (BuildContext context) {
-                              return StatefulBuilder(
-                                builder: (BuildContext context,
-                                    void Function(void Function()) setState) {
-                                  return AddEmployeementPopup(
-                                    positionTitleController:
-                                        positionTitleController,
-                                    leavingResonController:
-                                        leavingResonController,
-                                    startDateContoller: startDateContoller,
-                                    endDateController: endDateController,
-                                    lastSupervisorNameController:
-                                        lastSupervisorNameController,
-                                    supervisorMobileNumber:
-                                        supervisorMobileNumber,
-                                    cityNameController: cityNameController,
-                                    employeerController: employeerController,
-                                    emergencyMobileNumber:
-                                        emergencyMobileNumber,
-                                    onpressedSave: () async {
-                                      await addEmployeement(
-                                          context,
-                                          widget.employeeId!,
-                                          employeerController.text,
-                                          cityNameController.text,
-                                          leavingResonController.text,
-                                          lastSupervisorNameController.text,
-                                          supervisorMobileNumber.text,
-                                          positionTitleController.text,
-                                          startDateContoller.text,
-                                          endDateController.text,
-                                          emergencyMobileNumber.text,
-                                          'USA');
-                                    },
-                                    checkBoxTile: Container(
-                                        width: 300,
-                                        child: CheckboxTile(
-                                          title: 'Currently work here',
-                                          initialValue: false,
-                                          onChanged: (value) {},
-                                        )),
-                                    tite: 'Add Employeement', onpressedClose: () {Navigator.pop(context);},
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        }),
-                  ),
-                ],
-              ),
               EmploymentContainerConstant(employeeId: widget.employeeId!,),
             ],
           ),
@@ -228,90 +150,6 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: 100,
-                    margin: EdgeInsets.only(right: 20),
-                    child: CustomIconButtonConst(
-                        text: AppStringHr.add,
-                        icon: Icons.add,
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AddEducationPopup(
-                                  collegeUniversityController:
-                                  collegeUniversityController,
-                                  phoneController: phoneController,
-                                  calenderController: calenderController,
-                                  cityController: cityController,
-                                  degreeController: degreeController,
-                                  stateController: stateController,
-                                  majorSubjectController:
-                                  majorSubjectController,
-                                  countryNameController:
-                                  countryNameController,
-                                  onpressedClose: () {
-                                    Navigator.pop(context);
-                                  },
-                                  onpressedSave: () async {
-                                    await addEmployeeEducation(
-                                        context,
-                                        widget.employeeId!,
-                                        expiryType.toString(),
-                                        degreeController.text,
-                                        majorSubjectController.text,
-                                        cityController.text,
-                                        collegeUniversityController.text,
-                                        phoneController.text,
-                                        stateController.text);
-                                  },
-                                  radioButton: StatefulBuilder(
-                                    builder: (BuildContext context, void Function(void Function()) setState) {
-                                      return Container(
-                                        width: 280,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: CustomRadioListTile(
-                                                value: "Yes",
-                                                groupValue:
-                                                expiryType.toString(),
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    expiryType = value!;
-                                                  });
-                                                },
-                                                title: "Yes",
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: CustomRadioListTile(
-                                                value: "No",
-                                                groupValue:
-                                                expiryType.toString(),
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    expiryType = value!;
-                                                  });
-                                                },
-                                                title: "No",
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                  title: 'Add Education',
-                                );
-                              });
-                        }),
-                  ),
-                ],
-              ),
               EducationChildTabbar(employeeId: widget.employeeId!,),
             ],
           ),
@@ -321,54 +159,6 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: 100,
-                    margin: EdgeInsets.only(right: 20),
-                    child: CustomIconButtonConst(
-                        text: AppStringHr.add,
-                        icon: Icons.add,
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddReferencePopup(
-                                  nameController: nameController,
-                                  emailController: emailController,
-                                  titlePositionController:
-                                      titlePositionController,
-                                  knowPersonController: knowPersonController,
-                                  companyNameController: companyNameController,
-                                  associationLengthController:
-                                      associationLengthController,
-                                  mobileNumberController:
-                                      mobileNumberController,
-                                  onpressedClose: () {},
-                                  onpressedSave: () async {
-                                    await addReferencePost(
-                                        context,
-                                        associationLengthController.text,
-                                        'Reference',
-                                        companyNameController.text,
-                                        emailController.text,
-                                        widget.employeeId!,
-                                        mobileNumberController.text,
-                                        nameController.text,
-                                        knowPersonController.text,
-                                        titlePositionController.text);
-                                  },
-                                  title: 'Add Reference',
-                                );
-                              });
-                        }),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 1,
-              ),
               ReferencesChildTabbar(employeeId: widget.employeeId!,),
             ],
           ),
@@ -378,150 +168,6 @@ class _ManageScreenState extends State<ManageScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FutureBuilder<List<SelectDocuments>>(
-                      future: selectDocument(context),
-                      builder: (context,snapshot) {
-                        if(snapshot.connectionState == ConnectionState.waiting){
-                          return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                width: 350,
-                                height: 30,
-                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                              )
-                          );
-                        }
-                        if (snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Offstage()
-                          );
-                        }
-                        if(snapshot.hasData){
-                          List dropDown = [];
-                          String docType = '';
-                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                          for(var i in snapshot.data!){
-                            dropDownMenuItems.add(
-                              DropdownMenuItem<String>(
-                                child: Text(i.docName),
-                                value: i.docName,
-                              ),
-                            );
-                          }
-                          return CICCDropdown(
-                            width: 200,
-                              initialValue: dropDownMenuItems[0].value,
-                              onChange: (val){
-                                for(var a in snapshot.data!){
-                                  if(a.docName == val){
-                                   docType = a.docName;
-                                   docName = docType;
-                                    //docMetaId = docType;
-                                  }
-                                }
-                                print(":::${docType}");
-                               // print(":::<>${docMetaId}");
-                              },
-                              items:dropDownMenuItems
-                          );
-                        }else{
-                          return SizedBox();
-                        }
-                      }
-                  ),
-                  SizedBox(width: 20),
-                  Container(
-                    width: 100,
-                    margin: EdgeInsets.only(right: 20),
-                    child: CustomIconButtonConst(
-                        text: AppStringHr.add,
-                        icon: Icons.add,
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddLicencesPopup(
-                                  LivensureController: livensureController,
-                                  issueDateController: issueDateController,
-                                  expiryDateController: expiryDateController,
-                                  issuingOrganizationController:
-                                      issuingOrganizationController,
-                                  countryController: countryController,
-                                  numberIDController: numberIDController,
-                                  onpressedClose: () {
-                                    Navigator.pop(context);
-                                  },
-                                  onpressedSave: () async {
-                                    await addLicensePost(context, countryController.text, widget.employeeId!, expiryDateController.text, issueDateController.text,
-                                        'url', livensureController.text, numberIDController.text, docName.toString(), docName.toString());
-                                    Navigator.pop(context);
-                                  },
-                                  title: 'Add Licence',
-                                  child: FutureBuilder<List<SelectDocuments>>(
-                                      future: selectDocument(context),
-                                      builder: (context,snapshot) {
-                                        if(snapshot.connectionState == ConnectionState.waiting){
-                                          return Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: 350,
-                                                height: 30,
-                                                decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                              )
-                                          );
-                                        }
-                                        if (snapshot.data!.isEmpty) {
-                                          return Center(
-                                              child: Offstage()
-                                          );
-                                        }
-                                        if(snapshot.hasData){
-                                          List dropDown = [];
-                                          String docType = '';
-                                          List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                          for(var i in snapshot.data!){
-                                            dropDownMenuItems.add(
-                                              DropdownMenuItem<String>(
-                                                child: Text(i.docName),
-                                                value: i.docName,
-                                              ),
-                                            );
-                                          }
-                                          return CICCDropdown(
-                                              width: 200,
-                                              initialValue: dropDownMenuItems[0].value,
-                                              onChange: (val){
-                                                for(var a in snapshot.data!){
-                                                  if(a.docName == val){
-                                                    docType = a.docName;
-                                                    docName = docType;
-                                                    //docMetaId = docType;
-                                                  }
-                                                }
-                                                print(":::${docType}");
-                                                // print(":::<>${docMetaId}");
-                                              },
-                                              items:dropDownMenuItems
-                                          );
-                                        }else{
-                                          return SizedBox();
-                                        }
-                                      }
-                                  ),
-                                );
-                              });
-                        }),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 1,
-              ),
               LicensesChildTabbar(employeeId: widget.employeeId!,),
             ],
           ),
@@ -533,214 +179,38 @@ class _ManageScreenState extends State<ManageScreen> {
       Tab(text: AppStringHr.compensation),
       Tab(text: AppStringHr.addVaccination),
       Tab(text: AppStringHr.others),
-    ], tabViews: [
+    ],
+        tabViews: [
       ///aknowledgment
       SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  // width: 100,
-                  margin: EdgeInsets.only(right: 20),
-                  child: CustomIconButtonConst(
-                      text: AppStringHr.addNew,
-                      icon: Icons.add,
-                      onPressed: () {
-                        showDialog(context: context, builder: (BuildContext context){
-                          return AcknowledgementAddPopup(labelName: 'Add Acknowledgement',
-                            AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
-
-                            }, child: FutureBuilder<List<EmployeeDocTabModal>>(
-                                future: getEmployeeDocTab(context),
-                                builder: (context,snapshot) {
-                                  if(snapshot.connectionState == ConnectionState.waiting){
-                                    return Shimmer.fromColors(
-                                        baseColor: Colors.grey[300]!,
-                                        highlightColor: Colors.grey[100]!,
-                                        child: Container(
-                                          width: 350,
-                                          height: 30,
-                                          decoration: BoxDecoration(color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-                                        )
-                                    );
-                                  }
-                                  if (snapshot.data!.isEmpty) {
-                                    return Center(
-                                      child: Text(
-                                        AppString.dataNotFound,
-                                        style: CustomTextStylesCommon.commonStyle(
-                                          fontWeight: FontWeightManager.medium,
-                                          fontSize: FontSize.s12,
-                                          color: ColorManager.mediumgrey,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  if(snapshot.hasData){
-                                    List dropDown = [];
-                                    int docType = 0;
-                                    List<DropdownMenuItem<String>> dropDownMenuItems = [];
-                                    for(var i in snapshot.data!){
-                                      dropDownMenuItems.add(
-                                        DropdownMenuItem<String>(
-                                          child: Text(i.employeeDocType),
-                                          value: i.employeeDocType,
-                                        ),
-                                      );
-                                    }
-                                    return CICCDropdown(
-                                        initialValue: dropDownMenuItems[0].value,
-                                        onChange: (val){
-                                          for(var a in snapshot.data!){
-                                            if(a.employeeDocType == val){
-                                              docType = a.employeeDocMetaDataId;
-                                              //docMetaId = docType;
-                                            }
-                                          }
-                                          print(":::${docType}");
-                                          //print(":::<>${docMetaId}");
-                                        },
-                                        items:dropDownMenuItems
-                                    );
-                                  }else{
-                                    return SizedBox();
-                                  }
-                                }
-                            ),);
-                        });
-                        //showDialog(context: context, builder: (context)=> AcknowledgementsAddPopup());
-                      }),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
             AcknowledgementsChildBar(),
           ],
         ),
       ),
 
       ///compensation
-      Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                // width: 100,
-                margin: EdgeInsets.only(right: 60),
-                child: CustomIconButtonConst(
-                    text: AppStringHr.addNew,
-                    icon: Icons.add,
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CompensationAddEditPopup(
-                              idController: compensitionAddIdController,
-                              nameController: compensitionAddNameController,
-                              expiryType: compensationExpiryType,
-                              labelName: 'Add Compensation',
-                              onSavePredded: () async {
-                                await addEmployeeDocSetup(
-                                    context,
-                                    11,
-                                    compensitionAddNameController.text,
-                                    compensationExpiryType.toString(),
-                                    DateTime.now() as String);
-                                Navigator.pop(context);
-                                compensitionAddIdController.clear();
-                                compensitionAddNameController.clear();
-                                compensationExpiryType = '';
-                              },
-                            );
-                          });
-                      //
-                    }),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          CompensationChildTabbar(),
-        ],
+      SingleChildScrollView(
+        child: Column(
+          children: [
+            CompensationChildTabbar(),
+          ],
+        ),
       ),
-      Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                // width: 100,
-                margin: EdgeInsets.only(right: 60),
-                child: CustomIconButtonConst(
-                    text: AppStringHr.addNew,
-                    icon: Icons.add,
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return HealthRecordEditAddPopup(
-                              idController: healthRecordAddIdController,
-                              nameController: healthRecordAddNameController,
-                              labelName: 'Add Additional Vaccination',
-                              expiryType: expiryType.toString(),
-                              onSavePredded: () async {
-                                await addEmployeeDocSetup(
-                                    context,
-                                    1,
-                                    healthRecordAddNameController.text,
-                                    expiryType.toString(),
-                                    DateTime.now() as String);
-                                healthRecordAddIdController.clear();
-                                healthRecordAddNameController.clear();
-                                expiryType = '';
-                              },
-                            );
-                          });
-                    }),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          AdditionalVaccinationsChildBar(),
-        ],
+      SingleChildScrollView(
+        child: Column(
+          children: [
+            AdditionalVaccinationsChildBar(),
+          ],
+        ),
       ),
-      Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                // width: 100,
-                margin: EdgeInsets.only(right: 60),
-                child: CustomIconButtonConst(
-                    text: AppStringHr.addNew,
-                    icon: Icons.add,
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return OtherEditAddPopup(
-                                idController: otherAddIdController,
-                                nameController: otherAddNameController,
-                                labelName: 'Add');
-                          });
-                    }),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          OtherChildTabbar(),
-        ],
+      SingleChildScrollView(
+        child: Column(
+          children: [
+            OtherChildTabbar(),
+          ],
+        ),
       ),
     ]);
 
@@ -760,40 +230,12 @@ class _ManageScreenState extends State<ManageScreen> {
         CenteredTabBarChild(childControlleOne),
         BankingHeadTabbar(),
         // HealthRecordsHeadTabbar(),
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  // width: 100,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.25),
-                        //spreadRadius: 1,
-                        blurRadius: 4,
-                        offset: Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  margin: EdgeInsets.only(right: 10),
-                  child: CustomIconButtonConst(
-                      text: AppStringHr.addNew,
-                      icon: Icons.add,
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (_) => EquipmentAddPopup());
-                      }),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            InventoryHeadTabbar(),
-          ],
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              InventoryHeadTabbar(employeeId: widget.employeeId!,),
+            ],
+          ),
         ),
         PayRatesHeadTabbar(),
         TerminationHeadTabbar(),
@@ -802,6 +244,7 @@ class _ManageScreenState extends State<ManageScreen> {
     ));
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
