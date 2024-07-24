@@ -20,204 +20,527 @@ class EducationScreen extends StatefulWidget {
 }
 
 class _EducationScreenState extends State<EducationScreen> {
-  // double textFieldWidth = 430;
-  // double textFieldHeight = 38;
-  //
-  // // Current step in the stepper
-  // int _currentStep = 0;
-  //
-  // bool isChecked = false;
-  //
-  // bool get isFirstStep => _currentStep == 0;
-  //
-  // String? _selectedDegree;
-  //
-  // String? graduatetype;
-  // String? _selectedTypeN;
-  //
-  // TextEditingController collegeuniversity = TextEditingController();
-  // TextEditingController majorsubject = TextEditingController();
-  // TextEditingController phone = TextEditingController();
-  // TextEditingController city = TextEditingController();
-  // TextEditingController state = TextEditingController();
-  // // final List<TextEditingController> state = [];
-  // // final List<TextEditingController> city = [];
-  // // final List<TextEditingController> phone = [];
-  // // final List<TextEditingController> majorsubject = [];
-  // // final List<TextEditingController> collegeuniversity = [];
-  //
-  // // final formkey = GlobalKey<FormState>();
-  //
-  // // @override
-  // // void initState() {
-  // //   // TODO: implement initState
-  // //   super.initState();
-  // //   WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
-  // //     addfield();
-  // //   });
-  // // }
-  //
-  // // addfield() {
-  // //   setState(() {
-  // //     state.add(TextEditingController());
-  // //     city.add(TextEditingController());
-  // //     phone.add(TextEditingController());
-  // //     majorsubject.add(TextEditingController());
-  // //     collegeuniversity.add(TextEditingController());
-  // //   });
-  // // }
-  // //
-  // // removeitem(i) {
-  // //   setState(() {
-  // //     state.remove(i);
-  // //     city.remove(i);
-  // //     phone.remove(i);
-  // //     majorsubject.remove(i);
-  // //     collegeuniversity.remove(i);
-  // //   });
-  // // }
-  //
-  // List<String> _fileNames = [];
-  // bool _loading = false;
-  //
-  // void _pickFiles() async {
-  //   setState(() {
-  //     _loading = true; // Show loader
-  //     _fileNames.clear(); // Clear previous file names if any
-  //   });
-  //
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //     allowMultiple: true,
-  //   );
-  //
-  //   if (result != null) {
-  //     setState(() {
-  //       _fileNames.addAll(result.files.map((file) => file.name!));
-  //       _loading = false; // Hide loader
-  //     });
-  //     print('Files picked: $_fileNames');
-  //   } else {
-  //     setState(() {
-  //       _loading = false; // Hide loader on cancel
-  //     });
-  //     print('User canceled the picker');
-  //   }
-  // }
+  double textFieldWidth = 430;
+  double textFieldHeight = 38;
 
+  // Current step in the stepper
+  int _currentStep = 0;
 
-  List<List<TextEditingController>> controllersList = [[]];
+  bool isChecked = false;
 
-  void addRow() {
+  bool get isFirstStep => _currentStep == 0;
+
+  String? _selectedDegree;
+
+  String? graduatetype;
+  String? _selectedTypeN;
+
+  TextEditingController collegeuniversity = TextEditingController();
+  TextEditingController majorsubject = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController state = TextEditingController();
+
+  List<GlobalKey<_EducationFormState>> educationFormKeys = [];
+
+  @override
+  void initState() {
+    super.initState();
+    addEducationForm();
+  }
+
+  void addEducationForm() {
     setState(() {
-      controllersList.add([
-        for (int i = 0; i < 7; i++) TextEditingController(),
-      ]);
+      educationFormKeys.add(GlobalKey<_EducationFormState>());
     });
   }
 
-  void removeRow(int index) {
+  void removeEduacationForm(GlobalKey<_EducationFormState> key) {
     setState(() {
-      controllersList.removeAt(index);
+      educationFormKeys.remove(key);
     });
   }
 
+  Future<void> posteducationscreen(
+    BuildContext context,
+    int employeeId,
+    String graduate,
+    String degree,
+    String major,
+    String city,
+    String college,
+    String phone,
+    String state,
+    String country,
+  ) async {}
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ElevatedButton(
-          onPressed: addRow,
-          child: Text('Add Row'),
-        ),
-        SizedBox(height: 16.0),
-        Container(
-          height: 600,
-          color: Colors.purpleAccent,
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
-            itemCount: controllersList.length,
-            itemBuilder: (context, index) {
-              return Row(
-                children: [
-
-                   // TextField(
-                   //      controller: controllersList[index][i],
-                   //      decoration: InputDecoration(
-                   //        border: OutlineInputBorder(),
-                   //        hintText: 'Field ${i + 1}',
-                   //      ),
-                   //    );
-                   //  },
-
-                  IconButton(
-                    icon: Icon(Icons.remove,size :10),
-                    onPressed: () => removeRow(index),
-                  ),
-                ],
-              );
-            },
+    return Container(
+      child: Column(
+        children: [
+          Center(
+            child: Text(
+              'Education',
+              style: GoogleFonts.firaSans(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff50B5E5)),
+            ),
           ),
-        ),
-      ],
+          SizedBox(height: MediaQuery.of(context).size.height / 60),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: Color(0xFFE6F7FF),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              'Your personal details will be required to proceed through the recruitment process.',
+              style: GoogleFonts.firaSans(
+                color: Color(0xFF686464),
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Column(
+            children: educationFormKeys.asMap().entries.map((entry) {
+              int index = entry.key;
+              GlobalKey<_EducationFormState> key = entry.value;
+              return EducationForm(
+                key: key,
+                index: index + 1,
+                onRemove: () => removeEduacationForm(key),
+              );
+            }).toList(),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height / 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton.icon(
+                onPressed: addEducationForm,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff50B5E5),
+                  // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                icon: Icon(Icons.add, color: Colors.white),
+                label: Text(
+                  'Add Education',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff1696C8),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed: () async {
+                  // Loop through each form and extract data to post
+                  for (var key in educationFormKeys) {
+                    final st = key.currentState!;
+                    await posteducationscreen(
+                        context,
+                        0,
+                        st.collegeuniversity.text,
+                        st.majorsubject.text,
+                        st.phone.text,
+                        st.city.text,
+                        st.state.text,
+                        st.graduatetype.toString(),
+                        st.selectedDegree.toString(),
+                        "county");
+                  }
+                },
+                child: Text(
+                  'Save',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
-
-
   }
 }
 
+class EducationForm extends StatefulWidget {
+  final VoidCallback onRemove;
+  final int index;
+  const EducationForm({Key? key, required this.onRemove, required this.index})
+      : super(key: key);
 
+  @override
+  _EducationFormState createState() => _EducationFormState();
+}
 
+class _EducationFormState extends State<EducationForm> {
+  TextEditingController collegeuniversity = TextEditingController();
+  TextEditingController majorsubject = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController state = TextEditingController();
 
+  List<String> _fileNames = [];
+  bool _loading = false;
 
+  String? graduatetype;
+  String? selectedDegree;
 
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 160, right: 160),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Education #${widget.index}',
+              style: GoogleFonts.firaSans(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff686464),
+              ),
 
+            ),
+            IconButton(
+              icon: Icon(Icons.remove_circle, color: Colors.red),
+              onPressed: widget.onRemove,
+            ),
+          ],
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'College/University',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: collegeuniversity,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff9B9B9B),
+                    ),
+                    height: 32,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30),
+                  Text(
+                    'Graduate',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: CustomRadioListTile(
+                        title: 'Yes',
+                        value: 'Yes',
+                        groupValue: graduatetype,
+                        onChanged: (value) {
+                          setState(() {
+                            graduatetype = value;
+                          });
+                        },
+                      )),
+                      Expanded(
+                        child: CustomRadioListTile(
+                          title: 'No',
+                          value: 'No',
+                          groupValue: graduatetype,
+                          onChanged: (value) {
+                            setState(() {
+                              graduatetype = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30),
+                  Text(
+                    'Degree',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  Container(
+                    height: 32,
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        hintText: 'Select Degree',
+                        hintStyle: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff9B9B9B),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
+                      ),
+                      value: selectedDegree,
+                      icon: Icon(Icons.arrow_drop_down,
+                          color: Color(0xff9B9B9B)),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464),
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedDegree = newValue;
+                        });
+                      },
+                      items: <String>[
+                        'Degee',
+                        'Deree',
+                        'Dgree',
+                        'Degre'
+                      ] // List of countries
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30),
+                  Text(
+                    'Major Subject',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: majorsubject,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff9B9B9B),
+                    ),
+                    height: 32,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: MediaQuery.of(context).size.width / 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Phone ',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: phone,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff9B9B9B),
+                    ),
+                    height: 32,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30),
+                  Text(
+                    'City',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: city,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff9B9B9B),
+                    ),
+                    height: 32,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30),
+                  Text(
+                    'State',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: state,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff9B9B9B),
+                    ),
+                    height: 32,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                'Upload your degree / certifications as a docx or pdf',
+                style: GoogleFonts.firaSans(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff686464),
+                ),
+              ),
+            ),
+            SizedBox(width: MediaQuery.of(context).size.width / 20),
+            ElevatedButton.icon(
+              onPressed: () async {
+                setState(() {
+                  _loading = true; // Show loader
+                  _fileNames.clear(); // Clear previous file names if any
+                });
 
+                FilePickerResult? result =
+                    await FilePicker.platform.pickFiles(
+                  allowMultiple: true,
+                );
 
+                if (result != null) {
+                  setState(() {
+                    _fileNames.addAll(result.files.map((file) => file.name!));
+                    _loading = false; // Hide loader
+                  });
+                  print('Files picked: $_fileNames');
+                } else {
+                  setState(() {
+                    _loading = false; // Hide loader on cancel
+                  });
+                  print('User canceled the picker');
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xff50B5E5),
+    // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              icon: Icon(Icons.file_upload_outlined, color: Colors.white),
+              label: Text(
+                'Upload Document',
+                style: GoogleFonts.firaSans(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+            ),
 
+          ],
+        ),
+        Row(
+          children: [
+            _loading
+            ? SizedBox(
+            width: 25,
+            height: 25,
+            child: CircularProgressIndicator(
+              color: ColorManager.blueprime, // Loader color
+            // Loader size
+            ),
+                      )
+            : _fileNames.isNotEmpty
+                  ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _fileNames
+            .map((fileName) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+            'File picked: $fileName',
+            style: GoogleFonts.firaSans(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff686464)),
+                      ),
+                    ))
+            .toList(),
+                  )
+            : SizedBox(),
+          ],
+        ),
+        const Divider(color: Colors.grey,thickness: 2,)
 
+        ///upload document/ Display file names if picked
+      ],),
+
+    );
+  }
+}
 
 //
-//
-//
-//
-//
-// Container(
-// child: Column(children: [
-// Center(
-// child: Text(
-// 'Education',
-// style: GoogleFonts.firaSans(
-// fontSize: 18,
-// fontWeight: FontWeight.w700,
-// color: Color(0xff50B5E5)),
-// ),
-// ),
-// SizedBox(height: MediaQuery.of(context).size.height / 60),
-// Container(
-// padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-// decoration: BoxDecoration(
-// color: Color(0xFFE6F7FF),
-// borderRadius: BorderRadius.circular(12),
-// ),
-// child: Text(
-// 'Your personal details will be required to proceed through the recruitment process.',
-// style: GoogleFonts.firaSans(
-// color: Color(0xFF686464),
-// fontSize: 12,
-// fontWeight: FontWeight.w500,
-// ),
-// ),
-// ),
-// SizedBox(height: MediaQuery.of(context).size.height / 20),
 // Container(
 // height: 700,
 // //color:Colors.cyanAccent,
 // child: Padding(
-// padding: const EdgeInsets.only(left: 160,right: 160
-// ),
+// padding: const EdgeInsets.only(left: 160,right: 160),
 // child: Column(
 // crossAxisAlignment: CrossAxisAlignment.start,
 // children: [
@@ -508,6 +831,8 @@ class _EducationScreenState extends State<EducationScreen> {
 // ],
 // ),
 // SizedBox(height: 5.0),
+//
+// ///upload document
 // _loading
 // ? SizedBox(width: 25,
 // height: 25,
@@ -579,10 +904,6 @@ class _EducationScreenState extends State<EducationScreen> {
 // ),
 // ]),
 // );
-
-
-
-
 
 // class EducationEntry {
 //   String collegeUniversity;
