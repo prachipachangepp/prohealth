@@ -86,7 +86,7 @@ class SMDesktop extends StatelessWidget {
                           width: 140,
                           onPressed: () {
                             // uploadCompanyLogoApi(context, 5, "employ");
-                            companyByIdApi(context, 18);
+                            companyByIdApi(context,);
                             // companyDetailsApi(context,5);
                             myController.selectButton(1);
                             _pageController.animateToPage(1,

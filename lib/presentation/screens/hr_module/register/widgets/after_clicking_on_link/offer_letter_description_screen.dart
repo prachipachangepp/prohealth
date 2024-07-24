@@ -285,28 +285,7 @@ class _OfferLetterDescriptionScreenState
                         color: Colors.white),
                   ),
                 ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(builder: (context) => MultiStepForm()),
-                //     );
-                //   },
-                //   style: ElevatedButton.styleFrom(
-                //     backgroundColor: Color(0xff50B5E5),
-                //     foregroundColor: Colors.white,
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(8),
-                //     ),
-                //   ),
-                //   child: Text(
-                //     'Continue',
-                //     style: GoogleFonts.firaSans(
-                //       fontSize: 14.0,
-                //       fontWeight: FontWeight.w700,
-                //     ),
-                //   ),
-                // ),
+
               ],
             ),
             //BottomBarRow()

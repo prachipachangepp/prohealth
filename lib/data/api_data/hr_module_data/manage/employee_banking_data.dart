@@ -39,8 +39,9 @@ class EmployeeBankingPrefillData {
   final String routinNumber;
   final String type;
   final bool? approve;
+  final String percentage;
 
-  EmployeeBankingPrefillData({
+  EmployeeBankingPrefillData({required this.percentage,
     required this.empBankingId,
     required this.employeeId,
     required this.accountNumber,

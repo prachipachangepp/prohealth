@@ -32,8 +32,8 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
     return  Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: MediaQuery.of(context).size.width/1.8, //1.5
-        height: AppSize.s350,
+        width: MediaQuery.of(context).size.width/1.5,
+        height: AppSize.s420,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -41,7 +41,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
         child: Column(
           children: [
             Container(
-              height: 45,
+              height: 50,
               decoration: BoxDecoration(
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.only(
@@ -70,18 +70,6 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 ],
               ),
             ),
-            // SizedBox(height:MediaQuery.of(context).size.height/20),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 10),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.end,
-            //     children: [
-            //       CustomIconButton(icon: Icons.add,text: 'Add Reference', onPressed: ()async{
-            //       }),
-            //
-            //     ],
-            //   ),
-            // ),
             SizedBox(height:MediaQuery.of(context).size.height/20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -94,7 +82,6 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                   keyboardType: TextInputType.text,
                   padding: const EdgeInsets.only(bottom:AppPadding.p5,left: AppPadding.p20),
                   onChanged: (value) {
-
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {

@@ -10,46 +10,53 @@ class ProfileBarClipConst extends StatelessWidget {
   final String text;
   final String textOval;
   final Color containerColor;
+  final VoidCallback? onTap;
 
   const ProfileBarClipConst({
     Key? key,
     required this.text,
     required this.containerColor,
-    required this.textOval,
+    required this.textOval, this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          text,
-          style: ProfileBarLastColText.profileTextStyle(context),
-        ),
-        SizedBox(width: MediaQuery.of(context).size.width/160),
-        ClipOval(
-          child: Container(
-            height: MediaQuery.of(context).size.height / 55,
-            width: MediaQuery.of(context).size.width / 99,
-            decoration: BoxDecoration(
-              color: containerColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade600,
-                  spreadRadius: 1,
-                  blurRadius: 10,
-                  offset: const Offset(0, 15),
-                ),
-              ],
-            ),
-            child: Text(
-              textOval,
-              textAlign: TextAlign.center,
-              style: ProfileBarClipText.profileTextStyle(context),
+    return InkWell(
+      splashColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: onTap,
+      child: Row(
+        children: [
+          Text(
+            text,
+            style: ProfileBarLastColText.profileTextStyle(context),
+          ),
+          SizedBox(width: MediaQuery.of(context).size.width/160),
+          ClipOval(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 55,
+              width: MediaQuery.of(context).size.width / 99,
+              decoration: BoxDecoration(
+                color: containerColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade600,
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                    offset: const Offset(0, 15),
+                  ),
+                ],
+              ),
+              child: Text(
+                textOval,
+                textAlign: TextAlign.center,
+                style: ProfileBarClipText.profileTextStyle(context),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

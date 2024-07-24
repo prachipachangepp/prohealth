@@ -148,7 +148,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       ElevatedButton.icon(
@@ -201,12 +201,12 @@ class _generalFormState extends State<generalForm> {
                             style: GoogleFonts.firaSans(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0xff686464)),
+                                color: const Color(0xff686464)),
                           ),
                         ))
                             .toList(),
                       )
-                          : SizedBox(), // Display file names if picked
+                          : const SizedBox(), // Display file names if picked
 
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
                       Text(
@@ -214,7 +214,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
@@ -223,7 +223,7 @@ class _generalFormState extends State<generalForm> {
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          color: const Color(0xff9B9B9B),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -239,7 +239,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
@@ -248,7 +248,7 @@ class _generalFormState extends State<generalForm> {
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          color: const Color(0xff9B9B9B),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -264,7 +264,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
@@ -274,7 +274,7 @@ class _generalFormState extends State<generalForm> {
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          color: const Color(0xff9B9B9B),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -284,7 +284,7 @@ class _generalFormState extends State<generalForm> {
                         },
                         suffixIcon: IconButton(
                           icon: Icon(
-                            color: Color(0xff50B5E5),
+                            color: const Color(0xff50B5E5),
                             size: 16,
                             // Based on passwordVisible state choose the icon
                             _passwordVisible
@@ -307,7 +307,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
@@ -317,7 +317,7 @@ class _generalFormState extends State<generalForm> {
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          color: const Color(0xff9B9B9B),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -333,7 +333,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
@@ -342,7 +342,7 @@ class _generalFormState extends State<generalForm> {
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          color: const Color(0xff9B9B9B),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -358,7 +358,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
@@ -367,7 +367,7 @@ class _generalFormState extends State<generalForm> {
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          color: const Color(0xff9B9B9B),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -390,7 +390,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Container(
@@ -437,7 +437,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
@@ -446,11 +446,11 @@ class _generalFormState extends State<generalForm> {
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          color: const Color(0xff9B9B9B),
                         ),
                         height: 32,
                         suffixIcon: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.calendar_month_outlined,
                             color: Color(0xff50B5E5),
                             size: 16,
@@ -475,7 +475,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       CustomTextFieldRegister(
@@ -484,7 +484,7 @@ class _generalFormState extends State<generalForm> {
                         hintStyle: GoogleFonts.firaSans(
                           fontSize: 10.0,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
+                          color: const Color(0xff9B9B9B),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -500,7 +500,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -515,6 +515,7 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
+
                           CustomRadioListTile(
                             title: 'White',
                             value: 'White',
@@ -560,9 +561,10 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
-                          SizedBox(
-                            width: 1,
-                          )
+                          const SizedBox(
+                            width: 3,
+                          ),
+
                         ],
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 30),
@@ -571,7 +573,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Container(
@@ -582,24 +584,24 @@ class _generalFormState extends State<generalForm> {
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
-                              color: Color(0xff9B9B9B),
+                              color: const Color(0xff9B9B9B),
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: Colors.grey),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
                           ),
                           value: _selectedClinician,
-                          icon: Icon(Icons.arrow_drop_down,
+                          icon: const Icon(Icons.arrow_drop_down,
                               color: Color(0xff9B9B9B)),
                           iconSize: 24,
                           elevation: 16,
                           style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464),
+                            color: const Color(0xff686464),
                           ),
                           onChanged: (String? newValue) {
                             setState(() {
@@ -626,7 +628,7 @@ class _generalFormState extends State<generalForm> {
                         style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
+                            color: const Color(0xff686464)),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 60),
                       Container(
@@ -637,24 +639,24 @@ class _generalFormState extends State<generalForm> {
                             hintStyle: GoogleFonts.firaSans(
                               fontSize: 10.0,
                               fontWeight: FontWeight.w400,
-                              color: Color(0xff9B9B9B),
+                              color: const Color(0xff9B9B9B),
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: Colors.grey),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
                           ),
                           value: _selectedSpeciality,
-                          icon: Icon(Icons.arrow_drop_down,
+                          icon: const Icon(Icons.arrow_drop_down,
                               color: Color(0xff9B9B9B)),
                           iconSize: 24,
                           elevation: 16,
                           style: GoogleFonts.firaSans(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff686464),
+                            color: const Color(0xff686464),
                           ),
                           onChanged: (String? newValue) {
                             setState(() {
@@ -687,7 +689,7 @@ class _generalFormState extends State<generalForm> {
             children: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff1696C8),
+                  backgroundColor: const Color(0xff1696C8),
                   foregroundColor: Colors.white,
 
                   shape: RoundedRectangleBorder(
@@ -695,54 +697,54 @@ class _generalFormState extends State<generalForm> {
                   ),
                 ),
                  onPressed: () async {
-                //   await postgeneralscreen(
-                //       context,
-                //       "__",
-                //       0,
-                //       firstname.text,
-                //       lastname.text,
-                //       0,
-                //       0,
-                //       "__",
-                //       0,
-                //       0,
-                //       0,
-                //       ssecuritynumber.text,
-                //       phonenumber.text,
-                //       "__",
-                //       "__",
-                //       "__",
-                //       personalemail.text,
-                //       "__",
-                //       address.text,
-                //       dobcontroller.text,
-                //       "__",
-                //       "__",
-                //       "__",
-                //       gendertype.toString(),
-                //       "__",
-                //       "__",
-                //       "__",
-                //       "__",
-                //       0,
-                //       "__",
-                //       driverlicensenumb.text,
-                //       "__",
-                //       "__",
-                //       "__",
-                //       "__",
-                //       "__",
-                //       "__",
-                //       "__",
-                //       "__",
-                //       0,
-                //       "__",
-                //       0,
-                //       0,
-                //       "__",
-                //       "__",
-                //       racetype.toString(),
-                //       "__");
+                  await postgeneralscreen(
+                      context,
+                      "__",
+                      0,
+                      firstname.text,
+                      lastname.text,
+                      0,
+                      0,
+                      "__",
+                      0,
+                      0,
+                      0,
+                      ssecuritynumber.text,
+                      phonenumber.text,
+                      "__",
+                      "__",
+                      "__",
+                      personalemail.text,
+                      "__",
+                      address.text,
+                      dobcontroller.text,
+                      "__",
+                      "__",
+                      "__",
+                      gendertype.toString(),
+                      "__",
+                      "__",
+                      "__",
+                      "__",
+                      0,
+                      "__",
+                      driverlicensenumb.text,
+                      "__",
+                      "__",
+                      "__",
+                      "__",
+                      "__",
+                      "__",
+                      "__",
+                      "__",
+                      0,
+                      "__",
+                      0,
+                      0,
+                      "__",
+                      "__",
+                      racetype.toString(),
+                      "__");
                  },
                 child: Text(
                   'Save',

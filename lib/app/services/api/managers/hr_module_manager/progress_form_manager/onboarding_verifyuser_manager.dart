@@ -5,25 +5,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-//
-// Future<void> sendOTP(String email) async {
-//   // Replace with your API endpoint
-//   var apiUrl = 'https://your-api-url/send_otp';
-//
-//   var response = await http.post(Uri.parse(apiUrl), body: {'email': email});
-//
-//   if (response.statusCode == 200) {
-//     // OTP sent successfully, handle UI accordingly
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(content: Text('OTP Sent to $email')),
-//     );
-//   } else {
-//     // Error sending OTP
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(content: Text('Failed to send OTP')),
-//     );
-//   }
-// }
+
 
 
 Future<ApiData> postverifyuser(
