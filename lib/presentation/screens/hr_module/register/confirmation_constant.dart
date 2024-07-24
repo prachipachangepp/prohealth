@@ -28,8 +28,8 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s400,
-        height: AppSize.s210,
+        width: AppSize.s500,
+        height: AppSize.s181,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -74,51 +74,47 @@ class _ConfirmationPopupState extends State<ConfirmationPopup> {
                 vertical: AppPadding.p20,
                 horizontal: AppPadding.p20,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
                 children: [
-                  Container(
-                    height: AppSize.s50,
-                    //width: AppSize.s150,
-                    child: Text(widget.containerText,
-                      textAlign: TextAlign.center,
-                      style:CustomTextStylesCommon.commonStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: FontSize.s14,
-                          color: ColorManager.mediumgrey
-                      ),),
-                  )
+                  Text(widget.containerText,
+                    textAlign: TextAlign.center,
+                    style:CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s14,
+                        color: ColorManager.mediumgrey
+                    ),),
                 ],
               ),
             ),
             Spacer(),
             Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: AppPadding.p24),
-                    child: Center(
-                      child: TextButton(
-                        onPressed: widget.onCancel,
-                        child: Text('Cancle',
-                            style: GoogleFonts.firaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: ColorManager.bluebottom,
-                            )),)
-
-                      // CustomButtonTransparent(
-                      //   text: 'No',
-                      //   onPressed: (){
-                      //     widget.onCancel();
-                      //   },
-                      // ),
-                    ),
+                      padding: const EdgeInsets.only(bottom: AppPadding.p24),
+                      child:  SizedBox(
+                        width: 100,
+                        child: ElevatedButton(
+                          onPressed: widget.onCancel,
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: ColorManager.bluebottom,
+                                width: 1,
+                              ),
+                            ),),
+                          child: Text('Cancle',
+                              style: GoogleFonts.firaSans(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: ColorManager.bluebottom,
+                              )),),
+                      )
                   ),
-                  SizedBox(width: 20,),
+                  SizedBox(width: AppPadding.p20,),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: AppPadding.p24),
+                    padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
                     child: Center(
                       child: widget.loadingDuration == true
                           ? SizedBox(

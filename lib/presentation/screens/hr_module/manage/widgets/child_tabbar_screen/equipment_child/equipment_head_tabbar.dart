@@ -322,6 +322,7 @@ class EquipmentAddPopup extends StatefulWidget {
   @override
   State<EquipmentAddPopup> createState() => _EquipmentAddPopupState();
 }
+
 TextEditingController idController = TextEditingController();
 TextEditingController nameController = TextEditingController();
 TextEditingController calenderController = TextEditingController();
@@ -330,28 +331,49 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
   String typeName = '';
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        height: AppSize.s400,
-        width: AppSize.s350,
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft:Radius.circular(8),topRight:Radius.circular(8)),
+      ),
+      titlePadding: EdgeInsets.zero,
+      title: Column(
+        children: [
+          Container(
+            height: 45,
+            decoration: BoxDecoration(
+                color: Color(0xFF27A3E0),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(8.0),
+                    topLeft: Radius.circular(8.0))),
+            padding: EdgeInsets.only(left: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Text(
+                  'Add New Equipment ',
+                  style: GoogleFonts.firaSans(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close),
+                  icon: Icon(Icons.close, color: Colors.white),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ],
             ),
+          ),
+      SizedBox(height: MediaQuery.of(context ).size.height/30),
+      Container(
+        height: AppSize.s400,
+        width: AppSize.s350,
+        decoration: BoxDecoration(
+          color: ColorManager.white,                                              //background colour
+          borderRadius: BorderRadius.circular(0),
+        ),
+        child: Column(
+          children: [
             Padding(
               padding: const EdgeInsets.symmetric(
                   vertical: AppPadding.p3,horizontal: AppPadding.p25),
@@ -505,7 +527,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                         width: 25,
                         child: CircularProgressIndicator(color: ColorManager.blueprime,)):
                      CustomElevatedButton(
-                        width: AppSize.s105,
+                        width: 150,
                         height: AppSize.s30,
                         text: 'Add Equipment',
                         onPressed: () async{
@@ -533,6 +555,8 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
             ),
           ],
         ),
+      ),
+  ]
       ),
     );
   }

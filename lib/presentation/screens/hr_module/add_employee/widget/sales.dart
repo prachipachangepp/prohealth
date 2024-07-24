@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/color.dart';
@@ -11,6 +15,11 @@ import '../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../manage/widgets/custom_icon_button_constant.dart';
 import 'clinical.dart';
 import 'mcq_widget_add-employee.dart';
+import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
+import 'package:flutter/material.dart';
+import 'dart:io' show File;
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 ///prachi
 class SalesTab extends StatefulWidget {
@@ -48,11 +57,7 @@ class _SalesTabState extends State<SalesTab> {
   DateTime? selectedDate;
   late DateTime _selectedDate;
   List<DateTime?> dobList = [];
-  List<String> _personalEmails = [];
-  bool _isLoading = true;
   late Future<List<HRAddEmployeeGet>> _futureData;
-
-
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -84,31 +89,167 @@ class _SalesTabState extends State<SalesTab> {
       print("Error fetching data: $e");
     }
   }
+  ///upload img
+  File? image;
+  Uint8List? webImage;
+  final _picker = ImagePicker();
+  bool showSpinner = false;
+  String uploadStatus = "";
+
+  Future<void> getImage() async {
+    try {
+      if (kIsWeb) {
+        var mediaData = await ImagePickerWeb.getImageAsBytes();
+        if (mediaData != null) {
+          setState(() {
+            webImage = mediaData;
+          });
+        } else {
+          print("No Image Selected");
+        }
+      } else {
+        final pickedFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+        if (pickedFile != null) {
+          setState(() {
+            image = File(pickedFile.path);
+          });
+        } else {
+          print("No Image Selected");
+        }
+      }
+    } catch (e) {
+      print("Error picking image: $e");
+    }
+  }
+
+  Future<void> uploadImage() async {
+    if (image == null && webImage == null) {
+      setState(() {
+        uploadStatus = "No image selected!";
+      });
+      return;
+    }
+
+    setState(() {
+      showSpinner = true;
+    });
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse('http://50.112.139.35:3000/employees/attach-photo/2'));
+      if (kIsWeb) {
+        request.files.add(http.MultipartFile.fromBytes('image', webImage!, filename: 'upload.png'));
+      } else {
+        request.files.add(await http.MultipartFile.fromPath('image', image!.path));
+      }
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        setState(() {
+          uploadStatus = "Image uploaded successfully!";
+        });
+      } else {
+        final responseBody = await response.stream.bytesToString();
+        setState(() {
+          uploadStatus = "Failed to upload image: ${response.statusCode} - $responseBody";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        uploadStatus = "Error uploading image: $e";
+      });
+    } finally {
+      setState(() {
+        showSpinner = false;
+      });
+    }
+  }
+
+  ///
+  // File? image ;
+  // final _picker = ImagePicker();
+  // bool showSpinner = false;
+  //
+  // Future getImage() async {
+  //   final pickedFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+  //
+  //   if(pickedFile ! = null){
+  //     image = File(pickedFile.path);
+  //     setState(() {
+  //
+  //     });
+  //   } else {
+  //       print("No Image Selected");
+  //   }
+  // }
+  //
+  // File? image;
+  // final _picker = ImagePicker();
+  // bool showSpinner = false;
+  //
+  // Future getImage() async {
+  //   final pickedFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+  //
+  //   if (pickedFile != null) {
+  //     image = File(pickedFile.path);
+  //     setState(() {});
+  //   } else {
+  //     print("No Image Selected");
+  //   }
+  // }
+  //
+  // Future<void> uploadImage () async {
+  //   // setState(() {
+  //   //   showSpinner  = true;
+  //   // });
+  //   var Stream = new http.ByteStream(image!.openRead());
+  //   Stream.cast();
+  //
+  //   var length = await image!.length();
+  //
+  //   var uri = Uri.parse('http://50.112.139.35:3000/employees/attach-photo/2');
+  //
+  //   var request = new http.MultipartRequest('POST', uri);
+  //
+  //   request.fields['file'] = 'Static title' ;
+  //
+  //   var multipart = new http.MultipartFile('file', Stream, length);
+  //
+  //   request.files.add(multipart);
+  //
+  //   var response = await request.send();
+  //
+  //   if(response.statusCode == 200){
+  //     print("Image Uploaded");
+  //   } else{
+  //     print("Failed");
+  //   }
+  // }
   @override
   void initState() {
     super.initState();
-    _fetchData();
+    // _fetchData();
     _futureData = HrAddEmployeeget(context);
   }
 
-  Future<void> _fetchData() async {
-    try {
-      List<HRAddEmployeeGet> data = await HrAddEmployeeget(context);
-      setState(() {
-        _personalEmails = data
-            .map((e) => e.personalEmail)
-            .where((email) => email != null)
-            .cast<String>()
-            .toList();
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-      print('Error fetching data: $e');
-    }
-  }
+  // Future<void> _fetchData() async {
+  //   try {
+  //     List<HRAddEmployeeGet> data = await HrAddEmployeeget(context);
+  //     setState(() {
+  //       _personalEmails = data
+  //           .map((e) => e.personalEmail)
+  //           .where((email) => email != null)
+  //           .cast<String>()
+  //           .toList();
+  //       _isLoading = false;
+  //     });
+  //   } catch (e) {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //     print('Error fetching data: $e');
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     double containerHeight1 = MediaQuery.of(context).size.height * 0.32;
@@ -131,63 +272,142 @@ class _SalesTabState extends State<SalesTab> {
                 // height: 40,
                 width: MediaQuery.of(context).size.width / 1,
                 child:
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (_fileName != null)
-                      Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: Text(
-                          _fileName!,
-                          style: TextStyle(
-                            fontFamily: 'FiraSans',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: getImage,
+                        child: Container(
+                          child: image == null && webImage == null
+                              ? Center(child: Text('Pick Image'))
+                              : Container(
+                            child: Center(
+                              child: kIsWeb
+                                  ? Image.memory(
+                                webImage!,
+                                height: 40,
+                                width: 40,
+                                fit: BoxFit.cover,
+                              )
+                                  : Image.file(
+                                image!,
+                                height: 40,
+                                width: 40,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ElevatedButton.icon(
-                      onPressed: () async {
-                        FilePickerResult? result = await FilePicker.platform.pickFiles(
-                          type: FileType.image,
-                          allowMultiple: false,
-                        );
+                      SizedBox(width: 5),
+                     CustomButton(
+                       width: 125,
+                       height: 30,
+                       onPressed: uploadImage, text: 'Upload Photo',),
+                      SizedBox(height: 10),
+                      showSpinner ? CircularProgressIndicator() : Text(uploadStatus),
+                    ],
+                  ),
+                ),
 
-                        if (result != null) {
-                          PlatformFile file = result.files.first;
-                          setState(() {
-                            _fileName = file.name;
-                          });
-                          print('File path: ${file.path}');
-                        }
-                      },
-                      icon: Icon(
-                        Icons.file_upload_outlined,
-                        color: Colors.white,
-                      ),
-                      label: Text(
-                        'Upload Photo',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'FiraSans',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff1696C8),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+                // Column(
+                //   children: [
+                //     GestureDetector(
+                //       onTap: () {
+                //         getImage();
+                //       },
+                //       child: Container(
+                //         child:  image == null ? Center(child: Text('Pick Image'),)
+                //             :
+                //       Container(
+                //         child: Center(
+                //           child: Image.file(File(image!.path).absolute,
+                //           height: 40,
+                //             width: 40,
+                //             fit: BoxFit.cover,
+                //           ),
+                //         ),
+                //       ),
+                //       ),
+                //     ), SizedBox(
+                //       height: 10,
+                //
+                //     ),
+                //     GestureDetector(
+                //       onTap: (){
+                //        uploadImage();
+                //       },
+                //       child:
+                //       Container(
+                //         height: 30,
+                //         width: 80,
+                //         color: Colors.lightBlue,
+                //         child: Center(child: Text("Uploaded", style: TextStyle(
+                //           color: Colors.white,
+                //         ),)),
+                //       ),
+                //     )
+                //   ],
+                // )
+                ///
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     if (_fileName != null)
+                //       Padding(
+                //         padding: EdgeInsets.only(right: 8.0),
+                //         child: Text(
+                //           _fileName!,
+                //           style: TextStyle(
+                //             fontFamily: 'FiraSans',
+                //             fontSize: 12,
+                //             fontWeight: FontWeight.w700,
+                //             color: Colors.black,
+                //           ),
+                //         ),
+                //       ),
+                //     ElevatedButton.icon(
+                //       onPressed: () async {
+                //         FilePickerResult? result = await FilePicker.platform.pickFiles(
+                //           type: FileType.image,
+                //           allowMultiple: false,
+                //         );
+                //
+                //         if (result != null) {
+                //           PlatformFile file = result.files.first;
+                //           setState(() {
+                //             _fileName = file.name;
+                //           });
+                //           print('File path: ${file.path}');
+                //         }
+                //       },
+                //       icon: Icon(
+                //         Icons.file_upload_outlined,
+                //         color: Colors.white,
+                //       ),
+                //       label: Text(
+                //         'Upload Photo',
+                //         textAlign: TextAlign.center,
+                //         style: TextStyle(
+                //           fontFamily: 'FiraSans',
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.w700,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //       style: ElevatedButton.styleFrom(
+                //         backgroundColor: Color(0xff1696C8),
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(12),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // )
               ),
             ),
-
+      SizedBox(height: 10,),
             ///first container
             Expanded(
               flex: 2,
@@ -261,7 +481,7 @@ class _SalesTabState extends State<SalesTab> {
                             },
                           ),
 
-                          ///social security
+                         // /social security
                           FutureBuilder<List<HRAddEmployeeGet>>(
                             future: _futureData,
                             builder: (context, snapshot) {
@@ -375,9 +595,6 @@ class _SalesTabState extends State<SalesTab> {
                             },
                           ),
 
-
-
-
                           ///work email
                           CustomTextField(
                             width: textFieldWidth,
@@ -393,115 +610,6 @@ class _SalesTabState extends State<SalesTab> {
                             labelFontSize: 12,
                           ),
                           ///work email
-                          // FutureBuilder<List<HRAddEmployeeGet>>(
-                          //   future: HrAddEmployeeget(context),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding:
-                          //               const EdgeInsets.symmetric(horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       List<String> personalEmail = snapshot.data!
-                          //           .map(
-                          //             (e) => e.personalEmail,
-                          //           )
-                          //           .where((email) => email != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //       print("Personal Emails: $personalEmail,");
-                          //
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return personalEmail.where((String option) {
-                          //               return option
-                          //                   .contains(textEditingValue.text);
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width: 300,
-                          //                 constraints:
-                          //                     BoxConstraints(maxHeight: 200.0),
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController ctlrWorkEmail,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 22,
-                          //             labelText: 'Work Email',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: ctlrWorkEmail,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
-
                         ],
                       )),
                       Expanded(
@@ -522,115 +630,6 @@ class _SalesTabState extends State<SalesTab> {
                             controller: ctlrfirstName,
                             labelFontSize: 12,
                           ),
-
-                          ///
-                          // ///first name
-                          // FutureBuilder<List<HRAddEmployeeGet>>(
-                          //   future: HrAddEmployeeget(context),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding:
-                          //               const EdgeInsets.symmetric(horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //     if (snapshot.hasData) {
-                          //       List<String> firstNames = snapshot.data!
-                          //           .map((e) => e.firstName)
-                          //           .where((name) => name != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return firstNames.where((String option) {
-                          //               return option.toLowerCase().contains(
-                          //                   textEditingValue.text.toLowerCase());
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width: textFieldWidth,
-                          //                 constraints:
-                          //                     BoxConstraints(maxHeight: 200.0),
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController ctlrfirstName,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 20,
-                          //             labelText: 'First Name',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: ctlrfirstName,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
-
-
-
                           ///primary phone no
                           CustomTextField(
                             width: textFieldWidth,
@@ -645,115 +644,6 @@ class _SalesTabState extends State<SalesTab> {
                             controller: ctlrprimeNo,
                             labelFontSize: 12,
                           ),
-                          // ///personal phone no
-                          // FutureBuilder<List<HRAddEmployeeGet>>(
-                          //   future: HrAddEmployeeget(context),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding:
-                          //               const EdgeInsets.symmetric(horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       List<String> primeNo = snapshot.data!
-                          //           .map((e) => e.primeNo)
-                          //           .where((number) => number != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //       print("Personal Phone No: $primeNo");
-                          //
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return primeNo.where((String option) {
-                          //               return option
-                          //                   .contains(textEditingValue.text);
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width: textFieldWidth,
-                          //                 constraints:
-                          //                     BoxConstraints(maxHeight: 200.0),
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController ctlrprimeNo,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 22,
-                          //             labelText: 'Personal Phone No',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: ctlrprimeNo,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
-
-
                           ///address
                           CustomTextField(
                             width: textFieldWidth,
@@ -768,112 +658,6 @@ class _SalesTabState extends State<SalesTab> {
                             controller: ctlrAddress,
                             labelFontSize: 12,
                           ),
-                          ///address
-                          // FutureBuilder<List<HRAddEmployeeGet>>(
-                          //   future: HrAddEmployeeget(context),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding:
-                          //               const EdgeInsets.symmetric(horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       List<String> address = snapshot.data!
-                          //           .map((e) => e.address)
-                          //           .where((address) => address != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //       print("Addresses: $address");
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return address.where((String option) {
-                          //               return option.toLowerCase().contains(
-                          //                   textEditingValue.text.toLowerCase());
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width: 300,
-                          //                 constraints:
-                          //                     BoxConstraints(maxHeight: 200.0),
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController ctlraddress,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 22,
-                          //             labelText: 'Address',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: ctlrAddress,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
                         ],
                       )),
                       Expanded(
@@ -895,113 +679,6 @@ class _SalesTabState extends State<SalesTab> {
                             controller: ctlrlastName,
                             labelFontSize: 12,
                           ),
-                          // ///last name
-                          // FutureBuilder<List<HRAddEmployeeGet>>(
-                          //   future: HrAddEmployeeget(context),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding:
-                          //               const EdgeInsets.symmetric(horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       List<String> lastName = snapshot.data!
-                          //           .map((e) => e.lastName)
-                          //           .where((name) => name != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return lastName.where((String option) {
-                          //               return option.toLowerCase().contains(
-                          //                   textEditingValue.text.toLowerCase());
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width: textFieldWidth,
-                          //                 constraints:
-                          //                     BoxConstraints(maxHeight: 200.0),
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController ctlrlastName,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 20,
-                          //             labelText: 'Last Name',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: ctlrlastName,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
-
                           ///work no
                           CustomTextField(
                             width: textFieldWidth,
@@ -1016,115 +693,6 @@ class _SalesTabState extends State<SalesTab> {
                             controller: ctlrworkNo,
                             labelFontSize: 12,
                           ),
-                          // /// work phone no
-                          // FutureBuilder<List<HRAddEmployeeGet>>(
-                          //   future: HrAddEmployeeget(context),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding:
-                          //               const EdgeInsets.symmetric(horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       List<String> workNo = snapshot.data!
-                          //           .map((e) => e.workNo)
-                          //           .where((number) => number != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //
-                          //       print("Primary Phone Numbers: $workNo");
-                          //
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return workNo.where((String option) {
-                          //               return option
-                          //                   .contains(textEditingValue.text);
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width: textFieldWidth,
-                          //                 constraints:
-                          //                     BoxConstraints(maxHeight: 200.0),
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController ctlrsecNo,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 22,
-                          //             labelText: 'Secondary Phone No',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: ctlrsecNo,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
-
                           ///date
                           SizedBox(
                             width: AppSize.s250,
@@ -1232,8 +800,6 @@ class _SalesTabState extends State<SalesTab> {
                               }
                             },
                           ),
-
-                          ///personal email
                           ///personal email
                           CustomTextField(
                             width: textFieldWidth,
@@ -1248,116 +814,7 @@ class _SalesTabState extends State<SalesTab> {
                             controller: ctlrPersonalEmail,
                             labelFontSize: 12,
                           ),
-                          // ///personal email
-                          // FutureBuilder<List<HRAddEmployeeGet>>(
-                          //   future: HrAddEmployeeget(context),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding:
-                          //               const EdgeInsets.symmetric(horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       List<String> personalEmail = snapshot.data!
-                          //           .map(
-                          //             (e) => e.personalEmail,
-                          //           )
-                          //           .where((email) => email != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //       print("Personal Emails: $personalEmail,");
-                          //
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return personalEmail.where((String option) {
-                          //               return option
-                          //                   .contains(textEditingValue.text);
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width: 300,
-                          //                 constraints:
-                          //                     BoxConstraints(maxHeight: 200.0),
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController ctlrWorkEmail,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 22,
-                          //             labelText: 'Work Email',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: ctlrWorkEmail,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
-
+                          ///EM Contact no
                           CustomTextField(
                             width: textFieldWidth,
                             height: textFieldHeight,
@@ -1371,114 +828,6 @@ class _SalesTabState extends State<SalesTab> {
                             controller: ctlrEmContact,
                             labelFontSize: 12,
                           )
-                          // ///emergancy contact no
-                          // FutureBuilder<List<HRAddEmployeeGet>>(
-                          //   future: HrAddEmployeeget(context),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return Shimmer.fromColors(
-                          //         baseColor: Colors.grey[300]!,
-                          //         highlightColor: Colors.grey[100]!,
-                          //         child: Padding(
-                          //           padding:
-                          //               const EdgeInsets.symmetric(horizontal: 7),
-                          //           child: Container(
-                          //             width: AppSize.s250,
-                          //             height: AppSize.s40,
-                          //             decoration: BoxDecoration(
-                          //                 color: ColorManager.faintGrey),
-                          //           ),
-                          //         ),
-                          //       );
-                          //     }
-                          //
-                          //     if (snapshot.hasData) {
-                          //       List<String> emgContact = snapshot.data!
-                          //           .map((e) => e.emgContact)
-                          //           .where((number) => number != null)
-                          //           .cast<String>()
-                          //           .toList();
-                          //       print("Primary Phone Numbers: $emgContact");
-                          //       return Autocomplete<String>(
-                          //         optionsBuilder:
-                          //             (TextEditingValue textEditingValue) {
-                          //           if (textEditingValue.text.isEmpty) {
-                          //             return const Iterable<String>.empty();
-                          //           } else {
-                          //             return emgContact.where((String option) {
-                          //               return option
-                          //                   .contains(textEditingValue.text);
-                          //             });
-                          //           }
-                          //         },
-                          //         optionsViewBuilder: (BuildContext context,
-                          //             AutocompleteOnSelected<String> onSelected,
-                          //             Iterable<String> options) {
-                          //           return Align(
-                          //             alignment: Alignment.topLeft,
-                          //             child: Material(
-                          //               shape: const RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.vertical(
-                          //                     bottom: Radius.circular(4.0)),
-                          //               ),
-                          //               child: Container(
-                          //                 width:
-                          //                     textFieldWidth, // Adjust the width as needed
-                          //                 constraints: BoxConstraints(
-                          //                     maxHeight:
-                          //                         200.0), // Optional: Adjust the max height
-                          //                 child: ListView.builder(
-                          //                   padding: EdgeInsets.zero,
-                          //                   itemCount: options.length,
-                          //                   itemBuilder: (BuildContext context,
-                          //                       int index) {
-                          //                     final String option =
-                          //                         options.elementAt(index);
-                          //                     return ListTile(
-                          //                       title: Text(
-                          //                         option,
-                          //                         style: GoogleFonts.firaSans(
-                          //                           fontSize: 12,
-                          //                           color: Color(0xff575757),
-                          //                           fontWeight: FontWeight.w400,
-                          //                         ),
-                          //                       ),
-                          //                       onTap: () {
-                          //                         onSelected(option);
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           );
-                          //         },
-                          //         fieldViewBuilder: (BuildContext context,
-                          //             TextEditingController controller6,
-                          //             FocusNode focusNode,
-                          //             VoidCallback onFieldSubmitted) {
-                          //           return CustomTextField(
-                          //             width: textFieldWidth,
-                          //             height: textFieldHeight,
-                          //             cursorHeight: 22,
-                          //             labelText: 'Emergency Contact No',
-                          //             labelStyle: GoogleFonts.firaSans(
-                          //               fontSize: 12,
-                          //               color: Color(0xff575757),
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //             controller: controller6,
-                          //             focusNode: focusNode,
-                          //             labelFontSize: 12,
-                          //           );
-                          //         },
-                          //       );
-                          //     } else {
-                          //       return const Offstage();
-                          //     }
-                          //   },
-                          // ),
                         ],
                       )),
                     ],
@@ -1586,6 +935,7 @@ class _SalesTabState extends State<SalesTab> {
                                 1,
                                 1,
                                 1,
+                                1,
                                 'SSN123',
                                 ctlrSocialSecurity.text,
                                 ctlrprimeNo.text,
@@ -1623,6 +973,8 @@ class _SalesTabState extends State<SalesTab> {
                                 'Method',
                                 'Material',
                                 'Race',
+                                  'rating',
+                                  "signatureURL"
                               );
                               print("Sales Employee Added");
                               ctlrfirstName.clear();
@@ -1636,7 +988,7 @@ class _SalesTabState extends State<SalesTab> {
                               ctlrlastName.clear();
                               ctlrSocialSecurity.clear();
 
-                            },
+                            }, title2:  'Are you sure you want to add this employee?',
                           );
                         },
                       );
@@ -1649,299 +1001,5 @@ class _SalesTabState extends State<SalesTab> {
         ),
       ),
     );
-
-    //
-    //       /// first container
-    //       Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           Expanded(
-    //             child: Padding(
-    //               padding: EdgeInsets.symmetric(
-    //                   horizontal: MediaQuery.of(context).size.height / 70,
-    //                   vertical: 20
-    //               ),
-    //               child: Material(
-    //                 elevation: 4,
-    //                 borderRadius: BorderRadius.circular(20),
-    //                 child: Container(
-    //                   // width: containerWidth,
-    //                   height: containerHeight1,
-    //                   decoration: BoxDecoration(
-    //                     borderRadius: BorderRadius.circular(20),
-    //                     border: Border.all(
-    //                       width: 1,
-    //                       color: Color(0xffB7B7B7),
-    //                     ),
-    //                     color: Colors.white,
-    //                   ),
-    //                   child: Column(
-    //                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                     // crossAxisAlignment: CrossAxisAlignment.center,
-    //                     children: [
-    //                       Row(
-    //                         children: [
-    //                           Expanded(
-    //                             flex: 1,
-    //                             child: CustomDropdownTextField(
-    //                               labelText: 'Position',
-    //                               labelStyle: TextStyle(),
-    //                               labelFontSize:
-    //                                   MediaQuery.of(context).size.width / 99,
-    //                               items: ['A', 'B', 'C', 'D'],
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             flex: 1,
-    //                             child: CustomTextField(
-    //                               width: textFieldWidth,
-    //                               height: textFieldHeight,
-    //                               cursorHeight: 22,
-    //                               labelText: 'First Name',
-    //                               labelStyle: TextStyle(),
-    //                               controller: _addressController,
-    //                               focusNode: FocusNode(),
-    //                               labelFontSize:
-    //                                   MediaQuery.of(context).size.width / 99,
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             flex: 1,
-    //                             child: CustomTextField(
-    //                               width: textFieldWidth,
-    //                               height: textFieldHeight,
-    //                               cursorHeight: 22,
-    //                               labelText: 'Last Name',
-    //                               labelStyle: TextStyle(),
-    //                               controller: _dateofbirthController,
-    //                               focusNode: FocusNode(),
-    //                               labelFontSize:
-    //                                   MediaQuery.of(context).size.width / 99,
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             flex: 1,
-    //                             child: CustomDropdownTextField(
-    //                               labelText: 'Home Office',
-    //                               labelStyle: TextStyle(),
-    //                               labelFontSize:
-    //                                   MediaQuery.of(context).size.width / 99,
-    //                               items: ['A', 'B', 'C', 'D'],
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                       Row(
-    //                         children: [
-    //                           Expanded(
-    //                             flex: 1,
-    //                             child: CustomTextField(
-    //                               width: textFieldWidth,
-    //                               height: textFieldHeight,
-    //                               cursorHeight: 22,
-    //                               labelText: 'Social Security Number',
-    //                               labelStyle: TextStyle(),
-    //                               suffixIcon: Icon(
-    //                                 Icons.remove_red_eye_sharp,
-    //                                 color: Color(0xff50B5E5),
-    //                                 size:
-    //                                     MediaQuery.of(context).size.width / 99,
-    //                               ),
-    //                               controller: _sale1Controller,
-    //                               focusNode: FocusNode(),
-    //                               labelFontSize:
-    //                                   MediaQuery.of(context).size.width / 99,
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             flex: 1,
-    //                             child: CustomTextField(
-    //                               width: textFieldWidth,
-    //                               height: textFieldHeight,
-    //                               cursorHeight: 22,
-    //                               labelText: 'Personal Phone Number',
-    //                               labelStyle: TextStyle(),
-    //                               controller: _firstnameController,
-    //                               focusNode: FocusNode(),
-    //                               labelFontSize:
-    //                                   MediaQuery.of(context).size.width / 99,
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             flex: 1,
-    //                             child: CustomDropdownTextField(
-    //                               labelText: 'Work Phone No.',
-    //                               labelStyle: TextStyle(),
-    //                               labelFontSize:
-    //                                   MediaQuery.of(context).size.width / 99,
-    //                               items: ['A', 'B', 'C', 'D'],
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             flex: 1,
-    //                             child: CustomTextField(
-    //                               width: textFieldWidth,
-    //                               height: textFieldHeight,
-    //                               cursorHeight: 22,
-    //                               labelText: 'Personal Email',
-    //                               labelStyle: TextStyle(),
-    //                               controller: _lastnameController,
-    //                               focusNode: FocusNode(),
-    //                               labelFontSize:
-    //                                   MediaQuery.of(context).size.width / 99,
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                       Row(
-    //                         children: [
-    //                           CustomTextField(
-    //                             width: textFieldWidth,
-    //                             height: textFieldHeight,
-    //                             cursorHeight: 22,
-    //                             labelText: 'Work Email',
-    //                             labelStyle: TextStyle(),
-    //                             controller: _workemailController,
-    //                             focusNode: FocusNode(),
-    //                             labelFontSize:
-    //                                 MediaQuery.of(context).size.width / 99,
-    //                           ),
-    //                           CustomTextField(
-    //                               width: textFieldWidth,
-    //                               height: textFieldHeight,
-    //                               cursorHeight: 22,
-    //                               labelText: 'Address',
-    //                               labelStyle: TextStyle(),
-    //                               controller: _personalnoController,
-    //                               focusNode: FocusNode(),
-    //                               labelFontSize:
-    //                                   MediaQuery.of(context).size.width / 99),
-    //                           CustomTextField(
-    //                             width: textFieldWidth,
-    //                             height: textFieldHeight,
-    //                             cursorHeight: 22,
-    //                             labelText: 'Date of Birth',
-    //                             labelStyle: TextStyle(),
-    //                             controller: _personalemailController,
-    //                             focusNode: FocusNode(),
-    //                             labelFontSize:
-    //                                 MediaQuery.of(context).size.width / 99,
-    //                           ),
-    //                           CustomTextField(
-    //                             width: textFieldWidth,
-    //                             height: textFieldHeight,
-    //                             cursorHeight: 22,
-    //                             labelText: 'Emergency Contact No.',
-    //                             labelStyle: TextStyle(),
-    //                             controller: _worknoController,
-    //                             focusNode: FocusNode(),
-    //                             labelFontSize:
-    //                                 MediaQuery.of(context).size.width / 99,
-    //                           ),
-    //                         ],
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               ),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //       SizedBox(height: 10),
-    //       /// second Container
-    //       Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         crossAxisAlignment: CrossAxisAlignment.center,
-    //         children: [
-    //           Expanded(
-    //             child: Padding(
-    //               padding: EdgeInsets.symmetric(
-    //                   horizontal: MediaQuery.of(context).size.height / 70),
-    //               child: Material(
-    //                 elevation: 4,
-    //                 borderRadius: BorderRadius.circular(20),
-    //                 child: Container(
-    //                   // width: containerWidth,
-    //                   height: 100,
-    //                   // containerHeight2,
-    //                   decoration: BoxDecoration(
-    //                     borderRadius: BorderRadius.circular(20),
-    //                     border: Border.all(
-    //                       width: 1,
-    //                       color: Color(0xffB7B7B7),
-    //                     ),
-    //                     color: Colors.white,
-    //                   ),
-    //                   child: Row(
-    //                     crossAxisAlignment: CrossAxisAlignment.center,
-    //                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                     children: [
-    //                       Padding(
-    //                         padding: const EdgeInsets.only(top: 25.0),
-    //                         child: McqWidget(
-    //                           title: 'Employment',
-    //                           items: [
-    //                             'Full Time',
-    //                             'Contract',
-    //                             'Part Time',
-    //                             'Per Diem'
-    //                           ],
-    //                           onChanged: (selectedIndex) {
-    //                             print('Selected index: $selectedIndex');
-    //                             _selectedItemIndex = selectedIndex;
-    //                           },
-    //                         ),
-    //                       ),
-    //                       Padding(
-    //                         padding: const EdgeInsets.only(top: 25.0),
-    //                         child: McqWidget(
-    //                           title: 'Gender',
-    //                           items: [
-    //                             'Male',
-    //                             'Female',
-    //                             'Other',
-    //                           ],
-    //                           onChanged: (int) {},
-    //                         ),
-    //                       ),
-    //                       Padding(
-    //                         padding: const EdgeInsets.only(top: 25.0),
-    //                         child: McqWidget(
-    //                           title: 'Status',
-    //                           items: ['Active', 'Trainee', 'Inactive'],
-    //                           onChanged: (int) {},
-    //                         ),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               ),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //       Padding(
-    //         padding: const EdgeInsets.all(8.0),
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           crossAxisAlignment: CrossAxisAlignment.center,
-    //           children: [
-    //             CustomButton(
-    //                 width: 125,
-    //                 height: 33,
-    //                 text: 'Add Employee',
-    //                 style: TextStyle(
-    //                     fontFamily: 'FiraSans',
-    //                     fontSize: 12,
-    //                     fontWeight: FontWeight.w700),
-    //                 borderRadius: 12,
-    //                 onPressed: () {})
-    //           ],
-    //         ),
-    //       ),
-    //     ]),
-    //   ),
-    // );
   }
 }

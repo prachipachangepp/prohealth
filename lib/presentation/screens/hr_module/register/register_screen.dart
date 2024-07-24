@@ -27,12 +27,13 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final StreamController<List<RegisterEnrollData>> registerController = StreamController<List<RegisterEnrollData>>();
+  final StreamController<List<RegisterEnrollData>> registerController =
+      StreamController<List<RegisterEnrollData>>();
   late int currentPage;
   late int itemsPerPage;
   late List<String> items;
   TextEditingController firstNameController = TextEditingController();
-  TextEditingController  lastNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   @override
@@ -41,12 +42,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     currentPage = 1;
     itemsPerPage = 20;
     items = List.generate(20, (index) => 'Item ${index + 1}');
-    RegisterGetData(context).then((data){registerController.add(data);
-    }).catchError((error){});
+    RegisterGetData(context).then((data) {
+      registerController.add(data);
+    }).catchError((error) {});
   }
+
   @override
   Widget build(BuildContext context) {
-      //final RegisterController _controller = Get.put(RegisterController());
+    //final RegisterController _controller = Get.put(RegisterController());
     return Column(
       children: [
         // ProfileBar(),
@@ -56,7 +59,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             ///select dropdown
             buildDropdownButton(context),
-            SizedBox(width: 50,)
+            SizedBox(
+              width: 50,
+            )
           ],
         ),
         SizedBox(
@@ -90,537 +95,543 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 int totalItems = snapshot.data!.length;
                 // int totalPages = (totalItems / itemsPerPage).ceil();
                 List<RegisterEnrollData> currentPageItems =
-                snapshot.data!.sublist(
+                    snapshot.data!.sublist(
                   (currentPage - 1) * itemsPerPage,
                   (currentPage * itemsPerPage) > totalItems
                       ? totalItems
                       : (currentPage * itemsPerPage),
                 );
                 return SingleChildScrollView(
-                  child: WrapWidget(childern: List.generate(snapshot.data!.length, (index){
-                    return  Padding(
-                      padding: const EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p10,
-                          top: AppPadding.p5,bottom: AppPadding.p40),
-                      child:
-                          Container(
-                            width: MediaQuery.of(context).size.width/2.2,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Color(0xff51B5E6),
-                                width: 0.5,
-                              ),
+                  child: WrapWidget(
+                      childern: List.generate(snapshot.data!.length, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                          left: AppPadding.p10,
+                          right: AppPadding.p10,
+                          top: AppPadding.p5,
+                          bottom: AppPadding.p40),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2.2,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Color(0xff51B5E6),
+                            width: 0.5,
+                          ),
 
-                              ///update here
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(12)),
-                            ),
-                            height: 200,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal:
-                                MediaQuery.of(context).size.width / 80,
-                                vertical:
-                                MediaQuery.of(context).size.height / 120,
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
+                          ///update here
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        height: 200,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width / 80,
+                            vertical: MediaQuery.of(context).size.height / 120,
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        snapshot.data![index].firstName,
-                                        style: GoogleFonts.firaSans(
-                                          fontWeight: FontWeightManager.medium,
-                                          // color: ColorManager.mediumgrey,
-                                          color: Color(0xff333333),
-                                          fontSize: FontSize.s13,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        'Status',
-                                        style: GoogleFonts.firaSans(
-                                          fontWeight: FontWeightManager.medium,
-                                          // color: ColorManager.mediumgrey,
-                                          color: Color(0xff333333),
-                                          fontSize: FontSize.s12,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width:
-                                        MediaQuery.of(context).size.width /
-                                            100,
-                                      ),
-                                      snapshot.data![index].status == 'NotOpened' ?
-                                          SizedBox(width: 10,) :
-                                      Container(
-                                        width: 10.0,
-                                        height: 15.0,
-                                        decoration: BoxDecoration(
-                                          color: snapshot.data![index].status == 'Opened' ?
-                                          Color(0xff51B5E6): snapshot.data![index].status == 'Partial' ?
-                                          Color(0xffCA8A04) : Colors.green,
-                                          shape: BoxShape.circle,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width:
-                                        MediaQuery.of(context).size.width /
-                                            100,
-                                      ),
-                                      snapshot.data![index].status == 'NotOpened' ?
-                                      SizedBox(width: 10,) :
-                                      Text(
-                                        snapshot.data![index].status,
-                                        style: GoogleFonts.firaSans(
-                                          fontWeight: FontWeightManager.medium,
-                                          color: Color(0xff333333),
-                                          fontSize: FontSize.s12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left:
-                                      MediaQuery.of(context).size.width / 130,
-                                      top:
-                                      MediaQuery.of(context).size.height / 120,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    snapshot.data![index].firstName,
+                                    style: GoogleFonts.firaSans(
+                                      fontWeight: FontWeightManager.medium,
+                                      // color: ColorManager.mediumgrey,
+                                      color: Color(0xff333333),
+                                      fontSize: FontSize.s13,
                                     ),
-                                    child: Column(
-                                      mainAxisAlignment:
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'Status',
+                                    style: GoogleFonts.firaSans(
+                                      fontWeight: FontWeightManager.medium,
+                                      // color: ColorManager.mediumgrey,
+                                      color: Color(0xff333333),
+                                      fontSize: FontSize.s12,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 100,
+                                  ),
+                                  snapshot.data![index].status == 'NotOpened'
+                                      ? SizedBox(
+                                          width: 10,
+                                        )
+                                      : Container(
+                                          width: 10.0,
+                                          height: 15.0,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                snapshot.data![index].status ==
+                                                        'Opened'
+                                                    ? Color(0xff51B5E6)
+                                                    : snapshot.data![index]
+                                                                .status ==
+                                                            'Partial'
+                                                        ? Color(0xffCA8A04)
+                                                        : Colors.green,
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 100,
+                                  ),
+                                  snapshot.data![index].status == 'NotOpened'
+                                      ? SizedBox(
+                                          width: 10,
+                                        )
+                                      : Text(
+                                          snapshot.data![index].status,
+                                          style: GoogleFonts.firaSans(
+                                            fontWeight:
+                                                FontWeightManager.medium,
+                                            color: Color(0xff333333),
+                                            fontSize: FontSize.s12,
+                                          ),
+                                        ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.width / 130,
+                                  top: MediaQuery.of(context).size.height / 120,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomRow(
+                                      icon: Icons.person_2_outlined,
+                                      text1: 'Code',
+                                      text2: snapshot.data![index].code,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60,
+                                    ),
+                                    CustomRow(
+                                      icon: Icons.phone_outlined,
+                                      text1: 'Phone',
+                                      text2: snapshot.data![index].phoneNbr,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60,
+                                    ),
+                                    CustomRow(
+                                      icon: Icons.email_outlined,
+                                      text1: 'Email',
+                                      text2: snapshot.data![index].email,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              60,
+                                    ),
+                                    Row(
                                       children: [
-                                        CustomRow(
-                                          icon: Icons.person_2_outlined,
-                                          text1: 'Code',
-                                          text2: snapshot.data![index].code,
-                                        ),
+                                        Icon(Icons.link,
+                                            size: 15,
+                                            color: ColorManager.mediumgrey),
                                         SizedBox(
-                                          height:
-                                          MediaQuery.of(context).size.height /
-                                              60,
-                                        ),
-                                        CustomRow(
-                                          icon: Icons.phone_outlined,
-                                          text1: 'Phone',
-                                          text2: snapshot.data![index].phoneNbr,
-                                        ),
-                                        SizedBox(
-                                          height:
-                                          MediaQuery.of(context).size.height /
-                                              60,
-                                        ),
-                                        CustomRow(
-                                          icon: Icons.email_outlined,
-                                          text1: 'Email',
-                                          text2: snapshot.data![index].email,
-                                        ),
-                                        SizedBox(
-                                          height:
-                                          MediaQuery.of(context).size.height /
-                                              60,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(Icons.link,
-                                                size: 15,
-                                                color: ColorManager.mediumgrey),
-                                            SizedBox(
-                                                width: MediaQuery.of(context)
+                                            width: MediaQuery.of(context)
                                                     .size
                                                     .width /
-                                                    40),
-                                            Text('Link',
-                                                style: GoogleFonts.firaSans(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w400,
-                                                    color:
+                                                40),
+                                        Text('Link',
+                                            style: GoogleFonts.firaSans(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400,
+                                                color:
                                                     ColorManager.mediumgrey)),
-                                            SizedBox(
-                                                width: MediaQuery.of(context)
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
                                                     .size
                                                     .width /
-                                                    20),
-                                            // TextButton(
-                                            //   onPressed: () {
-                                            //     if (snapshot.data != null && snapshot.data![index] != null && snapshot.data![index].link != null) {
-                                            //       Navigator.push(
-                                            //         context,
-                                            //         MaterialPageRoute(
-                                            //           builder: (context) => OnBoardingWelcome(),
-                                            //         ),
-                                            //       );
-                                            //     }
-                                            //   },
-                                            //   child: Text(
-                                            //     snapshot.data != null && snapshot.data![index] != null && snapshot.data![index].link != null
-                                            //         ? snapshot.data![index].link.toString()
-                                            //         : '', // You can provide a fallback or handle null case here
-                                            //     style: GoogleFonts.firaSans(
-                                            //       fontSize: 10,
-                                            //       fontWeight: FontWeight.w400,
-                                            //       color: ColorManager.blueprime,
-                                            //     ),
+                                                20),
+                                        // TextButton(
+                                        //   onPressed: () {
+                                        //     if (snapshot.data != null && snapshot.data![index] != null && snapshot.data![index].link != null) {
+                                        //       Navigator.push(
+                                        //         context,
+                                        //         MaterialPageRoute(
+                                        //           builder: (context) => OnBoardingWelcome(),
+                                        //         ),
+                                        //       );
+                                        //     }
+                                        //   },
+                                        //   child: Text(
+                                        //     snapshot.data != null && snapshot.data![index] != null && snapshot.data![index].link != null
+                                        //         ? snapshot.data![index].link.toString()
+                                        //         : '', // You can provide a fallback or handle null case here
+                                        //     style: GoogleFonts.firaSans(
+                                        //       fontSize: 10,
+                                        //       fontWeight: FontWeight.w400,
+                                        //       color: ColorManager.blueprime,
+                                        //     ),
+                                        //   ),
+                                        // )
+
+                                        // InkWell(
+                                        //   onTap: (){
+                                        //     Navigator
+                                        //         .of(context)
+                                        //         .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
+                                        //       return OnBoardingWelcome();
+                                        //     }));                  },
+                                        //   child: Text(
+                                        //     //'https://prohealth.symmetry.care/register',
+                                        //     snapshot.data![index].link.toString(),
+                                        //     style: GoogleFonts.firaSans(
+                                        //       fontSize: 10,
+                                        //       fontWeight: FontWeight.w400,
+                                        //       color: ColorManager.blueprime,
+                                        //     ),
+                                        //   ),
+                                        // )
+
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        OnBoardingWelcome()));
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(builder: (context) =>
+                                            //       OnBoardingWelcome()
                                             //   ),
-                                            // )
-
-                                            // InkWell(
-                                            //   onTap: (){
-                                            //     Navigator
-                                            //         .of(context)
-                                            //         .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
-                                            //       return OnBoardingWelcome();
-                                            //     }));                  },
-                                            //   child: Text(
-                                            //     //'https://prohealth.symmetry.care/register',
-                                            //     snapshot.data![index].link.toString(),
-                                            //     style: GoogleFonts.firaSans(
-                                            //       fontSize: 10,
-                                            //       fontWeight: FontWeight.w400,
-                                            //       color: ColorManager.blueprime,
-                                            //     ),
-                                            //   ),
-                                            // )
-
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            OnBoardingWelcome()));
-                                                // Navigator.push(
-                                                //   context,
-                                                //   MaterialPageRoute(builder: (context) =>
-                                                //       OnBoardingWelcome()
-                                                //   ),
-                                                // );
-                                              },
-                                              child: Text(
-                                                //'https://prohealth.symmetry.care/register',
-                                                snapshot.data![index].link,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: ColorManager.blueprime,
-                                                ),
-                                              ),
-                                            )
-
-                                          ],
-                                        ),
-                                        ///button
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                width: AppSize.s110,
-                                                margin: EdgeInsets.only(right: AppMargin.m30),
-                                                child: CustomIconButtonConst(
-                                                    text: AppString.enroll,
-                                                    onPressed: () {
-                showDialog(context: context, builder: (BuildContext context) {
-                  return OfferLetterScreen();
-                });
-                                                     // Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
-                                                      //_controller.openDialog(context);
-                                                      // showDialog(context: context, builder: (_) =>
-                                                         ///future builder
-                                                      // FutureBuilder<RegisterDataPrefill>(
-                                                      //   future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
-                                                      //   builder: (context, snapshotPrefill){
-                                                      //     if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                      //       return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                                      //     }
-                                                      //     var firstName = snapshotPrefill.data!.firstName.toString();
-                                                      //     firstNameController = TextEditingController(text: firstName);
-                                                      //
-                                                      //     var lastName = snapshotPrefill.data!.lastName.toString();
-                                                      //     lastNameController = TextEditingController(text: lastName);
-                                                      //
-                                                      //     var email = snapshotPrefill.data!.email.toString();
-                                                      //     emailController = TextEditingController(text: email);
-                                                      //
-                                                      //     var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
-                                                      //     phoneNumberController = TextEditingController(text: phoneNum);
-
-                                                          //  ConfirmationPopup(
-                                                          //   containerText: 'Do you really want to enroll?'
-                                                          //       '\n${snapshot.data![index].firstName} ${snapshot.data![index].lastName}',
-                                                          //   onConfirm: ()async{
-                                                          //     Navigator.pop(context);
-                                                          //    await addEmpEnroll(context,
-                                                          //         snapshot.data![index].compId,  snapshot.data![index].empId,  snapshot.data![index].code,
-                                                          //         snapshot.data![index].userId,  snapshot.data![index].firstName,  snapshot.data![index].lastName,
-                                                          //         snapshot.data![index].phoneNbr,  snapshot.data![index].email,  snapshot.data![index].link,
-                                                          //         snapshot.data![index].status);
-                                                          //    print('${snapshot.data![index].compId}');
-                                                          //    print('${snapshot.data![index].empId}');
-                                                          //    print(snapshot.data![index].code);
-                                                          //    print('${snapshot.data![index].userId}');
-                                                          //    print(snapshot.data![index].firstName);
-                                                          //    print(snapshot.data![index].lastName);
-                                                          //    print(snapshot.data![index].phoneNbr);
-                                                          //    print(snapshot.data![index].email);
-                                                          //    print(snapshot.data![index].link);
-                                                          //    print(snapshot.data![index].status);
-                                                          //     showDialog(context: context, builder: (BuildContext context) {
-                                                          //       return SuccessPopup();
-                                                          //     });
-                                                          //   }, title: 'Confirm Enrollment',
-                                                          //   onCancel: () {
-                                                          //     Navigator.pop(context);
-                                                          //   },
-                                                          // ),
-
-
-                                                      //   },
-                                                      // ),
-                                                          ///prefill api
-                                                        // FutureBuilder<RegisterDataPrefill>(
-                                                        //   future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
-                                                        //   builder: (context, snapshotPrefill){
-                                                        //     if(snapshotPrefill.connectionState == ConnectionState.waiting){
-                                                        //       return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
-                                                        //     }
-                                                        //     var firstName = snapshotPrefill.data!.firstName.toString();
-                                                        //     firstNameController = TextEditingController(text: firstName);
-                                                        //
-                                                        //     var lastName = snapshotPrefill.data!.lastName.toString();
-                                                        //     lastNameController = TextEditingController(text: lastName);
-                                                        //
-                                                        //     var email = snapshotPrefill.data!.email.toString();
-                                                        //     emailController = TextEditingController(text: email);
-                                                        //
-                                                        //     var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
-                                                        //     phoneNumberController = TextEditingController(text: phoneNum);
-                                                        //
-                                                        //     return RegisterEnrollPopup(firstName: firstNameController,
-                                                        //      lastName: lastNameController,
-                                                        //       email: emailController,
-                                                        //       phone: phoneNumberController,
-                                                        //       onPressed: () {
-                                                        //       Navigator.pop(context);
-                                                        //         showDialog(context: context, builder: (BuildContext context) {
-                                                        //           return ConfirmationPopup(onConfirm: (){
-                                                        //             Navigator.pop(context);
-                                                        //             showDialog(context: context, builder: (BuildContext context) {
-                                                        //               return SuccessPopup();
-                                                        //             });
-                                                        //           }, title: 'Confirm Enrollment',
-                                                        //             onCancel: () {
-                                                        //               Navigator.pop(context);
-                                                        //             },
-                                                        //           );
-                                                        //           //OfferLetterScreen();
-                                                        //         });
-                                                        //       },);
-                                                        //
-                                                        //
-                                                        //   },
-                                                        // ),
-
-                                                    }),
-                                              ),
-                                            ],
+                                            // );
+                                          },
+                                          child: Text(
+                                            //'https://prohealth.symmetry.care/register',
+                                            snapshot.data![index].link,
+                                            style: GoogleFonts.firaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w400,
+                                              color: ColorManager.blueprime,
+                                            ),
+                                          ),
                                         )
                                       ],
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          // SizedBox(height: AppSize.s5),
-                          // Container(
-                          //   padding: EdgeInsets.only(bottom: AppPadding.p5),
-                          //   margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
-                          //   decoration: BoxDecoration(
-                          //     color:ColorManager.red,
-                          //     borderRadius: BorderRadius.circular(4),
-                          //     boxShadow: [
-                          //       BoxShadow(
-                          //         color: ColorManager.grey.withOpacity(0.5),
-                          //         spreadRadius: 1,
-                          //         blurRadius: 4,
-                          //         offset: Offset(0, 2),
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   height: AppSize.s56,
-                          //
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       Expanded(
-                          //         child: Center(
-                          //             child: Text(
-                          //           '1',style: ThemeManagerDark.customTextStyle(context),
-                          //           textAlign: TextAlign.start,
-                          //         )),
-                          //       ),
-                          //       Expanded(
-                          //         child: CircleAvatar(
-                          //           radius: 15,
-                          //           backgroundColor: ColorManager.blueprime,
-                          //           child: Image.asset('images/profile.png'),
-                          //         ),
-                          //       ),
-                          //       Expanded(
-                          //         child: Center(
-                          //             child: Text(
-                          //           AppString.amogh,
-                          //           textAlign: TextAlign.start,
-                          //           style: ThemeManagerDark.customTextStyle(context),
-                          //         )),
-                          //       ),
-                          //       Expanded(
-                          //         child: Center(
-                          //             child: Text(
-                          //           AppString.pincode,
-                          //           style: ThemeManagerDark.customTextStyle(context),
-                          //         )),
-                          //       ),
-                          //       Expanded(
-                          //         child: Center(
-                          //             child: Text(
-                          //           AppString.mobile,
-                          //           style: ThemeManagerDark.customTextStyle(context),
-                          //         )),
-                          //       ),
-                          //       Expanded(
-                          //         child: Center(
-                          //             child: Text(
-                          //           AppString.mail,
-                          //           style: ThemeManagerDark.customTextStyle(context),
-                          //         )),
-                          //       ),
-                          //       Center(
-                          //           child: Text(
-                          //         AppString.path +'$index',
-                          //         style: ThemeManagerDark.customTextStyle(context),
-                          //       )),
-                          //       Expanded(
-                          //         child: Center(
-                          //             child: Text(
-                          //           AppString.open,
-                          //           style: ThemeManagerDark.customTextStyle(context),
-                          //         )),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
 
+                                    ///button
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          width: AppSize.s110,
+                                          margin: EdgeInsets.only(
+                                              right: AppMargin.m30),
+                                          child: CustomIconButtonConst(
+                                              text: AppString.enroll,
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return OfferLetterScreen();
+                                                    });
+                                                // Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                                                //_controller.openDialog(context);
+                                                // showDialog(context: context, builder: (_) =>
+                                                ///future builder
+                                                // FutureBuilder<RegisterDataPrefill>(
+                                                //   future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
+                                                //   builder: (context, snapshotPrefill){
+                                                //     if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                //       return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                //     }
+                                                //     var firstName = snapshotPrefill.data!.firstName.toString();
+                                                //     firstNameController = TextEditingController(text: firstName);
+                                                //
+                                                //     var lastName = snapshotPrefill.data!.lastName.toString();
+                                                //     lastNameController = TextEditingController(text: lastName);
+                                                //
+                                                //     var email = snapshotPrefill.data!.email.toString();
+                                                //     emailController = TextEditingController(text: email);
+                                                //
+                                                //     var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
+                                                //     phoneNumberController = TextEditingController(text: phoneNum);
+
+                                                //  ConfirmationPopup(
+                                                //   containerText: 'Do you really want to enroll?'
+                                                //       '\n${snapshot.data![index].firstName} ${snapshot.data![index].lastName}',
+                                                //   onConfirm: ()async{
+                                                //     Navigator.pop(context);
+                                                //    await addEmpEnroll(context,
+                                                //         snapshot.data![index].compId,  snapshot.data![index].empId,  snapshot.data![index].code,
+                                                //         snapshot.data![index].userId,  snapshot.data![index].firstName,  snapshot.data![index].lastName,
+                                                //         snapshot.data![index].phoneNbr,  snapshot.data![index].email,  snapshot.data![index].link,
+                                                //         snapshot.data![index].status);
+                                                //    print('${snapshot.data![index].compId}');
+                                                //    print('${snapshot.data![index].empId}');
+                                                //    print(snapshot.data![index].code);
+                                                //    print('${snapshot.data![index].userId}');
+                                                //    print(snapshot.data![index].firstName);
+                                                //    print(snapshot.data![index].lastName);
+                                                //    print(snapshot.data![index].phoneNbr);
+                                                //    print(snapshot.data![index].email);
+                                                //    print(snapshot.data![index].link);
+                                                //    print(snapshot.data![index].status);
+                                                //     showDialog(context: context, builder: (BuildContext context) {
+                                                //       return SuccessPopup();
+                                                //     });
+                                                //   }, title: 'Confirm Enrollment',
+                                                //   onCancel: () {
+                                                //     Navigator.pop(context);
+                                                //   },
+                                                // ),
+
+                                                //   },
+                                                // ),
+                                                ///prefill api
+                                                // FutureBuilder<RegisterDataPrefill>(
+                                                //   future: getRegisterEnrollPrefill(context, snapshot.data![index].empEnrollId!),
+                                                //   builder: (context, snapshotPrefill){
+                                                //     if(snapshotPrefill.connectionState == ConnectionState.waiting){
+                                                //       return Center(child: CircularProgressIndicator(color: ColorManager.blueprime,),);
+                                                //     }
+                                                //     var firstName = snapshotPrefill.data!.firstName.toString();
+                                                //     firstNameController = TextEditingController(text: firstName);
+                                                //
+                                                //     var lastName = snapshotPrefill.data!.lastName.toString();
+                                                //     lastNameController = TextEditingController(text: lastName);
+                                                //
+                                                //     var email = snapshotPrefill.data!.email.toString();
+                                                //     emailController = TextEditingController(text: email);
+                                                //
+                                                //     var phoneNum = snapshotPrefill.data!.phoneNbr.toString();
+                                                //     phoneNumberController = TextEditingController(text: phoneNum);
+                                                //
+                                                //     return RegisterEnrollPopup(firstName: firstNameController,
+                                                //      lastName: lastNameController,
+                                                //       email: emailController,
+                                                //       phone: phoneNumberController,
+                                                //       onPressed: () {
+                                                //       Navigator.pop(context);
+                                                //         showDialog(context: context, builder: (BuildContext context) {
+                                                //           return ConfirmationPopup(onConfirm: (){
+                                                //             Navigator.pop(context);
+                                                //             showDialog(context: context, builder: (BuildContext context) {
+                                                //               return SuccessPopup();
+                                                //             });
+                                                //           }, title: 'Confirm Enrollment',
+                                                //             onCancel: () {
+                                                //               Navigator.pop(context);
+                                                //             },
+                                                //           );
+                                                //           //OfferLetterScreen();
+                                                //         });
+                                                //       },);
+                                                //
+                                                //
+                                                //   },
+                                                // ),
+                                              }),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      // SizedBox(height: AppSize.s5),
+                      // Container(
+                      //   padding: EdgeInsets.only(bottom: AppPadding.p5),
+                      //   margin: EdgeInsets.symmetric(horizontal: AppMargin.m50),
+                      //   decoration: BoxDecoration(
+                      //     color:ColorManager.red,
+                      //     borderRadius: BorderRadius.circular(4),
+                      //     boxShadow: [
+                      //       BoxShadow(
+                      //         color: ColorManager.grey.withOpacity(0.5),
+                      //         spreadRadius: 1,
+                      //         blurRadius: 4,
+                      //         offset: Offset(0, 2),
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   height: AppSize.s56,
+                      //
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Expanded(
+                      //         child: Center(
+                      //             child: Text(
+                      //           '1',style: ThemeManagerDark.customTextStyle(context),
+                      //           textAlign: TextAlign.start,
+                      //         )),
+                      //       ),
+                      //       Expanded(
+                      //         child: CircleAvatar(
+                      //           radius: 15,
+                      //           backgroundColor: ColorManager.blueprime,
+                      //           child: Image.asset('images/profile.png'),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         child: Center(
+                      //             child: Text(
+                      //           AppString.amogh,
+                      //           textAlign: TextAlign.start,
+                      //           style: ThemeManagerDark.customTextStyle(context),
+                      //         )),
+                      //       ),
+                      //       Expanded(
+                      //         child: Center(
+                      //             child: Text(
+                      //           AppString.pincode,
+                      //           style: ThemeManagerDark.customTextStyle(context),
+                      //         )),
+                      //       ),
+                      //       Expanded(
+                      //         child: Center(
+                      //             child: Text(
+                      //           AppString.mobile,
+                      //           style: ThemeManagerDark.customTextStyle(context),
+                      //         )),
+                      //       ),
+                      //       Expanded(
+                      //         child: Center(
+                      //             child: Text(
+                      //           AppString.mail,
+                      //           style: ThemeManagerDark.customTextStyle(context),
+                      //         )),
+                      //       ),
+                      //       Center(
+                      //           child: Text(
+                      //         AppString.path +'$index',
+                      //         style: ThemeManagerDark.customTextStyle(context),
+                      //       )),
+                      //       Expanded(
+                      //         child: Center(
+                      //             child: Text(
+                      //           AppString.open,
+                      //           style: ThemeManagerDark.customTextStyle(context),
+                      //         )),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     );
                   })),
                 );
-  }
-  return Offstage();
-},
-),
+              }
+              return Offstage();
+            },
+          ),
         ),
       ],
     );
   }
 }
 
-
 Widget buildDropdownButton(BuildContext context) {
- return FutureBuilder<List<RegisterEnrollData>>(
+  return FutureBuilder<List<RegisterEnrollData>>(
       future: RegisterGetData(context),
-  builder: (context, snapshot) {
-  if(snapshot.connectionState == ConnectionState.waiting){
-  return Shimmer.fromColors(
-  baseColor: Colors.grey[300]!,
-  highlightColor: Colors.grey[100]!,
-  child: Container(
-  width: 300,
-  height: 30,
-  decoration: BoxDecoration( color: ColorManager.faintGrey,borderRadius: BorderRadius.circular(10)),
-  )
-  );
-  }
-  if(snapshot.hasData) {
-  List<String> dropDownList = [];
-  List<String> dropDownAbbreviation = [];
-  for (var i in snapshot.data!) {
-  dropDownList.add(i.status!,);
-  //dropDownAbbreviation.add(i.abbrivation!);
-  }
-  // for(var i in snapshot.data!){
-  //
-  // }
-  print("::::::${dropDownList}");
-  //print("::::::${dropDownAbbreviation}");
-  return Row(
-    children: [
-      Container(
-        height: 31,
-        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Color(0xff50B5E5), width: 1.2),
-          borderRadius: BorderRadius.circular(12.0),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xff000000).withOpacity(0.25),
-              blurRadius: 2,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: DropdownButton<String>(
-          value: 'Select',
-          style: GoogleFonts.firaSans(
-            fontSize: 12,
-            fontWeight: FontWeightManager.bold,
-            color: Color(0xff50B5E5),
-            decoration: TextDecoration.none,
-          ),
-          icon: Icon(
-            Icons.arrow_drop_down,
-            color: Color(0xff50B5E5),
-          ),
-          iconSize: 20,
-          underline: SizedBox(),
-          onChanged: (String? newValue) {
-          },
-          items: <String>[
-            'Select',
-            'Opened',
-            'Not opened',
-            'Partial',
-            'Complete',
-          ].map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(
-                value,
-                style: TextStyle(color: ColorManager.blueprime),
-              ),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: Container(
+                width: 300,
+                height: 30,
+                decoration: BoxDecoration(
+                    color: ColorManager.faintGrey,
+                    borderRadius: BorderRadius.circular(10)),
+              ));
+        }
+        if (snapshot.hasData) {
+          List<String> dropDownList = [];
+          List<String> dropDownAbbreviation = [];
+          for (var i in snapshot.data!) {
+            dropDownList.add(
+              i.status!,
             );
-          }).toList(),
-        ),
-      ),
-    ],
-  );
-  }else
-  {
-    return Offstage();
-  }
-  }
-  );
+            //dropDownAbbreviation.add(i.abbrivation!);
+          }
+          // for(var i in snapshot.data!){
+          //
+          // }
+          print("::::::${dropDownList}");
+          //print("::::::${dropDownAbbreviation}");
+          return Row(
+            children: [
+              Container(
+                height: 31,
+                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Color(0xff50B5E5), width: 1.2),
+                  borderRadius: BorderRadius.circular(12.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff000000).withOpacity(0.25),
+                      blurRadius: 2,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: DropdownButton<String>(
+                  value: 'Select',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 12,
+                    fontWeight: FontWeightManager.bold,
+                    color: Color(0xff50B5E5),
+                    decoration: TextDecoration.none,
+                  ),
+                  icon: Icon(
+                    Icons.arrow_drop_down,
+                    color: Color(0xff50B5E5),
+                  ),
+                  iconSize: 20,
+                  underline: SizedBox(),
+                  onChanged: (String? newValue) {},
+                  items: <String>[
+                    'Select',
+                    'Opened',
+                    'Not opened',
+                    'Partial',
+                    'Complete',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: TextStyle(color: ColorManager.blueprime),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          );
+        } else {
+          return Offstage();
+        }
+      });
 }
 
 // Show popup or AlertDialog
