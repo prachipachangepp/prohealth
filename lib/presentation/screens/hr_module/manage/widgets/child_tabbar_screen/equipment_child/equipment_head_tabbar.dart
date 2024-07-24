@@ -8,6 +8,7 @@ import 'package:prohealth/app/resources/theme_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/equipment_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/equipment_data.dart';
+import 'package:prohealth/presentation/widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../../../../app/resources/color.dart';
 import '../../../../../../../app/resources/font_manager.dart';
 import '../../../../../../../app/resources/hr_resources/string_manager.dart';
@@ -16,7 +17,8 @@ import '../../../../../em_module/widgets/button_constant.dart';
 import '../../../../../em_module/widgets/text_form_field_const.dart';
 
 class InventoryHeadTabbar extends StatefulWidget {
-  const InventoryHeadTabbar({super.key});
+  final int employeeId;
+  const InventoryHeadTabbar({super.key, required this.employeeId});
 
   @override
   State<InventoryHeadTabbar> createState() => _InventoryHeadTabbarState();
@@ -46,243 +48,276 @@ class _InventoryHeadTabbarState extends State<InventoryHeadTabbar> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: equipementDataStreamController.stream,
-      builder: (context,snapshot) {
-        getEquipement(context).then((data) {
-          equipementDataStreamController.add(data);
-        }).catchError((error) {
-          // Handle error
-        });
-        if(snapshot.connectionState == ConnectionState.waiting){
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 100),
-              child: CircularProgressIndicator(color: ColorManager.blueprime,),
-            ),
-          );
-        }
-        if (snapshot.data!.isEmpty) {
-          return Center(
-              child: Text(
-                AppString.dataNotFound,
-                style: CustomTextStylesCommon.commonStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: FontSize.s12,
-                    color: ColorManager.mediumgrey),
-              ));
-        }
-        if(snapshot.hasData){
-          return Expanded(
-            child: Container(
-              //height: MediaQuery.of(context).size.height/3,
-              child: Column(
-                children: [
-                  Container(
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          // Text(''),
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                AppString.srNo,
-                                style: GoogleFonts.firaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                          //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
-                          Expanded(
-                            child: Center(
-                              child: Text(AppStringHr.inventoryid,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    decoration: TextDecoration.none,
-                                  )),
-                            ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Text(AppStringHr.docName,
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    decoration: TextDecoration.none,
-                                  )),
-                            ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Text('Device Description',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    decoration: TextDecoration.none,
-                                  )),
-                            ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Text('Assign Date   ',
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    decoration: TextDecoration.none,
-                                  )),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          var equipmentData = snapshot.data![index];
-                          int serialNumber =
-                              index + 1 + (currentPage - 1) * itemsPerPage;
-
-                          String formattedSerialNumber =
-                          serialNumber.toString().padLeft(2, '0');
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(4),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0xff000000)
-                                              .withOpacity(0.25),
-                                          spreadRadius: 0,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 2),
-                                        ),
-                                      ],
-                                    ),
-                                    height: 50,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                formattedSerialNumber,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          // Text(''),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                "${equipmentData.inventoryId}",
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                equipmentData.name,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                equipmentData.givenId,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: Text(
-                                                equipmentData.assignedDate.toString(),
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xff686464),
-                                                  decoration: TextDecoration.none,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          //  Text(''),
-                                        ],
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          );
-                        }),
-
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              // width: 100,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.25),
+                    //spreadRadius: 1,
+                    blurRadius: 4,
+                    offset: Offset(0, 5),
                   ),
                 ],
               ),
+              margin: EdgeInsets.only(right: 10),
+              child: CustomIconButtonConst(
+                  text: AppStringHr.addNew,
+                  icon: Icons.add,
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) => EquipmentAddPopup(employeeId: widget.employeeId,));
+                  }),
             ),
-          );
-        }
-        return SizedBox();
-      }
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        StreamBuilder(
+          stream: equipementDataStreamController.stream,
+          builder: (context,snapshot) {
+            getEquipement(context).then((data) {
+              equipementDataStreamController.add(data);
+            }).catchError((error) {
+              // Handle error
+            });
+            if(snapshot.connectionState == ConnectionState.waiting){
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 100),
+                  child: CircularProgressIndicator(color: ColorManager.blueprime,),
+                ),
+              );
+            }
+            if (snapshot.data!.isEmpty) {
+              return Center(
+                  child: Text(
+                    AppString.dataNotFound,
+                    style: CustomTextStylesCommon.commonStyle(
+                        fontWeight: FontWeightManager.medium,
+                        fontSize: FontSize.s12,
+                        color: ColorManager.mediumgrey),
+                  ));
+            }
+            if(snapshot.hasData){
+              return Container(
+                height: MediaQuery.of(context).size.height/1,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            // Text(''),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  AppString.srNo,
+                                  style: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            //SizedBox(width: MediaQuery.of(context).size.width/7.5,),
+                            Expanded(
+                              child: Center(
+                                child: Text(AppStringHr.inventoryid,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    )),
+                              ),
+                            ),
+                            Expanded(
+                              child: Center(
+                                child: Text(AppStringHr.docName,
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    )),
+                              ),
+                            ),
+                            Expanded(
+                              child: Center(
+                                child: Text('Device Description',
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    )),
+                              ),
+                            ),
+                            Expanded(
+                              child: Center(
+                                child: Text('Assign Date   ',
+                                    style: GoogleFonts.firaSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                    )),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            var equipmentData = snapshot.data![index];
+                            int serialNumber =
+                                index + 1 + (currentPage - 1) * itemsPerPage;
+
+                            String formattedSerialNumber =
+                            serialNumber.toString().padLeft(2, '0');
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(4),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0xff000000)
+                                                .withOpacity(0.25),
+                                            spreadRadius: 0,
+                                            blurRadius: 4,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      height: 50,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  formattedSerialNumber,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            // Text(''),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  "${equipmentData.inventoryId}",
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  equipmentData.name,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  equipmentData.givenId,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Center(
+                                                child: Text(
+                                                  equipmentData.assignedDate.toString(),
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xff686464),
+                                                    decoration: TextDecoration.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            //  Text(''),
+                                          ],
+                                        ),
+                                      )),
+                                ),
+                              ],
+                            );
+                          }),
+
+                    ),
+                  ],
+                ),
+              );
+            }
+            return SizedBox();
+          }
+        ),
+      ],
     );
   }
 }
 
 
 class EquipmentAddPopup extends StatefulWidget {
-  const EquipmentAddPopup({super.key});
+  final int employeeId;
+  const EquipmentAddPopup({super.key, required this.employeeId});
 
   @override
   State<EquipmentAddPopup> createState() => _EquipmentAddPopupState();
@@ -478,7 +513,7 @@ class _EquipmentAddPopupState extends State<EquipmentAddPopup> {
                             isLoading = true;
                           });
                             await addEquipment(context, int.parse(idController.text), calenderController.text,
-                                2, typeName, 11, nameController.text);
+                                widget.employeeId, typeName, 11, nameController.text);
                             print("::${idController.text}");
                           print("::${typeName}");
                           print("::${calenderController.text}");

@@ -48,7 +48,7 @@ class _HrSalesScreenState extends State<HrSalesScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 20;
+    itemsPerPage = 30;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
     _loadColors();

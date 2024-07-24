@@ -41,7 +41,7 @@ class _HrAdministrativeScreenState extends State<HrAdministrativeScreen> {
   void initState() {
     super.initState();
     currentPage = 1;
-    itemsPerPage = 6;
+    itemsPerPage = 30;
     items = List.generate(20, (index) => 'Item ${index + 1}');
     administrativeData.loadEmployeeData();
     containerColors = List.generate(20, (index) => Color(0xffE8A87D));
