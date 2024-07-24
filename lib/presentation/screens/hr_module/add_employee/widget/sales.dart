@@ -935,6 +935,7 @@ class _SalesTabState extends State<SalesTab> {
                                 1,
                                 1,
                                 1,
+                                1,
                                 'SSN123',
                                 ctlrSocialSecurity.text,
                                 ctlrprimeNo.text,
@@ -972,7 +973,8 @@ class _SalesTabState extends State<SalesTab> {
                                 'Method',
                                 'Material',
                                 'Race',
-                                  'rating'
+                                  'rating',
+                                  "signatureURL"
                               );
                               print("Sales Employee Added");
                               ctlrfirstName.clear();

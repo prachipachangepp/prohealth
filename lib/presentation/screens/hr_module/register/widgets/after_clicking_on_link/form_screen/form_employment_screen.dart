@@ -183,7 +183,7 @@ class _Employment_screenState extends State<Employment_screen> {
                   label: Text(
                     'Add Experience',
                     style: GoogleFonts.firaSans(
-                      fontSize: 14.0,
+                      fontSize: 12.0,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                     ),
@@ -224,7 +224,7 @@ class _Employment_screenState extends State<Employment_screen> {
                   child: Text(
                     'Save',
                     style: GoogleFonts.firaSans(
-                      fontSize: 14.0,
+                      fontSize: 12.0,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                     ),

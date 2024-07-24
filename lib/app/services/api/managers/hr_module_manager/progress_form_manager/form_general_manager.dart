@@ -7,6 +7,7 @@ import '../../../repository/hr_module_repository/form_repository/form_general_re
 
 Future<ApiData> postgeneralscreen(
     BuildContext context,
+
     String code,
     int userID,
     String firstName,
@@ -16,6 +17,9 @@ Future<ApiData> postgeneralscreen(
     String expertise,
     int cityId,
     int countryId,
+    int countyId,
+    bool terminationFlag,
+    bool approved,
     int zoneId,
     String SSNNbr,
     String primaryPhoneNbr,
@@ -52,7 +56,9 @@ Future<ApiData> postgeneralscreen(
     String methods,
     String materials,
     String race,
-    String rating) async {
+    String rating,
+    String signatureURL
+    ) async {
   try {
     var response = await Api(context).post(
       path: ProgressBarRepository.postgeneralscreen(),
@@ -66,6 +72,7 @@ Future<ApiData> postgeneralscreen(
         "expertise": expertise,
         "cityId": cityId,
         "countryId": countryId,
+        "countyId": countyId,
         "zoneId": zoneId,
         "SSNNbr": SSNNbr,
         "primaryPhoneNbr": primaryPhoneNbr,
@@ -75,7 +82,7 @@ Future<ApiData> postgeneralscreen(
         "personalEmail": personalEmail,
         "workEmail": workEmail,
         "address": address,
-        "dateOfBirth": dateOfBirth,
+        "dateOfBirth":  "${dateOfBirth}T00:00:00Z",
         "emergencyContact": emergencyContact,
         "covreage": covreage,
         "employment": employment,
@@ -87,24 +94,26 @@ Future<ApiData> postgeneralscreen(
         "companyId": companyId,
         "onboardingStatus": onboardingStatus,
         "driverLicenceNbr": driverLicenceNbr,
-        "dateofTermination": dateofTermination,
-        "dateofResignation": dateofResignation,
-        "dateofHire": dateofHire,
+        "dateofTermination": "${dateofTermination}T00:00:00Z",
+        "dateofResignation": "${dateofResignation}T00:00:00Z",
+        "dateofHire": "${dateofHire}T00:00:00Z",
         "rehirable": rehirable,
         "position": position,
         "finalAddress": finalAddress,
         "type": type,
         "reason": reason,
         "finalPayCheck": finalPayCheck,
-        "checkDate": checkDate,
+        "checkDate": "${checkDate}T00:00:00Z",
         "grossPay": grossPay,
         "netPay": netPay,
         "methods": methods,
         "materials": materials,
         "race": race,
-        "rating": rating
+        "rating": rating,
+        "signatureURL": signatureURL
       },
     );
+    print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("General Added");
       // orgDocumentGet(context);

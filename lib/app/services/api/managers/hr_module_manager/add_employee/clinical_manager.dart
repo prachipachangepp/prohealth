@@ -106,6 +106,7 @@ Future<ApiData> addEmployeeClinical(
     String expritise,
     int cityID,
     int countryID,
+    int countyId,
     int zoneID,
     String ssnnBr,
     String primeNo,
@@ -145,6 +146,7 @@ Future<ApiData> addEmployeeClinical(
     String material,
     String race,
     String rating,
+    String signatureURL,
 
     ) async {
   try {
@@ -160,6 +162,7 @@ Future<ApiData> addEmployeeClinical(
         "expertise": expritise,
         "cityId": cityID,
         "countryId": countryID,
+        "countyId": countyId,
         "zoneId": zoneID,
         "SSNNbr": ssnnBr,
         "primaryPhoneNbr": primeNo,
@@ -197,6 +200,7 @@ Future<ApiData> addEmployeeClinical(
         "materials": material,
         "race": race,
         "rating": rating,
+        "signatureURL":signatureURL
 
       },
 

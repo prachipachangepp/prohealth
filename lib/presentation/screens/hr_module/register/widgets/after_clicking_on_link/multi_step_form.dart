@@ -159,17 +159,18 @@ class _MultiStepFormState extends State<MultiStepForm> {
                             label: Text(
                               "Back",
                               style: GoogleFonts.firaSans(
-                                fontSize: 14.0,
+                                fontSize: 12.0,
                                 fontWeight: FontWeight.w700,
                                 //color: Colors.white,
                               ),
                             ),
-                            icon: const Icon(Icons.arrow_back),
+                            icon: const Icon(Icons.arrow_back,  size: 16,),
                           )
                         ],
                         const SizedBox(
                           width: 20,
                         ),
+
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xff1696C8),
@@ -186,12 +187,12 @@ class _MultiStepFormState extends State<MultiStepForm> {
                           label: Text(
                             isLastStep ? 'Confirm' : 'Continue',
                             style: GoogleFonts.firaSans(
-                              fontSize: 14.0,
+                              fontSize: 12.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),
                           ),
-                          icon: const Icon(Icons.arrow_forward),
+                          icon: const Icon(Icons.arrow_forward, size: 16,),
                         ),
                       ],
                     ),

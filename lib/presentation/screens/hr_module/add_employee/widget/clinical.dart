@@ -2239,13 +2239,14 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                  'A212',
-                                  212,
+                                  'A215',
+                                  215,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
                                 1,
                                 1,
                                 'Expertise',
+                                1,
                                 1,
                                 1,
                                 1,
@@ -2286,7 +2287,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
                                 'Method',
                                 'Material',
                                 'Race',
-                                'rating'
+                                'rating',
+                                  'signatureURL'
                               );
                               print("Clinical Employee Added");
                               ctlrfirstName.clear();

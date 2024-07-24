@@ -1788,6 +1788,7 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                     1,
                                     1,
                                     1,
+                                    1,
                                     'SSN123',
                                     ctlrSocialSecurity.text,
                                     ctlrprimeNo.text,
@@ -1825,7 +1826,8 @@ class _AdministartionTabState extends State<AdministartionTab> {
                                     'Method',
                                     'Material',
                                     'Race',
-                                    'rating'
+                                    'rating',
+                                    "signatureURL"
                                 );
                                 print("Administration Employee Added");
                                 ctlrfirstName.clear();
