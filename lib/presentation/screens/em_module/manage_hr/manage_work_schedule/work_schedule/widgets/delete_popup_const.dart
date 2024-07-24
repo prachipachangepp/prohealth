@@ -19,6 +19,8 @@ class DeletePopup extends StatefulWidget {
 
   @override
   State<DeletePopup> createState() => _DeletePopupState();
+
+
 }
 //
 class _DeletePopupState extends State<DeletePopup> {
@@ -27,8 +29,8 @@ class _DeletePopupState extends State<DeletePopup> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: AppSize.s400,
-        height: AppSize.s210,
+        width: AppSize.s500,
+        height: AppSize.s181,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -68,78 +70,72 @@ class _DeletePopupState extends State<DeletePopup> {
                 ],
               ),
             ),
+            SizedBox(height: AppSize.s20,),
             Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: AppPadding.p20,
                 horizontal: AppPadding.p20,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
                 children: [
-                  Container(
-
-                    height: AppSize.s50,
-                    width: AppSize.s150,
-                    child: Text('Do you really want to delete ?',textAlign: TextAlign.center,
-                      style:CustomTextStylesCommon.commonStyle(
-                        fontWeight: FontWeightManager.regular,
-                        fontSize: FontSize.s16,
-                        color: ColorManager.mediumgrey
-                    ),),
-                  )
+                  Text('Do you really want to delete ?',
+                    style:CustomTextStylesCommon.commonStyle(
+                      fontWeight: FontWeightManager.regular,
+                      fontSize: FontSize.s16,
+                      color: ColorManager.mediumgrey
+                  ),
+                  ),
                 ],
               ),
             ),
             Spacer(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: AppPadding.p24),
-                  child: Center(
-                    child:
-                    TextButton(
+                  child:  SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
                       onPressed: widget.onCancel,
-                      child: Text('Cancel',
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(
+                            color: ColorManager.bluebottom,
+                            width: 1,
+                          ),
+                        ),),
+                      child: Text('Cancle',
                           style: GoogleFonts.firaSans(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
                             color: ColorManager.bluebottom,
-                          )),)
-                    //
-                    // CustomButtonTransparent(
-                    //   text: AppStringEM.cancel,
-                    //   onPressed: () async{
-                    //     widget.onCancel( );
-                    //     Navigator.pop(context);
-                    //   },
-                    // ),
-                  ),
+                          )),),
+                  )
                 ),
                 SizedBox(width: 20,),
                 Padding(
-                padding: const EdgeInsets.only(bottom: AppPadding.p24),
-                child: Center(
-                  child: widget.loadingDuration == true
-                      ? SizedBox(
-                    height: 25,
-                    width: 25,
-                    child: CircularProgressIndicator(
-                      color: ColorManager.blueprime,
-                    ),
-                  )
-                      : CustomElevatedButton(
-                    width: AppSize.s105,
-                    height: AppSize.s30,
-                    text: AppStringEM.delete,
-                    onPressed: () {
-                      widget.onDelete();
-                      //Navigator.pop(context);
-                    },
+                padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
+                child: widget.loadingDuration == true
+                    ? SizedBox(
+                  height: 25,
+                  width: 25,
+                  child: CircularProgressIndicator(
+                    color: ColorManager.blueprime,
                   ),
+                )
+                    : CustomElevatedButton(
+                  width: AppSize.s105,
+                  height: AppSize.s30,
+                  text: AppStringEM.delete,
+                  onPressed: () {
+                    widget.onDelete();
+                    //Navigator.pop(context);
+                  },
                 ),
-              ),]
+                ),]
             ),
             //
           ],

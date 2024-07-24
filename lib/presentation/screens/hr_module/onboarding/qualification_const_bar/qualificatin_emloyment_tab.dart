@@ -403,6 +403,7 @@ import '../../../../../../app/resources/color.dart';
 import '../../../../../../app/resources/const_string.dart';
 import '../../../../../../app/resources/font_manager.dart';
 import '../../../../../../data/api_data/hr_module_data/onboarding_data/onboarding_qualification_data.dart';
+import '../../../../../app/resources/value_manager.dart';
 import '../../manage/const_wrap_widget.dart';
 
 class QualificationEmployment extends StatefulWidget {
@@ -549,8 +550,8 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20.0),
                                         ),
-                                        height: 150.0,
-                                        width: 300.0,
+                                        height: 181.0,
+                                        width: 500.0,
                                         child: Stack(
                                           children: <Widget>[
                                             Container(
@@ -587,29 +588,33 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                               ),
                                             ),
                                             Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                "Do you really want to,\nreject this?",
-                                                textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeightManager.regular,
-                                                  color: ColorManager.mediumgrey,
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 20.0),
+                                                child: Text(
+                                                  "Do you really want to,reject this?",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeightManager.regular,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(10),
+                                              padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
                                               child: Align(
-                                                alignment: Alignment.bottomCenter,
+                                                alignment: Alignment.bottomRight,
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.end,
                                                   children: [
                                                     ElevatedButton(
                                                       onPressed: () {
                                                         Navigator.of(context).pop();
                                                       },
                                                       style: ElevatedButton.styleFrom(
+                                                        elevation: 5,
                                                         backgroundColor: Colors.white,
                                                         foregroundColor: Color(0xff1696C8),
                                                         side: BorderSide(color: Color(0xff1696C8)),
@@ -672,8 +677,8 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(20.0),
                                         ),
-                                        height: 150.0,
-                                        width: 300.0,
+                                        height: 181.0,
+                                        width: 500.0,
                                         child: Stack(
                                           children: <Widget>[
                                             Container(
@@ -689,7 +694,7 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Padding(
-                                                    padding: const EdgeInsets.only(left: 10.0),
+                                                    padding: const EdgeInsets.only(left: 20.0),
                                                     child: Text(
                                                       'Approve',
                                                       style: GoogleFonts.firaSans(
@@ -710,29 +715,33 @@ class _BankingTabContainerConstantState extends State<QualificationEmployment> {
                                               ),
                                             ),
                                             Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                "Do you really want to,\napprove this?",
-                                                textAlign: TextAlign.center,
-                                                style: GoogleFonts.firaSans(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeightManager.regular,
-                                                  color: ColorManager.mediumgrey,
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 20.0),
+                                                child: Text(
+                                                  "Do you really want to,approve this?",
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.firaSans(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeightManager.regular,
+                                                    color: ColorManager.mediumgrey,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(10),
+                                              padding: const EdgeInsets.only(bottom: AppPadding.p24,right: AppPadding.p10),
                                               child: Align(
-                                                alignment: Alignment.bottomCenter,
+                                                alignment: Alignment.bottomRight,
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.end,
                                                   children: [
                                                     ElevatedButton(
                                                       onPressed: () {
                                                         Navigator.of(context).pop();
                                                       },
                                                       style: ElevatedButton.styleFrom(
+                                                        elevation: 5,
                                                         backgroundColor: Colors.white,
                                                         foregroundColor: Color(0xff1696C8),
                                                         side: BorderSide(color: Color(0xff1696C8)),
