@@ -9,9 +9,14 @@ import 'package:prohealth/app/resources/const_string.dart';
 
 import '../../../../../../data/api_data/api_data.dart';
 import '../../../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
+import '../../../../token/token_manager.dart';
 import '../../../api.dart';
 
 import '../../../repository/hr_module_repository/add_employee/clinical.dart';
+import 'package:dio/dio.dart' as dio; // Alias Dio package
+import 'package:get/get_connect/http/src/multipart/form_data.dart' as get_form_data;
+
+// Other imports
 
 ///get Employee API
 Future<List<HRAddEmployeeGet>> HrAddEmployeeget(
@@ -305,7 +310,7 @@ Future<ApiData> addPhotoUpload(
         "resumeurl": resumeUrl,
         "companyId": companyID,
         "onboardingStatus": onboardingStatus,
-         "createdAt": "${createdAt}T00:00:00Z",
+        "createdAt": "${createdAt}T00:00:00Z",
         "terminationFlag": terminationFlag,
         "approved": approved,
         "dateofTermination": "${dateofTermination}T00:00:00Z",
@@ -349,6 +354,8 @@ Future<ApiData> addPhotoUpload(
         statusCode: 404, success: false, message: AppString.somethingWentWrong);
   }
 }
+
+
 
 
 

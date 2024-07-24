@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/uploadimage_service.dart';
+import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/add_employee/clinical.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -216,7 +217,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                 'Race',
               );
               print("Photo Uploaded");
-            },
+            }, title2: 'Are you sure want to upload photo ?',
           );
         },
       );
@@ -2210,7 +2211,11 @@ class _ClinicalTabState extends State<ClinicalTab> {
                 // height: 50,
                 width: MediaQuery.of(context).size.width / 1,
                 child: Center(
-                  child: CustomButton(
+                  child:
+
+
+                  ///
+                  CustomButton(
                     width: 125,
                     height: 33,
                     text: 'Add Employee',
@@ -2234,8 +2239,8 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               await addEmployeeClinical(
                                 context,
                                 1,
-                                  'A1044',
-                                  44,
+                                  'A212',
+                                  212,
                                 ctlrfirstName.text,
                                 ctlrlastName.text,
                                 1,
@@ -2294,7 +2299,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
                               ctlrworkNo.clear();
                               ctlrlastName.clear();
                               ctlrSocialSecurity.clear();
-                            },
+                            }, title2:  'Are you sure you want to add this employee?',
                           );
                         },
                       );
@@ -2315,6 +2320,7 @@ class ConfirmPopup extends StatefulWidget {
   final VoidCallback onConfirm;
   final bool? loadingDuration;
   final String title;
+  final String title2;
 
   ConfirmPopup({
     Key? key,
@@ -2322,6 +2328,7 @@ class ConfirmPopup extends StatefulWidget {
     required this.onConfirm,
     this.loadingDuration,
     required this.title,
+    required this.title2,
   }) : super(key: key);
 
   @override
@@ -2388,7 +2395,7 @@ class _ConfirmPopupState extends State<ConfirmPopup> {
                     height: AppSize.s50,
                     width: AppSize.s181,
                     child: Text(
-                      'Are you sure you want to add this employee?',
+                    widget.title2,
                       // textAlign: TextAlign.center,
                       style: CustomTextStylesCommon.commonStyle(
                         fontWeight: FontWeightManager.regular,

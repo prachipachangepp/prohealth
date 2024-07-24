@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/color.dart';
@@ -11,6 +15,11 @@ import '../../../../widgets/widgets/constant_textfield/const_textfield.dart';
 import '../../manage/widgets/custom_icon_button_constant.dart';
 import 'clinical.dart';
 import 'mcq_widget_add-employee.dart';
+import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
+import 'package:flutter/material.dart';
+import 'dart:io' show File;
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 ///prachi
 class SalesTab extends StatefulWidget {
@@ -48,11 +57,7 @@ class _SalesTabState extends State<SalesTab> {
   DateTime? selectedDate;
   late DateTime _selectedDate;
   List<DateTime?> dobList = [];
-  List<String> _personalEmails = [];
-  bool _isLoading = true;
   late Future<List<HRAddEmployeeGet>> _futureData;
-
-
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -84,31 +89,167 @@ class _SalesTabState extends State<SalesTab> {
       print("Error fetching data: $e");
     }
   }
+  ///upload img
+  File? image;
+  Uint8List? webImage;
+  final _picker = ImagePicker();
+  bool showSpinner = false;
+  String uploadStatus = "";
+
+  Future<void> getImage() async {
+    try {
+      if (kIsWeb) {
+        var mediaData = await ImagePickerWeb.getImageAsBytes();
+        if (mediaData != null) {
+          setState(() {
+            webImage = mediaData;
+          });
+        } else {
+          print("No Image Selected");
+        }
+      } else {
+        final pickedFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+        if (pickedFile != null) {
+          setState(() {
+            image = File(pickedFile.path);
+          });
+        } else {
+          print("No Image Selected");
+        }
+      }
+    } catch (e) {
+      print("Error picking image: $e");
+    }
+  }
+
+  Future<void> uploadImage() async {
+    if (image == null && webImage == null) {
+      setState(() {
+        uploadStatus = "No image selected!";
+      });
+      return;
+    }
+
+    setState(() {
+      showSpinner = true;
+    });
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse('http://50.112.139.35:3000/employees/attach-photo/2'));
+      if (kIsWeb) {
+        request.files.add(http.MultipartFile.fromBytes('image', webImage!, filename: 'upload.png'));
+      } else {
+        request.files.add(await http.MultipartFile.fromPath('image', image!.path));
+      }
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        setState(() {
+          uploadStatus = "Image uploaded successfully!";
+        });
+      } else {
+        final responseBody = await response.stream.bytesToString();
+        setState(() {
+          uploadStatus = "Failed to upload image: ${response.statusCode} - $responseBody";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        uploadStatus = "Error uploading image: $e";
+      });
+    } finally {
+      setState(() {
+        showSpinner = false;
+      });
+    }
+  }
+
+  ///
+  // File? image ;
+  // final _picker = ImagePicker();
+  // bool showSpinner = false;
+  //
+  // Future getImage() async {
+  //   final pickedFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+  //
+  //   if(pickedFile ! = null){
+  //     image = File(pickedFile.path);
+  //     setState(() {
+  //
+  //     });
+  //   } else {
+  //       print("No Image Selected");
+  //   }
+  // }
+  //
+  // File? image;
+  // final _picker = ImagePicker();
+  // bool showSpinner = false;
+  //
+  // Future getImage() async {
+  //   final pickedFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+  //
+  //   if (pickedFile != null) {
+  //     image = File(pickedFile.path);
+  //     setState(() {});
+  //   } else {
+  //     print("No Image Selected");
+  //   }
+  // }
+  //
+  // Future<void> uploadImage () async {
+  //   // setState(() {
+  //   //   showSpinner  = true;
+  //   // });
+  //   var Stream = new http.ByteStream(image!.openRead());
+  //   Stream.cast();
+  //
+  //   var length = await image!.length();
+  //
+  //   var uri = Uri.parse('http://50.112.139.35:3000/employees/attach-photo/2');
+  //
+  //   var request = new http.MultipartRequest('POST', uri);
+  //
+  //   request.fields['file'] = 'Static title' ;
+  //
+  //   var multipart = new http.MultipartFile('file', Stream, length);
+  //
+  //   request.files.add(multipart);
+  //
+  //   var response = await request.send();
+  //
+  //   if(response.statusCode == 200){
+  //     print("Image Uploaded");
+  //   } else{
+  //     print("Failed");
+  //   }
+  // }
   @override
   void initState() {
     super.initState();
-    _fetchData();
+    // _fetchData();
     _futureData = HrAddEmployeeget(context);
   }
 
-  Future<void> _fetchData() async {
-    try {
-      List<HRAddEmployeeGet> data = await HrAddEmployeeget(context);
-      setState(() {
-        _personalEmails = data
-            .map((e) => e.personalEmail)
-            .where((email) => email != null)
-            .cast<String>()
-            .toList();
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-      print('Error fetching data: $e');
-    }
-  }
+  // Future<void> _fetchData() async {
+  //   try {
+  //     List<HRAddEmployeeGet> data = await HrAddEmployeeget(context);
+  //     setState(() {
+  //       _personalEmails = data
+  //           .map((e) => e.personalEmail)
+  //           .where((email) => email != null)
+  //           .cast<String>()
+  //           .toList();
+  //       _isLoading = false;
+  //     });
+  //   } catch (e) {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //     print('Error fetching data: $e');
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     double containerHeight1 = MediaQuery.of(context).size.height * 0.32;
@@ -131,63 +272,142 @@ class _SalesTabState extends State<SalesTab> {
                 // height: 40,
                 width: MediaQuery.of(context).size.width / 1,
                 child:
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (_fileName != null)
-                      Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: Text(
-                          _fileName!,
-                          style: TextStyle(
-                            fontFamily: 'FiraSans',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: getImage,
+                        child: Container(
+                          child: image == null && webImage == null
+                              ? Center(child: Text('Pick Image'))
+                              : Container(
+                            child: Center(
+                              child: kIsWeb
+                                  ? Image.memory(
+                                webImage!,
+                                height: 40,
+                                width: 40,
+                                fit: BoxFit.cover,
+                              )
+                                  : Image.file(
+                                image!,
+                                height: 40,
+                                width: 40,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ElevatedButton.icon(
-                      onPressed: () async {
-                        FilePickerResult? result = await FilePicker.platform.pickFiles(
-                          type: FileType.image,
-                          allowMultiple: false,
-                        );
+                      SizedBox(width: 5),
+                     CustomButton(
+                       width: 125,
+                       height: 30,
+                       onPressed: uploadImage, text: 'Upload Photo',),
+                      SizedBox(height: 10),
+                      showSpinner ? CircularProgressIndicator() : Text(uploadStatus),
+                    ],
+                  ),
+                ),
 
-                        if (result != null) {
-                          PlatformFile file = result.files.first;
-                          setState(() {
-                            _fileName = file.name;
-                          });
-                          print('File path: ${file.path}');
-                        }
-                      },
-                      icon: Icon(
-                        Icons.file_upload_outlined,
-                        color: Colors.white,
-                      ),
-                      label: Text(
-                        'Upload Photo',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'FiraSans',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff1696C8),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+                // Column(
+                //   children: [
+                //     GestureDetector(
+                //       onTap: () {
+                //         getImage();
+                //       },
+                //       child: Container(
+                //         child:  image == null ? Center(child: Text('Pick Image'),)
+                //             :
+                //       Container(
+                //         child: Center(
+                //           child: Image.file(File(image!.path).absolute,
+                //           height: 40,
+                //             width: 40,
+                //             fit: BoxFit.cover,
+                //           ),
+                //         ),
+                //       ),
+                //       ),
+                //     ), SizedBox(
+                //       height: 10,
+                //
+                //     ),
+                //     GestureDetector(
+                //       onTap: (){
+                //        uploadImage();
+                //       },
+                //       child:
+                //       Container(
+                //         height: 30,
+                //         width: 80,
+                //         color: Colors.lightBlue,
+                //         child: Center(child: Text("Uploaded", style: TextStyle(
+                //           color: Colors.white,
+                //         ),)),
+                //       ),
+                //     )
+                //   ],
+                // )
+                ///
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     if (_fileName != null)
+                //       Padding(
+                //         padding: EdgeInsets.only(right: 8.0),
+                //         child: Text(
+                //           _fileName!,
+                //           style: TextStyle(
+                //             fontFamily: 'FiraSans',
+                //             fontSize: 12,
+                //             fontWeight: FontWeight.w700,
+                //             color: Colors.black,
+                //           ),
+                //         ),
+                //       ),
+                //     ElevatedButton.icon(
+                //       onPressed: () async {
+                //         FilePickerResult? result = await FilePicker.platform.pickFiles(
+                //           type: FileType.image,
+                //           allowMultiple: false,
+                //         );
+                //
+                //         if (result != null) {
+                //           PlatformFile file = result.files.first;
+                //           setState(() {
+                //             _fileName = file.name;
+                //           });
+                //           print('File path: ${file.path}');
+                //         }
+                //       },
+                //       icon: Icon(
+                //         Icons.file_upload_outlined,
+                //         color: Colors.white,
+                //       ),
+                //       label: Text(
+                //         'Upload Photo',
+                //         textAlign: TextAlign.center,
+                //         style: TextStyle(
+                //           fontFamily: 'FiraSans',
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.w700,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //       style: ElevatedButton.styleFrom(
+                //         backgroundColor: Color(0xff1696C8),
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(12),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // )
               ),
             ),
-
+      SizedBox(height: 10,),
             ///first container
             Expanded(
               flex: 2,
@@ -261,7 +481,7 @@ class _SalesTabState extends State<SalesTab> {
                             },
                           ),
 
-                          ///social security
+                         // /social security
                           FutureBuilder<List<HRAddEmployeeGet>>(
                             future: _futureData,
                             builder: (context, snapshot) {
@@ -766,7 +986,7 @@ class _SalesTabState extends State<SalesTab> {
                               ctlrlastName.clear();
                               ctlrSocialSecurity.clear();
 
-                            },
+                            }, title2:  'Are you sure you want to add this employee?',
                           );
                         },
                       );
