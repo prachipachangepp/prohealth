@@ -417,7 +417,7 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                     : CustomElevatedButton(
                   width: AppSize.s105,
                   height: AppSize.s30,
-                  text: AppStringEM.add,
+                  text: "Add holiday",
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
                       setState(() {
@@ -429,9 +429,9 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
                         setState(() {
                           isLoading = false;
                         });
-                        Navigator.pop(context);
-                        widget.calenderDateController.clear();
-                        widget.controller.clear();
+                        // Navigator.pop(context);
+                        // widget.calenderDateController.clear();
+                        // widget.controller.clear();
                       }
                     }
                   },
@@ -444,4 +444,10 @@ class _AddHolidayPopupState extends State<AddHolidayPopup> {
     );
   }
 }
+
+
+
+
+
+
 

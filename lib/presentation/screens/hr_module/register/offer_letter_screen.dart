@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/zone_manager.dart';
+import 'package:prohealth/data/api_data/establishment_data/zone/zone_model_data.dart';
+import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/offer_letter_constant.dart';
@@ -10,6 +13,7 @@ import '../../../../app/resources/const_string.dart';
 import '../../../../app/resources/value_manager.dart';
 import '../../../../app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import '../../../../data/api_data/hr_module_data/add_employee/clinical.dart';
+import '../../../widgets/widgets/constant_textfield/const_textfield.dart';
 
  List<Map<String, dynamic>> checkboxData = [
   {'title': '95673', 'value': false},
@@ -158,14 +162,14 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                     Row(
                       children: [
                         Expanded(
-                          child: CustomTextField(
+                          child: CustomTextFieldOfferScreen(
                             height: 36,
                               controller: issueDateController,
                               labelText: 'Issue Date'),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 80),
                         Expanded(
-                          child: CustomTextField(
+                          child: CustomTextFieldOfferScreen(
                             height: 36,
                             controller: lastDateController,
                             labelText: 'Last Date',
@@ -173,7 +177,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width / 80),
                         Expanded(
-                          child: CustomTextField(
+                          child: CustomTextFieldOfferScreen(
                             height: 36,
                             controller: startDateController,
                             labelText: 'Anticipated Start Date',
@@ -187,7 +191,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         Container(
                           // width: MediaQuery.of(context).size.width/4,
                           child: Expanded(
-                            child: CustomTextField(
+                            child: CustomTextFieldOfferScreen(
                               height: 36,
                               controller: verbalAcceptanceController,
                               labelText: 'Verbal Acceptance',
@@ -310,61 +314,63 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: [
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width/5,
-                                        height: AppSize.s40,
-                                        //alignment: Alignment.center,
-                                        //color: Colors.cyan,
+                                      // SizedBox(
+                                      //   width: MediaQuery.of(context).size.width/5,
+                                      //   height: AppSize.s40,
+                                      //   //alignment: Alignment.center,
+                                      //   //color: Colors.cyan,
+                                      //
+                                      //   child:
+                                      //   FutureBuilder<List<AEClinicalCity>>(
+                                      //     future: HrAddEmplyClinicalCityApi(context),
+                                      //     builder: (context, snapshot) {
+                                      //       if (snapshot.connectionState ==
+                                      //           ConnectionState.waiting) {
+                                      //         return Shimmer.fromColors(
+                                      //           baseColor: Colors.grey[300]!,
+                                      //           highlightColor: Colors.grey[100]!,
+                                      //           child: Padding(
+                                      //             padding: const EdgeInsets.symmetric(
+                                      //                 horizontal: 7),
+                                      //             child: Container(
+                                      //               width: 180,
+                                      //               height: 40,
+                                      //               decoration: BoxDecoration(
+                                      //                   color:
+                                      //                   ColorManager.faintGrey),
+                                      //             ),
+                                      //           ),
+                                      //         );
+                                      //       }
+                                      //       if (snapshot.hasData) {
+                                      //         List<String> dropDownList = [];
+                                      //         for (var i in snapshot.data!) {
+                                      //           dropDownList.add(i.cityName!);
+                                      //         }
+                                      //         return  CustomDropdownFormField(
+                                      //           height: 45,
+                                      //           hintText: 'Select a City',
+                                      //           labelText: 'City',
+                                      //           items: dropDownList,
+                                      //          // onChanged: (String? value) {},
+                                      //         );
+                                      //         //   MyDropdownTextField(
+                                      //         //   hint: AppString.city,
+                                      //         //   // labelStyle: GoogleFonts.firaSans(
+                                      //         //   //   fontSize: 12,
+                                      //         //   //   color: Color(0xff575757),
+                                      //         //   //   fontWeight: FontWeight.w400,
+                                      //         //   // ),
+                                      //         //   // labelFontSize: 12,
+                                      //         //   items: dropDownList,
+                                      //         // );
+                                      //       } else {
+                                      //         return const Offstage();
+                                      //       }
+                                      //     },
+                                      //   ),),
 
-                                        child:
-                                        FutureBuilder<List<AEClinicalCity>>(
-                                          future: HrAddEmplyClinicalCityApi(context),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor: Colors.grey[100]!,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.symmetric(
-                                                      horizontal: 7),
-                                                  child: Container(
-                                                    width: 180,
-                                                    height: 40,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                        ColorManager.faintGrey),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            if (snapshot.hasData) {
-                                              List<String> dropDownList = [];
-                                              for (var i in snapshot.data!) {
-                                                dropDownList.add(i.cityName!);
-                                              }
-                                              return  CustomDropdownFormField(
-                                                height: 45,
-                                                hintText: 'Select a City',
-                                                labelText: 'City',
-                                                items: dropDownList,
-                                               // onChanged: (String? value) {},
-                                              );
-                                              //   MyDropdownTextField(
-                                              //   hint: AppString.city,
-                                              //   // labelStyle: GoogleFonts.firaSans(
-                                              //   //   fontSize: 12,
-                                              //   //   color: Color(0xff575757),
-                                              //   //   fontWeight: FontWeight.w400,
-                                              //   // ),
-                                              //   // labelFontSize: 12,
-                                              //   items: dropDownList,
-                                              // );
-                                            } else {
-                                              return const Offstage();
-                                            }
-                                          },
-                                        ),),
+
                                       // CustomDropdownFormField(
                                       //   height: 45,
                                       //   hintText: 'Select a City',
@@ -377,114 +383,299 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                       //   ],
                                       //   onChanged: (String? value) {},
                                       // ),
-                                      SizedBox(height: MediaQuery.of(context).size.height / 20),
-                                      CustomDropdownFormField(
-                                        height: 45,
-                                        hintText: 'Select a Country',
-                                        labelText: 'Country',
-                                        items: [
-                                          'Alameida',
-                                          'San Joachim',
-                                        ],
-                                        onChanged: (String? value) {},
-                                      ),
-                                      SizedBox(height: MediaQuery.of(context).size.height / 20),
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width/5,
-                                        height: AppSize.s40,
-                                        //alignment: Alignment.center,
-                                        //color: Colors.cyan,
-
-                                        child:
-                                        FutureBuilder<List<AEClinicalZone>>(
-                                          future: HrAddEmplyClinicalZoneApi(
-                                            context,
-                                          ),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor: Colors.grey[100]!,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.symmetric(
-                                                      horizontal: 7),
-                                                  child: Container(
-                                                    width: 180,
-                                                    height: 40,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.grey[300]),
-                                                  ),
+                                      ///county
+                                      FutureBuilder<List<AllCountyGetList>>(
+                                        future:getCountyZoneList(context),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.grey[100]!,
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 7),
+                                                child: Container(
+                                                  width: AppSize.s250,
+                                                  height: AppSize.s40,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.grey[300]),
                                                 ),
-                                              );
-                                            } else if (snapshot.hasError) {
-                                              return MyDropdownTextField(
-                                                hint: AppString.zone,
-                                                // labelText: 'Zone',
-                                                // labelStyle: TextStyle(
-                                                //   fontSize: 12,
-                                                //   color: Color(0xff575757),
-                                                //   fontWeight: FontWeight.w400,
-                                                // ),
-                                                // labelFontSize: 12,
-                                                items: ['Error'],
-                                              );
-                                            } else if (snapshot.hasData) {
-                                              List<String> dropDownList = snapshot
-                                                  .data!
-                                                  .map((zone) => zone.zoneName ?? '')
-                                                  .toList();
-                                              return MyDropdownTextField(
-                                                hint: AppString.zone,
-                                                // labelText: 'Zone',
-                                                // labelStyle: TextStyle(
-                                                //   fontSize: 12,
-                                                //   color: Color(0xff575757),
-                                                //   fontWeight: FontWeight.w400,
-                                                // ),
-                                                // labelFontSize: 12,
-                                                items: dropDownList,
-                                                onChanged: (newValue) {
-                                                  // Handle onChanged here if needed
-                                                },
-                                              );
-                                            } else {
-                                              return MyDropdownTextField(
-                                                hint: AppString.zone,
-                                                // labelText: 'Zone',
-                                                // labelStyle: TextStyle(
-                                                //   fontSize: 12,
-                                                //   color: Color(0xff575757),
-                                                //   fontWeight: FontWeight.w400,
-                                                // ),
-                                                // labelFontSize: 12,
-                                                items: ['No Data'],
-                                              );
-                                            }
-                                          },
-                                        ),
-                                        // MyDropdownTextField(
-                                        //   hint: AppString.zone,
-                                        //
-                                        //   //width: MediaQuery.of(context).size.width/7,
-                                        //   // height: AppSize.s25,
-                                        //   items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                                        //   onChanged: (String? newValue) {
-                                        //     print('Selected item: $newValue');
-                                        //   },
-                                        // ),
+                                              ),
+                                            );
+                                          } else if (snapshot.hasError) {
+                                            return CustomDropdownTextField(
+                                              labelText: 'County',
+                                              labelStyle: TextStyle(
+                                                fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              labelFontSize: 12,
+                                              items: ['Error'],
+                                            );
+                                          } else if (snapshot.hasData) {
+                                            List<String> dropDownList = snapshot.data!
+                                                .map((county) => county.countyName ?? '')
+                                                .toList();
+                                            print("County: ");
+                                            return CustomDropdownTextField(
+                                              labelText: 'County',
+                                              labelStyle: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              labelFontSize: 12,
+                                              items: dropDownList,
+                                              onChanged: (newValue) {
+                                                // Handle onChanged here if needed
+                                              },
+                                            );
+                                          } else {
+                                            return CustomDropdownTextField(
+                                              labelText: 'County',
+                                              labelStyle: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              labelFontSize: 12,
+                                              items: ['No Data'],
+                                            );
+                                          }
+                                        },
                                       ),
-                                      // CustomDropdownFormField(
-                                      //   height: 45,
-                                      //   hintText: 'Select a Zone',
-                                      //   labelText: 'Zone',
-                                      //   items: [
-                                      //     '1',
-                                      //     '2',
-                                      //     '3',
-                                      //     '4',
-                                      //   ],
-                                      //   onChanged: (String? value) {},
+//                                       FutureBuilder<List<AllCountyGetList>>(
+//                                         future: getCountyZoneList(context),
+//                                         builder: (context, snapshot) {
+//                                           if (snapshot.connectionState ==
+//                                               ConnectionState.waiting) {
+//                                             return Shimmer.fromColors(
+//                                               baseColor: Colors.grey[300]!,
+//                                               highlightColor: Colors.grey[100]!,
+//                                               child: Padding(
+//                                                 padding: const EdgeInsets.symmetric(
+//                                                     horizontal: 7),
+//                                                 child: Container(
+//                                                   width: AppSize.s250,
+//                                                   height: AppSize.s40,
+//                                                   decoration: BoxDecoration(
+//                                                       color: ColorManager.faintGrey),
+//                                                 ),
+//                                               ),
+//                                             );
+//                                           }
+//                                           if (snapshot.hasData) {
+//                                             List<String> dropDownList = [];
+//                                             for (var i in snapshot.data!) {
+//                                               dropDownList.add(i.countyName);
+//                                             }
+//                                      return CustomDropdownFormField(
+//                                         height: 45,
+//                                         hintText: 'County',
+//                                         labelText: 'Country',
+//                                         items: dropDownList
+//                                        // onChanged: (String? value) {},
+//                                       );
+//   } else {
+//   return const Offstage();
+//   }
+// },
+// ),
+
+                                      SizedBox(height: MediaQuery.of(context).size.height / 20),
+                                      ///zone api
+                                      // FutureBuilder<List<AEClinicalZone>>(
+                                      //   future: HrAddEmplyClinicalZoneApi(
+                                      //     context,
+                                      //   ),
+                                      //   builder: (context, snapshot) {
+                                      //     if (snapshot.connectionState ==
+                                      //         ConnectionState.waiting) {
+                                      //       return Shimmer.fromColors(
+                                      //         baseColor: Colors.grey[300]!,
+                                      //         highlightColor: Colors.grey[100]!,
+                                      //         child: Padding(
+                                      //           padding: const EdgeInsets.symmetric(
+                                      //               horizontal: 7),
+                                      //           child: Container(
+                                      //             width: 180,
+                                      //             height: 40,
+                                      //             decoration: BoxDecoration(
+                                      //                 color: Colors.grey[300]),
+                                      //           ),
+                                      //         ),
+                                      //       );
+                                      //     }
+                                      //     else if (snapshot.hasError) {
+                                      //       return MyDropdownTextField(
+                                      //         hint: AppString.zone,
+                                      //         // labelText: 'Zone',
+                                      //         // labelStyle: TextStyle(
+                                      //         //   fontSize: 12,
+                                      //         //   color: Color(0xff575757),
+                                      //         //   fontWeight: FontWeight.w400,
+                                      //         // ),
+                                      //         // labelFontSize: 12,
+                                      //         items: ['Error'],
+                                      //       );
+                                      //     }
+                                      //     else if (snapshot.hasData) {
+                                      //       List<String> dropDownList = snapshot
+                                      //           .data!
+                                      //           .map((zone) => zone.zoneName ?? '')
+                                      //           .toList();
+                                      //        return CustomDropdownFormField(
+                                      //           height: 45,
+                                      //           hintText: 'Zone',
+                                      //           labelText: 'Zone',
+                                      //           items: dropDownList
+                                      //         // onChanged: (String? value) {},
+                                      //       );;
+                                      //     } else {
+                                      //       return Offstage();
+                                      //     }
+                                      //   },
+                                      // ),
+                                      FutureBuilder<List<AEClinicalZone>>(
+                                        future: HrAddEmplyClinicalZoneApi(
+                                          context,
+                                        ),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return Shimmer.fromColors(
+                                              baseColor: Colors.grey[300]!,
+                                              highlightColor: Colors.grey[100]!,
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 7),
+                                                child: Container(
+                                                  width: AppSize.s250,
+                                                  height: AppSize.s40,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.grey[300]),
+                                                ),
+                                              ),
+                                            );
+                                          } else if (snapshot.hasError) {
+                                            return CustomDropdownTextField(
+                                              labelText: 'Zone',
+                                              labelStyle: TextStyle(
+                                                fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              labelFontSize: 12,
+                                              items: ['Error'],
+                                            );
+                                          } else if (snapshot.hasData) {
+                                            List<String> dropDownList = snapshot.data!
+                                                .map((zone) => zone.zoneName ?? '')
+                                                .toList();
+                                            print("Zone: ");
+                                            return CustomDropdownTextField(
+                                              labelText: 'Zone',
+                                              labelStyle: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              labelFontSize: 12,
+                                              items: dropDownList,
+                                              onChanged: (newValue) {
+                                                // Handle onChanged here if needed
+                                              },
+                                            );
+                                          } else {
+                                            return CustomDropdownTextField(
+                                              labelText: 'Zone',
+                                              labelStyle: GoogleFonts.firaSans(
+                                                fontSize: 12,
+                                                color: Color(0xff575757),
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              labelFontSize: 12,
+                                              items: ['No Data'],
+                                            );
+                                          }
+                                        },
+                                      ),
+                                      ///
+                                      // SizedBox(
+                                      //   width: MediaQuery.of(context).size.width/5,
+                                      //   height: AppSize.s40,
+                                      //   //alignment: Alignment.center,
+                                      //   //color: Colors.cyan,
+                                      //   child:
+                                      //   FutureBuilder<List<AEClinicalZone>>(
+                                      //     future: HrAddEmplyClinicalZoneApi(
+                                      //       context,
+                                      //     ),
+                                      //     builder: (context, snapshot) {
+                                      //       if (snapshot.connectionState ==
+                                      //           ConnectionState.waiting) {
+                                      //         return Shimmer.fromColors(
+                                      //           baseColor: Colors.grey[300]!,
+                                      //           highlightColor: Colors.grey[100]!,
+                                      //           child: Padding(
+                                      //             padding: const EdgeInsets.symmetric(
+                                      //                 horizontal: 7),
+                                      //             child: Container(
+                                      //               width: 180,
+                                      //               height: 40,
+                                      //               decoration: BoxDecoration(
+                                      //                   color: Colors.grey[300]),
+                                      //             ),
+                                      //           ),
+                                      //         );
+                                      //       } else if (snapshot.hasError) {
+                                      //         return MyDropdownTextField(
+                                      //           hint: AppString.zone,
+                                      //           // labelText: 'Zone',
+                                      //           // labelStyle: TextStyle(
+                                      //           //   fontSize: 12,
+                                      //           //   color: Color(0xff575757),
+                                      //           //   fontWeight: FontWeight.w400,
+                                      //           // ),
+                                      //           // labelFontSize: 12,
+                                      //           items: ['Error'],
+                                      //         );
+                                      //       } else if (snapshot.hasData) {
+                                      //         List<String> dropDownList = snapshot
+                                      //             .data!
+                                      //             .map((zone) => zone.zoneName ?? '')
+                                      //             .toList();
+                                      //         return MyDropdownTextField(
+                                      //           hint: AppString.zone,
+                                      //           // labelText: 'Zone',
+                                      //           // labelStyle: TextStyle(
+                                      //           //   fontSize: 12,
+                                      //           //   color: Color(0xff575757),
+                                      //           //   fontWeight: FontWeight.w400,
+                                      //           // ),
+                                      //           // labelFontSize: 12,
+                                      //           items: dropDownList,
+                                      //           onChanged: (newValue) {
+                                      //             // Handle onChanged here if needed
+                                      //           },
+                                      //         );
+                                      //       } else {
+                                      //         return MyDropdownTextField(
+                                      //           hint: AppString.zone,
+                                      //           // labelText: 'Zone',
+                                      //           // labelStyle: TextStyle(
+                                      //           //   fontSize: 12,
+                                      //           //   color: Color(0xff575757),
+                                      //           //   fontWeight: FontWeight.w400,
+                                      //           // ),
+                                      //           // labelFontSize: 12,
+                                      //           items: ['No Data'],
+                                      //         );
+                                      //       }
+                                      //     },
+                                      //   ),
                                       // ),
                                     ],
                                   ),
@@ -614,32 +805,33 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   titlePadding: EdgeInsets.zero,
                                   title: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(17.0),
-                                        topRight: Radius.circular(17.0),
+                                        topLeft: Radius.circular(12.0),
+                                        topRight: Radius.circular(12.0),
                                       ),
                                     ),
                                     width: 302,
-                                    height: 300,
+                                    height: 246,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Container(
+                                          //height: 35,
                                           width: double.infinity,
                                           decoration: BoxDecoration(
                                             color: Color(0xff1696C8),
                                             borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(16.0),
-                                              topRight: Radius.circular(16.0),
+                                              topLeft: Radius.circular(12.0),
+                                              topRight: Radius.circular(12.0),
                                             ),
                                           ),
-                                          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                                          padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
                                           child: Align(
                                             alignment: Alignment.topRight,
                                             child: IconButton(
@@ -651,7 +843,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+                                          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -663,7 +855,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                   color: Color(0xff686464)
                                                 ),
                                               ),
-                                              SizedBox(height: MediaQuery.of(context).size.height/20,),
+                                              SizedBox(height: MediaQuery.of(context).size.height/30,),
                                               TextFormField(
                                                 cursorColor: Colors.black,
                                                 decoration: InputDecoration(
@@ -698,7 +890,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                 ),
                                                 keyboardType: TextInputType.number,
                                               ),
-                                              SizedBox(height: MediaQuery.of(context).size.height/17),
+                                              SizedBox(height: MediaQuery.of(context).size.height/20),
                                               Center(
                                                 child: ElevatedButton(
                                                   onPressed: () {
@@ -712,7 +904,7 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                                                     ),
                                                   ),
                                                   child: Padding(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                                                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
                                                     child: Text(
                                                       'Submit',
                                                       style: GoogleFonts.firaSans(
@@ -814,7 +1006,20 @@ class _OfferLetterScreenState extends State<OfferLetterScreen> {
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width/75),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ConfirmationPopup(
+                                  onCancel: () {Navigator.pop(context);},
+                                  onConfirm: () {Navigator.pop(context);},
+                                  title: 'Confirm Enrollment',
+                                  containerText: 'Do you really want to enroll?',
+                                );
+                              },
+                            );
+                          },
+
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xff1696C8),
                             foregroundColor: Colors.white,

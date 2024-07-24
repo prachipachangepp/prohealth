@@ -154,6 +154,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(flex: 4, child: Container()),
+                SizedBox(width: 16),
                 Expanded(
                   flex: 1,
                   child: Text(
@@ -165,6 +166,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     ),
                   ),
                 ),
+                SizedBox(width: 10),
                 Expanded(flex: 2, child: Container()),
                 Expanded(
                   flex: 2,
@@ -178,6 +180,7 @@ class _CompanyIdentityState extends State<CompanyIdentity> {
                     ),
                   ),
                 ),
+                SizedBox(width: 10),
                 Expanded(flex: 1, child: Container()),
                 Expanded(
                   flex: 3,

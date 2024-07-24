@@ -252,12 +252,12 @@ class _ClinicalHrScreenState extends State<ClinicalHrScreen> {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                  // showDialog(
-                                  //   context: context,
-                                  //   builder: (BuildContext context) {
-                                  //     return EditPopUp();
-                                  //   },
-                                  // );
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return EditPopUp();
+                                    },
+                                  );
                                 },
                                 icon: Icon(Icons.edit_outlined, size: 18),
                                 color: Color(0xff50B5E5),

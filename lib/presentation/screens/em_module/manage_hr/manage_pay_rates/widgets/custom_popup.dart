@@ -167,6 +167,7 @@
 ///////////////////////////after validation//////////////////
 
 
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/color.dart';
@@ -227,7 +228,6 @@ class _PayRatesPopupState extends State<PayRatesPopup> {
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Dialog(

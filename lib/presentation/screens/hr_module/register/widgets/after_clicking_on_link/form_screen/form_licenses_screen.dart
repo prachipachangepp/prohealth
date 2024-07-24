@@ -3,7 +3,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:prohealth/app/services/api/managers/hr_module_manager/progress_form_manager/form_licenses_manager.dart';
 
+import '../../../../../../../app/resources/color.dart';
 import '../../../taxtfield_constant.dart';
 
 class LicensesScreen extends StatefulWidget {
@@ -28,6 +30,9 @@ class _LicensesScreenState extends State<LicensesScreen> {
 
   /////
   TextEditingController _controller = TextEditingController();
+  TextEditingController licensure = TextEditingController();
+  TextEditingController org = TextEditingController();
+  TextEditingController licensurenumber = TextEditingController();
   TextEditingController _controllerIssueDate = TextEditingController();
   TextEditingController _controllerExpirationDate = TextEditingController();
 
@@ -41,12 +46,34 @@ class _LicensesScreenState extends State<LicensesScreen> {
 
   bool isCompleted = false;
   String? _selectedCountry;
-  String? _selectedClinician;
-  String? _selectedSpeciality;
-  String? _selectedDegree;
-  late bool _passwordVisible = false;
-  String? _selectedType;
-  String? _selectedType1;
+
+
+  List<String> _fileNames = [];
+  bool _loading = false;
+
+  void _pickFiles() async {
+    setState(() {
+      _loading = true; // Show loader
+      _fileNames.clear(); // Clear previous file names if any
+    });
+
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+    );
+
+    if (result != null) {
+      setState(() {
+        _fileNames.addAll(result.files.map((file) => file.name!));
+        _loading = false; // Hide loader
+      });
+      print('Files picked: $_fileNames');
+    } else {
+      setState(() {
+        _loading = false; // Hide loader on cancel
+      });
+      print('User canceled the picker');
+    }
+  }
 
 
 
@@ -191,6 +218,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                                       MediaQuery.of(context).size.height /
                                           60),
                               CustomTextFieldRegister(
+                                controller: licensure,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -215,6 +243,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                                       MediaQuery.of(context).size.height /
                                           60),
                               CustomTextFieldRegister(
+                                controller: org,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -304,6 +333,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                                       MediaQuery.of(context).size.height /
                                           60),
                               CustomTextFieldRegister(
+                                controller: licensurenumber,
                                 hintText: 'Enter Text',
                                 hintStyle: GoogleFonts.firaSans(
                                   fontSize: 10.0,
@@ -452,18 +482,19 @@ class _LicensesScreenState extends State<LicensesScreen> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 5),
                         ElevatedButton.icon(
-                          onPressed: () async {
-                            FilePickerResult? result =
-                                await FilePicker.platform.pickFiles(
-                              allowMultiple: false,
-                            );
-                            if (result != null) {
-                              PlatformFile file = result.files.first;
-                              print('File picked: ${file.name}');
-                            } else {
-                              // User canceled the picker
-                            }
-                          },
+                          onPressed: _pickFiles,
+                          // onPressed: () async {
+                          //   FilePickerResult? result =
+                          //       await FilePicker.platform.pickFiles(
+                          //     allowMultiple: false,
+                          //   );
+                          //   if (result != null) {
+                          //     PlatformFile file = result.files.first;
+                          //     print('File picked: ${file.name}');
+                          //   } else {
+                          //     // User canceled the picker
+                          //   }
+                          // },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xff50B5E5),
                             // padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
@@ -481,7 +512,32 @@ class _LicensesScreenState extends State<LicensesScreen> {
                               color: Colors.white,
                             ),
                           ),
+                        ),
+                        _loading
+                            ? SizedBox(width: 25,
+                          height: 25,
+                          child: CircularProgressIndicator(
+                            color: ColorManager.blueprime, // Loader color
+                            // Loader size
+                          ),
                         )
+                            : _fileNames.isNotEmpty
+                            ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _fileNames
+                              .map((fileName) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'File picked: $fileName',
+                              style: GoogleFonts.firaSans(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xff686464)),
+                            ),
+                          ))
+                              .toList(),
+                        )
+                            : SizedBox(),
                       ],
                     ),
                     SizedBox(
@@ -515,6 +571,30 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   ],
                 ),
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff1696C8),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () async {
+                    await postlicensesscreen(context, "--", 0, "__", licensure.text, licensurenumber.text, org.text, "__");                 },
+                  child: Text(
+                    'Save',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
