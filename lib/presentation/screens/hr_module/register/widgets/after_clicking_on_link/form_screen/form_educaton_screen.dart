@@ -138,8 +138,7 @@ class _EducationScreenState extends State<EducationScreen> {
             height: 700,
             //color:Colors.cyanAccent,
             child: Padding(
-              padding: const EdgeInsets.only(left: 160,right: 160
-    ),
+              padding: const EdgeInsets.only(left: 160,right: 160),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -430,6 +429,8 @@ class _EducationScreenState extends State<EducationScreen> {
                     ],
                   ),
                   SizedBox(height: 5.0),
+
+                  ///upload document
                   _loading
                       ? SizedBox(width: 25,
                         height: 25,

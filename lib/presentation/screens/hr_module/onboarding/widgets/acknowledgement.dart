@@ -138,7 +138,7 @@ import '../../manage/const_wrap_widget.dart';
 
 /// image launcher
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 class AcknowledgementTab extends StatefulWidget {
   const AcknowledgementTab({Key? key}) : super(key: key);
