@@ -142,161 +142,166 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
             ),
           );
         }
-        return Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height / 1.9,
-              padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.25),
-                    spreadRadius: 1,
-                    blurRadius: 4,
-                    offset: Offset(0, 5),
-                  ),
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-              ),
-              child: WrapWidget(
-                childern: [
-                  ...List.generate(snapshot.data!.length, (index) {
-                    final data = snapshot.data![index];
-                    final fileUrl = data.DocumentUrl;
-                    final fileExtension = fileUrl.split('.').last.toLowerCase();
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height / 2,
+                padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.25),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+                child: WrapWidget(
+                  childern: [
+                    ...List.generate(snapshot.data!.length, (index) {
+                      final data = snapshot.data![index];
+                      final fileUrl = data.DocumentUrl;
+                      final fileExtension = fileUrl.split('.').last.toLowerCase();
 
-                    Widget fileWidget;
+                      Widget fileWidget;
 
-                    if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
-                      fileWidget = Image.network(
-                        fileUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Icon(
-                            Icons.image,
-                            size: 25,
-                            color: ColorManager.blueprime,
-                          );
-                        },
-                      );
-                    } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
-                      fileWidget = Icon(
-                        Icons.insert_drive_file,
-                        size: 25,
-                        color: ColorManager.blueprime,
-                      );
-                    } else {
-                      fileWidget = Icon(
-                        Icons.file_present,
-                        size: 25,
-                        color: ColorManager.blueprime,
-                      );
-                    }
+                      if (['jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+                        fileWidget = Image.network(
+                          fileUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(
+                              Icons.image,
+                              size: 25,
+                              color: ColorManager.blueprime,
+                            );
+                          },
+                        );
+                      } else if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
+                        fileWidget = Icon(
+                          Icons.insert_drive_file,
+                          size: 25,
+                          color: ColorManager.blueprime,
+                        );
+                      } else {
+                        fileWidget = Icon(
+                          Icons.file_present,
+                          size: 25,
+                          color: ColorManager.blueprime,
+                        );
+                      }
 
-                    return Column(
-                      children: [
-                        Container(
-                          width: AppSize.s500,
-                          // margin: EdgeInsets.symmetric(vertical: 10),
-                          // padding: EdgeInsets.all(10),
-                          // decoration: BoxDecoration(
-                          //   color: ColorManager.white,
-                          //   borderRadius: BorderRadius.circular(8),
-                          //   boxShadow: [
-                          //     BoxShadow(
-                          //       color: ColorManager.shadow.withOpacity(0.1),
-                          //       spreadRadius: 1,
-                          //       blurRadius: 5,
-                          //       offset: Offset(0, 3),
-                          //     ),
-                          //   ],
-                          // ),
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                value: _checked[index],
-                                onChanged: (value) {
-                                  _handleCheckboxChanged(value, index, snapshot.data![index].employeeDocumentId);
-                                },
-                              ),
-                              SizedBox(width: 10),
-                              GestureDetector(
-                                onTap: () => downloadFile(fileUrl),
-                                child: Container(
-                                  width: 62,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(width: 2, color: ColorManager.faintGrey),
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 40),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width/3,
+                              // margin: EdgeInsets.symmetric(vertical: 10),
+                              // padding: EdgeInsets.all(10),
+                              // decoration: BoxDecoration(
+                              //   color: ColorManager.white,
+                              //   borderRadius: BorderRadius.circular(8),
+                              //   boxShadow: [
+                              //     BoxShadow(
+                              //       color: ColorManager.shadow.withOpacity(0.1),
+                              //       spreadRadius: 1,
+                              //       blurRadius: 5,
+                              //       offset: Offset(0, 3),
+                              //     ),
+                              //   ],
+                              // ),
+                              child: Row(
+                                children: [
+                                  Checkbox(
+                                    value: _checked[index],
+                                    onChanged: (value) {
+                                      _handleCheckboxChanged(value, index, snapshot.data![index].employeeDocumentId);
+                                    },
                                   ),
-                                  child: fileWidget,
-                                ),
+                                  SizedBox(width: 10),
+                                  GestureDetector(
+                                    onTap: () => downloadFile(fileUrl),
+                                    child: Container(
+                                      width: 62,
+                                      height: 45,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(width: 2, color: ColorManager.faintGrey),
+                                      ),
+                                      child: fileWidget,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Expanded(
+                                    child: Text(
+                                      data.DocumentName,
+                                      style: AknowledgementStyleConst.customTextStyle(context),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  data.DocumentName,
-                                  style: AknowledgementStyleConst.customTextStyle(context),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
+                          SizedBox(height: 10),
+                        ],
+                      );
+                    }),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0,right: 120),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ///reject
+                    ElevatedButton(
+                      onPressed: _handleRejectSelected,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Color(0xff1696C8),
+                        side: BorderSide(color: Color(0xff1696C8)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        SizedBox(height: 10),
-                      ],
-                    );
-                  }),
-                ],
+                      ),
+                      child: Text(
+                        'Reject',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width / 75),
+                    ElevatedButton(
+                      onPressed: _handleApproveSelected,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff1696C8),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        'Approve',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: MediaQuery.of(context).size.width / 30,
-                  top: MediaQuery.of(context).size.width / 70),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ///reject
-                  ElevatedButton(
-                    onPressed: _handleRejectSelected,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Color(0xff1696C8),
-                      side: BorderSide(color: Color(0xff1696C8)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      'Reject',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width / 75),
-                  ElevatedButton(
-                    onPressed: _handleApproveSelected,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff1696C8),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      'Approve',
-                      style: GoogleFonts.firaSans(
-                        fontSize: 10.0,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

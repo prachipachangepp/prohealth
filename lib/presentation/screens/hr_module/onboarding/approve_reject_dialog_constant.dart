@@ -3,10 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../app/resources/color.dart';
 import '../../../../app/resources/font_manager.dart';
+import '../../../../app/resources/value_manager.dart';
 
 class RejectConfirmPopup extends StatefulWidget {
   final VoidCallback onCancel;
   final VoidCallback onReject;
+
   RejectConfirmPopup({super.key, required this.onCancel, required this.onReject});
 
   @override
@@ -24,9 +26,9 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        height: 150.0,
-        width: 300.0,
-        child: Stack(
+        height: AppSize.s181,
+        width: AppSize.s500,
+        child: Column(
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
@@ -61,29 +63,34 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                 ],
               ),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Do you really want to reject the selected files?",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.firaSans(
-                  fontSize: 14,
-                  fontWeight: FontWeightManager.regular,
-                  color: ColorManager.mediumgrey,
-                ),
+            SizedBox(height: AppSize.s20),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p20,
+                horizontal: AppPadding.p20,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "Do you really want to reject the selected files?",
+                    style: GoogleFonts.firaSans(
+                      fontSize: 14,
+                      fontWeight: FontWeightManager.regular,
+                      color: ColorManager.mediumgrey,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
+            Spacer(),
             Padding(
-              padding: const EdgeInsets.all(10),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      // onPressed: () {
-                      //   Navigator.of(context).pop();
-                      // },
+              padding: const EdgeInsets.only(bottom: AppPadding.p20, right: AppPadding.p20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
                       onPressed: widget.onCancel,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -101,16 +108,12 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                         ),
                       ),
                     ),
-                    SizedBox(width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 75),
-                    ElevatedButton(
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width / 75),
+                  SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
                       onPressed: widget.onReject,
-                        // Implement the reject logic here
-                        //_rejectSelectedDocuments();
-                        //Navigator.of(context).pop();
-
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xff1696C8),
                         foregroundColor: Colors.white,
@@ -126,8 +129,8 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -137,10 +140,12 @@ class _RejectConfirmPopupState extends State<RejectConfirmPopup> {
   }
 }
 
+
 ///approve Popup
 class ApproveConfirmPopup extends StatefulWidget {
   final VoidCallback onCancel;
   final VoidCallback onApprove;
+
   ApproveConfirmPopup({super.key, required this.onCancel, required this.onApprove});
 
   @override
@@ -158,9 +163,9 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        height: 150.0,
-        width: 300.0,
-        child: Stack(
+        height: AppSize.s181,
+        width: AppSize.s500,
+        child: Column(
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
@@ -195,26 +200,34 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                 ],
               ),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Do you really want to approve this?",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.firaSans(
-                  fontSize: 14,
-                  fontWeight: FontWeightManager.regular,
-                  color: ColorManager.mediumgrey,
-                ),
+            SizedBox(height: AppSize.s20),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p20,
+                horizontal: AppPadding.p20,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "Do you really want to approve this?",
+                    style: GoogleFonts.firaSans(
+                      fontSize: 14,
+                      fontWeight: FontWeightManager.regular,
+                      color: ColorManager.mediumgrey,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
+            Spacer(),
             Padding(
-              padding: const EdgeInsets.all(10),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
+              padding: const EdgeInsets.only(bottom: AppPadding.p20, right: AppPadding.p20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
                       onPressed: widget.onCancel,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -232,8 +245,11 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                         ),
                       ),
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width / 75),
-                    ElevatedButton(
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width / 75),
+                  SizedBox(
+                    width: 100,
+                    child: ElevatedButton(
                       onPressed: widget.onApprove,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xff1696C8),
@@ -250,8 +266,8 @@ class _ApproveConfirmPopupState extends State<ApproveConfirmPopup> {
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
