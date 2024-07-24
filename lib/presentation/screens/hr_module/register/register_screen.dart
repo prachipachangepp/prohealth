@@ -521,94 +521,100 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+  String _selectedValue = 'Select';
+
+  Widget buildDropdownButton(BuildContext context) {
+    return FutureBuilder<List<RegisterEnrollData>>(
+        future: RegisterGetData(context),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: Container(
+                  width: 300,
+                  height: 30,
+                  decoration: BoxDecoration(
+                      color: ColorManager.faintGrey,
+                      borderRadius: BorderRadius.circular(10)),
+                ));
+          }
+          if (snapshot.hasData) {
+            List<String> dropDownList = [];
+            List<String> dropDownAbbreviation = [];
+            for (var i in snapshot.data!) {
+              dropDownList.add(
+                i.status!,
+              );
+              //dropDownAbbreviation.add(i.abbrivation!);
+            }
+            // for(var i in snapshot.data!){
+            //
+            // }
+            print("::::::${dropDownList}");
+            //print("::::::${dropDownAbbreviation}");
+            return Row(
+              children: [
+                Container(
+                  height: 31,
+                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Color(0xff50B5E5), width: 1.2),
+                    borderRadius: BorderRadius.circular(12.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xff000000).withOpacity(0.25),
+                        blurRadius: 2,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: DropdownButton<String>(
+                    value: _selectedValue,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 12,
+                      fontWeight: FontWeightManager.bold,
+                      color: Color(0xff50B5E5),
+                      decoration: TextDecoration.none,
+                    ),
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Color(0xff50B5E5),
+                    ),
+                    iconSize: 20,
+                    underline: SizedBox(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedValue = newValue!;
+                      });
+                    },
+                    items: <String>[
+                      'Select',
+                      'Opened',
+                      'Not opened',
+                      'Partial',
+                      'Complete',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: TextStyle(color: ColorManager.blueprime),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return Offstage();
+          }
+        });
+  }
 }
 
-Widget buildDropdownButton(BuildContext context) {
-  return FutureBuilder<List<RegisterEnrollData>>(
-      future: RegisterGetData(context),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: Container(
-                width: 300,
-                height: 30,
-                decoration: BoxDecoration(
-                    color: ColorManager.faintGrey,
-                    borderRadius: BorderRadius.circular(10)),
-              ));
-        }
-        if (snapshot.hasData) {
-          List<String> dropDownList = [];
-          List<String> dropDownAbbreviation = [];
-          for (var i in snapshot.data!) {
-            dropDownList.add(
-              i.status!,
-            );
-            //dropDownAbbreviation.add(i.abbrivation!);
-          }
-          // for(var i in snapshot.data!){
-          //
-          // }
-          print("::::::${dropDownList}");
-          //print("::::::${dropDownAbbreviation}");
-          return Row(
-            children: [
-              Container(
-                height: 31,
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Color(0xff50B5E5), width: 1.2),
-                  borderRadius: BorderRadius.circular(12.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xff000000).withOpacity(0.25),
-                      blurRadius: 2,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: DropdownButton<String>(
-                  value: 'Select',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 12,
-                    fontWeight: FontWeightManager.bold,
-                    color: Color(0xff50B5E5),
-                    decoration: TextDecoration.none,
-                  ),
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    color: Color(0xff50B5E5),
-                  ),
-                  iconSize: 20,
-                  underline: SizedBox(),
-                  onChanged: (String? newValue) {},
-                  items: <String>[
-                    'Select',
-                    'Opened',
-                    'Not opened',
-                    'Partial',
-                    'Complete',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value,
-                        style: TextStyle(color: ColorManager.blueprime),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
-            ],
-          );
-        } else {
-          return Offstage();
-        }
-      });
-}
 ///for link
 // class RegisterScreen extends StatefulWidget {
 //   const RegisterScreen({Key? key}) : super(key: key);

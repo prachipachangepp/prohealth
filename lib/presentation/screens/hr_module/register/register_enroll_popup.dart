@@ -174,7 +174,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
     return Dialog(
       child: Container(
           width: MediaQuery.of(context).size.width * 0.55,
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: MediaQuery.of(context).size.height * 0.6,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: ColorManager.white),
@@ -724,30 +724,81 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 thickness: 4,
               ),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Column(
+               //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    RegisterPopupMcq(
-                      title: AppString.employment,
-                      items: [
-                        AppString.fullTime,
-                        AppString.partTime,
-                        AppString.perDiem
-                      ],
-                      onChanged: (selectedIndex) {
-                        print(AppString.selectIndex + '$selectedIndex');
-                        _selectedItemIndex = selectedIndex;
-                      },
+                    // RegisterPopupMcq(
+                    //   title: AppString.employment,
+                    //   items: [
+                    //     AppString.fullTime,
+                    //     AppString.partTime,
+                    //     AppString.perDiem
+                    //   ],
+                    //   onChanged: (selectedIndex) {
+                    //     print(AppString.selectIndex + '$selectedIndex');
+                    //     _selectedItemIndex = selectedIndex;
+                    //   },
+                    // ),
+                    Expanded(
+                      flex: 1,
+                      child: McqWidget(
+                        title: 'Employment',
+                        items: [
+                          'Full Time',
+                          'Contract',
+                          'Part Time',
+                          'Per Diem'
+                        ],
+                        onChanged: (selectedIndex) {
+                          print('Selected index: $selectedIndex');
+                          _selectedItemIndex = selectedIndex;
+                        },
+                      ),
                     ),
-                    RegisterPopupMcq(
-                      title: AppString.service,
-                      items: [
-                        AppString.homeHealth,
-                        AppString.hospice,
-                        AppString.homeCare,
-                        AppString.palliative
-                      ],
-                    )
+                    // RegisterPopupMcq(
+                    //   title: AppString.service,
+                    //   items: [
+                    //     AppString.homeHealth,
+                    //     AppString.hospice,
+                    //     AppString.homeCare,
+                    //     AppString.palliative
+                    //   ],
+                    // )
+                    Expanded(
+                      flex: 1,
+                      child: FutureBuilder<
+                          List<AEClinicalService>>(
+                          future:
+                          HrAddEmplyClinicalServiceRadioButtonApi(
+                              context, 1),
+                          builder: (context, snap) {
+                            if (snap.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(
+                                child: SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child:
+                                    CircularProgressIndicator(
+                                      color:
+                                      ColorManager.blueprime,
+                                    )),
+                              );
+                            }
+                            if (snap.hasData) {
+                              List<String> serviceName = [];
+                              for (var i in snap.data!) {
+                                serviceName.add(i.serviceName!);
+                              }
+                              return McqWidget(
+                                title: 'Service',
+                                items: serviceName,
+                                onChanged: (int) {},
+                              );
+                            }
+                            return SizedBox();
+                          }),
+                    ),
                   ],
                 ),
               ),
