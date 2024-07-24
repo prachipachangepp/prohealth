@@ -251,7 +251,7 @@ class _AcknowledgementTabState extends State<AcknowledgementTab> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: MediaQuery.of(context).size.width / 15,
+              padding: EdgeInsets.only(right: MediaQuery.of(context).size.width / 30,
                   top: MediaQuery.of(context).size.width / 70),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,

@@ -362,7 +362,7 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                             SizedBox(width: 10),
                             Expanded(
                               child: Text(
-                                data.UploadDate,
+                                data.ReminderThreshold,
                                 style: AknowledgementStyleConst.customTextStyle(context),
                               ),
                             ),
