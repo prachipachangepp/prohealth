@@ -41,7 +41,10 @@ Future<List<EmployeementData>> getEmployeement(
             title: item['title'],
             dateOfJoining: joiningFormattedDate,
             endDate: endFormattedDate,
-            approved: item['approved'], sucess: true, message: response.statusMessage!));
+            approved: item['approved'],
+            emgMobile: item['emgMobile'],
+            country: item['country'],
+            sucess: true, message: response.statusMessage!));
       }
     } else {
       print("Employee Employeement");
@@ -56,7 +59,7 @@ Future<List<EmployeementData>> getEmployeement(
 /// Add employeement
 Future<ApiData> addEmployeement(BuildContext context,
     int employeeId,String employer,String city,String reason,String supervisor,String supMobile,
-    String title,String dateOfJoining,String endDate
+    String title,String dateOfJoining,String endDate,String emgMobile,String country
     ) async {
   try {
     var response = await Api(context).post(path: ManageReposotory.addEmployeement(), data: {
@@ -68,7 +71,9 @@ Future<ApiData> addEmployeement(BuildContext context,
       "supMobile": supMobile,
       "title": title,
       "dateOfJoining": "${dateOfJoining}T00:00:00Z",
-      "endDate":"${endDate}T00:00:00Z"
+      "endDate":"${endDate}T00:00:00Z",
+      "emgMobile": emgMobile,
+      "country": country
     },);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employeement Added");
@@ -95,7 +100,7 @@ Future<ApiData> addEmployeement(BuildContext context,
 /// Patch employeement
 Future<ApiData> updateEmployeementPatch(BuildContext context,
     int employeeIdupdate,int employeeId,String employer,String city,String reason,String supervisor,String supMobile,
-    String title,String dateOfJoining,String endDate
+    String title,String dateOfJoining,String endDate,String emgMobile,String country
     ) async {
   try {
     var response = await Api(context).patch(path: ManageReposotory.updateEmployeement(employeementId: employeeIdupdate), data: {
@@ -107,7 +112,9 @@ Future<ApiData> updateEmployeementPatch(BuildContext context,
       "supMobile": supMobile,
       "title": title,
       "dateOfJoining": "${dateOfJoining}T00:00:00Z",
-      "endDate": "${endDate}T00:00:00Z"
+      "endDate": "${endDate}T00:00:00Z",
+      "emgMobile": emgMobile,
+      "country": country
     },);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Employeement Added");
@@ -166,7 +173,9 @@ Future<EmployeementPrefillData> getPrefillEmployeement(
             endDate: endFormattedDate,
             approved: response.data['approved'],
             sucess: true,
-            message: response.statusMessage!);
+            message: response.statusMessage!,
+            emgMobile: response.data['emgMobile'],
+            country: response.data['country']);
     } else {
       print("Employee Employeement");
     }

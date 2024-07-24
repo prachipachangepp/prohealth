@@ -17,7 +17,6 @@ Future<List<OnboardingAckHealthData>> getAckHealthRecord(BuildContext context,
         EmpDocTypeMetaDataId: EmpDocTypeMetaDataId,
         EmpDocTypeSetupId: EmpDocTypeSetupId,
         employeeId: employeeId
-
     ));
     if (response.statusCode == 200 || response.statusCode == 201) {
       // print("Org Document response:::::${itemsList}");
