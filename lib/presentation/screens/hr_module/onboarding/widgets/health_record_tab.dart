@@ -10,7 +10,6 @@ import '../../../../../app/resources/theme_manager.dart';
 import '../../../../../app/services/api/managers/hr_module_manager/onboarding_manager/onboarding_ack_health_manager.dart';
 import '../../manage/const_wrap_widget.dart';
 import '../download_doc_const.dart';
-import '../qualification_const_bar/widgets/qualification_tab_constant.dart';
 ///
 class HealthRecordConstant extends StatefulWidget {
   const HealthRecordConstant({super.key});
