@@ -59,13 +59,13 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     child: Row(
                       children: [
                         const Icon(Icons.person_outline,
-                            color: Colors.white, size: 20),
+                            color: Colors.white, size: 16),
                         const SizedBox(width: 8),
                         Text(
                           AppString.verify_user,
                           style: GoogleFonts.firaSans(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
                             color: Colors.white,
                           ),
                         ),
