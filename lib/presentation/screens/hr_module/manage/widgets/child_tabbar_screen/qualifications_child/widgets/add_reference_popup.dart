@@ -32,8 +32,8 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
     return  Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        width: MediaQuery.of(context).size.width/1.5,
-        height: AppSize.s420,
+        width: MediaQuery.of(context).size.width/1.8, //1.5
+        height: AppSize.s350,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(12),
@@ -41,7 +41,7 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
         child: Column(
           children: [
             Container(
-              height: 50,
+              height: 45,
               decoration: BoxDecoration(
                 color: Color(0xff50B5E5),
                 borderRadius: BorderRadius.only(
@@ -70,18 +70,18 @@ class _AddReferencePopupState extends State<AddReferencePopup> {
                 ],
               ),
             ),
-            SizedBox(height:MediaQuery.of(context).size.height/20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomIconButton(icon: Icons.add,text: 'Add Reference', onPressed: ()async{
-                  }),
-
-                ],
-              ),
-            ),
+            // SizedBox(height:MediaQuery.of(context).size.height/20),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.end,
+            //     children: [
+            //       CustomIconButton(icon: Icons.add,text: 'Add Reference', onPressed: ()async{
+            //       }),
+            //
+            //     ],
+            //   ),
+            // ),
             SizedBox(height:MediaQuery.of(context).size.height/20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
