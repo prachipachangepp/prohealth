@@ -178,7 +178,7 @@ class BankingContainerConst extends StatelessWidget {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(8),
-        height: 187,
+        height: MediaQuery.of(context).size.height/3.3,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),

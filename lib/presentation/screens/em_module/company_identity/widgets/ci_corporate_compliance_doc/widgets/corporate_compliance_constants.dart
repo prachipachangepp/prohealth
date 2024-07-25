@@ -592,8 +592,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
       backgroundColor: Colors.transparent,
       child: Container(
         width: AppSize.s420,
-       // height: AppSize.s550,
-        height: MediaQuery.of(context).size.height/1.2,
+        height: AppSize.s550,
+        //height: MediaQuery.of(context).size.height/1.2,
         decoration: BoxDecoration(
           color: ColorManager.white,
           borderRadius: BorderRadius.circular(8),
@@ -649,13 +649,13 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                     keyboardType: TextInputType.text,
                     text: 'ID of the Document',
                   ),
-                  SizedBox(height: AppSize.s10),
+                  SizedBox(height: AppSize.s13),
                   SMTextFConst(
                     controller: widget.nameDocController,
                     keyboardType: TextInputType.text,
                     text: 'Name of the Document',
                   ),
-                  SizedBox(height: AppSize.s10),
+                  SizedBox(height: AppSize.s13),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -672,7 +672,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                       widget.child ?? SizedBox(),
                     ],
                   ),
-                  SizedBox(height: AppSize.s12),
+                  SizedBox(height: AppSize.s13),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -693,12 +693,12 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
               ),
             ),
             SizedBox(
-              height: AppSize.s5,
+              height: AppSize.s10,
             ),
             ///radio
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.p20,
+                horizontal: AppPadding.p25,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -716,6 +716,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
+            SizedBox(height: AppSize.s13),
             Padding(
               padding: const EdgeInsets.only(
                 top: AppPadding.p3,
@@ -805,11 +806,8 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                 ],
               ),
             ),
-            SizedBox(
-              height: AppSize.s15,
-            ),
             Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p10),
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p20),
               child: Center(
                 child: widget.loadingDuration == true
                     ? SizedBox(

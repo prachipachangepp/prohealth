@@ -1,41 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prohealth/app/resources/color.dart';
-import 'package:prohealth/app/resources/const_string.dart';
-import 'package:prohealth/app/resources/font_manager.dart';
-import 'package:prohealth/app/resources/theme_manager.dart';
-import 'package:prohealth/app/resources/value_manager.dart';
-import 'package:prohealth/app/services/api/managers/establishment_manager/employee_doc_manager.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/education_manager.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/employeement_manager.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/qulification_licenses_manager.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/references_manager.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/manage_emp/uploadData_manager.dart';
-import 'package:prohealth/app/services/api/managers/hr_module_manager/profile_mnager.dart';
-import 'package:prohealth/data/api_data/establishment_data/employee_doc/employee_doc_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/employee_profile/search_profile_data.dart';
-
-import 'package:prohealth/data/api_data/hr_module_data/manage/qualification_licenses.dart';
-import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
-import 'package:prohealth/presentation/screens/em_module/manage_hr/manage_employee_documents/widgets/radio_button_tile_const.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/acknowledgement_add_popup.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/compensation_add_popup.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/health_record_popup.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/documents_child/widgets/other_popup.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/equipment_child/equipment_head_tabbar.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_education_popup.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_employeement_popup.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_licences_popup.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/child_tabbar_screen/qualifications_child/widgets/add_reference_popup.dart';
-import 'package:prohealth/presentation/screens/hr_module/manage/widgets/constant_checkbox/const_checckboxtile.dart';
-import 'package:prohealth/presentation/widgets/widgets/constant_textfield/const_textfield.dart';
-import 'package:shimmer/shimmer.dart';
-import '../../../../../app/resources/establishment_resources/establishment_string_manager.dart';
 import '../../../../../app/resources/hr_resources/string_manager.dart';
-import '../../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../../../../widgets/widgets/profile_bar/profile_bar.dart';
-import '../../../em_module/widgets/button_constant.dart';
 import '../controller/controller.dart';
 import '../widgets/bottom_row.dart';
 import '../widgets/child_tabbar_constant.dart';
@@ -182,7 +150,7 @@ class _ManageScreenState extends State<ManageScreen> {
     ],
         tabViews: [
       ///aknowledgment
-      SingleChildScrollView(
+      const SingleChildScrollView(
         child: Column(
           children: [
             AcknowledgementsChildBar(),
@@ -191,21 +159,21 @@ class _ManageScreenState extends State<ManageScreen> {
       ),
 
       ///compensation
-      SingleChildScrollView(
+      const SingleChildScrollView(
         child: Column(
           children: [
             CompensationChildTabbar(),
           ],
         ),
       ),
-      SingleChildScrollView(
+      const SingleChildScrollView(
         child: Column(
           children: [
             AdditionalVaccinationsChildBar(),
           ],
         ),
       ),
-      SingleChildScrollView(
+      const SingleChildScrollView(
         child: Column(
           children: [
             OtherChildTabbar(),
@@ -237,14 +205,13 @@ class _ManageScreenState extends State<ManageScreen> {
             ],
           ),
         ),
-        PayRatesHeadTabbar(),
-        TerminationHeadTabbar(),
-        TimeOffHeadTabbar(),
+        const PayRatesHeadTabbar(),
+        const TerminationHeadTabbar(),
+        const TimeOffHeadTabbar(),
       ],
     ));
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -258,7 +225,7 @@ class _ManageScreenState extends State<ManageScreen> {
                   CenteredTabBar(),
 
                   /// bottom row
-                  BottomBarRow()
+                  const BottomBarRow()
                 ]),
              );
   }
