@@ -45,7 +45,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
 
   @override
   Widget build(BuildContext context) {
-    double textFieldWidth = 200;
+    double textFieldWidth = MediaQuery.of(context).size.width/10;
     double textFieldHeight = 38;
     // return  AlertDialog(
     //   shape: RoundedRectangleBorder(
@@ -172,11 +172,14 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
     //   ),
     // );
     return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topRight: Radius.circular(8), topLeft: Radius.circular(8))
+      ),
       child: Container(
-          width: MediaQuery.of(context).size.width * 0.55,
-          height: MediaQuery.of(context).size.height * 0.6,
+          width: MediaQuery.of(context).size.width * 0.6, //0.55
+          height: MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(8),
               color: ColorManager.white),
           child: Column(
             children: [
@@ -213,515 +216,532 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      ///firstname
-                      CustomTextField(
-                        width: textFieldWidth,
-                        height: textFieldHeight,
-                        cursorHeight: 20,
-                        labelText: 'First Name',
-                        labelStyle: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          color: Color(0xff575757),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        controller: firstName,
-                        labelFontSize: 12,
-                      ),
-                      // CustomTextFieldRegister(
-                      //   height: AppSize.s30,
-                      //   width: MediaQuery.of(context).size.width / 7,
-                      //   controller: firstName,
-                      //   labelText: AppString.fname,
-                      //   keyboardType: TextInputType.text,
-                      //   padding: EdgeInsets.only(
-                      //       bottom: AppPadding.p5, left: AppPadding.p20),
-                      //   onChanged: (value) {},
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return AppString.enterText;
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-                      SizedBox(
-                        height: AppSize.s10,
-                      ),
-                      // SizedBox(
-                      //   width: MediaQuery.of(context).size.width/7,
-                      //   height: AppSize.s30,
-                      //   //alignment: Alignment.center,
-                      //   //color: Colors.cyan,
-                      //
-                      //   child: MyDropdownTextField(
-                      //     hint: AppString.speciality,
-                      //
-                      //     //width: MediaQuery.of(context).size.width/7,
-                      //     // height: AppSize.s25,
-                      //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                      //     onChanged: (String? newValue) {
-                      //
-                      //       print('Selected item: $newValue');
-                      //     },
-                      //   ),
-                      // ),
-                      FutureBuilder<List<AEClinicalDiscipline>>(
-                        future: HrAddEmplyClinicalDisciplinApi(context, 1),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
-                                child: Container(
-                                  width: AppSize.s250,
-                                  height: AppSize.s40,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.faintGrey),
-                                ),
-                              ),
-                            );
-                          }
-                          if (snapshot.hasData) {
-                            List<String> dropDownList = [];
-
-                            for (var i in snapshot.data!) {
-                              dropDownList.add(i.empType!);
-                            }
-                            return CustomDropdownTextField(
-                              labelText: 'Speciality',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
-                              items: dropDownList,
-                              onChanged: (newValue) {
-                                for (var a in snapshot.data!) {
-                                  if (a.empType == newValue) {}
-                                }
-                              },
-                            );
-                          } else {
-                            return const Offstage();
-                          }
-                        },
-                      ),
-                      SizedBox(
-                        height: AppSize.s10,
-                      ),
-                      ///email
-                      CustomTextField(
-                        width: textFieldWidth,
-                        height: textFieldHeight,
-                        cursorHeight: 22,
-                        labelText: 'Work Email',
-                        labelStyle: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          color: Color(0xff575757),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        controller: email,
-                        labelFontSize: 12,
-                      ),
-                      // CustomTextFieldRegister(
-                      //   height: AppSize.s30,
-                      //   width: MediaQuery.of(context).size.width / 7,
-                      //   controller: email,
-                      //   labelText: AppString.email,
-                      //   keyboardType: TextInputType.text,
-                      //   padding: EdgeInsets.only(
-                      //       bottom: AppPadding.p5, left: AppPadding.p20),
-                      //   onChanged: (value) {},
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return AppString.enterText;
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-                      SizedBox(
-                        height: AppPadding.p10,
-                      ),
-                      ///zone
-                      FutureBuilder<List<AEClinicalZone>>(
-                        future: HrAddEmplyClinicalZoneApi(
-                          context,
-                        ),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
-                                child: Container(
-                                  width: AppSize.s250,
-                                  height: AppSize.s40,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[300]),
-                                ),
-                              ),
-                            );
-                          } else if (snapshot.hasError) {
-                            return CustomDropdownTextField(
-                              labelText: 'Zone',
-                              labelStyle: TextStyle(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
-                              items: ['Error'],
-                            );
-                          } else if (snapshot.hasData) {
-                            List<String> dropDownList = snapshot.data!
-                                .map((zone) => zone.zoneName ?? '')
-                                .toList();
-                            print("Zone: ");
-                            return CustomDropdownTextField(
-                              labelText: 'Zone',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
-                              items: dropDownList,
-                              onChanged: (newValue) {
-                                // Handle onChanged here if needed
-                              },
-                            );
-                          } else {
-                            return CustomDropdownTextField(
-                              labelText: 'Zone',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
-                              items: ['No Data'],
-                            );
-                          }
-                        },
-                      ),
-
-                    ],
-                  ),
-                  ///////////////////
-                  Column(
-                    children: [
-                      CustomTextField(
-                        width: textFieldWidth,
-                        height: textFieldHeight,
-                        cursorHeight: 20,
-                        labelText: 'Last Name',
-                        labelStyle: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          color: Color(0xff575757),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        controller: lastName,
-                        labelFontSize: 12,
-                      ),
-                      // CustomTextFieldRegister(
-                      //   height: AppSize.s30,
-                      //   width: MediaQuery.of(context).size.width / 7,
-                      //   controller: lastName,
-                      //   labelText: AppString.lname,
-                      //   keyboardType: TextInputType.text,
-                      //   padding: EdgeInsets.only(
-                      //       bottom: AppPadding.p5, left: AppPadding.p20),
-                      //   onChanged: (value) {},
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return AppString.enterText;
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-                      SizedBox(
-                        height: AppSize.s10,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width/7,
-                        height: AppSize.s30,
-                        //alignment: Alignment.center,
-                        //color: Colors.cyan,
-
-                        child: MyDropdownTextField(
-                          hint: AppString.clinician,
-
-                          //width: MediaQuery.of(context).size.width/7,
-                          // height: AppSize.s25,
-                          items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                          onChanged: (String? newValue) {
-                            print('Selected item: $newValue');
-                          },
-                        ),
-                      ),
-
-                      SizedBox(
-                        height: AppSize.s10,
-                      ),
-
-                      // SizedBox(
-                      //   width: MediaQuery.of(context).size.width/7,
-                      //   height: AppSize.s30,
-                      //   //alignment: Alignment.center,
-                      //   //color: Colors.cyan,
-                      //
-                      //   child: MyDropdownTextField(
-                      //     hint: AppString.city,
-                      //
-                      //     //width: MediaQuery.of(context).size.width/7,
-                      //     // height: AppSize.s25,
-                      //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                      //     onChanged: (String? newValue) {
-                      //       print('Selected item: $newValue');
-                      //     },
-                      //   ),
-                      // ),
-                      FutureBuilder<List<AEClinicalCity>>(
-                        future: HrAddEmplyClinicalCityApi(context),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
-                                child: Container(
-                                  width: AppSize.s250,
-                                  height: AppSize.s40,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.faintGrey),
-                                ),
-                              ),
-                            );
-                          }
-                          if (snapshot.hasData) {
-                            List<String> dropDownList = [];
-                            for (var i in snapshot.data!) {
-                              dropDownList.add(i.cityName!);
-                            }
-                            return CustomDropdownTextField(
-                              labelText: 'City',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
-                              items: dropDownList,
-                            );
-                          } else {
-                            return const Offstage();
-                          }
-                        },
-                      ),
-                      SizedBox(
-                        height: AppSize.s10,
-                      ),
-                      CustomTextField(
-                        width: textFieldWidth,
-                        height: textFieldHeight,
-                        cursorHeight: 20,
-                        labelText: 'Position',
-                        labelStyle: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          color: Color(0xff575757),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        controller: position,
-                        labelFontSize: 12,
-                      ),
-                    ],
-                  ),
-                  //////////////////////////
-                  Column(
-                    children: [
-                      CustomTextField(
-                        width: textFieldWidth,
-                        height: textFieldHeight,
-                        cursorHeight: 22,
-                        labelText: 'Phone No',
-                        labelStyle: GoogleFonts.firaSans(
-                          fontSize: 12,
-                          color: Color(0xff575757),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        controller: phone,
-                        labelFontSize: 12,
-                      ),
-                      // CustomTextFieldRegister(
-                      //   height: AppSize.s30,
-                      //   width: MediaQuery.of(context).size.width / 7,
-                      //   controller: phone,
-                      //   labelText: AppString.phoneNumber,
-                      //   keyboardType: TextInputType.text,
-                      //   padding: EdgeInsets.only(
-                      //       bottom: AppPadding.p5, left: AppPadding.p20),
-                      //   onChanged: (value) {},
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return AppString.enterText;
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-                      SizedBox(
-                        height: AppSize.s10,
-                      ),
-                      ///reporting office
-                      FutureBuilder<List<AEClinicalDiscipline>>(
-                        future: HrAddEmplyClinicalDisciplinApi(context, 1),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
-                                child: Container(
-                                  width: AppSize.s250,
-                                  height: AppSize.s40,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.faintGrey),
-                                ),
-                              ),
-                            );
-                          }
-                          if (snapshot.hasData) {
-                            List<String> dropDownList = [];
-                            for (var i in snapshot.data!) {
-                              dropDownList.add(i.empType!);
-                            }
-                            return CustomDropdownTextField(
-                              labelText: 'Reporting Office',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
-                              items: dropDownList,
-                              onChanged: (newValue) {
-                                for (var a in snapshot.data!) {
-                                  if (a.empType == newValue) {
-                                    // int docType = a.employeeTypesId;
-                                    // Do something with docType
-                                  }
-                                }
-                              },
-                            );
-                          } else {
-                            return const Offstage();
-                          }
-                        },
-                      ),
-
-                      SizedBox(
-                        height: AppSize.s10,
-                      ),
-                      // SizedBox(
-                      //   width: MediaQuery.of(context).size.width/7,
-                      //   height: AppSize.s30,
-                      //   //alignment: Alignment.center,
-                      //   //color: Colors.cyan,
-                      //
-                      //   child: MyDropdownTextField(
-                      //     hint: AppString.country,
-                      //
-                      //     //width: MediaQuery.of(context).size.width/7,
-                      //     // height: AppSize.s25,
-                      //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                      //     onChanged: (String? newValue) {
-                      //       print('Selected item: $newValue');
-                      //     },
-                      //   ),
-                      // ),
-                      ///country
-                      FutureBuilder<List<AEClinicalReportingOffice>>(
-                        future: HrAddEmplyClinicalReportingOfficeApi(
-                            context, 11),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
-                                child: Container(
-                                  width: AppSize.s250,
-                                  height: AppSize.s40,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.faintGrey),
-                                ),
-                              ),
-                            );
-                          }
-                          if (snapshot.hasData) {
-                            List<String> dropDownList = [];
-                            for (var i in snapshot.data!) {
-                              if (i.name != null) {
-                                dropDownList.add(i.name!);
-                                //print("Country: $ctlrCountry");
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        children: [
+                          ///firstname
+                          CustomTextField(
+                            width: textFieldWidth,
+                            height: textFieldHeight,
+                            cursorHeight: 20,
+                            labelText: 'First Name',
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            controller: firstName,
+                            labelFontSize: 12,
+                          ),
+                          // CustomTextFieldRegister(
+                          //   height: AppSize.s30,
+                          //   width: MediaQuery.of(context).size.width / 7,
+                          //   controller: firstName,
+                          //   labelText: AppString.fname,
+                          //   keyboardType: TextInputType.text,
+                          //   padding: EdgeInsets.only(
+                          //       bottom: AppPadding.p5, left: AppPadding.p20),
+                          //   onChanged: (value) {},
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return AppString.enterText;
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
+                          SizedBox(
+                            height: AppSize.s10,
+                          ),
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width/7,
+                          //   height: AppSize.s30,
+                          //   //alignment: Alignment.center,
+                          //   //color: Colors.cyan,
+                          //
+                          //   child: MyDropdownTextField(
+                          //     hint: AppString.speciality,
+                          //
+                          //     //width: MediaQuery.of(context).size.width/7,
+                          //     // height: AppSize.s25,
+                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                          //     onChanged: (String? newValue) {
+                          //
+                          //       print('Selected item: $newValue');
+                          //     },
+                          //   ),
+                          // ),
+                          FutureBuilder<List<AEClinicalDiscipline>>(
+                            future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                      width: AppSize.s250,
+                                      height: AppSize.s40,
+                                      decoration: BoxDecoration(
+                                          color: ColorManager.faintGrey),
+                                    ),
+                                  ),
+                                );
                               }
-                            }
-                            return CustomDropdownTextField(
-                              labelText: 'Country',
-                              labelStyle: GoogleFonts.firaSans(
-                                fontSize: 12,
-                                color: Color(0xff575757),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              labelFontSize: 12,
-                              items: dropDownList,
-                              onChanged: (newValue) {
-                                for (var a in snapshot.data!) {
-                                  if (a.name == newValue) {
-                                    // int? docType = a.companyOfficeID;
+                              if (snapshot.hasData) {
+                                List<String> dropDownList = [];
+                      
+                                for (var i in snapshot.data!) {
+                                  dropDownList.add(i.empType!);
+                                }
+                                return CustomDropdownTextField(
+                                  labelText: 'Speciality',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: dropDownList,
+                                  onChanged: (newValue) {
+                                    for (var a in snapshot.data!) {
+                                      if (a.empType == newValue) {}
+                                    }
+                                  },
+                                );
+                              } else {
+                                return const Offstage();
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: AppSize.s10,
+                          ),
+                          ///email
+                          CustomTextField(
+                            width: textFieldWidth,
+                            height: textFieldHeight,
+                            cursorHeight: 22,
+                            labelText: 'Work Email',
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            controller: email,
+                            labelFontSize: 12,
+                          ),
+                          // CustomTextFieldRegister(
+                          //   height: AppSize.s30,
+                          //   width: MediaQuery.of(context).size.width / 7,
+                          //   controller: email,
+                          //   labelText: AppString.email,
+                          //   keyboardType: TextInputType.text,
+                          //   padding: EdgeInsets.only(
+                          //       bottom: AppPadding.p5, left: AppPadding.p20),
+                          //   onChanged: (value) {},
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return AppString.enterText;
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
+                          SizedBox(
+                            height: AppPadding.p10,
+                          ),
+                          ///zone
+                          FutureBuilder<List<AEClinicalZone>>(
+                            future: HrAddEmplyClinicalZoneApi(
+                              context,
+                            ),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                      width: AppSize.s250,
+                                      height: AppSize.s40,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey[300]),
+                                    ),
+                                  ),
+                                );
+                              } else if (snapshot.hasError) {
+                                return CustomDropdownTextField(
+                                  labelText: 'Zone',
+                                  labelStyle: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: ['Error'],
+                                );
+                              } else if (snapshot.hasData) {
+                                List<String> dropDownList = snapshot.data!
+                                    .map((zone) => zone.zoneName ?? '')
+                                    .toList();
+                                print("Zone: ");
+                                return CustomDropdownTextField(
+                                  labelText: 'Zone',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: dropDownList,
+                                  onChanged: (newValue) {
+                                    // Handle onChanged here if needed
+                                  },
+                                );
+                              } else {
+                                return CustomDropdownTextField(
+                                  labelText: 'Zone',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: ['No Data'],
+                                );
+                              }
+                            },
+                          ),
+                      
+                        ],
+                      ),
+                    ),
+
+
+                    ////////////////////////////
+                    Flexible(
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            width: textFieldWidth,
+                            height: textFieldHeight,
+                            cursorHeight: 20,
+                            labelText: 'Last Name',
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            controller: lastName,
+                            labelFontSize: 12,
+                          ),
+                          // CustomTextFieldRegister(
+                          //   height: AppSize.s30,
+                          //   width: MediaQuery.of(context).size.width / 7,
+                          //   controller: lastName,
+                          //   labelText: AppString.lname,
+                          //   keyboardType: TextInputType.text,
+                          //   padding: EdgeInsets.only(
+                          //       bottom: AppPadding.p5, left: AppPadding.p20),
+                          //   onChanged: (value) {},
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return AppString.enterText;
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
+                          SizedBox(
+                            height: AppSize.s10,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width/7,
+                            height: AppSize.s30,
+                            //alignment: Alignment.center,
+                            //color: Colors.cyan,
+                      
+                            child: MyDropdownTextField(
+                              hint: AppString.clinician,
+                      
+                              //width: MediaQuery.of(context).size.width/7,
+                              // height: AppSize.s25,
+                              items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                              onChanged: (String? newValue) {
+                                print('Selected item: $newValue');
+                              },
+                            ),
+                          ),
+                      
+                          SizedBox(
+                            height: AppSize.s10,
+                          ),
+                      
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width/7,
+                          //   height: AppSize.s30,
+                          //   //alignment: Alignment.center,
+                          //   //color: Colors.cyan,
+                          //
+                          //   child: MyDropdownTextField(
+                          //     hint: AppString.city,
+                          //
+                          //     //width: MediaQuery.of(context).size.width/7,
+                          //     // height: AppSize.s25,
+                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                          //     onChanged: (String? newValue) {
+                          //       print('Selected item: $newValue');
+                          //     },
+                          //   ),
+                          // ),
+                          FutureBuilder<List<AEClinicalCity>>(
+                            future: HrAddEmplyClinicalCityApi(context),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                      width: AppSize.s250,
+                                      height: AppSize.s40,
+                                      decoration: BoxDecoration(
+                                          color: ColorManager.faintGrey),
+                                    ),
+                                  ),
+                                );
+                              }
+                              if (snapshot.hasData) {
+                                List<String> dropDownList = [];
+                                for (var i in snapshot.data!) {
+                                  dropDownList.add(i.cityName!);
+                                }
+                                return CustomDropdownTextField(
+                                  labelText: 'City',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: dropDownList,
+                                );
+                              } else {
+                                return const Offstage();
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: AppSize.s10,
+                          ),
+                          CustomTextField(
+                            width: textFieldWidth,
+                            height: textFieldHeight,
+                            cursorHeight: 20,
+                            labelText: 'Position',
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            controller: position,
+                            labelFontSize: 12,
+                          ),
+                        ],
+                      ),
+                    ),
+                    //////////////////////////
+                    Flexible(
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            width: textFieldWidth,
+                            height: textFieldHeight,
+                            cursorHeight: 22,
+                            labelText: 'Phone No',
+                            labelStyle: GoogleFonts.firaSans(
+                              fontSize: 12,
+                              color: Color(0xff575757),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            controller: phone,
+                            labelFontSize: 12,
+                          ),
+                          // CustomTextFieldRegister(
+                          //   height: AppSize.s30,
+                          //   width: MediaQuery.of(context).size.width / 7,
+                          //   controller: phone,
+                          //   labelText: AppString.phoneNumber,
+                          //   keyboardType: TextInputType.text,
+                          //   padding: EdgeInsets.only(
+                          //       bottom: AppPadding.p5, left: AppPadding.p20),
+                          //   onChanged: (value) {},
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return AppString.enterText;
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
+                          SizedBox(
+                            height: AppSize.s10,
+                          ),
+                          ///reporting office
+                          FutureBuilder<List<AEClinicalDiscipline>>(
+                            future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                      width: AppSize.s250,
+                                      height: AppSize.s40,
+                                      decoration: BoxDecoration(
+                                          color: ColorManager.faintGrey),
+                                    ),
+                                  ),
+                                );
+                              }
+                              if (snapshot.hasData) {
+                                List<String> dropDownList = [];
+                                for (var i in snapshot.data!) {
+                                  dropDownList.add(i.empType!);
+                                }
+                                return CustomDropdownTextField(
+                                  labelText: 'Reporting Office',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: dropDownList,
+                                  onChanged: (newValue) {
+                                    for (var a in snapshot.data!) {
+                                      if (a.empType == newValue) {
+                                        // int docType = a.employeeTypesId;
+                                        // Do something with docType
+                                      }
+                                    }
+                                  },
+                                );
+                              } else {
+                                return const Offstage();
+                              }
+                            },
+                          ),
+                      
+                          SizedBox(
+                            height: AppSize.s10,
+                          ),
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width/7,
+                          //   height: AppSize.s30,
+                          //   //alignment: Alignment.center,
+                          //   //color: Colors.cyan,
+                          //
+                          //   child: MyDropdownTextField(
+                          //     hint: AppString.country,
+                          //
+                          //     //width: MediaQuery.of(context).size.width/7,
+                          //     // height: AppSize.s25,
+                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                          //     onChanged: (String? newValue) {
+                          //       print('Selected item: $newValue');
+                          //     },
+                          //   ),
+                          // ),
+                          ///country
+                          FutureBuilder<List<AEClinicalReportingOffice>>(
+                            future: HrAddEmplyClinicalReportingOfficeApi(
+                                context, 11),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                      width: AppSize.s250,
+                                      height: AppSize.s40,
+                                      decoration: BoxDecoration(
+                                          color: ColorManager.faintGrey),
+                                    ),
+                                  ),
+                                );
+                              }
+                              if (snapshot.hasData) {
+                                List<String> dropDownList = [];
+                                for (var i in snapshot.data!) {
+                                  if (i.name != null) {
+                                    dropDownList.add(i.name!);
+                                    //print("Country: $ctlrCountry");
                                   }
                                 }
-                              },
-                            );
-                          } else {
-                            return const Offstage();
-                          }
-                        },
+                                return CustomDropdownTextField(
+                                  labelText: 'Country',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: dropDownList,
+                                  onChanged: (newValue) {
+                                    for (var a in snapshot.data!) {
+                                      if (a.name == newValue) {
+                                        // int? docType = a.companyOfficeID;
+                                      }
+                                    }
+                                  },
+                                );
+                              } else {
+                                return const Offstage();
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            height: AppSize.s35,
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: AppSize.s35,
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
               ///////////////////////////////////////
               SizedBox(
                 height: AppSize.s5,
               ),
-              Divider(
-                color: ColorManager.cream,
-                thickness: 4,
+              Padding(
+                padding: EdgeInsets.only(left: 16.0, right: 16),
+                child: Divider(
+                  color: ColorManager.cream,
+                  thickness: 4,
+                ),
+              ),
+              SizedBox(
+                height: AppSize.s5,
               ),
               Expanded(
                 child: Column(
@@ -741,18 +761,21 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                     // ),
                     Expanded(
                       flex: 1,
-                      child: McqWidget(
-                        title: 'Employment',
-                        items: [
-                          'Full Time',
-                          'Contract',
-                          'Part Time',
-                          'Per Diem'
-                        ],
-                        onChanged: (selectedIndex) {
-                          print('Selected index: $selectedIndex');
-                          _selectedItemIndex = selectedIndex;
-                        },
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 16.0),
+                        child: McqWidget(
+                          title: 'Employment',
+                          items: [
+                            'Full Time',
+                            'Contract',
+                            'Part Time',
+                            'Per Diem'
+                          ],
+                          onChanged: (selectedIndex) {
+                            print('Selected index: $selectedIndex');
+                            _selectedItemIndex = selectedIndex;
+                          },
+                        ),
                       ),
                     ),
                     // RegisterPopupMcq(
@@ -790,10 +813,13 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               for (var i in snap.data!) {
                                 serviceName.add(i.serviceName!);
                               }
-                              return McqWidget(
-                                title: 'Service',
-                                items: serviceName,
-                                onChanged: (int) {},
+                              return Padding(
+                                padding: EdgeInsets.only(left: 16.0),
+                                child: McqWidget(
+                                  title: 'Service',
+                                  items: serviceName,
+                                  onChanged: (int) {},
+                                ),
                               );
                             }
                             return SizedBox();
@@ -824,6 +850,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                   }),
                 ],
               ),
+              SizedBox(height: MediaQuery.of(context).size.height/40)
             ],
           )),
     );
