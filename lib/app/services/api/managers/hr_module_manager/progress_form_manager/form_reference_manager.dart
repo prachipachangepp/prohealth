@@ -34,6 +34,9 @@ Future<ApiDataRegister> postreferencescreen(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("reference Added");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Reference data saved")),
+      );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,

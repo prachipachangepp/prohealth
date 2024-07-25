@@ -37,6 +37,9 @@ Future<ApiDataRegister> postemploymentscreen(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("employment Added");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Employment data saved")),
+      );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,

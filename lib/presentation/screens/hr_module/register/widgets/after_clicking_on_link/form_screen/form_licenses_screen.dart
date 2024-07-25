@@ -227,7 +227,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                   await postlicensesscreen(
                       context,
                       "--",
-                      0,
+                      15,
                       "__",
                       st.licensure.text,
                       st.licensurenumber.text,

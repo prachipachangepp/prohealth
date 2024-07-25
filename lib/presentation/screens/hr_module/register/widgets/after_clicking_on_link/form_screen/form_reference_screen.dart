@@ -168,7 +168,7 @@ class _ReferencesScreenState extends State<ReferencesScreen> {
                       "__",
                       st.companyorganization.text,
                       st.email.text,
-                      0,
+                      15,
                       st.mobilenumber.text,
                      st.name.text,
                       st.knowthisperson.text,

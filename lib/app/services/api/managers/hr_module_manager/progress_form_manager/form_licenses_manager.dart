@@ -36,6 +36,9 @@ Future<ApiDataRegister> postlicensesscreen(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("licenses Added");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Licenses data saved")),
+      );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,

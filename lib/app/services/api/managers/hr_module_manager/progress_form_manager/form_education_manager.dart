@@ -36,7 +36,12 @@ Future<ApiDataRegister> posteducationscreen(
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Education data saved")),
+      );
+
       print("education Added");
+
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,

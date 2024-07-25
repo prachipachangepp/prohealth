@@ -34,6 +34,9 @@ Future<ApiDataRegister> postbankingscreen(
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("banking Added");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Banking data saved")),
+      );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,
