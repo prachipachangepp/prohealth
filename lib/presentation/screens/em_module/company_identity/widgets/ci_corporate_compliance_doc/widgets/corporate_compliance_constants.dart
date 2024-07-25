@@ -202,6 +202,11 @@ class _CIDetailsDropdownState extends State<CICCDropdown> {
           offset.dx, offset.dy + size.height, offset.dx + size.width, 0),
       items: widget.items.map((DropdownMenuItem<String> item) {
         return PopupMenuItem<String>(
+          textStyle: CustomTextStylesCommon.commonStyle(
+            fontWeight: FontWeightManager.medium,
+            fontSize: FontSize.s12,
+            color: ColorManager.mediumgrey,
+          ),
           value: item.value,
           child: Container(
             width: size.width - 16,
@@ -737,7 +742,7 @@ class _AddOrgDocButtonState extends State<AddOrgDocButton> {
                   ),
                   FormField<String>(
                     builder: (FormFieldState<String> field) {
-                      return SizedBox(
+                      return SizedBox (
                         width: 354,
                         height: 30,
                         child: TextFormField(

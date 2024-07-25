@@ -303,6 +303,7 @@ import 'package:prohealth/app/resources/color.dart';
 import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 import 'package:prohealth/presentation/screens/em_module/widgets/button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/manage/widgets/custom_icon_button_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
@@ -468,8 +469,8 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
                               children: [
                                 Text('Graduate', style: TextStyle(fontSize: FontSize.s10)),
                                 widget.radioButton!,
-                                if (_radioButtonError)
-                                  Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),
+                                // if (_radioButtonError)
+                                //   Text('Please select an option', style: TextStyle(color: Colors.red, fontSize: 10)),
                               ],
                             ),
                           ),
@@ -576,7 +577,7 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
               if (labelText == "College/University") _collegeUniversityError = value.isEmpty;
               if (labelText == "Phone") _phoneError = value.isEmpty;
               if (labelText == "City") _cityError = value.isEmpty;
-              if (labelText == "Degree") _degreeError = value.isEmpty;
+              // if (labelText == "Degree") _degreeError = value.isEmpty;
               if (labelText == "State") _stateError = value.isEmpty;
               if (labelText == "Major Subject") _majorSubjectError = value.isEmpty;
               if (labelText == "Country Name") _countryNameError = value.isEmpty;
@@ -609,11 +610,10 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
       _stateError = widget.stateController.text.isEmpty;
       _majorSubjectError = widget.majorSubjectController.text.isEmpty;
       _countryNameError = widget.countryNameController.text.isEmpty;
-      _radioButtonError = !_isRadioButtonSelected;
+      // _radioButtonError = !_isRadioButtonSelected;
     });
-
     if (!_collegeUniversityError && !_phoneError && !_calendarError && !_cityError &&
-        !_degreeError && !_stateError && !_majorSubjectError && !_countryNameError && !_radioButtonError) {
+        !_stateError && !_majorSubjectError && !_countryNameError && !_radioButtonError) {
       try {
         await widget.onpressedSave();
       } finally {
@@ -621,6 +621,17 @@ class _AddEducationPopupState extends State<AddEducationPopup> {
           isLoading = false;
         });
         Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            Future.delayed(Duration(seconds: 2), () {
+              if (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
+            });
+            return AddSuccessPopup(message: 'Added Successfully',);
+          },
+        );
         _clearControllers();
       }
     } else {

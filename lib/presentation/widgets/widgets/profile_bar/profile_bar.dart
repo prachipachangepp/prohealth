@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/resources/value_manager.dart';
@@ -103,7 +104,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         ),
                       ),
                       Text(
-                        widget.searchByEmployeeIdProfileData!.status,
+                        widget.searchByEmployeeIdProfileData!.status.capitalizeFirst!,
                         style: ThemeManagerBlack.customTextStyle(context),
                       ),
                       Text(
@@ -118,7 +119,7 @@ class _ProfileBarState extends State<ProfileBar> {
                     children: [
                       ///text john scott
                       Text(
-                        "${widget.searchByEmployeeIdProfileData!.firstName} ${widget.searchByEmployeeIdProfileData!.lastName}",
+                        "${widget.searchByEmployeeIdProfileData!.firstName.capitalizeFirst} ${widget.searchByEmployeeIdProfileData!.lastName.capitalizeFirst}",
                         style: ThemeManagerBlack.customTextStyle(context),
                       ),
                       SizedBox(
@@ -129,7 +130,7 @@ class _ProfileBarState extends State<ProfileBar> {
                         width: MediaQuery.of(context).size.width / 10,
                         child: ElevatedButton(
                           child: Text(
-                            widget.searchByEmployeeIdProfileData!.employment,
+                            widget.searchByEmployeeIdProfileData!.employment.capitalizeFirst!,
                             style: ThemeManagerWhite.customTextStyle(context),
                           ),
                           style: ElevatedButton.styleFrom(
@@ -380,7 +381,7 @@ class _ProfileBarState extends State<ProfileBar> {
                               child: Text(
                                 AppString.viewzone,
                                 style: GoogleFonts.firaSans(
-                                    fontSize: FontSize.s7,
+                                    fontSize: FontSize.s9,
                                     fontWeight: FontWeightManager.bold,
                                     color: ColorManager.white,
                                     decoration: TextDecoration.underline,

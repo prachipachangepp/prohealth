@@ -12,9 +12,11 @@ class CustomIconButton extends StatefulWidget {
   final String text;
   final IconData? icon;
   final Color? color;
+  final Color? textColor;
   final Future<void> Function() onPressed;
 
    CustomIconButton({
+     this.textColor,
     required this.text,
     this.icon,
     required this.onPressed,
@@ -24,6 +26,7 @@ class CustomIconButton extends StatefulWidget {
   @override
   State<CustomIconButton> createState() => _CustomIconButtonState();
 }
+
 
 class _CustomIconButtonState extends State<CustomIconButton> {
   bool isLoading = false;
@@ -53,7 +56,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
           style: CustomTextStylesCommon.commonStyle(
               fontSize: FontSize.s12,
               fontWeight: FontWeightManager.bold,
-              color: ColorManager.white)),
+              color: widget.textColor == null ?ColorManager.white:widget.textColor)),
       style: ElevatedButton.styleFrom(
         padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         backgroundColor:  widget.color == null ? Color(0xFF50B5E5) : widget.color,
@@ -70,7 +73,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
 ///button constant with white bg, colored text
 class CustomButtonTransparent extends StatefulWidget {
   final String text;
-  final VoidCallback onPressed;
+   VoidCallback onPressed;
   final double? height;
   final double? width;
 
@@ -107,6 +110,7 @@ class _CustomButtonTransparentState extends State<CustomButtonTransparent> {
               isLoading = false;
             });
           }
+          Navigator.pop(context);
           },
                 style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
