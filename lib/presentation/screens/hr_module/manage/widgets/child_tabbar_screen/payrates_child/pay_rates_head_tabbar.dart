@@ -5,6 +5,8 @@ import 'package:prohealth/app/resources/const_string.dart';
 import 'package:prohealth/app/resources/font_manager.dart';
 import 'package:prohealth/app/services/api_sm/company_identity/add_doc_company_manager.dart';
 
+import '../../../../../em_module/company_identity/widgets/ci_corporate_compliance_doc/widgets/corporate_compliance_constants.dart';
+
 class PayRatesHeadTabbar extends StatefulWidget {
   const PayRatesHeadTabbar({super.key});
 
@@ -33,14 +35,61 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
     // companyAllApi(context);
   }
 
+  String selectedValue = 'Per visit';
   @override
   Widget build(BuildContext context) {
     String? _expiryType;
-    return  SingleChildScrollView(
+    return SingleChildScrollView(
       child: Container(
-        height: MediaQuery.of(context).size.height/1,
+        height: MediaQuery.of(context).size.height / 1,
         child: Column(
           children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Container(
+                    height: 25,
+                    width: 200,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      border: Border.all(color: Color(0xff44435E)),
+                    ),
+                    child: DropdownButton<String>(
+                      value: selectedValue,
+                      icon: Padding(
+                        padding: const EdgeInsets.only(left: 80.0),
+                        child: Icon(Icons.arrow_drop_down),
+                      ),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: GoogleFonts.firaSans(
+                          color: Color(0xff43425D),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500),
+                      underline: SizedBox(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedValue = newValue!;
+                        });
+                      },
+                      items: <String>['Per visit', 'Per hour', 'Per day']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 40,
+            ),
             Container(
               height: 30,
               decoration: BoxDecoration(
@@ -115,7 +164,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                     int serialNumber =
                         index + 1 + (currentPage - 1) * itemsPerPage;
                     String formattedSerialNumber =
-                    serialNumber.toString().padLeft(2, '0');
+                        serialNumber.toString().padLeft(2, '0');
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -127,8 +176,7 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                                 borderRadius: BorderRadius.circular(4),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color(0xff000000)
-                                        .withOpacity(0.25),
+                                    color: Color(0xff000000).withOpacity(0.25),
                                     spreadRadius: 0,
                                     blurRadius: 4,
                                     offset: Offset(0, 2),
@@ -136,17 +184,17 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                                 ],
                               ),
                               height: 40,
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: 10,
-                                    color: ColorManager.blueprime,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                    child: Row(
+                              child: Stack(children: [
+                                Container(
+                                  width: 10,
+                                  color: ColorManager.blueprime,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Expanded(
                                         child: Center(
@@ -191,18 +239,31 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
                                       Expanded(
                                         child: Center(
                                           child: Container(
-                                            height: 25,
+                                              height: 25,
                                               width: 150,
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Color(0xFFF6928A)),
-                                              child: ElevatedButton(onPressed: (){},
-                                                  style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFF6928A)),
-                                                  child: Text('Delete',style: TextStyle(color: ColorManager.white),))),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  color: Color(0xFFF6928A)),
+                                              child: ElevatedButton(
+                                                  onPressed: () {},
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              Color(
+                                                                  0xFFF6928A)),
+                                                  child: Text(
+                                                    'Delete',
+                                                    style: TextStyle(
+                                                        color:
+                                                            ColorManager.white),
+                                                  ))),
                                         ),
-                                      )//  Text(''),
+                                      ) //  Text(''),
                                     ],
-                                                                    ),
-                                  ),]
-                              )),
+                                  ),
+                                ),
+                              ])),
                         ),
                       ],
                     );
@@ -266,5 +327,3 @@ class _PayRatesHeadTabbarState extends State<PayRatesHeadTabbar> {
     );
   }
 }
-
-

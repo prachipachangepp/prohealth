@@ -189,7 +189,8 @@ class _AcknowledgementsChildBarState extends State<AcknowledgementsChildBar> {
                       return AcknowledgementAddPopup(labelName: 'Add Acknowledgement',
                         AcknowledgementnameController: acknowldgementNameController, onSavePressed: () async{
 
-                        }, child: FutureBuilder<List<EmployeeDocTabModal>>(
+                        },
+                        child: FutureBuilder<List<EmployeeDocTabModal>>(
                             future: getEmployeeDocTab(context),
                             builder: (context,snapshot) {
                               if(snapshot.connectionState == ConnectionState.waiting){

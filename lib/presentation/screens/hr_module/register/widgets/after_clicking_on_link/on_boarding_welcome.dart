@@ -9,7 +9,7 @@ import '../../../manage/widgets/bottom_row.dart';
 import '../../../manage/widgets/top_row.dart';
 
 class OnBoardingWelcome extends StatelessWidget {
-  const OnBoardingWelcome({Key? key}) : super(key: key);
+  const OnBoardingWelcome({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

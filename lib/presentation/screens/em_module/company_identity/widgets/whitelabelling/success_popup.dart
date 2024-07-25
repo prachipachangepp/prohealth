@@ -210,12 +210,14 @@ class AddSuccessPopup extends StatelessWidget {
               child: Container(
                 height: AppSize.s50,
                 width: AppSize.s210,
-                child: Text('Added Successfully \nThank You.',textAlign: TextAlign.center,
-                  style:CustomTextStylesCommon.commonStyle(
-                      fontWeight: FontWeightManager.regular,
-                      fontSize: FontSize.s16,
-                      color: ColorManager.mediumgrey
-                  ),),
+                child: Center(
+                  child: Text('Added Successfully \nThank You.',textAlign: TextAlign.center,
+                    style:GoogleFonts.firaSans(
+                        fontWeight: FontWeightManager.regular,
+                        fontSize: FontSize.s16,
+                        color: ColorManager.mediumgrey
+                    ),),
+                ),
               ),
             ),
             Spacer(),

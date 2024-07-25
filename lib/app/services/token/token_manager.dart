@@ -29,8 +29,23 @@ class TokenManager {
     sharedPreferences.setInt("companyId", companyId);
   }
 
+  static void setAccessRegisterToken({required String token, required String username, required int companyId}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    print('userNameRegister set $username');
+    print("accessTokenRegister Token to set $token");
+    print('companyIdRegister ${companyId}');
+    sharedPreferences.setString("accessTokenRegister", token);
+    sharedPreferences.setString("userNameRegister", username);
+    sharedPreferences.setInt("companyIdRegister", companyId);
+  }
+
   static void removeAccessToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString("accessToken", "");
+  }
+
+  static void removeAccessRegisterToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("accessTokenRegister", "");
   }
 }

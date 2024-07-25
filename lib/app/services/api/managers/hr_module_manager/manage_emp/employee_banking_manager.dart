@@ -5,6 +5,7 @@ import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/hr_module_repository/manage_emp/manage_emp_repo.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
 import 'package:prohealth/data/api_data/hr_module_data/manage/employee_banking_data.dart';
+import 'package:prohealth/presentation/screens/em_module/company_identity/widgets/whitelabelling/success_popup.dart';
 
 Future<List<EmployeeBankingData>> getEmployeeBanking(
     BuildContext context, int employeeId) async {
@@ -60,7 +61,7 @@ Future<EmployeeBankingPrefillData> getPrefillEmployeeBancking(
     DateTime dateTime = DateTime.parse(isoDate);
 
     // Create a DateFormat object to format the date
-    DateFormat dateFormat = DateFormat('dd-MM-yy');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
     // Format the date into "dd mm yy" format
     String formattedDate = dateFormat.format(dateTime);
@@ -77,6 +78,7 @@ Future<EmployeeBankingPrefillData> getPrefillEmployeeBancking(
         String effectiveFormattedDate = convertIsoToDayMonthYear(response.data['effectiveDate']);
         // String issueFormattedDate = convertIsoToDayMonthYear(item['issueDate']);
         itemsData = EmployeeBankingPrefillData(
+          percentage: response.data['requestedPercentage']??"--",
             empBankingId: response.data['empBankingId'],
             employeeId: response.data['employeeId'],
             accountNumber: response.data['accountNumber'],
@@ -111,6 +113,7 @@ Future<ApiData> PatchEmployeeBanking(
     String checkUrl,
     String effectiveDate,
     String routingNumber,
+    String percentage,
     String type) async {
   try {
     var response = await Api(context).patch(
@@ -123,16 +126,29 @@ Future<ApiData> PatchEmployeeBanking(
         "checkUrl": checkUrl,
         "effectiveDate": "${effectiveDate}T00:00:00Z",
         "routingNumber": routingNumber,
-        "type": type
+        "type": type,
+        "requestedPercentage": percentage,
       },
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Banking updated");
       // orgDocumentGet(context);
+      // showDialog(
+      //   context: context,
+      //   builder: (BuildContext context) {
+      //     Future.delayed(Duration(seconds: 3), () {
+      //       if (Navigator.of(context).canPop()) {
+      //         Navigator.of(context).pop();
+      //       }
+      //     });
+      //     return AddSuccessPopup(message: 'Data Updated Successfully',);
+      //   },
+      // );
       return ApiData(
           statusCode: response.statusCode!,
           success: true,
           message: response.statusMessage!);
+
     } else {
       print("Error 1");
       return ApiData(

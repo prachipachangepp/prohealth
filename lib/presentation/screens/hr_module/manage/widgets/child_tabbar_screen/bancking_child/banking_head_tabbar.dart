@@ -119,7 +119,8 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                    var amount = snapshotPrefill.data!.amountRequested;
                                    specificAmountController = TextEditingController(text: snapshotPrefill.data!.amountRequested.toString());
                                    return
-                                     EditBankingPopUp(effectiveDateController: effectiveDateController,
+                                     EditBankingPopUp(
+                                       effectiveDateController: effectiveDateController,
                                      bankNameController: bankNameController, accountNumberController: accountNumberController, verifyAccountController: verifyAccountController,
                                      routingNumberController: routingNumberController, specificAmountController: specificAmountController, onPressed: () async{
                                      await PatchEmployeeBanking(context, snapshot.data![index].empBankingId, snapshotPrefill.data!.employeeId,
@@ -129,7 +130,8 @@ class _BankingHeadTabbarState extends State<BankingHeadTabbar> {
                                          snapshotPrefill.data!.checkUrl,
                                          effectiveDate == effectiveDateController.text ? effectiveDate.toString() : effectiveDateController.text,
                                          routingNumber == routingNumberController.text ? routingNumber.toString() : routingNumberController.text,
-                                         snapshotPrefill.data!.type);
+                                         "NA",
+                                         "Checking",);
                                      },);
                                  }
                                ));
@@ -330,14 +332,47 @@ class BankingContainerConst extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10,),
-             Row(
-               mainAxisAlignment: MainAxisAlignment.end,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                   IconButtonWidget(iconData: Icons.remove_red_eye_outlined, buttonText: AppStringHr.voidcheck, onPressed:(){},),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xff1696C8)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: IconButtonWidget(
+                    width: 100,
+                    iconData: Icons.remove_red_eye_outlined,
+                    buttonText: AppStringHr.voidcheck,
+                    onPressed:(){},
+                  ),
+                ),
                 const SizedBox(width: 10,),
-                IconButtonWidget(iconData1: Icons.print_outlined, buttonText: AppStringHr.print, onPressed:(){},),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xff1696C8)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: IconButtonWidget(
+                    width: 75,
+                    iconData1: Icons.print_outlined,
+                    buttonText: AppStringHr.print,
+                    onPressed:(){},
+                  ),
+                ),
                 const SizedBox(width: 10,),
-                IconButtonWidget(iconData1: Icons.file_download_outlined, buttonText: AppStringHr.download, onPressed:(){},)
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xff1696C8)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: IconButtonWidget(
+                    width: 100,
+                    iconData1: Icons.file_download_outlined,
+                    buttonText: AppStringHr.download,
+                    onPressed:(){},
+                  ),
+                )
               ],
             )
           ],
@@ -346,3 +381,4 @@ class BankingContainerConst extends StatelessWidget {
     );
   }
 }
+

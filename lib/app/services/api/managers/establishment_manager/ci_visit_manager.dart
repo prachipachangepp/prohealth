@@ -1,16 +1,19 @@
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:prohealth/app/services/api/api.dart';
 import 'package:prohealth/app/services/api/repository/establishment_manager/establishment_repository.dart';
+import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/company_identity/ci_visit_data.dart';
 
 import '../../../../../data/api_data/api_data.dart';
 import '../../../../resources/const_string.dart';
 
 /// get
-Future<List<CiVisit>> getVisit(BuildContext context,int companyId,int pageNo,int noOfRows,) async {
+Future<List<CiVisit>> getVisit(BuildContext context,int pageNo,int noOfRows,) async {
   List<CiVisit> itemsList = [];
 
   try {
+    final companyId = await TokenManager.getCompanyId();
     final response = await Api(context)
         .get(path: EstablishmentManagerRepository.
     getCiVisit(
@@ -111,10 +114,10 @@ var itemsList;
 /// post
 Future<ApiData> addVisitPost(BuildContext context,
     String typeOfVisit,
-    int companyId,
     List<int> eligibleClinician,
     ) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).post(
         path: EstablishmentManagerRepository.
         postCiVisit(),
@@ -145,8 +148,9 @@ Future<ApiData> addVisitPost(BuildContext context,
 }
 
 /// patch
-Future<ApiData> updateVisitPatch(BuildContext context, int typeVisist,String visitType,int companyId, List<int> eligibleClinical) async {
+Future<ApiData> updateVisitPatch(BuildContext context, int typeVisist,String visitType, List<int> eligibleClinical) async {
   try {
+    final companyId = await TokenManager.getCompanyId();
     var response = await Api(context).patch(path: EstablishmentManagerRepository.updateCiVisit(typeVisit: typeVisist), data: {
       'typeOfVisit':visitType,
       'companyId':companyId,

@@ -7,7 +7,7 @@ import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employ
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:intl/intl.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/clinical_manager.dart';
 import 'package:prohealth/app/services/api/managers/hr_module_manager/add_employee/uploadimage_service.dart';
@@ -39,7 +39,7 @@ import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 import 'dart:typed_data';
 
-
+//////////
 ///prachi todo
 class ClinicalTab extends StatefulWidget {
   @override
@@ -2318,6 +2318,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
     );
   }
 }
+
 
 class ConfirmPopup extends StatefulWidget {
   final VoidCallback onCancel;

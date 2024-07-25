@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:prohealth/app/services/api/api.dart';
+import 'package:prohealth/app/services/api/api_offer.dart';
 import 'package:prohealth/app/services/api/repository/auth/auth_repository.dart';
 import 'package:prohealth/app/services/token/token_manager.dart';
 import 'package:prohealth/data/api_data/api_data.dart';
@@ -179,6 +180,38 @@ class AuthManager {
           statusCode: 404,
           success: false,
           message: AppString.somethingWentWrong);
+    }
+  }
+
+  /// Authentication on reguster screen HR
+  static Future <ApiDataRegister> verifyOTPAndRegister(
+      {required String email,
+        required String otp,
+        required BuildContext context}) async {
+    try {
+      var response = await ApiOffer(context).post(
+          path: AuthenticationRepository.verifyOtpForOffer,
+          data: {"email": email, "otp": int.parse(otp)});
+      print(response);
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        String accessToken = response.data["accessToken"] ?? "";
+        String userName = "${response.data['user']['firstName']} ${response.data['user']['lastName']}";
+        int companyID = response.data['user']['company_id'];
+        TokenManager.setAccessRegisterToken(token: accessToken, username: userName, companyId: companyID);
+        // Navigator.pushNamed(context, HomeScreen.routeName);
+
+        return ApiDataRegister(
+            statusCode: response.statusCode!,
+            success: true,
+            message: response.data['message'] ?? "");
+      } else {
+        return ApiDataRegister(
+            statusCode: response.statusCode!,
+            success: false,
+            message: response.data['message'] ?? "");
+      }
+    } catch (e) {
+      return ApiDataRegister(statusCode: 404, success: false, message: e.toString());
     }
   }
 }
