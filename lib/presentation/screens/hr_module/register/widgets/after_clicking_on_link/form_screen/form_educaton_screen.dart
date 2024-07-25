@@ -18,7 +18,7 @@ class EducationScreen extends StatefulWidget {
   @override
   State<EducationScreen> createState() => _EducationScreenState();
 }
-
+ 
 class _EducationScreenState extends State<EducationScreen> {
   double textFieldWidth = 430;
   double textFieldHeight = 38;
@@ -40,42 +40,7 @@ class _EducationScreenState extends State<EducationScreen> {
   TextEditingController phone = TextEditingController();
   TextEditingController city = TextEditingController();
   TextEditingController state = TextEditingController();
-  // final List<TextEditingController> state = [];
-  // final List<TextEditingController> city = [];
-  // final List<TextEditingController> phone = [];
-  // final List<TextEditingController> majorsubject = [];
-  // final List<TextEditingController> collegeuniversity = [];
 
-  // final formkey = GlobalKey<FormState>();
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
-  //     addfield();
-  //   });
-  // }
-
-  // addfield() {
-  //   setState(() {
-  //     state.add(TextEditingController());
-  //     city.add(TextEditingController());
-  //     phone.add(TextEditingController());
-  //     majorsubject.add(TextEditingController());
-  //     collegeuniversity.add(TextEditingController());
-  //   });
-  // }
-  //
-  // removeitem(i) {
-  //   setState(() {
-  //     state.remove(i);
-  //     city.remove(i);
-  //     phone.remove(i);
-  //     majorsubject.remove(i);
-  //     collegeuniversity.remove(i);
-  //   });
-  // }
 
   List<String> _fileNames = [];
   bool _loading = false;
@@ -879,3 +844,40 @@ class _EducationScreenState extends State<EducationScreen> {
 //     ],
 //   ),
 // ),
+///
+/// // final List<TextEditingController> state = [];
+//   // final List<TextEditingController> city = [];
+//   // final List<TextEditingController> phone = [];
+//   // final List<TextEditingController> majorsubject = [];
+//   // final List<TextEditingController> collegeuniversity = [];
+//
+//   // final formkey = GlobalKey<FormState>();
+//
+//   // @override
+//   // void initState() {
+//   //   // TODO: implement initState
+//   //   super.initState();
+//   //   WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
+//   //     addfield();
+//   //   });
+//   // }
+//
+//   // addfield() {
+//   //   setState(() {
+//   //     state.add(TextEditingController());
+//   //     city.add(TextEditingController());
+//   //     phone.add(TextEditingController());
+//   //     majorsubject.add(TextEditingController());
+//   //     collegeuniversity.add(TextEditingController());
+//   //   });
+//   // }
+//   //
+//   // removeitem(i) {
+//   //   setState(() {
+//   //     state.remove(i);
+//   //     city.remove(i);
+//   //     phone.remove(i);
+//   //     majorsubject.remove(i);
+//   //     collegeuniversity.remove(i);
+//   //   });
+//   // }
