@@ -87,6 +87,7 @@ class _ClinicalTabState extends State<ClinicalTab> {
       _selectedDiscipline = savedDiscipline;
     });
   }
+  /////
   ///date
   _loadDate() async {
     final prefs = await SharedPreferences.getInstance();
