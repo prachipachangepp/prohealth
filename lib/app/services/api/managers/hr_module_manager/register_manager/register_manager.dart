@@ -147,7 +147,7 @@ Future<RegisterDataPrefill> getRegisterEnrollPrefill(
         link: response.data['link'] ?? "--",
         status: response.data['status'] ?? "--",
         departmentId: response.data['departmentId'] ?? 0,
-        position: response.data['position'] ?? 0,
+        position: response.data['position'] ?? "--",
         speciality: response.data['speciality'] ?? "--",
         clinicianTypeId: response.data['clinicianTypeId'] ?? 0,
         reportingOfficeId: response.data['reportingOfficeId'] ?? "--",

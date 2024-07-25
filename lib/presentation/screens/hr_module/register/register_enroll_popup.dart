@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prohealth/app/services/api/managers/establishment_manager/all_from_hr_manager.dart';
+import 'package:prohealth/app/services/api/managers/establishment_manager/company_identrity_manager.dart';
 import 'package:prohealth/data/api_data/establishment_data/all_from_hr/all_from_hr_data.dart';
+import 'package:prohealth/data/api_data/establishment_data/company_identity/company_identity_data_.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/confirmation_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/offer_letter_screen.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/taxtfield_constant.dart';
 import 'package:prohealth/presentation/screens/hr_module/register/widgets/dropdown_const.dart';
-import 'package:prohealth/presentation/screens/hr_module/register/widgets/mcq_widget_register.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../app/resources/color.dart';
 import '../../../../../app/resources/const_string.dart';
@@ -20,13 +21,18 @@ import '../../../widgets/widgets/custom_icon_button_constant.dart';
 import '../add_employee/widget/mcq_widget_add-employee.dart';
 
 class RegisterEnrollPopup extends StatefulWidget {
-  // final TextEditingController firstName;
-  // final TextEditingController lastName;
-  // final TextEditingController phone;
-  // final TextEditingController email;
-  // final VoidCallback onPressed;
+  final TextEditingController firstName;
+  final TextEditingController lastName;
+  //final TextEditingController phone;
+  final TextEditingController email;
+  // final TextEditingController position;
+  final VoidCallback onPressed;
   RegisterEnrollPopup({super.key,
-    //required this.firstName, required this.lastName, required this.phone, required this.email, required this.onPressed
+    required this.firstName, required this.lastName,
+    //required this.phone,
+    required this.email,
+    //required this.position,
+    required this.onPressed
   });
 
   @override
@@ -34,12 +40,12 @@ class RegisterEnrollPopup extends StatefulWidget {
 }
 
 class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
-  final TextEditingController controller = TextEditingController();
-  final TextEditingController firstName = TextEditingController();
-  final TextEditingController lastName = TextEditingController();
-  final TextEditingController phone = TextEditingController();
-  final TextEditingController position = TextEditingController();
-  final TextEditingController email = TextEditingController();
+  // final TextEditingController controller = TextEditingController();
+  // final TextEditingController firstName = TextEditingController();
+  // final TextEditingController lastName = TextEditingController();
+   final TextEditingController phone = TextEditingController();
+   final TextEditingController position = TextEditingController();
+  // final TextEditingController email = TextEditingController();
   FocusNode _focusNode = FocusNode();
   int? _selectedItemIndex;
 
@@ -47,139 +53,15 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
   Widget build(BuildContext context) {
     double textFieldWidth = MediaQuery.of(context).size.width/10;
     double textFieldHeight = 38;
-    // return  AlertDialog(
-    //   shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.circular(8.0),
-    //   ),
-    //   backgroundColor: Colors.white,
-    //   titlePadding: EdgeInsets.zero,
-    //   // contentPadding: EdgeInsets.zero,
-    //   title: Container(
-    //     height: 35,
-    //     decoration: BoxDecoration(
-    //         borderRadius: BorderRadius.only(
-    //             topLeft: Radius.circular(8),
-    //             topRight: Radius.circular(8)
-    //         ),
-    //         color: ColorManager.bluebottom
-    //     ),
-    //     child:Padding(
-    //       padding: const EdgeInsets.only(left: 10),
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         crossAxisAlignment: CrossAxisAlignment.center,
-    //         children: [
-    //           Text(
-    //             AppString.enroll,
-    //             style: CustomTextStylesCommon.commonStyle(
-    //               fontSize: FontSize.s14,
-    //               color: ColorManager.white,
-    //               fontWeight: FontWeightManager.medium,
-    //             ),
-    //           ),
-    //           IconButton(
-    //               onPressed: () {
-    //                 Navigator.pop(context);
-    //               },
-    //               icon: Icon(Icons.close, color: ColorManager.white,))
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    //   content: Padding(
-    //     padding: const EdgeInsets.all(10),
-    //     child: Container(
-    //         width: MediaQuery.of(context).size.width * 0.15,
-    //         height: MediaQuery.of(context).size.height * 0.5,
-    //         decoration: BoxDecoration(
-    //             borderRadius: BorderRadius.circular(5),
-    //             color: ColorManager.white),
-    //         child: Column(
-    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             CustomTextFieldRegister(
-    //               height: AppSize.s35,
-    //               width: MediaQuery.of(context).size.width / 6,
-    //               controller: widget.firstName,
-    //               labelText: AppString.fname,
-    //               keyboardType: TextInputType.text,
-    //               padding: EdgeInsets.only(
-    //                   bottom: AppPadding.p5, left: AppPadding.p20),
-    //               onChanged: (value) {},
-    //               validator: (value) {
-    //                 if (value == null || value.isEmpty) {
-    //                   return AppString.enterText;
-    //                 }
-    //                 return null;
-    //               },
-    //             ),
-    //             CustomTextFieldRegister(
-    //               height: AppSize.s35,
-    //               width: MediaQuery.of(context).size.width / 6,
-    //               controller: widget.lastName,
-    //               labelText: AppString.lname,
-    //               keyboardType: TextInputType.text,
-    //               padding: EdgeInsets.only(
-    //                   bottom: AppPadding.p5, left: AppPadding.p20),
-    //               onChanged: (value) {},
-    //               validator: (value) {
-    //                 if (value == null || value.isEmpty) {
-    //                   return AppString.enterText;
-    //                 }
-    //                 return null;
-    //               },
-    //             ),
-    //             CustomTextFieldRegister(
-    //               height: AppSize.s35,
-    //               width: MediaQuery.of(context).size.width / 6,
-    //               controller: widget.email,
-    //               labelText: AppString.email,
-    //               keyboardType: TextInputType.text,
-    //               padding: EdgeInsets.only(
-    //                   bottom: AppPadding.p5, left: AppPadding.p20),
-    //               onChanged: (value) {},
-    //               validator: (value) {
-    //                 if (value == null || value.isEmpty) {
-    //                   return AppString.enterText;
-    //                 }
-    //                 return null;
-    //               },
-    //             ),
-    //             CustomTextFieldRegister(
-    //               height: AppSize.s35,
-    //               width: MediaQuery.of(context).size.width / 6,
-    //               controller: widget.phone,
-    //               labelText: AppString.phoneNumber,
-    //               keyboardType: TextInputType.text,
-    //               padding: EdgeInsets.only(
-    //                   bottom: AppPadding.p5, left: AppPadding.p20),
-    //               onChanged: (value) {},
-    //               validator: (value) {
-    //                 if (value == null || value.isEmpty) {
-    //                   return AppString.enterText;
-    //                 }
-    //                 return null;
-    //               },
-    //             ),
-    //             Center(
-    //               child: CustomIconButtonConst(
-    //                   width: AppSize.s100,
-    //                   text: AppString.enroll, onPressed: widget.onPressed),
-    //             ),
-    //           ],
-    //         )),
-    //   ),
-    // );
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topRight: Radius.circular(8), topLeft: Radius.circular(8))
+        borderRadius: BorderRadius.circular(12)
       ),
       child: Container(
           width: MediaQuery.of(context).size.width * 0.6, //0.55
           height: MediaQuery.of(context).size.height * 0.66,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
               color: ColorManager.white),
           child: Column(
             children: [
@@ -187,8 +69,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 decoration: BoxDecoration(
                   color: ColorManager.bluebottom,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
                 ),
                 height: 35,
@@ -235,7 +117,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: firstName,
+                            controller: widget.firstName,//firstname
                             labelFontSize: 12,
                           ),
                           // CustomTextFieldRegister(
@@ -329,13 +211,13 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             width: textFieldWidth,
                             height: textFieldHeight,
                             cursorHeight: 22,
-                            labelText: 'Work Email',
+                            labelText: 'Email',
                             labelStyle: GoogleFonts.firaSans(
                               fontSize: 12,
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: email,
+                            controller: widget.email,
                             labelFontSize: 12,
                           ),
                           // CustomTextFieldRegister(
@@ -442,7 +324,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               color: Color(0xff575757),
                               fontWeight: FontWeight.w400,
                             ),
-                            controller: lastName,
+                            controller: widget.lastName,
                             labelFontSize: 12,
                           ),
                           // CustomTextFieldRegister(
@@ -464,23 +346,72 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                           SizedBox(
                             height: AppSize.s10,
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width/7,
-                            height: AppSize.s30,
-                            //alignment: Alignment.center,
-                            //color: Colors.cyan,
-                      
-                            child: MyDropdownTextField(
-                              hint: AppString.clinician,
-                      
-                              //width: MediaQuery.of(context).size.width/7,
-                              // height: AppSize.s25,
-                              items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                              onChanged: (String? newValue) {
-                                print('Selected item: $newValue');
-                              },
-                            ),
+                          ///clinician
+                          FutureBuilder<List<AEClinicalDiscipline>>(
+                            future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Container(
+                                      width: AppSize.s250,
+                                      height: AppSize.s40,
+                                      decoration: BoxDecoration(
+                                          color: ColorManager.faintGrey),
+                                    ),
+                                  ),
+                                );
+                              }
+                              if (snapshot.hasData) {
+                                List<String> dropDownList = [];
+                                for (var i in snapshot.data!) {
+                                  dropDownList.add(i.empType!);
+                                }
+                                return CustomDropdownTextField(
+                                  labelText: 'Clinician',
+                                  labelStyle: GoogleFonts.firaSans(
+                                    fontSize: 12,
+                                    color: Color(0xff575757),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  labelFontSize: 12,
+                                  items: dropDownList,
+                                  onChanged: (newValue) {
+                                    for (var a in snapshot.data!) {
+                                      if (a.empType == newValue) {
+                                        // int docType = a.employeeTypesId;
+                                        // Do something with docType
+                                      }
+                                    }
+                                  },
+                                );
+                              } else {
+                                return const Offstage();
+                              }
+                            },
                           ),
+                          // SizedBox(
+                          //   width: MediaQuery.of(context).size.width/7,
+                          //   height: AppSize.s30,
+                          //   //alignment: Alignment.center,
+                          //   //color: Colors.cyan,
+                          //
+                          //   child: MyDropdownTextField(
+                          //     hint: AppString.clinician,
+                          //
+                          //     //width: MediaQuery.of(context).size.width/7,
+                          //     // height: AppSize.s25,
+                          //     items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                          //     onChanged: (String? newValue) {
+                          //       print('Selected item: $newValue');
+                          //     },
+                          //   ),
+                          // ),
                       
                           SizedBox(
                             height: AppSize.s10,
@@ -599,8 +530,8 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             height: AppSize.s10,
                           ),
                           ///reporting office
-                          FutureBuilder<List<AEClinicalDiscipline>>(
-                            future: HrAddEmplyClinicalDisciplinApi(context, 1),
+                          FutureBuilder<List<CompanyIdentityModel>>(
+                            future: companyOfficeListGet(context, 1,20),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -622,7 +553,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                               if (snapshot.hasData) {
                                 List<String> dropDownList = [];
                                 for (var i in snapshot.data!) {
-                                  dropDownList.add(i.empType!);
+                                  dropDownList.add(i.officeName!);
                                 }
                                 return CustomDropdownTextField(
                                   labelText: 'Reporting Office',
@@ -635,7 +566,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                                   items: dropDownList,
                                   onChanged: (newValue) {
                                     for (var a in snapshot.data!) {
-                                      if (a.empType == newValue) {
+                                      if (a.officeName == newValue) {
                                         // int docType = a.employeeTypesId;
                                         // Do something with docType
                                       }
@@ -721,7 +652,7 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                             },
                           ),
                           SizedBox(
-                            height: AppSize.s35,
+                            height: AppSize.s50,
                           ),
                         ],
                       ),
@@ -730,9 +661,9 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 ),
               ),
               ///////////////////////////////////////
-              SizedBox(
-                height: AppSize.s5,
-              ),
+              // SizedBox(
+              //   height: AppSize.s5,
+              // ),
               Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16),
                 child: Divider(
@@ -836,18 +767,21 @@ class _RegisterEnrollPopupState extends State<RegisterEnrollPopup> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomIconButtonConst(
-                      text: AppString.next, onPressed: () {
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
-                    Navigator.pop(context);
-                    showDialog(
-                        context: context,
-                        builder:
-                            (BuildContext context) {
-                          return OfferLetterScreen(
-                          );
-                        });
-                    //Navigator.pop(context);
-                  }),
+                      text: AppString.next,
+                  onPressed: widget.onPressed,
+                  //     onPressed: () {
+                  //   //Navigator.push(context, MaterialPageRoute(builder: (context) => OfferLetterScreen()));
+                  //   // Navigator.pop(context);
+                  //   // showDialog(
+                  //   //     context: context,
+                  //   //     builder:
+                  //   //         (BuildContext context) {
+                  //   //       return OfferLetterScreen(
+                  //   //       );
+                  //   //     });
+                  //   //Navigator.pop(context);
+                  // }
+                  ),
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height/40)

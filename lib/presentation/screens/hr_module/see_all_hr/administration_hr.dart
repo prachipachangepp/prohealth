@@ -36,7 +36,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
 
   Future<void> fetchData() async {
     try {
-      List<SeeAllData> data = await getEmployeeSeeAll(context, 2);
+      List<SeeAllData> data = await getEmployeeSeeAll(context);
       seeAllController.add(data);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         // Update the count after the current build phase
@@ -239,7 +239,7 @@ class _AdministrationHrScreenState extends State<AdministrationHrScreen> {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            data[index].expertise.toString(),
+                            data[index].service.toString(),//experties
                             textAlign: TextAlign.center,
                             style: AllHRTableData.customTextStyle(context),
                           ),
