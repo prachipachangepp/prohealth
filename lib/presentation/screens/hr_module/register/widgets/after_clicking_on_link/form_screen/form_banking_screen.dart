@@ -153,6 +153,7 @@ class _BankingScreenState extends State<BankingScreen> {
                     "requestedPercentage",
                   );
                 }
+               // accountnumber.clear();
               },
               child: Text(
                 'Save',

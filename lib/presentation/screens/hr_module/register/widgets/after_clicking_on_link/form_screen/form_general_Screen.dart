@@ -539,7 +539,7 @@ class _generalFormState extends State<generalForm> {
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CustomRadioListTile(
                             title: 'Black or African American',
@@ -551,6 +551,9 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
+                          const SizedBox(
+                            width: 3,
+                          ),
                           CustomRadioListTile(
                             title: 'Other',
                             value: 'Other',
@@ -561,9 +564,7 @@ class _generalFormState extends State<generalForm> {
                               });
                             },
                           ),
-                          const SizedBox(
-                            width: 3,
-                          ),
+
 
                         ],
                       ),
@@ -697,10 +698,10 @@ class _generalFormState extends State<generalForm> {
                   ),
                 ),
                  onPressed: () async {
-                  await postgeneralscreen(
+                  await postgeneralscreendata(
                       context,
                       'G023',
-                      803,
+                      26,
                       firstname.text,
                       lastname.text,
                       1,
@@ -753,6 +754,15 @@ class _generalFormState extends State<generalForm> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("General data saved")),
                   );
+                  firstname.clear();
+                  lastname.clear();
+                  ssecuritynumber.clear();
+                  phonenumber.clear();
+                  personalemail.clear();
+                  driverlicensenumb.clear();
+                  address.clear();
+                  dobcontroller.clear();
+
                  },
                 child: Text(
                   'Save',

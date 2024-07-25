@@ -131,7 +131,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: Colors.white),
+                    icon: const Icon(Icons.close, color: Colors.white,size: 16),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -139,6 +139,7 @@ class VerifyUserpopupState extends State<VerifyUserpopup> {
                 ],
               ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height / 30),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(

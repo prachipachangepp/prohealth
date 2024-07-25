@@ -6,7 +6,7 @@ import '../../../../../resources/const_string.dart';
 import '../../../api.dart';
 import '../../../repository/hr_module_repository/form_repository/form_general_repo.dart';
 
-Future<ApiDataRegister> postgeneralscreen(
+Future<ApiDataRegister> postgeneralscreendata(
     BuildContext context,
 
     String code,
@@ -117,6 +117,9 @@ Future<ApiDataRegister> postgeneralscreen(
     print(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("General Added");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(" Data saved")),
+      );
       // orgDocumentGet(context);
       return ApiDataRegister(
           statusCode: response.statusCode!,

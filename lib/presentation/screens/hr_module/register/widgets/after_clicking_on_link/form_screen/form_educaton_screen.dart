@@ -175,6 +175,13 @@ class _EducationScreenState extends State<EducationScreen> {
                         st.selectedDegree.toString(),
                         "county");
                   }
+                  collegeuniversity.clear();
+                  majorsubject.clear();
+                  phone.clear();
+                  city.clear();
+                  state.clear();
+
+
                 },
                 child: Text(
                   'Save',

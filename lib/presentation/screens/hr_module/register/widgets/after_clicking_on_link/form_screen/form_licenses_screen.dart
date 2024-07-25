@@ -234,6 +234,7 @@ class _LicensesScreenState extends State<LicensesScreen> {
                       st.org.text,
                       "__");
                 }
+                //licensure.clear();
               },
               child: Text(
                 'Save',

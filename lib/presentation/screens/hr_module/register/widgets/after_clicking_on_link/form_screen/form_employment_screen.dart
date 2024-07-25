@@ -45,10 +45,6 @@ class _Employment_screenState extends State<Employment_screen> {
   TextEditingController supervisormobnum = TextEditingController();
   TextEditingController city = TextEditingController();
 
-
-
-
-
   List<GlobalKey<_EmploymentFormState>> employmentFormKeys = [];
 
   @override
@@ -134,7 +130,7 @@ class _Employment_screenState extends State<Employment_screen> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
           Padding(
-            padding:const EdgeInsets.only(left: 150),
+            padding: const EdgeInsets.only(left: 150),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -176,18 +172,19 @@ class _Employment_screenState extends State<Employment_screen> {
                   for (var key in employmentFormKeys) {
                     final state = key.currentState!;
                     await postemploymentscreen(
-                      context,
-                      0,
-                      state.employerController.text,
-                      state.cityController.text,
-                      state.reasonForLeavingController.text,
-                      state.supervisorNameController.text,
-                      state.supervisorMobileNumberController.text,
-                      state.finalPositionController.text,
-                      state.startDateController.text,
-                      state.endDateController.text,
-                    );
+                        context,
+                        15,
+                        state.employerController.text,
+                        state.cityController.text,
+                        state.reasonForLeavingController.text,
+                        state.supervisorNameController.text,
+                        state.supervisorMobileNumberController.text,
+                        state.finalPositionController.text,
+                        state.startDateController.text,
+                        isChecked ?'Present' :state.endDateController.text );
                   }
+
+                  //employerController.clear();
                 },
                 child: Text(
                   'Save',
@@ -205,6 +202,7 @@ class _Employment_screenState extends State<Employment_screen> {
     );
   }
 }
+
 //////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class EmploymentForm extends StatefulWidget {
@@ -223,12 +221,11 @@ class _EmploymentFormState extends State<EmploymentForm> {
   TextEditingController reasonForLeavingController = TextEditingController();
   TextEditingController supervisorNameController = TextEditingController();
   TextEditingController supervisorMobileNumberController =
-  TextEditingController();
+      TextEditingController();
   TextEditingController finalPositionController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
   bool isChecked = false;
-
 
   List<String> _fileNames = [];
   bool _loading = false;
@@ -257,10 +254,9 @@ class _EmploymentFormState extends State<EmploymentForm> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return        Padding(
+    return Padding(
       padding: const EdgeInsets.only(left: 166.0, right: 166),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,7 +268,6 @@ class _EmploymentFormState extends State<EmploymentForm> {
                 icon: const Icon(Icons.remove_circle, color: Colors.red),
                 onPressed: widget.onRemove,
               ),
-
             ],
           ),
           Row(
@@ -288,8 +283,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   ),
                 ),
               ),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width / 20),
+              SizedBox(width: MediaQuery.of(context).size.width / 20),
               ElevatedButton.icon(
                 onPressed: _pickFiles,
                 // onPressed: () async {
@@ -311,8 +305,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                icon: Icon(Icons.file_upload_outlined,
-                    color: Colors.white),
+                icon: Icon(Icons.file_upload_outlined, color: Colors.white),
                 label: Text(
                   'Upload Document',
                   style: GoogleFonts.firaSans(
@@ -323,31 +316,31 @@ class _EmploymentFormState extends State<EmploymentForm> {
                 ),
               ),
               _loading
-                  ? SizedBox(width: 25,
-                height: 25,
-                child: CircularProgressIndicator(
-                  color: ColorManager.blueprime, // Loader color
-                  // Loader size
-                ),
-              )
+                  ? SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.blueprime, // Loader color
+                        // Loader size
+                      ),
+                    )
                   : _fileNames.isNotEmpty
-                  ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _fileNames
-                    .map((fileName) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'File picked: $fileName',
-                    style: GoogleFonts.firaSans(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff686464)),
-                  ),
-                ))
-                    .toList(),
-              )
-                  : SizedBox(), // Display file names if picked
-
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _fileNames
+                              .map((fileName) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'File picked: $fileName',
+                                      style: GoogleFonts.firaSans(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff686464)),
+                                    ),
+                                  ))
+                              .toList(),
+                        )
+                      : SizedBox(), // Display file names if picked
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 30),
@@ -370,9 +363,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height /
-                            30),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30),
                     Text(
                       'Final Position Title',
                       style: GoogleFonts.firaSans(
@@ -380,9 +371,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           fontWeight: FontWeight.w400,
                           color: Color(0xff686464)),
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height /
-                            60),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
                     CustomTextFieldRegister(
                       controller: finalPositionController,
                       hintText: 'Enter Text',
@@ -393,9 +382,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                       ),
                       height: 32,
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height /
-                            40),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40),
                     Text(
                       'Start Date',
                       style: GoogleFonts.firaSans(
@@ -403,9 +390,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           fontWeight: FontWeight.w400,
                           color: Color(0xff686464)),
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height /
-                            60),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
                     CustomTextFieldRegister(
                       controller: startDateController,
                       hintText: 'dd-mm-yyyy',
@@ -422,8 +407,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           size: 16,
                         ),
                         onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
+                          DateTime? pickedDate = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
                             firstDate: DateTime(2000),
@@ -431,15 +415,12 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           );
                           if (pickedDate != null) {
                             startDateController.text =
-                            "${pickedDate.toLocal()}"
-                                .split(' ')[0];
+                                "${pickedDate.toLocal()}".split(' ')[0];
                           }
                         },
                       ),
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height /
-                            40),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40),
                     Text(
                       'End Date',
                       style: GoogleFonts.firaSans(
@@ -447,9 +428,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           fontWeight: FontWeight.w400,
                           color: Color(0xff686464)),
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height /
-                            60),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
                     CustomTextFieldRegister(
                       controller: endDateController,
                       hintText: 'dd-mm-yyyy',
@@ -466,17 +445,15 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           size: 16,
                         ),
                         onPressed: () async {
-                          DateTime? pickedDate =
-                          await showDatePicker(
+                          DateTime? pickedDate = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
                             firstDate: DateTime(2000),
                             lastDate: DateTime(2101),
                           );
-                          if (pickedDate != null) {
+                          if (pickedDate != null || isChecked == true) {
                             endDateController.text =
-                            "${pickedDate.toLocal()}"
-                                .split(' ')[0];
+                                "${pickedDate?.toLocal()}".split(' ')[0];
                           }
                         },
                       ),
@@ -489,6 +466,9 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           onChanged: (bool? value) {
                             setState(() {
                               isChecked = value!;
+                              if (isChecked) {
+                                endDateController.clear();
+                              }
                             });
                           },
                         ),
@@ -501,9 +481,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height /
-                            40),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40),
                     Text(
                       'Employer',
                       style: GoogleFonts.firaSans(
@@ -511,9 +489,7 @@ class _EmploymentFormState extends State<EmploymentForm> {
                           fontWeight: FontWeight.w400,
                           color: Color(0xff686464)),
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height /
-                            60),
+                    SizedBox(height: MediaQuery.of(context).size.height / 60),
                     CustomTextFieldRegister(
                       controller: employerController,
                       hintText: 'Enter Text',
@@ -527,111 +503,96 @@ class _EmploymentFormState extends State<EmploymentForm> {
                   ],
                 ),
               ),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width / 20),
+              SizedBox(width: MediaQuery.of(context).size.width / 20),
               Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 40),
-                      Text(
-                        'Reason for Leaving',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        controller: reasonForLeavingController,
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 40),
-                      Text(
-                        'Last Supervisor’s Name',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        controller: supervisorNameController,
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 40),
-                      Text(
-                        'Supervisor’s Mobile Number',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        controller: supervisorMobileNumberController,
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 40),
-                      Text(
-                        'City',
-                        style: GoogleFonts.firaSans(
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff686464)),
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height / 60),
-                      CustomTextFieldRegister(
-                        controller: cityController,
-                        hintText: 'Enter Text',
-                        hintStyle: GoogleFonts.firaSans(
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff9B9B9B),
-                        ),
-                        height: 32,
-                      ),
-                    ],
-                  )),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height / 40),
+                  Text(
+                    'Reason for Leaving',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: reasonForLeavingController,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff9B9B9B),
+                    ),
+                    height: 32,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 40),
+                  Text(
+                    'Last Supervisor’s Name',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: supervisorNameController,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff9B9B9B),
+                    ),
+                    height: 32,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 40),
+                  Text(
+                    'Supervisor’s Mobile Number',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: supervisorMobileNumberController,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff9B9B9B),
+                    ),
+                    height: 32,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 40),
+                  Text(
+                    'City',
+                    style: GoogleFonts.firaSans(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff686464)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 60),
+                  CustomTextFieldRegister(
+                    controller: cityController,
+                    hintText: 'Enter Text',
+                    hintStyle: GoogleFonts.firaSans(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff9B9B9B),
+                    ),
+                    height: 32,
+                  ),
+                ],
+              )),
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height / 20),
-          const Divider(color: Colors.grey,thickness: 2,)
-
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+          )
         ],
       ),
     );
@@ -1021,7 +982,6 @@ class _EmploymentFormState extends State<EmploymentForm> {
     // );
   }
 }
-
 
 /////////////////////////////////////
 /////////////////////
@@ -1834,293 +1794,292 @@ class _EmploymentFormState extends State<EmploymentForm> {
 //       ),
 //     );
 
-    ///
-    //   Padding(
-    //   padding: const EdgeInsets.symmetric(vertical: 12.0),
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [
-    //       Text(
-    //         'Employment #${widget.key}',
-    //         style: GoogleFonts.firaSans(
-    //             fontSize: 14.0,
-    //             fontWeight: FontWeight.w700,
-    //             color: Color(0xff686464)),
-    //       ),
-    //       SizedBox(height: MediaQuery.of(context).size.height / 20),
-    //       Row(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           Expanded(
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   'Final Position Title',
-    //                   style: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff686464)),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-    //                 TextField(
-    //                   controller: finalPositionController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-    //                 Text(
-    //                   'Start Date',
-    //                   style: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff686464)),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-    //                 TextField(
-    //                   controller: startDateController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'dd-mm-yyyy',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                     suffixIcon: IconButton(
-    //                       icon: Icon(
-    //                         Icons.calendar_month_outlined,
-    //                         color: Color(0xff50B5E5),
-    //                         size: 16,
-    //                       ),
-    //                       onPressed: () async {
-    //                         DateTime? pickedDate = await showDatePicker(
-    //                           context: context,
-    //                           initialDate: DateTime.now(),
-    //                           firstDate: DateTime(2000),
-    //                           lastDate: DateTime(2101),
-    //                         );
-    //                         if (pickedDate != null) {
-    //                           startDateController.text =
-    //                           "${pickedDate.toLocal()}".split(' ')[0];
-    //                         }
-    //                       },
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-    //                 Text(
-    //                   'End Date',
-    //                   style: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff686464)),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-    //                 TextField(
-    //                   controller: endDateController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'dd-mm-yyyy',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                     suffixIcon: IconButton(
-    //                       icon: Icon(
-    //                         Icons.calendar_month_outlined,
-    //                         color: Color(0xff50B5E5),
-    //                         size: 16,
-    //                       ),
-    //                       onPressed: () async {
-    //                         DateTime? pickedDate = await showDatePicker(
-    //                           context: context,
-    //                           initialDate: DateTime.now(),
-    //                           firstDate: DateTime(2000),
-    //                           lastDate: DateTime(2101),
-    //                         );
-    //                         if (pickedDate != null) {
-    //                           endDateController.text =
-    //                           "${pickedDate.toLocal()}".split(' ')[0];
-    //                         }
-    //                       },
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-    //                 Row(
-    //                   children: [
-    //                     Checkbox(
-    //                       checkColor: Colors.white,
-    //                       activeColor: Color(0xff50B5E5),
-    //                       value: isChecked,
-    //                       onChanged: (bool? value) {
-    //                         setState(() {
-    //                           isChecked = value!;
-    //                         });
-    //                       },
-    //                     ),
-    //                     Text(
-    //                       'Currently Working',
-    //                       style: GoogleFonts.firaSans(
-    //                           fontSize: 10.0,
-    //                           fontWeight: FontWeight.w400,
-    //                           color: Color(0xff9B9B9B)),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //           SizedBox(width: MediaQuery.of(context).size.width / 60),
-    //           Expanded(
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   'Employer',
-    //                   style: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff686464)),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-    //                 TextField(
-    //                   controller: employerController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-    //                 Text(
-    //                   'City',
-    //                   style: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff686464)),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-    //                 TextField(
-    //                   controller: cityController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-    //                 Text(
-    //                   'Reason for Leaving',
-    //                   style: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff686464)),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-    //                 TextField(
-    //                   controller: reasonForLeavingController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-    //                 Text(
-    //                   'Supervisor’s Name',
-    //                   style: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff686464)),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-    //                 TextField(
-    //                   controller: supervisorNameController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 40),
-    //                 Text(
-    //                   'Supervisor’s Mobile Number',
-    //                   style: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff686464)),
-    //                 ),
-    //                 SizedBox(height: MediaQuery.of(context).size.height / 60),
-    //                 TextField(
-    //                   controller: supervisorMobileNumberController,
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter Text',
-    //                     hintStyle: GoogleFonts.firaSans(
-    //                       fontSize: 10.0,
-    //                       fontWeight: FontWeight.w400,
-    //                       color: Color(0xff9B9B9B),
-    //                     ),
-    //                     border: OutlineInputBorder(
-    //                       borderRadius: BorderRadius.circular(8.0),
-    //                     ),
-    //                     contentPadding: EdgeInsets.all(12.0),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //       SizedBox(height: MediaQuery.of(context).size.height / 40),
-    //       Divider(color: Color(0xFFE6E6E6), thickness: 1.0),
-    //     ],
-    //   ),
-    // );
-
+///
+//   Padding(
+//   padding: const EdgeInsets.symmetric(vertical: 12.0),
+//   child: Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       Text(
+//         'Employment #${widget.key}',
+//         style: GoogleFonts.firaSans(
+//             fontSize: 14.0,
+//             fontWeight: FontWeight.w700,
+//             color: Color(0xff686464)),
+//       ),
+//       SizedBox(height: MediaQuery.of(context).size.height / 20),
+//       Row(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Expanded(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Final Position Title',
+//                   style: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff686464)),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
+//                 TextField(
+//                   controller: finalPositionController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
+//                 Text(
+//                   'Start Date',
+//                   style: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff686464)),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
+//                 TextField(
+//                   controller: startDateController,
+//                   decoration: InputDecoration(
+//                     hintText: 'dd-mm-yyyy',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                     suffixIcon: IconButton(
+//                       icon: Icon(
+//                         Icons.calendar_month_outlined,
+//                         color: Color(0xff50B5E5),
+//                         size: 16,
+//                       ),
+//                       onPressed: () async {
+//                         DateTime? pickedDate = await showDatePicker(
+//                           context: context,
+//                           initialDate: DateTime.now(),
+//                           firstDate: DateTime(2000),
+//                           lastDate: DateTime(2101),
+//                         );
+//                         if (pickedDate != null) {
+//                           startDateController.text =
+//                           "${pickedDate.toLocal()}".split(' ')[0];
+//                         }
+//                       },
+//                     ),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
+//                 Text(
+//                   'End Date',
+//                   style: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff686464)),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
+//                 TextField(
+//                   controller: endDateController,
+//                   decoration: InputDecoration(
+//                     hintText: 'dd-mm-yyyy',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                     suffixIcon: IconButton(
+//                       icon: Icon(
+//                         Icons.calendar_month_outlined,
+//                         color: Color(0xff50B5E5),
+//                         size: 16,
+//                       ),
+//                       onPressed: () async {
+//                         DateTime? pickedDate = await showDatePicker(
+//                           context: context,
+//                           initialDate: DateTime.now(),
+//                           firstDate: DateTime(2000),
+//                           lastDate: DateTime(2101),
+//                         );
+//                         if (pickedDate != null) {
+//                           endDateController.text =
+//                           "${pickedDate.toLocal()}".split(' ')[0];
+//                         }
+//                       },
+//                     ),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
+//                 Row(
+//                   children: [
+//                     Checkbox(
+//                       checkColor: Colors.white,
+//                       activeColor: Color(0xff50B5E5),
+//                       value: isChecked,
+//                       onChanged: (bool? value) {
+//                         setState(() {
+//                           isChecked = value!;
+//                         });
+//                       },
+//                     ),
+//                     Text(
+//                       'Currently Working',
+//                       style: GoogleFonts.firaSans(
+//                           fontSize: 10.0,
+//                           fontWeight: FontWeight.w400,
+//                           color: Color(0xff9B9B9B)),
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ),
+//           SizedBox(width: MediaQuery.of(context).size.width / 60),
+//           Expanded(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Employer',
+//                   style: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff686464)),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
+//                 TextField(
+//                   controller: employerController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
+//                 Text(
+//                   'City',
+//                   style: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff686464)),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
+//                 TextField(
+//                   controller: cityController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
+//                 Text(
+//                   'Reason for Leaving',
+//                   style: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff686464)),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
+//                 TextField(
+//                   controller: reasonForLeavingController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
+//                 Text(
+//                   'Supervisor’s Name',
+//                   style: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff686464)),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
+//                 TextField(
+//                   controller: supervisorNameController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 40),
+//                 Text(
+//                   'Supervisor’s Mobile Number',
+//                   style: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff686464)),
+//                 ),
+//                 SizedBox(height: MediaQuery.of(context).size.height / 60),
+//                 TextField(
+//                   controller: supervisorMobileNumberController,
+//                   decoration: InputDecoration(
+//                     hintText: 'Enter Text',
+//                     hintStyle: GoogleFonts.firaSans(
+//                       fontSize: 10.0,
+//                       fontWeight: FontWeight.w400,
+//                       color: Color(0xff9B9B9B),
+//                     ),
+//                     border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     contentPadding: EdgeInsets.all(12.0),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//       SizedBox(height: MediaQuery.of(context).size.height / 40),
+//       Divider(color: Color(0xFFE6E6E6), thickness: 1.0),
+//     ],
+//   ),
+// );
